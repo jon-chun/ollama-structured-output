@@ -1,24 +1,23 @@
 from ollama import chat
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, ValidationError
+from enum import Enum
+from typing import List, Optional
+import logging
 
-OLLAMA_MODEL = 'Phi-4:Q4_K_M' # 'Phi-4:Q4_K_M' or 'llama3.2:3b', 
+MODEL_TEMPERATURE = 0.7
+MODEL_TOP_P = 0.9
+MODEL_MAX_TOKENS = 1024
 
-class decision_system1(BaseModel):
-  prediction: list[str]
-  confidence: int
+PROMPT_TYPE = '' # Defined here, but set in main
 
-class decision_cot(BaseModel):
-  prediction: list[str]
-  confidence: int
-  reasoning: list[str]
+# Set up logging for better error tracking
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-class decision_cot_nshot(BaseModel):
-  prediction: list[str]
-  confidence: int
+OLLAMA_MODEL = 'llama3.1:8b-instruct-q4_K_M' # 'Phi-4:Q4_K_M'  # Replace with actual model if necessary
 
-DECISION = decision_system1
-
-prompt_system1 = """
+# Prompt texts
+PROMPT_SYSTEM1 = """
 ###TASK: 
 Your task is to predict if a person will be rearrested within 3 years given (1) your expertise, and (2) the given ###RISK_FACTORS in this case which may be predictors of varying strengths
 
@@ -28,13 +27,9 @@ The person is a 22-year-old male who identifies himself as White. He has been ar
 ###RESPONSE_FORMAT:
 1. 'YES' or 'NO' (prediction)
 2. integer 0-100 (confidence in percent)
-
-
-###INSTRUCTIONS:
-Please response with only a one word “YES” or “NO” and an integer 0-100 confidence percentage for your 3 year recidivism prediction. DO NOT say 'Hello' or any greetings. Use your judicial and statistical expertise with these ###RISK_FACTORS to predict if the person will be rearrested within the next 3 years. Do not provide any description or reasoning. ONLY respond with “YES” or “NO” for your 3 year recidivism prediction. Return your responses in the form of ###RESPONSE_FORMAT. DO NOT say 'Hello' or any other greetings.
 """
 
-prompt_cot = """
+PROMPT_COT = """
 ###TASK:
 Your task is to predict if a person will be rearrested within 3 years given (1) your expertise, and (2) the given ###RISK_FACTORS in this case which may be predictors of varying strengths
 
@@ -44,52 +39,130 @@ The person is an 18-year-old male who identifies himself as White. He has been a
 ###RESPONSE_FORMAT:
 1. 'YES' or 'NO' (prediction)
 2. integer 0-100 (confidence in percent)
-3. a list of text strings identifying each risk factor with reasoning to weight each risk factor
-
-
-RUBRIC:
-- Element 1: [Reasoning]
-- Element 2: [Reasoning]
-...
-- Element N: [Reasoning]
-
-VALUES:
-- Element 1: [high,medium,low]
-- Element 2: [high,medium,low]
-...
-
-
-- Element N: [high,medium,low]
-
-list of text strings with reasoning weighting each risk factor 
-'YES' or 'NO' (prediction)
-integer 0-100 (confidence in percent)
-
-###INSTRUCTIONS:
-Please response with only a one word “YES” or “NO”, an integer 0-100 confidence percentage, and a list of text strings with reasoning weighting each risk factor for your 3 year recidivism prediction. DO NOT say 'Hello' or any greetings. Use your judicial and statistical expertise with these ###RISK_FACTORS to predict if the person will be rearrested within the next 3 years. Do not provide any description or reasoning. ONLY respond with “YES” or “NO” for your 3 year recidivism prediction. Return your responses in the form of ###RESPONSE_FORMAT. DO NOT say 'Hello' or any other greetings.
+3. A list of text strings identifying each risk factor with reasoning to weight each risk factor as 'high', 'medium' or 'low'
 """
 
-CONTEXT = prompt_system1
+# Enum for Prompt Types
+class PromptType(str, Enum):
+    SYSTEM1 = 'system1'
+    COT = 'cot'
 
-response = chat(
-  messages=[
-    {
-      'role': 'user',
-      'content': CONTEXT,
-    }
-  ],
-  model=OLLAMA_MODEL,
-  format=DECISION.model_json_schema(),
-)
+# Enum for Predictions
+class Prediction(str, Enum):
+    YES = 'YES'
+    NO = 'NO'
 
-print("\nRESPONSE:\n", response.message.content)
+    @classmethod
+    def normalize_prediction(cls, value: str) -> 'Prediction':
+        try:
+            return cls[value.upper()]
+        except KeyError:
+            raise ValueError(
+                f"Invalid prediction value: {value}. Must be one of {list(cls.__members__.keys())}."
+            )
 
-decision = DECISION.model_validate_json(response.message.content)
-print("\nPREDICTION:")
-for this_prediction in decision.prediction:
-    print(f"  - {this_prediction}")
+# Enum for Risk Weights
+class RiskWeight(str, Enum):
+    HIGH = 'high'
+    MEDIUM = 'medium'
+    LOW = 'low'
 
-print("\nCONFIDENCE:")
-# for this_confidence in decision.confidence:
-#     print(f"  - {this_confidence}")
-print(f"  - {decision.confidence}")
+    @classmethod
+    def normalize_weight(cls, value: str) -> 'RiskWeight':
+        try:
+            return cls[value.lower()]
+        except KeyError:
+            raise ValueError(
+                f"Invalid risk weight: {value}. Must be one of {list(cls.__members__.keys())}."
+            )
+
+# Pydantic Model for Risk Factors
+class RiskFactor(BaseModel):
+    factor: str = Field(..., min_length=1)
+    weight: RiskWeight
+    reasoning: str = Field(..., min_length=5)
+
+    class Config:
+        frozen = True
+        extra = 'forbid'
+
+# Decision Models
+class DecisionSystem1(BaseModel):
+    prediction: Prediction
+    confidence: int = Field(ge=0, le=100)
+
+    class Config:
+        frozen = True
+        extra = 'forbid'
+
+class DecisionCot(DecisionSystem1):
+    risk_factors: List[RiskFactor] = Field(..., min_items=1)
+
+# Response Processor
+class ResponseProcessor:
+    def __init__(self, prompt_type: PromptType):
+        self.prompt_type = prompt_type
+        self.decision_class = DecisionSystem1 if prompt_type == PromptType.SYSTEM1 else DecisionCot
+
+    def process_response(self, response_content: str) -> Optional[BaseModel]:
+        try:
+            decision = self.decision_class.model_validate_json(response_content)
+            self._log_decision(decision)
+            return decision
+        except ValidationError as e:
+            logger.error(f"Validation failed: {e}")
+            return None
+        except Exception as e:
+            logger.error(f"Unexpected error processing response: {e}")
+            return None
+
+    def _log_decision(self, decision: BaseModel) -> None:
+        logger.info(f"Prediction: {decision.prediction}")
+        logger.info(f"Confidence: {decision.confidence}")
+
+        if isinstance(decision, DecisionCot):
+            for rf in decision.risk_factors:
+                logger.info(f"Risk Factor: {rf.factor} ({rf.weight}): {rf.reasoning}")
+
+# Main Function
+def get_decision(prompt_type: PromptType, model: str = OLLAMA_MODEL) -> Optional[BaseModel]:
+    processor = ResponseProcessor(prompt_type)
+    prompt_str = PROMPT_SYSTEM1 if prompt_type == PromptType.SYSTEM1 else PROMPT_COT
+
+    try:
+        response = chat(
+            messages=[{'role': 'user', 'content': prompt_str}],
+            model=model,
+            options={
+                'temperature': MODEL_TEMPERATURE,
+                'top_p': MODEL_TOP_P,
+                'max_tokens': MODEL_MAX_TOKENS,
+            },
+            format=processor.decision_class.model_json_schema(),
+        )
+        if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
+            logger.error("Invalid API response structure.")
+            return None
+
+        return processor.process_response(response.message.content)
+    except Exception as e:
+        logger.error(f"Error during API call or processing: {e}")
+        return None
+
+# Entry Point
+if __name__ == "__main__":
+    PROMPT_TYPE = PromptType.COT
+    # PROMPT_TYPE = PromptType.SYSTEM1
+    
+    try:
+        decision = get_decision(PROMPT_TYPE)
+        if decision:
+            print(f"\nPREDICTION: {decision.prediction}")
+            print(f"CONFIDENCE: {decision.confidence}")
+
+            if isinstance(decision, DecisionCot):
+                print("\nRISK FACTORS:")
+                for rf in decision.risk_factors:
+                    print(f"- {rf.factor} ({rf.weight.value}): {rf.reasoning}")
+    except Exception as e:
+        logger.error(f"Application error: {e}")
