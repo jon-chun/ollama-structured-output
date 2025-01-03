@@ -6,7 +6,6 @@ from dataclasses import dataclass, asdict
 import logging
 import os
 import json
-import random
 import time
 from datetime import datetime
 from statistics import mean, median
@@ -26,7 +25,7 @@ MAX_API_WAIT_SEC = 240  # Base maximum timeout for API calls
 MAX_API_TIMEOUT_RETRIES = 3  # Maximum number of retries for timeout failures
 API_WAIT_STEP_INCREASE_SEC = 30  # Increment for timeout duration per retry
 
-# PROMPT_TYPE = ''  # Defined here, but set in main
+PROMPT_TYPE = ''  # Defined here, but set in main
 
 # Set up logging for better error tracking
 logging.basicConfig(
@@ -75,9 +74,6 @@ class PromptType(str, Enum):
     SYSTEM1 = 'system1'
     COT = 'cot'
     COT_NSHOT = 'cot_nshot'
-
-# Change this from an empty string to an actual PromptType enum value
-PROMPT_TYPE = PromptType.COT  # or whichever type you want to use
 
 # Enum for Predictions
 class Prediction(str, Enum):
@@ -193,21 +189,20 @@ def check_response_complete(prompt_type: PromptType, response: BaseModel, model:
     return True
 
 # Main Function
-async def get_decision(prompt_type: PromptType, model: str = OLLAMA_MODEL) -> Optional[BaseModel]:
+def get_decision(prompt_type: PromptType, model: str = OLLAMA_MODEL) -> Optional[BaseModel]:
     """
     Retrieves a decision from the chat endpoint, ensuring completeness up to MAX_RETRIES_MALFORMED times.
-    Now includes better error handling and logging for file operations.
+    If the response is complete, returns the validated model object; otherwise returns None.
     """
     processor = ResponseProcessor(prompt_type)
     prompt_str = PROMPT_SYSTEM1 if prompt_type == PromptType.SYSTEM1 else PROMPT_COT
 
+    # 2) Loop until the response is complete or we reach MAX_RETRIES_MALFORMED
     for attempt in range(MAX_RETRIES_MALFORMED):
         logger.info(f"Retry #{attempt + 1} of {MAX_RETRIES_MALFORMED} for prompt_type={prompt_type}")
 
         try:
-            # Make the API call
-            response = await asyncio.to_thread(
-                chat,
+            response = chat(
                 messages=[{'role': 'user', 'content': prompt_str}],
                 model=model,
                 options={
@@ -218,69 +213,48 @@ async def get_decision(prompt_type: PromptType, model: str = OLLAMA_MODEL) -> Op
                 format=processor.decision_class.model_json_schema(),
             )
 
-            # Validate response structure
+            # Validate structure of the API response
             if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
                 logger.error("Invalid API response structure.")
                 continue
 
-            # Process the response
+            # Convert to domain model
             decision = processor.process_response(response.message.content)
             if decision is None:
+                # Malformed response, try again
                 continue
 
-            # Validate the decision is complete
+            # 2) Check completeness of the response
             if check_response_complete(prompt_type, decision, model):
-                # Try to save the decision, but don't fail if saving fails
-                save_success = save_decision_json(decision, prompt_type, model)
-                if not save_success:
-                    logger.warning(
-                        "Decision was valid but couldn't be saved to file. "
-                        "Continuing with valid decision."
-                    )
+                # 3) If complete, save JSON and return
+                save_decision_json(decision, prompt_type, model)
                 return decision
             else:
                 logger.error("Response missing required fields.")
-
         except Exception as e:
-            logger.error(f"Error during API call or processing: {str(e)}")
+            logger.error(f"Error during API call or processing: {e}")
 
+    # If we exhaust all retries, return None
     return None
 
 # 3) Export response object to JSON
 def save_decision_json(decision: BaseModel, prompt_type: PromptType, model_name: str) -> None:
     """
     Saves the decision object as JSON in ./data/judgements/<model_name>/
-    Includes error handling and logging for better debugging.
     """
-    try:
-        # Create directory if not exists
-        output_dir = os.path.join('.', 'data', 'judgements', model_name)
-        os.makedirs(output_dir, exist_ok=True)
+    # Create directory if not exists
+    output_dir = os.path.join('.', 'data', 'judgements', model_name)
+    os.makedirs(output_dir, exist_ok=True)
 
-        # Create a unique filename using timestamp and random suffix
-        datetime_str = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        random_suffix = ''.join(random.choices('0123456789', k=4))
-        
-        # Construct output filename
-        output_filename = (
-            f"{model_name}_{prompt_type}_"
-            f"{datetime_str}_{random_suffix}.json"
-        )
-        output_path = os.path.join(output_dir, output_filename)
+    # Construct output filename
+    datetime_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_filename = f"{model_name}_{prompt_type}_{datetime_str}.json"
+    output_path = os.path.join(output_dir, output_filename)
 
-        # Convert decision Pydantic model to dict, then save as JSON
-        with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump(decision.model_dump(), f, indent=2)
-        
-        logger.info(f"Successfully saved decision to {output_path}")
-        return True
-
-    except Exception as e:
-        logger.error(
-            f"Error saving decision JSON: {str(e)}. "
-            f"Model: {model_name}, Type: {prompt_type}"
-        )
-        return False
+    # Convert decision Pydantic model to dict, then save as JSON
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(decision.model_dump(), f, indent=2)
+    logger.info(f"Saved decision to {output_path}")
 
 @dataclass
 class PromptPerformanceMetrics:
@@ -385,15 +359,12 @@ class PerformanceTracker:
         self.prompt_type = prompt_type
         self.metrics: List[PromptPerformanceMetrics] = []
         self.start_time = datetime.now()
-    
+        
     def record_attempt(self, metrics: PromptPerformanceMetrics):
-        """
-        Records performance metrics for a single attempt. This method is called
-        after each API call attempt to track its performance and outcome.
-        """
+        """Record metrics for a single attempt"""
         self.metrics.append(metrics)
         
-        # Prepare logging message with detailed performance information
+        # Log performance information
         status = "successful" if metrics.successful else "failed"
         timeout_info = ""
         if metrics.timeout_metrics.occurred:
@@ -409,15 +380,11 @@ class PerformanceTracker:
         
         if not metrics.successful:
             logger.error(f"Error in attempt #{metrics.attempt_number}: {metrics.error_message}")
-
-
+            
     def generate_session_stats(self) -> SessionPerformanceStats:
-        """
-        Analyzes all recorded metrics to generate comprehensive session statistics.
-        Now includes execution times in retry distribution.
-        """
+        """Generate aggregate statistics for the session"""
         execution_times = [m.execution_time_seconds for m in self.metrics]
-        retry_counts = {}  # We'll now store execution times instead of counts
+        retry_counts = {}
         error_types = {}
         timeout_attempts = sum(1 for m in self.metrics if m.timeout_metrics.occurred)
         
@@ -425,17 +392,16 @@ class PerformanceTracker:
         timeout_stats = {
             "total_timeout_attempts": timeout_attempts,
             "avg_timeout_duration": mean([m.timeout_metrics.total_timeout_duration 
-                                    for m in self.metrics if m.timeout_metrics.occurred] or [0]),
+                                       for m in self.metrics if m.timeout_metrics.occurred] or [0]),
             "max_timeout_duration": max([m.timeout_metrics.total_timeout_duration 
-                                    for m in self.metrics if m.timeout_metrics.occurred] or [0]),
+                                      for m in self.metrics if m.timeout_metrics.occurred] or [0]),
             "total_timeout_duration": sum(m.timeout_metrics.total_timeout_duration 
                                         for m in self.metrics if m.timeout_metrics.occurred)
         }
         
-        # Store execution times for each attempt
         for metric in self.metrics:
-            retry_counts[metric.attempt_number] = metric.execution_time_seconds
-            if not metric.successful and metric.error_message:
+            retry_counts[metric.attempt_number] = retry_counts.get(metric.attempt_number, 0) + 1
+            if not metric.successful:
                 error_type = type(metric.error_message).__name__
                 error_types[error_type] = error_types.get(error_type, 0) + 1
         
@@ -447,31 +413,22 @@ class PerformanceTracker:
             successful_attempts=sum(1 for m in self.metrics if m.successful),
             failed_attempts=sum(1 for m in self.metrics if not m.successful),
             timeout_attempts=timeout_attempts,
-            avg_execution_time=mean(execution_times) if execution_times else 0.0,
-            median_execution_time=median(execution_times) if execution_times else 0.0,
-            retry_counts=retry_counts,  # Now contains execution times instead of counts
+            avg_execution_time=mean(execution_times),
+            median_execution_time=median(execution_times),
+            retry_counts=retry_counts,
             error_types=error_types,
             timeout_stats=timeout_stats
         )
-
-
-    def save_reports(self, overall_duration: Optional[float] = None):
-        """
-        Generates and saves both detailed text report and JSON report.
-        Now includes execution times in the retry distribution section.
-        """
+    
+    def save_reports(self):
+        """Generate and save both detailed text report and JSON report"""
         stats = self.generate_session_stats()
         
         # Save JSON report
+        json_report = asdict(stats)
         datetime_str = datetime.now().strftime("%Y%m%d_%H%M%S")
         report_filename_root = f"report_performance_stats_{OLLAMA_MODEL}_{self.prompt_type}_{datetime_str}"
         report_filename_json = f"{report_filename_root}.json"
-        
-        # Include overall duration in the stats if provided
-        json_report = asdict(stats)
-        if overall_duration is not None:
-            json_report['overall_duration'] = overall_duration
-            
         with open(report_filename_json, 'w') as f:
             json.dump(json_report, f, indent=2, default=str)
         
@@ -483,9 +440,6 @@ class PerformanceTracker:
             
             f.write(f"Prompt Type: {stats.prompt_type}\n")
             f.write(f"Session Duration: {stats.end_time - stats.start_time}\n")
-            if overall_duration is not None:
-                f.write(f"Overall Duration: {overall_duration:.2f}s\n")
-            
             f.write(f"Total Attempts: {stats.total_attempts}\n")
             f.write(f"Successful Attempts: {stats.successful_attempts}\n")
             f.write(f"Failed Attempts: {stats.failed_attempts}\n")
@@ -505,8 +459,8 @@ class PerformanceTracker:
             
             f.write("Retry Distribution\n")
             f.write("-----------------\n")
-            for attempt_num, exec_time in sorted(stats.retry_counts.items()):
-                f.write(f"Attempt #{attempt_num}: {exec_time:.2f}s\n")
+            for attempt_num, count in sorted(stats.retry_counts.items()):
+                f.write(f"Attempt #{attempt_num}: {count} occurrences\n")
             f.write("\n")
             
             if stats.error_types:
@@ -515,38 +469,38 @@ class PerformanceTracker:
                 for error_type, count in stats.error_types.items():
                     f.write(f"{error_type}: {count} occurrences\n")
 
-
-
+# async def get_decision_with_timeout(prompt_type: PromptType) -> tuple[Optional[Decision], TimeoutMetrics]:
+# Update the function signature
 async def get_decision_with_timeout(prompt_type: PromptType) -> tuple[Optional[Decision], TimeoutMetrics]:
     """
-    Manages the asynchronous execution of get_decision with timeout handling.
-    Uses a timeout strategy with exponential backoff for retries.
+    Wrapper for get_decision that implements timeout handling with backoff
+    
+    Args:
+        prompt_type: Type of prompt to use for decision
+        
+    Returns:
+        Tuple of (Optional[Decision], TimeoutMetrics) where Decision is either 
+        DecisionSystem1 or DecisionCot based on the prompt type
     """
+
     timeout_strategy = TimeoutStrategy()
     total_timeout_duration = 0
-    start_time = time.time()
     
     while True:
         current_timeout = timeout_strategy.get_current_timeout()
         try:
-            # First, get a coroutine from get_decision
-            decision_coro = get_decision(prompt_type)
+            # Create task with timeout
+            task = asyncio.create_task(get_decision(prompt_type))
+            start_time = time.time()
+            decision = await asyncio.wait_for(task, timeout=current_timeout)
             
-            # Then wrap it in wait_for and await the result
-            result = await asyncio.wait_for(decision_coro, timeout=current_timeout)
-            
-            # Calculate actual execution time
-            execution_time = time.time() - start_time
-            
-            # Create timeout metrics for successful execution
-            timeout_metrics = TimeoutMetrics(
+            # If we get here, the call succeeded
+            return decision, TimeoutMetrics(
                 occurred=timeout_strategy.retry_count > 0,
                 retry_count=timeout_strategy.retry_count,
                 final_timeout_duration=current_timeout,
-                total_timeout_duration=execution_time
+                total_timeout_duration=total_timeout_duration + (time.time() - start_time)
             )
-            
-            return result, timeout_metrics
             
         except asyncio.TimeoutError:
             duration = time.time() - start_time
@@ -560,6 +514,7 @@ async def get_decision_with_timeout(prompt_type: PromptType) -> tuple[Optional[D
                 timeout_strategy.increment_retry()
                 continue
             else:
+                # We've exceeded our retry limit
                 return None, TimeoutMetrics(
                     occurred=True,
                     retry_count=timeout_strategy.retry_count,
@@ -568,69 +523,79 @@ async def get_decision_with_timeout(prompt_type: PromptType) -> tuple[Optional[D
                 )
 
 
+
+
 async def main():
-    """
-    Main execution loop that manages multiple decision attempts and tracks performance.
-    Uses asynchronous execution to handle timeouts and retries efficiently.
-    """
-    tracker = PerformanceTracker(PROMPT_TYPE)
-    overall_start_time = time.time()
+    """Main execution loop with improved metrics tracking"""
+    tracker = PerformanceTracker(PROMPT_TYPE.name)
     
     for attempt in range(MAX_CALLS_PER_PROMPT):
-        start_time = time.time()
         logger.info(f"Iteration #{attempt + 1} of {MAX_CALLS_PER_PROMPT} for prompt_type={PROMPT_TYPE}")
         
+        start_time = time.time()
         try:
-            # Execute the decision-making process with timeout handling
             decision, timeout_metrics = await get_decision_with_timeout(PROMPT_TYPE)
             execution_time = time.time() - start_time
             
-            if decision is not None:
-                # Log successful decision
+            # Enhanced decision validation
+            if decision and hasattr(decision, 'prediction') and hasattr(decision, 'confidence'):
+                # Log successful API response
                 logger.info(f"Received valid decision: {decision.prediction} ({decision.confidence}%)")
-                print(f"\nPREDICTION: {decision.prediction}")
-                print(f"CONFIDENCE: {decision.confidence}")
                 
                 metrics = PromptPerformanceMetrics(
                     attempt_number=attempt + 1,
                     execution_time_seconds=execution_time,
-                    successful=True,
+                    successful=True,  # Mark as successful since we have a valid decision
                     timeout_metrics=timeout_metrics,
                     prediction=str(decision.prediction),
                     confidence=float(decision.confidence)
                 )
+
+                # Print decision details
+                print(f"\nPREDICTION: {decision.prediction}")
+                print(f"CONFIDENCE: {decision.confidence}")
+
+                if isinstance(decision, DecisionCot):
+                    print("\nRISK FACTORS:")
+                    for rf in decision.risk_factors:
+                        print(f"- {rf.factor} ({rf.weight.value}): {rf.reasoning}")
+                        
             else:
-                logger.warning("Decision timeout or invalid response")
+                # Log invalid decision response
+                logger.warning("Received invalid or incomplete decision object")
                 metrics = PromptPerformanceMetrics(
                     attempt_number=attempt + 1,
                     execution_time_seconds=execution_time,
                     successful=False,
                     timeout_metrics=timeout_metrics,
-                    error_message="Timeout or invalid response"
+                    error_message="Invalid or incomplete decision object"
                 )
                 
         except Exception as e:
+            # Enhanced error logging
             execution_time = time.time() - start_time
-            logger.error(f"Error during attempt #{attempt + 1}: {str(e)}")
-            
-            # Create a default TimeoutMetrics for error cases
-            error_timeout_metrics = TimeoutMetrics(occurred=False)
+            logger.error(f"Error during attempt #{attempt + 1}: {str(e)}", exc_info=True)
             
             metrics = PromptPerformanceMetrics(
                 attempt_number=attempt + 1,
                 execution_time_seconds=execution_time,
                 successful=False,
-                timeout_metrics=error_timeout_metrics,
+                timeout_metrics=TimeoutMetrics(occurred=False),
                 error_message=str(e)
             )
-            
-        # Record metrics for this attempt
+        
+        # Record the attempt metrics
         tracker.record_attempt(metrics)
-        logger.info(f"Attempt #{attempt + 1} completed in {execution_time:.2f}s (Status: {'Success' if metrics.successful else 'Failed'})")
+        
+        # Log attempt completion
+        logger.info(
+            f"Attempt #{attempt + 1} completed in {execution_time:.2f}s "
+            f"(Status: {'Success' if metrics.successful else 'Failed'})"
+        )
     
-    # Save final performance reports
-    overall_duration = time.time() - overall_start_time
-    tracker.save_reports(overall_duration=overall_duration)
+    # Generate and save performance reports
+    tracker.save_reports()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

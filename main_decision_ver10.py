@@ -410,14 +410,13 @@ class PerformanceTracker:
         if not metrics.successful:
             logger.error(f"Error in attempt #{metrics.attempt_number}: {metrics.error_message}")
 
-
     def generate_session_stats(self) -> SessionPerformanceStats:
         """
         Analyzes all recorded metrics to generate comprehensive session statistics.
-        Now includes execution times in retry distribution.
+        This method processes all attempts to create summary statistics.
         """
         execution_times = [m.execution_time_seconds for m in self.metrics]
-        retry_counts = {}  # We'll now store execution times instead of counts
+        retry_counts = {}
         error_types = {}
         timeout_attempts = sum(1 for m in self.metrics if m.timeout_metrics.occurred)
         
@@ -425,16 +424,16 @@ class PerformanceTracker:
         timeout_stats = {
             "total_timeout_attempts": timeout_attempts,
             "avg_timeout_duration": mean([m.timeout_metrics.total_timeout_duration 
-                                    for m in self.metrics if m.timeout_metrics.occurred] or [0]),
+                                       for m in self.metrics if m.timeout_metrics.occurred] or [0]),
             "max_timeout_duration": max([m.timeout_metrics.total_timeout_duration 
-                                    for m in self.metrics if m.timeout_metrics.occurred] or [0]),
+                                      for m in self.metrics if m.timeout_metrics.occurred] or [0]),
             "total_timeout_duration": sum(m.timeout_metrics.total_timeout_duration 
                                         for m in self.metrics if m.timeout_metrics.occurred)
         }
         
-        # Store execution times for each attempt
+        # Count retries and error types
         for metric in self.metrics:
-            retry_counts[metric.attempt_number] = metric.execution_time_seconds
+            retry_counts[metric.attempt_number] = retry_counts.get(metric.attempt_number, 0) + 1
             if not metric.successful and metric.error_message:
                 error_type = type(metric.error_message).__name__
                 error_types[error_type] = error_types.get(error_type, 0) + 1
@@ -449,16 +448,15 @@ class PerformanceTracker:
             timeout_attempts=timeout_attempts,
             avg_execution_time=mean(execution_times) if execution_times else 0.0,
             median_execution_time=median(execution_times) if execution_times else 0.0,
-            retry_counts=retry_counts,  # Now contains execution times instead of counts
+            retry_counts=retry_counts,
             error_types=error_types,
             timeout_stats=timeout_stats
         )
 
-
     def save_reports(self, overall_duration: Optional[float] = None):
         """
         Generates and saves both detailed text report and JSON report.
-        Now includes execution times in the retry distribution section.
+        This method creates comprehensive performance reports in both JSON and text formats.
         """
         stats = self.generate_session_stats()
         
@@ -505,8 +503,8 @@ class PerformanceTracker:
             
             f.write("Retry Distribution\n")
             f.write("-----------------\n")
-            for attempt_num, exec_time in sorted(stats.retry_counts.items()):
-                f.write(f"Attempt #{attempt_num}: {exec_time:.2f}s\n")
+            for attempt_num, count in sorted(stats.retry_counts.items()):
+                f.write(f"Attempt #{attempt_num}: {count} occurrences\n")
             f.write("\n")
             
             if stats.error_types:
@@ -514,8 +512,6 @@ class PerformanceTracker:
                 f.write("---------------------\n")
                 for error_type, count in stats.error_types.items():
                     f.write(f"{error_type}: {count} occurrences\n")
-
-
 
 async def get_decision_with_timeout(prompt_type: PromptType) -> tuple[Optional[Decision], TimeoutMetrics]:
     """

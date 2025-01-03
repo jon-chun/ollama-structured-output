@@ -32,9 +32,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# OLLAMA_MODEL = 'llama3.2:1b-instruct-q4_K_M'
+OLLAMA_MODEL = 'llama3.2:1b-instruct-q4_K_M'
 # OLLAMA_MODEL = 'llama3.1:8b-instruct-q4_K_M'  # Replace with actual model if necessary
-OLLAMA_MODEL = 'llama3.3:70b-instruct-q4_K_M'
+# OLLAMA_MODEL = 'llama3.3:70b-instruct-q4_K_M'
+
 # Prompt texts
 PROMPT_SYSTEM1 = """
 ###TASK: 
