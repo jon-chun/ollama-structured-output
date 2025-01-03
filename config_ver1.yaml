@@ -1,0 +1,64 @@
+# Model Configuration
+model_config:
+  model_temperature: 0.7
+  model_top_p: 0.9
+  model_max_tokens: 1024
+
+# Execution Settings
+execution:
+  max_calls_per_prompt: 10
+  max_retries_malformed: 3
+
+# API Timeout Configuration
+timeout:
+  max_api_wait_sec: 240  # Base maximum timeout for API calls
+  max_api_timeout_retries: 3  # Maximum number of retries for timeout failures
+  api_wait_step_increase_sec: 30  # Increment for timeout duration per retry
+
+# Logging Configuration
+logging:
+  level: DEBUG  # or INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: 'decision_system.log'
+
+# Output Directory Configuration
+output:
+  base_dir: './data/judgements'
+
+# Model Ensemble Configuration
+model_ensemble:
+  llama3.2:1b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2000
+    max_context_window: 8000
+  llama3.2:3b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2000
+    max_context_window: 8000
+  llama3.3:70b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2000
+    max_context_window: 8000
+  mistral:7b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2000
+    max_context_window: 8000
+  athene-v2:72b-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000
+  aya-expanse:8b-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000
+  command-r:35b-08-2024-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000
