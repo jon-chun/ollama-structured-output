@@ -1,60 +1,64 @@
-# Model Configuration
+# Model configuration
 model_config:
   model_temperature: 0.7
   model_top_p: 0.9
-  model_max_tokens: 1024
+  model_max_tokens: 2000
 
-# Execution Settings
+# Execution settings
 execution:
-  max_calls_per_prompt: 10
-  max_retries_malformed: 3
+  max_calls_per_prompt: 100
 
-# API Timeout Configuration
+# Timeout configuration
 timeout:
-  max_api_wait_sec: 240  # Base maximum timeout for API calls
-  max_api_timeout_retries: 3  # Maximum number of retries for timeout failures
-  api_wait_step_increase_sec: 30  # Increment for timeout duration per retry
+  max_api_wait_sec: 30
+  max_api_timeout_retries: 3
+  api_wait_step_increase_sec: 10
 
-# Logging Configuration
+# Logging configuration
 logging:
-  level: DEBUG  # or INFO
-  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-  file: 'decision_system.log'
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  file: "evaluation.log"
 
-# Output Directory Configuration
+# Output configuration
 output:
-  base_dir: './data/judgements'
+  base_dir: "evaluation_results"
 
-# Model Ensemble Configuration
+# Data configuration
+data:
+  input_file: "./data/vignettes_renamed_clean.csv"
+  train_split: 0.7
+  random_seed: 42
+
+# Prompt templates
+prompts:
+  system1: |
+    You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.
+    You must respond ONLY with a JSON object in exactly this format, with no additional text:
+    
+    {
+      "prediction": "YES" or "NO",
+      "confidence": number between 0 and 100
+    }
+
+    Risk Factors to analyze:
+    {risk_factors}
+
+  cot: |
+    You are a risk assessment expert. Think step by step about these risk factors:
+    {risk_factors}
+
+    After your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:
+    
+    {
+      "prediction": "YES" or "NO",
+      "confidence": number between 0 and 100
+    }
+
+# Model ensemble configuration
 model_ensemble:
   llama3.2:1b-instruct-q4_K_M:
     max_load_time: 240
     max_response_time: 240
     max_num_predict: 2000
     max_context_window: 8000
-  llama3.2:3b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2000
-    max_context_window: 8000
-
-# Prompts Configuration
-prompts:
-  system1: |
-    ###TASK: 
-    Your task is to predict if a person will be rearrested within 3 years given (1) your expertise, and (2) the given ###RISK_FACTORS in this case which may be predictors of varying strengths
-    ###RISK_FACTORS:
-    The person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 6 inches and weighs 120 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological dad in a household of size 4, in a rural area. He considers that God has nothing to do with what happens to him personally.
-    ###RESPONSE_FORMAT:
-    1. 'YES' or 'NO' (prediction)
-    2. integer 0-100 (confidence in percent)
-
-  cot: |
-    ###TASK:
-    Your task is to predict if a person will be rearrested within 3 years given (1) your expertise, and (2) the given ###RISK_FACTORS in this case which may be predictors of varying strengths
-    ###RISK_FACTORS:
-    The person is an 18-year-old male who identifies himself as White. He has been arrested 10 times and has been convicted. He is 6 feet 1 inch and weighs 195 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.
-    ###RESPONSE_FORMAT:
-    1. 'YES' or 'NO' (prediction)
-    2. integer 0-100 (confidence in percent)
-    3. A list of text strings identifying each risk factor with reasoning to weight each risk factor as 'high', 'medium' or 'low'

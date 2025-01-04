@@ -1,5 +1,24 @@
 # Ollama Structured Output
 
+
+## Project Directory Structure
+
+```
+project_root/
+├── config.yaml
+├── main.py
+├── requirements.txt
+├── data/
+│   └── vignettes_renamed_clean.csv
+├── evaluation_results/
+│   ├── llama2/
+│   │   └── [model outputs]
+│   └── mixtral/
+│       └── [model outputs]
+└── logs/
+    └── evaluation.log
+```
+
 ## YT Videos
 
 * [Building a Vision App with Ollama Structured Outputs (17:53) (31 Dec 2024)](https://www.youtube.com/watch?v=4Mya8AsZDUo)
