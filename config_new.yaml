@@ -1,0 +1,72 @@
+# LLM Decisions Configuration File
+# This file contains all configuration settings for the LLM evaluation system
+
+model_config:
+  model_temperature: 0.7
+  model_top_p: 0.9
+  model_max_tokens: 2048
+  model_context_window: 4096
+
+execution:
+  max_calls_per_prompt: 5
+  prompt_type: "cot"  # Can be "system1" or "cot"
+  concurrent_evaluations: 2
+  retry_failed_calls: true
+
+timeout:
+  max_api_wait_sec: 30
+  max_api_timeout_retries: 3
+  api_wait_step_increase_sec: 5
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "llm_decisions.log"
+
+output:
+  base_dir: "evaluation_results"
+  save_raw_responses: true
+  report_formats:
+    - json
+    - txt
+
+model_ensemble:
+  llama2:
+    type: "local"
+    endpoint: "localhost:11434"
+    model: "llama2"
+    description: "Meta's Llama 2 model"
+  
+  mixtral:
+    type: "local"
+    endpoint: "localhost:11434"
+    model: "mixtral"
+    description: "Mixtral-8x7B model"
+
+prompts:
+  system1:
+    task: |
+      Given the context, make a decision and explain your reasoning.
+      Return your response in JSON format with the following structure:
+      {
+        "prediction": "YES/NO",
+        "confidence": <0-100>,
+        "reasoning": "Your explanation here"
+      }
+
+  cot:
+    task: |
+      Think through this step by step and make a decision.
+      Analyze the risks and provide your reasoning.
+      Return your response in JSON format with the following structure:
+      {
+        "prediction": "YES/NO",
+        "confidence": <0-100>,
+        "risk_factors": [
+          {
+            "factor": "Risk description",
+            "weight": "high/medium/low",
+            "reasoning": "Explanation"
+          }
+        ]
+      }
