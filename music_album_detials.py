@@ -1,8 +1,8 @@
 from typing import Literal, Optional, List
 from ollama import chat
 from pydantic import BaseModel, Field
-from utils import save_album_details_to_markdown
-from models import Album, Song
+from utils_ver1 import save_album_details_to_markdown
+from models_ver1 import Album, Song
 import os
 
 

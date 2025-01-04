@@ -16,9 +16,9 @@ import asyncio
 import yaml
 from pathlib import Path
 
-
-
-
+# Type definitions
+T = TypeVar('T')
+    
 # Enum for Prompt Types - Simplified from original code
 class PromptType(str, Enum):
     SYSTEM1 = 'system1'

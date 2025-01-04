@@ -1,5 +1,5 @@
 import os
-from models import Album
+from models_ver1 import Album
 
 
 def save_album_details_to_markdown(album: Album, output_path: str = "album_details.md"):
