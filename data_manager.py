@@ -84,7 +84,7 @@ class DataManager:
         
         try:
             # Apply normalization to target column
-            df['target'] = df['target'].apply(normalize_value)
+            df[self.config.data['outcome']] = df[self.config.data['outcome']].apply(normalize_value)
             logging.info("Successfully normalized target values to YES/NO format")
         except Exception as e:
             logging.error(f"Error normalizing target values: {str(e)}")
@@ -108,7 +108,7 @@ class DataManager:
             ValueError: If validation requirements are not met
         """
         # Verify required columns exist
-        required_columns = ['short_text_summary', 'target']
+        required_columns = [self.config.data['risk_factors'], self.config.data['outcome']]
         missing_columns = [col for col in required_columns if col not in df.columns]
         if missing_columns:
             raise ValueError(f"Missing required columns: {missing_columns}")
@@ -120,7 +120,7 @@ class DataManager:
         
         # Validate normalized target values
         valid_targets = {'YES', 'NO'}
-        invalid_targets = set(df['target'].unique()) - valid_targets
+        invalid_targets = set(df[self.config.data['outcome']].unique()) - valid_targets
         if invalid_targets:
             raise ValueError(
                 f"Invalid target values found: {invalid_targets}. "
@@ -178,7 +178,7 @@ class DataManager:
                 self.df,
                 train_size=train_ratio,
                 random_state=self.config.data["random_seed"],
-                stratify=self.df['target']
+                stratify=self.df[self.config.data["outcome"]]
             )
 
             # 2) Validate from df_rest
@@ -191,7 +191,7 @@ class DataManager:
                 df_rest,
                 train_size=val_fraction_of_rest,
                 random_state=self.config.data["random_seed"],
-                stratify=df_rest['target']
+                stratify=df_rest[self.config.data["outcome"]]
             )
 
             self.df_train = df_train
@@ -200,7 +200,7 @@ class DataManager:
 
             logging.info(f"Loaded {len(self.df)} total samples")
             logging.info(f"Train: {len(self.df_train)} Validate: {len(self.df_validate)} Test: {len(self.df_test)}")
-            logging.info(f"Target distribution in training set:\n{self.df_train['target'].value_counts()}")
+            logging.info(f"Target distribution in training set:\n{self.df_train[self.config.data['outcome']].value_counts()}")
 
             return len(self.df_train), len(self.df_test)
             
@@ -208,49 +208,10 @@ class DataManager:
             logging.error(f"Error loading and preparing data: {str(e)}")
             raise
 
-    def get_risk_factors(self, row_id: int) -> str:
-        """Get risk factors text for a specific row"""
-        if self.df_train is None:
-            raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
-            
-        row = self.df_train[self.df_train['id'] == row_id]
-        if len(row) == 0:
-            raise ValueError(f"Row ID {row_id} not found in training data")
-            
-        return row['short_text_summary'].iloc[0]
-
-    def get_actual_value(self, row_id: int) -> str:
-        """Get actual target value for a specific row"""
-        if self.df_train is None:
-            raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
-            
-        row = self.df_train[self.df_train['id'] == row_id]
-        if len(row) == 0:
-            raise ValueError(f"Row ID {row_id} not found in training data")
-            
-        return row['target'].iloc[0]
 
     def get_batch(self, batch_size: int, dataset: str = 'train') -> List[Dict]:
         """
         Get a batch of samples from the specified dataset.
-        
-        This method returns a list of dictionaries containing all necessary information
-        for each data sample in the batch. It provides efficient batch processing
-        capabilities for the evaluation system.
-        
-        Args:
-            batch_size: Number of samples to retrieve (or all samples if None)
-            dataset: Which dataset to use ('train', 'test', or 'validate')
-            
-        Returns:
-            List of dictionaries, each containing:
-                - id: Row identifier
-                - risk_factors: Text summary of risk factors
-                - target: Normalized target value (YES/NO)
-                
-        Raises:
-            RuntimeError: If data hasn't been loaded
-            ValueError: If dataset parameter is invalid
         """
         if self.df_train is None or self.df_test is None or self.df_validate is None:
             raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
@@ -268,7 +229,6 @@ class DataManager:
         else:
             raise ValueError(f"Invalid dataset: {dataset}")
 
-
         # If batch_size is None or larger than dataset, use entire dataset
         if batch_size is None or batch_size >= len(df):
             batch_df = df
@@ -283,8 +243,8 @@ class DataManager:
         for _, row in batch_df.iterrows():
             sample = {
                 'id': int(row['id']),
-                'risk_factors': str(row['short_text_summary']),
-                'target': str(row['target'])
+                'risk_factors': str(row[self.config.data['risk_factors']]),
+                'target': str(row[self.config.data['outcome']])
             }
             batch_data.append(sample)
         
@@ -293,23 +253,31 @@ class DataManager:
         logging.debug(f"Batch target distribution:\n{batch_targets.value_counts()}")
         
         return batch_data
-    
+
+    def get_risk_factors(self, row_id: int) -> str:
+        """Get risk factors text for a specific row"""
+        if self.df_train is None:
+            raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
+            
+        row = self.df_train[self.df_train['id'] == row_id]
+        if len(row) == 0:
+            raise ValueError(f"Row ID {row_id} not found in training data")
+            
+        return row[self.config.data['risk_factors']].iloc[0]
+
+    def get_actual_value(self, row_id: int) -> str:
+        """Get actual target value for a specific row"""
+        if self.df_train is None:
+            raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
+            
+        row = self.df_train[self.df_train['id'] == row_id]
+        if len(row) == 0:
+            raise ValueError(f"Row ID {row_id} not found in training data")
+            
+        return row[self.config.data['outcome']].iloc[0]
+
     def get_dataset_info(self) -> Dict[str, Any]:
-        """
-        Get comprehensive information about the datasets.
-        
-        Returns a dictionary containing dataset statistics, distributions,
-        and other relevant information for monitoring the evaluation process.
-        
-        Returns:
-            Dictionary containing:
-                - dataset_sizes: Count of samples in each split
-                - target_distributions: Target value distributions
-                - feature_statistics: Basic statistics about features
-                
-        Raises:
-            RuntimeError: If data hasn't been loaded
-        """
+        """Get comprehensive information about the datasets."""
         if self.df is None or self.df_train is None or self.df_test is None or self.df_validate is None:
             raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
             
@@ -321,17 +289,17 @@ class DataManager:
                 'test': len(self.df_test)
             },
             'target_distributions': {
-                'overall': self.df['target'].value_counts().to_dict(),
-                'train': self.df_train['target'].value_counts().to_dict(),
-                'validate': self.df_validate['target'].value_counts().to_dict(),
-                'test': self.df_test['target'].value_counts().to_dict()
+                'overall': self.df[self.config.data['outcome']].value_counts().to_dict(),
+                'train': self.df_train[self.config.data['outcome']].value_counts().to_dict(),
+                'validate': self.df_validate[self.config.data['outcome']].value_counts().to_dict(),
+                'test': self.df_test[self.config.data['outcome']].value_counts().to_dict()
             },
             'feature_statistics': {
-                'summary_length_mean': self.df['short_text_summary'].str.len().mean(),
-                'summary_length_std': self.df['short_text_summary'].str.len().std(),
+                'summary_length_mean': self.df[self.config.data['risk_factors']].str.len().mean(),
+                'summary_length_std': self.df[self.config.data['risk_factors']].str.len().std(),
                 'summary_length_range': [
-                    self.df['short_text_summary'].str.len().min(),
-                    self.df['short_text_summary'].str.len().max()
+                    self.df[self.config.data['risk_factors']].str.len().min(),
+                    self.df[self.config.data['risk_factors']].str.len().max()
                 ]
             }
         }

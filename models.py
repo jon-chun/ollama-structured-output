@@ -7,6 +7,7 @@ class PromptType(str, Enum):
     """Enumeration of supported prompt types"""
     SYSTEM1 = 'system1'
     COT = 'cot'
+    COT_NSHOT = 'cot-nshot'  # New prompt type for n-shot learning
 
 class RiskWeight(str, Enum):
     """Enumeration for risk weight levels"""

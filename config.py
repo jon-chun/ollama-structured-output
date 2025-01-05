@@ -1,5 +1,3 @@
-# config.py
-
 import yaml
 from pydantic import BaseModel, Field, ValidationError
 from typing import Dict, Any
@@ -7,6 +5,7 @@ from typing import Dict, Any
 class ExecutionConfig(BaseModel):
     max_calls_per_prompt: int = Field(..., ge=1, description="Maximum number of calls per prompt/sample")
     batch_size: int = Field(..., ge=1, description="Number of samples per batch")
+    nshot_ct: int = Field(..., ge=0, description="Number of n-shot examples to include")
 
 class FlagsConfig(BaseModel):
     max_samples: int = Field(..., ge=1, description="Maximum number of samples to process")
@@ -37,6 +36,10 @@ class Config(BaseModel):
     @property
     def batch_size(self) -> int:
         return self.execution.batch_size
+
+    @property
+    def nshot_ct(self) -> int:
+        return self.execution.nshot_ct
 
 def load_config(config_file: str = "config.yaml") -> Config:
     with open(config_file, 'r') as f:

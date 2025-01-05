@@ -10,7 +10,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field, ValidationError
 from ollama import chat  # Ensure you have the Ollama client installed and configured
 
-from config_ver7 import Config
+from config import Config
 from models import Decision, PromptType
 from metrics import TimeoutMetrics
 from utils import pydantic_or_dict, convert_ns_to_s
@@ -229,7 +229,6 @@ async def get_decision_with_timeout(
         return None, None, prompt, {}, timeout_metrics
 
 
-
 def save_decision(
     decision: Decision,
     meta_data: MetaData,
@@ -240,11 +239,11 @@ def save_decision(
     config: Config,
     used_prompt: str,
     repeat_index: int = 0,
-    extra_data: Dict[str, Any] = None  # <-- new parameter
+    extra_data: Dict[str, Any] = None
 ) -> bool:
     """
     Save decision and metadata to filesystem.
-    Now includes repeat_index and extra_data in the filename and JSON content.
+    Now includes nshot_ct in output for COT_NSHOT prompts.
     """
     if extra_data is None:
         extra_data = {}
@@ -254,9 +253,9 @@ def save_decision(
         output_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        if prompt_type == 'cot-nshot':
+        if prompt_type == PromptType.COT_NSHOT:
             filename = (
-                f"{model_name}_{prompt_type}-{config.execution['cot-nshot']}_id{row_id}_ver{repeat_index}_{timestamp}.json"
+                f"{model_name}_{prompt_type}_id{row_id}_nshot{config.execution.nshot_ct}_{timestamp}.json"
             )
         else:
             filename = (
@@ -286,13 +285,17 @@ def save_decision(
                 "row_id": row_id,
                 "prediction_matches_actual": decision_data['correct'],
                 "repeat_index": repeat_index
-            },
-            "prompt": used_prompt
+            }
         }
 
-        # Add 'risk_factors' if present in extra_data
+        # Add nshot_ct for COT_NSHOT prompts
+        if prompt_type == PromptType.COT_NSHOT:
+            combined_data["evaluation"]["nshot_ct"] = config.execution.nshot_ct
+
         if 'risk_factors' in extra_data:
             combined_data["risk_factors"] = extra_data["risk_factors"]
+        
+        combined_data["prompt"] = used_prompt
 
         # Save to file
         output_path = output_dir / filename
