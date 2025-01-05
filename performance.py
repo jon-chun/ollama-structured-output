@@ -6,6 +6,7 @@ from statistics import mean, median, stdev
 import logging
 import json
 import pandas as pd
+from pathlib import Path
 from sklearn.metrics import confusion_matrix, roc_auc_score
 
 from metrics import TimeoutMetrics, PromptMetrics, TimeoutStats
@@ -42,14 +43,16 @@ class DecisionTracker:
         self.correct_predictions = 0
         self.actual_values = []
         self.predicted_values = []
+        self.confidences = []
 
-    def record_prediction(self, prediction: str, actual: str):
+    def record_prediction(self, prediction: str, actual: str, confidence: Optional[float] = None):
         """Record a single prediction & actual."""
         self.total_predictions += 1
         if prediction.upper() == actual.upper():
             self.correct_predictions += 1
         self.actual_values.append(actual)
         self.predicted_values.append(prediction)
+        self.confidences.append(confidence if confidence is not None else 0.5)
 
     def get_accuracy(self) -> float:
         if self.total_predictions == 0:
@@ -57,19 +60,16 @@ class DecisionTracker:
         return 100.0 * self.correct_predictions / self.total_predictions
 
     def get_stats(self) -> Dict[str, Any]:
-        """
-        Return a dictionary that includes distributions as well
-        as the entire actual/predicted lists for downstream metrics.
-        """
+        """Return comprehensive prediction statistics."""
         return {
             'total_predictions': self.total_predictions,
             'correct_predictions': self.correct_predictions,
             'accuracy': self.get_accuracy(),
             'actual_distribution': pd.Series(self.actual_values).value_counts().to_dict(),
             'predicted_distribution': pd.Series(self.predicted_values).value_counts().to_dict(),
-            # Required for confusion matrix/AUC:
             'actual_values': self.actual_values,
-            'predicted_values': self.predicted_values
+            'predicted_values': self.predicted_values,
+            'confidences': self.confidences
         }
 
 
@@ -79,12 +79,14 @@ class PerformanceTracker:
         self.prompt_type = prompt_type
         self.model_name = model_name
         self.metrics: List[PromptMetrics] = []
+        self.attempts: List[PromptMetrics] = []  # For backwards compatibility
         self.start_time = datetime.now()
         self.decision_tracker = DecisionTracker()
 
     def record_attempt(self, metrics: PromptMetrics):
         """Record results from a single attempt."""
         self.metrics.append(metrics)
+        self.attempts.append(metrics)  # For backwards compatibility
         status = "successful" if metrics.successful else "failed"
 
         timeout_info = ""
@@ -99,10 +101,15 @@ class PerformanceTracker:
             f"execution time: {metrics.execution_time_seconds:.2f}s {timeout_info}"
         )
 
-        # If it was successful and we have a prediction, record it
-        if metrics.successful and metrics.prediction is not None and 'actual_value' in (metrics.meta_data or {}):
-            actual = metrics.meta_data['actual_value']
-            self.decision_tracker.record_prediction(metrics.prediction, actual)
+        # Record prediction if available
+        if metrics.successful and metrics.prediction is not None:
+            actual_value = metrics.meta_data.get('actual_value') if metrics.meta_data else None
+            if actual_value:
+                self.decision_tracker.record_prediction(
+                    metrics.prediction,
+                    actual_value,
+                    metrics.confidence
+                )
 
     def _calculate_timeout_stats(self) -> TimeoutStats:
         """Compute aggregated stats about timeouts."""
@@ -121,14 +128,10 @@ class PerformanceTracker:
         )
 
     def _calculate_meta_data_stats(self) -> Tuple[Dict[str, float], Dict[str, float]]:
-        """
-        Averages + std-dev for numeric metadata across all attempts.
-        E.g. how long the model took, etc.
-        """
+        """Calculate averages and std-dev for numeric metadata."""
         meta_data_values = {}
         for m in self.metrics:
             if m.meta_data is not None:
-                # gather numeric keys from meta_data
                 for key, val in m.meta_data.items():
                     if isinstance(val, (int, float)):
                         if key not in meta_data_values:
@@ -146,41 +149,38 @@ class PerformanceTracker:
 
         return averages, std_devs
 
-    def _generate_stats(self) -> PerformanceStats:
+    def _generate_stats(self) -> Optional[PerformanceStats]:
         """Compute final PerformanceStats from all recorded attempts."""
-        execution_times = [m.execution_time_seconds for m in self.metrics]
+        if not self.metrics:
+            return None
 
+        execution_times = [m.execution_time_seconds for m in self.metrics]
         meta_averages, meta_sds = self._calculate_meta_data_stats()
         decision_stats = self.decision_tracker.get_stats()
 
-        # Build y_true / y_pred for confusion matrix and AUC
+        # Build confusion matrix data
         y_true = [1 if v.upper() == "YES" else 0 for v in decision_stats['actual_values']]
         y_pred = [1 if v.upper() == "YES" else 0 for v in decision_stats['predicted_values']]
 
-        # confusion matrix
-        tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-        confusion_dict = {
-            "tp": int(tp),
-            "tn": int(tn),
-            "fp": int(fp),
-            "fn": int(fn)
-        }
+        # Calculate confusion matrix
+        if y_true and y_pred:
+            tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+            confusion_dict = {
+                "tp": int(tp),
+                "tn": int(tn),
+                "fp": int(fp),
+                "fn": int(fn)
+            }
+        else:
+            confusion_dict = {"tp": 0, "tn": 0, "fp": 0, "fn": 0}
 
-        # AUC-ROC: we treat confidence as probability if available
-        # If partial attempts have no confidence, default to 0.5
-        y_prob = []
-        for m in self.metrics:
-            if m.confidence is not None:
-                y_prob.append(m.confidence / 100.0)
-            else:
-                y_prob.append(0.5)
-
+        # Calculate AUC-ROC
         auc_roc = 0.0
-        if len(set(y_true)) > 1:  # avoid error if all are same class
-            auc_roc = roc_auc_score(y_true, y_prob)
+        if y_true and len(set(y_true)) > 1:
+            auc_roc = roc_auc_score(y_true, decision_stats['confidences'])
 
         return PerformanceStats(
-            prompt_type=self.prompt_type,
+            prompt_type=str(self.prompt_type),
             model_name=self.model_name,
             start_time=self.start_time,
             end_time=datetime.now(),
@@ -189,7 +189,7 @@ class PerformanceTracker:
             failed_attempts=sum(1 for m in self.metrics if not m.successful),
             timeout_attempts=sum(1 for m in self.metrics if m.timeout_metrics.occurred),
             avg_execution_time=mean(execution_times) if execution_times else 0.0,
-            median_execution_time=median(execution_times) if len(execution_times) > 0 else 0.0,
+            median_execution_time=median(execution_times) if execution_times else 0.0,
             sd_execution_time=stdev(execution_times) if len(execution_times) > 1 else 0.0,
             timeout_stats=self._calculate_timeout_stats(),
             meta_data_averages=meta_averages,
@@ -204,19 +204,31 @@ class PerformanceTracker:
     def save_metrics(self, execution_time: float):
         """Save the final stats for this session as JSON and plain text."""
         stats = self._generate_stats()
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        if stats is None:
+            logging.warning("No metrics to save - no attempts recorded")
+            return
 
-        # JSON
-        json_path = f"metrics_{self.model_name}_{self.prompt_type}_{timestamp}.json"
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_base = Path("metrics")
+        output_base.mkdir(parents=True, exist_ok=True)
+
+        # Save JSON format
+        json_path = output_base / f"metrics_{self.model_name}_{self.prompt_type}_{timestamp}.json"
         with open(json_path, 'w') as f:
             json.dump(asdict(stats), f, indent=2, default=str)
 
-        # Text
-        self._save_text_report(stats, execution_time, timestamp)
+        # Save text report
+        self._save_text_report(stats, execution_time, timestamp, output_base)
 
-    def _save_text_report(self, stats: PerformanceStats, execution_time: float, timestamp: str):
+    def _save_text_report(
+        self,
+        stats: PerformanceStats,
+        execution_time: float,
+        timestamp: str,
+        output_dir: Path
+    ):
         """Generate a readable text report of the performance stats."""
-        report_path = f"report_{stats.model_name}_{stats.prompt_type}_{timestamp}.txt"
+        report_path = output_dir / f"report_{stats.model_name}_{stats.prompt_type}_{timestamp}.txt"
         with open(report_path, 'w') as f:
             f.write(f"Performance Report - {stats.model_name}\n")
             f.write("=" * 50 + "\n\n")
@@ -238,14 +250,14 @@ class PerformanceTracker:
             f.write(f"Accuracy: {stats.prediction_accuracy:.2f}%\n\n")
 
             f.write("Prediction Distribution:\n")
-            for value, count in stats.prediction_distribution.items():
+            for value, count in (stats.prediction_distribution or {}).items():
                 f.write(f"  {value}: {count}\n")
 
             f.write("\nActual Distribution:\n")
-            for value, count in stats.actual_distribution.items():
+            for value, count in (stats.actual_distribution or {}).items():
                 f.write(f"  {value}: {count}\n")
 
-            f.write("\nAdditional Classification Metrics\n")
+            f.write("\nClassification Metrics\n")
             f.write("-" * 20 + "\n")
             cm = stats.confusion_matrix
             f.write(f"True Positives (TP): {cm['tp']}\n")
@@ -280,14 +292,18 @@ class PerformanceTracker:
 
 
 def save_aggregate_stats(session_results: List[PerformanceStats], total_duration: float):
-    """
-    Summarize multiple sessions (model/prompt combos) into an aggregate report.
-    """
+    """Summarize multiple sessions into an aggregate report."""
+    if not session_results:
+        logging.warning("No session results to aggregate")
+        return
+
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_base = Path("metrics")
+    output_base.mkdir(parents=True, exist_ok=True)
 
     total_predictions = sum(s.successful_attempts for s in session_results)
     total_timeouts = sum(s.timeout_stats.total_timeouts for s in session_results)
-    avg_accuracy = mean(s.prediction_accuracy for s in session_results) if session_results else 0.0
+    avg_accuracy = mean(s.prediction_accuracy for s in session_results)
 
     # Aggregate by model
     model_stats = {}
@@ -297,21 +313,31 @@ def save_aggregate_stats(session_results: List[PerformanceStats], total_duration
                 'total_attempts': 0,
                 'successful_attempts': 0,
                 'accuracy': [],
-                'avg_execution_time': []
+                'avg_execution_time': [],
+                'auc_roc': [],
+                'timeouts': 0
             }
         ms = model_stats[stat.model_name]
         ms['total_attempts'] += stat.total_attempts
         ms['successful_attempts'] += stat.successful_attempts
         ms['accuracy'].append(stat.prediction_accuracy)
         ms['avg_execution_time'].append(stat.avg_execution_time)
+        ms['auc_roc'].append(stat.auc_roc)
+        ms['timeouts'] += stat.timeout_stats.total_timeouts
 
     # Calculate model-level summaries
     for model, stats in model_stats.items():
         stats['avg_accuracy'] = mean(stats['accuracy']) if stats['accuracy'] else 0.0
         stats['avg_execution_time'] = mean(stats['avg_execution_time']) if stats['avg_execution_time'] else 0.0
+        stats['avg_auc_roc'] = mean(stats['auc_roc']) if stats['auc_roc'] else 0.0
+        if stats['total_attempts'] > 0:
+            stats['success_rate'] = (stats['successful_attempts'] / stats['total_attempts']) * 100
+        else:
+            stats['success_rate'] = 0.0
 
-    # JSON
+    # Save JSON output
     aggregate_data = {
+        'timestamp': timestamp,
         'total_duration': total_duration,
         'total_sessions': len(session_results),
         'total_predictions': total_predictions,
@@ -320,12 +346,12 @@ def save_aggregate_stats(session_results: List[PerformanceStats], total_duration
         'model_performance': model_stats
     }
 
-    json_path = f"aggregate_stats_{timestamp}.json"
+    json_path = output_base / f"aggregate_stats_{timestamp}.json"
     with open(json_path, 'w') as f:
         json.dump(aggregate_data, f, indent=2, default=str)
 
-    # Text summary
-    report_path = f"aggregate_report_{timestamp}.txt"
+    # Generate text report
+    report_path = output_base / f"aggregate_report_{timestamp}.txt"
     with open(report_path, 'w') as f:
         f.write("Aggregate Performance Report\n")
         f.write("=" * 50 + "\n\n")
@@ -344,12 +370,11 @@ def save_aggregate_stats(session_results: List[PerformanceStats], total_duration
             f.write(f"\n{model_name}:\n")
             f.write(f"  Total Attempts: {stats['total_attempts']}\n")
             f.write(f"  Successful Attempts: {stats['successful_attempts']}\n")
-            success_rate = 0.0
-            if stats['total_attempts'] > 0:
-                success_rate = (stats['successful_attempts'] / stats['total_attempts'])*100
-            f.write(f"  Success Rate: {success_rate:.2f}%\n")
+            f.write(f"  Success Rate: {stats['success_rate']:.2f}%\n")
             f.write(f"  Average Accuracy: {stats['avg_accuracy']:.2f}%\n")
+            f.write(f"  Average AUC-ROC: {stats['avg_auc_roc']:.4f}\n")
             f.write(f"  Average Execution Time: {stats['avg_execution_time']:.4f}s\n")
+            f.write(f"  Total Timeouts: {stats['timeouts']}\n")
 
         # Breakdown by prompt type
         prompt_stats = {}
@@ -358,12 +383,14 @@ def save_aggregate_stats(session_results: List[PerformanceStats], total_duration
                 prompt_stats[stat.prompt_type] = {
                     'accuracies': [],
                     'execution_times': [],
-                    'timeout_counts': []
+                    'timeout_counts': [],
+                    'auc_rocs': []
                 }
             ps = prompt_stats[stat.prompt_type]
             ps['accuracies'].append(stat.prediction_accuracy)
             ps['execution_times'].append(stat.avg_execution_time)
             ps['timeout_counts'].append(stat.timeout_stats.total_timeouts)
+            ps['auc_rocs'].append(stat.auc_roc)
 
         f.write("\nPrompt Type Performance\n")
         f.write("-" * 20 + "\n")
@@ -373,4 +400,6 @@ def save_aggregate_stats(session_results: List[PerformanceStats], total_duration
                 f.write(f"  Average Accuracy: {mean(stats['accuracies']):.2f}%\n")
             if stats['execution_times']:
                 f.write(f"  Average Execution Time: {mean(stats['execution_times']):.4f}s\n")
+            if stats['auc_rocs']:
+                f.write(f"  Average AUC-ROC: {mean(stats['auc_rocs']):.4f}\n")
             f.write(f"  Total Timeouts: {sum(stats['timeout_counts'])}\n")

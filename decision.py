@@ -8,12 +8,12 @@ from datetime import datetime
 from pathlib import Path
 
 from pydantic import BaseModel, Field, ValidationError
-from ollama import chat  # Ensure you have the Ollama client installed and configured
+from ollama import chat
 
 from config import Config
 from models import Decision, PromptType
 from metrics import TimeoutMetrics
-from utils import pydantic_or_dict, convert_ns_to_s
+from utils import clean_model_name, pydantic_or_dict, convert_ns_to_s, check_existing_decision
 
 class MetaData(BaseModel):
     """Model to represent metadata from an API response."""
@@ -28,6 +28,28 @@ class MetaData(BaseModel):
     eval_count: Optional[int] = Field(None, ge=0, description="Response token count")
     eval_duration: Optional[float] = Field(None, ge=0, description="Response generation duration")
 
+def generate_output_path(
+    model_name: str,
+    prompt_type: PromptType,
+    row_id: int,
+    repeat_index: int,
+    timestamp: str,
+    config: Config,
+    output_dir: Path,
+    nshot_ct: Optional[int] = None
+) -> Path:
+    """Generate the output path for a decision file."""
+    if prompt_type == PromptType.COT_NSHOT:
+        filename = (
+            f"{model_name}_{prompt_type}_id{row_id}_"
+            f"nshot{nshot_ct}_{timestamp}.json"
+        )
+    else:
+        filename = (
+            f"{model_name}_{prompt_type}_id{row_id}_"
+            f"ver{repeat_index}_{timestamp}.json"
+        )
+    return output_dir / filename
 
 def process_model_response(response_text: str) -> Dict:
     """
@@ -79,18 +101,12 @@ def process_model_response(response_text: str) -> Dict:
 
         # Normalize the response
         normalized = {}
-
-        # Handle prediction
         pred_value = str(parsed_response.get('prediction', '')).upper()
-        if pred_value in ['YES', 'NO']:
-            normalized['prediction'] = pred_value
-        else:
-            # Fallback interpretation
-            positive_indicators = ['YES', 'TRUE', '1', 'HIGH']
-            if any(ind in pred_value for ind in positive_indicators):
-                normalized['prediction'] = 'YES'
-            else:
-                normalized['prediction'] = 'NO'
+        normalized['prediction'] = (
+            pred_value if pred_value in ['YES', 'NO']
+            else 'YES' if any(ind in pred_value for ind in ['YES', 'TRUE', '1', 'HIGH'])
+            else 'NO'
+        )
 
         # Handle confidence
         conf_value = parsed_response.get('confidence', None)
@@ -102,10 +118,7 @@ def process_model_response(response_text: str) -> Dict:
             normalized['confidence'] = 90  # Default confidence
 
         # Handle risk_factors
-        if 'risk_factors' in parsed_response:
-            normalized['risk_factors'] = parsed_response['risk_factors']
-        else:
-            normalized['risk_factors'] = None
+        normalized['risk_factors'] = parsed_response.get('risk_factors', None)
 
         logging.debug(f"Normalized response: {normalized}")
         return normalized
@@ -115,28 +128,21 @@ def process_model_response(response_text: str) -> Dict:
         logging.error(f"Raw response: {response_text}")
         raise
 
-
 async def get_decision(
     prompt_type: PromptType,
     model_name: str,
     config: Config,
     prompt: str
 ) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
-    """
-    Returns a tuple of (Decision, MetaData, used_prompt, extra_data).
-    """
+    """Returns a tuple of (Decision, MetaData, used_prompt, extra_data)."""
     try:
-        # Use the new prompt_persona from config.yaml
-        system_message = config.prompts.get("prompt_persona", "")
-        if not system_message:
-            # Fallback if missing
-            system_message = (
-                "You are a risk assessment expert. Your responses must be in valid JSON format "
-                "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'."
-            )
+        system_message = config.prompts.get("prompt_persona", "") or (
+            "You are a risk assessment expert. Your responses must be in valid JSON format "
+            "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'."
+        )
 
         response = await asyncio.to_thread(
-            chat,  # Ensure 'chat' is correctly implemented to interact with Ollama
+            chat,
             messages=[
                 {'role': 'system', 'content': system_message},
                 {'role': 'user', 'content': prompt}
@@ -152,10 +158,8 @@ async def get_decision(
         if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
             raise ValueError("Invalid API response structure")
 
-        # Process the response
         normalized_response = process_model_response(response.message.content)
 
-        # Construct a Decision object
         try:
             decision = Decision(
                 prediction=normalized_response['prediction'],
@@ -166,12 +170,10 @@ async def get_decision(
             logging.error(f"Normalized response: {normalized_response}")
             return None, None, prompt, {}
 
-        # Extract 'risk_factors' if present
         extra_data = {}
         if 'risk_factors' in normalized_response and normalized_response['risk_factors']:
             extra_data['risk_factors'] = normalized_response['risk_factors']
 
-        # Extract metadata
         meta_data = MetaData(
             model=getattr(response, 'model', None),
             created_at=getattr(response, 'created_at', None),
@@ -191,26 +193,23 @@ async def get_decision(
         logging.error(f"Error during API call: {str(e)}")
         return None, None, prompt, {}
 
-
 async def get_decision_with_timeout(
     prompt_type: PromptType,
     model_name: str,
     config: Config,
     prompt: str
 ) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any], TimeoutMetrics]:
-    """
-    Wraps get_decision(...) in an asyncio timeout.
-    Returns (Decision, MetaData, used_prompt, extra_data, TimeoutMetrics).
-    """
+    """Wraps get_decision with timeout handling."""
     timeout_metrics = TimeoutMetrics(
         occurred=False,
         retry_count=0,
-        total_timeout_duration=0.0  # Initialize if tracking
+        total_timeout_duration=0.0
     )
-    timeout_seconds = float(config.model_parameters.get("api_timeout", 30.0))
+    # timeout_seconds = float(config.model_parameters.get("api_timeout", 30.0))
+    timeout_seconds = float(config.model_ensemble[model_name]["max_response_time"])
 
     try:
-        logging.debug(f"Calling get_decision with prompt: {prompt[:50]}...")  # Log first 50 chars
+        logging.debug(f"Calling get_decision with prompt: {prompt[:50]}...")
         decision, meta_data, used_prompt, extra_data = await asyncio.wait_for(
             get_decision(prompt_type, model_name, config, prompt),
             timeout=timeout_seconds
@@ -228,7 +227,6 @@ async def get_decision_with_timeout(
         logging.error(f"Error during API call: {str(e)}")
         return None, None, prompt, {}, timeout_metrics
 
-
 def save_decision(
     decision: Decision,
     meta_data: MetaData,
@@ -241,31 +239,30 @@ def save_decision(
     repeat_index: int = 0,
     extra_data: Dict[str, Any] = None
 ) -> bool:
-    """
-    Save decision and metadata to filesystem.
-    Now includes nshot_ct in output for COT_NSHOT prompts.
-    """
+    """Save decision and metadata to filesystem."""
     if extra_data is None:
         extra_data = {}
 
     try:
-        output_dir = Path(config.output["base_dir"]) / model_name
+        clean_name = clean_model_name(model_name)
+        output_dir = Path(config.output["base_dir"]) / clean_name
         output_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        if prompt_type == PromptType.COT_NSHOT:
-            filename = (
-                f"{model_name}_{prompt_type}_id{row_id}_nshot{config.execution.nshot_ct}_{timestamp}.json"
-            )
-        else:
-            filename = (
-                f"{model_name}_{prompt_type}_id{row_id}_ver{repeat_index}_{timestamp}.json"
-            )
+        output_path = generate_output_path(
+            model_name=model_name,
+            prompt_type=prompt_type,
+            row_id=row_id,
+            repeat_index=repeat_index,
+            timestamp=timestamp,
+            config=config,
+            output_dir=output_dir,
+            nshot_ct=config.execution.nshot_ct if prompt_type == PromptType.COT_NSHOT else None
+        )
 
         decision_data = pydantic_or_dict(decision)
         meta_data_data = pydantic_or_dict(meta_data)
 
-        # Mark correctness
         decision_data.update({
             'id': row_id,
             'actual': actual_value,
@@ -274,7 +271,6 @@ def save_decision(
 
         meta_data_data = convert_ns_to_s(meta_data_data)
 
-        # Combine all data
         combined_data = {
             "decision": decision_data,
             "meta_data": meta_data_data,
@@ -288,7 +284,6 @@ def save_decision(
             }
         }
 
-        # Add nshot_ct for COT_NSHOT prompts
         if prompt_type == PromptType.COT_NSHOT:
             combined_data["evaluation"]["nshot_ct"] = config.execution.nshot_ct
 
@@ -297,8 +292,6 @@ def save_decision(
         
         combined_data["prompt"] = used_prompt
 
-        # Save to file
-        output_path = output_dir / filename
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(combined_data, f, indent=2, default=str)
 
