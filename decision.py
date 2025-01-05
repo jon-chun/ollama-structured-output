@@ -51,7 +51,7 @@ def generate_output_path(
         )
     return output_dir / filename
 
-def process_model_response(response_text: str) -> Dict:
+def process_model_response(response_text: str, model_name: str) -> Dict:
     """
     Attempt multiple parsing strategies to interpret the model output as JSON
     with {'prediction': 'YES'|'NO', 'confidence': 0..100, 'risk_factors': [...] }.
@@ -124,6 +124,7 @@ def process_model_response(response_text: str) -> Dict:
         return normalized
 
     except Exception as e:
+        logging.error(f"Error processing model: {str(model_name)}")
         logging.error(f"Error processing model response: {str(e)}")
         logging.error(f"Raw response: {response_text}")
         raise
@@ -158,7 +159,7 @@ async def get_decision(
         if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
             raise ValueError("Invalid API response structure")
 
-        normalized_response = process_model_response(response.message.content)
+        normalized_response = process_model_response(response.message.content, model_name)
 
         try:
             decision = Decision(

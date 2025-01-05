@@ -1,0 +1,60 @@
+RESTARTABLE 
+==================================================
+1. before processing any distinct prompt_type for any given model_name, first check the output directory and make sure ther the count of output reponse unique filename roots (minus the datetime suffix) for this particular model,prompt combination does exceed (max_calls_per_prompt)*(max_samples), it it does skip to the next prompt under the current model. If all prompts processed under the current model, skip to the next model if there is one (if no more models to process, continue with any more code for analysis, graphs, etc)
+
+2. before making an API call for a given prompt, check if the output response file already exists in the destination subdir with the same root f"{model_name}_{prompt_type}_{id}_*.jjson" (ignore ver{n} and datetime substrings in filename). If a match does exist, skip to the next iternation to draw a different sample row to avoid duplicate samples / inference reponse output files.
+
+FILE NAMING AND STRUCTURE
+==================================================
+0. move all code *.py files into the subdirector {project_name} and follow the standards for Python library tree strcture to organize code
+
+1. change the target output subdir for each API call response file from /{config.output['base_dir']/ to /{config.output['base_dir']/{prompt_type} to better organize/classify output files by both model_name and prompt_type
+
+2. after each successful API call change the output filename to be OS-friendby by saving the filename as f"{clean_model_name(model_name})_{prompt_type}_{id}_...} where clean_model_name() is imported from utils.py
+
+MALFORMED_RESPONSES:
+==================================================
+1. After each individual API call, if the reponse object cannot be parsed at all, if config.malformed_response['save_malformed_response']==True then save the raw malformed response object in the subdir {config.output['base_dir']/{prompt_type}/MALFORMED/ else ignore the response object 
+
+2. After receiving a malformed response for an individual API call, retry the call upto config.malformed_response['retry_malformed_ct']
+
+REASONING
+==================================================
+config.execution['xxx']
+  save_prompts: True # Unused for now
+  require_reasoning: False # Unused for now
+  require_reasoning_retry_ct: 3 # Unused for now
+  
+MULTISTEP AGENT REASONING
+==================================================
+
+
+BASELINE CODE GENERATION AND CONFIRMATION
+==================================================
+1. if config.execution['generation_type']=='code' then
+a. find best location to add function validate_code_syntax(code_str, language_type='python') which attempts to execute code_str with the language interpretor/compilier specificed by language_type (default python interpreter) and returns True if code_str can be interpreted/complied without any errors
+b. find the best location to add fuction validate_code_correct(code_str, language_type='python', correct_output) which tries to execute code_str using language_type complier/interpreter and returns True if the output matches correct_output
+
+ANALYSIS
+==================================================
+
+
+VISUALIZATIONS
+==================================================
+
+
+DATASET VARIATIONS
+==================================================
+clean, linearly separable binary_clf dataset
+
+FEATURE VARIATIONS
+==================================================
+clean, linearly separable
+XGBoost Feature Importance (most only)
+
+PROMPT VARIATIONS
+==================================================
+encoding, xml, numeric, A=1, B=2, ...
+Prefix/postfix def of fairness -> response distribution shift?
+
+
