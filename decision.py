@@ -10,7 +10,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field, ValidationError
 from ollama import chat  # Ensure you have the Ollama client installed and configured
 
-from config import Config
+from config_ver7 import Config
 from models import Decision, PromptType
 from metrics import TimeoutMetrics
 from utils import pydantic_or_dict, convert_ns_to_s
@@ -210,22 +210,24 @@ async def get_decision_with_timeout(
     timeout_seconds = float(config.model_parameters.get("api_timeout", 30.0))
 
     try:
+        logging.debug(f"Calling get_decision with prompt: {prompt[:50]}...")  # Log first 50 chars
         decision, meta_data, used_prompt, extra_data = await asyncio.wait_for(
             get_decision(prompt_type, model_name, config, prompt),
             timeout=timeout_seconds
         )
+        logging.debug("Received response from get_decision.")
         return decision, meta_data, used_prompt, extra_data, timeout_metrics
 
     except asyncio.TimeoutError:
         logging.warning("API call timed out while waiting for model response...")
         timeout_metrics.occurred = True
         timeout_metrics.retry_count += 1
-        # Update total_timeout_duration if tracking
         return None, None, prompt, {}, timeout_metrics
 
     except Exception as e:
         logging.error(f"Error during API call: {str(e)}")
         return None, None, prompt, {}, timeout_metrics
+
 
 
 def save_decision(
@@ -252,9 +254,14 @@ def save_decision(
         output_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        filename = (
-            f"{model_name}_{prompt_type}_id{row_id}_ver{repeat_index}_{timestamp}.json"
-        )
+        if prompt_type == 'cot-nshot':
+            filename = (
+                f"{model_name}_{prompt_type}-{config.execution['cot-nshot']}_id{row_id}_ver{repeat_index}_{timestamp}.json"
+            )
+        else:
+            filename = (
+                f"{model_name}_{prompt_type}_id{row_id}_ver{repeat_index}_{timestamp}.json"
+            )
 
         decision_data = pydantic_or_dict(decision)
         meta_data_data = pydantic_or_dict(meta_data)

@@ -9,12 +9,13 @@ model_parameters:
 
 # Execution settings
 execution:
-  max_calls_per_prompt: 1  # Maximum number of calls per prompt/sample
+  max_calls_per_prompt:  3 # Maximum number of calls per prompt/sample
   batch_size: 1
+  nshot_ct: 10
 
-# Global configuration parameters
+# Global configuration parameters: flags and constants
 flags:
-  max_samples: 3  # Maximum number of samples to evaluate (if less than training set size)
+  max_samples: 5
   FLAG_PROMPT_PREFIX: False  # Enable prompt prefix
   FLAG_PROMPT_SUFFIX: False  # Enable prompt suffix
   prompt_prefix: "IMPORTANT PREFIX: Please review the following information carefully.\n"
@@ -50,6 +51,8 @@ output:
 # Data configuration
 data:
   input_file: "./data/vignettes_renamed_clean.csv"
+  risk_factors: "short_text_summary"
+  outcome: "target"
   random_seed: 42
   train_split: 20  # 20% for training
   validate_split: 20  # 20% for validation
@@ -88,6 +91,27 @@ prompts:
       "prediction": "YES" or "NO",
       "confidence": number between 0 and 100
     }
+
+  cot-nshot: |
+    You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:
+    {nshot_example_str}
+    
+    Next, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:
+    {risk_factors}
+
+    Based on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.
+    Respond ONLY with a JSON object in exactly this format, with no additional text:
+    
+    {
+      "risk_factors": [
+        ("factor1", "low"|"medium"|"high", "textual reasoning"),
+        ("factor2", "low"|"medium"|"high", "textual reasoning"),
+        ...
+      ],
+      "prediction": "YES" or "NO",
+      "confidence": number between 0 and 100
+    }
+
 
 # Model ensemble configuration
 model_ensemble:

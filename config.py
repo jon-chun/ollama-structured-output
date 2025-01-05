@@ -4,10 +4,21 @@ import yaml
 from pydantic import BaseModel, Field, ValidationError
 from typing import Dict, Any
 
+class ExecutionConfig(BaseModel):
+    max_calls_per_prompt: int = Field(..., ge=1, description="Maximum number of calls per prompt/sample")
+    batch_size: int = Field(..., ge=1, description="Number of samples per batch")
+
+class FlagsConfig(BaseModel):
+    max_samples: int = Field(..., ge=1, description="Maximum number of samples to process")
+    FLAG_PROMPT_PREFIX: bool = Field(..., description="Enable prompt prefix")
+    FLAG_PROMPT_SUFFIX: bool = Field(..., description="Enable prompt suffix")
+    prompt_prefix: str = Field(..., description="Prefix to prepend to prompts")
+    prompt_suffix: str = Field(..., description="Suffix to append to prompts")
+
 class Config(BaseModel):
     model_parameters: Dict[str, Any]
-    execution: Dict[str, Any]
-    flags: Dict[str, Any]
+    execution: ExecutionConfig
+    flags: FlagsConfig
     timeout: Dict[str, Any]
     logging: Dict[str, Any]
     output: Dict[str, Any]
@@ -17,13 +28,21 @@ class Config(BaseModel):
 
     @property
     def max_samples(self) -> int:
-        """
-        Return the maximum number of samples specified in the config.
-        If <= 0, then we do not limit the samples.
-        """
-        return int(self.flags.get("max_samples", 0))
+        return self.flags.max_samples
+
+    @property
+    def max_calls_per_prompt(self) -> int:
+        return self.execution.max_calls_per_prompt
+
+    @property
+    def batch_size(self) -> int:
+        return self.execution.batch_size
 
 def load_config(config_file: str = "config.yaml") -> Config:
     with open(config_file, 'r') as f:
         yaml_data = yaml.safe_load(f)
-    return Config(**yaml_data)
+    try:
+        return Config(**yaml_data)
+    except ValidationError as ve:
+        print(f"Configuration validation error: {ve}")
+        raise

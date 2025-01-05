@@ -1,5 +1,4 @@
 # data_manager.py
-
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -7,7 +6,7 @@ from pathlib import Path
 import logging
 from typing import Optional, Tuple, List, Dict, Any
 
-from config import Config
+from config_ver7 import Config
 
 
 class DataManager:
@@ -36,7 +35,6 @@ class DataManager:
         self.df: Optional[pd.DataFrame] = None
         self.df_train: Optional[pd.DataFrame] = None
         self.df_test: Optional[pd.DataFrame] = None
-        self.df_validate: Optional[pd.DataFrame] = None
         
     def _normalize_target_values(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -159,6 +157,8 @@ class DataManager:
         if abs(total_ratio - 1.0) > 1e-6:
             raise ValueError(f"train/validate/test ratios do not sum to 1.0 (found {total_ratio})")
 
+
+
         try:
             # Load data and add tracking IDs
             self.df = pd.read_csv(self.data_path)
@@ -169,6 +169,8 @@ class DataManager:
             self.validate_data(self.df)
             
             # Create reproducible random split
+            # np.random.seed(self.config.data["random_seed"])
+            # self.df = self.df.sample(frac=1).reset_index(drop=True)
             self.df = self.df.sample(frac=1.0, random_state=self.config.data["random_seed"]).reset_index(drop=True)
 
             # Perform stratified split to maintain class balance
@@ -202,12 +204,19 @@ class DataManager:
             logging.info(f"Train: {len(self.df_train)} Validate: {len(self.df_validate)} Test: {len(self.df_test)}")
             logging.info(f"Target distribution in training set:\n{self.df_train['target'].value_counts()}")
 
+            # Log data preparation results
+            # logging.info(f"Loaded {len(self.df)} total samples")
+            # logging.info(f"Split into {len(self.df_train)} train and {len(self.df_test)} test samples")
+            # logging.info(f"Target distribution in training set: \n{self.df_train['target'].value_counts()}")
+            
             return len(self.df_train), len(self.df_test)
             
         except Exception as e:
             logging.error(f"Error loading and preparing data: {str(e)}")
             raise
 
+
+            
     def get_risk_factors(self, row_id: int) -> str:
         """Get risk factors text for a specific row"""
         if self.df_train is None:
@@ -218,7 +227,7 @@ class DataManager:
             raise ValueError(f"Row ID {row_id} not found in training data")
             
         return row['short_text_summary'].iloc[0]
-
+    
     def get_actual_value(self, row_id: int) -> str:
         """Get actual target value for a specific row"""
         if self.df_train is None:
@@ -229,7 +238,7 @@ class DataManager:
             raise ValueError(f"Row ID {row_id} not found in training data")
             
         return row['target'].iloc[0]
-
+    
     def get_batch(self, batch_size: int, dataset: str = 'train') -> List[Dict]:
         """
         Get a batch of samples from the specified dataset.
@@ -240,7 +249,7 @@ class DataManager:
         
         Args:
             batch_size: Number of samples to retrieve (or all samples if None)
-            dataset: Which dataset to use ('train', 'test', or 'validate')
+            dataset: Which dataset to use ('train' or 'test')
             
         Returns:
             List of dictionaries, each containing:
@@ -252,13 +261,15 @@ class DataManager:
             RuntimeError: If data hasn't been loaded
             ValueError: If dataset parameter is invalid
         """
-        if self.df_train is None or self.df_test is None or self.df_validate is None:
+        if self.df_train is None or self.df_test is None:
             raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
         
         # Select appropriate dataset
         if dataset not in ['train', 'test', 'validate']:
-            raise ValueError("Dataset must be 'train', 'test', or 'validate'")
+            raise ValueError("Dataset must be 'train' or 'test' or 'validate'")
         
+        # df = self.df_train if dataset == 'train' else self.df_test
+
         if dataset == 'train':
             df = self.df_train
         elif dataset == 'validate':
@@ -310,20 +321,18 @@ class DataManager:
         Raises:
             RuntimeError: If data hasn't been loaded
         """
-        if self.df is None or self.df_train is None or self.df_test is None or self.df_validate is None:
+        if self.df is None or self.df_train is None or self.df_test is None:
             raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
             
         return {
             'dataset_sizes': {
                 'total': len(self.df),
                 'train': len(self.df_train),
-                'validate': len(self.df_validate),
                 'test': len(self.df_test)
             },
             'target_distributions': {
                 'overall': self.df['target'].value_counts().to_dict(),
                 'train': self.df_train['target'].value_counts().to_dict(),
-                'validate': self.df_validate['target'].value_counts().to_dict(),
                 'test': self.df_test['target'].value_counts().to_dict()
             },
             'feature_statistics': {
@@ -334,4 +343,4 @@ class DataManager:
                     self.df['short_text_summary'].str.len().max()
                 ]
             }
-        }
+        }   

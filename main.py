@@ -6,7 +6,7 @@ import time
 from typing import List, Optional
 from pathlib import Path
 
-from config import load_config
+from config import load_config, Config
 from data_manager import DataManager  # your code that loads data
 from prompt_manager import PromptManager  # your code that provides get_prompt
 from models import PromptType
@@ -17,80 +17,87 @@ from decision import (
     save_decision
 )
 
-def build_final_prompt(config, base_prompt: str) -> str:
+def build_final_prompt(config: Config, base_prompt: str) -> str:
     """
     Conditionally prepend and/or append prefix and suffix to the base prompt.
     """
     final_prompt = ""
 
     # Prepend prefix if FLAG_PROMPT_PREFIX is True
-    if config.flags.get("FLAG_PROMPT_PREFIX", False):
-        prefix_text = config.flags.get("prompt_prefix", "")
-        final_prompt += prefix_text
+    if config.flags.FLAG_PROMPT_PREFIX:
+        final_prompt += config.flags.prompt_prefix
 
     # Add the base prompt
     final_prompt += base_prompt
 
     # Append suffix if FLAG_PROMPT_SUFFIX is True
-    if config.flags.get("FLAG_PROMPT_SUFFIX", False):
-        suffix_text = config.flags.get("prompt_suffix", "")
-        final_prompt += suffix_text
+    if config.flags.FLAG_PROMPT_SUFFIX:
+        final_prompt += config.flags.prompt_suffix
 
     return final_prompt
 
 async def run_evaluation_cycle(
     model_name: str,
     prompt_type: PromptType,
-    config,
+    config: Config,
     tracker: PerformanceTracker,
     data_manager: DataManager,
     prompt_manager: PromptManager
 ) -> None:
     """
     Run an evaluation cycle for a specific model & prompt type,
-    now with repeated calls for each sample.
+    respecting max_samples, batch_size and max_calls_per_prompt constraints.
     """
-    # Get batch size and the max calls per sample
-    batch_size = config.execution.get("batch_size", 50)
-    max_calls = config.execution.get("max_calls_per_prompt", 1)
+    # Get configuration constraints
+    max_samples = config.flags.max_samples
+    batch_size = config.batch_size
+    max_calls = config.max_calls_per_prompt
 
+    # Get dataset info and apply max_samples constraint
     dataset_info = data_manager.get_dataset_info()
-    total_train_samples = dataset_info['dataset_sizes']['train']
-    # Limit total samples if config.flags.max_samples > 0
-    if config.flags.get("max_samples", 0) > 0:
-        total_train_samples = min(total_train_samples, config.flags["max_samples"])
+    total_samples = min(
+        dataset_info['dataset_sizes']['train'],
+        max_samples if max_samples > 0 else float('inf')
+    )
 
     logging.info(
         f"Starting evaluation cycle for {model_name} with {prompt_type}, "
-        f"up to {total_train_samples} samples, each repeated {max_calls} times."
+        f"processing {total_samples} samples, batch size {batch_size}, "
+        f"each repeated {max_calls} times"
     )
 
-    remaining_samples = total_train_samples
     processed_samples = 0
-
-    while remaining_samples > 0:
+    
+    while processed_samples < total_samples:
+        # Calculate remaining samples and current batch size
+        remaining_samples = total_samples - processed_samples
         current_batch_size = min(batch_size, remaining_samples)
+        
         try:
+            # Get batch of samples
             data_batch = data_manager.get_batch(current_batch_size, dataset='train')
+            
             for sample in data_batch:
+                if processed_samples >= total_samples:
+                    break
+                    
                 row_id = sample['id']
                 actual_value = sample['target']
-
-                # -- NEW: We'll call the same prompt multiple times --
+                
+                # Process each sample exactly max_calls times
                 for repeat_index in range(max_calls):
                     start_time = time.time()
                     logging.info(
-                        f"Processing sample {processed_samples + 1}/"
-                        f"{total_train_samples} (ID: {row_id}), repeat #{repeat_index+1}"
+                        f"Processing sample {processed_samples + 1}/{total_samples} "
+                        f"(ID: {row_id}), repeat #{repeat_index + 1}/{max_calls}"
                     )
 
                     try:
-                        # Build the prompt from row_id
+                        # Build the prompt
                         prompt = prompt_manager.get_prompt(prompt_type, row_id)
-                        # Apply prefix/suffix if enabled
                         final_prompt = build_final_prompt(config, prompt)
 
-                        # Call the model (with timeout)
+                        # Get decision with timeout
                         decision, meta_data, used_prompt, extra_data, timeout_metrics = await get_decision_with_timeout(
                             prompt_type=prompt_type,
                             model_name=model_name,
@@ -101,7 +108,7 @@ async def run_evaluation_cycle(
                         execution_time = time.time() - start_time
 
                         if decision is not None:
-                            # Save each repeated call with a version index
+                            # Save valid decision
                             save_success = save_decision(
                                 decision=decision,
                                 meta_data=meta_data,
@@ -112,13 +119,13 @@ async def run_evaluation_cycle(
                                 config=config,
                                 used_prompt=used_prompt,
                                 repeat_index=repeat_index,
-                                extra_data=extra_data,  # pass the risk_factors
+                                extra_data=extra_data
                             )
+                            
                             if not save_success:
                                 logging.warning("Decision valid but save failed")
 
-                            # Record the repeated call in PerformanceTracker
-                            # We treat each repeated call as a separate attempt
+                            # Record metrics
                             attempt_num = (processed_samples + 1) * 1000 + repeat_index + 1
                             metrics = PromptMetrics(
                                 attempt_number=attempt_num,
@@ -127,10 +134,10 @@ async def run_evaluation_cycle(
                                 timeout_metrics=timeout_metrics,
                                 prediction=decision.prediction,
                                 confidence=decision.confidence,
-                                meta_data=meta_data.dict() if meta_data else {}
+                                meta_data=meta_data.model_dump() if meta_data else {}
                             )
                         else:
-                            # No decision received
+                            # Record failed attempt
                             attempt_num = (processed_samples + 1) * 1000 + repeat_index + 1
                             metrics = PromptMetrics(
                                 attempt_number=attempt_num,
@@ -144,21 +151,23 @@ async def run_evaluation_cycle(
 
                     except Exception as e:
                         logging.error(f"Error processing sample {row_id} (repeat {repeat_index}): {str(e)}")
-
-                # After we've repeated calls for this sample, increment processed_samples
+                
                 processed_samples += 1
-
-            remaining_samples -= current_batch_size
+                if processed_samples >= total_samples:
+                    break
 
         except Exception as e:
             logging.error(f"Error processing batch: {str(e)}")
-            # Depending on your preference, continue or break
             break
+
+    logging.info(f"Evaluation cycle completed. Processed {processed_samples} samples.")
+
+
 
 async def run_evaluation_session(
     model_name: str,
     prompt_type: PromptType,
-    config,
+    config: Config,
     data_manager: DataManager,
     prompt_manager: PromptManager
 ) -> Optional[PerformanceStats]:
@@ -184,10 +193,9 @@ async def run_evaluation_session(
 
 async def main():
     """Main orchestrator for the evaluation process."""
-    config = load_config("config.yaml")
-    overall_start = time.time()
 
     # Setup logging
+    config = load_config("config.yaml")
     logging.basicConfig(
         level=getattr(logging, config.logging["level"].upper()),
         format=config.logging["format"],
@@ -196,6 +204,13 @@ async def main():
             logging.StreamHandler()
         ]
     )
+
+    logging.debug(f"Loaded configuration: {config}")
+    logging.debug(f"Max Samples: {config.max_samples}")
+    logging.debug(f"Max Calls per Prompt: {config.max_calls_per_prompt}")
+    logging.debug(f"Batch Size: {config.batch_size}")
+    overall_start = time.time()
+
 
     try:
         # Prepare data
@@ -217,6 +232,7 @@ async def main():
             # Evaluate each prompt type
             for p_type in PromptType:
                 logging.info(f"Testing prompt type: {p_type}")
+                logging.info(f"Evaluation settings - Max Samples: {config.max_samples}, Max Calls per Prompt: {config.max_calls_per_prompt}")
                 stats = await run_evaluation_session(
                     model_name=model_name,
                     prompt_type=p_type,
@@ -237,7 +253,7 @@ async def main():
         logging.info(f"All evaluations completed in {total_duration:.2f} seconds.")
 
     except Exception as e:
-        logging.error(f"Fatal error in main: {str(e)}")
+        logging.error(f"Fatal error in main: {e}")
         raise
 
 if __name__ == "__main__":

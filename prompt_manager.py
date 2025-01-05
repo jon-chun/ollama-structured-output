@@ -2,8 +2,8 @@
 import logging
 from typing import Dict
 
-from config_ver6 import Config
-from data_manager import DataManager
+from config_ver7 import Config
+from data_manager_ver7 import DataManager
 from models import PromptType
 
 class PromptManager:

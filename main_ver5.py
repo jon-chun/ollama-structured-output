@@ -6,7 +6,7 @@ from typing import List, Optional
 from pathlib import Path
 
 from config_ver6 import load_config
-from data_manager import DataManager  # your code that loads data
+from data_manager_ver7 import DataManager  # your code that loads data
 from prompt_manager import PromptManager  # your code that provides get_prompt
 from models import PromptType
 from metrics import PromptMetrics, TimeoutMetrics
