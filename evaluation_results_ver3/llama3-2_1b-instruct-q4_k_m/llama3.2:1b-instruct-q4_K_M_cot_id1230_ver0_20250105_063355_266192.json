@@ -1,0 +1,51 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1230,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-05T11:33:55.265099783Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.375579444,
+    "load_duration": 0.017626509,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.405,
+    "eval_count": 182,
+    "eval_duration": 4.951
+  },
+  "evaluation": {
+    "timestamp": "20250105_063355_266192",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1230,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "race",
+      "black",
+      "low",
+      "The individual's racial identity may influence his perception of the justice system, potentially leading to biases in the application of justice. However, this factor is not directly applicable to recidivism prediction as it relates to an individual's likelihood of being rearrested within a 3-year period.",
+      "textual reasoning"
+    ],
+    [
+      " Arrest History",
+      "low",
+      "The individual has been arrested once but has not been convicted. This factors in his past behavior and does not necessarily imply future risk.",
+      "textual reasoning"
+    ],
+    [
+      "Age",
+      "high",
+      "As the individual is relatively young, it may be assumed that he is less experienced with the justice system, which could impact his likelihood of recidivism.",
+      "textual reasoning"
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

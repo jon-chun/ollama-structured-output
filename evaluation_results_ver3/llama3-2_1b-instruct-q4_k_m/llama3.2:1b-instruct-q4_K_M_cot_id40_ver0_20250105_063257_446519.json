@@ -1,0 +1,50 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 40,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-05T11:32:57.445355079Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.968391204,
+    "load_duration": 0.018405583,
+    "prompt_eval_count": 218,
+    "prompt_eval_duration": 0.429,
+    "eval_count": 166,
+    "eval_duration": 4.519
+  },
+  "evaluation": {
+    "timestamp": "20250105_063257_446519",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 40,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Conviction history (3+ times)",
+      "low",
+      "Hispanic individual with multiple arrests may be at higher risk of recidivism due to potential lack of rehabilitation efforts, negative social stigma, and limited access to support services.",
+      "3"
+    ],
+    [
+      "Age (21)",
+      "high",
+      "Young adults are more likely to reoffend due to immaturity, lack of life experience, and increased vulnerability to peer influence.",
+      "1"
+    ],
+    [
+      "Previous arrest conviction (3 times) in same jurisdiction",
+      "medium",
+      "A history of repeated arrests in the same area may indicate a pattern of recidivism, despite the individual's identity as Hispanic or age being relevant factors.",
+      "2"
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

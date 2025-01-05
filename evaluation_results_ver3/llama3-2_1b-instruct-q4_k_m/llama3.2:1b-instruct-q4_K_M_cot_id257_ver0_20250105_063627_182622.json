@@ -1,0 +1,52 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 257,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-05T11:36:27.181618635Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.636777403,
+    "load_duration": 0.018022165,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.447,
+    "eval_count": 151,
+    "eval_duration": 4.17
+  },
+  "evaluation": {
+    "timestamp": "20250105_063627_182622",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 257,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "low",
+      "the person is under 18 years old, which increases the likelihood of recidivism"
+    ],
+    [
+      "gender",
+      "medium",
+      "mixed race is a vulnerable identity group that may have been stigmatized or marginalized by society, potentially leading to increased stress and trauma"
+    ],
+    [
+      "previous_offence",
+      "high",
+      "she has already been arrested and convicted, indicating a higher risk of reoffending in the future"
+    ],
+    [
+      "education",
+      "low",
+      "her education level is not mentioned, but being an 18-year-old female may indicate limited access to resources and support systems, increasing vulnerability"
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as mixed race. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}
