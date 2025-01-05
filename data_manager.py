@@ -6,7 +6,7 @@ from pathlib import Path
 import logging
 from typing import Optional, Tuple, List, Dict, Any
 
-from config import Config
+from config_ver6 import Config
 
 
 class DataManager:
@@ -146,32 +146,68 @@ class DataManager:
         if not self.data_path.exists():
             raise FileNotFoundError(f"Data file not found: {self.data_path}")
         
+
+        train_ratio = self.config.data.get("train_split", 20) / 100.0
+        validate_ratio = self.config.data.get("validate_split", 20) / 100.0
+        test_ratio = self.config.data.get("test_split", 60) / 100.0
+
+
+        # Sanity check: they should sum up to ~1.0
+        total_ratio = train_ratio + validate_ratio + test_ratio
+        if abs(total_ratio - 1.0) > 1e-6:
+            raise ValueError(f"train/validate/test ratios do not sum to 1.0 (found {total_ratio})")
+
+
+
         try:
             # Load data and add tracking IDs
             self.df = pd.read_csv(self.data_path)
             self.df['id'] = np.arange(len(self.df))
-            
+
             # Normalize and validate target values
             self.df = self._normalize_target_values(self.df)
             self.validate_data(self.df)
             
             # Create reproducible random split
-            np.random.seed(self.config.data["random_seed"])
-            self.df = self.df.sample(frac=1).reset_index(drop=True)
-            
+            # np.random.seed(self.config.data["random_seed"])
+            # self.df = self.df.sample(frac=1).reset_index(drop=True)
+            self.df = self.df.sample(frac=1.0, random_state=self.config.data["random_seed"]).reset_index(drop=True)
+
             # Perform stratified split to maintain class balance
-            train_size = self.config.data["train_split"]
-            self.df_train, self.df_test = train_test_split(
-                self.df, 
-                train_size=train_size,
+
+            # 1) Train split
+            df_train, df_rest = train_test_split(
+                self.df,
+                train_size=train_ratio,
                 random_state=self.config.data["random_seed"],
                 stratify=self.df['target']
             )
-            
-            # Log data preparation results
+
+            # 2) Validate from df_rest
+            # proportion of df_rest we want for validation:
+            # validate_ratio is of the entire dataset,
+            # but we only have the remainder, so we compute
+            val_fraction_of_rest = validate_ratio / (validate_ratio + test_ratio)
+
+            df_validate, df_test = train_test_split(
+                df_rest,
+                train_size=val_fraction_of_rest,
+                random_state=self.config.data["random_seed"],
+                stratify=df_rest['target']
+            )
+
+            self.df_train = df_train
+            self.df_validate = df_validate
+            self.df_test = df_test
+
             logging.info(f"Loaded {len(self.df)} total samples")
-            logging.info(f"Split into {len(self.df_train)} train and {len(self.df_test)} test samples")
-            logging.info(f"Target distribution in training set: \n{self.df_train['target'].value_counts()}")
+            logging.info(f"Train: {len(self.df_train)} Validate: {len(self.df_validate)} Test: {len(self.df_test)}")
+            logging.info(f"Target distribution in training set:\n{self.df_train['target'].value_counts()}")
+
+            # Log data preparation results
+            # logging.info(f"Loaded {len(self.df)} total samples")
+            # logging.info(f"Split into {len(self.df_train)} train and {len(self.df_test)} test samples")
+            # logging.info(f"Target distribution in training set: \n{self.df_train['target'].value_counts()}")
             
             return len(self.df_train), len(self.df_test)
             
@@ -229,10 +265,21 @@ class DataManager:
             raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
         
         # Select appropriate dataset
-        if dataset not in ['train', 'test']:
-            raise ValueError("Dataset must be 'train' or 'test'")
-        df = self.df_train if dataset == 'train' else self.df_test
+        if dataset not in ['train', 'test', 'validate']:
+            raise ValueError("Dataset must be 'train' or 'test' or 'validate'")
         
+        # df = self.df_train if dataset == 'train' else self.df_test
+
+        if dataset == 'train':
+            df = self.df_train
+        elif dataset == 'validate':
+            df = self.df_validate
+        elif dataset == 'test':
+            df = self.df_test
+        else:
+            raise ValueError(f"Invalid dataset: {dataset}")
+
+
         # If batch_size is None or larger than dataset, use entire dataset
         if batch_size is None or batch_size >= len(df):
             batch_df = df

@@ -2,7 +2,7 @@
 import logging
 from typing import Dict
 
-from config import Config
+from config_ver6 import Config
 from data_manager import DataManager
 from models import PromptType
 

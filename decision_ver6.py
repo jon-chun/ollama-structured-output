@@ -1,5 +1,4 @@
 # decision.py
-
 import json
 import logging
 from typing import Optional, Tuple, Dict, Any
@@ -8,12 +7,13 @@ from datetime import datetime
 from pathlib import Path
 
 from pydantic import BaseModel, Field, ValidationError
-from ollama import chat  # Ensure you have the Ollama client installed and configured
+from ollama import chat
 
-from config import Config
+from config_ver6 import Config
 from models import Decision, PromptType
 from metrics import TimeoutMetrics
 from utils import pydantic_or_dict, convert_ns_to_s
+
 
 class MetaData(BaseModel):
     """Model to represent metadata from an API response."""
@@ -29,79 +29,104 @@ class MetaData(BaseModel):
     eval_duration: Optional[float] = Field(None, ge=0, description="Response generation duration")
 
 
+def extract_meta_data(response: Any) -> MetaData:
+    """
+    Safely extracts metadata fields from the API response,
+    converting time measurements from nanoseconds to seconds where needed.
+    """
+    meta_data = {}
+
+    meta_data["model"] = getattr(response, "model", None)
+    meta_data["created_at"] = getattr(response, "created_at", None)
+    meta_data["done_reason"] = getattr(response, "done_reason", None)
+    meta_data["done"] = getattr(response, "done", None)
+
+    # Convert timing fields from nanoseconds if needed
+    timing_fields = [
+        "total_duration",
+        "load_duration",
+        "prompt_eval_duration",
+        "eval_duration"
+    ]
+    for field in timing_fields:
+        value = getattr(response, field, None)
+        if value is not None:
+            meta_data[field] = float(value) / 1e9 if value > 1e7 else float(value)
+
+    # Extract count fields
+    for field in ["prompt_eval_count", "eval_count"]:
+        meta_data[field] = getattr(response, field, None)
+
+    return MetaData(**meta_data)
+
+
 def process_model_response(response_text: str) -> Dict:
     """
-    Attempt multiple parsing strategies to interpret the model output as JSON
-    with {'prediction': 'YES'|'NO', 'confidence': 0..100, 'risk_factors': [...] }.
+    Attempt multiple parsing strategies to interpret the model output as JSON with
+    {'prediction': 'YES'|'NO', 'confidence': 0..100}.
     """
     try:
         logging.debug(f"Raw model response: {response_text}")
+
+        # Remove any markdown-style fences
         clean_text = response_text.replace('```json', '').replace('```', '')
+
         parsed_response = None
 
-        # Strategy 1: Direct JSON parsing
+        # Strategy 1: direct JSON parse
         try:
             parsed_response = json.loads(clean_text.strip())
             logging.debug("Successfully parsed response as JSON")
         except json.JSONDecodeError:
             logging.debug("Failed to parse as direct JSON")
 
-        # Strategy 2: Extract JSON from text using regex
+        # Strategy 2: find JSON content in text
         if not parsed_response:
             import re
-            json_pattern = r'\{.*\}'
-            matches = re.findall(json_pattern, clean_text, re.DOTALL)
+            json_pattern = r'\{[^}]+\}'
+            matches = re.findall(json_pattern, clean_text)
             for match in matches:
                 try:
                     parsed_response = json.loads(match)
-                    logging.debug("Extracted and parsed JSON content using regex")
+                    logging.debug("Extracted and parsed JSON content")
                     break
                 except json.JSONDecodeError:
                     continue
 
-        # Strategy 3: Structured text parsing for specific fields
+        # Strategy 3: parse structured text for lines like "prediction: YES, confidence: 88"
         if not parsed_response:
             import re
             prediction_match = re.search(r'prediction[\s:"]*([YN]ES|NO)', clean_text, re.IGNORECASE)
             confidence_match = re.search(r'confidence[\s:"]*(\d+)', clean_text)
-            risk_factors_match = re.search(r'risk_factors[\s:"]*(\[.*\])', clean_text, re.IGNORECASE)
             if prediction_match and confidence_match:
                 parsed_response = {
                     "prediction": prediction_match.group(1).upper(),
                     "confidence": int(confidence_match.group(1))
                 }
-                if risk_factors_match:
-                    parsed_response["risk_factors"] = json.loads(risk_factors_match.group(1))
                 logging.debug("Parsed structured text response")
-        
+
         if not parsed_response:
             raise ValueError("Could not extract valid response from model output")
 
-        # Normalize the response
+        # Normalize as before
         normalized = {}
 
-        # Handle prediction
         pred_value = str(parsed_response.get('prediction', '')).upper()
         if pred_value in ['YES', 'NO']:
             normalized['prediction'] = pred_value
         else:
-            # Fallback interpretation
-            positive_indicators = ['YES', 'TRUE', '1', 'HIGH']
-            if any(ind in pred_value for ind in positive_indicators):
-                normalized['prediction'] = 'YES'
-            else:
-                normalized['prediction'] = 'NO'
+            # fallback
+            normalized['prediction'] = 'YES' if 'yes' in pred_value.lower() else 'NO'
 
-        # Handle confidence
         conf_value = parsed_response.get('confidence', None)
         if conf_value is not None:
             if isinstance(conf_value, str):
-                conf_value = float(conf_value.replace('%', ''))
-            normalized['confidence'] = int(min(max(float(conf_value), 0.0), 100.0))
+                conf_value = float(conf_value.replace('%',''))
+            normalized['confidence'] = int(min(max(conf_value, 0.0), 100.0))
         else:
-            normalized['confidence'] = 90  # Default confidence
+            normalized['confidence'] = 90
 
-        # Handle risk_factors
+        # NEW: Extract "risk_factors" if present, store them in normalized
         if 'risk_factors' in parsed_response:
             normalized['risk_factors'] = parsed_response['risk_factors']
         else:
@@ -116,6 +141,25 @@ def process_model_response(response_text: str) -> Dict:
         raise
 
 
+# main.py or decision.py (wherever you construct the final prompt text)
+def build_final_prompt(config, base_prompt: str) -> str:
+    final_prompt = ""
+
+    # If the prefix flag is true, prepend prefix
+    if config.flags.get("FLAG_PROMPT_PREFIX", False):
+        prefix_text = config.flags.get("prompt_prefix", "")
+        final_prompt += prefix_text
+
+    final_prompt += base_prompt
+
+    # If the suffix flag is true, append suffix
+    if config.flags.get("FLAG_PROMPT_SUFFIX", False):
+        suffix_text = config.flags.get("prompt_suffix", "")
+        final_prompt += suffix_text
+
+    return final_prompt
+
+
 async def get_decision(
     prompt_type: PromptType,
     model_name: str,
@@ -123,23 +167,24 @@ async def get_decision(
     prompt: str
 ) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
     """
-    Returns a tuple of (Decision, MetaData, used_prompt, extra_data).
+    Returns a tuple of (Decision, MetaData, used_prompt).
     """
     try:
-        # Use the new prompt_persona from config.yaml
+
         system_message = config.prompts.get("prompt_persona", "")
         if not system_message:
             # Fallback if missing
             system_message = (
-                "You are a risk assessment expert. Your responses must be in valid JSON format "
-                "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'."
+                "You are a highly experienced criminal justice risk assessment expert employing advanced statistical and judicial knowledge."
             )
+        
+        prompt_prefix_postfix = build_final_prompt(config, prompt)
 
         response = await asyncio.to_thread(
-            chat,  # Ensure 'chat' is correctly implemented to interact with Ollama
+            chat,
             messages=[
                 {'role': 'system', 'content': system_message},
-                {'role': 'user', 'content': prompt}
+                {'role': 'user', 'content': prompt_prefix_postfix}
             ],
             model=model_name,
             options={
@@ -152,10 +197,10 @@ async def get_decision(
         if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
             raise ValueError("Invalid API response structure")
 
-        # Process the response
+        # Process
         normalized_response = process_model_response(response.message.content)
 
-        # Construct a Decision object
+        # Construct a Decision
         try:
             decision = Decision(
                 prediction=normalized_response['prediction'],
@@ -164,12 +209,12 @@ async def get_decision(
         except ValidationError as ve:
             logging.error(f"Validation error creating Decision: {str(ve)}")
             logging.error(f"Normalized response: {normalized_response}")
-            return None, None, prompt, {}
+            return None, None, prompt
 
-        # Extract 'risk_factors' if present
-        extra_data = {}
-        if 'risk_factors' in normalized_response and normalized_response['risk_factors']:
-            extra_data['risk_factors'] = normalized_response['risk_factors']
+        # We'll store 'risk_factors' in a separate dict: Unused for now
+        extra_data = {
+            'risk_factors': normalized_response.get('risk_factors', None)
+        }
 
         # Extract metadata
         meta_data = MetaData(
@@ -189,7 +234,7 @@ async def get_decision(
 
     except Exception as e:
         logging.error(f"Error during API call: {str(e)}")
-        return None, None, prompt, {}
+        return None, None, None, prompt
 
 
 async def get_decision_with_timeout(
@@ -197,7 +242,7 @@ async def get_decision_with_timeout(
     model_name: str,
     config: Config,
     prompt: str
-) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any], TimeoutMetrics]:
+) -> Tuple[Optional[Decision], Optional[MetaData], str, dict[str, Any], TimeoutMetrics]:
     """
     Wraps get_decision(...) in an asyncio timeout.
     Returns (Decision, MetaData, used_prompt, extra_data, TimeoutMetrics).
@@ -205,7 +250,7 @@ async def get_decision_with_timeout(
     timeout_metrics = TimeoutMetrics(
         occurred=False,
         retry_count=0,
-        total_timeout_duration=0.0  # Initialize if tracking
+        total_timeout_duration=0.0
     )
     timeout_seconds = float(config.model_parameters.get("api_timeout", 30.0))
 
@@ -220,11 +265,6 @@ async def get_decision_with_timeout(
         logging.warning("API call timed out while waiting for model response...")
         timeout_metrics.occurred = True
         timeout_metrics.retry_count += 1
-        # Update total_timeout_duration if tracking
-        return None, None, prompt, {}, timeout_metrics
-
-    except Exception as e:
-        logging.error(f"Error during API call: {str(e)}")
         return None, None, prompt, {}, timeout_metrics
 
 
@@ -237,12 +277,13 @@ def save_decision(
     actual_value: str,
     config: Config,
     used_prompt: str,
-    repeat_index: int = 0,
-    extra_data: Dict[str, Any] = None  # <-- new parameter
+    repeat_index: int = 0,  # <-- new optional param
+    extra_data: Dict[str, Any] = None
 ) -> bool:
     """
     Save decision and metadata to filesystem.
-    Now includes repeat_index and extra_data in the filename and JSON content.
+
+    Now includes repeat_index in the filename to differentiate repeated calls.
     """
     if extra_data is None:
         extra_data = {}
@@ -252,6 +293,8 @@ def save_decision(
         output_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+
+        # Distinct filename to reflect repeated call version
         filename = (
             f"{model_name}_{prompt_type}_id{row_id}_ver{repeat_index}_{timestamp}.json"
         )
@@ -259,16 +302,15 @@ def save_decision(
         decision_data = pydantic_or_dict(decision)
         meta_data_data = pydantic_or_dict(meta_data)
 
-        # Mark correctness
+        # Add correctness info
         decision_data.update({
             'id': row_id,
             'actual': actual_value,
-            'correct': "YES" if decision.prediction.upper() == actual_value.upper() else "NO"
+            'correct': "YES" if str(decision.prediction).upper() == actual_value.upper() else "NO"
         })
 
         meta_data_data = convert_ns_to_s(meta_data_data)
 
-        # Combine all data
         combined_data = {
             "decision": decision_data,
             "meta_data": meta_data_data,
@@ -283,11 +325,6 @@ def save_decision(
             "prompt": used_prompt
         }
 
-        # Add 'risk_factors' if present in extra_data
-        if 'risk_factors' in extra_data:
-            combined_data["risk_factors"] = extra_data["risk_factors"]
-
-        # Save to file
         output_path = output_dir / filename
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(combined_data, f, indent=2, default=str)

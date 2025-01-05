@@ -9,16 +9,17 @@ model_parameters:
 
 # Execution settings
 execution:
-  max_calls_per_prompt: 1  # Maximum number of calls per prompt/sample
-  batch_size: 1
+  max_calls_per_prompt:  6 # Maximum number of calls per prompt/sample
+  batch_size: 3
 
-# Global configuration parameters
+# Global configuration parameters: flags and constants
 flags:
-  max_samples: 3  # Maximum number of samples to evaluate (if less than training set size)
-  FLAG_PROMPT_PREFIX: False  # Enable prompt prefix
-  FLAG_PROMPT_SUFFIX: False  # Enable prompt suffix
-  prompt_prefix: "IMPORTANT PREFIX: Please review the following information carefully.\n"
-  prompt_suffix: "\nEND OF PROMPT"
+  max_samples: 10
+  max_calls_per_prompt: 6
+  FLAG_PROMPT_PREFIX: True
+  FLAG_PROMPT_SUFFIX: True
+  prompt_prefix: "IMPORTANT PREFIX: Please note...\n"
+  prompt_suffix: "\nEND OF PROMPT SUFFIX"
 
 # Conditional backstories (scenarios)
 # scenario_fairness_demographic_parity: |
@@ -29,7 +30,6 @@ flags:
 
 # scenario_fairness_equalized_outcomes: |
 #   FAIRNESS ENFORCEMENT - Your recidivism prediction should give equal chances of low-risk predictions to equally qualified defendants across protected groups. If 75% of defendants from Group A with no prior convictions are classified as low-risk, then 75% of defendants from Group B with no prior convictions should also be classified as low-risk. This focuses specifically on equal true positive rates for those who merit favorable risk assessments.  ENSURE your PREDICTION conforms to this definition of FAIRNESS
-
 
 # Timeout configuration
 timeout:
@@ -58,11 +58,10 @@ data:
 # Prompt templates
 prompts:
   prompt_persona: |
-    You are a highly experienced criminal justice risk assessment expert
-    employing advanced statistical and judicial knowledge.
+    You are a highly experienced criminal justice risk assessment expert employing advanced statistical and judicial knowledge.
 
   system1: |
-    You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.
+    You are a criminal risk assessment expert. Analyze the following risk factors to predict 3-year rearrest recidivism.
     You must respond ONLY with a JSON object in exactly this format, with no additional text:
     
     {
@@ -74,17 +73,30 @@ prompts:
     {risk_factors}
 
   cot: |
-    You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:
+    You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] each risk factor before using them to collectively predict 3-year rearrest recidivism:
+    {risk_factors}
+
+    After your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:
+
+    {
+      "risk_factors": [
+        ("factor1", "low"/"medium"/"high", "some textual reasoning"),
+        ("factor2", "low"/"medium"/"high", "explanation"),
+        ...
+      ],
+      "prediction": "YES" or "NO",
+      "confidence": number between 0 and 100
+    }
+
+
+  cot_nshot: |
+    You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] each risk factor before using them to collectively predict 3-year rearrest recidivism:
     {risk_factors}
 
     After your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:
     
     {
-      "risk_factors": [
-        ("factor1", "low"|"medium"|"high", "textual reasoning"),
-        ("factor2", "low"|"medium"|"high", "textual reasoning"),
-        ...
-      ],
+      "risk_factors": [(<factor1>, ['low'|'medium'|'high'], <text reasoning justification>), (<factor2>, ...)]
       "prediction": "YES" or "NO",
       "confidence": number between 0 and 100
     }

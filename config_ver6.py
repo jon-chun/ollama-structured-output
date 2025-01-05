@@ -1,7 +1,7 @@
 # config.py
 
 import yaml
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel
 from typing import Dict, Any
 
 class Config(BaseModel):
