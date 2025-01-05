@@ -1,0 +1,52 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 216,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-05T14:52:58.903868706Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.880181264,
+    "load_duration": 0.025081564,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 200,
+    "eval_duration": 0.846
+  },
+  "evaluation": {
+    "timestamp": "20250105_095258_905067",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 216,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Criminal History",
+      "high",
+      "Multiple arrests and convictions indicate a history of criminal behavior, which significantly increases recidivism risk."
+    ],
+    [
+      "Race",
+      "medium",
+      "While race alone does not predict recidivism, Black individuals historically face higher incarceration rates and socioeconomic barriers which can contribute to higher reoffending rates."
+    ],
+    [
+      "Age",
+      "medium",
+      "At 22 years old, while youth recidivism rates can vary widely, there might be underlying factors such as lack of employment opportunities or education that could elevate risk without necessarily being age-specific inherently high."
+    ],
+    [
+      "Gender",
+      "low",
+      "Gender itself generally does not have a strong predictive correlation in recidivism rates without considering intersectional factors such as race."
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as Black. She has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

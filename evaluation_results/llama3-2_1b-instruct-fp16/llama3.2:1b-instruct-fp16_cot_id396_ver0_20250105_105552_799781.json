@@ -1,0 +1,60 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 396,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-05T15:55:52.7982623Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.490709493,
+    "load_duration": 0.027075589,
+    "prompt_eval_count": 218,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 332,
+    "eval_duration": 1.459
+  },
+  "evaluation": {
+    "timestamp": "20250105_105552_799781",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 396,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "education level (high school), marital status (single, divorced)",
+      "weight": 2,
+      "textual reasoning": "Low",
+      "level1": "The person's education level is high, which may indicate a lower likelihood of reoffending.",
+      "level2": "However, her single status might suggest some level of instability or impulsivity."
+    },
+    {
+      "factor2": "history of substance abuse",
+      "weight": 3,
+      "textual reasoning": "High",
+      "level1": "Given the person's history of substance abuse, it is highly likely that she will continue to struggle with addiction and potentially engage in impulsive behaviors.",
+      "level2": "Additionally, her single status might suggest some level of instability or impulsivity."
+    },
+    {
+      "factor3": "prior convictions (minor offenses)",
+      "weight": 1,
+      "textual reasoning": "Medium",
+      "level1": "The person's prior convictions for minor offenses may indicate a lower likelihood of severe reoffending.",
+      "level2": "However, the fact that she has been convicted in the past suggests some level of risk."
+    },
+    {
+      "factor4": "employment history (jobless)",
+      "weight": 1,
+      "textual reasoning": "Low",
+      "level1": "The person's joblessness may indicate a lower likelihood of reoffending due to reduced financial resources and social isolation.",
+      "level2": "However, her single status might suggest some level of instability or impulsivity."
+    }
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

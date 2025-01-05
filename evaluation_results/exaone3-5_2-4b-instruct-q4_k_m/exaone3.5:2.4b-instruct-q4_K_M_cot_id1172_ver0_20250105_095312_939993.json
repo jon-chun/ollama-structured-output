@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1172,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-05T14:53:12.938663305Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.964278542,
+    "load_duration": 0.025836993,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 218,
+    "eval_duration": 0.929
+  },
+  "evaluation": {
+    "timestamp": "20250105_095312_939993",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1172,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrest",
+      "medium",
+      "Having a prior arrest suggests some level of involvement with law enforcement but does not necessarily indicate a high likelihood of recidivism without further context."
+    ],
+    [
+      "Race",
+      "medium",
+      "Race alone is not a definitive predictor of recidivism without considering socioeconomic factors, past experiences, and specific circumstances."
+    ],
+    [
+      "Age",
+      "low",
+      "At age 19, his age suggests he may still be navigating formative years with fewer criminal history precedents compared to older offenders."
+    ],
+    [
+      "Legal History (Convicted)",
+      "high",
+      "A conviction indicates a criminal history that would typically elevate risk compared to arrests without convictions."
+    ],
+    [
+      "Criminal Record Count",
+      "low",
+      "With only one prior arrest and conviction, the recidivism risk is relatively modest compared to those with multiple offenses."
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

@@ -1,0 +1,50 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1119,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-05T15:56:02.352990478Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.850183187,
+    "load_duration": 0.035444558,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 186,
+    "eval_duration": 0.81
+  },
+  "evaluation": {
+    "timestamp": "20250105_105602_354443",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1119,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "race/ethnicity",
+      "weight": "low",
+      "textual_reasoning": "The individual's racial identity as Black may indicate a higher likelihood of being targeted by law enforcement or experiencing bias in the criminal justice system.",
+      "value": "Black"
+    },
+    {
+      "factor": "repeated offenses",
+      "weight": "medium",
+      "textual_reasoning": "The history of repeated arrests may suggest a pattern of deviant behavior, increasing the likelihood of rearrest.",
+      "value": "6"
+    },
+    {
+      "factor": "age",
+      "weight": "high",
+      "textual_reasoning": "A 22-year-old male's age may be considered relatively young for an adult with previous convictions, potentially indicating a higher risk of recidivism.",
+      "value": "22"
+    }
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 421,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-05T15:55:41.422644398Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.04453866,
+    "load_duration": 0.028011499,
+    "prompt_eval_count": 218,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 231,
+    "eval_duration": 1.011
+  },
+  "evaluation": {
+    "timestamp": "20250105_105541_423555",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 421,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "weight": "low",
+      "textual reasoning": "The person is a young adult, which suggests some level of rehabilitation potential."
+    },
+    {
+      "factor2": "number_of_arrests",
+      "weight": "medium",
+      "textual reasoning": "Having been arrested three times may indicate a pattern of behavior that requires closer supervision and monitoring."
+    },
+    {
+      "factor3": "conviction_history",
+      "weight": "high",
+      "textual reasoning": "Being convicted multiple times suggests a higher likelihood of future recidivism."
+    },
+    {
+      "factor4": "race",
+      "weight": "low",
+      "textual reasoning": "The person's racial identity may be considered neutral or irrelevant by some judges, but this factor can still influence sentencing decisions and recidivism rates."
+    },
+    {
+      "factor5": "sex",
+      "weight": "medium",
+      "textual reasoning": "Male sex may carry different social stigma than female sex, which could impact the likelihood of early release or treatment programs."
+    }
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

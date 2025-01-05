@@ -1,0 +1,47 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 249,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-05T15:55:31.323579833Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.98029091,
+    "load_duration": 0.02731706,
+    "prompt_eval_count": 218,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 213,
+    "eval_duration": 0.946
+  },
+  "evaluation": {
+    "timestamp": "20250105_105531_324511",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 249,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "race/ethnicity",
+      "weight": "low",
+      "textual_reasoning": "No clear racial bias in the arrest record. However, being a young adult and first-time offender might indicate a lower risk of recidivism."
+    },
+    {
+      "factor": "conviction",
+      "weight": "medium",
+      "textual_reasoning": "The fact that he has been convicted before suggests a higher likelihood of future offending, but the specifics of the conviction are not provided. A moderate weight is assigned to this factor to reflect its potential impact on recidivism."
+    },
+    {
+      "factor": "age",
+      "weight": "high",
+      "textual_reasoning": "As a 19-year-old first-time offender, being young is generally considered a positive attribute, indicating lower risk of recidivism. However, taking into account his age alone might overestimate the likelihood, as younger offenders may still face unique challenges."
+    }
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

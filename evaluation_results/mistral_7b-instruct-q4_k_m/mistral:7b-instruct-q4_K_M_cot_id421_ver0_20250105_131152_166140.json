@@ -1,0 +1,47 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 421,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-05T18:11:52.165019159Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.685355414,
+    "load_duration": 0.013920785,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 213,
+    "eval_duration": 1.659
+  },
+  "evaluation": {
+    "timestamp": "20250105_131152_166140",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 421,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "age",
+      "weight": "medium",
+      "textual_reasoning": "Being a young adult (22 years old) may increase the likelihood of engaging in risky behavior and make them more likely to reoffend."
+    },
+    {
+      "factor": "number_of_arrests",
+      "weight": "medium",
+      "textual_reasoning": "Having been arrested 3 times may indicate a pattern of criminal activity, increasing the likelihood of future offending."
+    },
+    {
+      "factor": "conviction",
+      "weight": "high",
+      "textual_reasoning": "Being convicted suggests that the individual has engaged in criminal behavior and is likely to reoffend."
+    }
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

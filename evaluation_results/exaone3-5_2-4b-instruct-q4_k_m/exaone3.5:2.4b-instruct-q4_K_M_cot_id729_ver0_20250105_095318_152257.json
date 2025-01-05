@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 729,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-05T14:53:18.151070257Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.905770609,
+    "load_duration": 0.023975897,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 204,
+    "eval_duration": 0.872
+  },
+  "evaluation": {
+    "timestamp": "20250105_095318_152257",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 729,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrest",
+      "medium",
+      "Has been arrested twice but without conviction suggests potential for future legal issues, though no formal charges indicate lesser severity."
+    ],
+    [
+      "Race",
+      "low",
+      "White ethnicity alone does not significantly correlate with higher recidivism rates without additional socioeconomic factors considered."
+    ],
+    [
+      "Age",
+      "low",
+      "Age 20 is generally considered below average risk for high recidivism based on typical statistical trends."
+    ],
+    [
+      "Number of Prior Incidents",
+      "medium",
+      "Two arrests indicate some level of engagement with the justice system, which could imply higher risk compared to those with no prior arrests."
+    ],
+    [
+      "Conviction Status",
+      "low",
+      "Not having been convicted suggests less severe legal involvement, potentially mitigating some risks associated with prior arrests."
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 676,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-05T14:52:51.722486307Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.821825987,
+    "load_duration": 0.020954742,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 185,
+    "eval_duration": 0.789
+  },
+  "evaluation": {
+    "timestamp": "20250105_095251_723628",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 676,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrests",
+      "high",
+      "Multiple arrests indicate a pattern of unlawful behavior, suggesting higher likelihood of reoffending."
+    ],
+    [
+      "Convictions",
+      "high",
+      "Previous criminal convictions, especially frequent arrests, are strong predictors of future convictions."
+    ],
+    [
+      "Age",
+      "medium",
+      "Age alone is not conclusive; individuals vary widely in how they age within the justice system."
+    ],
+    [
+      "Ethnicity",
+      "low",
+      "Race alone, without context of socioeconomic factors or specific offenses committed, carries minimal predictive weight."
+    ],
+    [
+      "Reoffending History",
+      "medium",
+      "Given the history of arrests, there's potential for ongoing involvement in criminal activities."
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 22 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 143,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-05T14:52:24.935596695Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.879375303,
+    "load_duration": 0.025351621,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 202,
+    "eval_duration": 0.846
+  },
+  "evaluation": {
+    "timestamp": "20250105_095224_936893",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrest",
+      "medium",
+      "One prior arrest indicates potential criminal behavior or susceptibility, but lacks conviction which reduces severity."
+    ],
+    [
+      "Race",
+      "low",
+      "Race alone is not a strong predictive factor without additional context such as socioeconomic status or patterns within specific racial groups."
+    ],
+    [
+      "Age",
+      "low",
+      "Age of 22 generally poses less risk compared to older individuals with criminal histories, assuming no underlying mental health or substance abuse issues."
+    ],
+    [
+      "Previous Conviction Status",
+      "low",
+      "No conviction mitigates risk significantly, indicating current legal status does not suggest past severe criminal behavior."
+    ],
+    [
+      "Gender",
+      "low",
+      "While gender can be a factor in certain societal contexts, it alone does not provide substantial predictive insight without further specifics."
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}
