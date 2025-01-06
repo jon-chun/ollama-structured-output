@@ -1,52 +1,132 @@
-# Model Configuration
-model_config:
+# config.yaml
+
+# Model configuration
+model_parameters:
   model_temperature: 0.7
   model_top_p: 0.9
-  model_max_tokens: 1024
+  model_max_tokens: 2000
+  api_timeout: 30
 
-# Execution Settings
+# Execution settings
 execution:
-  max_calls_per_prompt: 10
-  max_retries_malformed: 3
+  generation_type: "binary_classification" # Select from ["code", "open-ended", "binary_class", "multiclass", "regression"]
+  # max_samples: 100
+  max_calls_per_prompt: 1 # Maximum number of calls per prompt/sample
+  batch_size: 2
+  nshot_ct: 30
+  save_prompts: True # Unused for now
+  require_reasoning: False # Unused for now
+  require_reasoning_retry_ct: 3 # Unused for now
 
-# API Timeout Configuration
+# Global configuration parameters: flags and constants
+flags:
+  max_samples: 100
+  FLAG_PROMPT_PREFIX: False  # Enable prompt prefix
+  FLAG_PROMPT_SUFFIX: False  # Enable prompt suffix
+  prompt_prefix: "IMPORTANT PREFIX: Please review the following information carefully.\n"
+  prompt_suffix: "\nEND OF PROMPT"
+
+# Conditional backstories (scenarios)
+# scenario_fairness_demographic_parity: |
+#   FAIRNESS ENFORCEMENT - Your recidivism prediction should classify defendants as low-risk at equal rates across all demographic groups. For example, if 30% of defendants from Group A are classified as low-risk, then approximately 30% of defendants from Group B should also be classified as low-risk, regardless of other factors. This ensures different groups have equal probability of receiving a favorable risk assessment. ENSURE your PREDICTION conforms to this definition of FAIRNESS
+
+# scenario_fairness_equalized_odds: |
+#   FAIRNESS ENFORCEMENT - Your recidivism prediction should have equal true positive rates and false positive rates across defendant demographics. If you correctly identifies 80% of Group A defendants who actually reoffend and incorrectly flags 10% of Group A defendants who don't reoffend, it should maintain these same rates for Group B defendants. This ensures equal error rates across groups.  ENSURE your PREDICTION conforms to this definition of FAIRNESS
+
+# scenario_fairness_equalized_outcomes: |
+#   FAIRNESS ENFORCEMENT - Your recidivism prediction should give equal chances of low-risk predictions to equally qualified defendants across protected groups. If 75% of defendants from Group A with no prior convictions are classified as low-risk, then 75% of defendants from Group B with no prior convictions should also be classified as low-risk. This focuses specifically on equal true positive rates for those who merit favorable risk assessments.  ENSURE your PREDICTION conforms to this definition of FAIRNESS
+
+
+# Timeout configuration
 timeout:
-  max_api_wait_sec: 240  # Base maximum timeout for API calls
-  max_api_timeout_retries: 3  # Maximum number of retries for timeout failures
-  api_wait_step_increase_sec: 30  # Increment for timeout duration per retry
+  max_api_wait_sec: 30
+  max_api_timeout_retries: 3
+  api_wait_step_increase_sec: 10
 
-# Logging Configuration
+# Malformed response handling
+malformed_reponse:
+  save_malformed_responses: True
+  retry_malformed_ct: 5 # lower for execution.generation_type=='binary_class' (3-7), higher for =='code' (5-10)
+
+# Logging configuration
 logging:
-  level: DEBUG  # or INFO
-  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-  file: 'decision_system.log'
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  file: "evaluation.log"
 
-# Output Directory Configuration
+# Output configuration
 output:
-  base_dir: './data/judgements'
+  base_dir: "evaluation_results"
 
-# Model Ensemble Configuration
+# Data configuration
+data:
+  input_file: "./data/vignettes_renamed_clean.csv"
+  risk_factors: "short_text_summary"
+  outcome: "target"
+  random_seed: 42
+  train_split: 20  # 20% for training
+  validate_split: 20  # 20% for validation
+  test_split: 60  # 60% for testing
+
+# Prompt templates
+prompts:
+  prompt_persona: |
+    You are a highly experienced criminal justice risk assessment expert
+    employing advanced statistical and judicial knowledge.
+
+  system1: |
+    You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.
+    You must respond ONLY with a JSON object in exactly this format, with no additional text:
+    
+    {
+      "prediction": "YES" or "NO",
+      "confidence": number between 0 and 100
+    }
+
+    Risk Factors to analyze:
+    {risk_factors}
+
+  cot: |
+    You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:
+    {risk_factors}
+
+    After your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:
+    
+    {
+      "risk_factors": [
+        ("factor1", "low"|"medium"|"high", "textual reasoning"),
+        ("factor2", "low"|"medium"|"high", "textual reasoning"),
+        ...
+      ],
+      "prediction": "YES" or "NO",
+      "confidence": number between 0 and 100
+    }
+
+  cot-nshot: |
+    You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:
+    {nshot_example_str}
+    
+    Next, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:
+    {risk_factors}
+
+    Based on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.
+    Respond ONLY with a JSON object in exactly this format, with no additional text:
+    
+    {
+      "risk_factors": [
+        ("factor1", "low"|"medium"|"high", "textual reasoning"),
+        ("factor2", "low"|"medium"|"high", "textual reasoning"),
+        ...
+      ],
+      "prediction": "YES" or "NO",
+      "confidence": number between 0 and 100
+    }
+
+
+# Model ensemble configuration 
+# Time out:
+#   yi:9b-v1.5-q4_K_M: 
 model_ensemble:
-  llama3.2:1b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2000
-    max_context_window: 8000
-  llama3.2:3b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2000
-    max_context_window: 8000
-  llama3.3:70b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2000
-    max_context_window: 8000
-  mistral:7b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2000
-    max_context_window: 8000
   athene-v2:72b-q4_K_M:
     max_load_time: 240
     max_response_time: 240
@@ -61,4 +141,269 @@ model_ensemble:
     max_load_time: 240
     max_response_time: 240
     max_num_predict: 2048
+    max_context_window: 8192
+  dolphin-llama3.1:8b-v2.9.4-Q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
     max_context_window: 32000
+  dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  dolphin-2.9.2-qwen2-7b:Q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  exaone3.5:32b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 128000
+  exaone3.5:7.8b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000
+  exaone3.5:2.4b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000
+  falcon3:3b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  falcon3:7b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  falcon3:7b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  falcon3:10b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  falcon3:10b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  glm4:9b-chat-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  hermes3:8b-llama3.1-q4_0:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  llama3.2:1b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 128000
+  llama3.2:1b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 128000
+  llama3.2:3b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 128000
+  llama3.2:3b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 128000
+  llama3.1:8b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 32000
+  llama3.1:8b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 32000
+  llama3.1:70b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 32000
+  llama3.3:70b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 128000
+  marco-o1:7b-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 4096
+  marco-o1:7b-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 4096
+  mistral:7b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  mistral:7b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  mistral-nemo:12b-instruct-2407-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 128000
+  mistral-small:22b-instruct-2409-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 128000
+  mixtral:8x7b-instruct-v0.1-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  nemotron-mini:4b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  nemotron-mini:4b-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  phi3.5:3.8b-mini-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  phi3.5:3.8b-mini-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  Phi-4:Q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  Phi-4:fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  qwen2.5:0.5b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 32000
+  qwen2.5:1.5b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 32000
+  qwen2.5:3b-instMath:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 32000
+  qwen2.5:7b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  qwen2.5:14b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  qwen2.5:32b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  qwen2.5:72b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 128000
+  qwq:32b-preview-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000
+  reflection:70b-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 128000
+  sailor2:8b-chat-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8000
+  sailor2:20b-chat-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8000
+  smallthinker:3b-preview-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 32768
+  smallthinker:3b-preview-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 32768
+  smollm2:1.7b-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 32768
+  solar-pro:22b-preview-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 3072
+    max_context_window: 32768
+  tulu3:70b-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  tulu3:8b-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  tulu3:8b-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  yi:9b-v1.5-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
