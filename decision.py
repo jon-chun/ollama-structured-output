@@ -28,6 +28,7 @@ class MetaData(BaseModel):
     eval_count: Optional[int] = Field(None, ge=0, description="Response token count")
     eval_duration: Optional[float] = Field(None, ge=0, description="Response generation duration")
 
+
 def generate_output_path(
     model_name: str,
     prompt_type: PromptType,
@@ -38,18 +39,71 @@ def generate_output_path(
     output_dir: Path,
     nshot_ct: Optional[int] = None
 ) -> Path:
-    """Generate the output path for a decision file."""
+    """
+    Generate the output path for a decision file.
+    Maps PromptType enum to config.yaml prompt keys for directory structure.
+    
+    Args:
+        model_name: Name of the model being evaluated
+        prompt_type: Type of prompt being used (PromptType enum)
+        row_id: ID of the current data row
+        repeat_index: Index of current repeat attempt
+        timestamp: Current timestamp string
+        config: Configuration object
+        output_dir: Base output directory
+        nshot_ct: Number of shots for n-shot learning (optional)
+        
+    Returns:
+        Path object representing the complete file path
+    """
+    # Get the correct prompt type string using our utility function
+    from utils import get_prompt_type_str
+    prompt_type_str = get_prompt_type_str(prompt_type)
+    
+    # Generate the filename based on prompt type
     if prompt_type == PromptType.COT_NSHOT:
         filename = (
-            f"{model_name}_{prompt_type}_id{row_id}_"
+            f"{model_name}_{prompt_type_str}_id{row_id}_"
             f"nshot{nshot_ct}_{timestamp}.json"
         )
     else:
         filename = (
-            f"{model_name}_{prompt_type}_id{row_id}_"
+            f"{model_name}_{prompt_type_str}_id{row_id}_"
             f"ver{repeat_index}_{timestamp}.json"
         )
-    return output_dir / filename
+    
+    # Create the nested directory structure
+    model_dir = output_dir / prompt_type_str
+    model_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Return the complete path
+    return model_dir / filename
+def check_existing_output(output_dir: Path, model_name: str, prompt_type: PromptType, 
+                         row_id: int) -> bool:
+    """
+    Check if output file already exists for this model-prompt-id combination.
+    Uses the correct nested directory structure based on prompt type.
+    Returns True if exists, False otherwise.
+    """
+    # Map PromptType enum to config.yaml prompt keys
+    prompt_type_to_key = {
+        PromptType.SYSTEM1: 'system1',
+        PromptType.COT: 'cot',
+        PromptType.COT_NSHOT: 'cot-nshot'
+    }
+    
+    prompt_type_str = prompt_type_to_key[prompt_type]
+    clean_name = clean_model_name(model_name)
+    model_dir = output_dir / clean_name / prompt_type_str
+    
+    if not model_dir.exists():
+        return False
+    
+    # Check for any matching files ignoring ver{n} and datetime parts
+    pattern = f"{model_name}_{prompt_type_str}_id{row_id}_*.json"
+    matching_files = list(model_dir.glob(pattern))
+    
+    return len(matching_files) > 0
 
 def process_model_response(response_text: str, model_name: str) -> Dict:
     """
@@ -245,22 +299,39 @@ def save_decision(
         extra_data = {}
 
     try:
+        # Create base output directory (evaluation_results)
+        base_dir = Path(config.output["base_dir"])
+        base_dir.mkdir(parents=True, exist_ok=True)
+
+        # Get prompt type string using our utility function
+        from utils import get_prompt_type_str
+        prompt_type_str = get_prompt_type_str(prompt_type)
+        
+        # Generate clean model name
         clean_name = clean_model_name(model_name)
-        output_dir = Path(config.output["base_dir"]) / clean_name
-        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create the complete output directory structure
+        model_dir = base_dir / clean_name / prompt_type_str
+        model_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        output_path = generate_output_path(
-            model_name=model_name,
-            prompt_type=prompt_type,
-            row_id=row_id,
-            repeat_index=repeat_index,
-            timestamp=timestamp,
-            config=config,
-            output_dir=output_dir,
-            nshot_ct=config.execution.nshot_ct if prompt_type == PromptType.COT_NSHOT else None
-        )
+        
+        # Generate filename (not full path)
+        if prompt_type == PromptType.COT_NSHOT:
+            filename = (
+                f"{model_name}_{prompt_type_str}_id{row_id}_"
+                f"nshot{config.execution.nshot_ct}_{timestamp}.json"
+            )
+        else:
+            filename = (
+                f"{model_name}_{prompt_type_str}_id{row_id}_"
+                f"ver{repeat_index}_{timestamp}.json"
+            )
+        
+        # Combine directory and filename
+        output_path = model_dir / filename
 
+        # Prepare the data to save
         decision_data = pydantic_or_dict(decision)
         meta_data_data = pydantic_or_dict(meta_data)
 

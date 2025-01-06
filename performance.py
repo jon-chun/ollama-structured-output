@@ -5,6 +5,7 @@ from typing import List, Dict, Any, Optional, Tuple
 from statistics import mean, median, stdev
 import logging
 import json
+import re
 import pandas as pd
 from pathlib import Path
 from sklearn.metrics import confusion_matrix, roc_auc_score
@@ -75,11 +76,12 @@ class DecisionTracker:
 
 class PerformanceTracker:
     """Maintains metrics about model performance over many attempts."""
-    def __init__(self, prompt_type: str, model_name: str):
+    def __init__(self, prompt_type: str, model_name: str, output_base_dir: Path):
         self.prompt_type = prompt_type
         self.model_name = model_name
+        self.output_base_dir = output_base_dir
         self.metrics: List[PromptMetrics] = []
-        self.attempts: List[PromptMetrics] = []  # For backwards compatibility
+        self.attempts: List[PromptMetrics] = []
         self.start_time = datetime.now()
         self.decision_tracker = DecisionTracker()
 
@@ -201,34 +203,61 @@ class PerformanceTracker:
             auc_roc=auc_roc
         )
 
+
     def save_metrics(self, execution_time: float):
-        """Save the final stats for this session as JSON and plain text."""
+        """
+        Save the final stats for this session as JSON and plain text in the reports directory.
+        Creates a separate reports directory for each model to store all statistics.
+        """
         stats = self._generate_stats()
         if stats is None:
             logging.warning("No metrics to save - no attempts recorded")
             return
 
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_base = Path("metrics")
-        output_base.mkdir(parents=True, exist_ok=True)
+        # Get proper prompt type string for filenames
+        prompt_type_mapping = {
+            'PromptType.SYSTEM1': 'system1',
+            'system1': 'system1',
+            'PromptType.COT': 'cot',
+            'cot': 'cot',
+            'PromptType.COT_NSHOT': 'cot-nshot',
+            'cot-nshot': 'cot-nshot'
+        }
+        prompt_type_str = prompt_type_mapping.get(str(self.prompt_type), str(self.prompt_type))
 
-        # Save JSON format
-        json_path = output_base / f"metrics_{self.model_name}_{self.prompt_type}_{timestamp}.json"
+        # Create model's reports directory
+        clean_name = re.sub(r'[^\w\-_]', '_', self.model_name.lower())
+        reports_dir = self.output_base_dir / clean_name / 'reports'
+        reports_dir.mkdir(parents=True, exist_ok=True)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        # Save JSON format in reports directory
+        json_path = reports_dir / f"metrics_{self.model_name}_{prompt_type_str}_{timestamp}.json"
         with open(json_path, 'w') as f:
             json.dump(asdict(stats), f, indent=2, default=str)
+            logging.info(f"Saved metrics JSON to {json_path}")
 
-        # Save text report
-        self._save_text_report(stats, execution_time, timestamp, output_base)
+        # Save text report in reports directory
+        self._save_text_report(
+            stats=stats,
+            execution_time=execution_time,
+            timestamp=timestamp,
+            output_dir=reports_dir,
+            prompt_type_str=prompt_type_str
+        )
+        logging.info(f"Saved performance report to {reports_dir}")
 
     def _save_text_report(
         self,
         stats: PerformanceStats,
         execution_time: float,
         timestamp: str,
-        output_dir: Path
+        output_dir: Path,
+        prompt_type_str: str
     ):
         """Generate a readable text report of the performance stats."""
-        report_path = output_dir / f"report_{stats.model_name}_{stats.prompt_type}_{timestamp}.txt"
+        report_path = output_dir / f"report_{self.model_name}_{prompt_type_str}_{timestamp}.txt"
         with open(report_path, 'w') as f:
             f.write(f"Performance Report - {stats.model_name}\n")
             f.write("=" * 50 + "\n\n")

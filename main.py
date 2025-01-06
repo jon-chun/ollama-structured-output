@@ -3,29 +3,35 @@
 import asyncio
 import logging
 import time
+import re
+import datetime
 from typing import List, Optional, Set, Tuple, Dict
+from collections import defaultdict
+import json
 from pathlib import Path
-
 from config import load_config, Config
 from data_manager import DataManager
 from prompt_manager import PromptManager
 from models import PromptType
 from metrics import PromptMetrics, TimeoutMetrics
 from performance import PerformanceTracker, PerformanceStats, save_aggregate_stats
+
 from utils import (
     clean_model_name,
-    get_completion_status,
-    get_next_sample,
+    get_prompt_type_str,
+    count_unique_samples,
     get_completion_counts,
-    is_combination_fully_complete
+    is_combination_fully_complete,
+    check_model_prompt_completion
 )
+
 from decision import (
     get_decision_with_timeout,
     save_decision
 )
 
 DELAY_BETWEEN_PROMPT_TYPES_SEC = 2
-DELAY_BETWEEN_MODEL_LOAD_SEC = 10
+DELAY_BETWEEN_MODEL_LOAD_SEC = 2
 
 async def cleanup_model():
     """Stop any running model instances without removing the model."""
@@ -49,91 +55,114 @@ def build_final_prompt(config: Config, base_prompt: str) -> str:
         (config.flags.prompt_suffix if config.flags.FLAG_PROMPT_SUFFIX else "")
     )
 
+
+
+# At the top of main.py, add to imports
+from utils import (
+    clean_model_name,
+    get_completion_status,
+    get_next_sample,
+    get_completion_counts,
+    is_combination_fully_complete,
+    check_model_prompt_completion,
+    get_prompt_type_str  # Add this import
+)
+
 async def run_evaluation_cycle(
     model_name: str,
     prompt_type: PromptType,
     config: Config,
-    tracker: PerformanceTracker,
+    tracker: PerformanceTracker,  # We already receive the tracker!
     data_manager: DataManager,
     prompt_manager: PromptManager
 ) -> None:
     """
-    Run an evaluation cycle with configurable iterations and file checking.
-    Now supports proper completion checking and restart capability.
+    Run an evaluation cycle ensuring proper sample counts and repeat calls.
+    Uses existing PerformanceTracker for statistics.
     """
-    max_samples = config.flags.max_samples
-    max_calls = config.execution.max_calls_per_prompt
-    batch_size = config.batch_size
-
-    # Check overall completion status
-    is_complete, existing_calls = get_completion_status(
-        output_dir=Path(config.output["base_dir"]),
-        model_name=model_name,
-        prompt_type=str(prompt_type),
-        max_samples=max_samples,
-        max_calls=max_calls
-    )
-
-    if is_complete:
-        logging.info(
-            f"Skipping completed combination: {model_name} with {prompt_type} "
-            f"(found {len(existing_calls)} samples with up to {max_calls} calls each)"
-        )
-        return
-
-    # Calculate how many more samples we need
-    completed_samples = sum(1 for calls in existing_calls.values() if calls >= max_calls)
-    remaining_samples = max_samples - completed_samples
-
-    if remaining_samples <= 0:
-        logging.info(f"No additional samples needed for {model_name} with {prompt_type}")
-        return
-
-    dataset_info = data_manager.get_dataset_info()
-    total_samples = min(
-        dataset_info['dataset_sizes']['train'],
-        remaining_samples
-    )
-
-    logging.info(
-        f"Starting evaluation cycle for {model_name} with {prompt_type}, "
-        f"processing {total_samples} more samples, batch size {batch_size}, "
-        f"up to {max_calls} calls each"
-    )
-
-    processed_samples = 0
-    
-    while processed_samples < total_samples:
-        remaining = total_samples - processed_samples
-        current_batch_size = min(batch_size, remaining)
+    try:
+        max_samples = config.flags.max_samples
+        max_calls = config.execution.max_calls_per_prompt
+        batch_size = config.batch_size
         
-        try:
-            data_batch = data_manager.get_batch(current_batch_size, dataset='train')
+        prompt_type_str = get_prompt_type_str(prompt_type)
+        output_dir = Path(config.output["base_dir"])
+        
+        # Track calls per sample using defaultdict
+        sample_calls = defaultdict(int)
+        
+        # Count existing files per sample
+        clean_name = clean_model_name(model_name)
+        prompt_dir = output_dir / clean_name / prompt_type_str
+        if prompt_dir.exists():
+            for file_path in prompt_dir.glob(f"{model_name}_{prompt_type_str}_id*_*.json"):
+                try:
+                    match = re.search(r'_id(\d+)_', file_path.name)
+                    if match:
+                        sample_id = int(match.group(1))
+                        sample_calls[sample_id] += 1
+                except Exception as e:
+                    logging.warning(f"Error parsing file {file_path}: {e}")
+
+        # Calculate needed samples
+        completed_samples = sum(1 for calls in sample_calls.values() 
+                              if calls >= max_calls)
+        samples_needed = max_samples - completed_samples
+        
+        if samples_needed <= 0:
+            logging.info(
+                f"All {max_samples} samples have {max_calls} calls each for "
+                f"{model_name} with {prompt_type_str}"
+            )
+            return
+
+        logging.info(
+            f"Need {samples_needed} more samples with {max_calls} calls each for "
+            f"{model_name} with {prompt_type_str}"
+        )
+
+        # Process samples
+        processed_samples = 0
+        unique_ids_processed = set()
+        cycle_start_time = time.time()
+        
+        while processed_samples < samples_needed:
+            current_batch_size = min(batch_size, samples_needed - processed_samples)
             
+            # Get samples excluding those with full call counts
+            completed_ids = {id for id, calls in sample_calls.items() 
+                           if calls >= max_calls}
+            data_batch = data_manager.get_batch(
+                current_batch_size * 2,
+                dataset='train',
+                exclude_ids=completed_ids | unique_ids_processed
+            )
+            
+            if not data_batch:
+                logging.warning("No more available samples to process")
+                break
+
             for sample in data_batch:
-                if processed_samples >= total_samples:
+                if processed_samples >= samples_needed:
                     break
                     
                 row_id = sample['id']
                 actual_value = sample['target']
                 
-                # Get next needed repeat index for this sample
-                next_repeat = get_next_sample(existing_calls, max_calls, row_id)
-                if next_repeat is None:
-                    continue  # Sample is complete
+                # Skip if already fully processed
+                if sample_calls[row_id] >= max_calls:
+                    continue
                 
-                # Process only remaining needed calls
-                for repeat_index in range(next_repeat, max_calls):
-                    start_time = time.time()
-                    logging.info(
-                        f"Processing sample {processed_samples + 1}/{total_samples} "
-                        f"(ID: {row_id}), repeat #{repeat_index + 1}/{max_calls}"
-                    )
-
+                # Process this sample max_calls times
+                calls_needed = max_calls - sample_calls[row_id]
+                for call_index in range(calls_needed):
                     try:
+                        # Generate prompt
                         prompt = prompt_manager.get_prompt(prompt_type, row_id)
                         final_prompt = build_final_prompt(config, prompt)
-
+                        
+                        # Make API call
+                        start_time = time.time()
                         decision, meta_data, used_prompt, extra_data, timeout_metrics = (
                             await get_decision_with_timeout(
                                 prompt_type=prompt_type,
@@ -142,10 +171,10 @@ async def run_evaluation_cycle(
                                 prompt=final_prompt
                             )
                         )
-
                         execution_time = time.time() - start_time
-
+                        
                         if decision is not None:
+                            # Save the response
                             save_success = save_decision(
                                 decision=decision,
                                 meta_data=meta_data,
@@ -155,52 +184,59 @@ async def run_evaluation_cycle(
                                 actual_value=actual_value,
                                 config=config,
                                 used_prompt=used_prompt,
-                                repeat_index=repeat_index,
+                                repeat_index=sample_calls[row_id],
                                 extra_data=extra_data
                             )
                             
-                            if not save_success:
-                                logging.warning("Decision valid but save failed")
-                            else:
-                                existing_calls[row_id] = existing_calls.get(row_id, 0) + 1
-
-                            metrics = PromptMetrics(
-                                attempt_number=(processed_samples + 1) * 1000 + repeat_index + 1,
-                                execution_time_seconds=execution_time,
-                                successful=True,
-                                timeout_metrics=timeout_metrics,
-                                prediction=decision.prediction,
-                                confidence=decision.confidence,
-                                meta_data=meta_data.model_dump() if meta_data else {}
-                            )
-                        else:
-                            metrics = PromptMetrics(
-                                attempt_number=(processed_samples + 1) * 1000 + repeat_index + 1,
-                                execution_time_seconds=execution_time,
-                                successful=False,
-                                timeout_metrics=timeout_metrics,
-                                error_message="No valid decision received"
-                            )
-
-                        tracker.record_attempt(metrics)
-
+                            if save_success:
+                                sample_calls[row_id] += 1
+                                
+                                # Record metrics using existing PerformanceTracker
+                                metrics = PromptMetrics(
+                                    attempt_number=processed_samples * max_calls + call_index + 1,
+                                    execution_time_seconds=execution_time,
+                                    successful=True,
+                                    timeout_metrics=timeout_metrics,
+                                    prediction=decision.prediction,
+                                    confidence=decision.confidence,
+                                    meta_data={
+                                        'model': model_name,
+                                        'prompt_type': str(prompt_type),
+                                        'actual_value': actual_value,  # Critical for accuracy calculation
+                                        **(meta_data.model_dump() if meta_data else {})
+                                    }
+                                )
+                                tracker.record_attempt(metrics)
+                                
                     except Exception as e:
-                        logging.error(f"Error processing sample {row_id} (repeat {repeat_index}): {str(e)}")
-                        continue  # Continue to next repeat attempt
+                        logging.error(f"Error in call {call_index} for sample {row_id}: {e}")
+                        continue
                 
-                processed_samples += 1
-                if processed_samples >= total_samples:
-                    break
+                if sample_calls[row_id] >= max_calls:
+                    unique_ids_processed.add(row_id)
+                    processed_samples += 1
+                    logging.info(
+                        f"Completed sample {processed_samples}/{samples_needed} "
+                        f"(ID: {row_id} with {max_calls} calls)"
+                    )
+            
+            await asyncio.sleep(0.1)  # Prevent overwhelming the system
+        
+        # Generate and save statistics using PerformanceTracker
+        cycle_duration = time.time() - cycle_start_time
+        tracker.save_metrics(cycle_duration)
+        
+        completed_count = len(unique_ids_processed)
+        logging.info(
+            f"Evaluation cycle completed. Processed {completed_count} samples. "
+            f"Total unique samples with {max_calls} calls: "
+            f"{sum(1 for calls in sample_calls.values() if calls >= max_calls)}"
+        )
+        
+    except Exception as e:
+        logging.error(f"Error in evaluation cycle: {str(e)}")
+        raise
 
-        except Exception as e:
-            logging.error(f"Error processing batch: {str(e)}")
-            break
-
-    completed_after = sum(1 for calls in existing_calls.values() if calls >= max_calls)
-    logging.info(
-        f"Evaluation cycle completed. Processed {processed_samples} samples. "
-        f"Total completed samples: {completed_after}"
-    )
 
 async def run_evaluation_session(
     model_name: str,
@@ -210,10 +246,19 @@ async def run_evaluation_session(
     prompt_manager: PromptManager
 ) -> Optional[PerformanceStats]:
     """Run a single model/prompt evaluation session."""
-    tracker = PerformanceTracker(prompt_type, model_name)
+    # Create output base directory path
+    output_base = Path(config.output["base_dir"])
+    
+    # Create tracker with output directory
+    tracker = PerformanceTracker(
+        prompt_type=prompt_type,
+        model_name=model_name,
+        output_base_dir=output_base
+    )
     session_start = time.time()
 
     try:
+        # Run the evaluation cycle
         await run_evaluation_cycle(
             model_name,
             prompt_type,
@@ -222,54 +267,29 @@ async def run_evaluation_session(
             data_manager,
             prompt_manager
         )
+        
+        # Calculate session duration
         session_duration = time.time() - session_start
 
-        if len(tracker.attempts) > 0:  # Only save metrics if we have attempts
+        # Generate and save metrics if we have attempts
+        if len(tracker.metrics) > 0:
             tracker.save_metrics(session_duration)
             stats = tracker._generate_stats()
             if stats is not None:
+                logging.info(
+                    f"Generated statistics for {model_name} with {prompt_type} "
+                    f"(Accuracy: {stats.prediction_accuracy:.2f}%, "
+                    f"Attempts: {stats.total_attempts})"
+                )
                 return stats
             
-        logging.info(f"No stats generated for {model_name} - {prompt_type}")
+        logging.info(f"No stats generated for {model_name} - {prompt_type} (no attempts recorded)")
         return None
 
     except Exception as e:
         logging.error(f"Critical error in evaluation session: {e}", exc_info=True)
         return None
     
-def is_model_combination_complete(
-    output_dir: Path,
-    model_name: str,
-    prompt_type: str,
-    max_samples: int,
-    max_calls: int
-) -> bool:
-    """Check if a model/prompt combination has completed all required samples."""
-    clean_name = clean_model_name(model_name)
-    model_dir = output_dir / clean_name
-    
-    if not model_dir.exists():
-        return False
-        
-    # Track completed samples for this combination
-    completed_samples = set()
-    required_calls = {}
-    
-    # Check all output files for this combination
-    for file_path in model_dir.glob(f"{model_name}_{prompt_type}_id*_*.json"):
-        try:
-            with open(file_path, 'r') as f:
-                data = json.load(f)
-                row_id = data['decision']['id']
-                completed_samples.add(row_id)
-                required_calls[row_id] = required_calls.get(row_id, 0) + 1
-        except (json.JSONDecodeError, KeyError) as e:
-            logging.warning(f"Error reading file {file_path}: {e}")
-            continue
-    
-    # Check if we have enough samples with enough calls each
-    fully_completed = sum(1 for calls in required_calls.values() if calls >= max_calls)
-    return fully_completed >= max_samples
 
 async def main():
     """Main orchestrator with improved model management and restartability."""
@@ -349,7 +369,20 @@ async def main():
                 if combo_key in processed_combinations:
                     logging.info(f"Skipping already processed combination: {model_name} with {p_type}")
                     continue
-                
+
+
+                # Check if we've reached maximum outputs for this combination
+                if check_model_prompt_completion(
+                    output_base, 
+                    model_name, 
+                    str(p_type),
+                    config.flags.max_samples,
+                    config.execution.max_calls_per_prompt
+                ):
+                    logging.info(f"Skipping {model_name} with {p_type}: maximum outputs reached")
+                    continue
+
+
                 status = combination_completion_status.get(combo_key, {
                     'is_complete': False,
                     'completion_counts': {}

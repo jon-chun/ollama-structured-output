@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 167,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-06T04:30:38.953594657Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.313211333,
+    "load_duration": 0.033985159,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.047,
+    "eval_count": 168,
+    "eval_duration": 3.23
+  },
+  "evaluation": {
+    "timestamp": "20250105_233038_955081",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 167,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age_21",
+      "low",
+      "Young age is typically associated with lower recidivism rates."
+    ],
+    [
+      "gender_male",
+      "medium",
+      "Males have a higher rearrest risk compared to females, but not overwhelmingly so in isolation."
+    ],
+    [
+      "race_white",
+      "low",
+      "Race alone does not significantly elevate the risk of rearrest based on national data."
+    ],
+    [
+      "previous_arrest_1_time",
+      "high",
+      "A single prior arrest suggests some involvement in criminal behavior and increases recidivism likelihood."
+    ],
+    [
+      "conviction_present",
+      "medium",
+      "Conviction indicates a serious offense, contributing to higher risk than an unproven charge."
+    ]
+  ],
+  "prompt": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+}

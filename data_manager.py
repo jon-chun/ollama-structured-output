@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from pathlib import Path
 import logging
-from typing import Optional, Tuple, List, Dict, Any
+from typing import Optional, Tuple, List, Dict, Any, Set
 
 from config import Config
 
@@ -209,48 +209,100 @@ class DataManager:
             raise
 
 
-    def get_batch(self, batch_size: int, dataset: str = 'train') -> List[Dict]:
+    def get_batch(
+        self,
+        batch_size: Optional[int],
+        dataset: str = 'train',
+        exclude_ids: Optional[Set[int]] = None
+    ) -> List[Dict]:
         """
-        Get a batch of samples from the specified dataset.
+        Get a batch of samples, optionally excluding specific IDs.
+        
+        This method provides samples from the specified dataset while ensuring we don't
+        select already processed samples. It's designed to support the incremental 
+        processing of data, allowing us to skip samples we've already handled.
+        
+        Args:
+            batch_size: Number of samples to return (None for all remaining samples)
+            dataset: Which dataset to sample from ('train', 'validate', 'test')
+            exclude_ids: Set of IDs to exclude from selection (e.g., already processed samples)
+            
+        Returns:
+            List of dictionaries containing sample data with keys:
+            - 'id': Sample identifier
+            - 'risk_factors': Risk factors text
+            - 'target': Target value (YES/NO)
+            
+        Raises:
+            RuntimeError: If data hasn't been loaded yet
+            ValueError: If invalid dataset specified
+        
+        Example:
+            >>> # Get 5 samples, excluding IDs 1, 2, and 3
+            >>> batch = data_manager.get_batch(5, 'train', {1, 2, 3})
         """
+        # First, verify data is loaded
         if self.df_train is None or self.df_test is None or self.df_validate is None:
             raise RuntimeError("Data not loaded. Call load_and_prepare_data first.")
         
-        # Select appropriate dataset
+        # Validate and select appropriate dataset
         if dataset not in ['train', 'test', 'validate']:
-            raise ValueError("Dataset must be 'train', 'test', or 'validate'")
+            raise ValueError(f"Invalid dataset: {dataset}. Must be 'train', 'test', or 'validate'")
         
-        if dataset == 'train':
-            df = self.df_train
-        elif dataset == 'validate':
-            df = self.df_validate
-        elif dataset == 'test':
-            df = self.df_test
-        else:
-            raise ValueError(f"Invalid dataset: {dataset}")
-
-        # If batch_size is None or larger than dataset, use entire dataset
-        if batch_size is None or batch_size >= len(df):
-            batch_df = df
-            logging.info(f"Using entire {dataset} dataset ({len(df)} samples)")
-        else:
-            # Get random batch
-            batch_df = df.sample(n=batch_size)
-            logging.info(f"Selected batch of {batch_size} samples from {dataset} dataset")
+        df = getattr(self, f'df_{dataset}')
         
-        # Convert batch to list of dictionaries
-        batch_data = []
-        for _, row in batch_df.iterrows():
-            sample = {
+        # Start with all available samples
+        available_samples = df.copy()
+        
+        # Filter out excluded IDs if provided
+        if exclude_ids:
+            original_count = len(available_samples)
+            available_samples = available_samples[~available_samples['id'].isin(exclude_ids)]
+            excluded_count = original_count - len(available_samples)
+            logging.debug(
+                f"Excluded {excluded_count} samples, {len(available_samples)} remaining in "
+                f"{dataset} dataset"
+            )
+        
+        # Handle case where no samples are available
+        if len(available_samples) == 0:
+            logging.warning(f"No available samples in {dataset} dataset after exclusions")
+            return []
+        
+        # Handle batch size appropriately
+        if batch_size is None:
+            batch_df = available_samples
+            logging.info(f"Using all {len(batch_df)} available samples from {dataset} dataset")
+        else:
+            # Adjust batch size if needed
+            actual_batch_size = min(batch_size, len(available_samples))
+            if actual_batch_size < batch_size:
+                logging.warning(
+                    f"Requested batch size {batch_size} reduced to {actual_batch_size} "
+                    f"due to available sample count"
+                )
+            
+            # Get random sample of rows
+            batch_df = available_samples.sample(n=actual_batch_size)
+            logging.info(f"Selected batch of {actual_batch_size} samples from {dataset} dataset")
+        
+        # Convert selected rows to list of dictionaries
+        batch_data = [
+            {
                 'id': int(row['id']),
                 'risk_factors': str(row[self.config.data['risk_factors']]),
                 'target': str(row[self.config.data['outcome']])
             }
-            batch_data.append(sample)
+            for _, row in batch_df.iterrows()
+        ]
         
-        # Log batch statistics
-        batch_targets = pd.Series([d['target'] for d in batch_data])
-        logging.debug(f"Batch target distribution:\n{batch_targets.value_counts()}")
+        # Log distribution information for monitoring
+        if batch_data:
+            batch_targets = pd.Series([d['target'] for d in batch_data])
+            logging.debug(
+                f"Batch target distribution for {dataset}:\n"
+                f"{batch_targets.value_counts().to_dict()}"
+            )
         
         return batch_data
 

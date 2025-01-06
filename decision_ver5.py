@@ -12,7 +12,7 @@ from ollama import chat
 from config_ver6 import Config
 from models import Decision, PromptType
 from metrics import TimeoutMetrics
-from utils import pydantic_or_dict, convert_ns_to_s
+from util import pydantic_or_dict, convert_ns_to_s
 
 
 class MetaData(BaseModel):
