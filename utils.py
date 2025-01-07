@@ -169,6 +169,7 @@ def get_completion_status(
     
     return is_complete, completion_counts
 
+'''
 def clean_model_name(model_name: str) -> str:
     """
     Convert model name to OS-friendly format:
@@ -206,6 +207,41 @@ def get_next_sample(
     if current_count >= max_calls:
         return None
     return current_count
+''';
+
+def clean_model_name(model_name: str) -> str:
+    """
+    Convert model name to OS-friendly format consistently.
+    Handles special cases like version numbers (e.g., 3.2) uniformly.
+    
+    Args:
+        model_name: Original model name (e.g., 'llama3.2:1b-instruct-q4_K_M')
+        
+    Returns:
+        Cleaned model name (e.g., 'llama3_2_1b_instruct_q4_k_m')
+        
+    Process:
+        1. Convert to lowercase
+        2. Replace colons and periods with underscores
+        3. Replace remaining punctuation with underscores
+        4. Collapse multiple underscores to single underscore
+    """
+    # First, lowercase everything
+    cleaned = model_name.strip().lower()
+    
+    # Replace colons and periods with underscore
+    cleaned = re.sub(r'[:.]+', '_', cleaned)
+    
+    # Replace remaining punctuation and whitespace with underscore
+    cleaned = re.sub(r'[^\w]+', '_', cleaned)
+    
+    # Collapse multiple underscores to single underscore
+    cleaned = re.sub(r'_+', '_', cleaned)
+    
+    # Remove leading/trailing underscores
+    cleaned = cleaned.strip('_')
+    
+    return cleaned
 
 def check_existing_decision(
     model_name: str,
