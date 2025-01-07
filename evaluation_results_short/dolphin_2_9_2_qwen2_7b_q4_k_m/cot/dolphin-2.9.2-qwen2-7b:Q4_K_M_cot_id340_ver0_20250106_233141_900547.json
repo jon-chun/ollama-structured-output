@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 340,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "created_at": "2025-01-07T04:31:41.899118425Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.322647472,
+    "load_duration": 0.029789082,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 278,
+    "eval_duration": 2.274
+  },
+  "response": {
+    "raw_message_text": "To accurately predict the risk of rearrest recidivism for this individual, we need to assess multiple factors. Here are three critical ones:\n\nFactor 1: Age (21 years old)\nReasoning: Generally, younger individuals have a higher propensity for criminal behavior due to immaturity and lack of experience with legal consequences.\n\nRisk Weight: High\n\nFactor 2: Race (Black)\nReasoning: Studies suggest that Black individuals are more likely than others to commit crimes. However, this is not an absolute predictor; it merely suggests a potential risk factor.\n\nRisk Weight: Medium\n\nFactor 3: Prior Arrests (1 time)\nReasoning: Having been arrested once but not convicted does not indicate criminal conviction and thus doesn't directly correlate with future criminal behavior.\n\nRisk Weight: Low \n\nBased on these factors, I predict that there is a high chance of rearrest recidivism for this individual in the next 3 years. \n\n{\n\"risk_factors\": [\n    (\"Age\", \"high\", \"Younger individuals are generally more likely to commit crimes.\"),\n    (\"Race\", \"medium\", \"Studies suggest higher criminal behavior among certain ethnic groups, but it's not absolute.\"),\n    (\"Prior Arrests\", \"low\", \"Being arrested once without conviction doesn't directly correlate with future criminal behavior.\")\n],\n\"prediction\": \"YES\",\n\"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_233141_900547",
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 340,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

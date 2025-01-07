@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1338,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-07T08:05:52.083159189Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.75580354,
+    "load_duration": 0.03269731,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 197,
+    "eval_duration": 3.702
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest (20)\", \"low\", \"Young age may indicate less established criminal behavior.\"),\n    (\"Ethnicity (Hispanic)\", \"medium\", \"Certain ethnic groups have higher recidivism rates, though individual factors vary.\"),\n    (\"Previous arrests (1 time, not convicted)\", \"low\", \"Single non-convicted arrest suggests limited history of criminal involvement.\"),\n    (\"Conviction status (not convicted)\", \"high\", \"No prior convictions may reduce immediate risk but lack of legal consequences could indicate less deterrence.\"),\n    (\"Community ties and support systems\", \"medium\", \"Lack of strong community ties might increase vulnerability to peer pressure.\"),\n    (\"Employment history (no current employment)\", \"medium\", \"Unemployment can be a risk factor for criminal behavior as it may lead to financial stress or lack of structure.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_030552_084762",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1338,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

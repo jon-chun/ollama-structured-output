@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 128,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-07T05:23:36.208370791Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.912106132,
+    "load_duration": 0.016883836,
+    "prompt_eval_count": 232,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 157,
+    "eval_duration": 2.878
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age often correlates with less stable life circumstances, but here it's a neutral point given no specific prior instability markers.\"),\n    (\"Ethnicity\", \"medium\", \"Race is not a direct predictor of recidivism, but societal factors and biases may play a role.\"),\n    (\"Arrest Count\", \"medium\", \"A single arrest suggests some involvement in criminal activity, but it's not definitive.\"),\n    (\"Conviction Status\", \"medium\", \"Being convicted indicates past legal issues, impacting future risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_002336_209449",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 128,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

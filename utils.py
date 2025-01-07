@@ -182,6 +182,7 @@ def clean_model_name(model_name: str) -> str:
     cleaned = cleaned.replace(':', '_')
     cleaned = re.sub(r'[^\w_]', '-', cleaned)
     return cleaned
+''';
 
 def get_next_sample(
     completion_counts: Dict[int, int],
@@ -207,7 +208,7 @@ def get_next_sample(
     if current_count >= max_calls:
         return None
     return current_count
-''';
+
 
 def clean_model_name(model_name: str) -> str:
     """

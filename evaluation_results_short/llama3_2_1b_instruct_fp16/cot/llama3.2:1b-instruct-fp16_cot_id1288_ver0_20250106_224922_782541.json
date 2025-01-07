@@ -1,0 +1,60 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 1288,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T03:49:22.781243556Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.993427652,
+    "load_duration": 0.03319834,
+    "prompt_eval_count": 218,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 217,
+    "eval_duration": 0.956
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"low\": true, \"medium\": false, \"high\": false, \"textual reasoning\": \"There is a potential risk of bias in the criminal justice system that may affect this individual's likelihood of reoffending. However, without specific data or context, it is difficult to quantify this risk.\"},\n    {\"factor2\": \"prior_convictions\", \"low\": true, \"medium\": false, \"high\": false, \"textual reasoning\": \"The individual has been convicted multiple times, which may indicate a higher likelihood of reoffending. However, the severity and nature of these convictions are not specified.\"},\n    {\"factor3\": \"age\", \"low\": true, \"medium\": false, \"high\": false, \"textual reasoning\": \"The individual is young, which may suggest a lower likelihood of reoffending. However, this factor alone is not sufficient to predict recidivism.\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250106_224922_782541",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1288,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "low": true,
+      "medium": false,
+      "high": false,
+      "textual reasoning": "There is a potential risk of bias in the criminal justice system that may affect this individual's likelihood of reoffending. However, without specific data or context, it is difficult to quantify this risk."
+    },
+    {
+      "factor2": "prior_convictions",
+      "low": true,
+      "medium": false,
+      "high": false,
+      "textual reasoning": "The individual has been convicted multiple times, which may indicate a higher likelihood of reoffending. However, the severity and nature of these convictions are not specified."
+    },
+    {
+      "factor3": "age",
+      "low": true,
+      "medium": false,
+      "high": false,
+      "textual reasoning": "The individual is young, which may suggest a lower likelihood of reoffending. However, this factor alone is not sufficient to predict recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 9 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

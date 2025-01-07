@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1338,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-07T05:20:56.899751561Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.368351,
+    "load_duration": 0.015010528,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 181,
+    "eval_duration": 3.335
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age typically correlates with higher risk due to less stability, but as the individual has not been convicted yet, this factor is considered low.\"),\n    (\"Gender\", \"medium\", \"Being male is often associated with higher arrest rates, hence a medium weight.\"),\n    (\"Ethnicity\", \"low\", \"Ethnicity alone is not a strong predictor of recidivism. However, socioeconomic factors related to Hispanic communities can impact opportunities, leading to a low weight.\"),\n    (\"Arrest History\", \"medium\", \"One arrest without conviction suggests a single incident; still considered medium risk as it indicates potential for future offending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_002056_901313",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1338,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

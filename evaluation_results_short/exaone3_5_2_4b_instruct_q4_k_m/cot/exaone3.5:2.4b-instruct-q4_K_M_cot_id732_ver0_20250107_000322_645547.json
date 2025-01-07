@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 35,
+    "id": 732,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-07T05:03:22.644560107Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.918511121,
+    "load_duration": 0.019866295,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 211,
+    "eval_duration": 0.89
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Prior Arrest\", \"medium\", \"Has a single arrest prior to conviction suggests initial engagement with the criminal justice system, indicating some level of offense seriousness but not severe chronic behavior.\"],\n    [\"Race\", \"low\", \"Race alone, particularly for Whites in many jurisdictions without additional context on socioeconomic factors or specific criminal trends affecting this demographic, carries minimal predictive weight unless there are known disparities.\"],\n    [\"Age\", \"low\", \"Age 21 is generally not considered a prime age for high recidivism rates unless there are additional factors like substance abuse or mental health issues, which are not mentioned.\"],\n    [\"Length of Criminal Record\", \"medium\", \"Having a single conviction implies a brief period of involvement, which somewhat mitigates the risk compared to repeated offenses but still indicates some level of criminal behavior.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 35\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_000322_645547",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 732,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrest",
+      "medium",
+      "Has a single arrest prior to conviction suggests initial engagement with the criminal justice system, indicating some level of offense seriousness but not severe chronic behavior."
+    ],
+    [
+      "Race",
+      "low",
+      "Race alone, particularly for Whites in many jurisdictions without additional context on socioeconomic factors or specific criminal trends affecting this demographic, carries minimal predictive weight unless there are known disparities."
+    ],
+    [
+      "Age",
+      "low",
+      "Age 21 is generally not considered a prime age for high recidivism rates unless there are additional factors like substance abuse or mental health issues, which are not mentioned."
+    ],
+    [
+      "Length of Criminal Record",
+      "medium",
+      "Having a single conviction implies a brief period of involvement, which somewhat mitigates the risk compared to repeated offenses but still indicates some level of criminal behavior."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

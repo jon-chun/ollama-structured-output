@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 766,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-07T05:04:44.265286749Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.831779682,
+    "load_duration": 0.01964821,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 192,
+    "eval_duration": 0.804
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Prior Arrest/Conviction\", \"medium\", \"A single arrest and conviction indicate a past criminal behavior, suggesting some level of risk.\"],\n    [\"Race\", \"low\", \"While race can be a factor in certain contexts, without specific data indicating systemic biases or patterns affecting this demographic disproportionately, it's given a low weight based on available data.\"],\n    [\"Age\", \"medium\", \"Age alone does not definitively correlate with recidivism, but younger individuals may face different social and environmental influences compared to older adults, adding variability.\"],\n    [\"Gender\", \"low\", \"Gender alone does not strongly predict recidivism without additional context such as gender disparities in justice outcomes or societal factors impacting women.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_000444_266871",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 766,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrest/Conviction",
+      "medium",
+      "A single arrest and conviction indicate a past criminal behavior, suggesting some level of risk."
+    ],
+    [
+      "Race",
+      "low",
+      "While race can be a factor in certain contexts, without specific data indicating systemic biases or patterns affecting this demographic disproportionately, it's given a low weight based on available data."
+    ],
+    [
+      "Age",
+      "medium",
+      "Age alone does not definitively correlate with recidivism, but younger individuals may face different social and environmental influences compared to older adults, adding variability."
+    ],
+    [
+      "Gender",
+      "low",
+      "Gender alone does not strongly predict recidivism without additional context such as gender disparities in justice outcomes or societal factors impacting women."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

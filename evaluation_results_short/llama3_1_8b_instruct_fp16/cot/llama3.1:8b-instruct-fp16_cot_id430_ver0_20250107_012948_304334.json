@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 61,
+    "id": 430,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-fp16",
+    "created_at": "2025-01-07T06:29:48.302785463Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.468565525,
+    "load_duration": 0.027238834,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 225,
+    "eval_duration": 4.429
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at arrest\", \"low\", \"The defendant is relatively young, which is a common demographic for first-time offenders, but not necessarily indicative of high risk. Low-weight factor.\"),\n    (\"Sex\", \"medium\", \"Female defendants tend to have lower recidivism rates compared to male defendants, particularly in the context of violent offenses. Medium-weight factor.\"),\n    (\"Race/Ethnicity\", \"low\", \"While research suggests that racial disparities exist within the criminal justice system, this defendant's White identity does not necessarily indicate high risk for recidivism. Low-weight factor.\"),\n    (\"Prior arrest history\", \"medium\", \"Although the defendant has been arrested only once, prior contact with law enforcement can still be a predictor of future behavior. Medium-weight factor.\"),\n    (\"Conviction status\", \"high\", \"The fact that this individual has not been convicted despite an arrest suggests they may be more likely to take risks or engage in high-risk behaviors without being caught. High-weight factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 61\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_012948_304334",
+    "model": "llama3.1:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 430,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

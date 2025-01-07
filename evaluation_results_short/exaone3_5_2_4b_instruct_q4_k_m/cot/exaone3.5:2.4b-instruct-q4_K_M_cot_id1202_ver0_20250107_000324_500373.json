@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1202,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-07T05:03:24.499455527Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.861876582,
+    "load_duration": 0.020461863,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 200,
+    "eval_duration": 0.833
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Prior Criminal Record\", \"high\", \"Multiple arrests and convictions suggest a history of criminal behavior, indicating a higher likelihood of recidivism.\"],\n    [\"Race\", \"medium\", \"While race alone is not predictive without controlling for socioeconomic factors, studies have shown disparities in arrest rates and incarceration among racial minorities, potentially influencing judicial treatment and reoffending rates.\"],\n    [\"Age\", \"low\", \"At 22 years old, while young offenders can be involved in criminal activity, age alone does not significantly predict recidivism without additional context such as maturity level or support systems.\"],\n    [\"Gender\", \"low\", \"Gender does not typically correlate strongly with recidivism rates in isolation, though societal biases might play a role in judicial outcomes.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_000324_500373",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1202,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Criminal Record",
+      "high",
+      "Multiple arrests and convictions suggest a history of criminal behavior, indicating a higher likelihood of recidivism."
+    ],
+    [
+      "Race",
+      "medium",
+      "While race alone is not predictive without controlling for socioeconomic factors, studies have shown disparities in arrest rates and incarceration among racial minorities, potentially influencing judicial treatment and reoffending rates."
+    ],
+    [
+      "Age",
+      "low",
+      "At 22 years old, while young offenders can be involved in criminal activity, age alone does not significantly predict recidivism without additional context such as maturity level or support systems."
+    ],
+    [
+      "Gender",
+      "low",
+      "Gender does not typically correlate strongly with recidivism rates in isolation, though societal biases might play a role in judicial outcomes."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

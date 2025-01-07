@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 574,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-07T08:08:24.539981029Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.038090488,
+    "load_duration": 0.024663705,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 318,
+    "eval_duration": 5.996
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Ages 18-24 are generally at higher risk for recidivism, but this individual is relatively young.\"),\n    (\"Race/Ethnicity\", \"medium\", \"White individuals have varying rates of recidivism; further data needed to assess specific risk.\"),\n    (\"Number of Prior Arrests\", \"low\", \"Only one prior arrest suggests low immediate risk, though lack of conviction may indicate a need for closer monitoring.\"),\n    (\"Conviction Status\", \"high\", \"No conviction means the individual was not found guilty, potentially indicating mitigating factors or low perceived risk.\"),\n    (\"Gender\", \"medium\", \"Females may have different recidivism rates compared to males, but more context is needed.\"),\n    (\"Circumstances of Arrest\", \"low\", \"Single arrest without conviction implies limited involvement in criminal activities.\"),\n    (\"Social Factors (e.g., Education, Employment)\", \"low\", \"No information provided; potential low risk if stable employment and education levels are present.\"),\n    (\"Mental Health History\", \"medium\", \"Lack of mental health history reduces this factor's weight but does not eliminate it.\"),\n    (\"Substance Abuse History\", \"low\", \"No substance abuse mentioned, which is a positive indicator for lower recidivism rates.\"),\n    (\"Community Involvement and Support Systems\", \"low\", \"No information provided; potential low risk if community support is strong.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_030824_541594",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 574,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

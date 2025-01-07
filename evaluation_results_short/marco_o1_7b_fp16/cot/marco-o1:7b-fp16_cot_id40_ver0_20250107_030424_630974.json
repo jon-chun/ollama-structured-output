@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 40,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-07T08:04:24.62963165Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.202331581,
+    "load_duration": 0.024954804,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 274,
+    "eval_duration": 5.156
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"The individual is 21 years old, which is relatively young but not a primary indicator of high recidivism risk.\"),\n    (\"Number of prior arrests\", \"medium\", \"Three prior arrests suggest some involvement in criminal behavior, indicating potential for future offenses.\"),\n    (\"Conviction status\", \"high\", \"Having been convicted implies that the individual has faced legal consequences before and may be more likely to repeat similar behaviors.\"),\n    (\"Hispanic ethnicity\", \"low\", \"Ethnicity alone does not strongly correlate with recidivism rates unless associated with other risk factors.\"),\n    (\"Lack of stable employment\", \"medium\", \"Unemployment can contribute to financial stress, increasing the likelihood of engaging in criminal activities.\"),\n    (\"History of substance abuse\", \"high\", \"Substance misuse is a significant predictor of recidivism as it can impair judgment and lead to impulsive behaviors.\"),\n    (\"Mental health issues\", \"low\", \"While mental health problems are important, they are not specified here; thus, their impact remains unclear.\"),\n    (\"Family history of criminal behavior\", \"medium\", \"A family history of crime may influence individual behavior but is not provided in this case.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_030424_630974",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 40,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

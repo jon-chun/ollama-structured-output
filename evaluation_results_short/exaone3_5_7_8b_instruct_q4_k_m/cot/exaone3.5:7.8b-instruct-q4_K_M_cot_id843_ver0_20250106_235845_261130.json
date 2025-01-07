@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 843,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-07T04:58:45.259952898Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.307494434,
+    "load_duration": 0.022469307,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 279,
+    "eval_duration": 2.27
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"While younger age can sometimes correlate with lower recidivism due to fewer established criminal networks, 19 years old is still within a developmental stage where risk factors like impulsivity can be significant.\"),\n    (\"Race (White)\", \"low\", \"Race alone is not a definitive predictor of recidivism without considering other contextual factors. In many studies, controlling for socioeconomic status and environment reduces racial disparities in recidivism rates.\"),\n    (\"Number of Arrests\", \"high\", \"Eight prior arrests indicate a pattern of involvement with the criminal justice system, suggesting potential ongoing challenges in adhering to legal norms and possibly facing systemic barriers.\"),\n    (\"Number of Convictions\", \"high\", \"Having been convicted multiple times reinforces the previous factor, indicating a history of legal non-compliance and potentially underlying issues that contribute to repeated offending behaviors.\"),\n    (\"Time Frame (3 Years)\", \"medium\", \"The focus on a 3-year rearrest prediction implies evaluating recent behavior trends; however, with only past convictions noted without recent arrest data, the assessment leans moderately towards past behavior influencing future risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_235845_261130",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 843,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 8 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

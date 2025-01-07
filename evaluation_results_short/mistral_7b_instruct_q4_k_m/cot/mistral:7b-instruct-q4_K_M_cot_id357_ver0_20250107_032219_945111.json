@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 357,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-07T08:22:19.944009036Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.026077676,
+    "load_duration": 0.014876895,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 254,
+    "eval_duration": 1.999
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"age\",\n      \"value\": \"low\",\n      \"textual_reasoning\": \"The person is a 19-year-old male, which is generally considered to be a low risk factor for recidivism.\"\n    },\n    {\n      \"factor2\": \"number_of_arrests\",\n      \"value\": \"medium\",\n      \"textual_reasoning\": \"The person has been arrested twice, which is considered to be a moderate risk factor for recidivism. However, this alone does not necessarily predict future criminal behavior.\"\n    },\n    {\n      \"factor3\": \"conviction_status\",\n      \"value\": \"high\",\n      \"textual_reasoning\": \"The person has been convicted, which is considered to be a high risk factor for recidivism. This indicates that the individual may have a history of criminal behavior and may be more likely to engage in similar acts in the future.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_032219_945111",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 357,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "value": "low",
+      "textual_reasoning": "The person is a 19-year-old male, which is generally considered to be a low risk factor for recidivism."
+    },
+    {
+      "factor2": "number_of_arrests",
+      "value": "medium",
+      "textual_reasoning": "The person has been arrested twice, which is considered to be a moderate risk factor for recidivism. However, this alone does not necessarily predict future criminal behavior."
+    },
+    {
+      "factor3": "conviction_status",
+      "value": "high",
+      "textual_reasoning": "The person has been convicted, which is considered to be a high risk factor for recidivism. This indicates that the individual may have a history of criminal behavior and may be more likely to engage in similar acts in the future."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

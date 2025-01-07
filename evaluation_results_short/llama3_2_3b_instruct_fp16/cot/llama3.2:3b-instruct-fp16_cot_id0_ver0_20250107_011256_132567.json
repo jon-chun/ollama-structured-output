@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 0,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:3b-instruct-fp16",
+    "created_at": "2025-01-07T06:12:56.130959676Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.660680207,
+    "load_duration": 0.028949251,
+    "prompt_eval_count": 218,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 166,
+    "eval_duration": 1.624
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Youth is generally considered a low risk factor for recidivism, but being an adult already reduces that risk.\"),\n    (\"Number of Arrests\", \"high\", \"Multiple arrests indicate a higher likelihood of future offending behavior, particularly if the individual has not yet demonstrated rehabilitation.\"),\n    (\"Ethnicity\", \"medium\", \"Research suggests Hispanic individuals may face unique challenges in the justice system and could be at an increased risk for recidivism due to socioeconomic factors\"),\n    (\"Prior Conviction\", \"high\", \"A prior conviction is a strong indicator of future offending behavior, as it demonstrates a history of disregard for the law and potential for continued deviant behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_011256_132567",
+    "model": "llama3.2:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 0,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

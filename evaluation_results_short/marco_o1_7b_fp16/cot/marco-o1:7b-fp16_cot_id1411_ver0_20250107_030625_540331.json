@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1411,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-07T08:06:25.538587187Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.431989802,
+    "load_duration": 0.024940605,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 284,
+    "eval_duration": 5.388
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"At 22, the individual is relatively young, which may indicate a higher potential for rehabilitation.\"),\n    (\"Race/Ethnicity\", \"low\", \"Identifying as White does not inherently correlate with increased recidivism rates in this context.\"),\n    (\"Number of Arrests\", \"medium\", \"Four prior arrests suggest some involvement in criminal behavior, but the number alone doesn't definitively indicate future risk.\"),\n    (\"Convictions\", \"high\", \"Having been convicted implies a history of legal issues and may increase the likelihood of reoffending.\"),\n    (\"Age at First Offense\", \"low\", \"Not provided, but generally, younger age at first offense can be a predictor of higher recidivism; however, without specific data on when the first arrest occurred, this is speculative.\"),\n    (\"Employment Status\", \"low\", \"No information on employment status, which could influence reoffending rates positively or negatively based on access to legal income sources.\"),\n    (\"Education Level\", \"low\", \"Unspecified education level doesn't provide clear insights into potential risk factors for recidivism.\"),\n    (\"Family History of Crime\", \"low\", \"No mention of family criminal history, which can be a significant factor in assessing future behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_030625_540331",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1411,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

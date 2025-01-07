@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1061,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T03:47:06.557635012Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.447882295,
+    "load_duration": 0.035091507,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.002,
+    "eval_count": 156,
+    "eval_duration": 0.409
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race=Black\", \"weight\": 2, \"textual reasoning\": \"Potential biases in the justice system may lead to disparate treatment and higher recidivism rates for Black individuals.\"},\n    {\"factor2\": \"low\", \"weight\": 1, \"textual reasoning\": \"Lack of prior convictions may indicate a lower likelihood of recidivism compared to those with prior offenses.\"},\n    {\"factor3\": \"age=18\", \"weight\": -1, \"textual reasoning\": \"Rapidly entering adulthood increases the likelihood of taking impulsive decisions, which could contribute to recidivism.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_224706_558598",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1061,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race=Black",
+      "weight": 2,
+      "textual reasoning": "Potential biases in the justice system may lead to disparate treatment and higher recidivism rates for Black individuals."
+    },
+    {
+      "factor2": "low",
+      "weight": 1,
+      "textual reasoning": "Lack of prior convictions may indicate a lower likelihood of recidivism compared to those with prior offenses."
+    },
+    {
+      "factor3": "age=18",
+      "weight": -1,
+      "textual reasoning": "Rapidly entering adulthood increases the likelihood of taking impulsive decisions, which could contribute to recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

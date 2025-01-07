@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 942,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_0",
+    "created_at": "2025-01-07T06:03:34.754985526Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.397961355,
+    "load_duration": 0.027473483,
+    "prompt_eval_count": 207,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 169,
+    "eval_duration": 1.36
+  },
+  "response": {
+    "raw_message_text": "\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The defendant is young, which generally indicates a lower risk of rearrest. However, the impact of age on recidivism may vary by jurisdiction.\"),\n    (\"gender\", \"medium\", \"Males typically have higher rearrest rates than females. This factor alone does not necessarily indicate a high risk for this specific individual.\"),\n    (\"race\", \"low\", \"There is evidence that certain groups are overrepresented in the criminal justice system, but this factor should be considered alongside others and not used in isolation.\"),\n    (\"arrest_history\", \"high\", \"The defendant has been arrested once before. While no conviction exists, this factor alone suggests a higher risk of rearrest.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_010334_756142",
+    "model": "hermes3:8b-llama3.1-q4_0",
+    "prompt_type": "PromptType.COT",
+    "row_id": 942,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

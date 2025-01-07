@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 349,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-07T05:04:41.501199676Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.783898418,
+    "load_duration": 0.0196691,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 181,
+    "eval_duration": 0.757
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Prior Arrest Record\", \"medium\", \"Has a single prior arrest leading to conviction suggests some level of initial deterrence, but also indicates past criminal behavior.\"],\n    [\"Race\", \"low\", \"Race alone, especially when not correlated with other factors, does not strongly predict recidivism on its own in many jurisdictions without additional context like socioeconomic status or neighborhood.\"],\n    [\"Age\", \"low\", \"Age at 22 years old generally correlates with lower recidivism rates compared to older offenders, though individual circumstances vary.\"],\n    [\"Conviction Status\", \"high\", \"Having been convicted increases the likelihood of future criminal behavior due to established criminal history.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_000441_502198",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 349,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrest Record",
+      "medium",
+      "Has a single prior arrest leading to conviction suggests some level of initial deterrence, but also indicates past criminal behavior."
+    ],
+    [
+      "Race",
+      "low",
+      "Race alone, especially when not correlated with other factors, does not strongly predict recidivism on its own in many jurisdictions without additional context like socioeconomic status or neighborhood."
+    ],
+    [
+      "Age",
+      "low",
+      "Age at 22 years old generally correlates with lower recidivism rates compared to older offenders, though individual circumstances vary."
+    ],
+    [
+      "Conviction Status",
+      "high",
+      "Having been convicted increases the likelihood of future criminal behavior due to established criminal history."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

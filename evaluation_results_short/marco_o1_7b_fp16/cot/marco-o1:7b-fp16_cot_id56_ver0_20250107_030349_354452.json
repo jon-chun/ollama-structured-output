@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 56,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-07T08:03:49.352899303Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.838285267,
+    "load_duration": 0.025416574,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 308,
+    "eval_duration": 5.792
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is 22 years old, which is relatively young. Younger offenders may be more amenable to rehabilitation.\"),\n    (\"Race/Ethnicity\", \"medium\", \"She identifies as White. While race can influence perceptions and outcomes, it's not a direct indicator of recidivism risk.\"),\n    (\"Number of Arrests\", \"high\", \"She has been arrested 3 times, indicating multiple encounters with the legal system.\"),\n    (\"Conviction History\", \"high\", \"She has been convicted before, which suggests that previous legal issues have not deterred her from reoffending.\"),\n    (\"Gender\", \"medium\", \"Being female may affect rehabilitation programs and support systems but does not directly indicate higher recidivism rates.\"),\n    (\"Lack of Employment\", \"low\", \"No information provided on employment status. Lack of employment can be a risk factor, but it's absent here.\"),\n    (\"Substance Abuse History\", \"low\", \"No mention of substance abuse issues. Substance misuse is often associated with higher recidivism, but it's not present in this case.\"),\n    (\"Mental Health Issues\", \"medium\", \"There's no information about mental health. Mental health disorders can impact behavior and reoffending rates.\"),\n    (\"Support Systems\", \"low\", \"No details on family or community support systems that could influence rehabilitation outcomes.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_030349_354452",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 56,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

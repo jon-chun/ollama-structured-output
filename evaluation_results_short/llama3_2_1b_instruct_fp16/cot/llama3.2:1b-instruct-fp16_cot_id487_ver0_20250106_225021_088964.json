@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 487,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T03:50:21.087777509Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.882734194,
+    "load_duration": 0.027119777,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 194,
+    "eval_duration": 0.85
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"age\", \"weight\": 2, \"reasoning\": \"The age of the individual is a significant risk factor for rearrest recidivism as it can indicate a lack of life skills, poor decision making, and increased vulnerability to exploitation.\"},\n    {\"factor2\": \"prior_arrests\", \"weight\": 3, \"reasoning\": \"Having been arrested twice in the past may indicate a higher likelihood of future offenses due to underlying mental health issues, substance abuse, or other factors contributing to her behavior.\"},\n    {\"factor3\": \" ethnicity\", \"weight\": 1, \"reasoning\": \"While ethnicity is an important consideration, it is not directly related to rearrest recidivism. However, it may be a relevant factor in other contexts, such as immigration or social services access.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_225021_088964",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 487,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "weight": 2,
+      "reasoning": "The age of the individual is a significant risk factor for rearrest recidivism as it can indicate a lack of life skills, poor decision making, and increased vulnerability to exploitation."
+    },
+    {
+      "factor2": "prior_arrests",
+      "weight": 3,
+      "reasoning": "Having been arrested twice in the past may indicate a higher likelihood of future offenses due to underlying mental health issues, substance abuse, or other factors contributing to her behavior."
+    },
+    {
+      "factor3": " ethnicity",
+      "weight": 1,
+      "reasoning": "While ethnicity is an important consideration, it is not directly related to rearrest recidivism. However, it may be a relevant factor in other contexts, such as immigration or social services access."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

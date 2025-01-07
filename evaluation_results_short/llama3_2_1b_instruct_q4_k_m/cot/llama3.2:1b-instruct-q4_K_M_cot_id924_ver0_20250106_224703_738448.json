@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 924,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T03:47:03.73701494Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.513866818,
+    "load_duration": 0.028005114,
+    "prompt_eval_count": 218,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 170,
+    "eval_duration": 0.479
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"being an arrestee for a past crime (2 times) as a juvenile\", \"weight\": 6, \"textual reasoning\": \"This is a medium risk factor, indicating a history of criminal activity which may increase recidivism\"},\n    {\"factor2\": \"identifying himself as Hispanic\", \"weight\": 5, \"textual reasoning\": \"This is a low risk factor, as ethnicity does not directly correlate with recidivism in many jurisdictions\"},\n    {\"factor3\": \"being convicted for a past crime\", \"weight\": 8, \"textual reasoning\": \"This is a high risk factor, indicating a significant history of criminal behavior which may increase recidivism\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_224703_738448",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 924,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "being an arrestee for a past crime (2 times) as a juvenile",
+      "weight": 6,
+      "textual reasoning": "This is a medium risk factor, indicating a history of criminal activity which may increase recidivism"
+    },
+    {
+      "factor2": "identifying himself as Hispanic",
+      "weight": 5,
+      "textual reasoning": "This is a low risk factor, as ethnicity does not directly correlate with recidivism in many jurisdictions"
+    },
+    {
+      "factor3": "being convicted for a past crime",
+      "weight": 8,
+      "textual reasoning": "This is a high risk factor, indicating a significant history of criminal behavior which may increase recidivism"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

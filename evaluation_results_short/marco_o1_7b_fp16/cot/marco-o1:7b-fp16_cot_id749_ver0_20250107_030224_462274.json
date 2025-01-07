@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 749,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-07T08:02:24.46083185Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.275835883,
+    "load_duration": 0.027560258,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 226,
+    "eval_duration": 4.229
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"A 20-year-old individual is relatively young, which may indicate fewer criminal ties compared to older adults.\"),\n    (\"Race\", \"low\", \"Identifying as White does not inherently correlate with higher recidivism rates in the absence of additional risk factors.\"),\n    (\"Previous Arrests\", \"medium\", \"Having one arrest without a conviction suggests potential behavioral issues or circumstances that led to arrest, indicating some level of risk.\"),\n    (\"Conviction History\", \"low\", \"No prior convictions mean there's no history of legal issues beyond the single arrest.\"),\n    (\"Criminal Networks\", \"low\", \"The absence of involvement in criminal networks reduces the likelihood of reoffending.\"),\n    (\"Employment Status\", \"medium\", \"The individual has not been convicted, but unemployment can be a risk factor for future criminal behavior.\"),\n    (\"Education Level\", \"low\", \"No information on education level provided; it may influence future opportunities and reduce recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_030224_462274",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 749,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

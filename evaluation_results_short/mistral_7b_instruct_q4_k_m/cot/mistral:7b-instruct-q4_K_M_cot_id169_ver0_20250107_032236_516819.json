@@ -1,0 +1,49 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 169,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-07T08:22:36.515790149Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.208678612,
+    "load_duration": 0.014136268,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 152,
+    "eval_duration": 1.183
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"age\",\n      \"value\": \"medium\",\n      \"textual_reasoning\": \"Being a young adult (21 years old) puts the individual at a moderate risk of reoffending within the next three years.\"\n    },\n    {\n      \"factor2\": \"criminal_history\",\n      \"value\": \"high\",\n      \"textual_reasoning\": \"Having been arrested 3 times and convicted indicates a high risk of recidivism.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_032236_516819",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 169,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "value": "medium",
+      "textual_reasoning": "Being a young adult (21 years old) puts the individual at a moderate risk of reoffending within the next three years."
+    },
+    {
+      "factor2": "criminal_history",
+      "value": "high",
+      "textual_reasoning": "Having been arrested 3 times and convicted indicates a high risk of recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

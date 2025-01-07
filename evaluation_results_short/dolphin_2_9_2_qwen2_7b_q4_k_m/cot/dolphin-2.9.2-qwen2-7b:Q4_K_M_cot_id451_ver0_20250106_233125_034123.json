@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 451,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "created_at": "2025-01-07T04:31:25.032364096Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.290019878,
+    "load_duration": 0.02479003,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 274,
+    "eval_duration": 2.248
+  },
+  "response": {
+    "raw_message_text": "Since I am an AI, I don't have personal insights to offer. However, as per the information given, a risk assessment would look like this:\n\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Youth is typically associated with lower recidivism rates\"),\n    (\"Gender - Female\", \"low\", \"Female offenders generally exhibit lower crime rates compared to males\"),\n    (\"Number of arrests\", \"high\", \"1 arrest is considered high given the low average number of arrests for a first-time offender.\"),\n    (\"Ethnicity - White\", \"medium\", \"The risk level can vary depending on whether this person has any history of criminal activity or not.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n\nHere, I assigned high to the factor 'Number of arrests' as a single arrest is considered high for a first-time offender. The factors 'Age', 'Gender', and 'Ethnicity' were rated low or medium based on their association with lower crime rates or less criminal history. The prediction was set to 'NO' meaning no re-arrest, given the low risk factors, but this would vary depending on other factors not included in this analysis such as type of offence committed etc. The confidence level is 75% indicating a moderate certainty based on the available information.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250106_233125_034123",
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 451,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

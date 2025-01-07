@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 970,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-07T08:26:27.118896409Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.923568494,
+    "load_duration": 0.013261923,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 210,
+    "eval_duration": 3.893
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    {\"factor1\", \"high\", \"has been convicted of a crime\"},\n    {\"factor2\", \"medium\", \"has been arrested 3 times\"},\n    {\"factor3\", \"low\", \"identifies as White\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```\nExplanation: The risk factor of being convicted of a crime carries the highest weight, as it indicates a higher likelihood of recidivism. Being arrested three times is considered medium risk as there are multiple instances of the person coming into contact with law enforcement, but not necessarily all resulted in convictions. Finally, identifying as White has the lowest weight as it is not directly related to the likelihood of recidivism. Based on these factors, the prediction is that there is a 70% chance that this individual will not be rearrested within the next three years.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_032627_121256",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 970,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
