@@ -2,6 +2,53 @@ PROMPT:
 ==================================================
 Please think step by step to very carefully analyze ###CODE and deeply brainstrom how to revise the code to make these 2 changes responding with very clear and precise instructions and only the OLD code that needs to be changed and it's NEW replacement lines with surrounding 2-5 lines of contex (or more if needed for clarity):
 
+
+MISSING MODELS
+==================================================
+GOAL: 
+1. try/catch missing models before beginning inference
+2. if missing, download and install if possible
+3. if step 2 successful, continue
+4. else log error message w/exactly model name and skip to next model
+
+
+TRACE:
+jonc@jonc-MS-7C35:~/code/ollama-structured-output$ source venv/bin/activate
+(venv) jonc@jonc-MS-7C35:~/code/ollama-structured-output$ python main.py
+2025-01-07 14:56:57,688 - INFO - Starting evaluation process
+2025-01-07 14:56:57,705 - INFO - Successfully normalized target values to YES/NO format
+2025-01-07 14:56:57,714 - INFO - Loaded 1412 total samples
+2025-01-07 14:56:57,714 - INFO - Train: 282 Validate: 282 Test: 848
+2025-01-07 14:56:57,715 - INFO - Target distribution in training set:
+target
+NO     204
+YES     78
+Name: count, dtype: int64
+2025-01-07 14:56:57,717 - INFO - Starting evaluation of model: mistral-small:22b-instruct-2409-q4_K_M
+2025-01-07 14:56:57,718 - INFO - Skipping mistral-small:22b-instruct-2409-q4_K_M with system1: maximum outputs reached
+2025-01-07 14:56:57,718 - INFO - Skipping mistral-small:22b-instruct-2409-q4_K_M with cot: maximum outputs reached
+2025-01-07 14:56:57,719 - INFO - Skipping mistral-small:22b-instruct-2409-q4_K_M with cot-nshot: maximum outputs reached
+2025-01-07 14:56:59,721 - INFO - Starting evaluation of model: mixtral:8x7b-instruct-v0.1-q4_K_M
+2025-01-07 14:56:59,721 - INFO - Processing combination: mixtral:8x7b-instruct-v0.1-q4_K_M with system1
+2025-01-07 14:56:59,721 - INFO - Need 100 more samples with 1 calls each for mixtral:8x7b-instruct-v0.1-q4_K_M with system1
+2025-01-07 14:56:59,745 - INFO - Selected batch of 4 samples from train dataset
+2025-01-07 14:56:59,759 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 404 Not Found"
+2025-01-07 14:56:59,760 - ERROR - Error during API call: model "mixtral:8x7b-instruct-v0.1-q4_K_M" not found, try pulling it first
+2025-01-07 14:56:59,769 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 404 Not Found"
+2025-01-07 14:56:59,769 - ERROR - Error during API call: model "mixtral:8x7b-instruct-v0.1-q4_K_M" not found, try pulling it first
+2025-01-07 14:56:59,776 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 404 Not Found"
+2025-01-07 14:56:59,777 - ERROR - Error during API call: model "mixtral:8x7b-instruct-v0.1-q4_K_M" not found, try pulling it first
+2025-01-07 14:56:59,785 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 404 Not Found"
+2025-01-07 14:56:59,785 - ERROR - Error during API call: model "mixtral:8x7b-instruct-v0.1-q4_K_M" not found, try pulling it first
+2025-01-07 14:56:59,886 - INFO - Selected batch of 4 samples from train dataset
+2025-01-07 14:56:59,898 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 404 Not Found"
+2025-01-07 14:56:59,899 - ERROR - Error during API call: model "mixtral:8x7b-instruct-v0.1-q4_K_M" not found, try pulling it first
+2025-01-07 14:56:59,909 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 404 Not Found"
+2025-01-07 14:56:59,910 - ERROR - Error during API call: model "mixtral:8x7b-instruct-v0.1-q4_K_M" not found, try pulling it first
+2025-01-07 14:56:59,921 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 404 Not Found"
+2
+
+
 RESTARTABLE 
 ==================================================
 1. before processing any distinct prompt_type for any given model_name, first check the output directory and make sure ther the count of output reponse unique filename roots (minus the datetime suffix) for this particular model,prompt combination does exceed (max_calls_per_prompt)*(max_samples), it it does skip to the next prompt under the current model. If all prompts processed under the current model, skip to the next model if there is one (if no more models to process, continue with any more code for analysis, graphs, etc)

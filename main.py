@@ -17,6 +17,7 @@ from metrics import PromptMetrics, TimeoutMetrics
 from performance import PerformanceTracker, PerformanceStats, save_aggregate_stats
 
 from utils import (
+    check_and_pull_model,
     clean_model_name,
     get_prompt_type_str,
     count_unique_samples,
@@ -35,6 +36,21 @@ config_import = load_config("config.yaml")
 DELAY_BETWEEN_PROMPT_TYPES_SEC = config_import.timeout['delay_between_prompt_types_sec']
 DELAY_BETWEEN_MODEL_LOAD_SEC = config_import.timeout['delay_between_model_load_sec']
 
+async def check_model_availability(config: Config) -> Dict[str, bool]:
+    """
+    Check availability of all models in config and attempt to pull missing ones.
+    Returns dict of model_name: available status.
+    """
+    model_availability = {}
+    for model_name in config.model_ensemble.keys():
+        success, error = await check_and_pull_model(
+            model_name, 
+            config.timeout.get('max_wait_ollama_pull_model_sec', 300)
+        )
+        model_availability[model_name] = success
+        if not success:
+            logging.error(f"Model {model_name} is not available and could not be pulled: {error}")
+    return model_availability
 
 async def cleanup_model():
     """Stop any running model instances without removing the model."""
@@ -294,6 +310,28 @@ async def run_evaluation_session(
         return None
     
 
+# In main.py, add this import at the top with other imports:
+from utils import check_and_pull_model  # Add this import
+
+# Add this new function before main():
+async def check_model_availability(config: Config) -> Dict[str, bool]:
+    """
+    Check availability of all models in config and attempt to pull missing ones.
+    Returns dict of model_name: available status.
+    """
+    model_availability = {}
+    for model_name in config.model_ensemble.keys():
+        success, error = await check_and_pull_model(
+            model_name, 
+            config.timeout.get('max_wait_ollama_pull_model_sec', 300)
+        )
+        model_availability[model_name] = success
+        if not success:
+            logging.error(f"Model {model_name} is not available and could not be pulled: {error}")
+    return model_availability
+
+# Then modify the main() function. Find the section that starts the model processing loop
+# and update it to look like this:
 async def main():
     """Main orchestrator with improved model management and restartability."""
     config = load_config("config.yaml")
@@ -327,8 +365,16 @@ async def main():
         # First, scan all existing output files
         combination_completion_status: Dict[Tuple[str, str], Dict] = {}
         
+        # Check model availability before starting evaluations
+        model_availability = await check_model_availability(config)
+        
         # Pre-scan completion status for all combinations
         for model_name, model_cfg in config.model_ensemble.items():
+            # Skip unavailable models
+            if not model_availability[model_name]:
+                logging.error(f"Skipping model {model_name} - not available")
+                continue
+                
             for p_type in PromptType:
                 combo_key = (model_name, str(p_type))
                 
@@ -355,10 +401,16 @@ async def main():
                     'completion_counts': completion_counts
                 }
 
-        # Now process only incomplete combinations
+        # Now process only incomplete combinations for available models
         for model_name, model_cfg in config.model_ensemble.items():
+            # Skip unavailable models
+            if not model_availability[model_name]:
+                continue
+                
             logging.info(f"Starting evaluation of model: {model_name}")
             model_name_clean = clean_model_name(model_name)
+            
+            # Rest of the existing main() function continues as before...
             
             # Create model-specific output directory
             model_output_dir = output_base / model_name_clean

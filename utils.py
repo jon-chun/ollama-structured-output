@@ -8,6 +8,64 @@ from pydantic import BaseModel
 from typing import Dict, Any, Optional, Set, DefaultDict, Tuple, TypeAlias, Literal, Union
 from collections import defaultdict
 import logging
+import asyncio
+import subprocess
+
+
+async def check_and_pull_model(model_name: str, timeout_seconds: int = 300) -> Tuple[bool, Optional[str]]:
+    """
+    Check if a model exists locally and pull it if missing.
+    
+    Args:
+        model_name: Name of the model to check/pull
+        timeout_seconds: Maximum time to wait for model pull
+        
+    Returns:
+        Tuple of (success: bool, error_message: Optional[str])
+    """
+    try:
+        # First check if model exists using ollama list
+        result = subprocess.run(['ollama', 'list'], capture_output=True, text=True)
+        if model_name in result.stdout:
+            logging.info(f"Model {model_name} is already installed")
+            return True, None
+            
+        logging.info(f"Model {model_name} not found locally, attempting to pull...")
+        
+        # Create and start the pull process
+        process = await asyncio.create_subprocess_exec(
+            'ollama', 'pull', model_name,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        
+        try:
+            # Wait for the process with timeout
+            stdout, stderr = await asyncio.wait_for(process.communicate(), timeout=timeout_seconds)
+            
+            if process.returncode == 0:
+                logging.info(f"Successfully pulled model {model_name}")
+                return True, None
+            else:
+                error_msg = stderr.decode() if stderr else "Unknown error during model pull"
+                logging.error(f"Failed to pull model {model_name}: {error_msg}")
+                return False, error_msg
+                
+        except asyncio.TimeoutError:
+            # Clean up process if it timed out
+            try:
+                process.kill()
+                await process.wait()
+            except:
+                pass
+            error_msg = f"Model pull timed out after {timeout_seconds} seconds"
+            logging.error(f"Timeout pulling model {model_name}: {error_msg}")
+            return False, error_msg
+            
+    except Exception as e:
+        error_msg = f"Error checking/pulling model: {str(e)}"
+        logging.error(error_msg)
+        return False, error_msg
 
 PromptTypeStr: TypeAlias = Literal['system1', 'cot', 'cot-nshot']
 
