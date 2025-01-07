@@ -119,6 +119,8 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
         try:
             parsed_response = json.loads(clean_text.strip())
             logging.debug("Successfully parsed response as JSON")
+            # Keep original text
+            parsed_response['original_text'] = response_text
         except json.JSONDecodeError:
             logging.debug("Failed to parse as direct JSON")
 
@@ -130,6 +132,7 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
             for match in matches:
                 try:
                     parsed_response = json.loads(match)
+                    parsed_response['original_text'] = response_text
                     logging.debug("Extracted and parsed JSON content using regex")
                     break
                 except json.JSONDecodeError:
@@ -144,17 +147,25 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
             if prediction_match and confidence_match:
                 parsed_response = {
                     "prediction": prediction_match.group(1).upper(),
-                    "confidence": int(confidence_match.group(1))
+                    "confidence": int(confidence_match.group(1)),
+                    "original_text": response_text  # Keep original text
                 }
                 if risk_factors_match:
-                    parsed_response["risk_factors"] = json.loads(risk_factors_match.group(1))
+                    try:
+                        parsed_response["risk_factors"] = json.loads(risk_factors_match.group(1))
+                    except json.JSONDecodeError:
+                        logging.warning("Could not parse risk_factors JSON")
                 logging.debug("Parsed structured text response")
         
         if not parsed_response:
             raise ValueError("Could not extract valid response from model output")
 
-        # Normalize the response
-        normalized = {}
+        # Normalize the response while keeping original text
+        normalized = {
+            'original_text': response_text  # Always include original text
+        }
+
+        # Handle prediction
         pred_value = str(parsed_response.get('prediction', '')).upper()
         normalized['prediction'] = (
             pred_value if pred_value in ['YES', 'NO']
@@ -172,7 +183,8 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
             normalized['confidence'] = 90  # Default confidence
 
         # Handle risk_factors
-        normalized['risk_factors'] = parsed_response.get('risk_factors', None)
+        if 'risk_factors' in parsed_response:
+            normalized['risk_factors'] = parsed_response['risk_factors']
 
         logging.debug(f"Normalized response: {normalized}")
         return normalized
@@ -213,7 +225,10 @@ async def get_decision(
         if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
             raise ValueError("Invalid API response structure")
 
-        normalized_response = process_model_response(response.message.content, model_name)
+        # Store the raw message text
+        raw_message_text = response.message.content
+
+        normalized_response = process_model_response(raw_message_text, model_name)
 
         try:
             decision = Decision(
@@ -225,7 +240,10 @@ async def get_decision(
             logging.error(f"Normalized response: {normalized_response}")
             return None, None, prompt, {}
 
-        extra_data = {}
+        extra_data = {
+            'response_text': normalized_response['prediction'],
+            'raw_message_text': raw_message_text  # Add raw message to extra_data
+        }
         if 'risk_factors' in normalized_response and normalized_response['risk_factors']:
             extra_data['risk_factors'] = normalized_response['risk_factors']
 
@@ -343,9 +361,16 @@ def save_decision(
 
         meta_data_data = convert_ns_to_s(meta_data_data)
 
+        # Create response object with raw message text
+        response_data = {
+            'raw_message_text': extra_data.get('raw_message_text', ''),
+            'normalized_prediction': extra_data.get('response_text', '')
+        }
+
         combined_data = {
             "decision": decision_data,
             "meta_data": meta_data_data,
+            "response": response_data,  # Add response data
             "evaluation": {
                 "timestamp": timestamp,
                 "model": model_name,
@@ -362,7 +387,11 @@ def save_decision(
         if 'risk_factors' in extra_data:
             combined_data["risk_factors"] = extra_data["risk_factors"]
         
-        combined_data["prompt"] = used_prompt
+        # Save both the prompts and raw response
+        combined_data["prompt"] = {
+            "system": config.prompts.get("prompt_persona", ""),
+            "user": used_prompt
+        }
 
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(combined_data, f, indent=2, default=str)

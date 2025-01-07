@@ -30,8 +30,11 @@ from decision import (
     save_decision
 )
 
-DELAY_BETWEEN_PROMPT_TYPES_SEC = 2
-DELAY_BETWEEN_MODEL_LOAD_SEC = 2
+config_import = load_config("config.yaml")
+
+DELAY_BETWEEN_PROMPT_TYPES_SEC = config_import.timeout['delay_between_prompt_types_sec']
+DELAY_BETWEEN_MODEL_LOAD_SEC = config_import.timeout['delay_between_model_load_sec']
+
 
 async def cleanup_model():
     """Stop any running model instances without removing the model."""

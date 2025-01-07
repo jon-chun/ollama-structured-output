@@ -1,0 +1,63 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 309,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T02:53:17.307494937Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.078927061,
+    "load_duration": 0.027216406,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 234,
+    "eval_duration": 1.045
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"education level (high school diploma vs. college)\", \"weight\": 8, \"textual reasoning\": \"Higher education may indicate a higher likelihood of recidivism due to increased financial stability and better access to job opportunities.\", \"result\": \"medium\"},\n    {\"factor2\": \"use of illicit substances (cocaine in the last 4 years)\", \"weight\": 6, \"textual reasoning\": \"Previous use of cocaine may indicate a higher risk of relapse and recidivism.\", \"result\": \"high\"},\n    {\"factor3\": \"marital status (single vs. married)\", \"weight\": 7, \"textual reasoning\": \"Being single may increase the likelihood of recidivism due to lack of social support and family ties.\", \"result\": \"low\"},\n    {\"factor4\": \"physical health (no medical conditions)\", \"weight\": 9, \"textual reasoning\": \"Good physical health may indicate a lower risk of recidivism.\", \"result\": \"medium\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_215317_308774",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 309,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "education level (high school diploma vs. college)",
+      "weight": 8,
+      "textual reasoning": "Higher education may indicate a higher likelihood of recidivism due to increased financial stability and better access to job opportunities.",
+      "result": "medium"
+    },
+    {
+      "factor2": "use of illicit substances (cocaine in the last 4 years)",
+      "weight": 6,
+      "textual reasoning": "Previous use of cocaine may indicate a higher risk of relapse and recidivism.",
+      "result": "high"
+    },
+    {
+      "factor3": "marital status (single vs. married)",
+      "weight": 7,
+      "textual reasoning": "Being single may increase the likelihood of recidivism due to lack of social support and family ties.",
+      "result": "low"
+    },
+    {
+      "factor4": "physical health (no medical conditions)",
+      "weight": 9,
+      "textual reasoning": "Good physical health may indicate a lower risk of recidivism.",
+      "result": "medium"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 11 inches and weighs 153 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

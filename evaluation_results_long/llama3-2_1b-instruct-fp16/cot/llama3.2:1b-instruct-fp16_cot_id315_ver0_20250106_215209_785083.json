@@ -1,0 +1,51 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 315,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T02:52:09.783934346Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.592604739,
+    "load_duration": 0.017122756,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 127,
+    "eval_duration": 0.569
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"education level\", \"weight\": 2, \"textual reasoning\": \"Low to moderate educational background may be associated with lower employability and higher crime rates.\", \"value\": \"5th grade or less\"},\n    {\"factor2\": \"employment history\", \"weight\": 3, \"textual reasoning\": \"History of employment suggests some level of stability and financial security, which may reduce the likelihood of recidivism.\", \"value\": \"1-2 jobs per year\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_215209_785083",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 315,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "education level",
+      "weight": 2,
+      "textual reasoning": "Low to moderate educational background may be associated with lower employability and higher crime rates.",
+      "value": "5th grade or less"
+    },
+    {
+      "factor2": "employment history",
+      "weight": 3,
+      "textual reasoning": "History of employment suggests some level of stability and financial security, which may reduce the likelihood of recidivism.",
+      "value": "1-2 jobs per year"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
