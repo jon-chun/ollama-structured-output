@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 240,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "created_at": "2025-01-08T07:10:28.009495755Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.204781224,
+    "load_duration": 0.019796297,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 160,
+    "eval_duration": 3.171
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The individual is of a medium risk age for recidivism.\"),\n    (\"gender\", \"low\", \"Male gender has been historically associated with lower recidivism rates compared to females.\"),\n    (\"race_ethnicity\", \"medium\", \"Hispanic individuals may face unique challenges that can impact recidivism, hence a medium risk.\"),\n    (\"arrest_only_no_conviction\", \"high\", \"A high-risk factor as the lack of conviction does not reflect full risk due to lack of formal judicial outcome.\"),\n    (\"prior_arrests\", \"low\", \"Only one arrest indicates relatively low prior involvement with the criminal justice system.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_021028_010775",
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 240,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

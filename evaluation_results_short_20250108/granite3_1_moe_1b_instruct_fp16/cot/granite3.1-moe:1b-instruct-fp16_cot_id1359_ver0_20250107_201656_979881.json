@@ -1,0 +1,67 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 1359,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:56.978265107Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.85952321,
+    "load_duration": 0.019013694,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.05,
+    "eval_count": 285,
+    "eval_duration": 1.786
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"Criminal history (2 times arrests)\",\n      \"low\": [\"This factor suggests a high risk of reoffending due to previous convictions.\", \"The individual has been arrested twice within the last year, which is concerning.\"]\n    },\n    {\n      \"factor2\": \"Criminal history\",\n      \"medium\": [\"While this is not a significant number, it indicates a higher-than-average risk of recidivism due to previous convictions.\", \"The individual has been arrested twice in the last year, suggesting potential for repeat offending.\"]\n    },\n    {\n      \"factor3\": \"Age (19 years)\",\n      \"low\": [\"At this age, individuals are more likely to be impulsive and make risky decisions, which could lead to reoffending.\", \"This factor suggests a lower risk of recidivism due to the individual's young age.\"]\n    },\n    {\n      \"factor4\": \"Race (Black)\",\n      \"medium\": [\"The racial composition of this population may influence how criminal justice systems respond, potentially leading to different outcomes for this individual.\", \"This factor suggests a medium risk level compared to other factors.\"]\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201656_979881",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1359,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Criminal history (2 times arrests)",
+      "low": [
+        "This factor suggests a high risk of reoffending due to previous convictions.",
+        "The individual has been arrested twice within the last year, which is concerning."
+      ]
+    },
+    {
+      "factor2": "Criminal history",
+      "medium": [
+        "While this is not a significant number, it indicates a higher-than-average risk of recidivism due to previous convictions.",
+        "The individual has been arrested twice in the last year, suggesting potential for repeat offending."
+      ]
+    },
+    {
+      "factor3": "Age (19 years)",
+      "low": [
+        "At this age, individuals are more likely to be impulsive and make risky decisions, which could lead to reoffending.",
+        "This factor suggests a lower risk of recidivism due to the individual's young age."
+      ]
+    },
+    {
+      "factor4": "Race (Black)",
+      "medium": [
+        "The racial composition of this population may influence how criminal justice systems respond, potentially leading to different outcomes for this individual.",
+        "This factor suggests a medium risk level compared to other factors."
+      ]
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

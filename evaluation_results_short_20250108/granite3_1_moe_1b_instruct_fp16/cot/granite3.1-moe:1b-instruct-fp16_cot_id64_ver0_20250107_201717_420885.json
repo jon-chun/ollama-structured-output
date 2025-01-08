@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 64,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:17.419741528Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.154938138,
+    "load_duration": 0.017953513,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.05,
+    "eval_count": 173,
+    "eval_duration": 1.084
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age, Gender, Race/Ethnicity\",\n      \"weight\": \"high\",\n      \"reasoning\": \"Risk factors related to age, gender, and race or ethnicity are more significant in predicting reoffending.\"\n    },\n    {\n      \"factor\": \"Prior Arrest History\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"The individual's prior arrest history indicates a higher likelihood of future recidivism.\"\n    },\n    {\n      \"factor\": \"Criminal History\",\n      \"weight\": \"high\",\n      \"reasoning\": \"The individual's current criminal conviction further increases the risk of reoffending.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201717_420885",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 64,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Age, Gender, Race/Ethnicity",
+      "weight": "high",
+      "reasoning": "Risk factors related to age, gender, and race or ethnicity are more significant in predicting reoffending."
+    },
+    {
+      "factor": "Prior Arrest History",
+      "weight": "medium",
+      "reasoning": "The individual's prior arrest history indicates a higher likelihood of future recidivism."
+    },
+    {
+      "factor": "Criminal History",
+      "weight": "high",
+      "reasoning": "The individual's current criminal conviction further increases the risk of reoffending."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

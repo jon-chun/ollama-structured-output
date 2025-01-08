@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 40,
+    "id": 534,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T08:01:22.171983236Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.180931892,
+    "load_duration": 0.014579745,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.025,
+    "eval_count": 283,
+    "eval_duration": 6.138
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Given the age of 20, this individual is relatively young. Younger individuals are often more impulsive and risk-taking, which could indicate a higher likelihood of future offenses. However, without conviction history or prior arrests, the impact is considered low.\"),\n    (\"Gender\", \"low\", \"Male gender alone does not provide significant predictive value for recidivism. Therefore, it's assigned a low weight.\"),\n    (\"Race\", \"low\", \"The individual's racial identity as Black does not inherently predict criminal behavior or recidivism risk. This factor is thus considered low.\"),\n    (\"Criminal History\", \"medium\", \"One prior arrest without conviction suggests some level of criminal involvement, but it's too early to draw firm conclusions about future offending behavior. The medium weight reflects the potential for increased risk due to this history.\"),\n    (\"Conviction Status\", \"low\", \"Lack of a conviction implies that the individual may not have been found guilty in court, which could mean they were not responsible or did not commit the alleged crime. Thus, it's assigned a low weight.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 40\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_030122_173242",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 534,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

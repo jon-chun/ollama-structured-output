@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 924,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:36.167088885Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.597192367,
+    "load_duration": 0.016681144,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 236,
+    "eval_duration": 1.531
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age at Arrest\",\n      \"value\": 2,\n      \"weight\": \"high\",\n      \"reasoning\": \"Younger offenders are often seen as more amenable to rehabilitation.\"\n    },\n    {\n      \"factor\": \"Prior Convictions\",\n      \"value\": 18,\n      \"weight\": \"medium\",\n      \"reasoning\": \"Multiple convictions may indicate higher risk of recidivism.\"\n    },\n    {\n      \"factor\": \"Criminal History\",\n      \"value\": 2,\n      \"weight\": \"high\",\n      \"reasoning\": \"A history of criminal activity increases the likelihood of reoffending.\"\n    },\n    {\n      \"factor\": \"Race/Ethnicity\",\n      \"value\": Hispanic,\n      \"weight\": \"medium\",\n      \"reasoning\": \"Hispanic individuals may face unique challenges in navigating the justice system and accessing services for rehabilitation.\"\n    }\n  ],\n\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201736_168924",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 924,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

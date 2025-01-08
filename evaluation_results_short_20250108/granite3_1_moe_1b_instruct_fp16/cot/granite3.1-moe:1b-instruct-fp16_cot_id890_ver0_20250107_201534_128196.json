@@ -1,0 +1,63 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 890,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:34.126823938Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.588525631,
+    "load_duration": 0.013767539,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.047,
+    "eval_count": 241,
+    "eval_duration": 1.524
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": [\"Criminal History\", \"Age\"],\n      \"value\": 2,\n      \"reasoning\": \"The individual has a prior criminal record (criminal history), indicating past involvement in illegal activities. Age is also considered as it increases the likelihood of recidivism due to potential brain development issues common among older individuals.\"\n    },\n    {\n      \"factor1\": [\"Employment\", \"Educational Attainment\"],\n      \"value\": 2,\n      \"reasoning\": \"The individual has not held any employment or education since her arrest. This lack of stability and skills training can contribute to a cycle of criminal behavior.\"\n    },\n    {\n      \"factor1\": [\"Substance Use\", \"Mental Health\"],\n      \"value\": 2,\n      \"reasoning\": \"The individual's age suggests that she may be struggling with substance use or mental health issues. This can influence her decision-making processes and lead to reoffending.\"\n    }\n  ],\n\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201534_128196",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 890,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": [
+        "Criminal History",
+        "Age"
+      ],
+      "value": 2,
+      "reasoning": "The individual has a prior criminal record (criminal history), indicating past involvement in illegal activities. Age is also considered as it increases the likelihood of recidivism due to potential brain development issues common among older individuals."
+    },
+    {
+      "factor1": [
+        "Employment",
+        "Educational Attainment"
+      ],
+      "value": 2,
+      "reasoning": "The individual has not held any employment or education since her arrest. This lack of stability and skills training can contribute to a cycle of criminal behavior."
+    },
+    {
+      "factor1": [
+        "Substance Use",
+        "Mental Health"
+      ],
+      "value": 2,
+      "reasoning": "The individual's age suggests that she may be struggling with substance use or mental health issues. This can influence her decision-making processes and lead to reoffending."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

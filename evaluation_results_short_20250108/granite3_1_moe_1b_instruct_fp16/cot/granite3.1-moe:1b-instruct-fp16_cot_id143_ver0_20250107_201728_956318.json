@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 143,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:28.95517804Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.266403632,
+    "load_duration": 0.013888617,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 188,
+    "eval_duration": 1.204
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"The individual is a 22-year-old female, which might influence risk factors such as maturity and experience.\"\n    },\n    {\n      \"factor\": \"Arrest History\",\n      \"weight\": \"high\",\n      \"reasoning\": \"Having been arrested once but not convicted suggests that the individual may pose a high level of risk for reoffending due to lack of formal legal consequences.\"\n    },\n    {\n      \"factor\": \"Criminal History\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"While she has no prior criminal record, her arrest history indicates potential risks that warrant further investigation.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201728_956318",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Age",
+      "weight": "medium",
+      "reasoning": "The individual is a 22-year-old female, which might influence risk factors such as maturity and experience."
+    },
+    {
+      "factor": "Arrest History",
+      "weight": "high",
+      "reasoning": "Having been arrested once but not convicted suggests that the individual may pose a high level of risk for reoffending due to lack of formal legal consequences."
+    },
+    {
+      "factor": "Criminal History",
+      "weight": "medium",
+      "reasoning": "While she has no prior criminal record, her arrest history indicates potential risks that warrant further investigation."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

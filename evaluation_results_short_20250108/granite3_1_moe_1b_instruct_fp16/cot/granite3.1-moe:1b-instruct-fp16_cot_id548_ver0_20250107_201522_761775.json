@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 548,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:22.760614343Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.37293335,
+    "load_duration": 0.015493038,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.05,
+    "eval_count": 349,
+    "eval_duration": 2.305
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"age (18)\",\n      \"low\": \"Age can be a risk factor as it increases the likelihood of reoffending.\",\n      \"medium\": \"While age is an important factor, its impact may decrease over time due to maturity and experience.\"\n    },\n    {\n      \"factor\": \"race/ethnicity\",\n      \"high\": \"Racial profiling and discrimination contribute significantly to criminal behavior. This individual appears White.\",\n      \"medium\": \"While race can be a risk factor, it's less pronounced than the other factors.\"\n    },\n    {\n      \"factor\": \"criminal history (1 time)\",\n      \"high\": \"A single arrest and conviction for a minor offense increases recidivism risk.\",\n      \"medium\": \"The frequency of arrests can provide insight into the individual's likelihood of reoffending.\"\n    },\n    {\n      \"factor\": \"lack of support network\",\n      \"high\": \"Without a strong support system, this individual may struggle to avoid future criminal behavior.\",\n      \"medium\": \"This factor is important for predicting recidivism, but it's not as influential as the others.\"\n    },\n    {\n      \"factor\": \"poor socioeconomic status\",\n      \"high\": \"Financial instability can lead to unstable housing and lack of resources.\",\n      \"medium\": \"This factor is relevant for predicting recidivism, but it's less pronounced than the others.\"\n    }\n  ],\n\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201522_761775",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 548,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "age (18)",
+      "low": "Age can be a risk factor as it increases the likelihood of reoffending.",
+      "medium": "While age is an important factor, its impact may decrease over time due to maturity and experience."
+    },
+    {
+      "factor": "race/ethnicity",
+      "high": "Racial profiling and discrimination contribute significantly to criminal behavior. This individual appears White.",
+      "medium": "While race can be a risk factor, it's less pronounced than the other factors."
+    },
+    {
+      "factor": "criminal history (1 time)",
+      "high": "A single arrest and conviction for a minor offense increases recidivism risk.",
+      "medium": "The frequency of arrests can provide insight into the individual's likelihood of reoffending."
+    },
+    {
+      "factor": "lack of support network",
+      "high": "Without a strong support system, this individual may struggle to avoid future criminal behavior.",
+      "medium": "This factor is important for predicting recidivism, but it's not as influential as the others."
+    },
+    {
+      "factor": "poor socioeconomic status",
+      "high": "Financial instability can lead to unstable housing and lack of resources.",
+      "medium": "This factor is relevant for predicting recidivism, but it's less pronounced than the others."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

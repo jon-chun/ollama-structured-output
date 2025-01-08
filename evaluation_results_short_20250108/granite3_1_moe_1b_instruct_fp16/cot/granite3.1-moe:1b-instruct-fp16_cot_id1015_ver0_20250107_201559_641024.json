@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1015,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:59.639815359Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.806873161,
+    "load_duration": 0.017416925,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.056,
+    "eval_count": 271,
+    "eval_duration": 1.73
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal Record, Arrests\",\n      \"low\": \"A history of multiple arrests indicates a propensity for reoffending.\",\n      \"medium\": \"Multiple arrests suggest involvement in criminal activity and potential difficulty in maintaining stable relationships.\",\n      \"high\": \"Persistent criminal record raises concerns about future offending.\"\n    },\n    {\n      \"factor\": \"Criminal History, Convictions\",\n      \"low\": \"Conviction rate is moderate, suggesting a reasonable expectation of rehabilitation.\",\n      \"medium\": \"Conviction history indicates involvement in serious crimes and potential for repeat offenses.\",\n      \"high\": \"High conviction rate raises significant concerns about future criminal behavior.\"\n    },\n    {\n      \"factor\": \"Age at First Offense\",\n      \"low\": \"19 years old is early compared to typical recidivism rates, suggesting lower risk of reoffending.\",\n      \"medium\": \"Early age may indicate a lack of maturity or understanding of consequences.\",\n      \"high\": \"Early offender's potential for high risk due to inexperience.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201559_641024",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1015,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal Record, Arrests",
+      "low": "A history of multiple arrests indicates a propensity for reoffending.",
+      "medium": "Multiple arrests suggest involvement in criminal activity and potential difficulty in maintaining stable relationships.",
+      "high": "Persistent criminal record raises concerns about future offending."
+    },
+    {
+      "factor": "Criminal History, Convictions",
+      "low": "Conviction rate is moderate, suggesting a reasonable expectation of rehabilitation.",
+      "medium": "Conviction history indicates involvement in serious crimes and potential for repeat offenses.",
+      "high": "High conviction rate raises significant concerns about future criminal behavior."
+    },
+    {
+      "factor": "Age at First Offense",
+      "low": "19 years old is early compared to typical recidivism rates, suggesting lower risk of reoffending.",
+      "medium": "Early age may indicate a lack of maturity or understanding of consequences.",
+      "high": "Early offender's potential for high risk due to inexperience."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

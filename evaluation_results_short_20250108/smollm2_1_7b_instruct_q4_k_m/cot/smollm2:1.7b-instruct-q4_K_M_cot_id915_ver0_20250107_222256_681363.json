@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 915,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-08T03:22:56.680361057Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.403780629,
+    "load_duration": 0.015642184,
+    "prompt_eval_count": 225,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 120,
+    "eval_duration": 0.382
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"age\", \"low\", \"The applicant's age is below the average for her demographic group.\"],\n    [\"sex\", \"high\", \"The applicant identifies as female, which may influence risk factors related to gender and victimization.\"],\n    [\"race\", \"medium\", \"The applicant identifies as Black. Research has shown that racial disparities exist in policing, sentencing, and recidivism rates. This factor should be assigned a medium weight due to the potential impact on risk assessment outcomes.\"]\n  ],\n  \"prediction\": \"NO\"\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_222256_681363",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 915,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "low",
+      "The applicant's age is below the average for her demographic group."
+    ],
+    [
+      "sex",
+      "high",
+      "The applicant identifies as female, which may influence risk factors related to gender and victimization."
+    ],
+    [
+      "race",
+      "medium",
+      "The applicant identifies as Black. Research has shown that racial disparities exist in policing, sentencing, and recidivism rates. This factor should be assigned a medium weight due to the potential impact on risk assessment outcomes."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

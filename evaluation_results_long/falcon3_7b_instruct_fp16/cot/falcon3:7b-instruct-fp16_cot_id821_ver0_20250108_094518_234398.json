@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 821,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-08T14:45:18.232774425Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.405512467,
+    "load_duration": 0.025470087,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 394,
+    "eval_duration": 7.359
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age is generally associated with lower risk of recidivism as individuals are at a stage where they may be more open to rehabilitation and personal growth.\"),\n    (\"Gender\", \"medium\", \"Male gender is often considered a medium risk factor due to societal norms and stereotypes, though individual circumstances vary widely.\"),\n    (\"Arrest History\", \"medium\", \"Single arrest with conviction suggests some level of involvement in criminal activity, but does not necessarily indicate a high likelihood of recidivism.\"),\n    (\"Physical Description\", \"low\", \"Height and weight are neutral factors in risk assessment; they do not directly influence the likelihood of rearrest.\"),\n    (\"Marital Status and Living Situation\", \"medium\", \"Living alone without being married can sometimes correlate with higher risk, as it may indicate a lack of stable social support.\"),\n    (\"Education Status\", \"low\", \"Enrollment in school is generally associated with lower risk, as education often leads to better employment opportunities and personal development.\"),\n    (\"Employment History\", \"low\", \"Holding a job during the year suggests stability and engagement in productive activities, which are protective factors against recidivism.\"),\n    (\"Drug Use\", \"low\", \"No drug use in the past four years is a strong indicator of lower risk, as substance abuse can be linked to criminal behavior.\"),\n    (\"Mental Health\", \"low\", \"Not feeling depressed recently suggests better mental health, which is protective against criminal behavior.\"),\n    (\"Family Background\", \"medium\", \"Growing up with both parents in a small household in a rural area may indicate stability but also possible exposure to limited opportunities and influences.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_094518_234398",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 821,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 1 inch and weighs 180 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

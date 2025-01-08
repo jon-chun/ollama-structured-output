@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 162,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:14.695058094Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.497384138,
+    "load_duration": 0.014239818,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 224,
+    "eval_duration": 1.435
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age\",\n      \"weight\": 0.3,\n      \"reasoning\": \"Younger individuals generally have less maturity and insight into the consequences of their actions.\"\n    },\n    {\n      \"factor\": \"Criminal History\",\n      \"weight\": 0.4,\n      \"reasoning\": \"A single arrest does not equate to a criminal history; this factor considers both previous offenses and the nature of those crimes.\"\n    },\n    {\n      \"factor\": \"Identity as White\",\n      \"weight\": 0.3,\n      \"reasoning\": \"This can influence perceptions and potential biases towards the individual during judicial proceedings.\"\n    },\n    {\n      \"factor\": \"Arrest History\",\n      \"weight\": 0.4,\n      \"reasoning\": \"A single arrest does not necessarily reflect the likelihood of future criminal behavior.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201614_696464",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 162,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Age",
+      "weight": 0.3,
+      "reasoning": "Younger individuals generally have less maturity and insight into the consequences of their actions."
+    },
+    {
+      "factor": "Criminal History",
+      "weight": 0.4,
+      "reasoning": "A single arrest does not equate to a criminal history; this factor considers both previous offenses and the nature of those crimes."
+    },
+    {
+      "factor": "Identity as White",
+      "weight": 0.3,
+      "reasoning": "This can influence perceptions and potential biases towards the individual during judicial proceedings."
+    },
+    {
+      "factor": "Arrest History",
+      "weight": 0.4,
+      "reasoning": "A single arrest does not necessarily reflect the likelihood of future criminal behavior."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

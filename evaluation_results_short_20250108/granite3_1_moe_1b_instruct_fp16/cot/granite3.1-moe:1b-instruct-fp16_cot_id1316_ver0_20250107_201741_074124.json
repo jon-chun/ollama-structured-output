@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1316,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:41.072855562Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.339155791,
+    "load_duration": 0.018306842,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.052,
+    "eval_count": 340,
+    "eval_duration": 2.265
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age\",\n      \"weight\": 20,\n      \"reasoning\": \"The individual is a 19-year-old male, which may indicate potential immaturity or impulsivity.\"\n    },\n    {\n      \"factor\": \"Criminal History\",\n      \"weight\": 35,\n      \"reasoning\": \"He has been arrested once but not convicted, suggesting a lack of prior criminal record. However, this factor should be weighted low due to the potential for new offenses.\"\n    },\n    {\n      \"factor\": \"Ethnicity\",\n      \"weight\": 20,\n      \"reasoning\": \"His Black ethnicity may influence his perceptions and behaviors, potentially increasing his risk of reoffending.\"\n    },\n    {\n      \"factor\": \"Offense Type\",\n      \"weight\": 15,\n      \"reasoning\": \"The nature of the offense (arrested once without a conviction) suggests he has not engaged in serious crimes previously. However, this factor is weighted low due to his lack of prior criminal history.\"\n    },\n    {\n      \"factor\": \"Prior Arrests\",\n      \"weight\": 15,\n      \"reasoning\": \"He has been arrested once but not convicted, which may indicate a lack of severe offenses in the past. This factor is weighted low due to his lack of prior criminal record.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201741_074124",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1316,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Age",
+      "weight": 20,
+      "reasoning": "The individual is a 19-year-old male, which may indicate potential immaturity or impulsivity."
+    },
+    {
+      "factor": "Criminal History",
+      "weight": 35,
+      "reasoning": "He has been arrested once but not convicted, suggesting a lack of prior criminal record. However, this factor should be weighted low due to the potential for new offenses."
+    },
+    {
+      "factor": "Ethnicity",
+      "weight": 20,
+      "reasoning": "His Black ethnicity may influence his perceptions and behaviors, potentially increasing his risk of reoffending."
+    },
+    {
+      "factor": "Offense Type",
+      "weight": 15,
+      "reasoning": "The nature of the offense (arrested once without a conviction) suggests he has not engaged in serious crimes previously. However, this factor is weighted low due to his lack of prior criminal history."
+    },
+    {
+      "factor": "Prior Arrests",
+      "weight": 15,
+      "reasoning": "He has been arrested once but not convicted, which may indicate a lack of severe offenses in the past. This factor is weighted low due to his lack of prior criminal record."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

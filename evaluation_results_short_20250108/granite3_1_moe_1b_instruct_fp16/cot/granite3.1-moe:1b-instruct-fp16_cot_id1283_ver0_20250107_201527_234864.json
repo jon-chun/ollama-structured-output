@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 1283,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:27.233500971Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.109861991,
+    "load_duration": 0.018282616,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 311,
+    "eval_duration": 2.042
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Arrest history\",\n      \"low\": [\"The individual has a prior criminal record, which may indicate a higher likelihood of reoffending.\", \"There are specific factors that can influence an arrest record's weightage such as the severity and nature of the crimes committed.\"],\n      \"medium\": [\"While a long-standing arrest history might suggest potential risks, it also indicates past criminal behavior. This could be due to lifestyle choices or systemic biases.\", \"Understanding the individual's background, circumstances leading up to their first offense, and reasons for subsequent recidivism can provide valuable insights.\"]\n    },\n    {\n      \"factor\": \"Age\",\n      \"low\": [\"The individual is 20 years old. This age group is generally considered a period of developmental transition and may indicate some cognitive or emotional maturity.\", \"However, it's also important to consider the influence of peer pressure and societal expectations on young offenders' behavior.\"]\n    },\n    {\n      \"factor\": \"Race\",\n      \"low\": [\"The individual identifies as Black. This racial identity can potentially impact how law enforcement treats them, which may affect their likelihood of reoffending.\", \"However, it's also crucial to consider the specific context and circumstances surrounding each arrest.\"]\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201527_234864",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1283,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Arrest history",
+      "low": [
+        "The individual has a prior criminal record, which may indicate a higher likelihood of reoffending.",
+        "There are specific factors that can influence an arrest record's weightage such as the severity and nature of the crimes committed."
+      ],
+      "medium": [
+        "While a long-standing arrest history might suggest potential risks, it also indicates past criminal behavior. This could be due to lifestyle choices or systemic biases.",
+        "Understanding the individual's background, circumstances leading up to their first offense, and reasons for subsequent recidivism can provide valuable insights."
+      ]
+    },
+    {
+      "factor": "Age",
+      "low": [
+        "The individual is 20 years old. This age group is generally considered a period of developmental transition and may indicate some cognitive or emotional maturity.",
+        "However, it's also important to consider the influence of peer pressure and societal expectations on young offenders' behavior."
+      ]
+    },
+    {
+      "factor": "Race",
+      "low": [
+        "The individual identifies as Black. This racial identity can potentially impact how law enforcement treats them, which may affect their likelihood of reoffending.",
+        "However, it's also crucial to consider the specific context and circumstances surrounding each arrest."
+      ]
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 8 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

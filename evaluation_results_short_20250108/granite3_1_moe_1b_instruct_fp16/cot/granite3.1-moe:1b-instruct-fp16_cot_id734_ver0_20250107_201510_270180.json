@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 734,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:10.268895796Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.389320007,
+    "load_duration": 0.015415879,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.043,
+    "eval_count": 210,
+    "eval_duration": 1.327
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal history\",\n      \"weight\": 2.5,\n      \"reasoning\": \"4 arrests indicate a history of criminal behavior.\"\n    },\n    {\n      \"factor\": \"Recidivism rate\",\n      \"weight\": 3,\n      \"reasoning\": \"Arrests are linked to convictions, suggesting a high likelihood of reoffending.\"\n    },\n    {\n      \"factor\": \"Age\",\n      \"weight\": 1.5,\n      \"reasoning\": \"21 years old is a young adult, indicating the potential for learning and personal growth after past mistakes.\"\n    },\n    {\n      \"factor\": \"Gender\",\n      \"weight\": 0.5,\n      \"reasoning\": \"Race does not significantly impact criminal behavior, but it's important to consider individual circumstances.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201510_270180",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 734,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal history",
+      "weight": 2.5,
+      "reasoning": "4 arrests indicate a history of criminal behavior."
+    },
+    {
+      "factor": "Recidivism rate",
+      "weight": 3,
+      "reasoning": "Arrests are linked to convictions, suggesting a high likelihood of reoffending."
+    },
+    {
+      "factor": "Age",
+      "weight": 1.5,
+      "reasoning": "21 years old is a young adult, indicating the potential for learning and personal growth after past mistakes."
+    },
+    {
+      "factor": "Gender",
+      "weight": 0.5,
+      "reasoning": "Race does not significantly impact criminal behavior, but it's important to consider individual circumstances."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

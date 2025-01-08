@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 202,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:22.982411239Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.047251001,
+    "load_duration": 0.017925343,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.056,
+    "eval_count": 152,
+    "eval_duration": 0.97
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"age\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"20-year-olds are generally considered higher risk due to their potential for impulsive behavior.\"\n    },\n    {\n      \"factor\": \"criminal history\",\n      \"weight\": \"high\",\n      \"reasoning\": \"1 time arrest and conviction suggests a pattern of criminality.\"\n    },\n    {\n      \"factor\": \"gender identity\",\n      \"weight\": \"low\",\n      \"reasoning\": \"Assessments are typically gender-neutral for risk assessment.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201722_983521",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 202,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "age",
+      "weight": "medium",
+      "reasoning": "20-year-olds are generally considered higher risk due to their potential for impulsive behavior."
+    },
+    {
+      "factor": "criminal history",
+      "weight": "high",
+      "reasoning": "1 time arrest and conviction suggests a pattern of criminality."
+    },
+    {
+      "factor": "gender identity",
+      "weight": "low",
+      "reasoning": "Assessments are typically gender-neutral for risk assessment."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

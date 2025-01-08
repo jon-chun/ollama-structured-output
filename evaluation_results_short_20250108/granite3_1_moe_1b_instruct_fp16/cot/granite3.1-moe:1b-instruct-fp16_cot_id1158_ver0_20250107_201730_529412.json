@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 1158,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:30.528082712Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.569983535,
+    "load_duration": 0.013023227,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.058,
+    "eval_count": 232,
+    "eval_duration": 1.495
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age\",\n      \"low\": \"Hispanic male at a young age may exhibit developmental delays in cognitive functions, potentially impacting his risk for recidivism.\",\n      \"medium\": \"While he is still developing mentally, early criminal behavior could be attributed to environmental factors.\"\n    },\n    {\n      \"factor\": \"Criminal History\",\n      \"low\": \"7 arrests without convictions may suggest a lack of severe crime patterns.\",\n      \"medium\": \"A history suggests potential for repeat offenses, especially if the patterns are consistent and involve similar types of crimes.\"\n    },\n    {\n      \"factor\": \"Identity as Hispanic\",\n      \"low\": \"Hispanic identity is not inherently riskier than any other ethnic group.\",\n      \"medium\": \"Cultural factors or stereotypes could influence his behavior, potentially leading to recidivism if left unchecked.\"\n    }\n  ],\n\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201730_529412",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1158,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Age",
+      "low": "Hispanic male at a young age may exhibit developmental delays in cognitive functions, potentially impacting his risk for recidivism.",
+      "medium": "While he is still developing mentally, early criminal behavior could be attributed to environmental factors."
+    },
+    {
+      "factor": "Criminal History",
+      "low": "7 arrests without convictions may suggest a lack of severe crime patterns.",
+      "medium": "A history suggests potential for repeat offenses, especially if the patterns are consistent and involve similar types of crimes."
+    },
+    {
+      "factor": "Identity as Hispanic",
+      "low": "Hispanic identity is not inherently riskier than any other ethnic group.",
+      "medium": "Cultural factors or stereotypes could influence his behavior, potentially leading to recidivism if left unchecked."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 7 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

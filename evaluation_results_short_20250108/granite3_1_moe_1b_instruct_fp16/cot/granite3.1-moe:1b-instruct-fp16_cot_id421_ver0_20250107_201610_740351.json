@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 421,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:10.739019715Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.314249272,
+    "load_duration": 0.013059729,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.061,
+    "eval_count": 187,
+    "eval_duration": 1.237
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Prior Arrests\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"Continuous criminal history indicates a higher risk of recidivism, particularly for repeat offenders.\"\n    },\n    {\n      \"factor\": \"Conviction History\",\n      \"weight\": \"high\",\n      \"reasoning\": \"A conviction history is directly linked to increased likelihood of reoffending.\"\n    },\n    {\n      \"factor\": \"Age\",\n      \"weight\": \"low\",\n      \"reasoning\": \"While the individual's age may influence risk, it should not be a primary factor in predicting long-term recidivism. A 22-year-old is less likely to reoffend than an older individual.\"\n    }\n  ],\n\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201610_740351",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 421,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Prior Arrests",
+      "weight": "medium",
+      "reasoning": "Continuous criminal history indicates a higher risk of recidivism, particularly for repeat offenders."
+    },
+    {
+      "factor": "Conviction History",
+      "weight": "high",
+      "reasoning": "A conviction history is directly linked to increased likelihood of reoffending."
+    },
+    {
+      "factor": "Age",
+      "weight": "low",
+      "reasoning": "While the individual's age may influence risk, it should not be a primary factor in predicting long-term recidivism. A 22-year-old is less likely to reoffend than an older individual."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

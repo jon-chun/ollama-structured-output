@@ -1,0 +1,65 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 462,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:47.39172374Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.481672449,
+    "load_duration": 0.013890298,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 219,
+    "eval_duration": 1.414
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal History\",\n      \"low_reasoning\": [\"A history of criminal behavior can indicate a higher risk for recidivism.\", \"This individual has been arrested twice without being convicted.\"],\n      \"medium_reasoning\": [\"He maintains contact with the law through his repeated arrests.\"]\n    },\n    {\n      \"factor\": \"Age\",\n      \"low_reasoning\": [\"Youthful offenders are often more prone to reoffending due to developmental and cognitive factors.\", \"The individual is 19 years old.\"]\n    },\n    {\n      \"factor\": \"Identity\",\n      \"medium_reasoning\": [\"A male identity can influence behavior, attitudes, and decision-making processes.\"],\n      \"high_reasoning\": [\"His identification as a White man might also affect his perception of the legal system.\"]\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201547_393168",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 462,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal History",
+      "low_reasoning": [
+        "A history of criminal behavior can indicate a higher risk for recidivism.",
+        "This individual has been arrested twice without being convicted."
+      ],
+      "medium_reasoning": [
+        "He maintains contact with the law through his repeated arrests."
+      ]
+    },
+    {
+      "factor": "Age",
+      "low_reasoning": [
+        "Youthful offenders are often more prone to reoffending due to developmental and cognitive factors.",
+        "The individual is 19 years old."
+      ]
+    },
+    {
+      "factor": "Identity",
+      "medium_reasoning": [
+        "A male identity can influence behavior, attitudes, and decision-making processes."
+      ],
+      "high_reasoning": [
+        "His identification as a White man might also affect his perception of the legal system."
+      ]
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1377,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:20:33.749725487Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.853540891,
+    "load_duration": 0.023153851,
+    "prompt_eval_count": 350,
+    "prompt_eval_duration": 0.037,
+    "eval_count": 303,
+    "eval_duration": 7.787
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age is generally associated with lower recidivism rates.\"),\n    (\"Gender\", \"low\", \"Being female typically correlates with lower recidivism risk.\"),\n    (\"Race\", \"low\", \"Mixed race does not significantly impact the risk assessment.\"),\n    (\"Prior Arrests\", \"medium\", \"Two arrests suggest moderate risk, as it indicates past involvement with the criminal justice system.\"),\n    (\"Conviction History\", \"medium\", \"One conviction signals a moderate risk level.\"),\n    (\"Height and Weight\", \"low\", \"Physical attributes do not directly impact recidivism risk.\"),\n    (\"Marital Status\", \"low\", \"Being married often correlates with lower recidivism.\"),\n    (\"Educational Attainment\", \"medium\", \"Lack of high school diploma or GED may indicate reduced opportunities and higher risk.\"),\n    (\"Employment History\", \"low\", \"Holding one job in a year suggests some employment stability.\"),\n    (\"Substance Abuse\", \"high\", \"Recent cocaine use and persistent depression indicate significant risk.\"),\n    (\"Family Structure\", \"low\", \"Living in a small household with her mother suggests some family support.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_102033_750900",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1377,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as mixed race. She has been arrested 2 times and has been convicted. She is 5 feet 8 inches and weighs 148 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

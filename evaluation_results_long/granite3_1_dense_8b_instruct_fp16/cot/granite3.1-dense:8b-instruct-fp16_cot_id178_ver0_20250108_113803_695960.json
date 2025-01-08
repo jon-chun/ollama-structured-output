@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 178,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T16:38:03.694146846Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.341700403,
+    "load_duration": 0.018937388,
+    "prompt_eval_count": 398,
+    "prompt_eval_duration": 0.039,
+    "eval_count": 473,
+    "eval_duration": 10.279
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Being young does not inherently correlate with high risk. The individual's age, 20, is within the expected range for criminal activity.\"),\n    (\"Gender and Race\", \"medium\", \"While certain demographics may have higher rates of arrest and conviction, these factors alone do not guarantee recidivism. Being a Black male does not inherently increase risk.\"),\n    (\"Marital Status\", \"low\", \"Being unmarried is not indicative of future criminal behavior.\"),\n    (\"Housing Situation\", \"medium\", \"Living alone might indicate less social control, potentially increasing risk. However, it's not a definitive factor.\"),\n    (\"Employment History\", \"high\", \"Having held only two jobs in the past year may suggest instability and potential economic stress, which can correlate with increased criminal behavior.\"),\n    (\"Education Level\", \"high\", \"Not having a high school diploma or GED certificate is associated with higher recidivism rates due to limited employment opportunities.\"),\n    (\"Substance Use\", \"medium\", \"Past drug use, particularly hard substances like cocaine, can indicate a propensity for risky behavior and potential addiction, increasing risk.\"),\n    (\"Mental Health\", \"high\", \"Frequent feelings of depression could suggest underlying mental health issues or emotional stress, both of which are associated with higher recidivism rates.\"),\n    (\"Family Background\", \"medium\", \"Growing up in a large family and an urban area can have mixed effects on risk. Larger families might provide more social control, while urban environments can increase exposure to crime.\"),\n    (\"Spirituality\", \"low\", \"Belief in God or religion is generally associated with lower recidivism rates due to a sense of moral guidance and community support.\"),\n    (\"Recidivism History\", \"high\", \"Having been arrested 8 times and convicted suggests a pattern of criminal behavior, which is the strongest predictor of future rearrest.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_113803_695960",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 178,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 8 times and has been convicted. He is 5 feet 7 inches and weighs 154 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 7, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

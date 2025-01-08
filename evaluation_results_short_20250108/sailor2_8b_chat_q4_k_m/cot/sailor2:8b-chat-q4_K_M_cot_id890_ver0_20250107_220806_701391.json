@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 890,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-08T03:08:06.699083081Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.170393001,
+    "load_duration": 0.032199505,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 342,
+    "eval_duration": 3.126
+  },
+  "response": {
+    "raw_message_text": "**Analysis:**\n\n### Risk Factors:\n1. **Age (22 years)**: **low**\n   - Youth reduces recidivism risks due to developmental factors, lack of entrenched criminal networks.\n2. **Gender (female)**: **medium**\n   - Female offenders typically have lower rates of rearrest compared to males but show variability; context matters.\n3. **Race/ethnicity (White)**: **low**\n   - There is a slight racial component affecting recidivism, but not as dominant for a white female in the absence of additional serious variables.\n4. **Number of prior arrests (2 times)**: **medium**\n   - Moderate recidivism risk; 2 arrests suggest some criminal involvement.\n5. **Convictions**: **high** \n   - Conviction history indicates actual behavioral commitment to crimes, increasing likelihood of future offenses.\n\n### Combined Prediction:\n- **Factor1 weight**: low\n- **Factor2 weight**: medium\n- **Factor3 weight**: low\n- **Factor4 weight**: medium\n- **Factor5 weight**: high\n\n**Prediction:**\n```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Youth reduces recidivism risk.\"),\n    (\"gender\", \"medium\", \"Female offenders generally lower recidivism but context specific.\"),\n    (\"race/ethnicity\", \"low\", \"White racial component with minor influence.\"),\n    (\"prior_arrests\", \"medium\", \"2 arrests indicative of past criminal behavior.\"),\n    (\"convictions\", \"high\", \"Conviction history strongly suggests future rearrest.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_220806_701391",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 890,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

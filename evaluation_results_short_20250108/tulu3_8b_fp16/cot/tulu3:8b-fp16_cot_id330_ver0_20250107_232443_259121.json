@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 330,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-08T04:24:43.257631735Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.041885508,
+    "load_duration": 0.024137839,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 152,
+    "eval_duration": 3.005
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_offense\", \"low\", \"The defendant is 18 years old, which typically indicates a lower risk of recidivism compared to older individuals.\"),\n    (\"gender\", \"medium\", \"Females generally have a lower rearrest rate than males but are not exempt from potential risks.\"),\n    (\"race_ethnicity\", \"low\", \"There is no significant evidence that race alone predicts recidivism, so this factor is considered low.\"),\n    (\"prior_arrests_no_convictions\", \"medium\", \"A single arrest without conviction can suggest a lower risk, but it might also indicate early-stage criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_232443_259121",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 330,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

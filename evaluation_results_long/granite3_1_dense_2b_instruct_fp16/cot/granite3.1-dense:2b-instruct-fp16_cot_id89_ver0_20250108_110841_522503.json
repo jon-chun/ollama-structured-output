@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 89,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-08T16:08:41.520964318Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.071871647,
+    "load_duration": 0.014021546,
+    "prompt_eval_count": 373,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 350,
+    "eval_duration": 3.034
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Criminal history (2 arrests but no convictions)\", \"medium\", \"This individual has been involved in criminal activities, which is a significant risk factor.\"),\n    (\"Age (21 years old)\", \"low\", \"Younger individuals generally have less developed criminal networks and fewer life circumstances that could lead to reoffending.\"),\n    (\"Gender (male)\", \"medium\", \"While there's no inherent gender bias in crime, societal expectations may influence behavior.\"),\n    (\"Education level (high school diploma but not college)\", \"medium\", \"Education can provide skills and opportunities that reduce recidivism risk.\"),\n    (\"Employment history (1 job during the year)\", \"low\", \"Stable employment often indicates a reduced likelihood of reoffending.\"),\n    (\"Lifestyle factors (no drug use, no depression in the past month)\", \"low\", \"Absence of substance abuse and mental health issues are positive indicators.\"),\n    (\"Family background (lived with both biological parents in a large household)\", \"low\", \"Stable family structure can contribute to better life outcomes.),\n    (\"Religious beliefs (belief in divine intervention)\", \"low\", \"Belief in divine intervention may foster a sense of personal responsibility and accountability.\"),\n    (\"Urban upbringing (lived in an urban area at a young age)\", \"medium\", \"Urban environments can expose individuals to higher crime rates and social challenges.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_110841_522503",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 89,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 11 inches and weighs 182 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

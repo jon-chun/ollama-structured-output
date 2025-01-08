@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 315,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:49.878875277Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.740533405,
+    "load_duration": 0.016584355,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.061,
+    "eval_count": 260,
+    "eval_duration": 1.658
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal history\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"The individual has a history of arrests, which suggests a higher likelihood of future criminal behavior.\"\n    },\n    {\n      \"factor\": \"Conviction for similar offense\",\n      \"weight\": \"high\",\n      \"reasoning\": \"A conviction indicates a propensity towards criminality and past infractions indicate the potential to reoffend.\"\n    },\n    {\n      \"factor\": \"Age of arrested individuals\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"Young offenders are more likely to recidivate due to their immature behavior, lack of maturity, and limited life experiences that can lead them back into criminal activity.\"\n    },\n    {\n      \"factor\": \"Gender identity\",\n      \"weight\": \"low\",\n      \"reasoning\": \"While gender identity may influence an individual's likelihood of reoffending, it is not a primary risk factor in this context. The focus here is on past offenses and convictions.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201649_880232",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 315,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal history",
+      "weight": "medium",
+      "reasoning": "The individual has a history of arrests, which suggests a higher likelihood of future criminal behavior."
+    },
+    {
+      "factor": "Conviction for similar offense",
+      "weight": "high",
+      "reasoning": "A conviction indicates a propensity towards criminality and past infractions indicate the potential to reoffend."
+    },
+    {
+      "factor": "Age of arrested individuals",
+      "weight": "medium",
+      "reasoning": "Young offenders are more likely to recidivate due to their immature behavior, lack of maturity, and limited life experiences that can lead them back into criminal activity."
+    },
+    {
+      "factor": "Gender identity",
+      "weight": "low",
+      "reasoning": "While gender identity may influence an individual's likelihood of reoffending, it is not a primary risk factor in this context. The focus here is on past offenses and convictions."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

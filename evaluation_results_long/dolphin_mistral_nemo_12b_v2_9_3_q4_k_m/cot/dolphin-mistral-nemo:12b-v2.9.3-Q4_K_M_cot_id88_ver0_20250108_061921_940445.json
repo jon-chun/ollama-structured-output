@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 88,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-08T11:19:21.939013535Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.461209237,
+    "load_duration": 0.036923028,
+    "prompt_eval_count": 367,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 415,
+    "eval_duration": 5.411
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n    (\"Age: 19-24 years\", \"high\", \"Younger age groups are statistically more likely to reoffend.\"),\n    (\"Gender: Male\", \"medium\", \"Males tend to have higher recidivism rates compared to females.\"),\n    (\"Race: White\", \"low\", \"No significant correlation between race and recidivism in this case.\"),\n    (\"Number of arrests: 10\", \"high\", \"Higher number of past arrests indicates a likelihood of future reoffending.\"),\n    (\"Conviction history\", \"medium\", \"Convictions can influence the potential for rearrest, but not as heavily as other factors.\"),\n    (\"Height and weight: 6'0\\\" & 155 lbs\", \"low\", \"No significant correlation with recidivism.\"),\n    (\"Marital status: Never married\", \"high\", \"Single individuals tend to have higher rates of criminal behavior.\"),\n    (\"Living arrangement: Alone\", \"medium\", \"Living alone can be a risk factor, but not as strong as others.\"),\n    (\"Education level: No high school diploma/GED\", \"high\", \"Lower educational attainment is associated with increased recidivism.\"),\n    (\"Employment status: 1 job in the year\", \"low\", \"Regular employment indicates lower likelihood of reoffending.\"),\n    (\"Drug use history: marijuana & cocaine\", \"medium\", \"Substance abuse can increase the risk of criminal behavior.\"),\n    (\"Depression: No\", \"low\", \"No correlation with recidivism.\"),\n    (\"Early family environment: 4 members, urban area\", \"high\", \"Adverse childhood experiences are linked to higher rates of reoffending.\"),\n    (\"Belief in God's influence\", \"medium\", \"Religious beliefs can have a protective effect, but not strongly correlated.\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_061921_940445",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 88,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 10 times and has been convicted. He is 6 feet 0 inches and weighs 155 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

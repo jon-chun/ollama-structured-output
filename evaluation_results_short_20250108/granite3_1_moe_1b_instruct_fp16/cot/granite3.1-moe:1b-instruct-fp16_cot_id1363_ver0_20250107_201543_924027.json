@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 1363,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:43.922657391Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.037185453,
+    "load_duration": 0.01247603,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.043,
+    "eval_count": 155,
+    "eval_duration": 0.979
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal history\",\n      \"weight\": \"1.5\",\n      \"reasoning\": \"A history of multiple arrests and convictions is a significant risk factor.\"\n    },\n    {\n      \"factor\": \"Age\",\n      \"weight\": \"1\",\n      \"reasoning\": \"Being 22 years old increases the likelihood of reoffending due to developmental factors.\"\n    },\n    {\n      \"factor\": \"Race\",\n      \"weight\": \"0.5\",\n      \"reasoning\": \"His race, being Black, may increase his risk profile.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201543_924027",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1363,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal history",
+      "weight": "1.5",
+      "reasoning": "A history of multiple arrests and convictions is a significant risk factor."
+    },
+    {
+      "factor": "Age",
+      "weight": "1",
+      "reasoning": "Being 22 years old increases the likelihood of reoffending due to developmental factors."
+    },
+    {
+      "factor": "Race",
+      "weight": "0.5",
+      "reasoning": "His race, being Black, may increase his risk profile."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 6 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 754,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:51.404875158Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.931397466,
+    "load_duration": 0.013783039,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.05,
+    "eval_count": 287,
+    "eval_duration": 1.864
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"Criminal history (previous arrests)\",\n      \"low_weight\": \"The individual has a single non-conviction arrest\",\n      \"medium_weight\": \"He is a first-time offender without prior convictions\",\n      \"high_weight\": \"He lacks a criminal record\"\n    },\n    {\n      \"factor2\": \"Age (young)\",\n      \"low_weight\": \"The individual has 21 years old, which may indicate higher risk for recidivism due to maturity differences and ability to rehabilitate\",\n      \"medium_weight\": \"He is a young adult without prior criminal history\",\n      \"high_weight\": \"His age suggests potential immaturity and developmental challenges\"\n    },\n    {\n      \"factor3\": \"Gender (male)\",\n      \"low_weight\": \"The individual's gender may influence risk factors, but this factor is not a direct predictor of recidivism\",\n      \"medium_weight\": \"He identifies as White, which could be relevant in some jurisdictions for certain legal considerations\",\n      \"high_weight\": \"Gender-based stereotypes and disparities exist\"\n    }\n  ],\n\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201551_406203",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 754,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Criminal history (previous arrests)",
+      "low_weight": "The individual has a single non-conviction arrest",
+      "medium_weight": "He is a first-time offender without prior convictions",
+      "high_weight": "He lacks a criminal record"
+    },
+    {
+      "factor2": "Age (young)",
+      "low_weight": "The individual has 21 years old, which may indicate higher risk for recidivism due to maturity differences and ability to rehabilitate",
+      "medium_weight": "He is a young adult without prior criminal history",
+      "high_weight": "His age suggests potential immaturity and developmental challenges"
+    },
+    {
+      "factor3": "Gender (male)",
+      "low_weight": "The individual's gender may influence risk factors, but this factor is not a direct predictor of recidivism",
+      "medium_weight": "He identifies as White, which could be relevant in some jurisdictions for certain legal considerations",
+      "high_weight": "Gender-based stereotypes and disparities exist"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

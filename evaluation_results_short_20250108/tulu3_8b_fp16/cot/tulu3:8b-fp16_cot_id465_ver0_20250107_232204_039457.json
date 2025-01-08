@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 465,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-08T04:22:04.038209921Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.750480973,
+    "load_duration": 0.028497132,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 188,
+    "eval_duration": 3.71
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which generally correlates with a lower risk of re-offending.\"),\n    (\"gender\", \"medium\", \"Studies suggest female offenders have a different pattern of recidivism compared to males; however, the sample size is small.\"),\n    (\"race\", \"low\", \"Being identified as White does not inherently increase or decrease risk; studies show mixed results across different demographics.\"),\n    (\"arrests\", \"high\", \"A single arrest history with no conviction may indicate a low level of engagement with the criminal justice system but cannot be ignored, especially if there are underlying issues that led to the arrest.\"),\n    (\"prior_conviction\", \"low\", \"No prior convictions suggest limited involvement in crime. However, lack of a conviction does not necessarily mean lower risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_232204_039457",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 465,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 106,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T02:51:32.562166508Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.476996081,
+    "load_duration": 0.021858869,
+    "prompt_eval_count": 324,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 319,
+    "eval_duration": 1.45
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race/ethnicity\", \"weight\": \"low\", \"textual reasoning\": \"Hispanic identity may influence recidivism rates, but the impact is likely to be moderate compared to other risk factors\"},\n    {\"factor2\": \"drug use in past four years\", \"weight\": \"high\", \"textual reasoning\": \"Past drug use increases the likelihood of future recidivism, particularly if it's related to addiction or mental health issues\"},\n    {\"factor3\": \" marital status\", \"weight\": \"medium\", \"textual reasoning\": \"Being single may contribute to higher recidivism rates due to increased exposure to stress and less social support, but its impact is likely to be moderate\"},\n    {\"factor4\": \"job stability\", \"weight\": \"low\", \"textual reasoning\": \"Having held 4 jobs in a short period may indicate high levels of stress and instability, which can contribute to recidivism\"},\n    {\"factor5\": \"education level\", \"weight\": \"medium\", \"textual reasoning\": \"Having a high school diploma and being enrolled in college suggests some level of stability and opportunity, but it's not a direct predictor of recidivism\"},\n    {\"factor6\": \"family size\", \"weight\": \"low\", \"textual reasoning\": \"Lived in a household of 3 may indicate lower levels of family support and stress, which could contribute to higher recidivism rates\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_215132_563676",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 106,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race/ethnicity",
+      "weight": "low",
+      "textual reasoning": "Hispanic identity may influence recidivism rates, but the impact is likely to be moderate compared to other risk factors"
+    },
+    {
+      "factor2": "drug use in past four years",
+      "weight": "high",
+      "textual reasoning": "Past drug use increases the likelihood of future recidivism, particularly if it's related to addiction or mental health issues"
+    },
+    {
+      "factor3": " marital status",
+      "weight": "medium",
+      "textual reasoning": "Being single may contribute to higher recidivism rates due to increased exposure to stress and less social support, but its impact is likely to be moderate"
+    },
+    {
+      "factor4": "job stability",
+      "weight": "low",
+      "textual reasoning": "Having held 4 jobs in a short period may indicate high levels of stress and instability, which can contribute to recidivism"
+    },
+    {
+      "factor5": "education level",
+      "weight": "medium",
+      "textual reasoning": "Having a high school diploma and being enrolled in college suggests some level of stability and opportunity, but it's not a direct predictor of recidivism"
+    },
+    {
+      "factor6": "family size",
+      "weight": "low",
+      "textual reasoning": "Lived in a household of 3 may indicate lower levels of family support and stress, which could contribute to higher recidivism rates"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

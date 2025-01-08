@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 1066,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:26.718846921Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.705162395,
+    "load_duration": 0.016102745,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.049,
+    "eval_count": 243,
+    "eval_duration": 1.637
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": [\"Race\", \"Age (18 years)\", \"Arrests\"],\n      \"weight\": \"medium\",\n      \"reasoning\": \"This individual is an 18-year-old Black male, which may suggest a higher risk of recidivism due to potential biases in the justice system.\"\n    },\n    {\n      \"factor2\": [\"Criminal History (3 times)\", \"Convicted\"],\n      \"weight\": \"high\",\n      \"reasoning\": \"The individual has been arrested 3 times and convicted, indicating a pattern of criminal behavior. This is a strong predictor of recidivism.\"\n    },\n    {\n      \"factor3\": [\"Identity (Black)\", \"Arrests\"],\n      \"weight\": \"medium\",\n      \"reasoning\": \"The individual's racial identity also adds to the risk factors, as it may indicate systemic biases that could lead to harsher treatment for Black individuals within the criminal justice system.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201726_720045",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1066,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": [
+        "Race",
+        "Age (18 years)",
+        "Arrests"
+      ],
+      "weight": "medium",
+      "reasoning": "This individual is an 18-year-old Black male, which may suggest a higher risk of recidivism due to potential biases in the justice system."
+    },
+    {
+      "factor2": [
+        "Criminal History (3 times)",
+        "Convicted"
+      ],
+      "weight": "high",
+      "reasoning": "The individual has been arrested 3 times and convicted, indicating a pattern of criminal behavior. This is a strong predictor of recidivism."
+    },
+    {
+      "factor3": [
+        "Identity (Black)",
+        "Arrests"
+      ],
+      "weight": "medium",
+      "reasoning": "The individual's racial identity also adds to the risk factors, as it may indicate systemic biases that could lead to harsher treatment for Black individuals within the criminal justice system."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

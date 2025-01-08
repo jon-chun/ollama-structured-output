@@ -1,0 +1,70 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 21,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:38.65801348Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.529237675,
+    "load_duration": 0.018018046,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.051,
+    "eval_count": 536,
+    "eval_duration": 3.451
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"Criminal history of previous arrests\",\n      \"low\": \"The individual has been convicted once, not repeatedly. This is a positive factor.\",\n      \"medium\": \"He's had three arrests in total and one conviction. However, each arrest was for an unrelated offense, suggesting he might be more likely to repeat criminal behavior.\",\n      \"high\": \"This is the highest risk factor due to his repeated arrests for non-related offenses.\"\n    },\n    {\n      \"factor2\": \"Age\",\n      \"low\": \"He's 22. Younger people are less likely to commit serious crimes or reoffend.\",\n      \"medium\": \"This is a low risk factor as age alone doesn't determine criminal behavior, but it does suggest he might be more vulnerable and should be monitored closely.\"\n    },\n    {\n      \"factor3\": \"Identity\",\n      \"low\": \"His identity as Hispanic could potentially make him a target for social discrimination or mobility barriers.\",\n      \"medium\": \"This is a moderate risk factor due to his ethnicity, but it doesn't significantly impact the probability of reoffending.\"\n    },\n    {\n      \"factor4\": \"Employment status\",\n      \"low\": \"He's employed. This could be seen as low risk because he has a steady income.\",\n      \"medium\": \"This is a moderate risk factor because while employment can provide financial stability, it doesn't guarantee the absence of criminal behavior in the long term.\"\n    },\n    {\n      \"factor5\": \"Education level\",\n      \"low\": \"He has less than high school education. This is low risk as lower levels of education are often associated with higher recidivism rates.\",\n      \"medium\": \"This is a moderate risk factor because while education can provide some cognitive protection against reoffending, it doesn't fully prevent it.\"\n    },\n    {\n      \"factor6\": \"Family support\",\n      \"low\": \"He has family. This could be seen as low risk because families often play a crucial role in deterring crime.\",\n      \"medium\": \"This is a moderate risk factor because while familial ties can provide some protection, they are not guaranteed and may limit the individual's ability to refrain from criminal behavior.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201538_659376",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 21,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Criminal history of previous arrests",
+      "low": "The individual has been convicted once, not repeatedly. This is a positive factor.",
+      "medium": "He's had three arrests in total and one conviction. However, each arrest was for an unrelated offense, suggesting he might be more likely to repeat criminal behavior.",
+      "high": "This is the highest risk factor due to his repeated arrests for non-related offenses."
+    },
+    {
+      "factor2": "Age",
+      "low": "He's 22. Younger people are less likely to commit serious crimes or reoffend.",
+      "medium": "This is a low risk factor as age alone doesn't determine criminal behavior, but it does suggest he might be more vulnerable and should be monitored closely."
+    },
+    {
+      "factor3": "Identity",
+      "low": "His identity as Hispanic could potentially make him a target for social discrimination or mobility barriers.",
+      "medium": "This is a moderate risk factor due to his ethnicity, but it doesn't significantly impact the probability of reoffending."
+    },
+    {
+      "factor4": "Employment status",
+      "low": "He's employed. This could be seen as low risk because he has a steady income.",
+      "medium": "This is a moderate risk factor because while employment can provide financial stability, it doesn't guarantee the absence of criminal behavior in the long term."
+    },
+    {
+      "factor5": "Education level",
+      "low": "He has less than high school education. This is low risk as lower levels of education are often associated with higher recidivism rates.",
+      "medium": "This is a moderate risk factor because while education can provide some cognitive protection against reoffending, it doesn't fully prevent it."
+    },
+    {
+      "factor6": "Family support",
+      "low": "He has family. This could be seen as low risk because families often play a crucial role in deterring crime.",
+      "medium": "This is a moderate risk factor because while familial ties can provide some protection, they are not guaranteed and may limit the individual's ability to refrain from criminal behavior."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

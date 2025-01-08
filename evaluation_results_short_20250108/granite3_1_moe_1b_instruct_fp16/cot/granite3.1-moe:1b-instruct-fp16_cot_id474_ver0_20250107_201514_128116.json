@@ -1,0 +1,55 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 474,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:14.126537755Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.827974031,
+    "load_duration": 0.016625818,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.055,
+    "eval_count": 274,
+    "eval_duration": 1.753
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"prior arrest history\",\n      \"low\": \"Based on the information provided, this individual has only been arrested once. The likelihood of a repeat offense is considered low.\"\n    },\n    {\n      \"factor2\": \"conviction for criminal activity\",\n      \"medium\": \"While she has been convicted, it's important to note that her crime was not violent. This could potentially increase the risk if similar behavior is expected in the future.\"\n    },\n    {\n      \"factor3\": \"demographic information\",\n      \"low\": \"As this individual identifies as White and there's no explicit racial bias mentioned, demographic factors are considered neutral to criminal recidivism rates. However, it's worth noting that her race may influence how she is perceived by law enforcement or the justice system.\"\n    },\n    {\n      \"factor4\": \"socioeconomic status\",\n      \"medium\": \"Limited information provided about her socioeconomic status. This could potentially impact her ability to find employment, housing, and navigate through societal structures that may influence her future actions.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201514_128116",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 474,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "prior arrest history",
+      "low": "Based on the information provided, this individual has only been arrested once. The likelihood of a repeat offense is considered low."
+    },
+    {
+      "factor2": "conviction for criminal activity",
+      "medium": "While she has been convicted, it's important to note that her crime was not violent. This could potentially increase the risk if similar behavior is expected in the future."
+    },
+    {
+      "factor3": "demographic information",
+      "low": "As this individual identifies as White and there's no explicit racial bias mentioned, demographic factors are considered neutral to criminal recidivism rates. However, it's worth noting that her race may influence how she is perceived by law enforcement or the justice system."
+    },
+    {
+      "factor4": "socioeconomic status",
+      "medium": "Limited information provided about her socioeconomic status. This could potentially impact her ability to find employment, housing, and navigate through societal structures that may influence her future actions."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

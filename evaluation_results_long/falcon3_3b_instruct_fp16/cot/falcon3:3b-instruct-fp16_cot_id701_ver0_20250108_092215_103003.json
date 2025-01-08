@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 701,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:22:15.101497002Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.059094472,
+    "load_duration": 0.030736999,
+    "prompt_eval_count": 354,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 472,
+    "eval_duration": 4.014
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is generally considered a low risk factor for recidivism, especially given her young age.\"),\n    (\"prior_arrests\", \"low\", \"The person has not been arrested before, which significantly reduces the risk of future arrests.\"),\n    (\"convictions\", \"low\", \"She has not been convicted, further lowering the risk.\"),\n    (\"height\", \"medium\", \"Physical characteristics are generally not strong predictors of recidivism.\"),\n    (\"weight\", \"low\", \"Within the normal weight range, this does not pose a significant risk factor.\"),\n    (\"marital_status\", \"low\", \"Living alone suggests no immediate need for relationship-related risks.\"),\n    (\"diploma\", \"low\", \"Having a high school diploma indicates basic education, which can mitigate some risks.\"),\n    (\"enrolled_in_college\", \"low\", \"Not enrolled in college suggests she is not pursuing higher education that might increase risk.\"),\n    (\"jobs_held\", \"high\", \"Holding multiple jobs may indicate employment instability and potential for future arrests.\"),\n    (\"drug_use\", \"medium\", \"Recent marijuana use, especially at a young age, could be a moderate risk factor if not managed properly.\"),\n    (\"depression\", \"low\", \"Not feeling depressed over the past month suggests low risk of mental health-related recidivism.\"),\n    (\"family_background\", \"low\", \"Growing up with both parents and in a rural household, she has a supportive family background.\"),\n    (\"religious_beliefs\", \"medium\", \"Her religious beliefs are not tied to personal destiny, which could be seen as moderately risky if they influence behavior.\"),\n    (\"self_control\", \"low\", \"General lack of self-control may lower risk but requires context.\"),\n    (\"environmental_context\", \"low\", \"Living alone and in a rural area provides a relatively stable environment.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092215_103003",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 701,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

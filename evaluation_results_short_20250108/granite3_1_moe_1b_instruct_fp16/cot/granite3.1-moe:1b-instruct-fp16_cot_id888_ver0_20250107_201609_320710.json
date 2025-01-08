@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 888,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:09.319193132Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.792775954,
+    "load_duration": 0.015244037,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.052,
+    "eval_count": 271,
+    "eval_duration": 1.722
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"age\",\n      \"value\": 21,\n      \"high\": true,\n      \"reasoning\": \"Individuals in their late twenties are more likely to engage in criminal behavior.\"\n    },\n    {\n      \"factor\": \"race\",\n      \"value\": \"Black\",\n      \"high\": true,\n      \"reasoning\": \"Racial profiling and systemic biases may increase the likelihood of reoffending.\"\n    },\n    {\n      \"factor\": \"prior arrests\",\n      \"value\": 1,\n      \"medium\": true,\n      \"reasoning\": \"Prior criminal history can indicate a higher risk of recidivism.\"\n    },\n    {\n      \"factor\": \"conviction\",\n      \"value\": 0,\n      \"low\": true,\n      \"reasoning\": \"A conviction indicates a crime has been committed and one is in the legal system.\"\n    },\n    {\n      \"factor\": \"prior arrests count\",\n      \"value\": 1,\n      \"medium\": true,\n      \"reasoning\": \"More prior arrests suggest higher risk of reoffending.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201609_320710",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 888,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "age",
+      "value": 21,
+      "high": true,
+      "reasoning": "Individuals in their late twenties are more likely to engage in criminal behavior."
+    },
+    {
+      "factor": "race",
+      "value": "Black",
+      "high": true,
+      "reasoning": "Racial profiling and systemic biases may increase the likelihood of reoffending."
+    },
+    {
+      "factor": "prior arrests",
+      "value": 1,
+      "medium": true,
+      "reasoning": "Prior criminal history can indicate a higher risk of recidivism."
+    },
+    {
+      "factor": "conviction",
+      "value": 0,
+      "low": true,
+      "reasoning": "A conviction indicates a crime has been committed and one is in the legal system."
+    },
+    {
+      "factor": "prior arrests count",
+      "value": 1,
+      "medium": true,
+      "reasoning": "More prior arrests suggest higher risk of reoffending."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

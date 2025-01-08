@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 350,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:21.217181794Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.806535947,
+    "load_duration": 0.014847997,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 272,
+    "eval_duration": 1.744
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal History\",\n      \"low\": [\"2 arrests, neither convicted\", \"Minor offenses in the past\"],\n      \"medium\": [\"Similar offenses in the past\", \"Previous convictions for related crimes\"],\n      \"high\": [\"Serious criminal history with a significant number of charges\" or \"Multiple serious offenses within a short period\"]\n    },\n    {\n      \"factor\": \"Age\",\n      \"low\": [\"22 years old\", \"High risk age group\"],\n      \"medium\": [\"17-20 years old\", \"Moderate risk age group\"],\n      \"high\": [\"Under 18 or over 35\" or \"Extremely young and/or elderly\"]\n    },\n    {\n      \"factor\": \"Race/Ethnicity\",\n      \"low\": [\"White, European descent\", \"Risk factor for different policing practices\"],\n      \"medium\": [\"African American, Hispanic, or other racial/ethnic groups with differential enforcement patterns\"],\n      \"high\": [\"Similar ethnicities with disproportionate arrest rates\"]\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201621_218397",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 350,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

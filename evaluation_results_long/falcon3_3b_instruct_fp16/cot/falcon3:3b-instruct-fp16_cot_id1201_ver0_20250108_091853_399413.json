@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1201,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:18:53.398110273Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.283271738,
+    "load_duration": 0.030165359,
+    "prompt_eval_count": 354,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 262,
+    "eval_duration": 2.237
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is generally considered less influential in long-term risk assessment\"),\n    (\"race\", \"medium\", \"Identifies as Black, which may indicate higher systemic risks\"),\n    (\"prior arrests\", \"low\", \"No prior convictions despite multiple arrests\"),\n    (\"physical characteristics\", \"medium\", \"5'6'' and 162 lbs are average heights/weights\"),\n    (\"marital status\", \"low\", \"Not married, which may suggest fewer social supports\"),\n    (\"living arrangements\", \"low\", \"Lives alone, indicating less communal responsibility\"),\n    (\"education\", \"medium\", \"No high school diploma or GED, but not in college yet\"),\n    (\"employment history\", \"low\", \"3 jobs in a year, suggesting stable income and employment potential\"),\n    (\"drug use\", \"high\", \"Used drugs in past four years\"),\n    (\"depression\", \"medium\", \"Has not felt depressed over the past month\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_091853_399413",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1201,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 3 times but has not been convicted. She is 5 feet 6 inches and weighs 162 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

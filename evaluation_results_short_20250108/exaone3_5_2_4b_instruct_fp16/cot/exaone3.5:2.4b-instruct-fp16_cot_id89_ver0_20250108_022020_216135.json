@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 89,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-08T07:20:20.214859815Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.64782233,
+    "load_duration": 0.026052926,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 209,
+    "eval_duration": 1.612
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Previous Arrest Record\", \"medium\", \"Two arrests indicate prior criminal behavior, suggesting potential for future offenses despite lack of conviction.\"),\n    (\"Race\", \"low\", \"While race can be a factor in certain contexts, isolated identification as White does not inherently correlate strongly with higher recidivism rates without additional demographic context.\"),\n    (\"Age\", \"low\", \"Age alone does not significantly predict recidivism without considering socioeconomic status, education level, and other life circumstances.\"),\n    (\"Current Legal Status\", \"medium\", \"Not being convicted suggests awareness and avoidance of legal repercussions, reducing risk compared to those with prior convictions.\"),\n    (\"Potential for Repeat Offense\", \"high\", \"Given previous arrests, there's a notable risk of engaging in further illegal activities despite current legal status.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_022020_216135",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 89,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

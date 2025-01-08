@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1202,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T16:36:31.566773062Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.168247762,
+    "load_duration": 0.018477019,
+    "prompt_eval_count": 381,
+    "prompt_eval_duration": 0.039,
+    "eval_count": 419,
+    "eval_duration": 9.106
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Being a young adult generally correlates with lower recidivism rates.\"),\n    (\"Gender\", \"low\", \"No consistent correlation between gender and recidivism rates.\"),\n    (\"Race\", \"medium\", \"Black individuals often face systemic disadvantages, potentially increasing risk. However, individual circumstances can mitigate this.\"),\n    (\"Arrests and Convictions\", \"high\", \"Past criminal history is a significant predictor of future offending.\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight have no consistent correlation with recidivism rates.\"),\n    (\"Marital Status\", \"low\", \"Not being married has no direct bearing on recidivism rates.\"),\n    (\"Living Arrangements\", \"medium\", \"Not living alone may provide a support network, potentially reducing risk. However, overcrowded or dysfunctional living situations can increase risk.\"),\n    (\"Education Level\", \"low\", \"Possessing a GED and being enrolled in further education generally correlates with lower recidivism rates.\"),\n    (\"Employment History\", \"medium\", \"Job instability may increase the risk of reoffending, especially if it's due to criminal activity. However, having held jobs at all is a positive sign.\"),\n    (\"Drug Use\", \"low\", \"No drug use in recent years is a strong protective factor against recidivism.\"),\n    (\"Mental Health\", \"high\", \"Persistent feelings of depression can be associated with increased risk of reoffending, especially if untreated.\"),\n    (\"Family Background\", \"medium\", \"Growing up in a single-parent household may increase risk. However, strong familial support can decrease it.\"),\n    (\"Spirituality\", \"low\", \"Belief in God is not consistently correlated with recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_113631_568158",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1202,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted. He is 5 feet 8 inches and weighs 168 lbs. He has never been married and is currently not living alone. He has a GED certificate and is enrolled in a 2-year college. He has held 3 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 2. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 241,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_0",
+    "created_at": "2025-01-08T16:59:21.197060413Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.920339406,
+    "load_duration": 0.032832695,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 479,
+    "eval_duration": 3.872
+  },
+  "response": {
+    "raw_message_text": "\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals often have more years of high-risk life ahead, increasing the chance of rearrest.\"),\n    (\"gender\", \"low\", \"Females typically have lower recidivism rates than males.\"),\n    (\"race\", \"low\", \"While not definitive, White individuals generally have slightly lower recidivism compared to other races.\"),\n    (\"arrest_history\", \"high\", \"A prior arrest, especially within the past few years, is a strong indicator of higher risk for future rearrest.\"),\n    (\"conviction_status\", \"lower than arrest_history\", \"Having no conviction suggests less entrenchment in criminal behavior patterns.\"),\n    (\"height_weight\", \"low\", \"Physical attributes do not significantly correlate with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Living alone may be mildly associated with higher stress and loneliness, but this is a small effect.\"),\n    (\"living_situation\", \"medium\", \"Living situation can affect exposure to criminal opportunities and peer influences. Living alone increases isolation which could contribute to rearrest.\"),\n    (\"education_level\", \"low\", \"Having only a GED certificate vs no high school diploma may slightly raise risk due to lower baseline educational achievement.\"),\n    (\"enrollment_status\", \"low\", \"Not enrolled in college is neutral - enrollment itself does not strongly correlate with recidivism direction.\"),\n    (\"employment_history\", \"low\", \"Holding 1 job this year is mildly reassuring but only 1 data point, so employment stability is inconclusive from this information alone.\"),\n    (\"drug_use\", \"high\", \"Recent drug use, especially of harder drugs like cocaine, significantly raises risk for rearrest due to altered judgment and lifestyle.\"),\n    (\"mood_state\", \"medium\", \"Consistent low mood indicates higher stress and possibly more impulsive behavior which could lead to increased criminal involvement.\"),\n    (\"family_structure\", \"low\", \"Growing up in a household size 4 with both biological parents in an urban area is neutral for risk, as this varies widely in terms of socio-economic factors.\"),\n    (\"religious_belief\", \"low\", \"Considering God has something to do with personal outcomes may provide some moral reasoning against crime but the effect is likely small.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_115921_198485",
+    "model": "hermes3:8b-llama3.1-q4_0",
+    "prompt_type": "PromptType.COT",
+    "row_id": 241,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 110 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 560,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:16.261198864Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.2788597,
+    "load_duration": 0.017107414,
+    "prompt_eval_count": 252,
+    "prompt_eval_duration": 0.046,
+    "eval_count": 350,
+    "eval_duration": 2.212
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factorName\": \"Criminal History\",\n      \"weight\": \"Medium\",\n      \"reasoning\": \"The individual has a history of criminal behavior, including multiple arrests.\"\n    },\n    {\n      \"factorName\": \"Age at First Offense\",\n      \"weight\": \"High\",\n      \"reasoning\": \"The individual is only 21 years old, indicating an older age for first-time offenders in the general population.\"\n    },\n    {\n      \"factorName\": \"Ethnicity\",\n      \"weight\": \"Medium\",\n      \"reasoning\": \"As a male of American Indian/Eskimo/Aleut descent, he may be more likely to engage in criminal activities due to cultural influences and potential systemic biases.\"\n    },\n    {\n      \"factorName\": \"Current Employment Status\",\n      \"weight\": \"High\",\n      \"reasoning\": \"The individual has been arrested twice and convicted, suggesting a history of involvement in the criminal justice system. Without employment, this could indicate a lack of stability that might drive him to reoffend.\"\n    },\n    {\n      \"factorName\": \"Current Citizenship Status\",\n      \"weight\": \"Medium\",\n      \"reasoning\": \"The individual is an American Indian/Eskimo/Aleut. His citizenship status may affect his perception of the criminal justice system and his willingness to engage in rehabilitation.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201716_262802",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 560,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factorName": "Criminal History",
+      "weight": "Medium",
+      "reasoning": "The individual has a history of criminal behavior, including multiple arrests."
+    },
+    {
+      "factorName": "Age at First Offense",
+      "weight": "High",
+      "reasoning": "The individual is only 21 years old, indicating an older age for first-time offenders in the general population."
+    },
+    {
+      "factorName": "Ethnicity",
+      "weight": "Medium",
+      "reasoning": "As a male of American Indian/Eskimo/Aleut descent, he may be more likely to engage in criminal activities due to cultural influences and potential systemic biases."
+    },
+    {
+      "factorName": "Current Employment Status",
+      "weight": "High",
+      "reasoning": "The individual has been arrested twice and convicted, suggesting a history of involvement in the criminal justice system. Without employment, this could indicate a lack of stability that might drive him to reoffend."
+    },
+    {
+      "factorName": "Current Citizenship Status",
+      "weight": "Medium",
+      "reasoning": "The individual is an American Indian/Eskimo/Aleut. His citizenship status may affect his perception of the criminal justice system and his willingness to engage in rehabilitation."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as American Indian / Eskimo / Aleut. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

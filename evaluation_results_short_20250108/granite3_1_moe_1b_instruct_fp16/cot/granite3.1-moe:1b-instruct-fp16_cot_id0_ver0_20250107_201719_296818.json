@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 0,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:19.295638249Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.873262094,
+    "load_duration": 0.012218068,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 283,
+    "eval_duration": 1.813
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal History\",\n      \"low\": \"6 arrests, 4 convictions over the past 5 years. Average age at first offense is 23.\",\n      \"medium\": \"50% recidivism rate since last release or re-arrest in the past 18 months.\",\n      \"high\": \"Continuous criminal activity and lack of remorse.\"\n    },\n    {\n      \"factor\": \"Age\",\n      \"low\": \"Hispanic male, early adulthood. Lower risk for recidivism compared to older offenders.\",\n      \"medium\": \"Risk assessed based on his age at the time of his first offense and potential for increased risk due to criminal history.\",\n      \"high\": \"Potential for further delinquency.\"\n    },\n    {\n      \"factor\": \"Ethnicity\",\n      \"low\": \"Hispanic, common in this community. May influence perceptions of trustworthiness.\",\n      \"medium\": \"Risk assessed based on the prevalence and severity of crimes committed by Hispanics in the area.\",\n      \"high\": \"Potential for increased scrutiny.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201719_296818",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 0,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal History",
+      "low": "6 arrests, 4 convictions over the past 5 years. Average age at first offense is 23.",
+      "medium": "50% recidivism rate since last release or re-arrest in the past 18 months.",
+      "high": "Continuous criminal activity and lack of remorse."
+    },
+    {
+      "factor": "Age",
+      "low": "Hispanic male, early adulthood. Lower risk for recidivism compared to older offenders.",
+      "medium": "Risk assessed based on his age at the time of his first offense and potential for increased risk due to criminal history.",
+      "high": "Potential for further delinquency."
+    },
+    {
+      "factor": "Ethnicity",
+      "low": "Hispanic, common in this community. May influence perceptions of trustworthiness.",
+      "medium": "Risk assessed based on the prevalence and severity of crimes committed by Hispanics in the area.",
+      "high": "Potential for increased scrutiny."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

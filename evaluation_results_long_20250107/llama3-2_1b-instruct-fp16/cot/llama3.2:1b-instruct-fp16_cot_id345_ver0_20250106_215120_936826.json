@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 345,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T02:51:20.935629089Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.138133366,
+    "load_duration": 0.027846393,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 236,
+    "eval_duration": 1.103
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"education level\", \"weight\": 2, \"reasoning\": \"Low educational attainment may contribute to lower employability and life skills, increasing the likelihood of rearrest.\"},\n    {\"factor2\": \"employment history\", \"weight\": 2, \"reasoning\": \"Limited work experience may indicate a lack of stability or motivation, potentially leading to recidivism.\"},\n    {\"factor3\": \"family background\", \"weight\": 1.5, \"reasoning\": \"Rural upbringing and lack of parental supervision may have limited influence on this individual's life choices.\"},\n    {\"factor4\": \"drug use history\", \"weight\": 2, \"reasoning\": \"Past marijuana use may indicate a tendency towards substance abuse, which can increase the risk of rearrest.\"},\n    {\"factor5\": \"psychological state\", \"weight\": 1.5, \"reasoning\": \"The individual's lack of depression and positive outlook on life may suggest a resilient personality type, reducing the likelihood of recidivism.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_215120_936826",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 345,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "education level",
+      "weight": 2,
+      "reasoning": "Low educational attainment may contribute to lower employability and life skills, increasing the likelihood of rearrest."
+    },
+    {
+      "factor2": "employment history",
+      "weight": 2,
+      "reasoning": "Limited work experience may indicate a lack of stability or motivation, potentially leading to recidivism."
+    },
+    {
+      "factor3": "family background",
+      "weight": 1.5,
+      "reasoning": "Rural upbringing and lack of parental supervision may have limited influence on this individual's life choices."
+    },
+    {
+      "factor4": "drug use history",
+      "weight": 2,
+      "reasoning": "Past marijuana use may indicate a tendency towards substance abuse, which can increase the risk of rearrest."
+    },
+    {
+      "factor5": "psychological state",
+      "weight": 1.5,
+      "reasoning": "The individual's lack of depression and positive outlook on life may suggest a resilient personality type, reducing the likelihood of recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 128 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

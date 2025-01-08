@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 202,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-08T16:07:07.15649639Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.404915963,
+    "load_duration": 0.014144816,
+    "prompt_eval_count": 390,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 273,
+    "eval_duration": 2.367
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"20-year-old is at a higher risk for reoffending due to age-related developmental factors.\"),\n    (\"prior convictions\", \"high\", \"Having a prior conviction indicates a history of criminal behavior.\"),\n    (\"joblessness\", \"medium\", \"Lack of employment might suggest unemployment or underemployment, which can lead to financial strain and potential reoffending.\"),\n    (\"education level\", \"high\", \"Low educational attainment often correlates with higher recidivism rates.\"),\n    (\"family history (living with biological mother)\", \"medium\", \"Growing up in a household of size 7 might have influenced her behavior, but it's not definitively high-risk without more context.\"),\n    (\"substance abuse history\", \"medium\", \"Past use of drugs like marijuana and cocaine increases the risk of future substance-related crimes.\"),\n    (\"mental health status (no depression in past month)\", \"low\", \"Absence of depression may indicate better mental wellbeing, but this doesn't negate other potential risks.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_110707_158247",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 202,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 7 inches and weighs between 200 and 224 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 7, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

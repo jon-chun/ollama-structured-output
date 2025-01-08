@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 764,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:25:14.122430895Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.525723472,
+    "load_duration": 0.023013711,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.04,
+    "eval_count": 407,
+    "eval_duration": 10.457
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Being 18 is at a critical developmental stage, but generally considered lower risk compared to older age groups.\"),\n    (\"race\", \"low\", \"Race itself does not directly contribute to risk; however, socioeconomic factors may be influenced by race.\"),\n    (\"prior arrests\", \"medium\", \"One arrest indicates some level of involvement with the legal system, which is a moderate risk factor.\"),\n    (\"convictions\", \"medium\", \"A conviction suggests a stronger likelihood of reoffending compared to just arrests.\"),\n    (\"physical attributes\", \"low\", \"Height and weight are not direct predictors of recidivism.\"),\n    (\"marital status\", \"low\", \"Being unmarried does not inherently increase risk, but could suggest instability.\"),\n    (\"living situation\", \"low\", \"Living alone might indicate independence but also potential social isolation.\"),\n    (\"education\", \"low\", \"Enrollment in school suggests a focus on future goals and lower risk.\"),\n    (\"employment\", \"low\", \"Holding one job indicates a basic level of employment, which is typically associated with lower recidivism.\"),\n    (\"drug use\", \"medium\", \"Past drug use with marijuana and cocaine suggests substance abuse issues that could be a moderate risk factor.\"),\n    (\"depression\", \"low\", \"No recent depression is a positive indicator and reduces risk.\"),\n    (\"family background\", \"low\", \"Living in an urban area with a small household size does not inherently increase risk.\"),\n    (\"religious beliefs\", \"medium\", \"Lack of religious involvement may indicate less social support or guidance, which could be a moderate risk factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_102514_123733",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 764,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 2 inches and weighs 210 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

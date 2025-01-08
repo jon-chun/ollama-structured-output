@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 572,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T16:32:25.711703669Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.173698174,
+    "load_duration": 0.013838736,
+    "prompt_eval_count": 379,
+    "prompt_eval_duration": 0.04,
+    "eval_count": 281,
+    "eval_duration": 6.115
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is young, which generally correlates with lower risk of recidivism.\"),\n    (\"Gender\", \"low\", \"Male gender does not inherently predict high risk.\"),\n    (\"Previous arrests and convictions\", \"high\", \"Three prior arrests and convictions suggest a pattern of criminal behavior.\"),\n    (\"Employment history\", \"medium\", \"Having held three jobs in a year might indicate instability, but the quantity is not extremely high.\"),\n    (\"Educational attainment\", \"low\", \"A high school diploma suggests some level of cognitive and social skills development.\"),\n    (\"Drug use\", \"high\", \"Past drug use, particularly hard drugs like cocaine, increases risk of recidivism.\"),\n    (\"Marital status\", \"low\", \"Being unmarried does not inherently predict high risk.\"),\n    (\"Residential history\", \"low\", \"Growing up with both parents and living in a rural area suggests a stable upbringing.\"),\n    (\"Religious belief\", \"low\", \"Believing in God does not necessarily correlate with higher risk of recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_113225_712808",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 572,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 5 feet 9 inches and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 619,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:21:39.60403419Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.196749577,
+    "load_duration": 0.030406348,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 372,
+    "eval_duration": 3.153
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age typically reduces the risk of recidivism due to fewer opportunities for criminal activity.\"),\n    (\"prior_arrest\", \"medium\", \"Having one prior arrest indicates a history of involvement in crime, which increases risk.\"),\n    (\"gender\", \"high\", \"Male gender is associated with higher recidivism rates, especially when combined with other factors.\"),\n    (\"physical_attributes\", \"low\", \"Average height and weight do not typically factor into recidivism risk.\"),\n    (\"marital_status\", \"medium\", \"Living alone increases the likelihood of reoffending due to isolation from social support.\"),\n    (\"current_education\", \"high\", \"Enrolled in school suggests a focus on personal development, which can mitigate recidivism.\"),\n    (\"employment\", \"low\", \"No job during the year indicates limited life opportunities and potential for increased criminal activity.\"),\n    (\"drug_use\", \"high\", \"Frequent drug use is strongly linked to criminal behavior and increases the risk of reoffending.\"),\n    (\"depression\", \"low\", \"Not feeling depressed reduces immediate risk, but long-term mental health can influence recidivism.\"),\n    (\"early_life_home_environment\", \"high\", \"Growing up in a small, urban household with a biological mother and limited social support heightens the risk.\"),\n    (\"religious_beliefs\", \"medium\", \"Belief in God as influencing personal fate can moderate risk, depending on application of faith to actions.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092139_605295",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 619,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 6 inches and weighs 160 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

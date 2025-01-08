@@ -1,0 +1,63 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1230,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:41.344318734Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.14620646,
+    "load_duration": 0.013665499,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.049,
+    "eval_count": 324,
+    "eval_duration": 2.075
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"Criminal history\",\n      \"low_reasoning\": \"No prior convictions, no criminal record\",\n      \"medium_reasoning\": \"Single arrest with non-violent offense\",\n      \"high_reasoning\": \"Multiple arrests for petty crimes and minor offenses\"\n    },\n    {\n      \"factor2\": \"Age\",\n      \"low_reasoning\": \"21 years old, young adult\",\n      \"medium_reasoning\": \"High risk in the age group due to lack of maturity\",\n      \"high_reasoning\": \"Lack of life experience and understanding\"\n    },\n    {\n      \"factor3\": \"Race\",\n      \"low_reasoning\": \"Not explicitly mentioned, but stereotypical assumptions exist\",\n      \"medium_reasoning\": \"Stereotypes persist in societal perceptions of crime\",\n      \"high_reasoning\": \"Historical racial profiling and discrimination\"\n    },\n    {\n      \"factor4\": \"Gender Identity\",\n      \"low_reasoning\": \"No explicit mention, but gender identity can influence risk factors\",\n      \"medium_reasoning\": \"Stigmatization of transgender individuals in the criminal justice system\",\n      \"high_reasoning\": \"Prejudices against non-conforming gender identities\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201541_345635",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1230,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Criminal history",
+      "low_reasoning": "No prior convictions, no criminal record",
+      "medium_reasoning": "Single arrest with non-violent offense",
+      "high_reasoning": "Multiple arrests for petty crimes and minor offenses"
+    },
+    {
+      "factor2": "Age",
+      "low_reasoning": "21 years old, young adult",
+      "medium_reasoning": "High risk in the age group due to lack of maturity",
+      "high_reasoning": "Lack of life experience and understanding"
+    },
+    {
+      "factor3": "Race",
+      "low_reasoning": "Not explicitly mentioned, but stereotypical assumptions exist",
+      "medium_reasoning": "Stereotypes persist in societal perceptions of crime",
+      "high_reasoning": "Historical racial profiling and discrimination"
+    },
+    {
+      "factor4": "Gender Identity",
+      "low_reasoning": "No explicit mention, but gender identity can influence risk factors",
+      "medium_reasoning": "Stigmatization of transgender individuals in the criminal justice system",
+      "high_reasoning": "Prejudices against non-conforming gender identities"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

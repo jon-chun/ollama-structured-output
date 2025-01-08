@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 268,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-08T07:47:37.851363419Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.29218868,
+    "load_duration": 0.018352209,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 146,
+    "eval_duration": 1.259
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"21-year-old is considered an adult in most jurisdictions, potentially indicating increased risk.\"),\n    (\"Gender\", \"low\", \"Hispanic identity does not inherently increase or decrease recidivism risk.\"),\n    (\"Number of Arrests\", \"high\", \"Four arrests suggest a history of criminal behavior and potential for reoffending.\"),\n    (\"Conviction History\", \"medium\", \"Having been convicted indicates prior legal involvement, but the number of convictions is not provided.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_024737_852462",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 268,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

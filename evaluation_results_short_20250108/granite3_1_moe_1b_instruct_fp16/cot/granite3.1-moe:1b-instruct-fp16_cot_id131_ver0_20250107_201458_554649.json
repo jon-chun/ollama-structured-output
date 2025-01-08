@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 131,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:14:58.553378493Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.069166353,
+    "load_duration": 0.013750161,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.044,
+    "eval_count": 320,
+    "eval_duration": 2.007
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal History\",\n      \"low\": \"The individual has a history of three arrests, indicating potential criminal behavior.\",\n      \"medium\": \"While three arrests suggest some level of involvement in the criminal justice system, it's important to note that these incidents are not necessarily indicative of ongoing offending.\",\n      \"high\": \"The sheer number and severity of his arrests strongly indicate a pattern of criminal behavior.\"\n    },\n    {\n      \"factor\": \"Age\",\n      \"low\": \"20 years old is within the legal adulthood, suggesting he may be more mature in his decision-making.\",\n      \"medium\": \"While this factor provides insight into age, it doesn't necessarily reflect a high risk of recidivism if appropriately managed.\",\n      \"high\": \"Given the individual's Black identity and past offenses, there could be a heightened risk associated with his youth.\"\n    },\n    {\n      \"factor\": \"Race\",\n      \"low\": \"There is no indication that race plays any role in the individual's likelihood of reoffending.\",\n      \"medium\": \"The factor itself provides no insight into potential risks.\",\n      \"high\": \"While it may seem counterintuitive, racial profiling can lead to biased investigations and harsher sentencing, potentially increasing risk.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201458_554649",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 131,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal History",
+      "low": "The individual has a history of three arrests, indicating potential criminal behavior.",
+      "medium": "While three arrests suggest some level of involvement in the criminal justice system, it's important to note that these incidents are not necessarily indicative of ongoing offending.",
+      "high": "The sheer number and severity of his arrests strongly indicate a pattern of criminal behavior."
+    },
+    {
+      "factor": "Age",
+      "low": "20 years old is within the legal adulthood, suggesting he may be more mature in his decision-making.",
+      "medium": "While this factor provides insight into age, it doesn't necessarily reflect a high risk of recidivism if appropriately managed.",
+      "high": "Given the individual's Black identity and past offenses, there could be a heightened risk associated with his youth."
+    },
+    {
+      "factor": "Race",
+      "low": "There is no indication that race plays any role in the individual's likelihood of reoffending.",
+      "medium": "The factor itself provides no insight into potential risks.",
+      "high": "While it may seem counterintuitive, racial profiling can lead to biased investigations and harsher sentencing, potentially increasing risk."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

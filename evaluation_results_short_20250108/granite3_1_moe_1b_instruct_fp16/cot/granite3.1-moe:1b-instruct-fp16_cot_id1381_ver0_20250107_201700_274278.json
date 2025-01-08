@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 1381,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:00.273166068Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.569313525,
+    "load_duration": 0.009335571,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.061,
+    "eval_count": 237,
+    "eval_duration": 1.496
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"Criminal history\",\n      \"low\": [\"2 arrests for minor infractions, no prior criminal record\"],\n      \"medium\": [\"Arrested twice for minor offenses, both involving minor injuries\"],\n      \"high\": [\"Last conviction was 5 years ago\"]\n    },\n    {\n      \"factor2\": \"Age\",\n      \"low\": [\"Young adult with limited life experience\"],\n      \"medium\": [\"Older adult, experienced criminal behavior\"],\n      \"high\": [\"High school graduate, low educational attainment\"]\n    },\n    {\n      \"factor3\": \"Gender\",\n      \"low\": [\"Male\", no significant differences between genders in recidivism rates\"],\n      \"medium\": [\"Female\", lower recidivism rate due to higher likelihood of reform\"],\n      \"high\": [\"Hispanic\", Hispanics are overrepresented in the criminal justice system\"]\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201700_274278",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1381,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

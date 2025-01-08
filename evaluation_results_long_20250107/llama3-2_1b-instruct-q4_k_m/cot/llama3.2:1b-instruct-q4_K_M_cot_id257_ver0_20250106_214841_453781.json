@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 257,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T02:48:41.452570335Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.695193046,
+    "load_duration": 0.027505778,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 242,
+    "eval_duration": 0.662
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race mixed identity\", \"weight\": 2, \"reasoning\": \"Mixed race background may contribute to increased risk of recidivism due to potential exposure to systemic injustices and limited social support.\"},\n    {\"factor2\": \"substance abuse in past month\", \"weight\": 3, \"reasoning\": \"Regular substance abuse can lead to improved coping skills and resilience, potentially reducing recidivism rates.\"},\n    {\"factor3\": \"educational attainment\", \"weight\": 1, \"reasoning\": \"Limited education may exacerbate social isolation and lack of job opportunities, increasing the likelihood of recidivism.\"},\n    {\"factor4\": \"family size\", \"weight\": 2, \"reasoning\": \"Increased family size can imply more complex household dynamics, potentially leading to increased stress and reduced support for each individual.\"},\n    {\"factor5\": \"spiritual beliefs\", \"weight\": 1, \"reasoning\": \"God's involvement in personal circumstances may serve as a coping mechanism or moral compass, influencing decision-making and behavior.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_214841_453781",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 257,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race mixed identity",
+      "weight": 2,
+      "reasoning": "Mixed race background may contribute to increased risk of recidivism due to potential exposure to systemic injustices and limited social support."
+    },
+    {
+      "factor2": "substance abuse in past month",
+      "weight": 3,
+      "reasoning": "Regular substance abuse can lead to improved coping skills and resilience, potentially reducing recidivism rates."
+    },
+    {
+      "factor3": "educational attainment",
+      "weight": 1,
+      "reasoning": "Limited education may exacerbate social isolation and lack of job opportunities, increasing the likelihood of recidivism."
+    },
+    {
+      "factor4": "family size",
+      "weight": 2,
+      "reasoning": "Increased family size can imply more complex household dynamics, potentially leading to increased stress and reduced support for each individual."
+    },
+    {
+      "factor5": "spiritual beliefs",
+      "weight": 1,
+      "reasoning": "God's involvement in personal circumstances may serve as a coping mechanism or moral compass, influencing decision-making and behavior."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as mixed race. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 120 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 6. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 888,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-08T03:14:11.131325064Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.320872785,
+    "load_duration": 0.027952473,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.043,
+    "eval_count": 117,
+    "eval_duration": 2.248
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"age\", \"medium\", \"21 is a typical age for criminal involvement\"],\n    [\"race (Black)\", \"high\", \"Studies show higher recidivism rates among Black males due to systemic factors\"],\n    [\"prior arrests: 1\", \"low\", \"Single arrest suggests minimal prior criminal behavior but needs monitoring\"],\n    [\"conviction\", \"medium\", \"Having a conviction indicates formal judicial involvement, increasing the risk\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_221411_132306",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 888,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "medium",
+      "21 is a typical age for criminal involvement"
+    ],
+    [
+      "race (Black)",
+      "high",
+      "Studies show higher recidivism rates among Black males due to systemic factors"
+    ],
+    [
+      "prior arrests: 1",
+      "low",
+      "Single arrest suggests minimal prior criminal behavior but needs monitoring"
+    ],
+    [
+      "conviction",
+      "medium",
+      "Having a conviction indicates formal judicial involvement, increasing the risk"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 50,
+    "id": 465,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:34.843339884Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.930564389,
+    "load_duration": 0.013328629,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.05,
+    "eval_count": 287,
+    "eval_duration": 1.865
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age\",\n      \"low\": \"The individual is a young adult, which can be seen as an advantage in terms of resilience to criminal behavior.\",\n      \"medium\": \"While age may provide some protection against recidivism, it's not a guarantee and can vary among individuals.\"\n    },\n    {\n      \"factor\": \"Gender\",\n      \"low\": \"The individual is a female, which could potentially increase the risk of reoffending due to societal expectations or lack of support.\",\n      \"medium\": \"This factor remains important as it relates to potential interventions and community support.\"\n    },\n    {\n      \"factor\": \"Criminal History\",\n      \"low\": \"The individual has been arrested once but not convicted, indicating a lower risk compared to individuals with previous offenses.\",\n      \"medium\": \"This factor should be considered carefully as it can significantly impact the prediction of future behavior.\"\n    },\n    {\n      \"factor\": \"Identity\",\n      \"low\": \"Identifying the individual as White does not directly increase or decrease her likelihood of reoffending.\",\n      \"medium\": \"While this factor is important, it's not a significant predictor compared to other factors.\"\n    }\n  ],\n\n  \"prediction\": \"NO\",\n  \"confidence\": 50\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201634_844897",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 465,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Age",
+      "low": "The individual is a young adult, which can be seen as an advantage in terms of resilience to criminal behavior.",
+      "medium": "While age may provide some protection against recidivism, it's not a guarantee and can vary among individuals."
+    },
+    {
+      "factor": "Gender",
+      "low": "The individual is a female, which could potentially increase the risk of reoffending due to societal expectations or lack of support.",
+      "medium": "This factor remains important as it relates to potential interventions and community support."
+    },
+    {
+      "factor": "Criminal History",
+      "low": "The individual has been arrested once but not convicted, indicating a lower risk compared to individuals with previous offenses.",
+      "medium": "This factor should be considered carefully as it can significantly impact the prediction of future behavior."
+    },
+    {
+      "factor": "Identity",
+      "low": "Identifying the individual as White does not directly increase or decrease her likelihood of reoffending.",
+      "medium": "While this factor is important, it's not a significant predictor compared to other factors."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 302,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T02:48:48.106470693Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.659515603,
+    "load_duration": 0.02848591,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 229,
+    "eval_duration": 0.625
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"weight\": 2, \"textual_reasoning\": \"White identity may influence her perception of herself and her life circumstances.\"},\n    {\"factor2\": \"education\", \"weight\": 3, \"textual_reasoning\": \"Not being in college may indicate a lack of opportunities for personal development or social mobility.\"},\n    {\"factor3\": \"employment history\", \"weight\": 1, \"textual_reasoning\": \"Having held only three jobs in a year may suggest instability or poor financial management.\"},\n    {\"factor4\": \"substance abuse\", \"weight\": 2, \"textual_reasoning\": \"Using marijuana occasionally and feeling down most of the month may indicate some level of addiction or impulsivity.\"},\n    {\"factor5\": \"family background\", \"weight\": 1, \"textual_reasoning\": \"Living with her biological mother in a household of size 5 and considering God's involvement may suggest a sense of vulnerability or lack of resilience.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_214848_107778",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 302,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "weight": 2,
+      "textual_reasoning": "White identity may influence her perception of herself and her life circumstances."
+    },
+    {
+      "factor2": "education",
+      "weight": 3,
+      "textual_reasoning": "Not being in college may indicate a lack of opportunities for personal development or social mobility."
+    },
+    {
+      "factor3": "employment history",
+      "weight": 1,
+      "textual_reasoning": "Having held only three jobs in a year may suggest instability or poor financial management."
+    },
+    {
+      "factor4": "substance abuse",
+      "weight": 2,
+      "textual_reasoning": "Using marijuana occasionally and feeling down most of the month may indicate some level of addiction or impulsivity."
+    },
+    {
+      "factor5": "family background",
+      "weight": 1,
+      "textual_reasoning": "Living with her biological mother in a household of size 5 and considering God's involvement may suggest a sense of vulnerability or lack of resilience."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 3 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

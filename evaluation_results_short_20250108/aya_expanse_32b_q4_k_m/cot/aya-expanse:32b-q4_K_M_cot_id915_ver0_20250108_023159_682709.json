@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 915,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:32b-q4_K_M",
+    "created_at": "2025-01-08T07:31:59.681336599Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.938518527,
+    "load_duration": 0.044200915,
+    "prompt_eval_count": 214,
+    "prompt_eval_duration": 0.037,
+    "eval_count": 280,
+    "eval_duration": 7.855
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young adults (18-24) have a higher likelihood of reoffending compared to older adults, but as the individual in question is 21, this factor carries less weight than it would for a younger person.\"),\n    (\"Gender\", \"low\", \"While males tend to have higher recidivism rates, the difference between genders narrows significantly in young adulthood. Given the specific age of the individual, gender alone contributes minimally to the risk assessment.\"),\n    (\"Racial Identification\", \"medium\", \"Statistically, Black individuals face systemic barriers and discrimination within the criminal justice system, which can contribute to higher recidivism rates. However, this factor should be weighed with caution, as it is essential to consider individual circumstances and avoid stereotyping.\"),\n    (\"Previous Arrests\", \"high\", \"Having a prior arrest significantly increases the likelihood of rearrest. Despite only one previous arrest, the fact that it occurred relatively recently (given her age) suggests a pattern of involvement with the criminal justice system.\"),\n    (\"Conviction Status\", \"low\", \"The absence of a conviction reduces the risk associated with this factor. However, it is important to note that individuals can still reoffend without a previous conviction.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_023159_682709",
+    "model": "aya-expanse:32b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 915,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

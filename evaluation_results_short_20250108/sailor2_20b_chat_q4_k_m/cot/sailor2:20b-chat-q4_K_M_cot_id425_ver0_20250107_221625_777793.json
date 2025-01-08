@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 425,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-08T03:16:25.776691326Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.305609551,
+    "load_duration": 0.016904942,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.05,
+    "eval_count": 115,
+    "eval_duration": 2.237
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"age_at_first_arrest\", \"low\", \"Young age (18) typically correlates with lower recidivism risk\"],\n    [\"race_ethnicity\", \"medium\", \"No strong evidence of race directly impacting recidivism, but historical context may influence societal factors\"],\n    [\"prior_convictions\", \"high\", \"Absence of convictions reduces immediate risk; however, one arrest suggests engagement in criminal behavior\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_221625_777793",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 425,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age_at_first_arrest",
+      "low",
+      "Young age (18) typically correlates with lower recidivism risk"
+    ],
+    [
+      "race_ethnicity",
+      "medium",
+      "No strong evidence of race directly impacting recidivism, but historical context may influence societal factors"
+    ],
+    [
+      "prior_convictions",
+      "high",
+      "Absence of convictions reduces immediate risk; however, one arrest suggests engagement in criminal behavior"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

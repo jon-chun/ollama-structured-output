@@ -1,0 +1,60 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 1338,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:46.15509123Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.182811469,
+    "load_duration": 0.017815614,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.06,
+    "eval_count": 320,
+    "eval_duration": 2.102
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"age (20 years)\",\n      \"low\": \"Young age may reduce the risk of reoffending due to inexperience.\",\n      \"medium\": \"Age can also impact decision-making and impulse control, which could influence behavior.\",\n      \"high\": \"However, it's important to note that this factor does not directly predict recidivism.\"\n    },\n    {\n      \"factor\": \"race (Hispanic)\",\n      \"low\": \"While Hispanic individuals may face stereotypes and discrimination, they are less likely to commit serious crimes.\",\n      \"medium\": \"Hispanic status could potentially influence perceptions of risk by law enforcement or the public.\"\n    },\n    {\n      \"factor\": \"criminal history (1 time arrest)\",\n      \"low\": \"First offense may be considered minor, and there's no record of subsequent incidents.\",\n      \"medium\": \"A single arrest alone does not necessarily predict future behavior. It should be analyzed in conjunction with other risk factors.\"\n    },\n    {\n      \"factor\": \"criminal history (no conviction)\",\n      \"low\": \"No prior convictions may indicate a lack of violent tendencies or criminal propensity.\",\n      \"medium\": \"A single non-conviction incident can't be considered definitive, and should not influence risk assessment.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201646_156257",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1338,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "age (20 years)",
+      "low": "Young age may reduce the risk of reoffending due to inexperience.",
+      "medium": "Age can also impact decision-making and impulse control, which could influence behavior.",
+      "high": "However, it's important to note that this factor does not directly predict recidivism."
+    },
+    {
+      "factor": "race (Hispanic)",
+      "low": "While Hispanic individuals may face stereotypes and discrimination, they are less likely to commit serious crimes.",
+      "medium": "Hispanic status could potentially influence perceptions of risk by law enforcement or the public."
+    },
+    {
+      "factor": "criminal history (1 time arrest)",
+      "low": "First offense may be considered minor, and there's no record of subsequent incidents.",
+      "medium": "A single arrest alone does not necessarily predict future behavior. It should be analyzed in conjunction with other risk factors."
+    },
+    {
+      "factor": "criminal history (no conviction)",
+      "low": "No prior convictions may indicate a lack of violent tendencies or criminal propensity.",
+      "medium": "A single non-conviction incident can't be considered definitive, and should not influence risk assessment."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

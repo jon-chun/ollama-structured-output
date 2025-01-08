@@ -1,0 +1,49 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 1230,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-08T03:22:49.708384259Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.272075471,
+    "load_duration": 0.013533967,
+    "prompt_eval_count": 225,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 80,
+    "eval_duration": 0.252
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"arrest_history\", \"medium\", \"The arrest history is a moderate risk factor, as the individual has only been arrested once, but no convictions have been received\"],\n    [\"race\", \"high\", \"As this individual is Black, his race may be considered a high risk factor\"]\n  ],\n  \"prediction\": \"NO\"\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_222249_709269",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1230,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "arrest_history",
+      "medium",
+      "The arrest history is a moderate risk factor, as the individual has only been arrested once, but no convictions have been received"
+    ],
+    [
+      "race",
+      "high",
+      "As this individual is Black, his race may be considered a high risk factor"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

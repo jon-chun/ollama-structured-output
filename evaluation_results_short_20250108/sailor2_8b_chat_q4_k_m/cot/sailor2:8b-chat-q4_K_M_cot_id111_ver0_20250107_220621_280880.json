@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 111,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-08T03:06:21.279733383Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.734913473,
+    "load_duration": 0.033502623,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 176,
+    "eval_duration": 1.689
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age (19, youth)\", \"medium\", \"Youth with repeated arrests typically exhibit higher recidivism due to developmental factors and lack of stable social integration\"),\n    (\"gender (female)\", \"low\", \"Gender does not inherently correlate with increased recidivism; gender-neutral context needed but minor influence\"),\n    (\"ethnicity (Hispanic, cultural factors)\", \"medium\", \"Cultural influences on rehabilitation and reentry strategies may moderately impact risk\"),\n    (\"number of arrests (5)\", \"high\", \"Frequent arrests indicate a more entrenched pattern of behavior\"),\n    (\"convictions history\", \"high\", \"Convicted status increases future recidivism by 2-3 times, indicating established offending patterns\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_220621_280880",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 111,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 5 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

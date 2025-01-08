@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 64,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T08:06:44.679332609Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.06599261,
+    "load_duration": 0.016903442,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.026,
+    "eval_count": 186,
+    "eval_duration": 4.02
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is young, which typically correlates with lower recidivism rates.\"),\n    (\"Gender\", \"low\", \"Female offenders generally have lower rearrest rates than males.\"),\n    (\"Race\", \"low\", \"White individuals often have lower rearrest rates compared to other racial groups.\"),\n    (\"Prior Arrests\", \"medium\", \"One prior arrest suggests some level of criminal involvement, but it's not extremely high.\"),\n    (\"Prior Convictions\", \"high\", \"A conviction indicates a judicial determination of guilt, which is a strong predictor of recidivism.\"),\n    (\"Time since last offense\", \"low\", \"No information provided about the time since her last offense.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_030644_680575",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 64,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

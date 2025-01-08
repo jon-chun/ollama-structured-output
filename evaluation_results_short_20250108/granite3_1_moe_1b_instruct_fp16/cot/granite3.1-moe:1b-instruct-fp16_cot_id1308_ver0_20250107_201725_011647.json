@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1308,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:17:25.010371639Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.024947733,
+    "load_duration": 0.013772627,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 302,
+    "eval_duration": 1.963
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"Age of offender\",\n      \"low\": \"The individual is an 18-year-old male, which may indicate a higher risk due to developmental factors.\",\n      \"medium\": \"This factor alone does not provide enough information for prediction.\",\n      \"high\": \"No specific age has been provided.\"\n    },\n    {\n      \"factor2\": \"Criminal history\",\n      \"low\": \"The individual has been arrested twice and convicted, indicating a potential recidivism risk. However, this alone may not be sufficient for prediction.\",\n      \"medium\": \"Considering the severity of the convictions and offenses, a medium level is warranted.\",\n      \"high\": \"Further information about the nature of these crimes would be helpful.\"\n    },\n    {\n      \"factor3\": \"Demographics\",\n      \"low\": \"The individual identifies as Black, which may indicate racial bias in the criminal justice system. However, this alone is not a predictive factor.\",\n      \"medium\": \"While race can influence perceptions and treatment in the legal system, it does not directly correlate with future recidivism rates.\",\n      \"high\": \"Racial profiling or implicit bias could be factors contributing to his criminal behavior.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201725_011647",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1308,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Age of offender",
+      "low": "The individual is an 18-year-old male, which may indicate a higher risk due to developmental factors.",
+      "medium": "This factor alone does not provide enough information for prediction.",
+      "high": "No specific age has been provided."
+    },
+    {
+      "factor2": "Criminal history",
+      "low": "The individual has been arrested twice and convicted, indicating a potential recidivism risk. However, this alone may not be sufficient for prediction.",
+      "medium": "Considering the severity of the convictions and offenses, a medium level is warranted.",
+      "high": "Further information about the nature of these crimes would be helpful."
+    },
+    {
+      "factor3": "Demographics",
+      "low": "The individual identifies as Black, which may indicate racial bias in the criminal justice system. However, this alone is not a predictive factor.",
+      "medium": "While race can influence perceptions and treatment in the legal system, it does not directly correlate with future recidivism rates.",
+      "high": "Racial profiling or implicit bias could be factors contributing to his criminal behavior."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

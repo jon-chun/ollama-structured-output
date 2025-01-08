@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 106,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-08T16:08:09.912974994Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.055841572,
+    "load_duration": 0.015276254,
+    "prompt_eval_count": 368,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 231,
+    "eval_duration": 2.017
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"prior_arrests\", \"high\", \"Three arrests, despite not being convicted, indicate a pattern of involvement in criminal activities.\"),\n    (\"age\", \"medium\", \"At 20 years old, this individual is in the prime age for re-offending.\"),\n    (\"education\", \"low\", \"While having a high school diploma is a positive factor, only two years of college education suggests limited formal learning and potential lack of life skills.\"),\n    (\"employment_history\", \"low\", \"Four jobs in a year shows instability and potentially criminal employment opportunities.\"),\n    (\"substance_abuse\", \"medium\", \"Past use of marijuana, while not violent, is still substance abuse that could contribute to future criminal behavior.\"),\n    (\"family_background\", \"low\", \"Living in a household of size 3 as a youngster does not necessarily predict future criminality.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_110809_914561",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 106,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

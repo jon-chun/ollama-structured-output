@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1144,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T08:03:06.228029184Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.056231596,
+    "load_duration": 0.012332079,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 186,
+    "eval_duration": 4.017
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"At 19, the individual is young but not a juvenile. Generally, younger offenders are considered at higher risk due to lack of maturity and impulse control.\"),\n    (\"Gender\", \"low\", \"Male gender alone does not indicate increased risk. However, males tend to have higher arrest rates than females.\"),\n    (\"Ethnicity\", \"medium\", \"Hispanic individuals can have varying recidivism rates depending on individual circumstances. However, some studies suggest a slightly elevated risk for this group.\"),\n    (\"Prior Arrests\", \"high\", \"Three arrests in a short period indicate a pattern of criminal behavior, which is a strong predictor of future offending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_030306_229403",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1144,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 3 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 293,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T02:52:14.751620073Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.205261889,
+    "load_duration": 0.027509899,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 265,
+    "eval_duration": 1.172
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"Family background (nuclear family of size 6)\", \"weight\": \"high\", \"textual reasoning\": \"This factor may indicate a potentially high-risk individual, as previous experiences in large households could contribute to impulsivity and instability.\"},\n    {\"factor2\": \"Past substance abuse (occasional use of marijuana)\", \"weight\": \"medium\", \"textual reasoning\": \"While occasional marijuana use might not be a significant concern, repeated instances suggest a potential issue with self-regulation and decision-making. This factor warrants attention.\"},\n    {\"factor3\": \"Mental health (feeling down in the dumps, considering God has nothing to do with personal outcomes)\", \"weight\": \"medium\", \"textual reasoning\": \"This factor may indicate an individual who is vulnerable to emotional dysregulation and potentially more susceptible to recidivism. Further assessment is required.\"},\n    {\"factor4\": \"Lifestyle (heavy user of substances, previous arrests)\", \"weight\": \"low\", \"textual reasoning\": \"While some lifestyle factors can contribute to risk, the presence of a heavy substance use pattern and past arrests suggests a higher level of instability and impulsivity.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_215214_752787",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 293,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Family background (nuclear family of size 6)",
+      "weight": "high",
+      "textual reasoning": "This factor may indicate a potentially high-risk individual, as previous experiences in large households could contribute to impulsivity and instability."
+    },
+    {
+      "factor2": "Past substance abuse (occasional use of marijuana)",
+      "weight": "medium",
+      "textual reasoning": "While occasional marijuana use might not be a significant concern, repeated instances suggest a potential issue with self-regulation and decision-making. This factor warrants attention."
+    },
+    {
+      "factor3": "Mental health (feeling down in the dumps, considering God has nothing to do with personal outcomes)",
+      "weight": "medium",
+      "textual reasoning": "This factor may indicate an individual who is vulnerable to emotional dysregulation and potentially more susceptible to recidivism. Further assessment is required."
+    },
+    {
+      "factor4": "Lifestyle (heavy user of substances, previous arrests)",
+      "weight": "low",
+      "textual reasoning": "While some lifestyle factors can contribute to risk, the presence of a heavy substance use pattern and past arrests suggests a higher level of instability and impulsivity."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 4 inches and weighs 140 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 6. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

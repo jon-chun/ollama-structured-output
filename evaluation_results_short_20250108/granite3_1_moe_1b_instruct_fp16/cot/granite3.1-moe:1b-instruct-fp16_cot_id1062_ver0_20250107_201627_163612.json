@@ -1,0 +1,63 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1062,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:27.162352377Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.973915054,
+    "load_duration": 0.013762008,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.05,
+    "eval_count": 298,
+    "eval_duration": 1.907
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"age\",\n      \"value\": \"22\",\n      \"weight\": \"high\",\n      \"reasoning\": \"Age is a significant predictor of recidivism due to the increasing risk of reoffending as individuals age.\"\n    },\n    {\n      \"factor\": \"race/ethnicity\",\n      \"value\": \"Black\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"Racial and ethnic minorities are disproportionately represented in the criminal justice system, which can lead to biased treatment and higher recidivism rates.\"\n    },\n    {\n      \"factor\": \"prior arrest history\",\n      \"value\": \"1\",\n      \"weight\": \"low\",\n      \"reasoning\": \"A single prior arrest is a relatively minor risk factor. However, it may indicate a pattern of behavior that increases the likelihood of recidivism.\"\n    },\n    {\n      \"factor\": \"prior conviction history\",\n      \"value\": \"N/A (as no prior convicted case)\",\n      \"weight\": \"high\",\n      \"reasoning\": \"Prior criminal records are strongly linked to recidivism, as they often indicate a lack of compliance with the law and an increased risk of reoffending.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201627_163612",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1062,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "age",
+      "value": "22",
+      "weight": "high",
+      "reasoning": "Age is a significant predictor of recidivism due to the increasing risk of reoffending as individuals age."
+    },
+    {
+      "factor": "race/ethnicity",
+      "value": "Black",
+      "weight": "medium",
+      "reasoning": "Racial and ethnic minorities are disproportionately represented in the criminal justice system, which can lead to biased treatment and higher recidivism rates."
+    },
+    {
+      "factor": "prior arrest history",
+      "value": "1",
+      "weight": "low",
+      "reasoning": "A single prior arrest is a relatively minor risk factor. However, it may indicate a pattern of behavior that increases the likelihood of recidivism."
+    },
+    {
+      "factor": "prior conviction history",
+      "value": "N/A (as no prior convicted case)",
+      "weight": "high",
+      "reasoning": "Prior criminal records are strongly linked to recidivism, as they often indicate a lack of compliance with the law and an increased risk of reoffending."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

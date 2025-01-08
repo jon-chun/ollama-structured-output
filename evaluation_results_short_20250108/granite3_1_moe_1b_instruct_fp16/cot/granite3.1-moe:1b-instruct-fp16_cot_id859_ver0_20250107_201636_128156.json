@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 859,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:36.12692801Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.279935789,
+    "load_duration": 0.014204517,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.048,
+    "eval_count": 194,
+    "eval_duration": 1.215
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal history\",\n      \"weight\": 4,\n      \"reasoning\": \"Her first arrest is a clear indicator of past criminal behavior.\"\n    },\n    {\n      \"factor\": \"Conviction status\",\n      \"weight\": 3,\n      \"reasoning\": \"A single conviction increases her risk for future offenses.\"\n    },\n    {\n      \"factor\": \"Age\",\n      \"weight\": 2,\n      \"reasoning\": \"Her young age may indicate a higher likelihood of recidivism.\"\n    },\n    {\n      \"factor\": \"Race/Ethnicity\",\n      \"weight\": 1,\n      \"reasoning\": \"Hispanic individuals are more likely to commit crimes and have a greater risk for reoffending.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201636_128156",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 859,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal history",
+      "weight": 4,
+      "reasoning": "Her first arrest is a clear indicator of past criminal behavior."
+    },
+    {
+      "factor": "Conviction status",
+      "weight": 3,
+      "reasoning": "A single conviction increases her risk for future offenses."
+    },
+    {
+      "factor": "Age",
+      "weight": 2,
+      "reasoning": "Her young age may indicate a higher likelihood of recidivism."
+    },
+    {
+      "factor": "Race/Ethnicity",
+      "weight": 1,
+      "reasoning": "Hispanic individuals are more likely to commit crimes and have a greater risk for reoffending."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

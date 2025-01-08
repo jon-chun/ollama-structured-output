@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1388,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T08:02:04.599526067Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.3981777,
+    "load_duration": 0.018221179,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 525,
+    "eval_duration": 11.353
+  },
+  "response": {
+    "raw_message_text": "Here's a step-by-step analysis:\n\n1. Age: The person is 19 years old, which is on the lower end of the spectrum for age being a risk factor. Younger individuals generally have higher recidivism rates.\n\n   {\"factor1\": \"Age\", \"weight\": \"high\", \"reasoning\": \"Lower age generally correlates with higher recidivism rates\"}\n\n2. Gender: The individual identifies as female, which typically has lower recidivism rates compared to males.\n\n   {\"factor2\": \"Gender\", \"weight\": \"low\", \"reasoning\": \"Females generally have lower recidivism rates than males\"}\n\n3. Race/Ethnicity: Being White does not carry significant weight in terms of predicting recidivism, as race is not a primary determinant for criminal behavior.\n\n   {\"factor3\": \"Race/Ethnicity\", \"weight\": \"low\", \"reasoning\": \"Race is not a significant predictor of recidivism\"}\n\n4. Number of Arrests: The person has been arrested 7 times, which indicates a history of involvement in criminal activities.\n\n   {\"factor4\": \"Number of Arrests\", \"weight\": \"high\", \"reasoning\": \"Higher number of prior arrests is associated with higher recidivism rates\"}\n\n5. Convictions: The person has been convicted, suggesting that they have a criminal record and may be more likely to reoffend.\n\n   {\"factor5\": \"Convictions\", \"weight\": \"high\", \"reasoning\": \"Prior convictions are associated with higher recidivism rates\"}\n\nBased on these factors, the prediction is:\n\n{\n  \"risk_factors\": [\n    (\"Age\", \"high\", \"Lower age generally correlates with higher recidivism rates\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males\"),\n    (\"Race/Ethnicity\", \"low\", \"Race is not a significant predictor of recidivism\"),\n    (\"Number of Arrests\", \"high\", \"Higher number of prior arrests is associated with higher recidivism rates\"),\n    (\"Convictions\", \"high\", \"Prior convictions are associated with higher recidivism rates\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_030204_600616",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1388,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 7 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

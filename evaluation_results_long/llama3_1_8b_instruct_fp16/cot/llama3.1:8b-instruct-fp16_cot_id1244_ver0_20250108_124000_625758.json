@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 62,
+    "id": 1244,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-fp16",
+    "created_at": "2025-01-08T17:40:00.624566528Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.603041063,
+    "load_duration": 0.028548142,
+    "prompt_eval_count": 317,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 379,
+    "eval_duration": 7.556
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"The individual is relatively young for their first arrest, suggesting a potentially lower risk of recidivism\"),\n    (\"Prior convictions\", \"low\", \"Lack of prior convictions indicates a lower risk of recidivism\"),\n    (\"BMI\", \"medium\", \"A BMI of 22.5 (148 lbs / 66 inches^2) is slightly below the average for an adult male, but not significantly low enough to be considered a strong predictor of reduced recidivism risk\"),\n    (\"Marital status\", \"low\", \"Living alone may indicate a lower level of social support and stability, but without evidence of prior relationship issues or instability, this factor does not strongly contribute to increased recidivism risk\"),\n    (\"Education level\", \"medium\", \"A high school diploma is generally considered sufficient for most job markets, suggesting that the individual has some level of stability and motivation\"),\n    (\"Employment history\", \"low\", \"Holding two jobs in a year indicates stable employment and a potential decrease in recidivism risk due to increased economic stability\"),\n    (\"Substance abuse history\", \"low\", \"No drug use for four years suggests a lower risk of substance-related recidivism\"),\n    (\"Mental health\", \"low\", \"Lack of reported depression over the past month suggests a lower risk of mental health-related recidivism\"),\n    (\"Family dynamics and upbringing\", \"medium\", \"Growing up in an urban area with a large household size may indicate exposure to higher levels of crime and violence, potentially increasing recidivism risk\"),\n    (\"Religious affiliation and beliefs\", \"low\", \"Believing that God has something to do with personal outcomes does not necessarily impact recidivism risk directly\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 62\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_124000_625758",
+    "model": "llama3.1:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1244,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 7 inches and weighs 148 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

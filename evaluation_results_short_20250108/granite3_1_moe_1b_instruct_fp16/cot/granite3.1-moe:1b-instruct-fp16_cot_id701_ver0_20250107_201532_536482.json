@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 701,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:32.535368489Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.161134252,
+    "load_duration": 0.015450718,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.058,
+    "eval_count": 327,
+    "eval_duration": 2.084
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Age\",\n      \"value\": 20,\n      \"weight\": \"medium\",\n      \"reasoning\": \"Younger offenders are often associated with lower risk due to their lack of life experience and maturity.\"\n    },\n    {\n      \"factor\": \"Criminal Record\",\n      \"value\": \"1 time arrest but not convicted\",\n      \"weight\": \"low\",\n      \"reasoning\": \"A single non-violent offense does not significantly increase risk.\"\n    },\n    {\n      \"factor\": \"Gender\",\n      \"value\": \"Female\",\n      \"weight\": \"high\",\n      \"reasoning\": \"Women are less likely to reoffend due to societal and familial pressures, as well as legal constraints on women's rights.\"\n    },\n    {\n      \"factor\": \"Offense Type\",\n      \"value\": \"Arrested once but not convicted\",\n      \"weight\": \"low\",\n      \"reasoning\": \"This factor is less relevant to predict recidivism due to the non-violent nature of the offense.\"\n    },\n    {\n      \"factor\": \"Community Engagement\",\n      \"value\": \"Not engaged with community resources\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"Engagement in community programs can reduce recidivism by providing support and rehabilitation opportunities.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201532_536482",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 701,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Age",
+      "value": 20,
+      "weight": "medium",
+      "reasoning": "Younger offenders are often associated with lower risk due to their lack of life experience and maturity."
+    },
+    {
+      "factor": "Criminal Record",
+      "value": "1 time arrest but not convicted",
+      "weight": "low",
+      "reasoning": "A single non-violent offense does not significantly increase risk."
+    },
+    {
+      "factor": "Gender",
+      "value": "Female",
+      "weight": "high",
+      "reasoning": "Women are less likely to reoffend due to societal and familial pressures, as well as legal constraints on women's rights."
+    },
+    {
+      "factor": "Offense Type",
+      "value": "Arrested once but not convicted",
+      "weight": "low",
+      "reasoning": "This factor is less relevant to predict recidivism due to the non-violent nature of the offense."
+    },
+    {
+      "factor": "Community Engagement",
+      "value": "Not engaged with community resources",
+      "weight": "medium",
+      "reasoning": "Engagement in community programs can reduce recidivism by providing support and rehabilitation opportunities."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

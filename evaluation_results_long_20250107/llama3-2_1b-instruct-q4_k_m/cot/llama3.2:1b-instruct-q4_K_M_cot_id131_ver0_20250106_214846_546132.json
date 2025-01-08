@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 131,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T02:48:46.544734698Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.817919963,
+    "load_duration": 0.026670971,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 284,
+    "eval_duration": 0.785
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"identification as a Black individual\", \"weight\": 2, \"reasoning\": \"Historical context of systemic racism may influence recidivism rates.\"},\n    {\"factor2\": \"previous arrests and convictions\", \"weight\": 3, \"reasoning\": \"Previous criminal history increases the likelihood of future recidivism.\"},\n    {\"factor3\": \"physical characteristics\", \"weight\": 1, \"reasoning\": \"Height and weight can be used as proxies for potential health risks or mobility issues.\"},\n    {\"factor4\": \"substance abuse\", \"weight\": 2, \"reasoning\": \"Past substance use may be indicative of underlying mental health issues or addiction.\"},\n    {\"factor5\": \"education level and lack of employment opportunities\", \"weight\": 1, \"reasoning\": \"Social isolation and lack of resources can contribute to recidivism.\"},\n    {\"factor6\": \"family background and religiosity\", \"weight\": 2, \"reasoning\": \"Cultural values and beliefs may influence behavior and coping mechanisms.\"},\n    {\"factor7\": \"age and life stage\", \"weight\": 1, \"reasoning\": \"Recidivism rates can be influenced by age-related factors such as decreased physical capabilities or increased dependency.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_214846_546132",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 131,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "identification as a Black individual",
+      "weight": 2,
+      "reasoning": "Historical context of systemic racism may influence recidivism rates."
+    },
+    {
+      "factor2": "previous arrests and convictions",
+      "weight": 3,
+      "reasoning": "Previous criminal history increases the likelihood of future recidivism."
+    },
+    {
+      "factor3": "physical characteristics",
+      "weight": 1,
+      "reasoning": "Height and weight can be used as proxies for potential health risks or mobility issues."
+    },
+    {
+      "factor4": "substance abuse",
+      "weight": 2,
+      "reasoning": "Past substance use may be indicative of underlying mental health issues or addiction."
+    },
+    {
+      "factor5": "education level and lack of employment opportunities",
+      "weight": 1,
+      "reasoning": "Social isolation and lack of resources can contribute to recidivism."
+    },
+    {
+      "factor6": "family background and religiosity",
+      "weight": 2,
+      "reasoning": "Cultural values and beliefs may influence behavior and coping mechanisms."
+    },
+    {
+      "factor7": "age and life stage",
+      "weight": 1,
+      "reasoning": "Recidivism rates can be influenced by age-related factors such as decreased physical capabilities or increased dependency."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted. He is 5 feet 8 inches and weighs 156 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

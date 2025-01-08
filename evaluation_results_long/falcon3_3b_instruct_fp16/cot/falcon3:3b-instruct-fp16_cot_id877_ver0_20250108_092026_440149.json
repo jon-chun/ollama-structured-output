@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 877,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:20:26.438642296Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.771754664,
+    "load_duration": 0.025636627,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 321,
+    "eval_duration": 2.728
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Age is a significant factor, but 22 years old falls within a moderate category.\"),\n    (\"prior_arrest\", \"low\", \"First arrest without conviction indicates low risk of rearrest.\"),\n    (\"physical_attributes\", \"low\", \"Height and weight suggest a healthy body mass index which may impact recidivism differently across jurisdictions.\"),\n    (\"marital_status\", \"medium\", \"Living alone but no marriage suggests moderate risk due to potential social isolation.\"),\n    (\"education\", \"high\", \"Enrolling in a 4-year college indicates high educational attainment, potentially lowering the risk.\"),\n    (\"employment\", \"low\", \"Holding one job and being employed is a positive factor indicating stability.\"),\n    (\"drug_use\", \"low\", \"No drug use in the past four years reduces the risk significantly.\"),\n    (\"depression\", \"low\", \"Not feeling depressed over the past month further minimizes risk.\"),\n    (\"family_history\", \"medium\", \"Growing up with two biological parents suggests a stable environment, but not necessarily low risk.\"),\n    (\"religious_beliefs\", \"low\", \"Belief that God has no control over personal matters indicates lower perceived influence from external factors.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092026_440149",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 877,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

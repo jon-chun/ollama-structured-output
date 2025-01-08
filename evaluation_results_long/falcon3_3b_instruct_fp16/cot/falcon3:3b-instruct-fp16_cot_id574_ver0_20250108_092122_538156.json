@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 574,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:21:22.535194686Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.155842736,
+    "load_duration": 0.030100239,
+    "prompt_eval_count": 351,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 367,
+    "eval_duration": 3.114
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is generally a factor, but 21 years old is considered relatively young.\"),\n    (\"prior_arrest\", \"low\", \"No prior arrests, which reduces the immediate risk of recidivism.\"),\n    (\"conviction\", \"low\", \"Not convicted, lowering the risk based on this known outcome.\"),\n    (\"physical_attributes\", \"medium\", \"5'5'' and 135 lbs are average heights and weights, neither exceptionally high nor low risk factors.\"),\n    (\"marital_status\", \"low\", \"Single status often correlates with lower recidivism risk.\"),\n    (\"living_situation\", \"low\", \"Living alone can indicate a lack of social support, which may be mitigating.\"),\n    (\"education\", \"medium\", \"High school diploma is below college, but not a severe educational deficit.\"),\n    (\"employment\", \"medium\", \"No jobs during the year, indicating potential challenges in reintegration.\"),\n    (\"drug_use\", \"high\", \"Past use of marijuana and cocaine, with no depressive symptoms, suggests ongoing risk.\"),\n    (\"depression\", \"low\", \"Not depressed, which mitigates some drug-related risks.\"),\n    (\"family_history\", \"medium\", \"Growing up in a small urban household with parental figures adds complexity.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in a higher power can provide emotional support and resilience.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092122_538156",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 574,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 4-year college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

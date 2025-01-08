@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 83,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:15:07.522657075Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.306900333,
+    "load_duration": 0.015621988,
+    "prompt_eval_count": 245,
+    "prompt_eval_duration": 0.053,
+    "eval_count": 197,
+    "eval_duration": 1.235
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor\": \"Criminal history\",\n      \"weight\": \"medium\",\n      \"reasoning\": \"A single arrest can be considered a minor offense, but if it's followed by multiple unresolved cases, it may indicate a higher risk of reoffending.\"\n    },\n    {\n      \"factor\": \"Age\",\n      \"weight\": \"high\",\n      \"reasoning\": \"Younger individuals are more likely to engage in risky behaviors and have less life experience which can affect their decision-making abilities.\"\n    },\n    {\n      \"factor\": \"Ethnicity\",\n      \"weight\": \"low\",\n      \"reasoning\": \"Given the individual's ethnic identity, it is not deemed a significant factor but rather a contextual one that could potentially influence behavior and legal outcomes.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201507_523958",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 83,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "Criminal history",
+      "weight": "medium",
+      "reasoning": "A single arrest can be considered a minor offense, but if it's followed by multiple unresolved cases, it may indicate a higher risk of reoffending."
+    },
+    {
+      "factor": "Age",
+      "weight": "high",
+      "reasoning": "Younger individuals are more likely to engage in risky behaviors and have less life experience which can affect their decision-making abilities."
+    },
+    {
+      "factor": "Ethnicity",
+      "weight": "low",
+      "reasoning": "Given the individual's ethnic identity, it is not deemed a significant factor but rather a contextual one that could potentially influence behavior and legal outcomes."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

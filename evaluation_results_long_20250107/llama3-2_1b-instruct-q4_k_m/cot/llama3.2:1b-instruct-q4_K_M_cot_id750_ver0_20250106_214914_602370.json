@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 750,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T02:49:14.600891789Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.819872895,
+    "load_duration": 0.027457626,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 281,
+    "eval_duration": 0.786
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"large household size\", \"weight\": 8, \"textual reasoning\": \"Larger households may contribute to higher levels of family stress, peer influence, and social networks, all of which can increase the likelihood of involvement in delinquent behavior.\"},\n    {\"factor2\": \"previous substance abuse\", \"weight\": 6, \"textual reasoning\": \"Previous substance abuse can indicate a lack of impulse control and increased risk-taking behavior, both of which are associated with higher recidivism rates.\"},\n    {\"factor3\": \"low educational attainment\", \"weight\": 7, \"textual reasoning\": \"Limited education and job experience may indicate limited opportunities for social mobility and access to resources, increasing the likelihood of delinquent involvement.\"},\n    {\"factor4\": \"high level of family conflict\", \"weight\": 9, \"textual reasoning\": \"Family conflict can contribute to increased stress, anxiety, and depression, all of which can increase the likelihood of recidivism.\"},\n    {\"factor5\": \"age at first arrest\", \"weight\": 7, \"textual reasoning\": \"Youthful delinquency is often associated with impulsivity and poor decision-making, increasing the likelihood of future involvement in delinquent behavior.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_214914_602370",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 750,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "large household size",
+      "weight": 8,
+      "textual reasoning": "Larger households may contribute to higher levels of family stress, peer influence, and social networks, all of which can increase the likelihood of involvement in delinquent behavior."
+    },
+    {
+      "factor2": "previous substance abuse",
+      "weight": 6,
+      "textual reasoning": "Previous substance abuse can indicate a lack of impulse control and increased risk-taking behavior, both of which are associated with higher recidivism rates."
+    },
+    {
+      "factor3": "low educational attainment",
+      "weight": 7,
+      "textual reasoning": "Limited education and job experience may indicate limited opportunities for social mobility and access to resources, increasing the likelihood of delinquent involvement."
+    },
+    {
+      "factor4": "high level of family conflict",
+      "weight": 9,
+      "textual reasoning": "Family conflict can contribute to increased stress, anxiety, and depression, all of which can increase the likelihood of recidivism."
+    },
+    {
+      "factor5": "age at first arrest",
+      "weight": 7,
+      "textual reasoning": "Youthful delinquency is often associated with impulsivity and poor decision-making, increasing the likelihood of future involvement in delinquent behavior."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 2 inches and weighs over 250 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

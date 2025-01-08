@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 797,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "created_at": "2025-01-08T01:16:48.032393427Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.87462118,
+    "load_duration": 0.009537782,
+    "prompt_eval_count": 244,
+    "prompt_eval_duration": 0.052,
+    "eval_count": 286,
+    "eval_duration": 1.811
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"Criminal history\",\n      \"low\": [\"The individual has a prior criminal record of arrest but no convictions.\", \"He is only 18 years old, which may reduce the likelihood of recidivism due to lack of established patterns.\"],\n      \"medium\": [\"There have been two minor offenses, suggesting potential for re-offending.\", \"The individual identifies as mixed race, a unique demographic that could influence his risk profile.\"],\n      \"high\": []\n    },\n    {\n      \"factor2\": \"Age\",\n      \"low\": [\"Younger individuals are less likely to engage in criminal activities due to limited life experience.\", \"However, the individual's age may also indicate a lack of maturity and understanding of consequences.\"],\n      \"medium\": [],\n      \"high\": []\n    },\n    {\n      \"factor3\": \"Mixed race\",\n      \"low\": [\"This demographic is less likely to be involved in criminal activities due to stereotypes and biases.\", \"The individual's racial identity might influence his risk profile, but it does not necessarily mean he will reoffend.\"],\n      \"medium\": [],\n      \"high\": []\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250107_201648_033955",
+    "model": "granite3.1-moe:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 797,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Criminal history",
+      "low": [
+        "The individual has a prior criminal record of arrest but no convictions.",
+        "He is only 18 years old, which may reduce the likelihood of recidivism due to lack of established patterns."
+      ],
+      "medium": [
+        "There have been two minor offenses, suggesting potential for re-offending.",
+        "The individual identifies as mixed race, a unique demographic that could influence his risk profile."
+      ],
+      "high": []
+    },
+    {
+      "factor2": "Age",
+      "low": [
+        "Younger individuals are less likely to engage in criminal activities due to limited life experience.",
+        "However, the individual's age may also indicate a lack of maturity and understanding of consequences."
+      ],
+      "medium": [],
+      "high": []
+    },
+    {
+      "factor3": "Mixed race",
+      "low": [
+        "This demographic is less likely to be involved in criminal activities due to stereotypes and biases.",
+        "The individual's racial identity might influence his risk profile, but it does not necessarily mean he will reoffend."
+      ],
+      "medium": [],
+      "high": []
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as mixed race. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
