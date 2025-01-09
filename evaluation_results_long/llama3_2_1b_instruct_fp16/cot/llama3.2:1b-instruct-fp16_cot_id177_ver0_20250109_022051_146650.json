@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 177,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-09T07:20:51.144651154Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.991308931,
+    "load_duration": 0.026770744,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 217,
+    "eval_duration": 0.958
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"age\", \"weight\": 2, \"reasoning\": \"Lack of life experience may contribute to instability in the individual's life.\"},\n    {\"factor2\": \"education\", \"weight\": 3, \"reasoning\": \"Limited educational background may indicate lower socio-economic status and increased vulnerability to recidivism.\"},\n    {\"factor3\": \"mental health\", \"weight\": 1, \"reasoning\": \"Depression could be a contributing factor to the individual's behavior and circumstances.\"},\n    {\"factor4\": \"family situation\", \"weight\": 2, \"reasoning\": \"Living alone with no support system may increase stress levels and make it harder for the individual to recover.\"},\n    {\"factor5\": \"physical characteristics\", \"weight\": 1, \"reasoning\": \"Height does not directly contribute to recidivism but may indicate a larger frame, which could be perceived as intimidating by others.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_022051_146650",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 177,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "weight": 2,
+      "reasoning": "Lack of life experience may contribute to instability in the individual's life."
+    },
+    {
+      "factor2": "education",
+      "weight": 3,
+      "reasoning": "Limited educational background may indicate lower socio-economic status and increased vulnerability to recidivism."
+    },
+    {
+      "factor3": "mental health",
+      "weight": 1,
+      "reasoning": "Depression could be a contributing factor to the individual's behavior and circumstances."
+    },
+    {
+      "factor4": "family situation",
+      "weight": 2,
+      "reasoning": "Living alone with no support system may increase stress levels and make it harder for the individual to recover."
+    },
+    {
+      "factor5": "physical characteristics",
+      "weight": 1,
+      "reasoning": "Height does not directly contribute to recidivism but may indicate a larger frame, which could be perceived as intimidating by others."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 871,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-09T16:39:30.642315755Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 67.573799698,
+    "load_duration": 0.01716447,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.707,
+    "eval_count": 463,
+    "eval_duration": 66.843
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years)\", \"medium\", \"Young age is a significant risk factor for recidivism, as younger individuals are more likely to engage in criminal behavior. However, being at the threshold of adulthood can also indicate potential for change.\"),\n    (\"Race and Gender (Black female)\", \"low\", \"While race can be correlated with systemic issues that affect opportunities, it should not be used as a primary risk factor. Gender, being female, is generally associated with lower recidivism rates compared to males.\"),\n    (\"Arrest History (7 arrests, convicted)\", \"high\", \"A higher number of prior arrests and a conviction history are strong indicators of an increased likelihood of rearrest.\"),\n    (\"Educational Attainment (No high school diploma or GED)\", \"high\", \"Lack of education is a significant risk factor as it limits job opportunities and social mobility, which can contribute to criminal behavior.\"),\n    (\"Employment Status (Unemployed for the past year)\", \"high\", \"Lack of stable employment is a critical risk factor, as it affects economic stability and social integration.\"),\n    (\"Substance Use (Cocaine use in the past four years)\", \"medium\", \"Drug use is a significant risk factor, but the recency and frequency need to be considered. Recent use indicates ongoing issues that could contribute to rearrest.\"),\n    (\"Mental Health (Depression symptoms)\", \"high\", \"Severe depressive symptoms can affect decision-making, coping mechanisms, and overall well-being, increasing the likelihood of reoffending.\"),\n    (\"Family History (Lived with both biological parents in a household of size 5)\", \"low\", \"A stable family environment during early years is generally protective. However, the current living situation should also be considered.\"),\n    (\"Current Living Situation (Living alone)\", \"medium\", \"Living alone can indicate a lack of social support and increased isolation, which are risk factors for recidivism.\"),\n    (\"Religious Beliefs (Does not believe God influences personal outcomes)\", \"low\", \"While religious beliefs can provide a sense of structure and meaning, their absence is not a strong predictor of rearrest on its own.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_113930_643504",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 871,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 7 times and has been convicted. She is 5 feet 5 inches and weighs 120 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

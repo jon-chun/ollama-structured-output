@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 270,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-09T17:05:28.224615946Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 66.752671788,
+    "load_duration": 0.026408275,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.615,
+    "eval_count": 458,
+    "eval_duration": 66.103
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"Being 18 years old is a moderate risk factor for recidivism, as younger individuals are more likely to reoffend.\"),\n    (\"Gender\", \"medium\", \"Males generally have higher recidivism rates compared to females.\"),\n    (\"Race/Ethnicity\", \"low\", \"While race can be a factor in some contexts, it is not strongly predictive of individual behavior and should be considered with caution. In this case, it does not significantly elevate risk.\"),\n    (\"Prior Arrests\", \"medium\", \"Two prior arrests indicate some involvement in the criminal justice system, which increases the likelihood of future contact but is not extremely high-risk.\"),\n    (\"Conviction History\", \"high\", \"Having a conviction history suggests a higher likelihood of reoffending compared to those who have only been arrested.\"),\n    (\"Living Situation\", \"medium\", \"Living alone can be a risk factor as it may lack social support and stability, which are protective against recidivism.\"),\n    (\"Education Status\", \"low\", \"Being enrolled in school is a positive sign and generally reduces the likelihood of reoffending.\"),\n    (\"Employment History\", \"high\", \"Lack of employment over the past year can increase the risk of reoffending due to financial instability and lack of structured time.\"),\n    (\"Substance Use\", \"medium\", \"Past drug use (marijuana and cocaine) is a moderate risk factor, as substance use can be linked to criminal behavior.\"),\n    (\"Mental Health\", \"low\", \"Not feeling depressed over the past month suggests no immediate mental health issues that could elevate risk.\"),\n    (\"Family History\", \"low\", \"Living with both biological parents in a household of size 6 during childhood is generally stable and protective against recidivism.\"),\n    (\"Urban Living\", \"medium\", \"Living in an urban area can increase exposure to criminal opportunities but does not necessarily predict reoffending on its own.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief that God has a role in personal outcomes can provide some sense of structure and purpose, which may be slightly protective.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_120528_225819",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 270,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 1 inch and weighs 180 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

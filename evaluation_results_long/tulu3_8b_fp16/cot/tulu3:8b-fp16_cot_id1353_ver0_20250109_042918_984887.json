@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1353,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-09T09:29:18.983724807Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.5204152,
+    "load_duration": 0.035525432,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 375,
+    "eval_duration": 7.465
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_time_of_assessment\", \"low\", \"The individual is young, typically associated with lower recidivism rates.\"),\n    (\"race\", \"medium\", \"Being Black is a risk factor due to systemic biases in the criminal justice system and higher recidivism rates reported in studies.\"),\n    (\"arrest_history\", \"high\", \"Multiple arrests indicate persistent behavior that could lead to higher chances of rearrest.\"),\n    (\"conviction_status\", \"low\", \"Lack of convictions suggests less engagement with the formal justice system.\"),\n    (\"body_size\", \"low\", \"Physical size does not typically correlate with criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Single status alone does not significantly affect recidivism risk.\"),\n    (\"living_arrangements\", \"medium\", \"Living arrangements can be a factor, but without more context it's hard to assess impact.\"),\n    (\"education_level\", \"high\", \"Having only a GED and not being enrolled in college suggests lower educational attainment which is associated with higher recidivism.\"),\n    (\"employment_history\", \"low\", \"Holding several jobs indicates some level of work ethic, potentially lowering risk.\"),\n    (\"drug_use\", \"medium\", \"Recent drug use (marijuana) may increase risk but is less severe than other substances.\"),\n    (\"mental_health_issues\", \"medium\", \"Depression or feeling down could affect compliance with legal requirements and contribute to recidivism.\"),\n    (\"childhood_environment\", \"high\", \"Growing up in a rural, single-parent household can be a significant risk factor for future criminal behavior.\"),\n    (\"spiritual_beliefs\", \"low\", \"Personal beliefs about God's involvement do not have a direct impact on criminal recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_042918_984887",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1353,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 3 times but has not been convicted. He is 5 feet 9 inches and weighs 170 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

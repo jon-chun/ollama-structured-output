@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 309,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-09T09:27:39.808714385Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.084375177,
+    "load_duration": 0.035991667,
+    "prompt_eval_count": 324,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 353,
+    "eval_duration": 7.029
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Young age is often associated with higher risk of recidivism due to less developed decision-making skills.\"),\n    (\"arrest_history\", \"medium\", \"Having a single arrest increases the likelihood of rearrest, but it's not as high as for those with multiple convictions.\"),\n    (\"conviction_status\", \"high\", \"A conviction indicates a more serious offense and a higher risk of recidivism.\"),\n    (\"physical_description\", \"low\", \"Physical appearance doesn't typically influence criminal behavior or recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Living alone has no significant correlation with rearrest, as living arrangements do not typically indicate criminal tendencies.\"),\n    (\"education_level\", \"medium\", \"Having a high school diploma and being enrolled in college might suggest some commitment to personal development but doesn't reduce recidivism risk significantly on its own.\"),\n    (\"employment_status\", \"high\", \"No employment could be seen as a risk factor due to less structure and support in daily life.\"),\n    (\"drug_use\", \"medium\", \"Past drug use indicates a potential for substance abuse, which is associated with higher recidivism rates.\"),\n    (\"mental_health\", \"low\", \"Not feeling depressed recently doesn't mitigate past behavior or reduce the risk of future criminal activity.\"),\n    (\"family_background\", \"high\", \"Growing up in a single-parent household (size 2) can increase vulnerability to delinquent behaviors and subsequent rearrest.\"),\n    (\"religion_belief\", \"low\", \"Belief in God doesn't have a direct impact on criminal behavior or recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_042739_810424",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 309,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 11 inches and weighs 153 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

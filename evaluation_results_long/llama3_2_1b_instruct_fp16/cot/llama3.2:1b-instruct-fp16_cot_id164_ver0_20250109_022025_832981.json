@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 164,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-09T07:20:25.831900519Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.459094055,
+    "load_duration": 0.037076071,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 316,
+    "eval_duration": 1.416
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"age\", \"weight\": \"low\", \"textual_reasoning\": \"The individual is a young adult, which may indicate a lower likelihood of rearrest due to reduced life experience and potential impulsivity.\"},\n    {\"factor2\": \"education\", \"weight\": \"medium\", \"textual_reasoning\": \"Having a high school diploma but not a college degree may suggest some level of functional competence, which could contribute to lower recidivism rates.\"},\n    {\"factor3\": \"marital_status\", \"weight\": \"low\", \"textual_reasoning\": \"Being single and living alone may indicate reduced social support networks, potentially increasing the risk of rearrest.\"},\n    {\"factor4\": \"employment_history\", \"weight\": \"medium\", \"textual_reasoning\": \"Having held only one job in a year may suggest some level of inactivity or unstable employment, which could contribute to higher recidivism rates.\"},\n    {\"factor5\": \" Substance_use\", \"weight\": \"low\", \"textual_reasoning\": \"Not having used drugs in the past four years may indicate reduced exposure to addictive substances and lower potential for substance-related issues that can lead to rearrest.\"},\n    {\"factor6\": \"Depression\", \"weight\": \"medium\", \"textual_reasoning\": \"Not feeling depressed over the past month may suggest some level of psychological well-being, which could contribute to lower recidivism rates.\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250109_022025_832981",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 164,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "weight": "low",
+      "textual_reasoning": "The individual is a young adult, which may indicate a lower likelihood of rearrest due to reduced life experience and potential impulsivity."
+    },
+    {
+      "factor2": "education",
+      "weight": "medium",
+      "textual_reasoning": "Having a high school diploma but not a college degree may suggest some level of functional competence, which could contribute to lower recidivism rates."
+    },
+    {
+      "factor3": "marital_status",
+      "weight": "low",
+      "textual_reasoning": "Being single and living alone may indicate reduced social support networks, potentially increasing the risk of rearrest."
+    },
+    {
+      "factor4": "employment_history",
+      "weight": "medium",
+      "textual_reasoning": "Having held only one job in a year may suggest some level of inactivity or unstable employment, which could contribute to higher recidivism rates."
+    },
+    {
+      "factor5": " Substance_use",
+      "weight": "low",
+      "textual_reasoning": "Not having used drugs in the past four years may indicate reduced exposure to addictive substances and lower potential for substance-related issues that can lead to rearrest."
+    },
+    {
+      "factor6": "Depression",
+      "weight": "medium",
+      "textual_reasoning": "Not feeling depressed over the past month may suggest some level of psychological well-being, which could contribute to lower recidivism rates."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 3 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

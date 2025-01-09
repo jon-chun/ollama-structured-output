@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 970,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-09T16:21:37.334764174Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 62.767425494,
+    "load_duration": 0.018902287,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.617,
+    "eval_count": 431,
+    "eval_duration": 62.125
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"21 years old is a young adult, which correlates with higher risk of reoffending due to immaturity and lack of life experience.\"),\n    (\"gender\", \"low\", \"Being male is generally associated with a slightly higher recidivism rate, but it's not the strongest predictor on its own.\"),\n    (\"race\", \"medium\", \"Identifying as White can vary in impact depending on contextual factors such as socioeconomic status and community support; however, it does not strongly predict higher risk by itself.\"),\n    (\"prior_arrests\", \"high\", \"Three arrests suggest a pattern of criminal behavior, which is a strong predictor of future offenses.\"),\n    (\"conviction_history\", \"high\", \"Having been convicted indicates a more serious involvement in the justice system, increasing the likelihood of recidivism.\"),\n    (\"marital_status\", \"low\", \"Not being married and living alone can reduce social support but does not strongly predict recidivism on its own.\"),\n    (\"education_level\", \"high\", \"Lack of a high school diploma or GED is associated with higher recidivism rates due to limited job prospects and life skills.\"),\n    (\"employment_stability\", \"medium\", \"Holding 4 jobs in one year suggests instability but also some effort to remain employed, which can be a mixed signal.\"),\n    (\"drug_use\", \"low\", \"No drug use in the past four years is a positive indicator of reduced risk, as substance abuse often correlates with criminal behavior.\"),\n    (\"mental_health\", \"low\", \"Not feeling depressed over the past month suggests better mental health stability, reducing the risk of recidivism.\"),\n    (\"family_structure\", \"medium\", \"Living with biological mother in a small household can provide some support, but the urban setting and early life context need consideration.\"),\n    (\"religiosity\", \"low\", \"Belief that God has something to do with personal outcomes can provide a sense of purpose and moral framework, which may reduce risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_112137_336009",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 970,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 5 feet 11 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 4 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

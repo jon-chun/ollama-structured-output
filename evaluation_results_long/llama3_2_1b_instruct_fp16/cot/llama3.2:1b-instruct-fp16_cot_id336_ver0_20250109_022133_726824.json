@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 336,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-09T07:21:33.72555164Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.097810943,
+    "load_duration": 0.022943939,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 243,
+    "eval_duration": 1.069
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"weight\": 2, \"reasoning\": \"Low to moderate risk due to historical discrimination and potential social exclusion\"},\n    {\"factor2\": \"mental health\", \"weight\": 1.5, \"reasoning\": \"Medium as there is a low to moderate risk due to the absence of symptoms of depression but also a moderate risk due to the lack of support and resources for mental health rehabilitation\"},\n    {\"factor3\": \"family background\", \"weight\": 2, \"reasoning\": \"High as he grew up in an urban household with a biological mother, potentially increasing his exposure to crime and social exclusion\"},\n    {\"factor4\": \"education level\", \"weight\": 1.5, \"reasoning\": \"Medium as although he holds a high school diploma, his lack of education and potential unemployment make him vulnerable to recidivism\"},\n    {\"factor5\": \"employment history\", \"weight\": 2, \"reasoning\": \"High as having held two jobs during the year suggests stability and potentially good time management skills\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250109_022133_726824",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 336,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "weight": 2,
+      "reasoning": "Low to moderate risk due to historical discrimination and potential social exclusion"
+    },
+    {
+      "factor2": "mental health",
+      "weight": 1.5,
+      "reasoning": "Medium as there is a low to moderate risk due to the absence of symptoms of depression but also a moderate risk due to the lack of support and resources for mental health rehabilitation"
+    },
+    {
+      "factor3": "family background",
+      "weight": 2,
+      "reasoning": "High as he grew up in an urban household with a biological mother, potentially increasing his exposure to crime and social exclusion"
+    },
+    {
+      "factor4": "education level",
+      "weight": 1.5,
+      "reasoning": "Medium as although he holds a high school diploma, his lack of education and potential unemployment make him vulnerable to recidivism"
+    },
+    {
+      "factor5": "employment history",
+      "weight": 2,
+      "reasoning": "High as having held two jobs during the year suggests stability and potentially good time management skills"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches and weighs 180 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1166,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-09T17:26:45.097901974Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 60.985055021,
+    "load_duration": 0.035223896,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 0.719,
+    "eval_count": 418,
+    "eval_duration": 60.222
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at First Arrest (19 years old)\", \"medium\", \"Young age is often associated with higher recidivism rates, but not the highest risk category.\"),\n    (\"Race (Black)\", \"medium\", \"Racial disparities exist in the criminal justice system, which can influence outcomes, but this factor should be considered carefully to avoid bias.\"),\n    (\"Number of Arrests (4 times)\", \"high\", \"Multiple arrests indicate a pattern of involvement with the criminal justice system, suggesting higher risk.\"),\n    (\"Marital Status (Never Married)\", \"medium\", \"Lack of stable relationships may contribute to higher risk, but it is not the strongest predictor.\"),\n    (\"Living Situation (Living Alone)\", \"medium\", \"Isolation can be a risk factor, as social support networks are important for reducing recidivism.\"),\n    (\"Education Level (High School Diploma)\", \"low\", \"Having completed high school suggests some level of stability and achievement, which can lower risk.\"),\n    (\"Employment Status (1 job during the year)\", \"medium\", \"Stable employment is a protective factor, but holding only one job may indicate limited opportunities or instability.\"),\n    (\"Drug Use (Marijuana in the past four years)\", \"medium\", \"Substance use is a known risk factor for recidivism, particularly if it leads to criminal behavior.\"),\n    (\"Depression Symptoms (Felt down in the dumps recently)\", \"high\", \"Mental health issues, especially depression, can significantly increase the likelihood of reoffending.\"),\n    (\"Parental Household (Adoptive parent(s), household size 4, urban area)\", \"low\", \"While adoption and urban environments can present challenges, a stable household size suggests some level of support.\"),\n    (\"Religious Beliefs (God has nothing to do with personal outcomes)\", \"medium\", \"Lack of religious or spiritual beliefs may indicate a lack of coping mechanisms, but it is not the strongest predictor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_122645_099177",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1166,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his adoptive parent(s) in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
