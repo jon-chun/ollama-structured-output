@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1244,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:42:39.731552937Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.438631956,
+    "load_duration": 0.031800379,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.14,
+    "eval_count": 353,
+    "eval_duration": 10.257
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (21)\", \"medium\", \"Young adults are often at a higher risk for recidivism, but this decreases as they age.\"),\n    (\"Gender (Male)\", \"high\", \"Males generally have a higher rate of criminal activity compared to females.\"),\n    (\"Race (Black)\", \"medium\", \"Historically, there has been disproportionate representation in the justice system.\"),\n    (\"Arrest history (1 arrest, no conviction)\", \"low\", \"A single arrest without a conviction suggests lower likelihood of re-offending.\"),\n    (\"Marital status (Never married and living alone)\", \"high\", \"Living alone without strong social ties can correlate with higher recidivism rates.\"),\n    (\"Education level (High school diploma)\", \"medium\", \"Having completed high school reduces the risk, but lack of further education may increase it.\"),\n    (\"Employment history (2 jobs in a year)\", \"low\", \"Holding multiple jobs suggests an effort towards stability and self-sufficiency.\"),\n    (\"Substance abuse (No use past 4 years)\", \"low\", \"Abstinence from drug use significantly reduces the risk for criminal behavior.\"),\n    (\"Mental health (Not depressed)\", \"low\", \"Current mental state not indicative of a high risk factor.\"),\n    (\"Family structure during youth (Lived with mother in urban area, household size 5)\", \"medium\", \"Urban environments and larger family sizes can present challenges but are neutral factors without additional context.\"),\n    (\"Spiritual beliefs (Believes God has influence on personal life)\", \"low\", \"Personal belief in a higher power is generally associated with lower risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_234239_732835",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1244,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 7 inches and weighs 148 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

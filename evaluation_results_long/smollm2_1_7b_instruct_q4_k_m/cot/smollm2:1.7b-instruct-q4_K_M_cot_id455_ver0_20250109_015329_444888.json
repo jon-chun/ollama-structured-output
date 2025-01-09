@@ -1,0 +1,89 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 455,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-09T06:53:29.443786639Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.77253701,
+    "load_duration": 0.012902357,
+    "prompt_eval_count": 351,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 511,
+    "eval_duration": 1.751
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"age\", \"low\", \"The individual's age has no significant impact on her risk for rearrest recidivism.\"],\n    [\"sex\", \"medium\", \"Sex can influence the risk of recidivism, but in this case, it is not an issue since the individual is a female.\"],\n    [\"race\", \"high\", \"As a White individual, she has a lower recidivism rate compared to Black or Hispanic individuals. However, her race does not significantly impact her specific recidivism risk for rearrest.\"],\n    [\"education_level\", \"medium\", \"Her enrollment in a graduate program and high school diploma have some positive correlations with reduced recidivism rates but do not provide significant information about her specific recidivism risk for rearrest.\"],\n    [\"marital_status\", \"low\", \"Living alone does not necessarily increase the risk of rearrest, as many people live alone without committing crimes. It also does not impact the individual's specific recidivism risk for rearrest.\"],\n    [\"number_of_jobs\", \"high\", \"Having held three jobs in a year is correlated with lower recidivism rates due to increased stability and financial security. However, it has no significant impact on her specific recidivism risk for rearrest.\"],\n    [\"cocaine_use\", \"low\", \"Not having used cocaine in the past four years can help mitigate some risks associated with drug use but does not directly affect her specific recidivism risk for rearrest.\"],\n    [\"marijuana_use\", \"high\", \"Using drugs like marijuana in the past four years is correlated with higher recidivism rates due to decreased cognitive ability and increased impulsivity. However, it has no significant impact on her specific recidivism risk for rearrest.\"],\n    [\"living_with_parents\", \"medium\", \"Living with both biological parents at a household size of six can help reduce some risks associated with living in an unstable environment. It also does not directly affect her specific recidivism risk for rearrest.\"],\n    [\"god_belief\", \"high\", \"Believing that God has something to do with what happens to her personally is correlated with lower recidivism rates due to increased faith and decreased likelihood of relapse into criminal behavior. However, it has no significant impact on her specific recidivism risk for rearrest.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_015329_444888",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 455,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "low",
+      "The individual's age has no significant impact on her risk for rearrest recidivism."
+    ],
+    [
+      "sex",
+      "medium",
+      "Sex can influence the risk of recidivism, but in this case, it is not an issue since the individual is a female."
+    ],
+    [
+      "race",
+      "high",
+      "As a White individual, she has a lower recidivism rate compared to Black or Hispanic individuals. However, her race does not significantly impact her specific recidivism risk for rearrest."
+    ],
+    [
+      "education_level",
+      "medium",
+      "Her enrollment in a graduate program and high school diploma have some positive correlations with reduced recidivism rates but do not provide significant information about her specific recidivism risk for rearrest."
+    ],
+    [
+      "marital_status",
+      "low",
+      "Living alone does not necessarily increase the risk of rearrest, as many people live alone without committing crimes. It also does not impact the individual's specific recidivism risk for rearrest."
+    ],
+    [
+      "number_of_jobs",
+      "high",
+      "Having held three jobs in a year is correlated with lower recidivism rates due to increased stability and financial security. However, it has no significant impact on her specific recidivism risk for rearrest."
+    ],
+    [
+      "cocaine_use",
+      "low",
+      "Not having used cocaine in the past four years can help mitigate some risks associated with drug use but does not directly affect her specific recidivism risk for rearrest."
+    ],
+    [
+      "marijuana_use",
+      "high",
+      "Using drugs like marijuana in the past four years is correlated with higher recidivism rates due to decreased cognitive ability and increased impulsivity. However, it has no significant impact on her specific recidivism risk for rearrest."
+    ],
+    [
+      "living_with_parents",
+      "medium",
+      "Living with both biological parents at a household size of six can help reduce some risks associated with living in an unstable environment. It also does not directly affect her specific recidivism risk for rearrest."
+    ],
+    [
+      "god_belief",
+      "high",
+      "Believing that God has something to do with what happens to her personally is correlated with lower recidivism rates due to increased faith and decreased likelihood of relapse into criminal behavior. However, it has no significant impact on her specific recidivism risk for rearrest."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 10 inches and weighs between 150 and 174 lbs. She has never been married and is currently not living alone. She has a high school diploma and is enrolled in a graduate program. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 6, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

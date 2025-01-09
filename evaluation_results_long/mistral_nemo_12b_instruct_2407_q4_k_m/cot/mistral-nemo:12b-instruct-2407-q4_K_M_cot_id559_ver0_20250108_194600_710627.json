@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 559,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-09T00:46:00.709091469Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.458863197,
+    "load_duration": 0.036571203,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.035,
+    "eval_count": 440,
+    "eval_duration": 5.384
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Under 25 years old is associated with lower risk.\"),\n    (\"Gender (Male)\", \"medium\", \"Generally higher recidivism rates for males, but age mitigates this.\"),\n    (\"Race (White)\", \"low\", \"No significant impact on recidivism compared to other races.\"),\n    (\"Arrests (3 times)\", \"high\", \"Frequent arrests increase the likelihood of recidivism.\"),\n    (\"Convictions (Yes)\", \"high\", \"History of convictions is a strong predictor of future crime.\"),\n    (\"Physical Size (6'1\\\", 215 lbs)\", \"low\", \"No direct impact on risk, but may indicate potential for physical violence.\"),\n    (\"Marital Status (Never married)\", \"medium\", \"Unmarried individuals have higher recidivism rates.\"),\n    (\"Living Arrangement (Alone)\", \"high\", \"Lack of social support and supervision increases the likelihood of reoffending.\"),\n    (\"Education (High School Diploma, not in college)\", \"low\", \"Limited education is a risk factor, but age mitigates this to some extent.\"),\n    (\"Employment (2 jobs in a year)\", \"medium\", \"Recent employment history suggests potential for stability, but frequent job changes may indicate instability.\"),\n    (\"Drug Use (Past 4 years - marijuana, past month - some days)\", \"high\", \"Recent drug use is associated with higher recidivism rates.\"),\n    (\"Mental Health (Felt down in the dumps)\", \"medium\", \"Poor mental health can increase the likelihood of reoffending, but there's no evidence of severe mental illness.\"),\n    (\"Childhood Household Size (7)\", \"low\", \"No direct impact on risk, but larger households may indicate lower socioeconomic status.\"),\n    (\"Belief in God (Yes)\", \"low\", \"Religious beliefs are not significantly associated with recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_194600_710627",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 559,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 1 inch and weighs 215 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 883,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-08T21:22:39.807209318Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.349366243,
+    "load_duration": 0.047955084,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 285,
+    "eval_duration": 6.281
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrest History\", \"low\", \"The individual has only been arrested once, without a subsequent conviction, suggesting a low level of prior criminal activity.\"),\n    (\"Employment Status\", \"medium\", \"Unemployment can contribute to financial stress and potential involvement in criminal activities. However, the lack of job history is not an indicator of high risk on its own.\"),\n    (\"Education Level\", \"low\", \"A high school diploma indicates a basic level of education, which does not inherently suggest a higher propensity for recidivism.\"),\n    (\"Substance Use\", \"low\", \"The individual's report of no drug use in the past four years is a significant positive factor.\"),\n    (\"Mental Health\", \"medium\", \"While the person reports no recent depression, mental health issues can be volatile. The absence of current depression does not eliminate the potential for future challenges.\"),\n    (\"Family Background\", \"low\", \"Growing up in a small household and rural setting is not typically linked to higher recidivism rates.\"),\n    (\"Religious Beliefs\", \"medium\", \"Religious beliefs can influence behavior, both positively and negatively. Faith-based involvement might act as a protective factor, but it also could contribute to a sense of entitlement or isolation from mainstream society.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_162239_808838",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 883,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 4 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

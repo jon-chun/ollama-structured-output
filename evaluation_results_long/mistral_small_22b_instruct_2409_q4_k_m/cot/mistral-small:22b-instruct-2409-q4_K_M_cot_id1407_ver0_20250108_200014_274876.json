@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1407,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "created_at": "2025-01-09T01:00:14.273601571Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.52616101,
+    "load_duration": 0.016428397,
+    "prompt_eval_count": 363,
+    "prompt_eval_duration": 0.103,
+    "eval_count": 406,
+    "eval_duration": 8.404
+  },
+  "response": {
+    "raw_message_text": " ```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young but not at the highest risk age for recidivism.\"),\n    (\"gender\", \"low\", \"Females generally have lower rates of recidivism than males.\"),\n    (\"race\", \"medium\", \"Being Black can be a risk factor due to systemic biases, but it is not determinative on its own.\"),\n    (\"arrests without conviction\", \"low\", \"Having arrests but no convictions suggests less serious offenses or successful defense.\"),\n    (\"height/weight\", \"low\", \"Physical attributes alone do not indicate a significant risk factor for recidivism.\"),\n    (\"marital status\", \"medium\", \"Being unmarried can be associated with higher risk, but education mitigates this somewhat.\"),\n    (\"living situation\", \"high\", \"Living alone can indicate isolation and lack of support, which is a known risk factor.\"),\n    (\"education\", \"low\", \"Current enrollment in school suggests efforts to improve future prospects.\"),\n    (\"employment\", \"medium\", \"Having held one job indicates some work history but not stability.\"),\n    (\"drug use\", \"low\", \"No drug use in the past four years is a positive factor.\"),\n    (\"mental health\", \"high\", \"Feeling down and depressed can be a strong indicator of future criminal behavior if not addressed.\"),\n    (\"family background\", \"medium\", \"Large household size in an urban area can indicate exposure to challenging environments.\"),\n    (\"religious beliefs\", \"low\", \"Having religious beliefs is generally seen as a protective factor against recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_200014_274876",
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1407,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 3 times but has not been convicted. She is 5 feet 4 inches and weighs 105 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 10, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

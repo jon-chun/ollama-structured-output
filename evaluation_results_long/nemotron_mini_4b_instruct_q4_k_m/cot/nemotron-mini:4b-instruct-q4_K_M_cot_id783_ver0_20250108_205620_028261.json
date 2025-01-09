@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 783,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-09T01:56:20.026577569Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.064884647,
+    "load_duration": 0.042908249,
+    "prompt_eval_count": 337,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 485,
+    "eval_duration": 3.009
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age (young)\", \"medium\", \"This person is a young female, which has historically been associated with low recidivism rates. However, in this case, she was arrested once and convicted.\"),\n    (\"gender (female)\", \"low\", \"Women generally have lower recidivism rates than men.\"),\n    (\"ethnicity (White)\", \"medium\", \"Some research suggests that White individuals may have a higher risk of reoffending compared to other racial/ethnic groups. However, this is not guaranteed and should be considered in conjunction with other factors.\"),\n    (\"height (short but within normal range)\", \"low\", \"Short stature has historically been associated with lower recidivism rates.\"),\n    (\"weight (<120 lbs)\", \"medium\", \"Some research suggests that underweight individuals may have a higher risk of reoffending. However, this is not guaranteed and should be considered in conjunction with other factors.\"),\n    (\"marital status (married)\", \"low\", \"Marriage has historically been associated with lower recidivism rates.\"),\n    (\"employment history (1 job)\", \"medium\", \"Employment can indicate a stable living situation and may reduce the risk of reoffending. However, it is not guaranteed to prevent reoffending.\"),\n    (\"substance use (drugs in past 4 years) [marijuana/cocaine]\", \"high\", \"Substance abuse has historically been associated with higher recidivism rates. This factor should be considered carefully and may indicate a need for additional intervention strategies such as substance treatment or education.\"),\n    (\"depression status (not depressed within the month)\", \"low\", \"Depression has historically been associated with lower recidivism rates.\"),\n    (\"age at young age (<20 years old) [lived with mother in household size 5]\", \"medium\", \"Early life experiences can impact an individual's risk of reoffending. Living conditions as a child may indicate stability or instability, which is important to consider when assessing recidivism risks.\"),\n    (\"religion/belief (God has nothing to do with personal happenings)\", \"low\", \"Research suggests that religious involvement and belief systems are generally associated with lower recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_205620_028261",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 783,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 4 inches and weighs 115 lbs. She is married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 5. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

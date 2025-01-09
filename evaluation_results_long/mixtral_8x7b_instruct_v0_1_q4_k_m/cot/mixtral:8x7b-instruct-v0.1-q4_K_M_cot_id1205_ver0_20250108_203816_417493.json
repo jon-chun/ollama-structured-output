@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1205,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-01-09T01:38:16.416098096Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.201507786,
+    "load_duration": 0.007825123,
+    "prompt_eval_count": 353,
+    "prompt_eval_duration": 0.138,
+    "eval_count": 417,
+    "eval_duration": 6.054
+  },
+  "response": {
+    "raw_message_text": " {\n    \"risk_factors\": [\n        (\"number of past arrests\", \"medium\", \"One prior arrest, but no conviction suggests some level of involvement with the justice system.\"),\n        (\"age\", \"low\", \"19 is relatively young, but age alone is not a strong predictor of recidivism.\"),\n        (\"gender\", \"low\", \"Gender is not a strong predictor of recidivism. However, research shows that females generally have lower recidivism rates than males.\"),\n        (\"height and weight\", \"low\", \"Physical attributes are not strong predictors of recidivism.\"),\n        (\"marital status\", \"low\", \"Being unmarried is not a strong predictor of recidivism.\"),\n        (\"living situation\", \"low\", \"Living alone is not a strong predictor of recidivism.\"),\n        (\"education level\", \"low\", \"Having a high school diploma is generally a positive factor, but it does not ensure against recidivism.\"),\n        (\"employment status\", \"medium\", \"No employment during the past year may suggest lack of stability and increased risk for reoffending.\"),\n        (\"drug use\", \"low\", \"No recent drug use is a positive factor, as substance abuse can contribute to recidivism.\"),\n        (\"mental health\", \"low\", \"No reported feelings of depression in the past month suggest that mental health may not be a significant concern at this time.\"),\n        (\"family background\", \"medium\", \"Living in an urban area and experiencing early life household instability can increase risk for recidivism.\"),\n        (\"religious beliefs\", \"low\", \"Beliefs about the role of God are not strong predictors of recidivism.\")\n    ],\n    \"prediction\": \"NO\",\n    \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_203816_417493",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1205,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 160 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

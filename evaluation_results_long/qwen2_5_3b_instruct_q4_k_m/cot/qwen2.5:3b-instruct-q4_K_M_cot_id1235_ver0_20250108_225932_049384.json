@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 50,
+    "id": 1235,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "created_at": "2025-01-09T03:59:32.047737556Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.309906466,
+    "load_duration": 0.033031295,
+    "prompt_eval_count": 324,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 391,
+    "eval_duration": 2.248
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Race (Black)\", \"high\", \"Black individuals have historically been overrepresented in criminal justice systems, especially given their lower socioeconomic status.\"),\n    (\"Prior Arrest\", \"medium\", \"One prior arrest may indicate a risk of future arrests but does not necessarily mean the individual will rearrest within 3 years.\"),\n    (\"Age and Living Situation (Young age living with biological mother)\", \"high\", \"Being young and still living with one's parents can be associated with increased risk due to potential lack of maturity, social networks, or supervision.\"),\n    (\"Education Level (High School Diploma)\", \"medium\", \"Having a high school diploma is generally not considered a significant protective factor in recidivism but may indicate higher likelihood of employment and education opportunities.\"),\n    (\"Employment History (Two jobs during the year)\", \"low\"|\"medium\", \"Having multiple jobs can be seen as a positive indicator, reducing risk by providing income stability and social contacts.\"),\n    (\"Substance Use (Past 4 years: marijuana use)\", \"medium\", \"Marijuana use is not considered a significant protective factor in recidivism but may indicate some level of substance misuse or dependence issues.\"),\n    (\"Mental Health Status (No depression over the past month)\", \"low\"|\"medium\", \"Lack of depression does not necessarily mean no mental health concerns, and it could be an indicator of higher functioning at the moment.\"),\n    (\"Geographical Context (Urban area lived in early years)\", \"medium\", \"Growing up in urban areas can be associated with various risk factors like exposure to crime or poverty.\"),\n    (\"Belief System (God has nothing to do with what happens to him personally)\", \"low\"|\"medium\", \"An individual's belief system is not a significant predictor of recidivism but could indicate certain attitudes towards legal consequences.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 50\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_225932_049384",
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1235,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 7, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

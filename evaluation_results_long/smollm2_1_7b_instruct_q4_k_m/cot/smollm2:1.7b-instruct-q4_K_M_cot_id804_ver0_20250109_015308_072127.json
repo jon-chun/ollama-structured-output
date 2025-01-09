@@ -1,0 +1,79 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 804,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-09T06:53:08.070857241Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.345064602,
+    "load_duration": 0.013560337,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 406,
+    "eval_duration": 1.319
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"age\", \"high\", \"The individual is in her early twenties, which may indicate a higher risk for recidivism.\"],\n    [\"race\", \"mixed\", \"The individual's mixed race background could potentially influence her cultural identity and social interactions, affecting her risk level.\"],\n    [\"convictions\", \"7\", \"Having seven prior arrests indicates a higher risk of future offenses. This information should be taken into account in the recidivism prediction.\"],\n    [\"education_level\", \"GED\", \"A GED certificate may indicate that the individual lacked access to educational opportunities or resources, potentially affecting her life choices and future prospects. A low education level could increase her risk for recidivism.\"],\n    [\"employment\", \"two jobs\", \"Having two jobs during a year suggests some stability in employment but also indicates a potential need to balance work with personal responsibilities. This may impact her ability to participate in rehabilitation programs or maintain a stable living situation, thus affecting her risk level.\"],\n    [\"mental_health\", \"mood is low\", \"The individual's current mood being described as 'down' for most of the past month may indicate underlying mental health issues that could contribute to her increased recidivism risks. A lack of enthusiasm and motivation in general life experiences may also increase her risk level.\"],\n    [\"family_background\", \"living alone\", \"The individual is currently living alone, which might imply independence but also isolation. This factor should be considered when assessing her potential support systems and family relationships, thus affecting her overall recidivism risks.\"],\n    [\"religion\", \"divorced\", \"The individual's divorce status could suggest a lack of stability in romantic relationships or possibly an unstable home environment that may impact her risk level. This information can also influence the effectiveness of her rehabilitation efforts if she has children or other family members involved.\"]\n  ],\n  \"prediction\": \"high\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_015308_072127",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 804,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "high",
+      "The individual is in her early twenties, which may indicate a higher risk for recidivism."
+    ],
+    [
+      "race",
+      "mixed",
+      "The individual's mixed race background could potentially influence her cultural identity and social interactions, affecting her risk level."
+    ],
+    [
+      "convictions",
+      "7",
+      "Having seven prior arrests indicates a higher risk of future offenses. This information should be taken into account in the recidivism prediction."
+    ],
+    [
+      "education_level",
+      "GED",
+      "A GED certificate may indicate that the individual lacked access to educational opportunities or resources, potentially affecting her life choices and future prospects. A low education level could increase her risk for recidivism."
+    ],
+    [
+      "employment",
+      "two jobs",
+      "Having two jobs during a year suggests some stability in employment but also indicates a potential need to balance work with personal responsibilities. This may impact her ability to participate in rehabilitation programs or maintain a stable living situation, thus affecting her risk level."
+    ],
+    [
+      "mental_health",
+      "mood is low",
+      "The individual's current mood being described as 'down' for most of the past month may indicate underlying mental health issues that could contribute to her increased recidivism risks. A lack of enthusiasm and motivation in general life experiences may also increase her risk level."
+    ],
+    [
+      "family_background",
+      "living alone",
+      "The individual is currently living alone, which might imply independence but also isolation. This factor should be considered when assessing her potential support systems and family relationships, thus affecting her overall recidivism risks."
+    ],
+    [
+      "religion",
+      "divorced",
+      "The individual's divorce status could suggest a lack of stability in romantic relationships or possibly an unstable home environment that may impact her risk level. This information can also influence the effectiveness of her rehabilitation efforts if she has children or other family members involved."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as mixed race. She has been arrested 7 times and has been convicted. She is 5 feet 4 inches and weighs 139 lbs. She is divorced and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has not used any drugs in the past four years and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

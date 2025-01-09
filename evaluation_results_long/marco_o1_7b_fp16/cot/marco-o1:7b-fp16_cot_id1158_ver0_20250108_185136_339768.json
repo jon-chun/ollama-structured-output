@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1158,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-08T23:51:36.338602037Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.291227639,
+    "load_duration": 0.024861029,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 277,
+    "eval_duration": 5.237
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age may not be a significant risk factor for recidivism.\"),\n    (\"Ethnicity\", \"medium\", \"Hispanic ethnicity has been associated with higher rates of criminal behavior in some studies.\"),\n    (\"Prior Arrests\", \"high\", \"7 prior arrests indicate multiple opportunities for reoffending.\"),\n    (\"Marital Status\", \"low\", \"Not married does not necessarily increase recidivism risk.\"),\n    (\"Living Situation\", \"medium\", \"Currently not living alone may offer more freedom but doesn't directly impact recidivism.\"),\n    (\"Education Level\", \"low\", \"High school diploma is generally associated with lower criminal involvement.\"),\n    (\"Employment Status\", \"low\", \"Holding a job can be protective against recidivism.\"),\n    (\"Drug Use\", \"medium\", \"Past four years of marijuana use may contribute to higher risk.\"),\n    (\"Depression\", \"low\", \"No reported depression suggests better mental health, which is protective.\"),\n    (\"Childhood Environment\", \"medium\", \"Living with biological mother in a household of size 4 may have mixed influences on behavior.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God has been linked to lower criminal involvement.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_185136_339768",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1158,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 7 times but has not been convicted. He is 6 feet 2 inches and weighs 215 lbs. He has never been married and is currently not living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 694,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-08T23:53:37.997741349Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.472171774,
+    "load_duration": 0.030641027,
+    "prompt_eval_count": 340,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 393,
+    "eval_duration": 7.408
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at First Arrest\", \"low\", \"The individual is 19 years old, which is relatively young. Young age can sometimes correlate with higher risk due to lack of life experience, but it's not the most significant factor.\"),\n    (\"Number of Prior Arrests and Convictions\", \"medium\", \"With three prior arrests and one conviction, there is a moderate history of legal involvement, indicating potential ongoing issues.\"),\n    (\"Height and Weight\", \"low\", \"Physical attributes like height and weight don't directly influence recidivism rates. They may not be significant factors in this assessment.\"),\n    (\"Marital Status and Living Situation\", \"low\", \"Currently single and living alone might indicate a lack of stable relationships or support systems, which could contribute to higher risk.\"),\n    (\"Education Level\", \"low\", \"A high school diploma is generally associated with lower recidivism rates compared to those without formal education.\"),\n    (\"Employment History\", \"medium\", \"Having held seven jobs in the past year suggests instability and perhaps a lack of commitment to employment, which can be linked to higher risk.\"),\n    (\"Substance Use History\", \"high\", \"Using drugs like marijuana and cocaine increases the likelihood of substance-related offenses and criminal behavior.\"),\n    (\"Mental Health Indicators\", \"medium\", \"Feeling down for an extended period without cheer may indicate underlying mental health issues that could affect decision-making and impulse control.\"),\n    (\"Upbringing in a Household with Both Biological Parents\", \"low\", \"Growing up in a stable, two-parent household typically correlates with better outcomes and lower risk of criminal behavior.\"),\n    (\"Religious Affiliation or Belief\", \"low\", \"Not considering God relevant to personal life might indicate a lack of moral or ethical guidance, but it's not definitively linked to recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_185337_999393",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 694,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 180 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 7 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

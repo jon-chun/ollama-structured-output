@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1337,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-09T00:45:40.686502576Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.023483065,
+    "load_duration": 0.028010871,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 407,
+    "eval_duration": 4.959
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"At 20 years old, age is a positive factor indicating lower risk.\"),\n    (\"Gender (Female)\", \"low\", \"Historically, females have lower rates of recidivism.\"),\n    (\"Ethnicity (Hispanic)\", \"medium\", \"Varies by region; no strong historical correlation with recidivism.\"),\n    (\"Arrests (1)\", \"low\", \"Single arrest suggests less persistent criminal behavior.\"),\n    (\"Convictions (Yes)\", \"high\", \"Previous conviction increases risk of future offending.\"),\n    (\"Height & Weight (5'1\\\", 138 lbs)\", \"low\", \"No direct impact on recidivism risk.\"),\n    (\"Marital Status (Never Married)\", \"medium\", \"Unmarried individuals may have less stable social bonds.\"),\n    (\"Living Alone (Yes)\", \"high\", \"Lack of stable living arrangements can increase risk.\"),\n    (\"Education (<HS Diploma/GED)\", \"high\", \"Lower educational attainment is associated with higher recidivism rates.\"),\n    (\"Employment (1 Job in the past year)\", \"low\", \"Recent employment suggests positive social integration.\"),\n    (\"Substance Use (Past 4 years: Marijuana & Cocaine, Past Month: Some days)\", \"high\", \"History of substance use increases risk of future offending.\"),\n    (\"Depression (Felt down in the dumps in the past month)\", \"medium\", \"Mental health issues can contribute to higher recidivism rates.\"),\n    (\"Household Size at a Young Age (4)\", \"low\", \"No direct impact on recidivism risk.\"),\n    (\"Beliefs about God (Agnostic/Atheist)\", \"low\", \"No direct impact on recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_194540_688110",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1337,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time and has been convicted. She is 5 feet 1 inch and weighs 138 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

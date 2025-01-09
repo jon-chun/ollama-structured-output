@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 178,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.3:70b-instruct-q4_K_M",
+    "created_at": "2025-01-08T22:44:47.943248469Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 29.256161743,
+    "load_duration": 0.028382282,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.297,
+    "eval_count": 497,
+    "eval_duration": 28.928
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is 20 years old, which is considered young but not exceptionally high-risk for recidivism on its own.\"),\n    (\"race\", \"low\", \"While race can be a factor in systemic disparities, it is not directly used as a risk factor in this assessment due to its potential for bias and the need for equitable evaluation.\"),\n    (\"prior arrests\", \"high\", \"Eight prior arrests indicate a significant history of engagement with the criminal justice system, suggesting a higher likelihood of recidivism.\"),\n    (\"conviction history\", \"medium\", \"Having been convicted suggests a level of severity in past offenses but does not alone predict future behavior without context of the crimes.\"),\n    (\"physical characteristics\", \"low\", \"Height and weight are not typically significant predictors of criminal behavior or recidivism risk.\"),\n    (\"marital status\", \"medium\", \"Never being married may indicate less stability or fewer social ties, which can be a factor in recidivism risk, though its impact is moderate.\"),\n    (\"education level\", \"high\", \"Lacking a high school diploma or GED certificate significantly limits job opportunities and is associated with higher recidivism rates.\"),\n    (\"employment history\", \"medium\", \"Having held two jobs in the past year suggests some level of employability but also potential instability, as frequent job changes can indicate difficulties in maintaining employment.\"),\n    (\"substance use\", \"high\", \"Recent drug use, including marijuana and cocaine, is a strong predictor of recidivism due to its association with criminal behavior and the potential for addiction-related crimes.\"),\n    (\"mental health\", \"medium\", \"Feeling down and unable to be cheered up some of the time in the past month may indicate depressive symptoms, which can increase recidivism risk if not addressed but are not as strongly predictive as other factors like substance use or prior criminal history.\"),\n    (\"family background\", \"medium\", \"Growing up in a large household in an urban area may present challenges, but its direct impact on recidivism is less clear without more specific information about family dynamics and support.\"),\n    (\"religious beliefs\", \"low\", \"Believing that God has something to do with personal events may provide a sense of purpose or moral framework, potentially reducing recidivism risk, though its effect is likely minimal compared to other factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_174447_944696",
+    "model": "llama3.3:70b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 178,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 8 times and has been convicted. He is 5 feet 7 inches and weighs 154 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 7, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

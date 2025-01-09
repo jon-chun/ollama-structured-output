@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 260,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:17:05.488534993Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.558583509,
+    "load_duration": 0.030813113,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.057,
+    "eval_count": 427,
+    "eval_duration": 6.461
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age (19 years old)\", \"low\", \"Young age is a typical risk factor but his other factors suggest he may still be in a developmental stage.\"),\n    (\"race (Black)\", \"medium\", \"Socioeconomic and systemic disparities can influence recidivism rates for individuals of certain racial backgrounds, although this alone does not strongly predict recidivism.\"),\n    (\"previous arrest record (1 arrest, no conviction)\", \"low\", \"A single non-conviction arrest is a minor factor in predicting future criminal behavior.\"),\n    (\"lifestyle factors (living alone, single status)\", \"medium\", \"Living alone and being unmarried can be indicative of fewer social supports which may increase risk but his current school enrollment mitigates this somewhat.\"),\n    (\"education (enrolled in school)\", \"low\", \"Current engagement in education is a protective factor against future criminal behavior.\"),\n    (\"employment history (1 job held during the year)\", \"medium\", \"Having had employment, even if only one instance, can be considered positive but his unemployment could also suggest instability and vulnerability to recidivism.\"),\n    (\"drug use (marijuana past 4 years, current usage)\", \"high\", \"Past and present drug involvement is a strong predictor of future criminal behavior, especially for marijuana which may indicate an ongoing substance abuse issue or illegal activity.\"),\n    (\"mental health concerns (feeling depressed)\", \"high\", \"Depression can significantly impact decision-making abilities and increase the likelihood of engaging in risky behaviors that could lead to rearrest.\"),\n    (\"upbringing factors (lived with biological mother in urban area, household size 3)\", \"medium\", \"Growing up in an urban environment and a smaller family unit may suggest some socioeconomic challenges which could influence future behavior but is not definitive.\"),\n    (\"religious beliefs (views God as involved in personal life)\", \"low\", \"Spiritual or religious belief can provide emotional support and reduce the likelihood of criminal activity, though it does not definitively prevent recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_231705_489830",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 260,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 8 inches and weighs 180 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

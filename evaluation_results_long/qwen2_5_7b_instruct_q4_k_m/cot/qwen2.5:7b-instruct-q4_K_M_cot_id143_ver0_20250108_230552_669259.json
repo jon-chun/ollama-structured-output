@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 143,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:05:52.668062022Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.138773219,
+    "load_duration": 0.025015615,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 379,
+    "eval_duration": 3.091
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"22-year-olds are generally less likely to engage in repeated criminal behavior compared to older individuals.\"),\n    (\"race\", \"low\", \"Race does not have a direct correlation with recidivism rates, but demographic data is often used for risk assessment purposes.\"),\n    (\"prior convictions\", \"low\", \"One arrest without conviction suggests low immediate risk of reoffending.\"),\n    (\"height_weight\", \"low\", \"Physical attributes like height and weight do not directly influence recidivism.\"),\n    (\"marital_status\", \"low\", \"Living alone does not necessarily correlate with higher recidivism rates.\"),\n    (\"education\", \"low\", \"A completed Bachelor's degree can indicate a lower likelihood of reoffending as it suggests the person has achieved formal education, which is often associated with better employment opportunities and reduced criminal behavior.\"),\n    (\"employment_history\", \"medium\", \"Holding multiple jobs in one year might suggest instability or financial stress but does not directly correlate to recidivism without additional context.\"),\n    (\"substance_use\", \"high\", \"Using drugs such as marijuana and cocaine increases the risk of reoffending, especially within a short time frame.\"),\n    (\"depression\", \"medium\", \"Feeling down for weeks with no relief could indicate underlying mental health issues that might contribute to criminal behavior if not addressed.\"),\n    (\"childhood_environment\", \"low\", \"Growing up in an urban area with both parents and a household size of 4 is generally stable and less likely to be associated with higher recidivism rates.\"),\n    (\"religious_affiliation\", \"high\", \"Not believing in God or having any religious beliefs can sometimes correlate with lower social support networks, which might increase the risk of engaging in criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_230552_669259",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

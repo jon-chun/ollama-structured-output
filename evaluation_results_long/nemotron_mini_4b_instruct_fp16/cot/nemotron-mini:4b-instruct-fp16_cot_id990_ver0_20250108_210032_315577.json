@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 990,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-09T02:00:32.314338593Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.686434308,
+    "load_duration": 0.047320667,
+    "prompt_eval_count": 338,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 144,
+    "eval_duration": 1.624
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age (female)\", \"low\", \"The person is an adult, which is generally associated with lower recidivism rates.\"),\n    (\"race/ethnicity\", \"medium\", \"Whiteness may be a protective factor in certain contexts. However, this individual's specific racial background should also be considered.\"),\n    (\"employment history\", \"low\", \"Employment often correlates with reduced criminal activity.\"),\n    (\"drug use (marijuana and cocaine)\", \"high\", \"Substance abuse is a significant risk factor for recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_210032_315577",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 990,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 175 and 199 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 63,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-09T01:56:51.018934211Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.541992991,
+    "load_duration": 0.042925694,
+    "prompt_eval_count": 363,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 238,
+    "eval_duration": 1.486
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age (young)\", \"medium\", \"Textual Reasoning: The person is young, which can be a risk factor for recidivism.\"),\n    (\"female gender\", \"low\", \"Textual Reasoning: Gender does not seem to be a significant risk factor in this case.\"),\n    (\"ethnicity (Hispanic)\", \"high\", \"Textual Reasoning: Hispanic individuals have been found to be at higher risk of recidivism compared to the general population.\"),\n    (\"prior arrest, no conviction\", \"low\", \"Textual Reasoning: The person has not been convicted of any crime. This is a positive factor and should lower the prediction for rearrest.\"),\n    (\"height/weight range\", \"medium\", \"Textual Reasoning: Low weight can be associated with substance abuse or mental health issues, both risk factors for recidivism.\"),\n    (\"marital status (never married)\", \"high\", \"Textal Reasoning: Lack of marriage and stable relationship may indicate a higher likelihood of continued criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_205651_020251",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 63,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 2 inches and weighs between 100 and 124 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 9, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

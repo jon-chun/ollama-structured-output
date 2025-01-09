@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 624,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "created_at": "2025-01-09T03:54:03.812699247Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.352433038,
+    "load_duration": 0.032265531,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 333,
+    "eval_duration": 1.302
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_older_than_25_years\", \"low\", \"The individual is a young male, but not yet an adult.\"),\n    (\"past_arrests\", \"high\", \"Six arrests indicate a history of involvement in criminal activities.\"),\n    (\"lack_of_high_school_diploma_or_GED_certificate\", \"medium\", \"A lack of formal education can lead to lower employment prospects and increased risk of crime.\"),\n    (\"drug_use_in_the_past_4_years\", \"medium\", \"Use of drugs, particularly marijuana, has been reported in the past four years. This could indicate substance abuse and associated behaviors.\"),\n    (\"lack_of_current_job_or_school_enrollment\", \"high\", \"Unemployment or lack of education can lead to financial instability and a higher risk of criminal behavior.\"),\n    (\"past_4_months_not_depressed\", \"low\", \"Not feeling depressed in the past month is not an indicator of mental health issues that could influence recidivism. However, it might suggest resilience against trauma or stressors. \"),\n    (\"lack_of_marriage\", \"high\", \"Single living can provide more freedom but also increases risk due to potential isolation and lack of support networks.\"),\n    (\"not_identified_as_hispanic_by_the_personself\", \"low\", \"This factor is self-reported, so it may not reflect the actual identity, which could affect overall perceptions. However, it might be an indication of a non-biological Hispanic person who identifies in another way or does not identify as Hispanic.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_225403_814278",
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 624,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 6 times but has not been convicted. He is 5 feet 11 inches and weighs 165 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 10, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

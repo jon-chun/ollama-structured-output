@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 302,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "created_at": "2025-01-09T03:55:15.517630203Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.678440451,
+    "load_duration": 0.03079635,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 411,
+    "eval_duration": 1.623
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"race_ethnicity\", \"medium\", \"The person identifies as White, which is a relatively neutral factor in terms of crime risk.\"),\n    (\"criminal_record\", \"high\", \"The person has been convicted after being arrested once, indicating a history of criminal behavior.\"),\n    (\"age_gender_identity\", \"low\", \"At 21 years old, the person is still considered young and not typically associated with higher risk for recidivism. The fact that she identifies as female also slightly reduces her likelihood, but does not negate it completely.\"),\n    (\"educational_level\", \"medium\", \"The person has a high school diploma, which suggests minimal education compared to college-level education, neither significantly protective nor risky in the context of recidivism. However, the lack of college enrollment adds some uncertainty.\"),\n    (\"employment_history\", \"high\", \"The person has held 3 jobs during the year, indicating instability and possibly substance use as a coping mechanism for stress or depression.\"),\n    (\"drug_use_history\", \"medium\", \"The person has used drugs in the past four years, including marijuana. This is generally considered a moderate risk factor for recidivism due to its association with criminal behavior.\"),\n    (\"current_mood_state\", \"low\", \"Currently feeling down and unable to cheer herself up, this indicates emotional instability but does not necessarily indicate high risk for future crimes unless coupled with other factors such as substance use or lack of support networks. \"),\n    (\"family_history\", \"high\", \"Having lived with her biological mother in a household of size 5, which is an urban area, suggests potential environmental influences that could contribute to higher crime rates.\"),\n    (\"religion_spiritual_experience\", \"medium\", \"The person believes God has something to do with what happens to her personally. This belief might provide some form of psychological comfort but does not significantly mitigate the risk factors associated with criminal behavior or instability.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_225515_520298",
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 302,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 3 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

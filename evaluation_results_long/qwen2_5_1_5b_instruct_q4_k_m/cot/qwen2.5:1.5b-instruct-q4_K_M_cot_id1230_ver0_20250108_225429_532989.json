@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 1230,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "created_at": "2025-01-09T03:54:29.531398698Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.066132854,
+    "load_duration": 0.025013986,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 262,
+    "eval_duration": 1.025
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The person is a young adult, which has been associated with higher recidivism rates.\"),\n    (\"race\", \"high\", \"Being Black has historically led to increased criminal activity and involvement in the justice system.\"),\n    (\"previous arrest\", \"low\", \"One previous arrest without conviction indicates low risk of reoffending.\"),\n    (\"age at last living arrangement\", \"medium\", \"Living alone at a young age may indicate unstable environments where crime is more likely\"),\n    (\"number of jobs\", \"high\", \"No jobs in the past year suggests lack of structured employment and stability, which can increase recidivism risk.\"),\n    (\"drug use history\", \"low\", \"Not using drugs since four years ago indicates low drug-related risk factors.\"),\n    (\"depression status\", \"low\", \"Not feeling depressed indicates lower mental health risks for reoffending.\"),\n    (\"education level\", \"medium\", \"No high school diploma or college enrollment suggests limited educational opportunities and skills, increasing recidivism risk\"),\n    (\"marital status\", \"low\", \"Single status without marriage may indicate higher crime rates among young men.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_225429_532989",
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1230,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 11 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

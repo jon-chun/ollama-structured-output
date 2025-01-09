@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 61,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-09T02:00:29.776153701Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.342659381,
+    "load_duration": 0.052790475,
+    "prompt_eval_count": 346,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 206,
+    "eval_duration": 2.276
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Ethnicity: Pacific Islander\", \"medium\", \"This factor indicates a slightly higher risk due to potential cultural factors that may influence behavior.\"),\n    (\"Age (22)\", \"low\", \"While this age is young, it does not provide enough information to predict recidivism.\"),\n    (\"Arrest history and disposition\", \"high\", \"Given the individual's arrest but non-conviction record, there is a higher risk of reoffending.\"),\n    (\"Height (6 feet 1 inch)\", \"medium\", \"Individuals who are taller than average may be more likely to commit violent crimes due to physical advantages.\"),\n    (\"Weight (160 lbs)\", \"low\", \"This weight does not provide enough information to predict recidivism, as it varies between individuals and depends on factors such as body composition.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_210029_777357",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 61,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 1 time but has not been convicted. He is 6 feet 1 inch and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

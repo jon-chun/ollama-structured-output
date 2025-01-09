@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 418,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-09T06:37:35.154282488Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.292058772,
+    "load_duration": 0.02597776,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.092,
+    "eval_count": 373,
+    "eval_duration": 8.172
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age (20 years)\", \"low\", \"Young age is generally associated with lower recidivism risk\"),\n    (\"race/ethnicity (Asian/Pacific Islander)\", \"medium\", \"Moderately impacts risk, though not as strongly as other factors like criminal history or drug use\"),\n    (\"single arrest but no conviction\", \"low\", \"Non-conviction mitigates some risk compared to formal convictions\"),\n    (\"height and weight (5'4\\\", 125-149 lbs)\", \"very low\", \"Physical characteristics are generally not strong predictors of recidivism\"),\n    (\"marital status (single, living alone)\", \"low\", \"Living situation may slightly elevate but overall impact is minimal\"),\n    (\"education level (high school diploma, no college enrollment)\", \"medium-low\", \"Moderate risk factor; higher education often correlates with lower reoffending rates\"),\n    (\"employment history (1 job in the past year)\", \"low-medium\", \"Stable employment reduces recidivism likelihood but not strongly decisive alone\"),\n    (\"drug use (past 4 years: marijuana, cocaine)\", \"high\", \"Recent drug use significantly increases risk of future rearrests and reoffending\"),\n    (\"mental health status (not depressed in past month)\", \"low-medium\", \"Absence of recent depression is a protective factor but not definitive\"),\n    (\"household size at young age (8 people)\", \"medium-low\", \"Growing up in larger households can have mixed effects, with some potential socialization risks\"),\n    (\"religious belief (God's influence on personal events)\", \"very low\", \"Religious perspective typically has negligible impact on recidivism risk assessment\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_013735_155896",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 418,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 1 time but has not been convicted. He is 5 feet 4 inches and weighs between 125 and 149 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

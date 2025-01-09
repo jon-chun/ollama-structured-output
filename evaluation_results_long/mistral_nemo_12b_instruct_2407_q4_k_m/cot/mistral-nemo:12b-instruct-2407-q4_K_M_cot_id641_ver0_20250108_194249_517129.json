@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 641,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-09T00:42:49.515887354Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.323194595,
+    "load_duration": 0.036222321,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 591,
+    "eval_duration": 7.25
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at First Arrest\", \"high\", \"Young age of first arrest is a strong predictor of future recidivism.\"),\n    (\"Number of Prior Arrests\", \"medium\", \"Only one prior arrest suggests lower risk compared to multiple arrests, but any prior arrest increases the likelihood of reoffending.\"),\n    (\"Prior Conviction\", \"high\", \"Having a prior conviction indicates that the individual has been previously identified as posing a risk and has failed to desist from criminal behavior.\"),\n    (\"Gender (Female)\", \"low\", \"Females typically have lower recidivism rates than males, though this is not universally true and should be considered in conjunction with other factors.\"),\n    (\"Race/Ethnicity (White)\", \"medium\", \"While race/ethnicity alone does not predict risk, it can interact with other factors and may influence access to resources and opportunities post-release.\"),\n    (\"Physical Characteristics\", \"low\", \"Height, weight, and appearance are generally poor predictors of recidivism risk and have been omitted from most actuarial instruments.\"),\n    (\"Marital Status (Never Married)\", \"medium\", \"Never having been married can indicate a lack of stable relationships and social support, which may contribute to higher recidivism rates.\"),\n    (\"Living Situation (Alone)\", \"high\", \"Living alone can indicate a lack of social support and accountability, which are protective factors against reoffending.\"),\n    (\"Education (GED, Not Enrolled in College)\", \"medium\", \"Having a GED shows some educational attainment but not currently pursuing higher education may limit future opportunities and increase risk.\"),\n    (\"Employment History (3 Jobs in 1 Year)\", \"high\", \"Frequent job changes can indicate instability and difficulty maintaining employment, which is associated with increased recidivism.\"),\n    (\"Substance Use (No Drug Use in Past 4 Years)\", \"low\", \"Recent abstinence from drugs suggests a lower risk of drug-related offending, though it does not account for other potential substance use issues.\"),\n    (\"Mental Health (Depression)\", \"high\", \"Reported feelings of depression can indicate mental health needs that, if untreated, may contribute to higher recidivism rates.\"),\n    (\"Growing Up in Urban Area with Biological Mother\", \"medium\", \"Growing up in an urban area and with a biological mother does not directly predict risk but may interact with other factors and influence access to resources and opportunities.\"),\n    (\"Belief in God (Atheist/Agnostic)\", \"low\", \"Beliefs about the role of God do not directly predict recidivism, but lack of religious or spiritual beliefs may limit access to certain support systems.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_194249_517129",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 641,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 8 inches and weighs 120 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

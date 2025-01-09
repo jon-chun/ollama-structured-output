@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 694,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-09T02:01:40.614386745Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.172277407,
+    "load_duration": 0.043093624,
+    "prompt_eval_count": 355,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 191,
+    "eval_duration": 2.115
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Previous arrest history (3 times)\", \"high\", \"quantitative\"),\n    (\"Conviction rate\", \"medium\", \"quantitative\"),\n    (\"Age at time of current risk assessment\", \"low\", \"temporal\"),\n    (\"Race/Ethnicity\", \"low\", \"categorical\"),\n    (\"Gender identity\", \"low\", \"categorical\"),\n    (\"Marital status\", \"low\", \"categorical\"),\n    (\"Living arrangement (living alone)\", \"high\", \"categorical\"),\n    (\"Educational attainment\", \"medium\", \"quantitative\"),\n    (\"Employment history\", \"medium\", \"quantitative\"),\n    (\"Drugs use in past 4 years and recent feelings of low mood\", \"high\", \"qualitative\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_210140_615900",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 694,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 180 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 7 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

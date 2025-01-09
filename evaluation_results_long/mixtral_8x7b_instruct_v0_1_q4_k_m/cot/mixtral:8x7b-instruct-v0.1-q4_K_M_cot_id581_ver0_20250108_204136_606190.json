@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 581,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-01-09T01:41:36.605122205Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.547038484,
+    "load_duration": 0.008098708,
+    "prompt_eval_count": 374,
+    "prompt_eval_duration": 0.144,
+    "eval_count": 234,
+    "eval_duration": 3.392
+  },
+  "response": {
+    "raw_message_text": " {\n    \"risk_factors\": [\n        (\"prior_arrests\", \"low\", \"Only one prior arrest with no convictions\"),\n        (\"number_of_jobs\", \"medium\", \"Holding multiple jobs in a year may indicate instability or difficulty adjusting to work life\"),\n        (\"education_level\", \"low\", \"GED certificate is below the bachelor's degree level, which can limit employment opportunities and increase financial stress\"),\n        (\"depression_symptoms\", \"medium\", \"Occasional feelings of depression can affect daily functioning and relationships\"),\n        (\"religious_beliefs\", \"low\", \"Belief in God may provide a supportive framework for personal decisions\"),\n        (\"family_history\", \"low\", \"Living with a biological mother indicates some family stability, though the household size is not specified\"),\n        (\"housing_situation\", \"low\", \"Not living alone can suggest support systems and social connections\")\n    ],\n    \"prediction\": \"NO\",\n    \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_204136_606190",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 581,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs between 150 and 174 lbs. She has never been married and is currently not living alone. She has a GED certificate and is not enrolled in college. She has held 4 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

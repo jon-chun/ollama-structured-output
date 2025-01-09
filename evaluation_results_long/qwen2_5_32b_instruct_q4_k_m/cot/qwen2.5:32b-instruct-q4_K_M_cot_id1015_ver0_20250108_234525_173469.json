@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1015,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:45:25.172111134Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.913531623,
+    "load_duration": 0.032447467,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.137,
+    "eval_count": 403,
+    "eval_duration": 11.736
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age: 19 years old\", \"medium\", \"Young age is often associated with higher risk of recidivism, but not extremely high in this case.\"),\n    (\"gender: male\", \"high\", \"Male gender significantly increases the risk due to historical data showing higher rates of reoffending.\"),\n    (\"race: White\", \"low\", \"Race by itself has low predictive value for recidivism without other contextual factors.\"),\n    (\"arrest history: 2 times, convicted\", \"high\", \"Previous convictions are strong indicators of future criminal behavior.\"),\n    (\"height and weight: 6'1\\\", 200-224 lbs\", \"low\", \"Physical attributes like height and weight have minimal impact on recidivism rates.\"),\n    (\"marital status: never married, living alone\", \"medium\", \"Living situation can indicate social support or lack thereof, which impacts risk.\"),\n    (\"education level: no high school diploma/GED, not enrolled in college\", \"high\", \"Low educational attainment is highly correlated with higher recidivism rates.\"),\n    (\"employment history: 3 jobs in one year\", \"high\", \"Frequent job changes can indicate instability and difficulty maintaining employment.\"),\n    (\"drug use: marijuana in past four years\", \"medium\", \"Marijuana use increases risk but not as significantly as hard drugs might.\"),\n    (\"depression status: not depressed over the past month\", \"low\", \"No recent depression reduces the psychological stress factor that could lead to reoffending.\"),\n    (\"childhood living situation: with biological mother in urban area, household size 2\", \"medium\", \"Living conditions can affect socialization and exposure to criminal behavior.\"),\n    (\"religious belief: God has nothing to do with personal outcomes\", \"low\", \"Religious beliefs or lack thereof have a weak association with recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_234525_173469",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1015,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 1 inch and weighs between 200 and 224 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
