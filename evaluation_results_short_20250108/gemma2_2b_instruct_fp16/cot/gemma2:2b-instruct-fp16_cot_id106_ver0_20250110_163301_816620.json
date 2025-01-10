@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 106,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:33:01.815321117Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.184185716,
+    "load_duration": 0.032611457,
+    "prompt_eval_count": 227,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 457,
+    "eval_duration": 4.142
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at arrest (20 years old)\", \"high\", \"Statistical probability of recidivism increases with age\"),\n    (\"Gender (Male)\", \"medium\", \"Higher male recidivism rates observed in general\"),\n    (\"Race/Ethnicity (Hispanic)\", \"low\", \"Socioeconomic factors play a larger role than race/ethnicity\"), \n    (\"Prior Arrest History (3 times arrests but not convicted)\", \"medium\", \"Previous arrests indicate risk, but not necessarily a high-risk individual\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation of the Factors and their Weights:**\n\n* **Age at Arrest (High):** A young person's impulsivity, lack of life experience and future goals are all factors that influence recidivism. Research suggests that youth who commit crimes often have a higher likelihood of reoffending later on compared to adults.\n* **Gender (Medium):** Men tend to have higher rates of arrest than women. However, this factor alone isn't sufficient for a high risk prediction. \n* **Race/Ethnicity (Low):**  While race is an important social determinant, in this case, the individual's Hispanic identity likely plays a less influential role than socioeconomic factors and other personal variables. \n* **Prior Arrest History (Medium):** While having three arrests indicates some prior involvement with law enforcement, it doesn\u2019t necessarily predict future recidivism. The lack of conviction adds complexity to the assessment.\n\n\n**Key Considerations:**\n\n* This assessment is simplified and based on limited information.  A more comprehensive risk assessment would include additional factors like family history, substance abuse, employment status, and mental health issues. \n* A high confidence score (75) means that there's a strong likelihood that the person will not recidivate in the next 3 years, but it is still possible.\n\n\n**Disclaimer:**  It\u2019s important to remember that risk assessment tools are just one piece of the puzzle. They should be used as a starting point for discussions with professionals who can provide personalized guidance and support. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163301_816620",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 106,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 3 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1183,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-10T21:22:11.072757385Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.253252373,
+    "load_duration": 0.028940214,
+    "prompt_eval_count": 213,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 177,
+    "eval_duration": 4.21
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual's age of 22 is below the typical peak age for recidivism, suggesting a lower risk of repeat offenses.\"),\n    (\"Race/Ethnicity\", \"medium\", \"While racial disparities in arrest rates exist, this single instance does not strongly indicate a pattern that would warrant high risk.\"),\n    (\"Prior Arrest and Conviction\", \"high\", \"Having been arrested and convicted once is a significant indicator of potential future criminal behavior, especially if the offense was serious or violent.\"),\n    (\"Recidivism History\", \"high\", \"The lack of repeat arrests or convictions in the three-year period following the initial conviction provides some mitigating context but does not eliminate the risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_162211_074046",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1183,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

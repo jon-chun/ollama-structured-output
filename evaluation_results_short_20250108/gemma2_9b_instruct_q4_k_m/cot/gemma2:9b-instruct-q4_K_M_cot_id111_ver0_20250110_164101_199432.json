@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 111,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-10T21:41:01.197812263Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.495475927,
+    "load_duration": 0.053829678,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 408,
+    "eval_duration": 5.411
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Younger individuals tend to have lower recidivism rates.\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males.\"),\n    (\"Race/Ethnicity\", \"medium\", \"Hispanic individuals may face systemic biases that could influence risk.\"),\n    (\"Prior Arrests\", \"high\", \"Multiple prior arrests indicate a pattern of criminal behavior.\"),\n    (\"Prior Convictions\", \"high\", \"Previous convictions suggest an established likelihood of re-offending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}\n``` \n\n\n**Explanation:**\n\n* **Age (Low):**  19 is relatively young, and recidivism rates tend to be lower for younger offenders.\n* **Gender (Low):** Females generally have lower recidivism rates than males.\n* **Race/Ethnicity (Medium):** While not a direct indicator of risk, Hispanic individuals may face systemic biases within the criminal justice system that could influence their likelihood of re-offending. This requires careful consideration and context.\n* **Prior Arrests (High):** Five prior arrests indicate a pattern of involvement in criminal activity, significantly increasing the risk of future offenses. \n* **Prior Convictions (High):** A conviction implies a proven instance of breaking the law, making re-offending more likely.\n\nThe overall prediction is \"YES\" due to the high weight assigned to prior arrests and convictions. However, the confidence level is only 60% because other factors like age and gender suggest a lower risk profile.  \n\n\n**Important Note:** This assessment is based on limited information and should not be used for making definitive decisions about an individual's future behavior. Risk assessments are complex and require a thorough evaluation of various factors, including individual circumstances, the nature of past offenses, and access to support services. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_164101_199432",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 111,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 5 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

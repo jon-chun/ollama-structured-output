@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 727,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-10T21:17:20.875864093Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.165949164,
+    "load_duration": 0.037452761,
+    "prompt_eval_count": 214,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 142,
+    "eval_duration": 3.114
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Being 19 years old indicates immaturity but no clear history of reoffending.\"),\n    (\"Race/Ethnicity\", \"low\", \"White ethnicity is not a significant predictor of recidivism on its own.\"),\n    (\"Prior Arrest without Conviction\", \"medium\", \"A single prior arrest suggests potential involvement in the criminal justice system, but lack of conviction reduces weight.\"),\n    (\"Recidivism History\", \"high\", \"No history of previous convictions makes it harder to predict future behavior with certainty.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_161720_877159",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 727,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

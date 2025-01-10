@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 280,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:34:21.153088774Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.712571434,
+    "load_duration": 0.039987869,
+    "prompt_eval_count": 227,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 290,
+    "eval_duration": 2.663
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\"),\n    (\"race\", \"high\"),\n    (\"arrest_count\", \"high\"),\n    (\"conviction_status\", \"unknown\") \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}\n``` \n\n\n**Explanation:**\n\n* **Age (medium):** While age is a factor in recidivism risk, it's less influential at this age. Most people's risk profiles are still developing.\n* **Race (high):**  Systemic biases and implicit bias can lead to disproportionate arrests for Black individuals, creating an association with higher risk even when individual behavior doesn't warrant that categorization. \n* **Arrest Count (high):** A history of arrests, especially without convictions, suggests a pattern of criminal behavior. This is generally a significant indicator of recidivism risk.\n* **Conviction Status (unknown):**  Without conviction information, it's impossible to assess if the individual has actually been found guilty of any charges, which would be crucial for predicting future crime. \n\n\n**Important Note:** This analysis is based on general trends and does not substitute for a full-scale risk assessment by qualified professionals using comprehensive data. The \"confidence\" level is informed by the limited information available and should be interpreted cautiously.  \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163421_154436",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 280,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

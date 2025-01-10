@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1100,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:33:52.966943606Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.106175652,
+    "load_duration": 0.033675684,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 337,
+    "eval_duration": 3.063
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Criminal History\", \"high\", \"Number of arrests and convictions suggests repeat offenses\"),\n    (\"Age\", \"medium\", \"Younger age may indicate higher risk for impulsive actions\"),\n    (\"Race\", \"low\", \"Socioeconomic factors are likely to be more impactful than race in this case\"),\n    (\"Offense Type\", \"medium\", \"Severity of prior charges should be considered, however, specific information is missing.\"), \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75 \n}\n``` \n\n**Explanation:**\n\n* **Prior Criminal History (high):** Three arrests and convictions are a strong indicator of repeated offenses. The higher the number of prior convictions, the greater the risk. \n* **Age (medium):** A young age suggests a period of development and potential for change. However, being young also signifies a higher likelihood of impulsive actions, leading to potential recidivism.  \n* **Race (low):** While race can be a factor in social inequalities impacting crime rates, it's not relevant to assess individual risk in this specific case without further context. \n* **Offense Type (medium):** Specific details about the nature of the prior convictions are crucial for assessing recidivism risk. However, we lack that information.\n\n\n**Important Note:**  It is critical to recognize this is a simplified example and real-world risk assessment requires far more nuanced data. This analysis provides a starting point but should be considered as part of a broader evaluation in conjunction with other relevant information. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163352_968067",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1100,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

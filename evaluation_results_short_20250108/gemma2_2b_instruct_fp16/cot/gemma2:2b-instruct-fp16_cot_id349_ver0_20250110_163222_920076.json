@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 349,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:32:22.918886693Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.484573098,
+    "load_duration": 0.051500958,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 367,
+    "eval_duration": 3.424
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"medium\"),\n    (\"Prior Convictions\", \"high\"),\n    (\"Race\", \"low\"),\n    (\"Gender\", \"low\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75 \n}\n``` \n\n**Explanation:**\n\n* **Age:** A young age (22) could suggest lower recidivism risk, but not a guarantee. This is given a medium weight because of the individual's age and lack of significant prior history.  \n* **Prior Convictions:** The fact that he has been arrested and convicted indicates a prior history with the criminal justice system which carries a high likelihood of future re-offending.\n* **Race:**  This factor is given low weight because racial bias can heavily influence risk assessments, and this individual's race does not appear to be an overriding factor in this case. \n* **Gender:** The individual's gender is assigned low weight as it is not a significant predictor of recidivism.\n\n**Confidence:**  The prediction is based on the combined assessment of these factors, with the highest risk from his prior conviction history. A 75% confidence level reflects the probability of this prediction based on the current data.\n\n\n **Important Considerations:**\n\n* This analysis provides only a preliminary assessment and should not be considered definitive or exhaustive.\n* It's crucial to consider additional information about this individual, such as:\n    * The nature of his conviction \n    * His support network\n    * Any potential mental health conditions\n    * Employment status\n    * Substance abuse history\n\nThis is a simplified framework for risk assessment and real-world applications are significantly more complex.  ",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163222_920076",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 349,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

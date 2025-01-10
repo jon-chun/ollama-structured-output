@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 520,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:33:47.295374721Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.407467576,
+    "load_duration": 0.047748508,
+    "prompt_eval_count": 227,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 578,
+    "eval_duration": 5.349
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\"),\n    (\"gender\", \"low\"),\n    (\"race\", \"low\"),\n    (\"prior_arrest\", \"high\"),\n    (\"conviction_status\", \"medium\"),\n    (\"employment_status\", \"low\"),\n    (\"education_level\", \"low\"),\n    (\"substance_abuse\", \"low\"),\n    (\"family_support\", \"low\"),\n    (\"mental_health_issues\", \"medium\"),\n    (\"criminal_history\", \"high\") \n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation of Risk Factor Weights and Prediction:**\n\n* **Age (low):** A 21-year-old is relatively young, and youth tends to be associated with a lower recidivism risk.\n* **Gender (low):** The gender factor doesn't significantly impact recidivism risk for this individual, making it less important in prediction.\n* **Race (low):** Race also plays a minimal role in predicting recidivism risk. \n* **Prior Arrest (high):**  Having one prior arrest suggests potential risk factors and warrants further investigation.\n* **Conviction Status (medium):** A pending arrest doesn't necessarily equate to conviction, making this factor less predictive. This could shift towards a \"high\" if there are strong indicators of potential for future convictions. \n* **Employment Status (low):**  A lack of employment might be an indicator of limited resources and support systems. However, this is not strongly tied to recidivism risk in itself. \n* **Education Level (low):** Education may play a role, but it's not considered a primary predictor of recidivism for this case. \n* **Substance Abuse (low):**  While substance abuse can be a factor, its presence isn't highly predictive of high risk in this individual's situation. \n* **Family Support (low):** The absence of strong family support systems is generally associated with higher recidivism risk, but it's not as strongly impactful here given the factors mentioned above.  \n* **Mental Health Issues (medium):** This factor highlights a potential need for additional support and interventions. \n\n**Importance of Context:**\n\nIt's crucial to recognize that this prediction is based on generalized information and doesn't account for specific details about this individual. A comprehensive assessment would involve in-depth interviews, social history reviews, and consideration of any available case data.  \n\n**Confidence Level:**  The \"75%\" confidence level indicates a strong but not absolute certainty. The model provides an educated prediction based on the provided information. \n\n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163347_296549",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 520,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

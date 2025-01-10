@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 641,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:31:23.796663748Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.27279926,
+    "load_duration": 0.04226746,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 346,
+    "eval_duration": 3.222
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Age is a significant predictor of recidivism, particularly for younger individuals.\"),\n    (\"prior conviction\", \"medium\", \"A single prior conviction suggests an increased risk.\"), \n    (\"gender\", \"low\", \"Gender does not appear to significantly impact recidivism rates.\")\n    (\"race\", \"low\", \"Race is a factor that has been historically tied to bias in the justice system, but should be treated cautiously as a risk factor. This individual's race is White which does not necessarily indicate a higher or lower likelihood of recidivism.\"), \n  ],\n  \"prediction\": \"NO\", \n  \"confidence\": 75\n}\n``` \n\n**Explanation:**\n\n* **Age:** Young age (19) is considered a high risk factor. Studies show young adults, especially those in their late teens and early twenties, face higher recidivism rates compared to older individuals.\n* **Prior Conviction:** Having one prior conviction puts the individual at medium risk. It suggests a history of criminal behavior which usually increases the likelihood of future offenses. \n* **Gender & Race:**  These factors have minimal impact on risk in this case, based on statistical and societal trends. \n\n\n**Important Notes:**\n\n* This assessment is based on limited information and does not account for all potential risk factors (e.g., mental health, substance abuse).\n* It relies on general patterns observed in recidivism research. Individual circumstances may vary.\n* The \"confidence\" score reflects a subjective judgment on the strength of the current evidence base. \n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163123_797800",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 641,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

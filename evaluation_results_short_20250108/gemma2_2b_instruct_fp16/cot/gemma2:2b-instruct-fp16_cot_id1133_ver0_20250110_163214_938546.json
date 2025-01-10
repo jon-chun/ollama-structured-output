@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1133,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:32:14.937398154Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.494455514,
+    "load_duration": 0.052693715,
+    "prompt_eval_count": 227,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 375,
+    "eval_duration": 3.432
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at arrest\", \"high\", \"Significant age of 18 is associated with increased risk\"),\n    (\"Race/ethnicity\", \"medium\", \"While race is a social construct, it's statistically correlated with higher recidivism rates in the US\"),\n    (\"Prior arrests/convictions\", \"high\", \"Extensive criminal history points to potential for future offenses\"),\n    (\"Offense severity\", \"medium\",  \"Severity of prior convictions can be used as an indicator\"),\n    (\"Socioeconomic status\", \"low\", \"Age and race combined with a high arrest rate suggest limited resources, impacting life opportunities\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}\n``` \n\n**Explanation:**\n\n* **Age at arrest (high):** Young individuals are statistically more likely to re-offend than older adults. \n* **Race/ethnicity (medium):** While race itself is not a determinant of future behavior, systemic factors and biases contribute to disparities in the criminal justice system that can affect recidivism rates for Black individuals.\n* **Prior arrests/convictions (high):** The individual has a substantial history of criminal activity, suggesting a higher likelihood of future offenses. \n* **Offense severity (medium):**  The specific nature of previous convictions is crucial but not easily assessed in this limited context. This factor would require more detail to be considered with greater weight. \n* **Socioeconomic status (low):** This indicates potential barriers and limitations that may contribute to recidivism, potentially leading to repeated offenses.\n\nIt's important to note that these assessments are preliminary and should not replace comprehensive risk assessment tools or individualized evaluations by trained professionals. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163214_938546",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1133,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 17 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

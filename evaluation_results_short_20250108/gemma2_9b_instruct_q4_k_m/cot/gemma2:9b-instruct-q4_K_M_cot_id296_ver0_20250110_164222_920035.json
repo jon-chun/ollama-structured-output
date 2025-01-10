@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 296,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-10T21:42:22.918711402Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.017313715,
+    "load_duration": 0.030709205,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 449,
+    "eval_duration": 5.956
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Younger individuals tend to have lower recidivism rates.\"),\n    (\"Gender\", \"medium\", \"Males statistically have higher recidivism than females.\"),\n    (\"Race/Ethnicity\", \"low\", \"Based on provided information, no indication of specific racial disparities.\"),\n    (\"Prior Arrests\", \"medium\", \"Two prior arrests suggest a potential for future criminal activity.\"),\n    (\"Prior Convictions\", \"high\", \"A conviction indicates a history of engaging in criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}\n``` \n\n\n**Explanation:**\n\n* **Age:**  Assigned \"low\" weight because younger individuals generally have lower recidivism rates. \n* **Gender:** Assigned \"medium\" weight as males statistically have higher recidivism than females.\n* **Race/Ethnicity:** Assigned \"low\" weight as no specific racial disparities are indicated with the provided information. \n* **Prior Arrests:**  Assigned \"medium\" weight. Two prior arrests suggest a potential for future criminal activity, but don't definitively predict it.\n* **Prior Convictions:** Assigned \"high\" weight. A conviction indicates a history of engaging in criminal behavior and is a strong predictor of future offenses.\n\n**Prediction & Confidence:**\n\nThe prediction is \"YES\" due to the influence of the \"Prior Convictions\" factor, which carries significant weight. \n\nThe confidence level is set at 60% because while prior convictions are a strong indicator, other factors like age and the absence of specific racial or ethnic risk factors contribute to a less certain prediction.  \n\n\n**Important Notes:**\n\n* **This is a simplified example.** Real-world risk assessments involve far more complex algorithms and a wider range of factors.\n* **Risk assessment should not be used for deterministic predictions.** It provides probabilities and should be used alongside other information in making informed decisions. \n* **Bias in data can impact risk assessment models.**  It's crucial to use validated tools and address potential bias to ensure fairness and accuracy.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_164222_920035",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 296,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

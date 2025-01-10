@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 341,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:31:10.381065016Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.599160875,
+    "load_duration": 0.041912741,
+    "prompt_eval_count": 227,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 392,
+    "eval_duration": 3.546
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Age is often a predictive factor in recidivism.\"),\n    (\"gender\", \"medium\", \"Male offenders may have higher rates of recidivism than female offenders, but this can vary by other factors.\"),\n    (\"race\", \"low\", \"Race is not a reliable predictor of future criminal behavior.\"),\n    (\"arrest_history\", \"high\", \"Two arrests, even without convictions, indicate prior involvement with the legal system and potential for further offenses.\"),\n    (\"prior_offense_type\", \"medium\", \"Information about previous offense type would be helpful in understanding individual risk factors.\") \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation of Factors:**\n\n* **Age:** The age factor is weighted as high due to the common observation that individuals under 25 have higher recidivism rates.\n* **Gender:** This factor is considered medium because while male offenders do tend to be more prone to arrest, this can vary greatly depending on other factors like socio-economic status and access to resources. \n* **Race:** Race is not a reliable indicator of future criminal behavior and is therefore weighted low.  \n* **Arrest History:** This factor carries high weight because two arrests indicate prior involvement with the legal system and potential for further offenses, although this may be influenced by many factors. \n* **Prior Offense Type:** This factor needs more information to assess. The type of past offense would help refine risk assessment as some offenses carry a higher likelihood of recidivism than others.\n\n\n**Note:**  It's important to remember that these are just initial estimations based on general trends. A comprehensive risk assessment requires more detailed information about the individual, their circumstances, and specific crime history to make accurate predictions. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163110_382254",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 341,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

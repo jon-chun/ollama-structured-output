@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 451,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T21:33:41.782415183Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.186272944,
+    "load_duration": 0.032670557,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 452,
+    "eval_duration": 4.144
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Offender Status\", \"medium\", \"textual reasoning\"),\n    (\"Age\", \"low\", \"textual reasoning\"),\n    (\"Gender\", \"medium\", \"textual reasoning\"),\n    (\"Race/Ethnicity\", \"low\", \"textual reasoning\"),\n    (\"Convicted Offense Severity\", \"medium\", \"textual reasoning\"),\n    (\"Criminal History Length\", \"low\", \"textual reasoning\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n``` \n\n**Explanation:**\n\n* **Prior Offender Status**:  While not a major factor, being convicted of an offense is a significant risk factor. This is a medium weight because it's a relatively low-risk recidivism prediction, particularly for someone with no history of serious offenses.\n* **Age**: Young adults are generally considered at lower risk for recidivism due to their developing life experiences and social support networks. \n* **Gender**: This factor needs further exploration in the specific context of this individual's offense and background. A medium weight is applied here to account for potential gender-specific dynamics within the criminal justice system.\n* **Race/Ethnicity**: It's important to acknowledge that racial biases can influence recidivism rates.  However, without specific information about the nature of the conviction and social context, this factor remains a low risk factor. \n* **Convicted Offense Severity**: The severity of the offense is crucial. A medium weight reflects the need for further investigation into the nature of the crime and its potential impact on recidivism.  \n* **Criminal History Length**: A short history of offenses suggests lower risk.\n\n\n**Important Notes:**\n\n* This analysis is simplified due to limited information, and it's essential to conduct a comprehensive risk assessment considering individual circumstances, societal context, and the specific nature of the prior conviction. \n* The prediction \"NO\" is based on the available data, but further investigation is crucial for a more precise assessment.  \n\n\nLet me know if you want to explore this analysis in greater detail with additional information!  ",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_163341_783769",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 451,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
