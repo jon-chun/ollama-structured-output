@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 169,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:06:24.086180939Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.37643,
+    "load_duration": 0.042773252,
+    "prompt_eval_count": 340,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 463,
+    "eval_duration": 4.321
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"criminal history\", \"high\", \"Past convictions indicate potential for future crime.\"),\n    (\"age\", \"medium\", \"Age within a high-risk category, but not extreme.\"),\n    (\"socioeconomic status\", \"low\", \"Limited education and employment suggests instability, potentially leading to difficulties maintaining compliance.\"),\n    (\"substance use\", \"medium\", \"Past drug use indicates potential for relapse, although it's a low risk factor in isolation.\"),\n    (\"religious affiliation\", \"low\",  \"Belief system may not directly influence future behavior, but could be an mitigating factor.\"),\n    (\"personal support network\", \"low\",  \"Living alone suggests limited social support and may increase risk of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation of Risk Factor Weighting:**\n\n* **Criminal History (High):**  3 arrests with convictions indicate a pattern of criminal behavior. This is a significant risk factor.\n* **Age (Medium):** Being 21 years old falls within a range where recidivism rates are generally higher, but not extreme.\n* **Socioeconomic Status (Low):** Limited education and employment history suggest instability and lack of resources, potentially increasing the likelihood of future crime.  \n* **Substance Use (Medium):** Past marijuana use, while less concerning than other drugs, can be a risk factor for relapse and potential reoffending. \n* **Religious Affiliation (Low):** While not a direct predictor, belief systems could provide some structure and support. \n* **Personal Support Network (Low):**  Living alone suggests limited social connections which may increase the likelihood of acting impulsively and engaging in risky behavior, thus increasing re-arrest risk.\n\n\n**Important Notes:**\n\n* This assessment is highly simplified and does not consider all possible factors that contribute to recidivism. \n* The \"confidence\" is a subjective estimate based on the available information and should be considered with caution. \n* A comprehensive risk assessment requires more in-depth data, including mental health history, psychological evaluations, substance abuse assessments, and other relevant circumstances.  \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010624_087856",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 169,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 210 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

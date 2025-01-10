@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 660,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:09:15.139613938Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.007702837,
+    "load_duration": 0.04496945,
+    "prompt_eval_count": 349,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 648,
+    "eval_duration": 5.95
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\"),\n    (\"race\", \"medium\"),\n    (\"prior_conviction\", \"high\"),\n    (\"employment\", \"low\"),\n    (\"education\", \"high\"),\n    (\"living_arrangement\", \"low\"), \n    (\"drug_use\", \"high\"), \n    (\"mental_health\", \"low\"), \n    (\"family_structure\", \"medium\") \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80 \n}\n``` \n\n\n**Explanation:**\n\n* **Age:**  A young age (18) is a high-risk factor for recidivism. The criminal justice system often focuses on rehabilitation programs that are less effective for younger individuals than older ones.\n* **Race:** While race doesn't directly correlate to criminal behavior, it can be a contributing factor in the criminal justice system's treatment and biases toward certain racial groups. It is therefore included as a medium-risk factor. \n* **Prior Conviction:** The individual has been arrested and convicted six times, making him at high risk. This suggests an established pattern of engaging in criminal behavior, increasing the likelihood of future offenses. \n* **Employment:**  Lack of employment is usually associated with lower recidivism rates due to a more stable income and less time spent idle which can lead to boredom and delinquency. However, this factor is relatively low as it might not be indicative of a long-term lack of stable employment, but rather temporary unemployment. \n* **Education:** Lack of formal education (no high school diploma or GED) increases the likelihood of recidivism due to limited job opportunities, literacy issues, and difficulty accessing educational resources that can improve skills and life outcomes. This is a medium risk factor.\n* **Living Arrangement:** Living alone indicates social isolation, which is typically associated with higher recidivism rates. While not as strongly linked as other factors, it still contributes. \n* **Drug Use:** Cocaine use increases the likelihood of future criminal activity. As drug abuse can lead to impulsive decision-making and an increased risk of violent behavior, a high-risk factor is assigned. \n* **Mental Health:** The lack of depression suggests good mental health, which is generally linked with lower recidivism rates.  This should be considered in context with any potential underlying issues that could increase the risk for future criminal activity. \n* **Family Structure:** Having a large family as a child is associated with reduced risk of delinquency and higher levels of support from a familial network. While it might not be directly linked to recidivism, this factor is included as a medium-risk.\n\n**Confidence Level:** The confidence level of the prediction is 80% due to the combination of multiple significant risk factors and a relatively low number of mitigating factors.  \n\n\n\n**Important Note:** This analysis should be used for preliminary assessment only and does not constitute legal advice. It's crucial to remember that individual cases are complex, and this simplified model doesn't account for all potential contributing factors. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010915_140928",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 660,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 6 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

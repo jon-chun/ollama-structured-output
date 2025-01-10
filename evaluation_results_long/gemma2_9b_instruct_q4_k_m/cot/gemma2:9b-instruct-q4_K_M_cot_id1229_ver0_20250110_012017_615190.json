@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1229,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-10T06:20:17.613605375Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.160122436,
+    "load_duration": 0.040727618,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 344,
+    "eval_duration": 4.075
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"19 years old is considered young, statistically associated with lower recidivism\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males\"),\n    (\"Race/Ethnicity\", \"medium\", \"Black individuals face systemic disadvantages that may contribute to higher risk, but this should not be the sole determinant\"),\n    (\"Prior Convictions\", \"low\", \"No prior convictions suggest a lower likelihood of reoffending\"),\n    (\"Arrests\", \"medium\", \"One arrest indicates potential for future legal trouble, requires further investigation\"),\n    (\"Marital Status\", \"medium\", \"Living alone may increase vulnerability to negative influences or instability\"),\n    (\"Education\", \"high\", \"Lack of high school diploma/GED is a significant risk factor for recidivism\"),\n    (\"Employment\", \"low\", \"Holding 3 jobs in a year suggests some stability and prosocial behavior\"),\n    (\"Drug Use\", \"medium\", \"Past marijuana use may indicate vulnerability to substance abuse issues, further assessment needed\"),\n    (\"Mental Health\", \"high\", \"Feeling down consistently is a red flag for potential mental health struggles that could contribute to criminal activity\"),\n    (\"Childhood Environment\", \"medium\", \"Growing up in a larger household might have exposed her to various social influences, both positive and negative\"),\n    (\"Religious Belief\", \"low\", \"Belief in God may offer some moral grounding, but not a direct predictor of recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_012017_615190",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1229,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 145 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 5. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

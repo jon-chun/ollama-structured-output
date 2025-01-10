@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 83,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:06:01.676118713Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.588052695,
+    "load_duration": 0.051408309,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 380,
+    "eval_duration": 3.524
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Age is a significant predictor of recidivism, especially for young people.\"),\n    (\"race\", \"medium\", \"While race is an outdated and problematic factor in risk assessment, it can still be considered as a potential indicator. However, this must be approached with caution and sensitivity.\"),\n    (\"prior arrests\", \"medium\", \"One arrest is likely to indicate a history of legal problems, but without conviction, this factor is less clear\"),\n    (\"education level\", \"high\", \"Lack of formal education can be a barrier to employment and life stability, leading to increased risk.\"),\n    (\"employment status\", \"high\", \"No job history suggests limited financial independence and potential for social disconnect.\"),\n    (\"mental health\", \"high\", \"Recurring feelings of sadness and hopelessness suggest a need for intervention. This is especially crucial considering the individual's young age.\"),\n    (\"living situation\", \"medium\", \"Living alone may raise concerns about support systems, but it doesn't necessarily indicate risk.\"),\n    (\"family support\", \"low\", \"Limited family involvement suggests less social stability and potentially increased vulnerability.\"),\n    (\"neighborhood conditions\", \"high\", \"Urban environment can be associated with higher crime rates and socioeconomic disadvantage. This factor is particularly relevant to the individual's lack of education and job history.\") \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n``` \n\n**Explanation:**\n\nThis assessment prioritizes factors that are statistically linked to recidivism, especially for young adults. Factors like age, mental health, lack of education and employment, and living situation play significant roles in predicting future criminal behavior. The high weighting given to these factors reflects the importance of addressing them through intervention programs. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010601_677826",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 83,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 2 inches and weighs 140 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her foster parent(s) in a household of size 5, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

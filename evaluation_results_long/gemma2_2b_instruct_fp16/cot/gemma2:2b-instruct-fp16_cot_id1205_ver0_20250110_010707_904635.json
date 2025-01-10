@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 1205,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:07:07.903404762Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.158951544,
+    "load_duration": 0.039294192,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 519,
+    "eval_duration": 5.107
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age of the defendant\", \"high\", \"Young age is associated with higher recidivism rates.\"),\n    (\"Race\", \"medium\", \"Racial bias exists in criminal justice, but its impact on recidivism varies. This needs further investigation.\"),\n    (\"Prior arrest\", \"medium\", \"Single prior arrest suggests a lower risk than someone with multiple arrests.\"), \n    (\"Gender\", \"low\", \"Recidivism rates for female offenders tend to be lower, although this may vary by offense type\"),\n    (\"Education level\", \"high\", \"Limited education and lack of job experience can increase the likelihood of recidivism.\"),\n    (\"Living situation\", \"medium\", \"Single living situation could indicate potential challenges but not a direct indicator of re-arrest risk.\"), \n    (\"Substance use\", \"low\", \"No drug use in recent years is positive, indicating no current substance abuse concerns.\") ,\n    (\"Mental health\", \"low\", \"Lack of depression suggests mental well-being isn't currently a concern. It doesn't negate potential underlying risks.\"),\n    (\"Family environment\", \"medium\",  \"Difficult upbringing with a large household may increase the risk but needs further assessment.\"),\n    (\"Religious affiliation\", \"low\", \"Religious beliefs are unrelated to criminal behavior, and this factor does not significantly impact recidivism.\") \n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n**Explanation of Risk Factor Weights:**\n\n* **Age:** High \u2013 Young adults have higher re-arrest rates.\n* **Prior Arrest:** Medium \u2013 Single arrest could indicate a lower risk.\n* **Education/Employment:** High \u2013 Lacking education and work experience suggests potential difficulties adapting to life after incarceration, increasing the likelihood of recidivism. \n* **Family Environment:** Medium \u2013 A large family environment may have some risks but does not directly predict re-arrest.  \n* **Substance Use:** Low \u2013 No drug use over a four-year period.\n\n\n**Important Notes**:\n\n* This assessment is highly simplified and lacks the complexity of a comprehensive risk assessment. \n* It relies on general trends, which may not always accurately reflect individual cases. \n* Individual circumstances, history, and offense type are crucial for accurate prediction, but these factors weren't provided in this scenario.\n* The confidence score reflects the limited information available to make a definitive prediction.  \n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010707_904635",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1205,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 160 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

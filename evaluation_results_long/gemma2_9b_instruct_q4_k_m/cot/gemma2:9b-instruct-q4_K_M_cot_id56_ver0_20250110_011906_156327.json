@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 56,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-10T06:19:06.155157704Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.433402317,
+    "load_duration": 0.040783981,
+    "prompt_eval_count": 361,
+    "prompt_eval_duration": 0.044,
+    "eval_count": 366,
+    "eval_duration": 4.346
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"22 is considered a younger age, statistically associated with lower recidivism\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males\"),\n    (\"Race/Ethnicity\", \"low\", \"White individuals tend to have lower recidivism rates compared to other racial/ethnic groups\"),\n    (\"Prior Convictions\", \"medium\", \"Three prior arrests and convictions indicate a history of legal trouble\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight are not strong predictors of recidivism\"),\n    (\"Marital Status\", \"low\", \"Not being married is not inherently linked to higher risk\"),\n    (\"Living Situation\", \"low\", \"Not living alone does not necessarily indicate increased risk\"),\n    (\"Education\", \"medium\", \"Lack of a high school diploma or GED is associated with higher recidivism\"),\n    (\"Employment\", \"low\", \"Two jobs in a year suggests some stability, but more information is needed about job history and type\"),\n    (\"Substance Abuse\", \"high\", \"Recent drug use (marijuana and cocaine) within the past four years, including recent use, significantly increases risk\"),\n    (\"Mental Health\", \"medium\", \"Experiencing feelings of depression raises concern and may contribute to criminal behavior\"),\n    (\"Childhood Environment\", \"low\", \"Growing up in a household of size 4 in an urban area is not a strong predictor on its own\"),\n    (\"Religious Beliefs\", \"low\", \"Beliefs about God's influence are unlikely to directly predict recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_011906_156327",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 56,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 3 times and has been convicted. She is 5 feet 3 inches and weighs between 175 and 199 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

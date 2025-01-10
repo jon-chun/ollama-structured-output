@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 239,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:09:40.895819889Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.666174466,
+    "load_duration": 0.043429,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 608,
+    "eval_duration": 5.611
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"high\"),\n    (\"Prior Offenses\", \"medium\"),\n    (\"Height/Weight\", \"low\"),\n    (\"Education Level\", \"high\"),\n    (\"Employment History\", \"low\"),\n    (\"Substance Use\", \"medium\"),\n    (\"Living Situation\", \"low\"),\n    (\"Family Structure\", \"low\"),\n    (\"Religious Beliefs\", \"low\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation:**\n\n* **Age (high):** Young age is a known risk factor for recidivism, particularly at this stage of development.\n* **Prior Offenses (medium):** Two arrests without conviction suggest some level of engagement with the criminal justice system, but not necessarily a strong history. \n* **Height/Weight (low):**  Physical attributes are generally less predictive than other factors in risk assessment.\n* **Education Level (high):** Lack of education has been correlated with higher recidivism rates.\n* **Employment History (low):** Having one job indicates some level of employment, which is a positive factor in reducing the likelihood of re-offending. \n* **Substance Use (medium):** While marijuana use may be considered problematic, it doesn't rise to the level of a strong indicator on its own. It is important to evaluate frequency and severity.\n* **Living Situation (low):** Living alone, while not inherently criminal behavior, can indicate potential isolation or lack of support systems, which could influence risk.\n* **Family Structure (low):** Growing up in a household of size 5 and the absence of religious beliefs are not significant factors in predicting recidivism. \n\n* **Confidence Level:** The prediction is \"NO\" because the combination of these risk factors does not strongly suggest a high likelihood of rearrest in the next three years.  The confidence level of 75% reflects the complexity of predicting future behavior and the limitations of this assessment tool.\n\n\n\n\n**Important Considerations:** \n\nThis analysis is just one part of a comprehensive risk assessment. It's crucial to consider:\n* **Context:** The specific circumstances surrounding each arrest, the nature of the charges, and individual history are vital to understanding risk accurately.\n* **Treatment History:**  Previous engagement with rehabilitation programs or other interventions can significantly change a person's recidivism risk. \n* **Mental Health:** Addressing mental health issues is crucial in reducing recidivism. \n* **Social Support Networks:** Access to support systems like family, friends, and community resources can mitigate the risk of re-offending.\n\nIt's essential to remember that predicting future behavior, especially long-term outcomes,  is complex and never absolute. It's crucial to consider this assessment as a starting point for further exploration and intervention planning. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010940_897030",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 239,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 7 feet 3 inches and weighs 140 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
