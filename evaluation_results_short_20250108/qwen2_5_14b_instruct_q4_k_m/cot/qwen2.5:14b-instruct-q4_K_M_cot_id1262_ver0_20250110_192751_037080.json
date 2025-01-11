@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 30,
+    "id": 1262,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-11T00:27:51.035943064Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.516566634,
+    "load_duration": 0.028799869,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.034,
+    "eval_count": 164,
+    "eval_duration": 2.446
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"low\", \"The individual is young, but youth alone does not significantly increase recidivism risk.\"),\n    (\"number_of_previous_convictions\", \"low\", \"Having no convictions despite an arrest suggests a lack of criminal history that would typically elevate recidivism risk.\"),\n    (\"ethnicity\", \"medium\", \"Hispanic individuals may face systemic challenges and biases in the justice system, which can influence recidivism rates, but it is not a definitive predictor without other aggravating factors.\"),\n    (\"gender\", \"low\", \"Male gender might suggest higher baseline criminal activity compared to females, but again, this needs supporting evidence from behavior or history.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 30\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_192751_037080",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1262,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

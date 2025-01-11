@@ -1,0 +1,3375 @@
+!pip install dask[dataframe]
+
+!pip install autogluon
+
+# %reset -f
+
+%whos
+
+# CONFIGURE: library installation and importation
+
+# Set EDA Flag for sweetviz ydata-profiling autoviz
+FLAG_EDA = True
+
+# Set AUTOML Flag for
+FLAG_AUTOML = False
+
+# Conditionally install EDA Libraries
+
+if FLAG_EDA:
+    print("Installing required libraries...")
+    !pip install sweetviz ydata-profiling autoviz
+else:
+    print("Skipping library installation.")
+
+# !pip install seaborn
+
+# !pip install sweetviz
+
+# !pip install -U pandas-profiling # Old version
+# !pip install ydata-profiling # New version
+
+# !pip install autoviz
+
+!pip list | grep 'pandas'
+
+# prompt: colab command to enable multiple outputs per code cell
+
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = "all"
+
+
+from IPython.display import HTML
+
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = "all"
+
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+from google.colab import files
+
+import io
+import numpy as np
+import pandas as pd
+
+import re
+import json
+from pathlib import Path
+from pprint import pprint
+
+import time
+from datetime import datetime
+import logging
+
+from typing import List, Dict, Any, Union, Optional
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from scipy.stats import chi2_contingency
+
+if FLAG_EDA == True:
+  import sweetviz as sv
+  # from pandas_profiling import ProfileReport
+  from ydata_profiling import ProfileReport
+  from autoviz.AutoViz_Class import AutoViz_Class
+
+# prompt: write fn get_data_upload() that popup an upload dialog box in Colab, validates the uploaded file is *.csv (if not exit with error) and then reads into a Pandas Dataframe that is returned from the function
+
+def get_data_upload():
+  uploaded = files.upload()
+  for fn in uploaded.keys():
+    if not fn.endswith('.csv'):
+      print('Error: Uploaded file must be a CSV file.')
+      return None
+    try:
+      df = pd.read_csv(io.BytesIO(uploaded[fn]))
+      return df
+    except pd.errors.ParserError:
+      print("Error: Could not parse the CSV file.")
+      return None
+
+def get_metadata_dict(df, indent=4):
+    def format_inner_dict(col):
+        nunique = df[col].nunique()
+        dtype = str(df[col].dtype)
+
+        inner = " " * (indent + 4) + f'"value": {nunique}\n'
+        inner += " " * (indent + 4) + '"renamed": ""\n'
+        inner += " " * (indent + 4) + f'"type": "{dtype}"\n'
+        inner += " " * (indent + 4) + '"feature": "numeric"'
+        return inner
+
+    output = "{\n"
+
+    for col in df.columns:
+        output += " " * indent + f'"{col}": {{\n'
+        output += format_inner_dict(col) + "\n"
+        output += " " * indent + "}"
+        if col != df.columns[-1]:  # Add comma if not last item
+            output += ","
+        output += "\n"
+
+    output += "}"
+    return output
+
+# Example usage:
+# df = pd.DataFrame(...)
+# print(get_metadata_dict(df))
+
+def print_dict(dictionary, indent=4, initial_indent=0):
+    output = " " * initial_indent + "{\n"
+
+    for key, value in dictionary.items():
+        if isinstance(value, dict):
+            output += " " * indent + f'"{key}": {{\n'
+            output += print_dict(value, indent + 4, 0)
+            output += " " * indent + "}\n"
+        else:
+            if value is None or value == "":
+                output += " " * indent + f'"{key}": ""\n'
+            elif isinstance(value, str):
+                output += " " * indent + f'"{key}": "{value}"\n'
+            else:
+                output += " " * indent + f'"{key}": {value}\n'
+
+    output += " " * initial_indent + "}"
+    return output
+
+# Example usage:
+sample_dict = {
+    "name": "John",
+    "age": 30,
+    "address": {
+        "street": "123 Main St",
+        "city": "Boston",
+        "zip": "",
+        "unit": None
+    },
+    "email": ""
+}
+
+print(print_dict(sample_dict))
+
+def compare_columns(df, col_ls=["weight", "num_weight"]):
+    """Compares the values between two columns in a DataFrame.
+
+    Args:
+        df: A pandas DataFrame.
+        col_ls: List of two column names to compare. Defaults to ["weight", "num_weight"].
+
+    Returns:
+        A pandas DataFrame showing the comparison and difference, or None if columns not found.
+    """
+    # Validate input
+    if len(col_ls) != 2:
+        print("Error: Exactly two columns must be provided for comparison.")
+        return None
+
+    col1, col2 = col_ls
+    if col1 not in df.columns or col2 not in df.columns:
+        print(f"Error: Column '{col1}' or '{col2}' not found in DataFrame.")
+        return None
+
+    # Create base comparison with columns and equality check
+    comparison_df = pd.DataFrame({
+        col1: df[col1],
+        col2: df[col2],
+        'equal': df[col1] == df[col2]
+    })
+
+    # Only calculate difference if both columns are numeric
+    if pd.api.types.is_numeric_dtype(df[col1]) and pd.api.types.is_numeric_dtype(df[col2]):
+        comparison_df['difference'] = df[col1] - df[col2]
+    else:
+        comparison_df['difference'] = 'N/A (non-numeric comparison)'
+
+    return comparison_df
+
+# Example usage:
+# comparison_result = compare_columns(df)
+# if comparison_result is not None:
+#     print(comparison_result)
+
+def df_col_unique_vals(df, col_skip_ls=['long', 'short'], col_neg_valid_ls=[]):
+   """
+   Print unique values and counts for each column, skipping specified columns.
+   Shows full value counts table, missing value counts, and negative value counts
+   (except for columns in col_neg_valid_ls).
+
+   Args:
+       df: pandas DataFrame to analyze
+       col_skip_ls: list of columns to skip (default: ['long', 'short'])
+       col_neg_valid_ls: list of columns where negative values are valid
+   """
+   for column_name in df.columns:
+       # Skip specified columns
+       if column_name in col_skip_ls:
+           continue
+
+       # Print header with column name and dtype
+       print(f"\n\n============================== COLUMN: {column_name} DTYPE: {df[column_name].dtype} ==============================")
+
+       # Get unique values, handle mixed types
+       try:
+           unique_vals = sorted(df[column_name].unique())
+       except TypeError:
+           # If sorting fails, get unsorted unique values
+           unique_vals = df[column_name].unique()
+           # Filter out nan values for display
+           unique_vals = [x for x in unique_vals if pd.notna(x)]
+
+       print("\nUnique values:", unique_vals)
+
+       # Print value counts table
+       print("\nValue counts:")
+       value_counts = df[column_name].value_counts(dropna=False)
+       for val, count in value_counts.items():
+           # Handle NaN/None display
+           if pd.isna(val):
+               val_str = "NaN/Null"
+           else:
+               val_str = str(val)
+           print(f"    {val_str:30} {count:5d}")
+
+       # Always print summary counts
+       print("\nSummary counts:")
+       nan_count = df[column_name].isna().sum()
+       print(f"    NaN/Null count: {nan_count}")
+
+       # For object/string columns, check for None and Unknown
+       if df[column_name].dtype == 'object':
+           # Count 'None' values (case insensitive)
+           none_mask = df[column_name].fillna('').astype(str).str.lower().eq('none')
+           none_count = none_mask.sum()
+           print(f"    'None' count: {none_count}")
+
+           # Count 'Unknown' values (case insensitive)
+           unknown_mask = df[column_name].fillna('').astype(str).str.lower().eq('unknown')
+           unknown_count = unknown_mask.sum()
+           print(f"    'Unknown' count: {unknown_count}")
+
+       # Check for negative values if not in valid list
+       if column_name not in col_neg_valid_ls:
+           # Convert to string to catch both numeric and string negatives
+           col_str = df[column_name].fillna('').astype(str)
+
+           # Count specific negative values
+           neg_one_count = col_str.eq('-1').sum()
+           neg_two_count = col_str.eq('-2').sum()
+           neg_four_count = col_str.eq('-4').sum()
+
+           # Only print negative section if any negative values found
+           if neg_one_count > 0 or neg_two_count > 0 or neg_four_count > 0:
+               print("\nNegative value counts:")
+               print(f"    '-1' count: {neg_one_count}")
+               print(f"    '-2' count: {neg_two_count}")
+               print(f"    '-4' count: {neg_four_count}")
+
+DATA_TEST = False
+
+if DATA_TEST == True:
+  df = pd.read_csv("http://www.creditriskanalytics.net/uploads/1/9/5/1/19511601/hmeq.csv")
+else:
+  df = get_data_upload()
+
+
+
+# BACKUP: Original Raw df
+
+original_raw_df = df.copy(deep=True)
+original_raw_df.info()
+
+# prompt: compare what the percent of exact equality between two columns with function percent_equal_cols{df[[col1, col2]]) that returns an int 0-100 % for the percent of rows in exactly equality
+
+def percent_equal_cols(df, col_ls):
+    """
+    Calculates the percentage of rows where two columns have exactly equal values.
+
+    Args:
+        df: The input DataFrame.
+        col_ls: A list containing the names of the two columns to compare.
+
+    Returns:
+        An integer representing the percentage of rows with equal values (0-100).
+        Returns an error message if the columns are not found or if the input is invalid.
+    """
+    if not isinstance(df, pd.DataFrame):
+        return "Error: Input 'df' must be a pandas DataFrame."
+
+    if not isinstance(col_ls, list) or len(col_ls) != 2:
+        return "Error: 'col_ls' must be a list of two column names."
+
+    col1, col2 = col_ls
+    if col1 not in df.columns or col2 not in df.columns:
+        return f"Error: Columns '{col1}' or '{col2}' not found in DataFrame."
+
+    num_equal = (df[col1] == df[col2]).sum()
+    total_rows = len(df)
+
+    if total_rows == 0:
+        return 0  # Handle empty DataFrame case
+
+    return int((num_equal / total_rows) * 100)
+
+# Example usage (assuming you have a DataFrame named 'df'):
+# percentage = percent_equal_cols(df, ['col1', 'col2'])
+# print(f"Percentage of equal rows: {percentage}%")
+
+df.info()
+
+# Example usage (assuming you have a DataFrame named 'df'):
+percentage = percent_equal_cols(df, ['recidivism', 'arrestedafter2002'])
+print(f"Percentage of identical rows: {percentage}%")
+
+df['recidivism'].value_counts()
+
+df['arrestedafter2002'].value_counts()
+
+'''
+def df_col_unique_vals(df, col_skip_ls=['long', 'short'], col_neg_valid_ls=[]):
+   """
+   Print unique values and counts for each column, skipping specified columns.
+   Shows full value counts table, missing value counts, and negative value counts
+   (except for columns in col_neg_valid_ls).
+
+   Args:
+       df: pandas DataFrame to analyze
+       col_skip_ls: list of columns to skip (default: ['long', 'short'])
+       col_neg_valid_ls: list of columns where negative values are valid
+   """
+   for column_name in df.columns:
+       # Skip specified columns
+       if column_name in col_skip_ls:
+           continue
+
+       # Print header with column name and dtype
+       print(f"\n\n============================== COLUMN: {column_name} DTYPE: {df[column_name].dtype} ==============================")
+
+       # Get unique values, handle mixed types
+       try:
+           unique_vals = sorted(df[column_name].unique())
+       except TypeError:
+           # If sorting fails, get unsorted unique values
+           unique_vals = df[column_name].unique()
+           # Filter out nan values for display
+           unique_vals = [x for x in unique_vals if pd.notna(x)]
+
+       print("\nUnique values:", unique_vals)
+
+       # Print value counts table
+       print("\nValue counts:")
+       value_counts = df[column_name].value_counts(dropna=False)
+       for val, count in value_counts.items():
+           # Handle NaN/None display
+           if pd.isna(val):
+               val_str = "NaN/Null"
+           else:
+               val_str = str(val)
+           print(f"    {val_str:30} {count:5d}")
+
+       # Always print summary counts
+       print("\nSummary counts:")
+       nan_count = df[column_name].isna().sum()
+       print(f"    NaN/Null count: {nan_count}")
+
+       # For object/string columns, check for None and Unknown
+       if df[column_name].dtype == 'object':
+           # Count 'None' values (case insensitive)
+           none_mask = df[column_name].fillna('').astype(str).str.lower().eq('none')
+           none_count = none_mask.sum()
+           print(f"    'None' count: {none_count}")
+
+           # Count 'Unknown' values (case insensitive)
+           unknown_mask = df[column_name].fillna('').astype(str).str.lower().eq('unknown')
+           unknown_count = unknown_mask.sum()
+           print(f"    'Unknown' count: {unknown_count}")
+
+       # Check for negative values if not in valid list
+       if column_name not in col_neg_valid_ls:
+           # Convert to string to catch both numeric and string negatives
+           col_str = df[column_name].fillna('').astype(str)
+
+           # Count specific negative values
+           neg_one_count = col_str.eq('-1').sum()
+           neg_two_count = col_str.eq('-2').sum()
+           neg_four_count = col_str.eq('-4').sum()
+
+           # Only print negative section if any negative values found
+           if neg_one_count > 0 or neg_two_count > 0 or neg_four_count > 0:
+               print("\nNegative value counts:")
+               print(f"    '-1' count: {neg_one_count}")
+               print(f"    '-2' count: {neg_two_count}")
+               print(f"    '-4' count: {neg_four_count}")
+''';
+
+# Example with parentrelations as valid negative column
+df_col_unique_vals(original_raw_df, col_skip_ls = ['long','short','pubid','weight','num_weight'], col_neg_valid_ls=[])
+# df_col_unique_vals(df, col_skip_ls = ['long','short','pubid','weight','num_weight'], col_neg_valid_ls=[])
+
+
+# Or checking all columns for negatives
+# df_col_unique_vals(original_raw_df)
+
+print(get_metadata_dict(df))
+
+df.info()
+
+# CONFIGURE: Manually rename, feature, type the columns for maximum clarity
+
+# if renamed == "DROP" then DELETE
+# if renamed == "TARGET" save in y_label then DELETE
+# if feature == "binary" cast str/num to True/False
+# if feature == "nominal category" then normalize labels
+
+metadata_dt = {
+    "pubid": {
+        "value": 1412,
+        "renamed": "DROP",
+        "type": "int64",
+        "class": "demographic",
+        "feature": "discrete_numeric",
+    },
+    # DEMOGRAPHICS
+    "sex": {
+        "value": 2,
+        "renamed": "sex_recorded_in_1997",
+        "type": "str",
+        "class": "demographic",
+        "feature": "nominal_category",
+    },
+    "age": {
+        "value": 5,
+        "renamed": "age",
+        "type": "int64",
+        "class": "demographic",
+        "feature": "discrete_numeric",
+    },
+    "height_total_inches": {
+        "value": 33,
+        "renamed": "height_total_inches",
+        "type": "int64",
+        "class": "demographic",
+        "feature": "discrete_numeric",
+    },
+    "num_weight": {
+        "value": 144,
+        "renamed": "weight_in_lbs",
+        "type": "int",
+        "class": "demographic",
+        "feature": "discrete_numeric",
+    },
+    "race": {
+        "value": 6,
+        "renamed": "race",
+        "type": "str",
+        "class": "demographic",
+        "feature": "nominal_category",
+    },
+    "married02": {
+        "value": 8,
+        "renamed": "marriage_or_cohabitation_status_in_2002",
+        "type": "str",
+        "class": "demographic",
+        "feature": "nominal_category",
+    },
+    # EDUCATION AND WORK
+    "educ02": {
+        "value": 4,
+        "renamed": "highest_degree_by_2002",
+        "type": "str",
+        "class": "education_and_work",
+        "feature": "ordinal_category",
+    },
+    "college02": {
+        "value": 10,
+        "renamed": "college_enrollment_status_in_2002",
+        "type": "str",
+        "class": "education_and_work",
+        "feature": "ordinal_category",
+    },
+    "experience02": {
+        "value": 9,
+        "renamed": "jobs_held_in_2002",
+        "type": "int64",
+        "class": "education_and_work",
+        "feature": "discrete_numeric",
+    },
+    # CHILDHOOD
+    "hhsize97": {
+        "value": 11,
+        "renamed": "household_size_in_1997",
+        "type": "int64",
+        "class": "childhood",
+        "feature": "discrete_numeric",
+    },
+    "parentrelations": {
+        "value": 13,
+        "renamed": "parent_or_guardian_relationship_at_age_12",
+        "type": "str",
+        "class": "childhood",
+        "feature": "nominal_category",
+    },
+    "urbanrural": {
+        "value": 5,
+        "renamed": "raised_in_urban_or_rural_area",
+        "type": "str",
+        "class": "childhood",
+        "feature": "nominal_category",
+    },
+    # STRESSORS
+    "homelessness": {
+        "value": 2,
+        "renamed": "homeless_for_2+_nights_over_last_5_years",
+        "type": "binary",
+        "class": "stressors",
+        "feature": "binary", # NO/YES
+    },
+    "faminjail": {
+        "value": 2,
+        "renamed": "any_adult_household_member_jailed_in_last_5_years",
+        "type": "binary",
+        "class": "stressors",
+        "feature": "binary", # NO/YES
+    },
+    "foodstamp": {
+        "value": 2,
+        "renamed": "recieved_food_stamps_in_2002",
+        "type": "binary",
+        "class": "stressors",
+        "feature": "binary", # 0/1
+    },
+    "victim": {
+        "value": 3,
+        "renamed": "victim_of_violent_crime_in_last_5_years",
+        "type": "str",
+        "class": "stressors",
+        "feature": "binary", # NO/YES
+    },
+    # RELIGIOUS BELIEFS
+    "askgod": {
+        "value": 4,
+        "renamed": "i_often_prey_to_god_for_help",
+        "type": "str",
+        "class": "religious_beliefs",
+        "feature": "binary", # TRUE/FALSE
+    },
+    "godhasnothingtodo": {
+        "value": 4,
+        "renamed": "god_has_nothing_to_do_with_me_personally",
+        "type": "str",
+        "class": "religious_beliefs",
+        "feature": "binary", # TRUE/FALSE
+    },
+    # MENTAL HEALTH
+    "expectdeath": {
+        "value": 25,
+        "renamed": "percent_expect_death_in_next_5_years",
+        "type": "str",
+        "class": "mental_health",
+        "feature": "discrete_numeric", # percent 0-100
+    },
+    "depression": {
+        "value": 4,
+        "renamed": "how_much_time_in_last_month_when_nothing_cheers_you_up",
+        "type": "str",
+        "class": "mental_health",
+        "feature": "nominal_category", # None/Some..
+    },
+    # SUBSTANCE ABUSE
+    "marijuana": {
+        "value": 2,
+        "renamed": "used_marijuana_in_last_4_years",
+        "type": "binary",
+        "class": "substance_abuse",
+        "feature": "binary", # 0/1
+    },
+    "cocaine": {
+        "value": 2,
+        "renamed": "used_cocaine_or_other_hard_drug_in_last_4_years",
+        "type": "binary",
+        "class": "substance_abuse",
+        "feature": "binary", # 0/1
+    },
+    "anydrug": {
+        "value": 2,
+        "renamed": "used_any_drug_in_last_4_years",
+        "type": "binary",
+        "class": "substance_abuse",
+        "feature": "binary", # 0/1
+    },
+    # ARREST RECORD
+    "arrestedby2002": {
+        "value": 1,
+        "renamed": "ever_arrested_in_last_5_years",
+        "type": "binary",
+        "class": "arrest_record",
+        "feature": "binary", # 0/1
+    },
+    "numberofarrestsby2002": {
+        "value": 17,
+        "renamed": "number_of_arrests_in_last_5_years",
+        "type": "int",
+        "class": "arrest_record",
+        "feature": "discrete_numeric", # 0/1
+    },
+    "convictedby2002": {
+        "value": 2,
+        "renamed": "ever_convicted_in_last_5_years",
+        "type": "binary",
+        "class": "arrest_record",
+        "feature": "binary", # 0/1
+    },
+    # TEXT SUMMARY
+    "short": {
+        "value": 342,
+        "renamed": "short_text_summary",
+        "type": "str",
+        "class": "text_summary",
+        "feature": "text",
+    },
+    "long": {
+        "value": 1412,
+        "renamed": "long_text_summary",
+        "type": "str",
+        "class": "text_summary",
+        "feature": "text",
+    },
+    # RESPONSE VARIABLES
+    "arrestedafter2002": {
+        "value": 2,
+        "renamed": "TARGET",
+        "type": "binary",
+        "class": "response_variables",
+        "feature": "binary", # 0/1
+    },
+    "convictedafter2002": {
+        "value": 2,
+        "renamed": "TARGET",
+        "type": "int64",
+        "class": "response_variables",
+        "feature": "binary", # 0/1
+    },
+}
+
+# Before
+df['expectdeath'].unique()
+df['expectdeath'] = df['expectdeath'].replace('', None)
+
+# After
+df['expectdeath'].unique()
+
+# Custom column comparison
+comparison_result = compare_columns(df, col_ls=["weight", "num_weight"])
+
+if comparison_result is not None:
+    print(comparison_result)
+else:
+    print("Comparison could not be performed.")
+
+try:
+  df.drop(columns=["weight"], inplace=True)
+except:
+  pass
+
+df.shape
+
+# prompt: try to convert "df['age'] = 2022 - df['birthyear']" but if fail catch and set to np.nan
+
+def convert_birthyear_to_age(df):
+  try:
+    df['age'] = 2022 - df['birthyear']
+  except (KeyError, TypeError):
+    df['age'] = np.nan
+  return df
+
+df = convert_birthyear_to_age(df)
+
+try:
+  df.drop(columns=["birthyear","birthmonth"], inplace=True)
+except:
+  pass
+
+df.shape
+
+# prompt: write a function to try to convert height_ft and height_in to df["height_total_inches"] else catch error and set to np.nan
+
+def convert_height(df):
+    try:
+        df["height_total_inches"] = (df["height_ft"] * 12) + df["height_in"]
+    except (KeyError, TypeError):
+        df["height_total_inches"] = np.nan
+    return df
+
+df = convert_height(df)
+
+try:
+  df.drop(columns=["height_ft", "height_in"], inplace=True)
+except:
+  pass
+df.shape
+
+print(df["race_ethnicity"].unique())
+print(df["race_specific"].unique())
+print(df["race"].unique())
+
+def unify_race(df, col_race_ls=["race_ethnicity", "race_specific", "race"]):
+    """
+    Unifies race classification across multiple columns with priority order
+    and consistent categorization.
+
+    Args:
+        df: pandas DataFrame containing race columns
+        col_race_ls: list of column names in order [race_ethnicity, race_specific, race]
+
+    Returns:
+        Series with unified race classifications
+    """
+    # Validate input columns exist
+    for col in col_race_ls:
+        if col not in df.columns:
+            raise ValueError(f"Column {col} not found in DataFrame")
+
+    # Create mapping dictionaries for standardization
+    race_specific_map = {
+        'R REFUSES TO CLASSIFY RACE EXCEPT HISPANIC/LATINO': 'hispanic',
+        'Black or African American': 'black',
+        'White': 'white',
+        'Asian or Pacific Islander': 'asian or pacific islander',
+        'American Indian, Eskimo, or Aleut': 'american indian, eskimo or aleut',
+        'SOMETHING ELSE? (SPECIFY)': np.nan
+    }
+
+    race_ethnicity_map = {
+        'Hispanic': 'hispanic',
+        'Black': 'black',
+        'Non-Black / Non-Hispanic': 'white',  # Assuming this maps to white
+        'Mixed Race (Non-Hispanic)': 'mixed-race'
+    }
+
+    # Copy input columns to avoid modifying original
+    race_eth, race_spec, race = col_race_ls
+
+    # Create unified race column
+    unified_race = pd.Series(index=df.index, dtype='object')
+
+    # Apply priority logic
+    # 1. Use 'race' if not null/empty
+    mask_race_valid = df[race].notna() & (df[race].str.strip() != '')
+    unified_race[mask_race_valid] = df.loc[mask_race_valid, race]
+
+    # 2. Use mapped 'race_specific' if race is null/empty
+    mask_spec_valid = (~mask_race_valid) & df[race_spec].notna() & (df[race_spec].str.strip() != '')
+    unified_race[mask_spec_valid] = df.loc[mask_spec_valid, race_spec].map(race_specific_map)
+
+    # 3. Use mapped 'race_ethnicity' if both above are null/empty
+    mask_eth_valid = (~mask_race_valid) & (~mask_spec_valid) & df[race_eth].notna() & (df[race_eth].str.strip() != '')
+    unified_race[mask_eth_valid] = df.loc[mask_eth_valid, race_eth].map(race_ethnicity_map)
+
+    # 4. Set remaining null/empty values to np.nan
+    unified_race = unified_race.fillna(np.nan)
+
+    return unified_race
+
+# Example usage:
+df['race_unified'] = unify_race(df, col_race_ls=["race_ethnicity", "race_specific", "race"])
+print(df['race_unified'].value_counts(dropna=False))
+
+try:
+  df.drop(columns=["race_ethnicity", "race_specific", "race"], inplace=True)
+except:
+  pass
+
+df.shape
+
+# prompt: rename df col race_unified to just 'race'
+
+try:
+  df.rename(columns={'race_unified': 'race'}, inplace=True)
+except:
+  pass
+
+df.shape
+
+
+df['recidivism'].value_counts()
+
+df['convictedafter2002'].value_counts()
+
+df['arrestedafter2002'].value_counts()
+
+# prompt: write function test_equal_cols(df, col_ls=['arreastedafter2002','recidivism']) that returns a integer count of the number of rows where the values of col_ls columns are not equal
+
+def test_equal_cols(df, col_ls=['arreastedafter2002','recidivism']):
+  """
+  Counts the number of rows where the values of specified columns are not equal.
+
+  Args:
+    df: The input DataFrame.
+    col_ls: A list of column names to compare.
+
+  Returns:
+    An integer representing the count of rows with unequal values in the specified columns.
+    Returns 0 if the columns are not found in the DataFrame.
+  """
+  unequal_count = 0
+  if not all(col in df.columns for col in col_ls):
+    return 0  # Or raise an exception, depending on desired behavior
+
+  for index, row in df.iterrows():
+    if row[col_ls[0]] != row[col_ls[1]]:
+        unequal_count += 1
+
+  return unequal_count
+
+print(test_equal_cols(df, col_ls=['arreastedafter2002','recidivism']))
+
+# prompt: Dedup by dropping recidivism column
+
+try:
+  df.drop(columns=['recidivism'], inplace=True)
+except:
+  pass
+
+df.shape
+
+df['firstcrime'].value_counts()
+df['firstcrime'].unique()
+
+# prompt: Dedup by dropping recidivism column
+
+try:
+  df.drop(columns=['firstcrime'], inplace=True)
+except:
+  pass
+
+df.shape
+
+# prompt: round df['num_weight'] to the nearest integer value (esp for LLM tokenization)
+
+df['num_weight'] = df['num_weight'].round().astype(int)
+
+df.info()
+
+# prompt: write function get_null_cols(df) that returns a list of all columns with null values
+
+def get_null_cols(df):
+  """
+  Returns a list of columns with null values in a DataFrame.
+  """
+  null_cols = df.columns[df.isnull().any()].tolist()
+  return null_cols
+
+col_null_ls = get_null_cols(df)
+col_null_ls
+
+# prompt: write function null_to_unknown(df, col_ls) that changes null values in col_ls to 'Unknown' string
+
+def null_to_unknown(df, col_ls):
+    """Changes null values in specified columns to 'Unknown'."""
+    for col in col_ls:
+        if col in df.columns:
+            df[col] = df[col].fillna('Unknown')
+    return df
+
+df['expectdeath'].unique()
+
+df['expectdeath'].isna().sum()
+df['expectdeath'].shape
+df['expectdeath'].value_counts()
+
+df = null_to_unknown(df, col_null_ls)
+df.info()
+
+df['expectdeath'].unique()
+
+df['expectdeath'].value_counts()
+
+def get_percentage_col_map(df, col_name):
+    # Initialize mapping dictionary
+    percentage_map_dt = {}
+
+    # Process each unique value in the column
+    for val in df[col_name].unique():
+        # Special cases for ranges and invalid codes
+        if val in ['-4', '-2', '-1']:
+            percentage_map_dt[val] = None
+        elif val == '0: 0%':
+            percentage_map_dt[val] = 0
+        elif val == '1 TO 10: 1%-10%':
+            # Take midpoint of range 1-10
+            percentage_map_dt[val] = 5.5
+        else:
+            # Convert numeric strings to integers directly
+            try:
+                percentage_map_dt[val] = int(val)
+            except ValueError:
+                percentage_map_dt[val] = None
+
+    return percentage_map_dt
+
+get_percentage_col_map(df, 'expectdeath')
+
+# CONFIGURE: Manually edit to convert from object to numbers
+#
+
+percentage_map_dt = {
+ '-4': np.nan, # None
+ '0: 0%': 0,
+ '50': 50,
+ '1 TO 10: 1%-10%': 6, # if float, 5.5
+ '5': 5,
+ '25': 25,
+ '75': 75,
+ '2': 2,
+ '10': 10,
+ '8': 8,
+ '40': 40,
+ '65': 65,
+ '-2': None,
+ '7': 7,
+ '3': 3,
+ '48': 48,
+ '20': 20,
+ '23': 23,
+ '30': 30,
+ '-1': None,
+ '15': 15,
+ '85': 85,
+ '100': 100,
+ '4': 4,
+ '80': 80}
+
+def clean_percentage_col(df, col_name, label_map):
+    # Create a copy of the dataframe
+    df_clean = df.copy()
+
+    # Apply mapping to convert values
+    df_clean[col_name] = df_clean[col_name].map(label_map)
+
+    # Try to convert to int64, replacing any non-convertible values with None
+    try:
+        df_clean[col_name] = df_clean[col_name].astype('int64')
+    except ValueError:
+        # If direct conversion fails, handle NaN/None values
+        df_clean[col_name] = pd.to_numeric(df_clean[col_name], errors='coerce').astype('Int64')
+
+    return df_clean
+
+df = clean_percentage_col(df, 'expectdeath', percentage_map_dt)
+df.info()
+
+df['expectdeath'].value_counts().sort_values()
+
+# print(get_metadata_dict(df))
+print(json.dumps(metadata_dt, indent=2))
+
+def get_binary_columns(metadata_dt: Dict[str, Dict[str, Any]]) -> List[str]:
+    """
+    Identifies binary columns using the metadata dictionary's 'feature' key.
+
+    This function looks specifically for columns where feature='binary' in the metadata,
+    rather than trying to infer binary status from the data itself. This ensures we're
+    respecting the explicit classification provided in the metadata.
+
+    Parameters:
+    -----------
+    metadata_dt : Dict
+        Nested dictionary containing column metadata where each column's information
+        includes a 'feature' key specifying the type of data
+
+    Returns:
+    --------
+    List[str]
+        List of column names that are classified as binary in the metadata
+    """
+    return [
+        col_name for col_name, col_info in metadata_dt.items()
+        if col_info.get('feature') == 'binary' and col_info.get('renamed') != 'TARGET'
+    ]
+
+def convert_to_binary(df: pd.DataFrame, col_ls: List[str], metadata_dt: Dict[str, Dict[str, Any]],
+                     verbose: bool = True) -> int:
+    """
+    Converts specified DataFrame columns to boolean type based on metadata classification
+    and various binary representations.
+
+    Parameters:
+    -----------
+    df : pandas.DataFrame
+        The input DataFrame containing columns to be converted
+    col_ls : List[str]
+        List of column names to check and potentially convert
+    metadata_dt : Dict
+        Nested dictionary containing column metadata including feature classifications
+    verbose : bool, default=True
+        If True, prints detailed information about the conversion process
+
+    Returns:
+    --------
+    int
+        1 if conversion successful, -1 if any errors occurred
+    """
+    try:
+        # First, identify which columns are classified as binary in the metadata
+        all_binary_cols = get_binary_columns(metadata_dt)
+
+        # Filter to only process binary columns that are in our requested col_ls
+        binary_cols = [col for col in col_ls if col in all_binary_cols]
+        non_binary_cols = [col for col in col_ls if col not in all_binary_cols]
+
+        if verbose:
+            print(f"\nFound {len(binary_cols)} binary columns:")
+            if binary_cols:
+                print("Binary columns:", binary_cols)
+            if non_binary_cols:
+                print("Non-binary columns:", non_binary_cols)
+                print("\nFeature types of non-binary columns:")
+                for col in non_binary_cols:
+                    if col in metadata_dt:
+                        feature_type = metadata_dt[col].get('feature', 'unknown')
+                        print(f"{col}: {feature_type}")
+
+        if not binary_cols:
+            if verbose:
+                print("\nNo binary columns found in the provided column list.")
+            return -1
+
+        # Define common representations of true values
+        true_values = {
+            'YES', 'Y', 'TRUE', 'T', '1', 1, 'Yes', 'True',
+            True, 1.0, 'YES', 'TRUE', 'Y', 'T'
+        }
+
+        # Convert each binary column
+        for col in binary_cols:
+            if col not in df.columns:
+                if verbose:
+                    print(f"Warning: Column '{col}' found in metadata but not in DataFrame")
+                continue
+
+            # Convert to string first to standardize
+            df[col] = df[col].astype(str).str.upper()
+
+            # Create boolean mask for true values
+            true_mask = df[col].isin([str(v).upper() for v in true_values])
+
+            # Convert to boolean
+            df[col] = true_mask
+
+            if verbose:
+                print(f"\nConverted '{col}' to boolean type")
+                print(f"Sample values after conversion: {df[col].head()}")
+
+        return 1
+
+    except Exception as e:
+        if verbose:
+            print(f"Error during conversion: {str(e)}")
+        return -1
+
+col_binary_ls = [
+    'homelessness',
+    'faminjail',
+    'foodstamp',
+    'victim',
+    'askgod',
+    'godhasnothingtodo',
+    'marijuana',
+    'cocaine',
+    'anydrug',
+    'arrestedby2002',
+    'convictedby2002'
+]
+
+get_binary_columns(metadata_dt)
+
+result = convert_to_binary(df, df.columns.tolist(), metadata_dt)
+
+df.info()
+
+df.columns
+
+def get_category_columns(metadata_dt: Dict[str, Dict[str, Any]]) -> List[str]:
+    """
+    Identifies categorical columns using the metadata dictionary's 'feature' key.
+
+    This function looks for columns where the feature value ends with '_category',
+    which would include types like 'nominal_category' and 'ordinal_category'.
+    Instead of checking for an exact match, we use string endswith() to capture
+    all category variations specified in the metadata.
+
+    Parameters:
+    -----------
+    metadata_dt : Dict
+        Nested dictionary containing column metadata where each column's information
+        includes a 'feature' key specifying the type of data
+
+    Returns:
+    --------
+    List[str]
+        List of column names that are classified as categorical in the metadata
+    """
+    return [
+        col_name for col_name, col_info in metadata_dt.items()
+        if col_info.get('feature', '').endswith('_category')
+    ]
+
+col_category_ls = [
+    'sex',
+    'married02',
+    'educ02',
+    'college02',
+    'parentrelations',
+    'urbanrural',
+    'depression',
+    'race'
+]
+
+col_category_ls = get_category_columns(metadata_dt)
+col_category_ls
+
+acol = 'parentrelations'
+
+df[acol].value_counts().sort_values()
+df[acol].unique()
+
+def get_labels_dict(df, acol, DEBUG_FLAG=True):
+  labels_dt = {}
+  sorted_values = sorted(df[acol].unique())  # Returns a new sorted list
+
+  for avalue in sorted_values:
+
+    if re.match(r'^\s*-?\d\s*$', avalue):
+      labels_dt[avalue] = 'None'
+      print('  RE.MATCH')
+    elif avalue.strip() == '':
+      labels_dt[avalue] = 'None'
+      print('  EMPTY')
+    elif avalue.strip().lower() == 'nan':
+      labels_dt[avalue] = 'None'
+      print('  NAN')
+    elif avalue.strip().lower() == 'none':
+      labels_dt[avalue] = 'None'
+      print('  NONE')
+    elif avalue.strip().lower() == 'unknown':
+      labels_dt[avalue] = 'None'
+      print('  UNKNOWN')
+    elif avalue.strip().lower() == 'other':
+      labels_dt[avalue] = 'None'
+    elif len(avalue.strip())>0 and any(c.isalnum() for c in avalue):
+      labels_dt[avalue] = avalue.lower()
+    else:
+      labels_dt[avalue] = 'None'
+      print('  DEFAULT')
+
+  if DEBUG_FLAG:
+    print(f"\n\n================================================== COLUMN: [{acol}] ==================================================")
+    print(json.dumps(labels_dt, indent=2))
+
+  return labels_dt
+
+for acol in col_category_ls:
+  df[acol] = df[acol].astype(str)
+  metadata_dt[acol]["labels"] =  get_labels_dict(df, acol, DEBUG_FLAG=True)
+
+acol = 'parentrelations'
+
+df[acol].value_counts().sort_values()
+df[acol].unique()
+
+print(json.dumps(metadata_dt, indent=2))
+
+# CONFIGURATION: Manually edit a cut and pasted version of metadata_dt here
+#   e.g.: ged, (BA, BS), (HS), biological
+
+metadata_dt = {
+  "pubid": {
+    "value": 1412,
+    "renamed": "DROP",
+    "type": "int64",
+    "class": "demographic",
+    "feature": "discrete_numeric"
+  },
+  "sex": {
+    "value": 2,
+    "renamed": "sex_recorded_in_1997",
+    "type": "str",
+    "class": "demographic",
+    "feature": "nominal_category",
+    "labels": {
+      "Female": "female",
+      "Male": "male"
+    }
+  },
+  "age": {
+    "value": 5,
+    "renamed": "age",
+    "type": "int64",
+    "class": "demographic",
+    "feature": "discrete_numeric"
+  },
+  "height_total_inches": {
+    "value": 33,
+    "renamed": "height_total_inches",
+    "type": "int64",
+    "class": "demographic",
+    "feature": "discrete_numeric"
+  },
+  "num_weight": {
+    "value": 144,
+    "renamed": "weight_in_lbs",
+    "type": "int",
+    "class": "demographic",
+    "feature": "discrete_numeric"
+  },
+  "race": {
+    "value": 6,
+    "renamed": "race",
+    "type": "str",
+    "class": "demographic",
+    "feature": "nominal_category",
+    "labels": {
+      "american indian, eskimo or aleut": "american indian, eskimo or aleut",
+      "asian or pacific islander": "asian or pacific islander",
+      "black": "black",
+      "hispanic": "hispanic",
+      "mixed-race": "mixed-race",
+      "white": "white"
+    }
+  },
+  "married02": {
+    "value": 8,
+    "renamed": "marriage_or_cohabitation_status_in_2002",
+    "type": "str",
+    "class": "demographic",
+    "feature": "nominal_category",
+    "labels": {
+      "Divorced, cohabiting": "divorced, cohabiting",
+      "Divorced, not cohabiting": "divorced, not cohabiting",
+      "Married, spouse absent": "married, spouse absent",
+      "Married, spouse present": "married, spouse present",
+      "Never married, cohabiting": "never married, cohabiting",
+      "Never married, not cohabiting": "never married, not cohabiting",
+      "Separated, cohabiting": "separated, cohabiting",
+      "Separated, not cohabiting": "separated, not cohabiting"
+    }
+  },
+  "educ02": {
+    "value": 4,
+    "renamed": "highest_degree_by_2002",
+    "type": "str",
+    "class": "education_and_work",
+    "feature": "ordinal_category",
+    "labels": {
+      "Associate/Junior college (AA)": "associate/junior college (AA)",
+      "Bachelor's degree (BA, BS)": "bachelor's degree (BA, BS)",
+      "GED": "GED",
+      "High school diploma (Regular 12 year program)": "high school diploma (HS)",
+      "nan": "None"
+    }
+  },
+  "college02": {
+    "value": 10,
+    "renamed": "college_enrollment_status_in_2002",
+    "type": "str",
+    "class": "education_and_work",
+    "feature": "ordinal_category",
+    "labels": {
+      "Enrolled in a 2-year college": "enrolled in a 2-year college",
+      "Enrolled in a 4-year college": "enrolled in a 4-year college",
+      "Enrolled in a graduate program": "enrolled in a graduate program",
+      "Enrolled in grades 1-12, not a high school graduate": "enrolled in grades 1-12, not a high school graduate",
+      "Not enrolled, 2-year college graduate": "not enrolled, 2-year college graduate",
+      "Not enrolled, 4-year college graduate": "not enrolled, 4-year college graduate",
+      "Not enrolled, GED": "not enrolled, GED",
+      "Not enrolled, high school degree": "not enrolled, high school degree",
+      "Not enrolled, no high school degree, no GED": "not enrolled, no high school degree, no GED",
+      "Not enrolled, some college": "not enrolled, some college"
+    }
+  },
+  "experience02": {
+    "value": 9,
+    "renamed": "jobs_held_in_2002",
+    "type": "int64",
+    "class": "education_and_work",
+    "feature": "discrete_numeric"
+  },
+  "hhsize97": {
+    "value": 11,
+    "renamed": "household_size_in_1997",
+    "type": "int64",
+    "class": "childhood",
+    "feature": "discrete_numeric"
+  },
+  "parentrelations": {
+    "value": 13,
+    "renamed": "parent_or_guardian_relationship_at_age_12",
+    "type": "str",
+    "class": "childhood",
+    "feature": "nominal_category",
+    "labels": {
+      "-1": "None",
+      "-2": "None",
+      "-4": "None",
+      "Adoptive parent(s)": "adoptive parent(s)",
+      "Anything else": "anything else",
+      "Biological dad, marital status unknown": "biological dad, marital status unknown",
+      "Biological father, other parent present": "biological father, other parent present",
+      "Biological mother, marital status unknown": "biological mother, marital status unknown",
+      "Biological mother, other parent present": "biological mother, other parent present",
+      "Both biological parents": "both biological parents",
+      "Foster parent(s)": "foster parent(s)",
+      "Group quarters": "group quarters",
+      "Other adults, biologial parent status unknown, not group quarters": "other adults, biological parent status unknown, not group quarters"
+    }
+  },
+  "urbanrural": {
+    "value": 5,
+    "renamed": "raised_in_urban_or_rural_area",
+    "type": "str",
+    "class": "childhood",
+    "feature": "nominal_category",
+    "labels": {
+      "-3": "None",
+      "-4": "None",
+      "Rural": "rural",
+      "Unknown": "None",
+      "Urban": "urban"
+    }
+  },
+  "homelessness": {
+    "value": 2,
+    "renamed": "homeless_for_2+_nights_over_last_5_years",
+    "type": "binary",
+    "class": "stressors",
+    "feature": "binary"
+  },
+  "faminjail": {
+    "value": 2,
+    "renamed": "any_adult_household_member_jailed_in_last_5_years",
+    "type": "binary",
+    "class": "stressors",
+    "feature": "binary"
+  },
+  "foodstamp": {
+    "value": 2,
+    "renamed": "recieved_food_stamps_in_2002",
+    "type": "binary",
+    "class": "stressors",
+    "feature": "binary"
+  },
+  "victim": {
+    "value": 3,
+    "renamed": "victim_of_violent_crime_in_last_5_years",
+    "type": "str",
+    "class": "stressors",
+    "feature": "binary"
+  },
+  "askgod": {
+    "value": 4,
+    "renamed": "i_often_prey_to_god_for_help",
+    "type": "str",
+    "class": "religious_beliefs",
+    "feature": "binary"
+  },
+  "godhasnothingtodo": {
+    "value": 4,
+    "renamed": "god_has_nothing_to_do_with_me_personally",
+    "type": "str",
+    "class": "religious_beliefs",
+    "feature": "binary"
+  },
+  "expectdeath": {
+    "value": 25,
+    "renamed": "percent_expect_death_in_next_5_years",
+    "type": "str",
+    "class": "mental_health",
+    "feature": "discrete_numeric"
+  },
+  "depression": {
+    "value": 4,
+    "renamed": "how_much_time_in_last_month_when_nothing_cheers_you_up",
+    "type": "str",
+    "class": "mental_health",
+    "feature": "nominal_category",
+    "labels": {
+      "All of the time": "all of the time",
+      "Most of the time": "most of the time",
+      "None of the time": "none of the time",
+      "Some of the time": "some of the time"
+    }
+  },
+  "marijuana": {
+    "value": 2,
+    "renamed": "used_marijuana_in_last_4_years",
+    "type": "binary",
+    "class": "substance_abuse",
+    "feature": "binary"
+  },
+  "cocaine": {
+    "value": 2,
+    "renamed": "used_cocaine_or_other_hard_drug_in_last_4_years",
+    "type": "binary",
+    "class": "substance_abuse",
+    "feature": "binary"
+  },
+  "anydrug": {
+    "value": 2,
+    "renamed": "used_any_drug_in_last_4_years",
+    "type": "binary",
+    "class": "substance_abuse",
+    "feature": "binary"
+  },
+  "arrestedby2002": {
+    "value": 1,
+    "renamed": "ever_arrested_in_last_5_years",
+    "type": "binary",
+    "class": "arrest_record",
+    "feature": "binary"
+  },
+  "numberofarrestsby2002": {
+    "value": 17,
+    "renamed": "number_of_arrests_in_last_5_years",
+    "type": "int",
+    "class": "arrest_record",
+    "feature": "discrete_numeric"
+  },
+  "convictedby2002": {
+    "value": 2,
+    "renamed": "ever_convicted_in_last_5_years",
+    "type": "binary",
+    "class": "arrest_record",
+    "feature": "binary"
+  },
+  "short": {
+    "value": 342,
+    "renamed": "short_text_summary",
+    "type": "str",
+    "class": "text_summary",
+    "feature": "text"
+  },
+  "long": {
+    "value": 1412,
+    "renamed": "long_text_summary",
+    "type": "str",
+    "class": "text_summary",
+    "feature": "text"
+  },
+  "arrestedafter2002": {
+    "value": 2,
+    "renamed": "TARGET",
+    "type": "binary",
+    "class": "response_variables",
+    "feature": "binary"
+  },
+  "convictedafter2002": {
+    "value": 2,
+    "renamed": "TARGET",
+    "type": "int64",
+    "class": "response_variables",
+    "feature": "binary"
+  }
+}
+
+df.info()
+
+def norm_category_labels(df, metadata_dt):
+    # Create a copy to avoid modifying original dataframe
+    df_normalized = df.copy()
+
+    # Iterate through columns in dataframe
+    for col_name in df.columns:
+        # Check if column exists in metadata and has category feature
+        if (col_name in metadata_dt and
+            'feature' in metadata_dt[col_name] and
+            metadata_dt[col_name]['feature'].endswith('_category')):
+
+            # Get mapping dictionary from metadata
+            label_map = metadata_dt[col_name]['labels']
+
+            # Apply mapping to column
+            df_normalized[col_name] = df[col_name].map(label_map)
+
+    return df_normalized
+
+df = norm_category_labels(df, metadata_dt)
+df.info()
+
+col_category_ls
+
+for acol in col_category_ls:
+  df[acol].value_counts()
+
+col_integer_ls = [
+    'experience02',
+    'hhsize97',
+    'expectdeath',
+    'num_weight',
+    'age',
+    'height_total_inches'
+]
+
+def validate_int_cols(df, col_ls):
+    """
+    Validates integer columns by identifying non-integer values, allowing NaN values.
+
+    Args:
+        df: pandas DataFrame
+        col_ls: list of column names to validate
+
+    Returns:
+        dict: Column names as keys with lists of unique non-integer values found
+    """
+    validation_results = {}
+
+    for col in col_ls:
+        # Skip if column not in dataframe
+        if col not in df.columns:
+            continue
+
+        # Convert to string, but only for non-NaN values
+        non_ints = df[col][df[col].notna()].astype(str).str.strip()
+
+        # Filter for values that don't match integer pattern
+        # Matches optional minus sign followed by digits
+        non_ints = non_ints[~non_ints.str.match(r'^-?\d+$')]
+
+        # If non-integer values found, add to results
+        if len(non_ints.unique()) > 0:
+            validation_results[col] = sorted(non_ints.unique())
+
+    return validation_results
+
+# Run validation
+problems = validate_int_cols(df, col_integer_ls)
+
+# Print results
+if problems:
+    print("Found non-integer values:")
+    for col, values in problems.items():
+        print(f"{col}: {values}")
+else:
+    print("All values are valid integers")
+
+def validate_float_cols(df, col_ls):
+    """
+    Validates float columns by identifying non-numeric values, allowing NaN values.
+
+    Args:
+        df: pandas DataFrame
+        col_ls: list of column names to validate
+
+    Returns:
+        dict: Column names as keys with lists of unique non-numeric values found
+    """
+    validation_results = {}
+
+    for col in col_ls:
+        # Skip if column not in dataframe
+        if col not in df.columns:
+            continue
+
+        # Convert to string, but only for non-NaN values
+        non_floats = df[col][df[col].notna()].astype(str).str.strip()
+
+        # Filter for values that don't match float pattern
+        # Matches optional minus sign, digits, optional decimal point and digits
+        non_floats = non_floats[~non_floats.str.match(r'^-?\d*\.?\d+$')]
+
+        # If non-numeric values found, add to results
+        if len(non_floats.unique()) > 0:
+            validation_results[col] = sorted(non_floats.unique())
+
+    return validation_results
+
+col_float_ls = []
+
+problems = validate_float_cols(df, col_float_ls)
+
+if problems:
+    print("Found non-numeric values:")
+    for col, values in problems.items():
+        print(f"{col}: {values}")
+else:
+    print("All values are valid floats or NaN")
+
+col_notext_ls = df.columns.tolist()
+col_notext_ls.remove('short')
+col_notext_ls.remove('long')
+
+for acol in col_notext_ls:
+  print(f"\n\n================================================== COLUMN: [{acol}] TYPE: [{df[acol].dtype}] ==================================================")
+  print(df[acol].value_counts())
+
+# CONFIGURE: Change 'None' to 'Unknown' where appropropriate
+
+col_cat_unknown_ls = ['educ02','parentrelations','urbanrural']
+
+col_num_nan_ls = ['expectdeath']
+
+
+def change_none_to_unknown(df, col_ls):
+    """
+    Changes all 'None' values to 'Unknown' in specified columns.
+
+    Args:
+        df: pandas DataFrame
+        col_ls: list of column names to process
+
+    Returns:
+        DataFrame: Copy of original with 'None' replaced by 'Unknown'
+    """
+    # Create copy to avoid modifying original
+    df_clean = df.copy()
+
+    # Process each column in the list
+    for col in col_ls:
+        # Skip if column not in dataframe
+        if col not in df.columns:
+            continue
+
+        # Replace 'None' with 'Unknown'
+        df_clean[col] = df_clean[col].replace({'None': 'Unknown',
+                                             None: 'Unknown',
+                                             'none': 'Unknown',
+                                             np.nan: 'Unknown'})
+
+    return df_clean
+
+# For category variables: nan to Unknown
+df = change_none_to_unknown(df, col_cat_unknown_ls)
+df.info()
+
+df['expectdeath'].isna().sum()
+df.shape
+
+df['expectdeath'].value_counts()
+
+df.info()
+
+# df['percent_expect_death_in_next_5_years'].value_counts()
+df['expectdeath'].value_counts()
+
+# CONFIGURE: Pick either 3 yr recidisim for rearrests or convictions
+#   More Arrests (393) vs Convictions (253)
+#   Better Signal with Convictions
+
+backup_df = df.copy(deep=True)
+
+# df.drop(columns=['percent_expect_death_in_next_5_years'], inplace=True)
+df.drop(columns=['expectdeath'], inplace=True)
+
+# df['y_arrestedafter2002'].value_counts()
+df['arrestedafter2002'].value_counts()
+
+# df['y_convictedafter2002'].value_counts()
+df['convictedafter2002'].value_counts()
+
+# CONFIGURE: Pick either 3 yr recidisim for rearrests or convictions
+#   More Arrests (393) vs Convictions (253)
+#   Better Signal with Convictions
+
+backup_df = df.copy(deep=True)
+
+# df.drop(columns=['y_arrestedafter2022'], inplace=True)
+# df.drop(columns=['y_convictedafter2002'], inplace=True)
+df.drop(columns=['convictedafter2002'], inplace=True)
+
+# prompt: download normalized_df as ibm_vignettes_normalized.csv
+
+df.to_csv('ibm_vignettes_clean.csv', encoding = 'utf-8')
+files.download('ibm_vignettes_clean.csv')
+
+# BACKUP: Original Cleaned df
+original_clean_df = df.copy(deep=True)
+original_clean_df.info()
+
+df.columns
+
+def rename_columns(df, metadata_dt):
+    # Create a copy of the dataframe
+    df_processed = df.copy()
+
+    # Create mapping dictionary for renamed columns
+    rename_mapping = {}
+    columns_to_drop = []
+
+    # Process each column according to rules
+    for col_name in df.columns:
+        if col_name in metadata_dt:
+            renamed_value = metadata_dt[col_name]['renamed']
+
+            if renamed_value == 'DROP':
+                columns_to_drop.append(col_name)
+            elif renamed_value == 'TARGET':
+                rename_mapping[col_name] = f'y_{col_name}'
+            elif renamed_value == '':
+                continue  # Keep original name
+            else:
+                rename_mapping[col_name] = renamed_value
+
+    # Drop columns marked for dropping
+    df_processed = df_processed.drop(columns=columns_to_drop)
+
+    # Rename remaining columns
+    df_processed = df_processed.rename(columns=rename_mapping)
+
+    return df_processed
+
+processed_df = rename_columns(df, metadata_dt)
+processed_df.info()
+
+def rename_columns(df, metadata_dt):
+    # Create a mapping dictionary for column renames
+    rename_mapping = {
+        col_name: metadata_dt[col_name]['renamed']
+        for col_name in df.columns
+        if col_name in metadata_dt
+    }
+
+    # Apply renaming using pandas rename method
+    # df_renamed = df.rename(columns=rename_mapping)
+
+    # return df_renamed
+    return rename_mapping
+
+rename_columns(df, metadata_dt)
+
+
+def process_column_names(df, metadata_dt):
+    """
+    Process DataFrame column names based on metadata dictionary specifications.
+
+    This function applies the following rules:
+    1. If renamed == 'DROP': Remove the column entirely
+    2. If renamed == '': Skip to next column without changes
+    3. If renamed == 'TARGET': Add 'y_' prefix to column name
+    4. Otherwise: Rename column to the string value in 'renamed'
+
+    Args:
+        df (pd.DataFrame): Input DataFrame to process
+        metadata_dt (dict): Metadata dictionary with column specifications
+
+    Returns:
+        pd.DataFrame: Processed DataFrame with updated column names
+    """
+    # Create a copy to avoid modifying the original DataFrame
+    processed_df = df.copy()
+
+    # Initialize dictionary for collecting rename mappings
+    col_rename_map_dt = {}
+
+    # Process each column according to metadata specifications
+    for column_name, specs in metadata_dt.items():
+        # Get the rename value from the specifications
+        rename_value = specs.get('renamed', '')
+
+        # Apply the renaming rules
+        if rename_value == 'DROP':
+            # Rule 1: Drop columns marked for deletion
+            if column_name in processed_df.columns:
+                processed_df = processed_df.drop(columns=[column_name])
+
+        elif rename_value == '':
+            # Rule 2: Skip columns with empty rename value
+            continue
+
+        elif rename_value == 'TARGET':
+            # Rule 3: Add 'y_' prefix to target columns
+            if column_name in processed_df.columns:
+                col_rename_map_dt[column_name] = f'y_{column_name}'
+
+        else:
+            # Rule 4: Rename column to specified value
+            if column_name in processed_df.columns:
+                col_rename_map_dt[column_name] = rename_value
+
+    # Apply all collected rename mappings at once
+    processed_df = processed_df.rename(columns=col_rename_map_dt)
+
+    return processed_df
+
+df = process_column_names(df, metadata_dt)
+
+df.info()
+
+def df_nan_report(df):
+   """
+   Generate detailed report of NaN, None, and Unknown values for each column.
+
+   Args:
+       df: pandas DataFrame to analyze
+   """
+   print("\nNaN/None/Unknown Value Report")
+   print("=" * 80)
+
+   # Track totals
+   total_rows = len(df)
+   columns_with_missing = 0
+
+   for col in df.columns:
+       # Get basic NaN count
+       nan_count = df[col].isna().sum()
+
+       # Initialize counts
+       none_count = 0
+       unknown_count = 0
+
+       # Check for None/Unknown in object columns
+       if df[col].dtype == 'object':
+           none_count = df[col].fillna('').astype(str).str.lower().eq('none').sum()
+           unknown_count = df[col].fillna('').astype(str).str.lower().eq('unknown').sum()
+
+       # Only print column details if any missing values found
+       total_missing = nan_count + none_count + unknown_count
+       if total_missing > 0:
+           columns_with_missing += 1
+           print(f"\nColumn: {col}")
+           print(f"Type: {df[col].dtype}")
+           print(f"Total Rows: {total_rows}")
+
+           if nan_count > 0:
+               print(f"NaN/Null count: {nan_count:,} ({(nan_count/total_rows)*100:.1f}%)")
+
+           if none_count > 0:
+               print(f"'None' count: {none_count:,} ({(none_count/total_rows)*100:.1f}%)")
+
+           if unknown_count > 0:
+               print(f"'Unknown' count: {unknown_count:,} ({(unknown_count/total_rows)*100:.1f}%)")
+
+           print(f"Total missing: {total_missing:,} ({(total_missing/total_rows)*100:.1f}%)")
+
+   # Print summary
+   print("\n" + "=" * 80)
+   print(f"Summary:")
+   print(f"Total columns analyzed: {len(df.columns)}")
+   print(f"Columns with missing values: {columns_with_missing}")
+   print(f"Total rows in dataset: {total_rows:,}")
+
+df_nan_report(df)
+
+df.shape
+
+df.info()
+
+df.describe()
+
+# prompt: list the total number of unique values for each column and, if it is less than 10, then print out all unique values
+
+def get_col_unique_values(df):
+  col_values_dt = {}
+  for col in df.columns:
+    unique_values = df[col].unique()
+    num_unique = len(unique_values)
+    print(f"Column '{col}': {num_unique} unique values")
+    if num_unique < 10:
+      print(f"Unique values: {unique_values}\n")
+    else:
+      unique_values = [99999]
+    col_values_dt[col] = [num_unique, unique_values]
+  return col_values_dt
+
+get_col_unique_values(df)
+
+loan_report = sv.analyze(df, target_feat='y_arrestedafter2002')
+loan_report.show_notebook()
+
+loan_report.show_html()
+
+# Download
+
+report_sweetviz_filename = "SWEETVIZ_REPORT.html"
+# loan_report.show_html(report_sweetviz_filename)
+files.download(report_sweetviz_filename)
+
+import nltk
+
+nltk.download('punkt_tab')
+
+loan_av = AutoViz_Class()
+
+dft = loan_av.AutoViz(filename='', dfte=df, verbose=1, depVar='y_arrestedafter2002',
+                 lowess=False,chart_format='svg')
+
+profile = ProfileReport(df, title='Loan Default Report', explorative=True)
+
+profile.to_notebook_iframe()
+
+profile.to_file("loan_report.html")
+
+!cp loan_report.html AUTOVIZ_REPORT.html
+
+# Download
+
+report_autoviz_filename = "AUTOVIZ_REPORT.html"
+files.download(report_autoviz_filename)
+
+# prompt: create a file_ls with filenames ending in *.csv and *.html
+'''
+import glob
+
+def create_file_ls(pattern_ls):
+  """
+  Creates a list of files matching specified patterns.
+
+  Args:
+    pattern_ls: A list of file patterns (e.g., "*.csv", "*.html").
+
+  Returns:
+    A list of file names that match the provided patterns.
+  """
+  file_ls = []
+  for pattern in pattern_ls:
+    file_ls.extend(glob.glob(pattern))
+  return file_ls
+
+# Example usage
+file_patterns = ["*.csv", "*.html"]
+file_list = create_file_ls(file_patterns)
+
+# Print the generated list
+file_list
+''';
+
+# prompt: individually download all the files in the list file_list
+'''
+from google.colab import files
+import glob
+
+def create_file_ls(pattern_ls):
+  """
+  Creates a list of files matching specified patterns.
+
+  Args:
+    pattern_ls: A list of file patterns (e.g., "*.csv", "*.html").
+
+  Returns:
+    A list of file names that match the provided patterns.
+  """
+  file_ls = []
+  for pattern in pattern_ls:
+    file_ls.extend(glob.glob(pattern))
+  return file_ls
+
+# Example usage
+file_patterns = ["*.csv", "*.html"]
+file_list = create_file_ls(file_patterns)
+
+# Print the generated list
+print(file_list)
+
+for file in file_list:
+  files.download(file)
+''';
+
+df.info()
+
+def plot_histogram(series, figsize=(12, 6), bins=20, color='#4f46e5'):
+    """
+    Creates a histogram with statistical annotations for a pandas Series.
+
+    Parameters:
+        series (pandas.Series): The input data series to plot
+        figsize (tuple): Figure dimensions (width, height) in inches
+        bins (int): Number of histogram bins
+        color (str): Hex color code or name for histogram bars
+
+    Returns:
+        matplotlib.figure.Figure: The generated histogram plot
+    """
+    # Create figure and axis
+    plt.figure(figsize=figsize)
+
+    # Create histogram
+    plt.hist(series, bins=bins, color=color, alpha=0.7, edgecolor='black')
+
+    # Add title and labels
+    plt.title(f'Distribution of {series.name}', fontsize=14, pad=15)
+    plt.xlabel(series.name, fontsize=12)
+    plt.ylabel('Frequency', fontsize=12)
+
+    # Add grid
+    plt.grid(True, alpha=0.3)
+
+    # Add statistical reference lines
+    plt.axvline(series.mean(), color='red', linestyle='--', alpha=0.8,
+                label=f'Mean: {series.mean():.1f}')
+    plt.axvline(series.median(), color='green', linestyle='--', alpha=0.8,
+                label=f'Median: {series.median():.1f}')
+
+    # Add legend
+    plt.legend()
+
+    # Adjust layout
+    plt.tight_layout()
+
+    # Print summary statistics
+    print(f"\nSummary Statistics for {series.name}:")
+    print(series.describe().round(2))
+
+    return plt.gcf()
+
+df['marriage_or_cohabitation_status_in_2002'].value_counts()
+
+df['homeless_for_2+_nights_over_last_5_years'].value_counts()
+
+df['recieved_food_stamps_in_2002'].value_counts()
+
+df['marriage_or_cohabitation_status_in_2002'].value_counts()
+
+df['highest_degree_by_2002'].value_counts()
+
+df['college_enrollment_status_in_2002'].value_counts()
+
+df['parent_or_guardian_relationship_at_age_12'].value_counts()
+
+df['race'].value_counts()
+
+def clip_outliers(series, iqr_cutoff=1.5):
+    """
+    Clips outliers in a pandas Series using the Interquartile Range (IQR) method.
+
+    Parameters:
+        series (pandas.Series): The input series containing numeric data
+        iqr_cutoff (float): The IQR multiplier to determine outlier bounds (default: 1.5)
+
+    Returns:
+        pandas.Series: A new series with outliers clipped to the IQR bounds
+    """
+    Q1 = series.quantile(0.25)
+    Q3 = series.quantile(0.75)
+    IQR = Q3 - Q1
+
+    lower_bound = Q1 - iqr_cutoff * IQR
+    upper_bound = Q3 + iqr_cutoff * IQR
+
+    return series.clip(lower=lower_bound, upper=upper_bound)
+
+df['jobs_held_in_2002'].value_counts()
+
+df['household_size_in_1997'].value_counts()
+
+df['number_of_arrests_in_last_5_years'].value_counts()
+
+df['weight_in_lbs'].describe()
+
+plot_histogram(df['weight_in_lbs'])
+
+# Clip outliers to IQR = 1.5
+df['weight_in_lbs'] = clip_outliers(df['weight_in_lbs'], iqr_cutoff=1.5)
+
+df['weight_in_lbs'].describe()
+
+df['height_total_inches'].describe()
+
+plot_histogram(df['height_total_inches'])
+
+# Clip outliers to IQR = 1.5
+df['height_total_inches'] = clip_outliers(df['height_total_inches'], iqr_cutoff=1.5)
+
+df['height_total_inches'].describe()
+
+def two_column_corr(df_subset, feature_type='categorical', figsize=(10, 6)):
+    """
+    Analyzes and visualizes correlation between two columns based on specified feature type.
+
+    Parameters:
+        df_subset (pd.DataFrame): DataFrame containing exactly two columns
+        feature_type (str): Type of features to analyze ('categorical' or 'numerical')
+        figsize (tuple): Figure dimensions (width, height) in inches
+
+    Returns:
+        dict: Dictionary containing correlation metrics where one is the computed value
+              based on feature_type and the other is np.nan
+    """
+    if len(df_subset.columns) != 2:
+        raise ValueError("Input DataFrame must contain exactly two columns")
+
+    if feature_type not in ['categorical', 'numerical']:
+        raise ValueError("feature_type must be either 'categorical' or 'numerical'")
+
+    col1, col2 = df_subset.columns
+    results = {'spearman': np.nan, 'cramers_v': np.nan}
+
+    try:
+        plt.figure(figsize=figsize)
+
+        if feature_type == 'numerical':
+            if not all(df_subset[col].dtype.kind in 'biufc' for col in [col1, col2]):
+                raise ValueError("Both columns must be numeric for numerical correlation")
+
+            correlation = df_subset[col1].corr(df_subset[col2], method='spearman')
+            results['spearman'] = correlation
+
+            plt.scatter(df_subset[col1], df_subset[col2], alpha=0.5)
+            z = np.polyfit(df_subset[col1], df_subset[col2], 1)
+            p = np.poly1d(z)
+            plt.plot(df_subset[col1], p(df_subset[col1]), "r--", alpha=0.8)
+
+            plt.xlabel(col1)
+            plt.ylabel(col2)
+            plt.title(f'Spearman Correlation: {correlation:.3f}\n{col1} vs {col2}')
+
+        else:  # categorical
+            contingency = pd.crosstab(df_subset[col1], df_subset[col2])
+            chi2, _, _, _ = chi2_contingency(contingency)
+            n = contingency.sum().sum()
+            min_dim = min(contingency.shape) - 1
+            cramers_v = np.sqrt(chi2 / (n * min_dim)) if min_dim > 0 else 0
+            results['cramers_v'] = cramers_v
+
+            normalized_contingency = contingency.div(contingency.sum(axis=1), axis=0)
+            sns.heatmap(normalized_contingency, annot=True, cmap='YlGnBu', fmt='.2f')
+            plt.title(f"Cramer's V: {cramers_v:.3f}\n{col1} vs {col2}")
+
+        plt.tight_layout()
+
+    except Exception as e:
+        plt.close()  # Clean up the figure if an error occurs
+        raise e
+
+    return results
+
+# For categorical features
+cat_corr = two_column_corr(df[['college_enrollment_status_in_2002', 'highest_degree_by_2002']],
+                          feature_type='categorical')
+print("Categorical correlation results:", cat_corr)
+
+# For numerical features (example with numeric columns)
+# num_corr = two_column_corr(df[['age', 'income']], feature_type='numerical')
+
+# For categorical features
+cat_corr = two_column_corr(df[['used_any_drug_in_last_4_years','used_marijuana_in_last_4_years']],
+                          feature_type='categorical')
+print("Categorical correlation results:", cat_corr)
+
+# For numerical features (example with numeric columns)
+# num_corr = two_column_corr(df[['age', 'income']], feature_type='numerical')
+
+# For categorical features
+cat_corr = two_column_corr(df[['used_any_drug_in_last_4_years','used_cocaine_or_other_hard_drug_in_last_4_years']],
+                          feature_type='categorical')
+print("Categorical correlation results:", cat_corr)
+
+# For numerical features (example with numeric columns)
+# num_corr = two_column_corr(df[['age', 'income']], feature_type='numerical')
+
+# For categorical features
+cat_corr = two_column_corr(df[['used_marijuana_in_last_4_years','used_cocaine_or_other_hard_drug_in_last_4_years']],
+                          feature_type='categorical')
+print("Categorical correlation results:", cat_corr)
+
+# For numerical features (example with numeric columns)
+# num_corr = two_column_corr(df[['age', 'income']], feature_type='numerical')
+
+df.info()
+
+# prompt: download normalized_df as ibm_vignettes_normalized.csv
+
+df.to_csv('ibm_vignettes_renamed_clean.csv', encoding = 'utf-8')
+files.download('ibm_vignettes_renamed_clean.csv')
+
+# prompt: upload *.csv file into Pandas DataFrame df
+
+uploaded = files.upload()
+
+for fn in uploaded.keys():
+  if fn.endswith('.csv'):
+    df = pd.read_csv(io.BytesIO(uploaded[fn]), index_col=0)
+    print('User uploaded file "{name}" with length {length} bytes'.format(
+      name=fn, length=len(uploaded[fn])))
+    break # Assumes only one .csv file is uploaded
+
+df.info()
+
+# prompt: from df, drop columns=['long','short','expectdeath']
+
+df.drop(columns=['pubid','long', 'short', 'expectdeath','anydrug','convictedafter2002'], inplace=True)
+df.info()
+
+df.info()
+
+# For Numeric Columns
+df.describe().transpose()
+
+# For Categorical Columns
+df.describe(include=['object', 'category']).transpose()
+
+# For Binary Columns
+df.describe(include=['boolean']).transpose()
+
+
+'''
+# scikit-learn imports
+from sklearn.preprocessing import (
+    StandardScaler, MinMaxScaler, FunctionTransformer,
+    OneHotEncoder
+)
+from sklearn.model_selection import StratifiedKFold
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import (
+    accuracy_score, f1_score, roc_auc_score,
+    precision_score, recall_score, confusion_matrix
+)
+
+# Model imports
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB
+from xgboost import XGBClassifier
+from sklearn.neural_network import MLPClassifier
+from imblearn.over_sampling import SMOTE
+
+from sklearn.preprocessing import RobustScaler
+
+from sklearn.preprocessing import QuantileTransformer
+''';
+
+# scikit-learn imports
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.model_selection import StratifiedKFold
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import RobustScaler
+from sklearn.preprocessing import QuantileTransformer
+from sklearn.metrics import (
+    accuracy_score, f1_score, roc_auc_score,
+    precision_score, recall_score, confusion_matrix
+)
+
+# Model imports
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB
+from xgboost import XGBClassifier
+from sklearn.neural_network import MLPClassifier
+from imblearn.over_sampling import SMOTE
+
+class ModelEvaluator:
+    def __init__(self, df: pd.DataFrame, target_col: str = 'y_arrestedafter2002'):
+        self.df = df
+        self.target_col = target_col
+        self.setup_logging()
+
+        self.numeric_features = df.select_dtypes(include=['int64', 'float64']).columns
+        self.numeric_features = [col for col in self.numeric_features if col != target_col]
+        self.categorical_features = df.select_dtypes(include=['object', 'bool']).columns
+        self.text_features = ['short_text_summary', 'long_text_summary']
+        self.categorical_features = [col for col in self.categorical_features
+                                   if col not in self.text_features]
+
+    def setup_logging(self):
+        log_dir = Path("model_evaluation_logs")
+        log_dir.mkdir(exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler(f"model_evaluation_logs/evaluation_{timestamp}.log"),
+                logging.StreamHandler()
+            ]
+        )
+
+    def get_preprocessing_pipeline(self, model_type: str) -> Pipeline:
+        """
+        Creates preprocessing pipeline with enhanced numerical stability for Naive Bayes.
+        """
+        if model_type == 'naive_bayes':
+            numeric_transformer = Pipeline(steps=[
+                ('scaler', StandardScaler()),
+                ('quantile', QuantileTransformer(
+                    n_quantiles=1000,
+                    output_distribution='normal'
+                ))
+            ])
+        else:
+            numeric_transformer = Pipeline(steps=[
+                ('scaler', StandardScaler())
+            ])
+
+        categorical_transformer = OneHotEncoder(
+            drop=None,
+            handle_unknown='ignore',
+            sparse_output=False
+        )
+
+        return ColumnTransformer(
+            transformers=[
+                ('num', numeric_transformer, self.numeric_features),
+                ('cat', categorical_transformer, self.categorical_features)
+            ],
+            remainder='drop'
+        )
+
+    def get_model(self, model_type: str) -> object:
+        """
+        Initializes models with optimized parameters.
+        """
+        models = {
+            'logistic_regression': LogisticRegression(
+                max_iter=1000, random_state=42
+            ),
+            'svm': SVC(
+                probability=True, random_state=42
+            ),
+            'naive_bayes': GaussianNB(
+                var_smoothing=1e-3,
+                priors=None
+            ),
+            'xgboost': XGBClassifier(
+                random_state=42
+            ),
+            'mlp': MLPClassifier(
+                max_iter=1000, random_state=42
+            )
+        }
+        return models[model_type]
+
+    def evaluate_model(self, model_type: str, n_splits: int = 5) -> Optional[Dict]:
+        print(f"\nEvaluating {model_type.upper()}...")
+        start_time = time.time()
+
+        X = self.df.drop(columns=[self.target_col] + self.text_features)
+        y = self.df[self.target_col]
+
+        metrics = {
+            'model_name': model_type,
+            'accuracy': [], 'f1': [], 'roc_auc': [],
+            'precision': [], 'recall': [], 'specificity': []
+        }
+
+        skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
+
+        try:
+            for fold, (train_idx, val_idx) in enumerate(skf.split(X, y), 1):
+                fold_start = time.time()
+                X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+                y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+                preprocessor = self.get_preprocessing_pipeline(model_type)
+                X_train_processed = preprocessor.fit_transform(X_train)
+                X_val_processed = preprocessor.transform(X_val)
+
+                if model_type in ['logistic_regression', 'svm', 'mlp']:
+                    smote = SMOTE(random_state=42)
+                    X_train_processed, y_train = smote.fit_resample(X_train_processed, y_train)
+
+                model = self.get_model(model_type)
+                model.fit(X_train_processed, y_train)
+
+                y_pred = model.predict(X_val_processed)
+                y_pred_proba = model.predict_proba(X_val_processed)[:, 1]
+
+                # Calculate metrics
+                metrics['accuracy'].append(accuracy_score(y_val, y_pred))
+                metrics['f1'].append(f1_score(y_val, y_pred))
+                metrics['roc_auc'].append(roc_auc_score(y_val, y_pred_proba))
+                metrics['precision'].append(precision_score(y_val, y_pred))
+                metrics['recall'].append(recall_score(y_val, y_pred))
+                tn, fp, fn, tp = confusion_matrix(y_val, y_pred).ravel()
+                metrics['specificity'].append(tn / (tn + fp))
+
+                fold_time = time.time() - fold_start
+                print(f"Fold {fold} completed in {fold_time:.2f} seconds")
+
+        except Exception as e:
+            print(f"Error in {model_type} evaluation: {str(e)}")
+            return None
+
+        total_time = time.time() - start_time
+
+        results = {
+            'model': metrics['model_name'],
+            **{f"{k}_mean": np.mean(v) for k, v in metrics.items() if k != 'model_name'},
+            **{f"{k}_std": np.std(v) for k, v in metrics.items() if k != 'model_name'},
+            'execution_time': total_time
+        }
+
+        print(f"{model_type.upper()} evaluation completed in {total_time:.2f} seconds")
+        return results
+
+    def compare_models(self, models: List[str]) -> pd.DataFrame:
+        results = []
+        total_start = time.time()
+
+        for model_type in models:
+            model_results = self.evaluate_model(model_type)
+            if model_results:
+                results.append(model_results)
+
+        total_time = time.time() - total_start
+        print(f"\nTotal evaluation time: {total_time:.2f} seconds")
+
+        return pd.DataFrame(results)
+
+    def visualize_results(self, performance_df: pd.DataFrame) -> None:
+        if performance_df.empty:
+            print("No results to visualize")
+            return
+
+        # Performance metrics plot
+        plt.figure(figsize=(15, 6))
+        metrics = ['accuracy_mean', 'f1_mean', 'roc_auc_mean']
+        x = np.arange(len(performance_df))
+        width = 0.25
+
+        for i, metric in enumerate(metrics):
+            plt.bar(x + i*width, performance_df[metric], width,
+                   label=metric.replace('_mean', ''))
+
+        plt.xlabel('Models')
+        plt.ylabel('Score')
+        plt.title('Model Performance Comparison')
+        plt.xticks(x + width, performance_df['model'], rotation=45)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig('model_performance_comparison.png')
+
+        # Execution time plot
+        plt.figure(figsize=(10, 6))
+        plt.bar(performance_df['model'], performance_df['execution_time'])
+        plt.xlabel('Models')
+        plt.ylabel('Execution Time (seconds)')
+        plt.title('Model Execution Time Comparison')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.savefig('model_execution_time_comparison.png')
+
+def run_model_comparison(df: pd.DataFrame) -> None:
+    print("Starting model comparison...")
+    start_time = time.time()
+
+    evaluator = ModelEvaluator(df)
+    models = ['logistic_regression', 'svm', 'naive_bayes', 'xgboost', 'mlp']
+
+    performance_df = evaluator.compare_models(models)
+
+    if not performance_df.empty:
+        performance_df.to_csv('model_performance_results.csv', index=False)
+        evaluator.visualize_results(performance_df)
+
+        print("\nModel Performance Summary:")
+        print(performance_df.to_string(index=False))
+
+    total_time = time.time() - start_time
+    print(f"\nTotal execution time: {total_time:.2f} seconds")
+
+%%time
+
+# NOTE: 1m08s
+
+# Run the comparison
+run_model_comparison(df)
+
+df.info()
+
+get_col_unique_values(df)
+
+from autogluon.tabular import TabularDataset, TabularPredictor
+# import ace_tools as tools
+
+%%time
+
+# NOTE:  3m23s GPU
+#       10m36s CPU
+
+# Defining target and converting data
+autogluon_df = TabularDataset(df)
+target = 'y_arrestedafter2002'
+
+# AutoGluon training
+predictor = TabularPredictor(label=target, problem_type='binary').fit(
+    autogluon_df, presets='best_quality', time_limit=600)
+
+# Leaderboard with performance metrics
+leaderboard = predictor.leaderboard(df, extra_metrics=['accuracy', 'f1', 'roc_auc'])
+
+# Export leaderboard for visualization and analysis
+# tools.display_dataframe_to_user(name="Model Performance Leaderboard", dataframe=leaderboard)
+
+# Print the leaderboard to the console
+print("Model Performance Leaderboard:")
+print(leaderboard)
+
+%%time
+'''
+# NOTE: 3m23s
+
+# Defining target and converting data
+autogluon_df = TabularDataset(df)
+target = 'y_arrestedafter2002'
+
+# AutoGluon training
+predictor = TabularPredictor(label=target, problem_type='binary').fit(
+    autogluon_df, presets='best_quality', time_limit=600)
+
+# Leaderboard with performance metrics
+leaderboard = predictor.leaderboard(df, extra_metrics=['accuracy', 'f1', 'roc_auc'])
+
+# Export leaderboard for visualization and analysis
+# tools.display_dataframe_to_user(name="Model Performance Leaderboard", dataframe=leaderboard)
+
+# Print the leaderboard to the console
+print("Model Performance Leaderboard:")
+print(leaderboard)
+''';
+
+type(leaderboard)
+
+# prompt: save and then download DataFrame 'leaderboard' as leaderboard_autogluon.csv
+
+leaderboard.to_csv('leaderboard_autogluon.csv', index=False)
+files.download('leaderboard_autogluon.csv')
+
+
+# https://github.com/scikit-learn-contrib/category_encoders
+
+!pip install category_encoders
+
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from category_encoders import TargetEncoder
+
+def transform_dataframe_to_numeric_semantic(df: pd.DataFrame, target_col: str = None) -> pd.DataFrame:
+    """
+    Transforms a DataFrame to a numeric representation suitable for semantic similarity tasks.
+
+    Steps:
+        1) Map booleans to {False: 0, True: 1}.
+        2) Handle categorical columns:
+            - Very low cardinality (<=4): Label encode.
+            - Moderate cardinality (5-50): Target encode (if target_col is provided).
+            - High cardinality (>50): Hash.
+        3) Standard scale all numeric columns.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        target_col (str, optional): Name of the target column for target encoding.
+                                   If None, target encoding is skipped. Defaults to None.
+
+    Returns:
+        pd.DataFrame: Transformed DataFrame with numeric features.
+    """
+    encoded_df = df.copy()
+
+    # 1) Boolean Columns
+    bool_cols = encoded_df.select_dtypes(include=['bool']).columns
+    for col in bool_cols:
+        encoded_df[col] = encoded_df[col].map({False: 0, True: 1})
+
+    # 2) Categorical Columns
+    cat_cols = encoded_df.select_dtypes(include=['object']).columns
+    for col in cat_cols:
+        encoded_df[col] = encoded_df[col].astype(str)
+        unique_vals = encoded_df[col].nunique()
+
+        if unique_vals <= 4:
+            le = LabelEncoder()
+            encoded_df[col] = le.fit_transform(encoded_df[col])
+        elif 5 <= unique_vals <= 50 and target_col:
+          if target_col in encoded_df.columns:
+            encoder = TargetEncoder()
+            encoded_df[col] = encoder.fit_transform(encoded_df[col], encoded_df[target_col])
+          else:
+            print(f"Warning: Target column '{target_col}' not found. Using hashing for '{col}'.")
+            encoded_df[col] = encoded_df[col].apply(lambda x: hash(x))
+        elif unique_vals > 50:
+            encoded_df[col] = encoded_df[col].apply(lambda x: hash(x))
+
+    # 3) Standard Scaling for Numeric Columns
+    numeric_cols = encoded_df.select_dtypes(include=np.number).columns
+    if not numeric_cols.empty:
+      scaler = StandardScaler()
+      encoded_df[numeric_cols] = scaler.fit_transform(encoded_df[numeric_cols])
+
+    return encoded_df
+
+feature_emb_df = transform_dataframe_to_numeric_semantic(df)
+feature_emb_df.info()
+
+# prompt: list all the columns in feature_emb_df that are not dtype==float64
+
+non_float_cols = feature_emb_df.select_dtypes(exclude=['float64']).columns
+non_float_cols
+
+for acol in non_float_cols:
+  print("feature_emb_df[acol].value_counts()")
+  feature_emb_df[acol].value_counts()
+
+feature_emb_df.head()
+
+from sklearn.preprocessing import OrdinalEncoder, StandardScaler, LabelEncoder
+from category_encoders import TargetEncoder
+
+feature_emb_df['y_arrestedafter2002'].value_counts()
+
+# Rename feature_emb_df['y_arrestedafter2002'] to 'target'
+
+feature_emb_df = feature_emb_df.rename(columns={'y_arrestedafter2002': 'target'})
+
+# Assuming your DataFrame is named 'feature_emb_df' and you have a target column named 'target'
+
+# --- marriage_or_cohabitation_status_in_2002 ---
+# Using Target Encoding (replace with embedding or ordinal if no target)
+if 'target' in feature_emb_df.columns:
+  target_encoder_marriage = TargetEncoder()
+  feature_emb_df['marriage_encoded'] = target_encoder_marriage.fit_transform(feature_emb_df['marriage_or_cohabitation_status_in_2002'], feature_emb_df['target'])
+  feature_emb_df = feature_emb_df.drop('marriage_or_cohabitation_status_in_2002', axis=1)
+else:
+  label_encoder_marriage = LabelEncoder()
+  feature_emb_df['marriage_encoded'] = label_encoder_marriage.fit_transform(feature_emb_df['marriage_or_cohabitation_status_in_2002'])
+  feature_emb_df = feature_emb_df.drop('marriage_or_cohabitation_status_in_2002', axis=1)
+
+# --- highest_degree_by_2002 ---
+degree_mapping = [['Unknown', 'GED', 'high school diploma (HS)', "associate/junior college (AA)", "bachelor's degree (BA, BS)"]]
+ordinal_encoder_degree = OrdinalEncoder(categories=degree_mapping)
+feature_emb_df['degree_encoded'] = ordinal_encoder_degree.fit_transform(feature_emb_df[['highest_degree_by_2002']])
+feature_emb_df = feature_emb_df.drop('highest_degree_by_2002', axis=1)
+
+# --- college_enrollment_status_in_2002 ---
+enrollment_mapping = [['enrolled in grades 1-12, not a high school graduate',
+                       'not enrolled, no high school degree, no GED', 'not enrolled, GED',
+                       'not enrolled, high school degree', 'not enrolled, some college',
+                       'enrolled in a 2-year college', 'not enrolled, 2-year college graduate',
+                       'enrolled in a 4-year college', 'not enrolled, 4-year college graduate',
+                       'enrolled in a graduate program']]
+ordinal_encoder_enrollment = OrdinalEncoder(categories=enrollment_mapping)
+feature_emb_df['enrollment_encoded'] = ordinal_encoder_enrollment.fit_transform(feature_emb_df[['college_enrollment_status_in_2002']])
+feature_emb_df = feature_emb_df.drop('college_enrollment_status_in_2002', axis=1)
+
+# --- parent_or_guardian_relationship_at_age_12 ---
+# Using Target Encoding (replace with embedding or label encoder if no target)
+if 'target' in feature_emb_df.columns:
+  target_encoder_parent = TargetEncoder()
+  feature_emb_df['parent_encoded'] = target_encoder_parent.fit_transform(feature_emb_df['parent_or_guardian_relationship_at_age_12'], feature_emb_df['target'])
+  feature_emb_df = feature_emb_df.drop('parent_or_guardian_relationship_at_age_12', axis=1)
+else:
+  label_encoder_parent = LabelEncoder()
+  feature_emb_df['parent_encoded'] = label_encoder_parent.fit_transform(feature_emb_df['parent_or_guardian_relationship_at_age_12'])
+  feature_emb_df = feature_emb_df.drop('parent_or_guardian_relationship_at_age_12', axis=1)
+
+# --- race ---
+# Using Label Encoding
+label_encoder_race = LabelEncoder()
+feature_emb_df['race_encoded'] = label_encoder_race.fit_transform(feature_emb_df['race'])
+feature_emb_df = feature_emb_df.drop('race', axis=1)
+
+# --- Standard Scaling (for all numeric columns) ---
+scaler = StandardScaler()
+numeric_cols = feature_emb_df.select_dtypes(include=['number']).columns
+feature_emb_df[numeric_cols] = scaler.fit_transform(feature_emb_df[numeric_cols])
+
+feature_emb_df.info()
+
+# Download and save feature_emb_df as 'vignettes_vectorized.csv'
+
+from google.colab import files
+feature_emb_df.to_csv('vignettes_vectorized.csv', index=False)
+files.download('vignettes_vectorized.csv')
+
+# * https://github.com/dreamquark-ai/tabnet
+
+!pip install pytorch-tabnet
+
+%%time
+
+# NOTE:
+
+from pytorch_tabnet.tab_model import TabNetClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, classification_report, roc_curve, auc
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Step 1: Encode categorical columns
+df_processed = df.copy()
+categorical_columns = df_processed.select_dtypes(include=['object', 'category']).columns
+encoders = {}
+
+for col in categorical_columns:
+    le = LabelEncoder()
+    df_processed[col] = le.fit_transform(df_processed[col])
+    encoders[col] = le
+
+# Step 2: Convert boolean columns to integers
+bool_columns = df_processed.select_dtypes(include=['bool']).columns
+df_processed[bool_columns] = df_processed[bool_columns].astype(int)
+
+# Recheck data types
+print("Data types after converting boolean columns to integers:")
+print(df_processed.dtypes)
+
+# Ensure all columns are numeric
+non_numeric_columns = df_processed.select_dtypes(exclude=['number']).columns
+if len(non_numeric_columns) > 0:
+    print(f"Non-numeric columns detected: {non_numeric_columns}")
+    raise ValueError("All columns must be numeric. Check preprocessing.")
+else:
+    print("All columns are now numeric.")
+
+# Step 3: Splitting the dataset
+X = df_processed.drop(columns=['y_arrestedafter2002'])  # Features
+y = df_processed['y_arrestedafter2002']  # Target variable
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
+X_valid, X_test, y_valid, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
+
+# Step 4: Convert to NumPy arrays
+X_train_np = X_train.values
+y_train_np = y_train.values
+X_valid_np = X_valid.values
+y_valid_np = y_valid.values
+X_test_np = X_test.values
+y_test_np = y_test.values
+
+# Step 5: Initialize and train TabNetClassifier
+clf = TabNetClassifier(seed=42)
+clf.fit(
+    X_train_np, y_train_np,
+    eval_set=[(X_valid_np, y_valid_np)],
+    eval_name=['validation'],
+    eval_metric=['accuracy'],
+    max_epochs=100,
+    patience=10,
+    batch_size=256,
+    virtual_batch_size=128
+)
+
+# Predictions and probabilities
+y_pred = clf.predict(X_test_np)
+y_pred_proba = clf.predict_proba(X_test_np)[:, 1]
+
+# Performance metrics
+accuracy = accuracy_score(y_test_np, y_pred)
+f1 = f1_score(y_test_np, y_pred)
+roc_auc = roc_auc_score(y_test_np, y_pred_proba)
+
+# Display classification report
+print("Classification Report:")
+print(classification_report(y_test_np, y_pred))
+
+# Print performance metrics
+print("Performance Metrics:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"F1 Score: {f1:.4f}")
+print(f"ROC-AUC: {roc_auc:.4f}")
+
+# Visualizations
+# 1. ROC Curve
+fpr, tpr, _ = roc_curve(y_test_np, y_pred_proba)
+roc_auc = auc(fpr, tpr)
+
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (area = {roc_auc:.2f})")
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("Receiver Operating Characteristic (ROC) Curve")
+plt.legend(loc="lower right")
+plt.show()
+
+# 2. Feature Importance
+feature_importances = clf.feature_importances_
+plt.figure(figsize=(10, 6))
+plt.barh(X.columns, feature_importances, align='center')
+plt.xlabel("Feature Importance")
+plt.title("TabNet Feature Importances")
+plt.show()
+
+
+
+
+
+
+
+
+%%time
+
+# NOTE:
+
+from pytorch_tabnet.tab_model import TabNetClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, classification_report, roc_curve, auc
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Step 1: Encode categorical columns
+df_processed = df.copy()
+categorical_columns = df_processed.select_dtypes(include=['object', 'category']).columns
+encoders = {}
+
+for col in categorical_columns:
+    le = LabelEncoder()
+    df_processed[col] = le.fit_transform(df_processed[col])
+    encoders[col] = le
+
+# Step 2: Validate data types
+print("Data types after encoding:")
+print(df_processed.dtypes)
+
+# Ensure all columns are numeric
+non_numeric_columns = df_processed.select_dtypes(exclude=['number']).columns
+if len(non_numeric_columns) > 0:
+    print(f"Non-numeric columns detected: {non_numeric_columns}")
+    raise ValueError("All columns must be numeric. Check preprocessing.")
+
+# Step 3: Splitting the dataset
+X = df_processed.drop(columns=['y_arrestedafter2002'])  # Features
+y = df_processed['y_arrestedafter2002']  # Target variable
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
+X_valid, X_test, y_valid, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
+
+# Step 4: Convert to NumPy arrays
+X_train_np = X_train.values
+y_train_np = y_train.values
+X_valid_np = X_valid.values
+y_valid_np = y_valid.values
+X_test_np = X_test.values
+y_test_np = y_test.values
+
+# Step 5: Initialize and train TabNetClassifier
+clf = TabNetClassifier(seed=42)
+clf.fit(
+    X_train_np, y_train_np,
+    eval_set=[(X_valid_np, y_valid_np)],
+    eval_name=['validation'],
+    eval_metric=['accuracy'],
+    max_epochs=100,
+    patience=10,
+    batch_size=256,
+    virtual_batch_size=128
+)
+
+# Predictions and probabilities
+y_pred = clf.predict(X_test_np)
+y_pred_proba = clf.predict_proba(X_test_np)[:, 1]
+
+# Performance metrics
+accuracy = accuracy_score(y_test_np, y_pred)
+f1 = f1_score(y_test_np, y_pred)
+roc_auc = roc_auc_score(y_test_np, y_pred_proba)
+
+# Display classification report
+print("Classification Report:")
+print(classification_report(y_test_np, y_pred))
+
+# Print performance metrics
+print("Performance Metrics:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"F1 Score: {f1:.4f}")
+print(f"ROC-AUC: {roc_auc:.4f}")
+
+# Visualizations
+# 1. ROC Curve
+fpr, tpr, _ = roc_curve(y_test_np, y_pred_proba)
+roc_auc = auc(fpr, tpr)
+
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (area = {roc_auc:.2f})")
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("Receiver Operating Characteristic (ROC) Curve")
+plt.legend(loc="lower right")
+plt.show()
+
+# 2. Feature Importance
+feature_importances = clf.feature_importances_
+plt.figure(figsize=(10, 6))
+plt.barh(X.columns, feature_importances, align='center')
+plt.xlabel("Feature Importance")
+plt.title("TabNet Feature Importances")
+plt.show()
+
+
+
+
+
+
+
+
+from pytorch_tabnet.tab_model import TabNetClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, classification_report, roc_curve, auc
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Ensure all categorical columns are encoded
+df_processed = df.copy()
+categorical_columns = df_processed.select_dtypes(include=['object', 'category']).columns
+encoders = {}
+
+for col in categorical_columns:
+    le = LabelEncoder()
+    df_processed[col] = le.fit_transform(df_processed[col])
+    encoders[col] = le
+
+# Splitting the dataset into train/test/validation
+X = df_processed.drop(columns=['y_arrestedafter2002'])  # Features
+y = df_processed['y_arrestedafter2002']  # Target variable
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
+X_valid, X_test, y_valid, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
+
+# Convert data to NumPy arrays as required by TabNet
+X_train_np = X_train.values
+y_train_np = y_train.values
+X_valid_np = X_valid.values
+y_valid_np = y_valid.values
+X_test_np = X_test.values
+y_test_np = y_test.values
+
+# Initialize and train TabNetClassifier
+clf = TabNetClassifier(seed=42)
+clf.fit(
+    X_train_np, y_train_np,
+    eval_set=[(X_valid_np, y_valid_np)],
+    eval_name=['validation'],
+    eval_metric=['accuracy'],
+    max_epochs=100,
+    patience=10,
+    batch_size=256,
+    virtual_batch_size=128
+)
+
+# Predictions and probabilities
+y_pred = clf.predict(X_test_np)
+y_pred_proba = clf.predict_proba(X_test_np)[:, 1]
+
+# Performance metrics
+accuracy = accuracy_score(y_test_np, y_pred)
+f1 = f1_score(y_test_np, y_pred)
+roc_auc = roc_auc_score(y_test_np, y_pred_proba)
+
+# Display classification report
+print("Classification Report:")
+print(classification_report(y_test_np, y_pred))
+
+# Print performance metrics
+print("Performance Metrics:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"F1 Score: {f1:.4f}")
+print(f"ROC-AUC: {roc_auc:.4f}")
+
+# Visualizations
+# 1. ROC Curve
+fpr, tpr, _ = roc_curve(y_test_np, y_pred_proba)
+roc_auc = auc(fpr, tpr)
+
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (area = {roc_auc:.2f})")
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("Receiver Operating Characteristic (ROC) Curve")
+plt.legend(loc="lower right")
+plt.show()
+
+# 2. Feature Importance
+feature_importances = clf.feature_importances_
+plt.figure(figsize=(10, 6))
+plt.barh(X.columns, feature_importances, align='center')
+plt.xlabel("Feature Importance")
+plt.title("TabNet Feature Importances")
+plt.show()
+
+
+
+
+
+
+
+
+%%time
+
+# NOTE:
+
+from pytorch_tabnet.tab_model import TabNetClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, classification_report, roc_curve, auc
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Copy the original DataFrame to avoid modifying it directly
+df_processed = df.copy()
+
+# Encode categorical variables
+categorical_columns = df_processed.select_dtypes(include=['object', 'category']).columns
+encoders = {}
+
+for col in categorical_columns:
+    le = LabelEncoder()
+    df_processed[col] = le.fit_transform(df_processed[col])
+    encoders[col] = le
+
+# Splitting the dataset into train/test/validation
+X = df_processed.drop(columns=['y_arrestedafter2002'])  # Features
+y = df_processed['y_arrestedafter2002']  # Target variable
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
+X_valid, X_test, y_valid, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
+
+# Convert data to NumPy arrays as required by TabNet
+X_train_np = X_train.values
+y_train_np = y_train.values
+X_valid_np = X_valid.values
+y_valid_np = y_valid.values
+X_test_np = X_test.values
+y_test_np = y_test.values
+
+# Initialize and train TabNetClassifier
+clf = TabNetClassifier(seed=42)
+clf.fit(
+    X_train_np, y_train_np,
+    eval_set=[(X_valid_np, y_valid_np)],
+    eval_name=['validation'],
+    eval_metric=['accuracy'],
+    max_epochs=100,
+    patience=10,
+    batch_size=256,
+    virtual_batch_size=128
+)
+
+# Predictions and probabilities
+y_pred = clf.predict(X_test_np)
+y_pred_proba = clf.predict_proba(X_test_np)[:, 1]
+
+# Performance metrics
+accuracy = accuracy_score(y_test_np, y_pred)
+f1 = f1_score(y_test_np, y_pred)
+roc_auc = roc_auc_score(y_test_np, y_pred_proba)
+
+# Display classification report
+print("Classification Report:")
+print(classification_report(y_test_np, y_pred))
+
+# Print performance metrics
+print("Performance Metrics:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"F1 Score: {f1:.4f}")
+print(f"ROC-AUC: {roc_auc:.4f}")
+
+# Visualizations
+# 1. ROC Curve
+fpr, tpr, _ = roc_curve(y_test_np, y_pred_proba)
+roc_auc = auc(fpr, tpr)
+
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (area = {roc_auc:.2f})")
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("Receiver Operating Characteristic (ROC) Curve")
+plt.legend(loc="lower right")
+plt.show()
+
+# 2. Feature Importance
+feature_importances = clf.feature_importances_
+plt.figure(figsize=(10, 6))
+plt.barh(X.columns, feature_importances, align='center')
+plt.xlabel("Feature Importance")
+plt.title("TabNet Feature Importances")
+plt.show()
+
+
+
+
+
+
+
+
+from pytorch_tabnet.tab_model import TabNetClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, classification_report, roc_curve, auc
+
+# Splitting the dataset into train/test/validation
+X = df.drop(columns=['y_arrestedafter2002'])  # Features
+y = df['y_arrestedafter2002']  # Target variable
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
+X_valid, X_test, y_valid, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
+
+# Convert data to NumPy arrays as required by TabNet
+X_train_np = X_train.values
+y_train_np = y_train.values
+X_valid_np = X_valid.values
+y_valid_np = y_valid.values
+X_test_np = X_test.values
+y_test_np = y_test.values
+
+# Initialize and train TabNetClassifier
+clf = TabNetClassifier(seed=42)
+clf.fit(
+    X_train_np, y_train_np,
+    eval_set=[(X_valid_np, y_valid_np)],
+    eval_name=['validation'],
+    eval_metric=['accuracy'],
+    max_epochs=100,
+    patience=10,
+    batch_size=256,
+    virtual_batch_size=128
+)
+
+# Predictions and probabilities
+y_pred = clf.predict(X_test_np)
+y_pred_proba = clf.predict_proba(X_test_np)[:, 1]
+
+# Performance metrics
+accuracy = accuracy_score(y_test_np, y_pred)
+f1 = f1_score(y_test_np, y_pred)
+roc_auc = roc_auc_score(y_test_np, y_pred_proba)
+
+# Display classification report
+print("Classification Report:")
+print(classification_report(y_test_np, y_pred))
+
+# Print performance metrics
+print("Performance Metrics:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"F1 Score: {f1:.4f}")
+print(f"ROC-AUC: {roc_auc:.4f}")
+
+# Visualizations
+# 1. ROC Curve
+fpr, tpr, _ = roc_curve(y_test_np, y_pred_proba)
+roc_auc = auc(fpr, tpr)
+
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (area = {roc_auc:.2f})")
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("Receiver Operating Characteristic (ROC) Curve")
+plt.legend(loc="lower right")
+plt.show()
+
+# 2. Feature Importance
+feature_importances = clf.feature_importances_
+plt.figure(figsize=(10, 6))
+plt.barh(X.columns, feature_importances, align='center')
+plt.xlabel("Feature Importance")
+plt.title("TabNet Feature Importances")
+plt.show()
+
+
+!pip install tabpfn
+
+df.info()
+
+df_col_unique_vals(df)
+
+from sklearn.metrics import accuracy_score
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+
+from tabpfn import TabPFNClassifier
+
+X, y = load_breast_cancer(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+X_train.shape, X_test.shape, y_train.shape, y_test.shape
+
+
+
+
+# N_ensemble_configurations controls the number of model predictions that are ensembled with feature and class rotations (See our work for details).
+# When N_ensemble_configurations > #features * #classes, no further averaging is applied.
+
+classifier = TabPFNClassifier(device='cpu', N_ensemble_configurations=32)
+
+classifier.fit(X_train, y_train)
+y_eval, p_eval = classifier.predict(X_test, return_winning_probability=True)
+
+print('Accuracy', accuracy_score(y_test, y_eval))
+
+df.info()
+
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+import pandas as pd
+from tabpfn import TabPFNClassifier
+
+# Preprocessing
+
+# Copy the DataFrame to avoid modifying the original
+df_processed = df.copy()
+
+# Drop non-informative columns based on metadata
+# columns_to_drop = ['short_text_summary', 'long_text_summary']  # Example: Text-based columns
+# df_processed = df_processed.drop(columns=columns_to_drop)
+
+# Convert categorical columns to numeric using LabelEncoder
+categorical_columns = df_processed.select_dtypes(include=['object']).columns
+encoders = {}
+
+for col in categorical_columns:
+    le = LabelEncoder()
+    df_processed[col] = le.fit_transform(df_processed[col])
+    encoders[col] = le
+
+# Convert binary columns to integers (if needed)
+binary_columns = df_processed.select_dtypes(include=['bool']).columns
+df_processed[binary_columns] = df_processed[binary_columns].astype(int)
+
+# Ensure all columns are numeric
+assert df_processed.select_dtypes(exclude=['number']).empty, "All columns must be numeric."
+
+# Split features and target
+X = df_processed.drop(columns=['arrestedafter2002'])  # Replace with actual target column name
+y = df_processed['arrestedafter2002']  # Target column
+
+# Split into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+# Initialize and train TabPFNClassifier
+classifier = TabPFNClassifier(device='cpu', N_ensemble_configurations=32)
+
+classifier.fit(X_train, y_train)
+y_eval, p_eval = classifier.predict(X_test, return_winning_probability=True)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_eval)
+print('Accuracy:', accuracy)
+
+
+%%time
+
+# NOTE: 2m17s
+
+from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, classification_report, roc_curve, auc
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+import pandas as pd
+import matplotlib.pyplot as plt
+import time
+from tabpfn import TabPFNClassifier
+
+# Preprocessing
+
+# Start timer
+start_time = time.time()
+
+# Copy the DataFrame to avoid modifying the original
+df_processed = df.copy()
+
+# Drop non-informative columns based on metadata
+# columns_to_drop = ['short_text_summary', 'long_text_summary']  # Example: Text-based columns
+# df_processed = df_processed.drop(columns=columns_to_drop)
+
+# Convert categorical columns to numeric using LabelEncoder
+categorical_columns = df_processed.select_dtypes(include=['object']).columns
+encoders = {}
+
+for col in categorical_columns:
+    le = LabelEncoder()
+    df_processed[col] = le.fit_transform(df_processed[col])
+    encoders[col] = le
+
+# Convert binary columns to integers (if needed)
+binary_columns = df_processed.select_dtypes(include=['bool']).columns
+df_processed[binary_columns] = df_processed[binary_columns].astype(int)
+
+# Ensure all columns are numeric
+assert df_processed.select_dtypes(exclude=['number']).empty, "All columns must be numeric."
+
+# Split features and target
+X = df_processed.drop(columns=['arrestedafter2002'])  # Replace with actual target column name
+y = df_processed['arrestedafter2002']  # Target column
+
+# Split into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+# Initialize and train TabPFNClassifier
+classifier = TabPFNClassifier(device='cpu', N_ensemble_configurations=32)
+classifier.fit(X_train, y_train)
+
+# Predictions and probabilities
+y_eval, p_eval = classifier.predict(X_test, return_winning_probability=True)
+
+# Stop timer
+elapsed_time = time.time() - start_time
+
+# Performance metrics
+accuracy = accuracy_score(y_test, y_eval)
+f1 = f1_score(y_test, y_eval)
+roc_auc = roc_auc_score(y_test, p_eval)
+
+print("Performance Metrics:")
+print(f"Accuracy: {accuracy:.4f}")
+print(f"F1 Score: {f1:.4f}")
+print(f"ROC-AUC: {roc_auc:.4f}")
+print(f"Total Elapsed Time: {elapsed_time:.2f} seconds")
+
+# Classification Report
+print("\nClassification Report:")
+print(classification_report(y_test, y_eval))
+
+# Visualizations
+# 1. ROC Curve
+fpr, tpr, _ = roc_curve(y_test, p_eval)
+roc_auc = auc(fpr, tpr)
+
+plt.figure(figsize=(10, 6))
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (area = {roc_auc:.2f})")
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("Receiver Operating Characteristic (ROC) Curve")
+plt.legend(loc="lower right")
+plt.show()
+
+# 2. Histogram of Predicted Probabilities
+plt.figure(figsize=(10, 6))
+plt.hist(p_eval, bins=20, color='skyblue', edgecolor='black')
+plt.title("Histogram of Predicted Probabilities")
+plt.xlabel("Predicted Probability")
+plt.ylabel("Frequency")
+plt.show()
+
+# Analysis and Interpretation
+print("\nAnalysis and Interpretation:")
+print(f"- The accuracy of {accuracy:.4f} indicates the proportion of correct predictions.")
+print(f"- The F1 score of {f1:.4f} suggests a balanced performance in precision and recall.")
+print(f"- The ROC-AUC score of {roc_auc:.4f} shows the model's ability to discriminate between classes.")
+print(f"- The ROC curve visualizes the trade-off between true positive and false positive rates.")
+print(f"- The histogram of predicted probabilities reveals the confidence of predictions, which can be useful for threshold analysis.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

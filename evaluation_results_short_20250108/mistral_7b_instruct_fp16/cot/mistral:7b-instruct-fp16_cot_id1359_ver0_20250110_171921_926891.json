@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1359,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-10T22:19:21.925774186Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.165647031,
+    "load_duration": 0.017624785,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 170,
+    "eval_duration": 3.131
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"He is a young adult, which has been found to increase the risk of recidivism in some studies.\"),\n    (\"race\", \"high\", \"Being Black has been identified as a high-risk factor for recidivism due to systemic disparities in the criminal justice system.\"),\n    (\"arrest_history\", \"low\", \"Having only two arrests and convictions may indicate lower risk compared to individuals with more extensive criminal histories.\"),\n    (\"conviction\", \"high\", \"Being convicted of a crime increases the likelihood of future offending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_171921_926891",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1359,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

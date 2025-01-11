@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1235,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-10T22:26:59.741759074Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.928860217,
+    "load_duration": 0.030046146,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 157,
+    "eval_duration": 1.877
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"21 is relatively young, which is typically associated with lower risk.\"),\n    (\"Race\", \"medium\", \"Black individuals often face systemic disadvantages that can increase recidivism risk, but this factor alone does not strongly predict risk.\"),\n    (\"Arrest History - Frequency\", \"medium\", \"One arrest suggests a potential pattern of criminal behavior, but it is not yet indicative of high risk.\"),\n    (\"Criminal History - Conviction Status\", \"low\", \"Lack of conviction suggests lower risk as the individual has not been proven guilty and may have learned from the arrest experience.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_172659_742882",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1235,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

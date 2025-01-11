@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 181,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-10T22:26:01.263078987Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.409372498,
+    "load_duration": 0.027366437,
+    "prompt_eval_count": 207,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 197,
+    "eval_duration": 2.361
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Being 19 years old is generally considered low risk as young adults have a higher likelihood of desistence.\"),\n    (\"Gender (Female)\", \"medium\", \"Females tend to have lower recidivism rates than males, but the rate can still be significant.\"),\n    (\"Race (Black)\", \"medium\", \"There are disproportionately high incarceration and recidivism rates among Black individuals due to systemic biases and socioeconomic factors.\"),\n    (\"Number of Arrests (3)\", \"high\", \"Higher number of arrests indicates a pattern of criminal behavior, increasing the risk of recidivism.\"),\n    (\"Convicted\", \"medium\", \"Having been convicted suggests a higher level of involvement in criminal activity, but not as severe as having served time.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_172601_264231",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 181,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

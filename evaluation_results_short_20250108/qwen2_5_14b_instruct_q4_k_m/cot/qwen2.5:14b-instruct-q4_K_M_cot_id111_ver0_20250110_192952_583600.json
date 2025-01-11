@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 111,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-11T00:29:52.582497692Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.425798397,
+    "load_duration": 0.02449268,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 159,
+    "eval_duration": 2.362
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young, which can be a mitigating factor in some contexts.\"),\n    (\"gender\", \"low\", \"Female gender has generally been associated with lower recidivism rates compared to males.\"),\n    (\"ethnicity\", \"medium\", \"Hispanic ethnicity itself does not predict higher recidivism but can indicate systemic issues or social determinants affecting risk.\"),\n    (\"prior_arrests\", \"high\", \"Five prior arrests suggest a pattern of involvement in the criminal justice system, indicating significant risk.\"),\n    (\"convictions\", \"high\", \"Having convictions along with multiple arrests indicates that offenses are not isolated incidents.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_192952_583600",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 111,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 5 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1337,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi4:14b-fp16",
+    "created_at": "2025-01-10T23:33:47.238058838Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.290742878,
+    "load_duration": 0.018391862,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 226,
+    "eval_duration": 8.261
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Younger offenders generally have a higher risk of recidivism due to impulsivity and lack of life experience, but being on the younger end of adulthood (20 years old) may reduce this slightly compared to teenage offenders.\"),\n    (\"gender\", \"low\", \"Females statistically have lower recidivism rates than males across various studies.\"),\n    (\"ethnicity\", \"medium\", \"Hispanic individuals may face systemic challenges and biases that could influence recidivism, though it is important to consider these factors cautiously without overgeneralizing individual risk.\"),\n    (\"number_of_arrests\", \"low\", \"Having been arrested only once suggests limited prior interaction with the criminal justice system, indicating lower recidivism risk compared to multiple arrests.\"),\n    (\"conviction_status\", \"medium\", \"A conviction indicates a confirmed legal transgression and could suggest higher risk than mere arrest without conviction; however, it is still a single offense which might moderate this factor.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_183347_239499",
+    "model": "phi4:14b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1337,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

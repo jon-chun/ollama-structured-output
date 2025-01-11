@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 633,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-11T00:40:56.663539082Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.766701272,
+    "load_duration": 0.033476142,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.077,
+    "eval_count": 161,
+    "eval_duration": 4.649
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The individual is young (20 years old), which is often associated with higher recidivism rates.\"),\n    (\"gender\", \"high\", \"Males generally have a higher likelihood of rearrest compared to females.\"),\n    (\"ethnicity\", \"low\", \"Ethnicity alone does not strongly predict recidivism without additional context or bias considerations.\"),\n    (\"arrest_history\", \"high\", \"Four prior arrests indicate a pattern of criminal behavior, which is highly predictive of future offenses.\"),\n    (\"conviction_status\", \"medium\", \"Having been convicted indicates involvement in more serious crimes, but the nature and severity are not specified.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_194056_664931",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 633,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

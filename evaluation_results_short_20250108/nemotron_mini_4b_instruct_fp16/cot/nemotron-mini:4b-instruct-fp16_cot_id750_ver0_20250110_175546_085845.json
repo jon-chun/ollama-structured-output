@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 750,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-10T22:55:46.084240194Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.162489768,
+    "load_duration": 0.049823787,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 180,
+    "eval_duration": 2.101
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Age (young)\", \"low\", \"Textual Reasoning: The person is an 18-year-old male, which indicates a higher risk of reoffending. However, being arrested but not convicted suggests that the risk might be lower than expected.\"),\n    (\"Race/Ethnicity (White)\", \"medium\", \"Textual Reasoning: Being White does not significantly impact recidivism rates in this context.\"),\n    (\"Arrest History (1 time arrest without conviction)\", \"low\", \"Textual Reasoning: The person has only been arrested once but has not yet been convicted. This is a positive factor, as it means they have not yet had the opportunity to commit crimes and demonstrate recidivist behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_175546_085845",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 750,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

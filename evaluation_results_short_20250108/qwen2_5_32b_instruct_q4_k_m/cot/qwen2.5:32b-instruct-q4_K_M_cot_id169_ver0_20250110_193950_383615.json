@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 169,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-11T00:39:50.382024982Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.279468919,
+    "load_duration": 0.024040659,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.079,
+    "eval_count": 247,
+    "eval_duration": 7.169
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is 21 years old. In general, younger age is associated with higher recidivism rates; however, the peak recidivism risk for males tends to be in their late teens and early twenties.\"),\n    (\"gender\", \"high\", \"Males have historically higher rearrest rates compared to females due to a variety of social and biological factors.\"),\n    (\"race\", \"low\", \"While race can play a role in criminal justice outcomes, it is not as significant a factor as others like age and gender. White individuals do not typically exhibit particularly high recidivism rates unless other risk factors are present.\"),\n    (\"arrest_count\", \"medium\", \"Having been arrested three times indicates some level of involvement with the criminal justice system but does not necessarily correlate directly to future rearrests without further context about the nature of these arrests and convictions.\"),\n    (\"conviction_status\", \"high\", \"Being convicted suggests a more serious engagement in criminal behavior compared to those who were only arrested. Convictions may indicate a higher propensity for reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_193950_383615",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 169,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

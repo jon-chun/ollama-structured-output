@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1315,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-10T22:25:58.850889581Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.125360066,
+    "load_duration": 0.030416366,
+    "prompt_eval_count": 207,
+    "prompt_eval_duration": 0.022,
+    "eval_count": 173,
+    "eval_duration": 2.07
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at assessment\", \"low\", \"Being 20 years old is relatively young, with less criminal history to indicate future recidivism.\"),\n    (\"Race/Ethnicity\", \"medium\", \"Research shows a higher rate of recidivism among Black individuals due to systemic factors, but this should be considered alongside other factors.\"),\n    (\"Criminal History - Number of arrests\", \"high\", \"Two previous arrests indicate a pattern of criminal behavior and a higher likelihood of reoffending.\"),\n    (\"Criminal History - Convictions\", \"medium\", \"Having convictions suggests a greater likelihood of recidivism, but not as strong an indicator as the number of arrests.\"),\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_172558_852020",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1315,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

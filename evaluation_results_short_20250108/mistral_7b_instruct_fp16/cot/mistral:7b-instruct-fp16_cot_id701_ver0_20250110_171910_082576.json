@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 701,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-10T22:19:10.080917454Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.927925204,
+    "load_duration": 0.017966019,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 103,
+    "eval_duration": 1.893
+  },
+  "response": {
+    "raw_message_text": "{\n\"risk_factors\": [\n{\"factor1\", \"high\", \"The person has been arrested once but not convicted, indicating a possible likelihood of future criminal behavior.\"},\n{\"factor2\", \"medium\", \"Being White is not a significant risk factor for recidivism in this case since it is not associated with a high or low risk of reoffending.\"}\n],\n\"prediction\": \"NO\",\n\"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_171910_082576",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 701,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

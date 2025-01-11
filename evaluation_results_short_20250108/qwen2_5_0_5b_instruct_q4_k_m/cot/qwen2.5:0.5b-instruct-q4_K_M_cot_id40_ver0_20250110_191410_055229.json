@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 40,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "created_at": "2025-01-11T00:14:10.054119353Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.286318404,
+    "load_duration": 0.0317301,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 80,
+    "eval_duration": 0.238
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"age\", \"medium\", \"Hispanic\"],\n    [\"race\", \"low\", \"Hispanic\"],\n    [\"history_of_arrests\", \"high\", \"3 times\"],\n    [\"convictions\", \"high\", \"arrested\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_191410_055229",
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 40,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "medium",
+      "Hispanic"
+    ],
+    [
+      "race",
+      "low",
+      "Hispanic"
+    ],
+    [
+      "history_of_arrests",
+      "high",
+      "3 times"
+    ],
+    [
+      "convictions",
+      "high",
+      "arrested"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 3 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

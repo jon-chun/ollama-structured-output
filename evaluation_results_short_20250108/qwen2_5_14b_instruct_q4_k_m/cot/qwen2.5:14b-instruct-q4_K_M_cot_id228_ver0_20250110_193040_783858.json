@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 228,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-11T00:30:40.782748706Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.420675197,
+    "load_duration": 0.025040477,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.035,
+    "eval_count": 158,
+    "eval_duration": 2.353
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"medium\", \"Age at first arrest being 18 years old is moderately indicative of higher risk for rearrest given it suggests early onset of criminal behavior.\"),\n    (\"number_of_previous_arrests\", \"high\", \"Having been arrested 4 times indicates a pattern of involvement with the justice system, significantly increasing the likelihood of future arrests.\"),\n    (\"race_or_ethnicity\", \"low\", \"Identifying as White does not have strong statistical association with higher recidivism rates compared to other demographic factors. However, it is important to consider systemic biases that may affect arrest and conviction rates across different racial groups.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_193040_783858",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 228,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

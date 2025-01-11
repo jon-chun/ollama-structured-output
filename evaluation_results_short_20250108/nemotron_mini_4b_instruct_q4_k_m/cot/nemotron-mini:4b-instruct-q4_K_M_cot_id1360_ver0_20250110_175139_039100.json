@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1360,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-10T22:51:39.037761719Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.025693306,
+    "load_duration": 0.041447362,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 161,
+    "eval_duration": 0.976
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"prior arrests (none)\", \"low\", \"This risk factor is considered low as the individual has only been arrested twice but not convicted. This suggests that she may have had minor involvement in criminal activities.\"),\n    (\"age under 25\", \"medium\", \"Being a young female increases recidivism risk, however this can be mitigated by education and employment status.\"),\n    (\"race (Black)\", \"high\", \"Racial profiling has been documented to increase the likelihood of false accusations. However, without additional information on specific incidents or community involvement in these arrests, it is difficult to determine how much influence race plays here.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_175139_039100",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1360,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as Black. She has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

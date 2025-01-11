@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 849,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-01-10T22:38:22.077640822Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.792785184,
+    "load_duration": 0.016762713,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.101,
+    "eval_count": 181,
+    "eval_duration": 2.673
+  },
+  "response": {
+    "raw_message_text": " {\n\"risk_factors\": [\n(\"number of past arrests\", \"medium\", \"One arrest in the past indicates some involvement with the criminal justice system.\"),\n(\"number of past convictions\", \"low\", \"No conviction record was found.\"),\n(\"age\", \"low\", \"Being 21 years old suggests a lower risk of recidivism compared to younger individuals.\")\n],\n\"prediction\": \"NO\",\n\"confidence\": 60\n}\n\nWhile this person has been arrested once, the fact that she has no conviction record and is slightly older than typical high-risk offenders contribute to a lower assessment of recidivism risk. However, it's essential to consider that other factors not included in this analysis might impact her risk level. The confidence level reflects the limited information available for assessment.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_173822_079056",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 849,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

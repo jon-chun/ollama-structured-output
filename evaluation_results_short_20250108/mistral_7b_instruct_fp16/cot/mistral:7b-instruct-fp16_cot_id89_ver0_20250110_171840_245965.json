@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 89,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-10T22:18:40.244644202Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.373313065,
+    "load_duration": 0.014361802,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 236,
+    "eval_duration": 4.342
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"age\",\n      \"value\": \"low\",\n      \"textual_reasoning\": \"Being only 21 years old is a low risk factor as young adults tend to be less likely to engage in criminal behavior than older adults.\"\n    },\n    {\n      \"factor2\": \"race\",\n      \"value\": \"medium\",\n      \"textual_reasoning\": \"Being White may not necessarily increase the likelihood of rearrest, but it could potentially contribute to other risk factors such as socioeconomic status or access to resources.\"\n    },\n    {\n      \"factor3\": \"criminal_history\",\n      \"value\": \"high\",\n      \"textual_reasoning\": \"Having been arrested twice, even if not convicted, is a high risk factor as it indicates a history of criminal behavior and increases the likelihood of future offending.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_171840_245965",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 89,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "value": "low",
+      "textual_reasoning": "Being only 21 years old is a low risk factor as young adults tend to be less likely to engage in criminal behavior than older adults."
+    },
+    {
+      "factor2": "race",
+      "value": "medium",
+      "textual_reasoning": "Being White may not necessarily increase the likelihood of rearrest, but it could potentially contribute to other risk factors such as socioeconomic status or access to resources."
+    },
+    {
+      "factor3": "criminal_history",
+      "value": "high",
+      "textual_reasoning": "Having been arrested twice, even if not convicted, is a high risk factor as it indicates a history of criminal behavior and increases the likelihood of future offending."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
