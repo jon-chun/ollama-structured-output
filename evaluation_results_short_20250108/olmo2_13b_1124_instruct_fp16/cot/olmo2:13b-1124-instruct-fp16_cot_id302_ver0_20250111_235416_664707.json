@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 302,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:54:16.663376123Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.259758329,
+    "load_duration": 0.021466377,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 385,
+    "eval_duration": 13.218
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young adults have varying recidivism rates depending on socio-economic factors, but age alone is not a strong predictor without additional context.\"),\n    (\"gender\", \"low\", \"Female gender is generally associated with lower recidivism rates compared to males, but this can vary widely based on other factors.\"),\n    (\"race\", \"medium\", \"White race does not typically correlate with higher or lower recidivism in isolation; other socio-economic indicators are more relevant.\"),\n    (\"arrest_count\", \"low\", \"One arrest suggests some level of involvement with the criminal justice system, but it's not indicative of future behavior without more information.\"),\n    (\"conviction\", \"medium\", \"A conviction indicates actual criminal activity, which increases the likelihood of reoffending compared to just an arrest.\"),\n    (\"age_at_first_arrest\", \"low\", \"Being 21 years old at first arrest means she is in an early stage of potential criminal trajectory; younger age at first arrest is more concerning.\"),\n    (\"prior_crime_severity\", \"medium\", \"Severity is not specified, but any conviction increases risk.\"),\n    (\"employment_status\", \"medium\", \"Unspecified employment status; unemployed or underemployed individuals may have higher recidivism rates due to lack of opportunities.\"),\n    (\"education_level\", \"low\", \"Unspecified education level; higher education is typically associated with lower recidivism.\"),\n    (\"social_support\", \"low\", \"Unspecified social support; strong support networks can reduce recidivism.\"),\n    (\"criminal_networks\", \"high\", \"Not specified but assumed absent; association with criminal networks significantly increases risk.\"),\n    (\"history_of_violence\", \"medium\", \"Not specified; a history of violence is a strong predictor of future violent offenses.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_235416_664707",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 302,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

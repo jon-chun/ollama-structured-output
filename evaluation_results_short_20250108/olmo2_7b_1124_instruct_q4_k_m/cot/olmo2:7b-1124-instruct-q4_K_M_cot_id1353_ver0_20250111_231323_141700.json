@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1353,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:13:23.140518075Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.72830844,
+    "load_duration": 0.025085296,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 325,
+    "eval_duration": 2.691
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger adults often have less mature decision-making skills, which can increase impulsivity and risk for reoffense.\"),\n    (\"race\", \"high\", \"Statistically, some racial groups may face systemic challenges that increase the likelihood of criminal justice involvement, although individual circumstances are crucial.\"),\n    (\"previous_arrests\", \"medium\", \"Multiple arrests suggest a pattern of behavior that increases the likelihood of future offenses, though non-convictions do not guarantee future crimes.\"),\n    (\"no_convictions\", \"low\", \"Lack of convictions might indicate less serious offenses or effective legal defense; however, repeated arrests still signal risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThe JSON object predicts a \"YES\" for recidivism with 75% confidence based on the following reasoning:\n\n- The individual's age of 21 is considered 'medium' risk due to the developmental stage typically associated with less mature decision-making.\n- Race is assigned as 'high' risk, considering statistical correlations without dismissing the importance of individual circumstances.\n- Previous arrests (three times) are rated as 'medium' risk as they indicate a pattern of behavior that could lead to future offenses.\n- The absence of convictions ('no_convictions') is assigned 'low' risk, suggesting less severe criminal behavior or successful legal defenses. However, repeated arrests still imply a notable level of risk.\n\nThe overall assessment leads to a prediction of reoffense within the next three years with a 75% confidence level.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_231323_141700",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1353,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 3 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

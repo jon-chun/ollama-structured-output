@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 580,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:35:18.272422583Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.419513824,
+    "load_duration": 0.019087074,
+    "prompt_eval_count": 255,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 309,
+    "eval_duration": 2.389
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Unmarried Status\", \"medium\", \"While unmarried status itself isn't inherently high risk, it can indicate instability or lack of long-term commitment which might correlate with higher recidivism likelihood.\"),\n    (\"Number of Previous Jobs Held\", \"low\", \"Having held one job suggests limited employment history and potentially fewer positive behavioral patterns associated with stable employment.\"),\n    (\"Household Size\", \"low\", \"A household size of 5 might imply financial challenges or overcrowding, but without more context on stability or resources, it leans towards neutral risk.\"),\n    (\"Living Situation Prior to Age 12\", \"low\", \"Living with biological mother until age 12 suggests a potentially nurturing environment, though absence of formal marriage history complicates direct correlation.\"),\n    (\"Unknown Marital Status at Age 12\", \"low\", \"The lack of marital status information at a formative age does not strongly predict recidivism on its own without other contextual factors.\"),\n    (\"Gender\", \"low\", \"Gender alone does not reliably predict recidivism rates in the absence of other significant risk factors.\"),\n    (\"Cohabitation Status\", \"low\", \"Cohabitation without marriage doesn't inherently indicate increased recidivism risk without additional indicators like instability or conflict history.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163518_273741",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 580,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

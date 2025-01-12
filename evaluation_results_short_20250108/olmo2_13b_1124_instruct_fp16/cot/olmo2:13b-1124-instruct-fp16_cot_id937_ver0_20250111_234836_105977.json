@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 937,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:48:36.10480344Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.896063748,
+    "load_duration": 0.019513758,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 258,
+    "eval_duration": 8.854
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are generally at a medium risk level for recidivism.\"),\n    (\"gender\", \"low\", \"Female offenders tend to have lower recidivism rates compared to males.\"),\n    (\"race\", \"low\", \"White offenders typically have lower recidivism rates compared to some other racial groups.\"),\n    (\"prior_arrests\", \"medium\", \"Two prior arrests suggest a moderate history of involvement with the criminal justice system.\"),\n    (\"prior_convictions\", \"high\", \"A conviction indicates actual involvement in criminal activity, increasing recidivism risk.\"),\n    (\"age_at_first_offense\", \"low\" if \"<18\" or \"high\" if \">18\", \"If she was under 18 at her first offense, it's considered a mitigating factor lowering risk; if over 18, it increases risk.\"),\n    (\"criminal_record_length\", \"medium\", \"Two arrests and one conviction suggest a nascent criminal record, which is medium risk.\"),\n    (\"history_of_violence\", \"high\" if \"yes\", \"If there is a history of violence, it significantly raises the recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_234836_105977",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 937,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

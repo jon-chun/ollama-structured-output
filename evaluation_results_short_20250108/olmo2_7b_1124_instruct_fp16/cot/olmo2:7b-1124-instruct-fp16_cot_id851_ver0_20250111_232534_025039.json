@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 851,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:25:34.023339539Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.464160739,
+    "load_duration": 0.020893931,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 345,
+    "eval_duration": 6.426
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are generally at a higher risk of offending compared to older adults due to lower life responsibility, less stable living conditions, and peer influences.\"),\n    (\"arrest_count\", \"medium\", \"An increased number of arrests may indicate a pattern of behavior that could lead to further criminal activity.\"),\n    (\"conviction_status\", \"high\", \"Having been convicted suggests a history of offending, which is a strong indicator of future risk.\"),\n    (\"racial_identification\", \"medium\", \"Research indicates that minority groups, including Black individuals, face systemic barriers and higher incarceration rates, though individual behavior also plays a critical role. This factor is less about inherent risk and more about societal context.\"),\n    (\"previous_recidivism_rate\", \"high\", \"A prior history of reoffending significantly increases the likelihood of future offenses.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object indicates that the individual's risk factors are categorized as follows:\n\n* **Age:** Medium Risk - Young adults generally have higher offending rates.\n* **Arrest Count:** Medium Risk - More arrests suggest a pattern of behavior.\n* **Conviction Status:** High Risk - A prior conviction is indicative of criminal behavior.\n* **Racial Identification:** Medium Risk - The societal context suggests increased risk for Black individuals.\n* **Previous Recidivism Rate:** High Risk - Past reoffending increases the likelihood of future offenses.\n\nThe overall prediction is 'YES,' indicating a relatively high chance of rearrest within three years, with a confidence level of 75. This assessment considers both individual behavior and broader systemic factors.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232534_025039",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 851,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

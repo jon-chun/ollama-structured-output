@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 40,
+    "id": 990,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:47:30.528559826Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.648555278,
+    "load_duration": 0.019511567,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 222,
+    "eval_duration": 7.606
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age can indicate lower risk of recidivism due to developmental factors.\"),\n    (\"gender\", \"low\", \"Females generally have a lower recidivism rate compared to males.\"),\n    (\"race\", \"medium\", \"White individuals may have varying recidivism rates based on socio-economic factors.\"),\n    (\"prior_arrests\", \"low\", \"A single arrest without conviction suggests limited prior involvement with the justice system.\"),\n    (\"age_at_first_arrest\", \"medium\", \"Arrested at 18 may indicate recent introduction to criminal behavior, which could change.\"),\n    (\"conviction_status\", \"low\", \"No conviction lowers the immediate risk of institutionalization and its associated risks.\"),\n    (\"age_18_to_21_window\", \"medium\", \"Increased risk within this age range due to developmental challenges and peer influences.\"),\n    (\"gender_specification\", \"low\", \"Being female is often associated with lower recidivism rates.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 40\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_234730_529788",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 990,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

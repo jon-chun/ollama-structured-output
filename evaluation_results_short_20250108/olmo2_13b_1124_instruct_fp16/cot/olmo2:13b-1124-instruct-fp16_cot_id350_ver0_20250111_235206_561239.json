@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 55,
+    "id": 350,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:52:06.559583323Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.692502036,
+    "load_duration": 0.024931724,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 281,
+    "eval_duration": 9.646
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young adults have a lower risk of recidivism compared to older adults unless other high-risk factors are present.\"),\n    (\"gender\", \"medium\", \"Females generally have lower recidivism rates, but it does not negate other factors.\"),\n    (\"race\", \"low\", \"Being White does not significantly impact recidivism risk independently.\"),\n    (\"previous_arrests_without_conviction\", \"medium\", \"Multiple arrests without conviction suggest criminal involvement but do not confirm guilt.\"),\n    (\"age_at_first_arrest\", \"unknown\", \"This factor is crucial but missing, impacting the assessment.\"),\n    (\"age_22_specific_risk\", \"low\", \"At 22, her developmental stage may still be conducive to change if supported.\"),\n    (\"criminal_history_length\", \"low\", \"Only two arrests without convictions suggests a limited history with law enforcement.\"),\n    (\"history_of_violence_or_property_crime\", \"unknown\", \"Details about the nature of offenses are missing, affecting risk assessment.\"),\n    (\"employment_status\", \"unknown\", \"Employment can be protective against recidivism, but her status is unknown.\"),\n    (\"support_system_availability\", \"unknown\", \"Lack of information on family or community support complicates assessment.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 55\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_235206_561239",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 350,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

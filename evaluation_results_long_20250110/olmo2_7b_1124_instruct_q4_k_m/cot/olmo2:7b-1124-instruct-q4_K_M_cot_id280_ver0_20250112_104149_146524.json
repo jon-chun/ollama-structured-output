@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 280,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T15:41:49.144834739Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.082534278,
+    "load_duration": 0.018675284,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 366,
+    "eval_duration": 3.044
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Younger individuals often have less life experience, which can correlate with higher risk for reoffending.\"),\n    (\"race\", \"medium\", \"Research shows disparities in the criminal justice system that may impact treatment and recidivism rates. Being Black can be a risk factor due to systemic biases.\"),\n    (\"arrest_count\", \"high\", \"A history of arrests, especially multiple ones, suggests a pattern of behavior that may increase the likelihood of reoffending.\"),\n    (\"living_solo\", \"low\", \"Living alone might not inherently increase risk; however, social support is often associated with lower recidivism rates.\"),\n    (\"education_level\", \"high\", \"Lack of a high school diploma or GED typically correlates with lower employment opportunities and increased potential for engaging in criminal activities.\"),\n    (\"employment_status\", \"low\", \"Having held one job does not necessarily predict risk; stable employment is generally associated with reduced reoffending.\"),\n    (\"drug_use\", \"low\", \"Abstinence from drug use over a four-year period indicates reduced likelihood of substance-related offenses.\"),\n    (\"mental_health\", \"low\", \"No recent depression and no drug use suggest mental health is not a significant risk factor at this moment.\"),\n    (\"family_structure_early_life\", \"medium\", \"Growing up in a stable family home can provide positive influences that may mitigate future criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object predicts a higher likelihood of reoffending based on the presented risk factors. The reasoning behind each rating is provided in the \"textual reasoning\" field for each factor, and a confidence level of 75% is assigned to reflect the analysis's reliability.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_104149_146524",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 280,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted. He is 5 feet 7 inches and weighs 170 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

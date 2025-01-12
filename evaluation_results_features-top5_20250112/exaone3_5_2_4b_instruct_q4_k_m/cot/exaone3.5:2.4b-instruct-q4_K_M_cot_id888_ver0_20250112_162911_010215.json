@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 888,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:29:11.008901231Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.326094575,
+    "load_duration": 0.020146956,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 297,
+    "eval_duration": 1.297
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Unmarried Status\", \"medium\", \"Being unmarried can correlate with higher instability and potential difficulties in stable living arrangements, which might affect recidivism due to social support structures.\"),\n    (\"Previous Employment History\", \"low\", \"Having held multiple jobs suggests adaptability and engagement in productive activities, generally reducing recidivism risk as it indicates a capacity for self-sufficiency.\"),\n    (\"Household Size\", \"low\", \"Living with a household of four might imply financial stability or at least a supportive living environment, which typically mitigates risks associated with recidivism.\"),\n    (\"Living Situation with Biological Mother\", \"low\", \"Growing up with biological maternal care could indicate a stable upbringing, potentially lowering long-term risk of criminal behavior due to positive early influences.\"),\n    (\"Marital Status Unknown at Age 12\", \"medium\", \"Unknown marital status at a young age could suggest instability early on, though this alone isn't conclusive without further context such as parental influence or environment.\"),\n    (\"Age Context\", \"low\", \"Without specific age details, the impact on recidivism is speculative but generally younger individuals might have more time to develop positive habits or face challenges without severe established patterns yet.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162911_010215",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 888,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

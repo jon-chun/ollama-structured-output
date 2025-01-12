@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 88,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T15:43:36.455592121Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.770646021,
+    "load_duration": 0.012033829,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 446,
+    "eval_duration": 3.739
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Younger individuals often have less life experience and may be more impulsive.\"),\n    (\"criminal history\", \"high\", \"Multiple arrests and convictions significantly increase the risk of recidivism.\"),\n    (\"drug use\", \"medium\", \"Current drug use raises the risk, but in this case, it's noted as past use without depression.\"),\n    (\"education\", \"high\", \"Lack of a high school diploma or GED is associated with lower employment opportunities and higher crime rates.\"),\n    (\"employment status\", \"low\", \"Having held one job indicates some level of employment stability, which may mitigate risk.\"),\n    (\"living situation\", \"medium\", \"Living alone can lead to reduced social support and increased isolation.\"),\n    (\"religious beliefs\", \"low\", \"Belief in a higher power may provide a personal moral compass and reduce risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```\n\nThe reasoning for each risk factor assignment is as follows:\n\n- **Age**: High risk due to the typical developmental stage of youth often being associated with higher impulsivity and criminal behavior.\n- **Criminal History**: High risk because a history of multiple arrests and convictions indicates a pattern of reoffending.\n- **Drug Use**: Medium risk since the report states past use (not current) without mention of depression, which could indicate potential substance-related issues influencing behavior.\n- **Education**: High risk due to the association between lower education levels and higher rates of criminal activity.\n- **Employment Status**: Low risk because having held at least one job shows some level of responsibility and stability.\n- **Living Situation**: Medium risk considering living alone may decrease social support systems that could otherwise act as a deterrent to crime.\n- **Religious Beliefs**: Low risk because the belief in a higher power might provide moral guidance and reduce the propensity for reoffending.\n\nThe overall prediction is \"YES\" indicating a high likelihood of recidivism within three years, with a confidence level of 85%. This reflects the cumulative impact of several significant risk factors outweighing the mitigating factor provided by holding at least one job.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_104336_456894",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 88,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 10 times and has been convicted. He is 6 feet 0 inches and weighs 155 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

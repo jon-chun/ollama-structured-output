@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 293,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T05:11:21.682621545Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.825924885,
+    "load_duration": 0.015410631,
+    "prompt_eval_count": 114,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 966,
+    "eval_duration": 9.799
+  },
+  "response": {
+    "raw_message_text": "He earns $35,000 per year and owns his home.\nHe smokes one pack of cigarettes per day and is currently taking medication for high blood pressure.\nHe drinks alcohol about once a week.\nThe person's father also has high blood pressure.\nIf the risk factors indicate that the individual has a high chance of having a heart attack in the next 10 years, then your model should return `{ \"prediction\": \"YES\", \"confidence\": number }` where \"number\" is between 0 and 100 (a higher number means greater confidence).\nIf not, it should return `{ \"prediction\": \"NO\", \"confidence\": number }` where \"number\" is again between 0 and 100.\nHere's an example of a model returning a prediction:\n```json\n{\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```\nAnd here's another one:\n```json\n{\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}\n```\nTo help you get started, we have included a sample API request below. Try it out in your favorite HTTP client (cURL, Insomnia, Postman, etc). You can also test your model locally by using the provided `curl` command to invoke it with the given payload:\n```sh\ncurl -X 'POST' \\\n  -H 'accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{ \"age\": 30,\"gender\": \"Male\",\"education_level\":\"Master's degree\",\"household_income\":25000.0,\"homeownerStatus\":true,\"smoker\":true,\"alcohol\":false,\"father_chd\":true }' \\\n  'https://run.mocky.io/v2/874f163e-5cac-42fb-9b0a-756eb20ef7dc?XDEBUG_SESSION_START=phpstorm%3Adisabled'\n```\nThe API endpoint you should use is: `https://run.mocky.io/v2/874f163e-5cac-42fb-9b0a-756eb20ef7dc` (replace it with your own endpoint). Your model's response must be a valid JSON object as described above, but without any additional text before or after the object itself (such as `\"` at the beginning and end of lines).\nYou are NOT allowed to use any external data sets for training purposes. You can only use the provided data set below. If you have problems loading this dataset in your preferred programming language/framework, please let us know.\n'''\nfrom sklearn import datasets\nimport json\nimport numpy as np\n\ndef predict(data):\n    d = {'education_level': ['Primary', 'High school', 'College', 'Master\\'s degree'],\n         'household_income': [10000, 25000, 45000],\n         'homeownerStatus': ['Yes', 'No'],\n         'smoker': ['No', 'Yes'],\n         'alcohol': ['Yes', 'No'],\n         'father_chd': ['Yes', 'No']}\n    dataset = datasets.fetch_openml('heart-disease')\n    X = dataset['data'][:, 5:]\n    y = dataset['target'] == 1  # True for heart disease patients\n\n    for i in range(len(d)):\n        if data[i] not in d[i]:\n            return {'prediction': 'NO', 'confidence': 0}\n        X[:, i] = [x == data[i] for x in X[:, i]]\n\n    scores = np.dot(X, y)\n    predictions = scores > len(y)/2 - 1e-6  # Avoid division by zero when num_samples is one\n    return {'prediction': 'YES' if predictions[0] else 'NO', 'confidence': round((len([x for x in y if x == predictions]) / len(y)) * 100)}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_001121_683888",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 293,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n"
+  }
+}

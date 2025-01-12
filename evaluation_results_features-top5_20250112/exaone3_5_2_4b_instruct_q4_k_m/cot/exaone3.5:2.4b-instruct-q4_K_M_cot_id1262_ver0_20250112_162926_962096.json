@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1262,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:29:26.960847417Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.175067202,
+    "load_duration": 0.019319027,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 273,
+    "eval_duration": 1.148
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Male Gender\", \"medium\", \"Historically, males have higher recidivism rates compared to females, though this gap narrows with age.\"),\n    (\"Unmarried Status\", \"high\", \"Being unmarried may indicate instability, potentially affecting support systems and employment stability.\"),\n    (\"Two Jobs\", \"low\", \"Occupational stability can mitigate recidivism risk by providing financial security and social engagement.\"),\n    (\"Household Size of 3\", \"low\", \"Living with family members suggests a supportive environment, which generally correlates with lower recidivism.\"),\n    (\"Lived with Biological Dad\", \"medium\", \"Possibly indicates consistent familial presence and potential positive upbringing, but lacks details on duration or quality.\"),\n    (\"Unknown Marital Status at Age 12\", \"medium\", \"Early life without clear marital status might suggest instability, though impact diminishes over time without concrete evidence.\"),\n    (\"Prior Criminal History Not Explicit\", \"low\", \"Lack of specific criminal history information makes it challenging to assess directly; absence here is not strong evidence against recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162926_962096",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1262,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their biological dad, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

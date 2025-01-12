@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 871,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:02:38.453872662Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.32851202,
+    "load_duration": 0.012148814,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 382,
+    "eval_duration": 7.292
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals often have less mature decision-making skills, which can contribute to higher risk levels.\"),\n    (\"number_of_arrests\", \"high\", \"Multiple arrests suggest a pattern of behavior that could increase the likelihood of future offenses.\"),\n    (\"gender\", \"low\", \"Statistically, male offenders are more likely to recidivate than female offenders, but this specific factor should be considered in context with other factors.\"),\n    (\"race\", \"low\", \"While race can be a factor influencing social and economic opportunities, individual behavior is a more direct indicator of risk.\"),\n    (\"education_level\", \"high\", \"Lack of education can be associated with lower socioeconomic status and higher risk for criminal behavior.\"),\n    (\"employment_status\", \"high\", \"Unemployment can lead to increased time spent in environments where crime is more likely.\"),\n    (\"drug_use\", \"medium\", \"Current drug use indicates a possible ongoing involvement with illegal activities and substances, which might correlate with higher recidivism risk.\"),\n    (\"mood_state\", \"low\", \"Feeling down does not directly predict criminal behavior; it's the actions taken while in such a state that matter.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a stable family environment can provide positive influences that reduce the likelihood of future offenses.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object assigns relative weights to each risk factor based on established criminal justice research, and then combines them to predict a 3-year rearrest recidivism risk for the individual described. The prediction is \"YES\" with a confidence level of 75%. Please note that this is a hypothetical assessment and actual risk assessments should be conducted by qualified professionals who consider all relevant factors in the context of the individual's case.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110238_455218",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 871,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 7 times and has been convicted. She is 5 feet 5 inches and weighs 120 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

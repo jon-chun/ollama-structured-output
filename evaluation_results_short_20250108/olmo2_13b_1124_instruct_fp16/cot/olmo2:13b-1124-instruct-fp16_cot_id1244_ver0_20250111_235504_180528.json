@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 55,
+    "id": 1244,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:55:04.178855563Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.760655883,
+    "load_duration": 0.019266814,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 167,
+    "eval_duration": 5.719
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults often engage in higher risk behaviors.\"),\n    (\"gender\", \"low\", \"Males tend to have higher recidivism rates, but age mitigates somewhat.\"),\n    (\"race\", \"low\", \"Research shows race is not a direct predictor once other factors are controlled.\"),\n    (\"prior_arrests\", \"low\", \"One arrest without conviction suggests lower involvement in serious criminal activity.\"),\n    (\"age_at_first_arrest\", \"medium\", \"Arrest at 21 years indicates recent entry into potential criminal behavior.\"),\n    (\"unconvicted_status\", \"medium\", \"Not being convicted may indicate lesser severity or lack of proof, but risk is still present.\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 55\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_235504_180528",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1244,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

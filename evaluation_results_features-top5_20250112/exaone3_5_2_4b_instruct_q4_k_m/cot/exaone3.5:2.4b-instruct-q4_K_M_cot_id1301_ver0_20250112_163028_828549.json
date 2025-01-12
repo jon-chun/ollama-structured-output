@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1301,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:30:28.827332329Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.166032677,
+    "load_duration": 0.021984764,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 265,
+    "eval_duration": 1.134
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Unmarried Status\", \"medium\", \"Being unmarried can increase vulnerability to social instability and potential involvement in criminal activities due to fewer familial ties providing support.\"],\n    [\"Previous Employment\", \"low\", \"Having worked multiple jobs suggests adaptability and past engagement with structured environments, which generally correlates negatively with recidivism.\"],\n    [\"Household Size\", \"low\", \"Larger household size (5 individuals) might indicate financial dependence or community support structures that can mitigate risk factors.\"],\n    [\"Living with Biological Mother\", \"low\", \"Growing up with biological family can offer emotional stability and support systems which typically reduce recidivism risk.\"],\n    [\"Unknown Marital Status at Age 12\", \"medium\", \"Lack of information on marital status during formative years might suggest instability, but without concrete evidence of delinquency, this remains speculative.\"],\n    [\"Cohabitation Status Unknown\", \"low\", \"Not cohabiting implies less exposure to shared living environments that could pose certain risks associated with cohabitation, though this factor is less impactful without more context.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163028_828549",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1301,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Unmarried Status",
+      "medium",
+      "Being unmarried can increase vulnerability to social instability and potential involvement in criminal activities due to fewer familial ties providing support."
+    ],
+    [
+      "Previous Employment",
+      "low",
+      "Having worked multiple jobs suggests adaptability and past engagement with structured environments, which generally correlates negatively with recidivism."
+    ],
+    [
+      "Household Size",
+      "low",
+      "Larger household size (5 individuals) might indicate financial dependence or community support structures that can mitigate risk factors."
+    ],
+    [
+      "Living with Biological Mother",
+      "low",
+      "Growing up with biological family can offer emotional stability and support systems which typically reduce recidivism risk."
+    ],
+    [
+      "Unknown Marital Status at Age 12",
+      "medium",
+      "Lack of information on marital status during formative years might suggest instability, but without concrete evidence of delinquency, this remains speculative."
+    ],
+    [
+      "Cohabitation Status Unknown",
+      "low",
+      "Not cohabiting implies less exposure to shared living environments that could pose certain risks associated with cohabitation, though this factor is less impactful without more context."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

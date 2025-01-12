@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1191,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-12T20:34:00.029609347Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.961426391,
+    "load_duration": 0.030850604,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 226,
+    "eval_duration": 2.918
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n     (\"Gender: Male\", \"high\", \"Males are statistically more likely to reoffend compared to females.\"),\n     (\"Marital Status: Never Married\", \"low\", \"Unmarried individuals may have less stability and support, but this factor alone does not significantly increase recidivism risk.\"),\n     (\"Cohabitation: No\", \"medium\", \"Lack of a stable living arrangement can lead to increased stress and potential criminal behavior.\"),\n     (\"Employment History: 1 Job\", \"high\", \"Inconsistent employment history is associated with higher likelihood of reoffending due to financial instability.\"),\n     (\"Household Size: 5\", \"medium\", \"Larger household size may indicate overcrowding or lack of resources, increasing risk factors for recidivism.\"),\n     (\"Living Arrangement at Age 12: Biological Mother\", \"low\", \"Stable family structure during childhood can be protective against criminal behavior.\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_153400_030799",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1191,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

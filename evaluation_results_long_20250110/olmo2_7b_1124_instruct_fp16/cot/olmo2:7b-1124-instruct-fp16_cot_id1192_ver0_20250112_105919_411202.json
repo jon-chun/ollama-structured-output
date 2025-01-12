@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1192,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:59:19.409500108Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.851123887,
+    "load_duration": 0.025081919,
+    "prompt_eval_count": 316,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 364,
+    "eval_duration": 6.804
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults may exhibit higher risk for recidivism compared to older individuals due to less life experience and still forming identity.\"),\n    (\"race\", \"low\", \"While racial factors can influence certain systemic aspects of criminal justice, individual behavior is more nuanced and influenced by personal circumstances.\"),\n    (\"arrest history\", \"high\", \"First-time arrestees often face higher recidivism rates as they are transitioning through the criminal justice system.\"),\n    (\"education level\", \"medium\", \"Lack of education can be associated with lower employment opportunities and higher risk of criminal activities as a means of survival.\"),\n    (\"employment status\", \"low\", \"Not having a job may limit economic opportunities, which can increase the risk of offending if other supports are lacking.\"),\n    (\"drug use\", \"high\", \"Recent drug use increases the risk of rearrest for drug-related offenses.\"),\n    (\"mental health\", \"low\", \"The absence of recent depression indicates stable mental health, which generally lowers the risk of recidivism.\"),\n    (\"early life environment\", \"medium\", \"Growing up in a larger household in an urban setting can indicate exposure to higher crime environments and influences, yet family structure and support systems also play a role.\"),\n    (\"religious beliefs\", \"low\", \"Belief in a higher power is often associated with lower rates of criminal behavior as it may provide moral guidance and support.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object predicts that the individual has a medium risk of rearrest within three years, based on various factors such as age, arrest history, lack of education, and early life environment, among others. The confidence level in this prediction is 75%.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105919_411202",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1192,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 127 lbs. She is married and is currently living with her spouse. She has a GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

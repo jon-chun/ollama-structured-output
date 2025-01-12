@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 634,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:35:45.344765785Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.424358075,
+    "load_duration": 0.018230985,
+    "prompt_eval_count": 258,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 312,
+    "eval_duration": 2.395
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Married Status\", \"medium\", \"Strong familial support can act as a protective factor against recidivism.\"),\n    (\"Spouse Present\", \"low\", \"Presence of a supportive spouse likely mitigates risks associated with incarceration.\"),\n    (\"Previous Employment\", \"medium\", \"Work history may indicate engagement and stability, reducing likelihood of reoffending.\"),\n    (\"Household Size\", \"low\", \"Small household size suggests fewer demands and potential for less complex social interactions contributing to reoffending.\"),\n    (\"Biological Parent Status\", \"high\", \"Unknown status, but parental involvement can significantly influence behavior and support systems.\"),\n    (\"Age at Group Quarters\", \"medium\", \"Living in group quarters at age 12 might suggest prior exposure to structured environments, but lacks direct correlation without more context.\"),\n    (\"Gender\", \"low\", \"Gender itself does not inherently correlate strongly with recidivism rates without considering other socio-economic factors.\"),\n    (\"Household Composition\", \"medium\", \"Living with adults only suggests a focused living environment potentially reducing risk factors related to family dynamics.\"),\n    (\"Age\", \"low\", \"No specific age provided beyond group quarters at age 12; general recidivism trends suggest stability beyond this point.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163545_345952",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 634,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 2 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

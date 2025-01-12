@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 213,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:33:01.759014822Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.422441582,
+    "load_duration": 0.02605454,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.032,
+    "eval_count": 100,
+    "eval_duration": 1.36
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"age\", \"medium\", \"Young adults generally have higher recidivism rates, but this can vary widely based on individual circumstances.\"], [\"self_identified_race\", \"low\", \"Research shows racial identity as a factor in profiling but not a definitive predictor of recidivism.\"], [\"arrests_without_conviction\", \"high\", \"Multiple arrests without convictions could indicate persistent criminal behavior or involvement.\"]], \"prediction\": \"YES\", \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_233301_760557",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 213,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "medium",
+      "Young adults generally have higher recidivism rates, but this can vary widely based on individual circumstances."
+    ],
+    [
+      "self_identified_race",
+      "low",
+      "Research shows racial identity as a factor in profiling but not a definitive predictor of recidivism."
+    ],
+    [
+      "arrests_without_conviction",
+      "high",
+      "Multiple arrests without convictions could indicate persistent criminal behavior or involvement."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

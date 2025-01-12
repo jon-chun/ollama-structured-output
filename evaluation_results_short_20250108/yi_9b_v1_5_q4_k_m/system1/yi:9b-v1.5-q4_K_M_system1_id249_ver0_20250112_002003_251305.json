@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 249,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T05:20:03.249748226Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.246270339,
+    "load_duration": 0.016600589,
+    "prompt_eval_count": 113,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 818,
+    "eval_duration": 8.218
+  },
+  "response": {
+    "raw_message_text": "He lives in an apartment building with a single roommate. He currently works at the Walmart, but his long term career goals are still undecided.\nHis parents did not go to college, but he is married. His current education level is High School diploma.\nHe does not currently have any children and has never been pregnant before. He reports smoking 1-2 packs a day (he drinks alcohol).\nHe has no history of mental illness or substance abuse issues. He takes no prescription medication daily, but gets sick often with colds/flu.\nThe person's blood pressure is measured to be 105 over 67. His BMI is calculated to be 28.7.\nHis fasting glucose is measured at 93 and his total cholesterol is below 200 mg/dl (he has a low level of high density lipoprotein, or HDL).\nThe person's blood tests come back with normal results for A1C, kidney function, liver enzymes, thyroid panel, and albumin:creatine ratio.\"\"\"\n\ndef riskAssessment(text):\n    risk = {}\n    if text == \"\":\n        risk['prediction'] = 'NO'\n        risk['confidence'] = 0\n        return risk\n\n    isMale = False\n    isFemale = False\n    hasParentsEducated = False\n    hasNoParentsEducated = False\n    isSmoker = False\n    drinksAlcohol = False\n    usesPrescriptionMedication = False\n    isObese = False\n    hasHdLCholesterolBelow200 = True\n    hasNormalA1C = True\n    hasNormalKidneyFunction = True\n    hasNormalLiverEnzymes = True\n    hasNormalThyroidPanel = True\n    hasNormalAlbuminCreatineRatio = True\n\n    if \"male\" in text: isMale = True\n    if \"female\" in text: isFemale = True\n    if \"parents\" and \"college\" in text: hasParentsEducated = True\n    if \"no\" and \"parents\" and \"college\" in text: hasNoParentsEducated = True\n    if \"smoke\" or \"drink\" in text: isSmoker = True\n    if \"alcohol\" in text: drinksAlcohol = True\n    if \"prescription\" in text: usesPrescriptionMedication = True\n    if \"obese\" in text: isObese = True\n\n    risk['prediction'] = 'NO'\n    confidence = 0.0\n    if (isMale and hasParentsEducated): confidence += 15.7; risk['prediction']= 'YES' if confidence > 94 else 'NO'\n    elif isFemale: confidence -= 26.8\n    if isSmoker: confidence -= 30.5\n    if drinksAlcohol: confidence -= 3.5\n    if usesPrescriptionMedication: confidence += 17.2; risk['prediction']= 'YES' if confidence > 94 else 'NO'\n    if hasHdLCholesterolBelow200 and (hasNormalA1C and hasNormalKidneyFunction and hasNormalLiverEnzymes and hasNormalThyroidPanel and hasNormalAlbuminCreatineRatio): confidence += 38.5; risk['prediction']= 'YES' if confidence > 94 else 'NO'\n    if isObese: confidence -= 21.6; risk['prediction']= 'YES' if confidence > 94 else 'NO'\n    risk['confidence'] = round(confidence, 3)\n\n    return risk",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_002003_251305",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 249,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n"
+  }
+}

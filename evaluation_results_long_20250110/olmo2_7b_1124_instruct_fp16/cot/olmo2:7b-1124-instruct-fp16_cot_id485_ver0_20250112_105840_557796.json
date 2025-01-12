@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 485,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:58:40.55613824Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.301098549,
+    "load_duration": 0.018898153,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 495,
+    "eval_duration": 9.26
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults, particularly males, may be more at risk due to developmental factors and social influences.\"),\n    (\"previous_arrests\", \"high\", \"An individual with one prior arrest is often more likely to reoffend than those with no arrests.\"),\n    (\"race\", \"low\", \"White individuals might not have specific racial recidivism risks associated as much as other demographics.\"),\n    (\"marital_status\", \"low\", \"Being unmarried does not inherently increase recidivism, but social support from a spouse can be a stabilizing factor.\"),\n    (\"living_arrangement\", \"medium\", \"Living alone may lack the stability provided by a family or roommate, potentially increasing risk.\"),\n    (\"education_status\", \"medium\", \"Higher education is often associated with lower recidivism rates. Being enrolled is generally positive but needs to be balanced against other factors.\"),\n    (\"employment_history\", \"low\", \"Holding a job can be a protective factor against recidivism; however, the context of job loss or stability is important.\"),\n    (\"drug_usage\", \"medium\", \"Drug use, including past and recent marijuana use, increases the risk of reoffending. The frequency and impact on daily functioning need consideration.\"),\n    (\"depression_symptoms\", \"high\", \"Feeling down or depressed can significantly affect an individual's decision-making and overall mental health, increasing the risk of reoffending.\"),\n    (\"family_structure_growing_up\", \"medium\", \"Growing up in a larger household might influence socialization and support systems. A size 4 household suggests more family members but does not provide specifics about family dynamics or stability.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThe JSON object provided assigns relative weights to various risk factors based on the information given and predicts a 3-year rearrest recidivism probability of \"YES\" with a confidence level of 75%. The reasoning behind each factor's weight is detailed in the \"textual reasoning\" field. Factors such as age, previous arrests, drug use, and symptoms of depression are weighted higher due to their strong association with increased risk for recidivism. Education and employment history carry a lower weight because they can sometimes buffer against recidivism but need to be considered in the context of other risk factors. The prediction reflects the cumulative effect of these weighted risk factors.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105840_557796",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 485,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 341,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:58:08.046868595Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.282054893,
+    "load_duration": 0.01428437,
+    "prompt_eval_count": 306,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 388,
+    "eval_duration": 7.246
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can indicate less life experience and potential for impulsive behavior, which might correlate with higher risk.\"),\n    (\"arrest_count\", \"high\", \"Multiple arrests suggest a pattern of engagement in illegal activities, increasing the likelihood of continued offending.\"),\n    (\"race\", \"low\", \"While race can be a factor in some studies, the information provided does not specify any unique cultural or societal influences that would alter the assessment significantly.\"),\n    (\"education_level\", \"medium\", \"Lack of higher education may indicate limited employment opportunities and potential for lower socioeconomic status, which can sometimes be associated with higher risk.\"),\n    (\"marital_status\", \"low\", \"Being unmarried may correlate with a lack of social support, which can sometimes influence recidivism risk, albeit mildly in this context.\"),\n    (\"living_situation\", \"medium\", \"Living alone could suggest limited social control and fewer supervisory influences, potentially increasing risk.\"),\n    (\"drug_use\", \"high\", \"History of drug use, especially cocaine, indicates potential substance abuse issues which can be a significant predictor of recidivism.\"),\n    (\"mental_health_status\", \"low\", \"Lack of depression in the past month is a positive factor that suggests stable mental health, reducing the risk level.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object combines various risk factors and assigns them relative weights based on their typical impact on recidivism. The assessment concludes that the person has a moderate to high risk of rearrest within three years due to multiple arrests, substance abuse (cocaine use), and living alone which could potentially reduce social control. However, being young, unmarried, and without a college education, as well as not experiencing depression, introduces some mitigating factors that contribute to a moderate level of confidence in the prediction.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105808_048325",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 341,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 10 inches and weighs 195 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 7, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

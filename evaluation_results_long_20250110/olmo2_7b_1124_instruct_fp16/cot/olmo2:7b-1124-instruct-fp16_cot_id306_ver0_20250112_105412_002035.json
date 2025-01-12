@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 306,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:54:12.000858113Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.759823655,
+    "load_duration": 0.025245399,
+    "prompt_eval_count": 316,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 296,
+    "eval_duration": 5.713
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Being young can be associated with higher risk for some offenses, but being female and not having a prior conviction might mitigate this.\"),\n    (\"gender\", \"low\", \"Female offenders often have lower recidivism rates compared to male offenders.\"),\n    (\"prior_arrests\", \"high\", \"One arrest indicates a history of offending which could increase the risk of reoffending.\"),\n    (\"current_residence_status\", \"medium\", \"Living alone can be a risk factor if it is associated with social isolation or lack of supervision, but being enrolled in school suggests structure and possibly reduced availability for criminal activity.\"),\n    (\"employment_history\", \"low\", \"Having held one job in the past year suggests stability and engagement with societal norms which typically reduces risk.\"),\n    (\"substance_use\", \"medium\", \"Drug use, especially with a variety of substances like marijuana and cocaine, is associated with higher risk of reoffending.\"),\n    (\"mental_health_status\", \"low\", \"Lack of recent depression indicates she may not be experiencing the psychological distress that can sometimes correlate with offending.\"),\n    (\"family_environment\", \"high\", \"Growing up in a stable two-parent household usually suggests a more favorable upbringing and lower risk, but it's important to note she has lived away from this environment for a significant portion of her adulthood.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105412_002035",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 306,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 127 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

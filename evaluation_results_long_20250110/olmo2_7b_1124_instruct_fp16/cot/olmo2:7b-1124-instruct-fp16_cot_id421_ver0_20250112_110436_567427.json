@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 421,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:04:36.565846823Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.612525515,
+    "load_duration": 0.020069866,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 456,
+    "eval_duration": 8.569
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"age\", \"medium\", \"Young adults are often at a higher risk for reoffending, but this individual's age is within the early adult years where the risk begins to decrease. His age does not significantly elevate the recidivism risk.\"),\n  (\"number_of_arrests\", \"high\", \"Multiple arrests suggest a pattern of behavior that may increase the likelihood of continued offending.\"),\n  (\"criminal_conviction_history\", \"high\", \"Having been convicted in the past indicates an established history of criminal behavior, which typically correlates with higher recidivism rates.\"),\n  (\"physical_description\", \"neutral\", \"The physical description does not directly influence risk level but could be used contextually if there were other factors suggesting the individual's physical attributes played a role in his behavior.\"),\n  (\"marital_status\", \"medium\", \"Single status might correlate with a lack of stable relationships, which can sometimes be associated with higher risks. However, it is not a definitive indicator on its own.\"),\n  (\"education_level\", \"neutral\", \"Having a high school diploma suggests a basic level of education but does not strongly impact recidivism risk one way or another without additional context.\"),\n  (\"employment_history\", \"medium\", \"Changes in employment can be stressors that might influence behavior. Holding two jobs within a year could indicate instability which might correlate with higher risk levels, especially if associated with financial stress or a need to support habits.\"),\n  (\"drug_use\", \"low\", \"The individual has not used drugs for four years, and only occasionally during the last month. This suggests a level of self-control and potential recovery, reducing the risk.\"),\n  (\"Mental_health_status\", \"medium\", \"Feeling depressed some of the time could indicate underlying issues that may influence behavior. However, without more severe or persistent mental health conditions, this remains a moderate risk factor.\"),\n  (\"family_structure_and_environment\", \"low\", \"Growing up in a household with both parents in an urban area typically indicates a stable environment which can mitigate risk. The individual's current living situation and stated belief about God's role may also indicate a certain level of personal resilience or lack thereof, depending on interpretation.\")\n], \"prediction\": \"YES\", \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110436_567427",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 421,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

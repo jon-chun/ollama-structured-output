@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 50,
+    "id": 491,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T06:20:40.882412184Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 33.12111685,
+    "load_duration": 0.013333793,
+    "prompt_eval_count": 114,
+    "prompt_eval_duration": 0.067,
+    "eval_count": 1247,
+    "eval_duration": 33.039
+  },
+  "response": {
+    "raw_message_text": "He is unemployed. The person smokes, and drinks alcohol every day. They are not married. Their blood pressure is 135/84 (normal range for diastolic is less than or equal to 90). Their cholesterol level is 276 mg/dL (normal range between 130-200 mg/dL).\nThey have a family history of heart disease, as one parent had it. The person does not exercise regularly. They live in an urban area and smoke one pack per day. Their blood glucose is normal at 85mg/dL (normal range between 70-139 mg/dL).\nYou can assume that all health questions are answered with \"YES\" or \"NO,\" and all numerical values are integers. For example, the input \"blood_pressure: '4/2'\" means their blood pressure is at 4/2 (mmHg over mmHg). You should respond \"prediction:\" YES if the person has a high risk for heart disease, otherwise respond \"NO.\" If you're not sure whether they have a high risk, respond with \"confidence: 50\".\nIn this exercise, your code will be run in an environment that supports Python>=3.6 and uses the following version of libraries:\n- openai==0.27.1\n- numpy==1.24.1\n- jsonschema==4.8.0\n- matplotlib==3.5.3\n- Pillow==9.3.0\n- requests>=2.26.0 and <3.0.0\n- pytz==2022.7.1\n\"\"\"\nimport openai\nopenai.api_key = os.getenv(\"OPENAI_API_KEY\")\nprompt='''Your task is to analyze a set of health data and determine if it indicates high risk for heart disease. You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a {} year old {} who identifies themselves as {}{}. They have been arrested {}{} times but have not been convicted.\nThey are unemployed. The person smokes, and drinks alcohol every day. They are not married. Their blood pressure is {} mmHg/{} mmHg (normal range for diastolic is less than or equal to 90). Their cholesterol level is {} mg/dL (normal range between 130-200 mg/dL).\nThey have a family history of heart disease, as one parent had it. The person does not exercise regularly. They live in an urban area and smoke {}{} pack{} per day. Their blood glucose is {}mg/dL (normal range between 70-139 mg/dL).\nYou can assume that all health questions are answered with \"YES\" or \"NO,\" and all numerical values are integers. For example, the input \"blood_pressure: '4/2'\" means their blood pressure is at {}mmHg over {} mmHg. You should respond \"prediction:\" YES if the person has a high risk for heart disease, otherwise respond \"NO.\" If you're not sure whether they have a high risk, respond with \"confidence: 50\".\nIn this exercise, your code will be run in an environment that supports Python>=3.6 and uses the following version of libraries:\n- openai==0.27.1\n- numpy==1.24.1\n- jsonschema==4.8.0\n- matplotlib==3.5.3\n- Pillow==9.3.0\n- requests>=2.26.0 and <3.0.0\n- pytz==2022.7.1'''\n# {\"prediction\":\"NO\", \"confidence\":90}\nage=20 # age is int\ngender='male' # gender 'male' or 'female'\nrace='white' # race 'black', 'white', etc.\nmarital_status='single' # single, married, divorced, etc.\narrests=1 # number of arrests\nconvictions=0 # number of convictions\nemployment_status='unemployed' # employed or unemployed\nsmoking_status='smokes' # smokes or not\nalcohol_consumption='drinks every day' # drinks every day or not\nblood_pressure=\"135/84\"\ncholesterol_level=276\nfamily_history='one parent had it' # family history of heart disease, if any\nexercise_status='doesn\\'t exercise regularly'\nurbanization='live in an urban area and smoke one pack per day'\nblood_glucose='normal at 85mg/dL'\n# 'prediction': YES or NO, 'confidence: number between 0 and 100\nresponse=openai.Completion.create(engine='text-davinci-002', prompt=prompt.format(age,gender,race,marital_status,arrests,convictions,employment_status,smoking_status,alcohol_consumption,blood_pressure,cholesterol_level,family_history,exercise_status,urbanization,blood_glucose)\n).choices[0].text #.replace('\\n','')#.split(':')[1].strip()",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_012040_884041",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 491,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n"
+  }
+}

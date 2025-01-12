@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 634,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:03:31.382702622Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.830146036,
+    "load_duration": 0.025983271,
+    "prompt_eval_count": 321,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 416,
+    "eval_duration": 7.783
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Younger individuals often have less life experience and are more likely to engage in risky behaviors.\"),\n    (\"previous arrests\", \"medium\", \"One arrest indicates a history of offending, but it's not excessive.\"),\n    (\"conviction\", \"high\", \"Having a conviction shows prior involvement with the criminal justice system.\"),\n    (\"gender\", \"medium\", \"Males often have higher recidivism rates than females.\"),\n    (\"race\", \"medium\", \"Hispanic individuals may face unique social and economic challenges that influence crime rates.\"),\n    (\"marital status\", \"medium\", \"Being married can be a protective factor against reoffending, but it's not definitive.\"),\n    (\"education level\", \"low\", \"Lack of a college education is correlated with higher risk levels for some populations, but employment suggests responsibility.\"),\n    (\"employment history\", \"medium\", \"Holding jobs indicates an attempt at normalcy and responsibility but could also suggest difficulty in maintaining stable employment.\"),\n    (\"drug use\", \"medium\", \"Past drug use can indicate exposure to environments where crime is more prevalent.\"),\n    (\"mental health\", \"low\", \"No recent depression suggests good mental health, which is generally a protective factor.\"),\n    (\"early life environment\", \"medium\", \"Living with non-biological adults at a young age can indicate adverse childhood experiences, although the sample size is small.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object predicts that the individual has a moderate risk of rearrest within three years due to factors indicating past involvement with the criminal justice system (arrest and conviction), being male, and Hispanic; the lack of a college education and employment issues also contribute to some level of risk. However, the presence of a supportive marital relationship, no recent depression, and a stable living situation are considered protective factors that mitigate the overall risk. The prediction is based on a combination of these factors and assigned a confidence level of 75%.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110331_383952",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 634,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 9 inches and weighs 180 lbs. He is married and is currently living with his spouse. He has a GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 2. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

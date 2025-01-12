@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1308,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:14:04.744228096Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.897337139,
+    "load_duration": 0.019862547,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 227,
+    "eval_duration": 1.864
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Being 18 years old can be associated with higher impulsivity and risk-taking behaviors, which may increase the likelihood of reoffending.\"),\n    (\"race\", \"medium\", \"Being Black may be associated with systemic disadvantages that could influence criminal behavior. However, it's important to note that race is not a determinant of individual behavior, and this factor should be used cautiously.\"),\n    (\"arrests_count\", \"high\", \"Multiple arrests suggest a pattern of behavior that courts often view as an increased risk for reoffending.\"),\n    (\"convictions\", \"high\", \"Previous convictions are a strong indicator of a propensity to commit similar offenses in the future.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object indicates that based on the provided risk factors, the predicted recidivism rate for this individual over the next three years is high (at 75% confidence). The reasoning for each assigned weight and prediction is detailed in the corresponding textual explanations within the \"risk_factors\" array.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_231404_745630",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1308,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

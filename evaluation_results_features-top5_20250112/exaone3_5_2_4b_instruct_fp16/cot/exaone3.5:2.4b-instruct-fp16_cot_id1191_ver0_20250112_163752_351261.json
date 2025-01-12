@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1191,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:37:52.350200301Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.425877004,
+    "load_duration": 0.014221678,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 313,
+    "eval_duration": 2.402
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Unmarried Status\", \"medium\", \"Being unmarried increases vulnerability to social disorganization and lack of stable support networks often associated with higher recidivism rates.\"),\n    (\"Previous Employment History\", \"low\", \"Having held only one job suggests limited employment stability, which could correlate with higher unemployment rates but not necessarily high recidivism without additional context like job instability.\"),\n    (\"Household Size\", \"low\", \"Living in a household of five indicates a stable environment with resources, which generally mitigates risks.\"),\n    (\"Living Situation\", \"medium\", \"Living with one's biological mother could imply financial dependency or less exposure to adult criminal influences compared to living independently, but lacks clear indicators of stability or positive familial support.\"),\n    (\"Age at Marital Status\", \"low\", \"Unknown marital status at age 12 does not provide strong predictive power regarding current risk without additional life trajectory information.\"),\n    (\"Age at Residence\", \"medium\", \"Lived with biological mother until adulthood suggests a certain level of stability early on, but the absence of formal adult relationships or employment milestones complicates this.\"),\n    (\"Unknown Marital Status at Age 12\", \"low\", \"Without specific details on developmental stability or support systems post-childhood, this factor lacks significant predictive weight.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163752_351261",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1191,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

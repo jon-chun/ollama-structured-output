@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 634,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:21:51.854218828Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.169747943,
+    "load_duration": 0.017468335,
+    "prompt_eval_count": 258,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 263,
+    "eval_duration": 2.137
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Employment History\", \"low\", \"Two held jobs indicating some stability and potentially reliable income source.\"),\n    (\"Family Structure (Married with Spouse Present)\", \"low\", \"Being married with a present spouse often correlates with stronger social support networks and decreased recidivism risk.\"),\n    (\"Household Size\", \"low\", \"Household size of 2 suggests fewer dependents potentially lowering personal stress related to financial or familial obligations.\"),\n    (\"Living Situation (Not Group Quarters at Age 12)\", \"low\", \"Not residing in group quarters at age 12 suggests a potentially more stable upbringing, though impact may be mitigated by unknown biological parent status.\"),\n    (\"Biological Parent Status Unknown\", \"medium\", \"Unknown biological parent status can imply instability in early life, potentially affecting long-term risk factors like self-regulation and social integration.\"),\n    (\"Gender (Male)\", \"medium\", \"While not definitive, male gender historically shows slightly higher recidivism rates across various studies, though individual differences are significant.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162151_855558",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 634,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 2 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

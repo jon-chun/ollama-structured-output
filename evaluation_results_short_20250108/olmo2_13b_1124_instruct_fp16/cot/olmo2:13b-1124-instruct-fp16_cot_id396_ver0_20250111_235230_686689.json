@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 396,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:52:30.685382607Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.560142898,
+    "load_duration": 0.023855027,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 306,
+    "eval_duration": 10.512
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age can be associated with lower recidivism as individuals may still be forming their identities and making life choices.\"),\n    (\"gender\", \"medium\", \"Female offenders generally have lower recidivism rates compared to males, although this can vary.\"),\n    (\"race\", \"medium\", \"White race does not typically influence recidivism rates significantly in most studies.\"),\n    (\"prior_arrests\", \"low\", \"One prior arrest suggests limited experience with the criminal justice system which might correlate with lower recidivism.\"),\n    (\"prior_convictions\", \"medium\", \"A conviction indicates some level of interaction with the justice system, which can increase the likelihood of future offenses if not addressed.\"),\n    (\"age_at_first_arrest\", \"low\" if \"<25\", \"Individuals who are arrested at a younger age but are now older may have matured and moved away from criminal behavior.\"),\n    (\"criminal_history_length\", \"medium\", \"One arrest and conviction suggest a short criminal history, which typically equates to lower risk than longer histories.\"),\n    (\"nature_of_offense\", \"low\" if \"non-violent\", \"Non-violent offenses usually indicate a lower risk compared to violent crimes.\"),\n    (\"employment_or_education_status\", \"low\" if \"stable\", \"Stable employment or education can indicate a structured lifestyle and reduced risk of recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_235230_686689",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 396,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1230,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:22:33.062067078Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.309692683,
+    "load_duration": 0.018926142,
+    "prompt_eval_count": 254,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 280,
+    "eval_duration": 2.275
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Gender (Male)\", \"medium\", \"Male offenders often exhibit higher recidivism rates compared to females, but this varies widely by jurisdiction and offense type.\"),\n    (\"Marital Status (Never Married, Not Cohabiting)\", \"high\", \"A history of unstable living arrangements and lack of marital ties can correlate with higher risk of reoffending due to potential social support deficits.\"),\n    (\"Employment Status (Unemployed)\", \"high\", \"Unemployment is frequently associated with increased criminal activity due to financial strain and reduced opportunities.\"),\n    (\"Household Size (4+)\", \"medium\", \"Larger household sizes might indicate economic strain or dependency, which can be linked to higher crime rates.\"),\n    (\"Living Situation (Lived with Biological Mother)\", \"medium\", \"Dependency on family members, especially parents, can sometimes correlate with less developed independent living skills or community integration.\"),\n    (\"Marital Status Unknown at Age 12\", \"medium\", \"Early lack of clear marital status may suggest unstable family environments during formative years, potentially impacting social development and future risk-taking behaviors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162233_063359",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1230,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

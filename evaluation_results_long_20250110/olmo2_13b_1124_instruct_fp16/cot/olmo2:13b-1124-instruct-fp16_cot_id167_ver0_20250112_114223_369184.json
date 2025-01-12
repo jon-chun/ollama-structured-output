@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 167,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:42:23.367934636Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.69565536,
+    "load_duration": 0.019052412,
+    "prompt_eval_count": 316,
+    "prompt_eval_duration": 0.027,
+    "eval_count": 362,
+    "eval_duration": 12.647
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can indicate impulsivity, but college enrollment suggests some level of future orientation.\"),\n    (\"race\", \"low\", \"Being White is not strongly associated with higher recidivism in this context.\"),\n    (\"prior_arrests\", \"medium\", \"Having been arrested once indicates some prior criminal behavior, but a single arrest may not be indicative of chronic offending.\"),\n    (\"conviction\", \"high\", \"A conviction is a stronger indicator of involvement in criminal activity and can signal a higher risk for future offenses.\"),\n    (\"height_and_weight\", \"low\", \"Physical attributes are generally considered low-risk factors in risk assessment.\"),\n    (\"marital_status\", \"low\", \"Living alone and never being married may suggest less social stability, but is not directly linked to higher recidivism.\"),\n    (\"education\", \"low\", \"Having a GED and being enrolled in college indicates some potential for desistance from crime.\"),\n    (\"employment_history\", \"high\", \"Lack of employment can indicate difficulty integrating into lawful activities and a potential lack of structure.\"),\n    (\"drug_use\", \"medium\", \"Marijuana use can indicate involvement in illegal activities, but usage alone doesn't always correlate with higher recidivism.\"),\n    (\"depression_status\", \"low\", \"No current feelings of depression suggest a lower risk factor for certain types of crime.\"),\n    (\"childhood_household\", \"low\", \"Growing up in a household of size 3 is not a strong risk factor, although family dynamics could play a role.\"),\n    (\"religious_beliefs\", \"low\", \"Lack of belief in personal divine influence does not significantly impact risk assessment.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114223_369184",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 167,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 1 inch and weighs 155 lbs. He has never been married and is currently living alone. He has a GED certificate and is enrolled in a 4-year college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

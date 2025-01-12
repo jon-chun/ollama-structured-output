@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 565,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:21:55.348100758Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.55313544,
+    "load_duration": 0.01328592,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 190,
+    "eval_duration": 3.525
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"19-year-olds, particularly females, may be at a medium risk due to their potential for transitioning into adulthood with less established routines and support systems.\"),\n    (\"gender\", \"low\", \"Female gender often correlates with lower rates of reoffense compared to males, suggesting a lower risk.\"),\n    (\"number_of_arrests\", \"medium\", \"One arrest indicates a single encounter with the criminal justice system, which could be a result of a momentary lapse rather than a pattern of behavior. However, the lack of a conviction suggests a potential misunderstanding or a non-serious offense.\"),\n    (\"racial_identity\", \"low\", \"Identifying as White might imply certain societal advantages and lower risk exposure compared to other racial/ethnic groups, potentially lowering recidivism risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232155_349613",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 565,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

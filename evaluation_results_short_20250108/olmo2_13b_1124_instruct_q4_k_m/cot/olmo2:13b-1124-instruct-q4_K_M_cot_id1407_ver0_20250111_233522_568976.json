@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1407,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:35:22.567533562Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.094565187,
+    "load_duration": 0.012811411,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 223,
+    "eval_duration": 3.056
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are at a medium risk due to their developmental stage which can lead to impulsive behavior.\"),\n    (\"gender\", \"low\", \"Females typically have lower recidivism rates compared to males.\"),\n    (\"race\", \"medium\", \"Racial disparities in the criminal justice system can contribute to varying risk levels, with Black individuals sometimes facing higher systemic risks.\"),\n    (\"prior_arrests_without_conviction\", \"medium\", \"Multiple arrests without convictions indicate potential behavioral issues but may not reflect conviction history fully.\"),\n    (\"age_at_first_arrest\", \"low\" if \"<18\" else \"medium\", \"Age at first arrest matters; younger age at initial offense can indicate early involvement in criminal activities.\"),\n    (\"number_of_arrests\", \"high\", \"Three arrests suggest persistent involvement in potentially risky behavior.\"),\n    (\"conviction_status\", \"low\", \"Lack of convictions suggests some level of legal system navigation without being found guilty.\"),\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_233522_568976",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1407,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 3 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

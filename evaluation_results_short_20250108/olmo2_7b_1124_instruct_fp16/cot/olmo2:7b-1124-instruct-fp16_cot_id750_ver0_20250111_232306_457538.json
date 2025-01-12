@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 750,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:23:06.455946376Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.165493052,
+    "load_duration": 0.020753191,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 330,
+    "eval_duration": 6.127
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are often at a higher risk of reoffending due to lack of maturity and life experience, but this is balanced by the fact that being 18 years old is on the cusp of adulthood, often signaling a turning point where many individuals transition away from criminal behavior.\"),\n    (\"race\", \"low\", \"Studies have shown that race can influence risk, but without further context or correlation to specific social or economic factors, this factor alone does not significantly impact the assessment.\"),\n    (\"arrest_count\", \"medium\", \"First-time offenders generally present a lower risk compared to those with multiple arrests, but the absence of convictions suggests they may not have engaged in serious criminal behavior.\"),\n    (\"conviction_status\", \"high\", \"The fact that there is no conviction raises concern as it indicates the legal system may not have determined guilt or the case may not have been significant enough to result in a conviction. This could imply either a minor offense or a lack of evidence, both of which can be indicative of higher risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```\n\nThis JSON object reflects a careful consideration of each risk factor and their potential impact on recidivism. The prediction is based on the combination of age (medium risk), race (low risk), arrest count (medium risk), and the lack of conviction (high risk). The confidence score of 65% reflects the assessment's accuracy, taking into account the variability inherent in such assessments and the need for further context that might not be available.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232306_457538",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 750,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1172,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:00:10.444360598Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.144058822,
+    "load_duration": 0.018878939,
+    "prompt_eval_count": 309,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 381,
+    "eval_duration": 7.105
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Young age often correlates with higher risk for recidivism.\"),\n    (\"race\", \"medium\", \"The Black community faces systemic challenges that can increase risk, though individual circumstances play a significant role.\"),\n    (\"arrest_count\", \"low\", \"One arrest might not necessarily indicate a high risk, especially if there are no subsequent convictions.\"),\n    (\"conviction\", \"high\", \"Having been convicted increases the likelihood of recidivism.\"),\n    (\"height_and_weight\", \"neutral\", \"Physical attributes typically do not have a direct impact on criminal behavior predictions.\"),\n    (\"marital_status\", \"medium\", \"Being unmarried can be associated with certain social risks, although not a definitive predictor.\"),\n    (\"education_level\", \"low\", \"Lack of a college education might correlate with lower opportunities but is not inherently a risk factor for recidivism.\"),\n    (\"employment_history\", \"high\", \"No job during the year may suggest lack of legal income and increased propensity for criminal activity for some individuals.\"),\n    (\"drug_use\", \"medium\", \"Past drug use, particularly if ongoing, can be a risk factor for re-arrest.\"),\n    (\"mental_health_status\", \"low\", \"Not feeling depressed in the past month is generally a positive indicator but should be considered in the context of other factors.\"),\n    (\"household_size_young_age\", \"medium\", \"Growing up in a household of size 4 suggests a possibly supportive environment, potentially reducing risk, but family dynamics can vary widely.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object provides a structured analysis integrating various risk factors based on established criminological theories and practices. The prediction is made with a moderate level of confidence, reflecting the complexity and individual variability in recidivism risk assessment.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110010_445872",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1172,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 40,
+    "id": 1121,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:44:50.742609756Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.066638862,
+    "load_duration": 0.020203504,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 321,
+    "eval_duration": 11.024
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can indicate impulsivity but is mitigated by lack of prior convictions.\"),\n    (\"gender\", \"low\", \"Male gender generally associated with higher recidivism, but effect moderated by age and conviction status.\"),\n    (\"race\", \"low\", \"Racial identification does not directly influence risk without additional data on systemic factors.\"),\n    (\"arrests_count\", \"low\", \"Single arrest with no conviction suggests limited engagement in criminal activity.\"),\n    (\"age_at_first_arrest\", \"medium\", \"Age 19 can indicate susceptibility to peer influence and developmental challenges.\"),\n    (\"prior_convictions\", \"low\", \"Lack of prior convictions suggests less ingrained criminal behavior.\"),\n    (\"employment_status\", \"medium\", \"Information not provided; employment can be protective but unemployment may increase risk.\"),\n    (\"education_level\", \"low\", \"Education level not specified, but higher education is typically inversely related to recidivism.\"),\n    (\"family_support\", \"low\", \"Assuming no known family criminal history or lack of support, this factor is generally low risk.\"),\n    (\"nature_of_crime\", \"medium\", \"Details of the offense not provided; nature can significantly influence risk.\"),\n    (\"community_ties\", \"low\", \"Assumed positive if the individual has community ties; negative if absent.\"),\n    (\"risk_management_programs_participated\", \"low\", \"No information on participation in programs; involvement can reduce risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 40\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_234450_744054",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1121,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

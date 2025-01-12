@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 63,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:28:26.911639844Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.284195022,
+    "load_duration": 0.019779557,
+    "prompt_eval_count": 250,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 298,
+    "eval_duration": 1.256
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Unemployment\", \"high\", \"Unemployment indicates instability and lack of financial support, increasing vulnerability to reoffending due to financial stressors.\"),\n    (\"Cohabiting without marriage\", \"medium\", \"Living with partners outside of formal marriage might suggest less structured support networks but does not inherently correlate strongly with higher recidivism.\"),\n    (\"Large household size (9)\", \"low\", \"While a large household can offer social support, it does not significantly increase individual risk without other adverse circumstances.\"),\n    (\"Never married\", \"medium\", \"Lack of marriage might correlate with fewer familial ties traditionally offering stability, though this can vary widely.\"),\n    (\"Lived with biological parents until age 12\", \"low\", \"Early stable parental environment generally correlates with lower recidivism risk as it provides foundational social skills and emotional support.\"),\n    (\"Previous cohabitation experience\", \"medium\", \"Prior cohabitation experience suggests familiarity with living arrangements but does not directly indicate current risk patterns without further context.\"),\n    (\"Never married to partner\", \"high\", \"The absence of marital status with a partner can indicate potential social isolation and fewer support systems, amplifying risk factors compared to stable marital status.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162826_912934",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 63,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and is currently unemployed with a household size of 9 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

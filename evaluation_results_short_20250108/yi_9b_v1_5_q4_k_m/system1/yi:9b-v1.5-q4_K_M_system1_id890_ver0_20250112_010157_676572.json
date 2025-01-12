@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 23,
+    "id": 890,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T06:01:57.675211644Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 27.002931081,
+    "load_duration": 0.012321681,
+    "prompt_eval_count": 113,
+    "prompt_eval_duration": 0.051,
+    "eval_count": 1259,
+    "eval_duration": 26.938
+  },
+  "response": {
+    "raw_message_text": "\nShe does not have any children, but she lives with her parents, who are employed. She works part time in a call center and earns $10 per hour for up to 35 hours/week. Her annual income is thus $6,789. She has no savings or investments.\"\"\"\n\n# risk_factors = \"The person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted.\\n\\nShe does not have any children, but she lives with her parents, who are employed. She works part time in a call center and earns $10 per hour for up to 35 hours/week. Her annual income is thus $6,789. She has no savings or investments.\"\nrisk_factors = \"The person is a 24-year-old male who identifies himself as Black. He has been arrested once and has not been convicted.\\n\\nHe does not have any children, but he lives with his parents, who are unemployed. He works part time in a restaurant and earns $15 per hour for up to 30 hours/week. His annual income is thus $29,768. He has no savings or investments.\"\n# risk_factors = \"The person is a 46-year-old female who identifies herself as Asian. She has been arrested once and has not been convicted.\\n\\nShe does not have any children, but she lives with her parents, who are unemployed. She works part time in a retail store and earns $12 per hour for up to 30 hours/week. Her annual income is thus $19,657. She has no savings or investments.\"\n# risk_factors = \"The person is a 45-year-old male who identifies himself as White. He has been arrested once and has not been convicted.\\n\\nHe does not have any children, but he lives with his parents, who are unemployed. He works part time in a restaurant and earns $12 per hour for up to 30 hours/week. His annual income is thus $19,657. He has no savings or investments.\"\n\nrisk_factors = risk_factors.lower()\nprint(risk_factors)\n# return '{\"prediction\": \"NO\", \"confidence\": 23}'\ndef get_answer(risk_factors):\n    risk_factors = risk_factors.split('\\n')\n    is_female = False\n    has_been_convicted = False\n    has_childs = False\n    parents_employed = False\n    works_parttime = False\n    income = 0\n    savings = False\n    answer = '{\"prediction\": \"NO\", \"confidence\": 23}' # default answer: low risk\n    for rf in risk_factors:\n        rf = rf.replace(' ','')\n        if 'female' in rf or 'woman' in rf or 'girl' in rf: is_female = True\n        elif 'male' in rf or 'man' in rf or 'boy' in rf: is_female = False\n        if 'convicted' in rf or 'arrested' in rf: has_been_convicted = True # assume one conviction means a high risk of repeat offenses\n        elif 'not' in rf and 'convicted' in rf or 'not' in rf and 'arrested' in rf: has_been_convicted = False\n        if 'children' in rf or 'child' in rf: has_childs = True # assume having childs means a high risk of repeat offenses\n        elif 'no' in rf and 'childs' in rf or 'no' in rf and 'child' in rf: has_childs = False\n        if 'parents' in rf and 'employed' in rf: parents_employed = True # assume being dependent on others means a higher risk of repeat offenses\n        elif 'not' in rf and 'parents' in rf and 'employed' in rf or 'parents' in rf and 'unemployed' in rf: parents_employed = False\n        if 'work' in rf and 'parttime' in rf or 'works' in rf and 'parttime' in rf: works_parttime = True # assume part-time work means a higher risk of repeat offenses\n        elif 'not' in rf and 'work' in rf and 'parttime' in rf or 'not' in rf and 'works' in rf and 'parttime' in rf: works_parttime = False\n        if 'annual' in rf and 'income' in rf: income = float(rf.split('$')[1].strip().replace(',','')) # assume high income is a low risk of repeat offenses\n    if (is_female == True) or has_been_convicted == True or has_childs == True or parents_employed == False: answer = '{\"prediction\": \"YES\", \"confidence\": 89}'  # default answer: high risk\n    elif income > 25000 and works_parttime == False: answer = '{\"prediction\": \"NO\", \"confidence\": 73}' # low-income worker is a higher risk of repeat offenses than full-time workers\n    else: answer = '{\"prediction\": \"YES\", \"confidence\": 42}'  # default answer: high risk\n    return answer\nprint(get_answer(risk_factors))",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_010157_676572",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 890,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted.\n"
+  }
+}

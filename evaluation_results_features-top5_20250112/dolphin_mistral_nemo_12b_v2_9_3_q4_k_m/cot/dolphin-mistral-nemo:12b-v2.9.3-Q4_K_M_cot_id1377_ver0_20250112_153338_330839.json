@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 50,
+    "id": 1377,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-12T20:33:38.329507306Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.046136909,
+    "load_duration": 0.026614925,
+    "prompt_eval_count": 253,
+    "prompt_eval_duration": 0.038,
+    "eval_count": 232,
+    "eval_duration": 2.978
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n    (\"Gender: Female\", \"low\", \"Generally, female offenders have lower recidivism rates compared to male offenders.\"),\n    (\"Marital Status: Married\", \"medium\", \"Marriage can act as a stabilizing factor but can also create additional stressors and conflicts, so it's moderately relevant for risk assessment.\"),\n    (\"Spouse Present\", \"high\", \"Presence of a spouse can be associated with higher recidivism rates due to potential conflict or pressure.\"),\n    (\"Employment History: 1 job\", \"medium\", \"Stable employment history can reduce the likelihood of reoffending, but one job alone may not significantly lower risk.\"),\n    (\"Household Size: 3\", \"high\", \"Larger household size can increase stress and financial strain, potentially leading to higher recidivism rates.\"),\n    (\"Living with Biological Mother at Age 12\", \"medium\", \"This could suggest stability in early life or potential exposure to criminal behaviors.\")\n   ],\n   \"prediction\": \"NO\",\n   \"confidence\": 50\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_153338_330839",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1377,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 1 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

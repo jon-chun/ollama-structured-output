@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 216,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:52:15.562266381Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.998922767,
+    "load_duration": 0.019253241,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 261,
+    "eval_duration": 8.957
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age can indicate potential for change, but not a direct indicator of risk\"),\n    (\"gender\", \"medium\", \"Female gender is generally associated with lower recidivism rates, yet individual circumstances matter\"),\n    (\"race\", \"low\", \"Race alone is not a valid predictor of criminal behavior, as risk factors are multifaceted\"),\n    (\"arrest_count\", \"high\", \"Multiple arrests can indicate higher involvement in criminal activities\"),\n    (\"convictions\", \"high\", \"Convictions suggest a history of criminal behavior and judicial engagement\"),\n    (\"age_at_first_arrest\", \"not_available\", \"Information on age at first arrest is missing, which could impact assessment\"),\n    (\"employment_status\", \"medium\", \"Employment can serve as a protective factor against recidivism, but not specified here\"),\n    (\"criminal_history_violence\", \"high\", \"Violent criminal history raises concern for future violent behavior\"),\n    (\"criminal_networks\", \"high\", \"Association with criminal networks can increase likelihood of reoffending\"),\n    (\"community_support\", \"medium\", \"Lack of specified community support could indicate higher risk\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_235215_563392",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 216,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as Black. She has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

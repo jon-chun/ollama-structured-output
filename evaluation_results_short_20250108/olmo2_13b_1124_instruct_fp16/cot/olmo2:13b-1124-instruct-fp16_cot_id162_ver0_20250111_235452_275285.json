@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 162,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:54:52.273756741Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.073585038,
+    "load_duration": 0.025003592,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 263,
+    "eval_duration": 9.028
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are more prone to recidivism due to developmental instability and social influences.\"),\n    (\"gender\", \"low\", \"Males are generally associated with higher rates of criminal behavior, but the impact is mitigated by other factors.\"),\n    (\"race\", \"low\", \"Race alone is not a strong predictor of future criminal behavior.\"),\n    (\"prior_arrests\", \"medium\", \"Having one arrest is an indicator of potential future criminal activity, but not as significant as multiple arrests.\"),\n    (\"conviction_status\", \"low\", \"Lack of conviction suggests some possibility that the arrest was a misunderstanding or aberration.\"),\n    (\"age_at_first_arrest\", \"high\" if <18, \"low\" if >=18, \"Individuals arrested before age 18 are at higher risk due to developmental exposure to criminal behavior.\"),\n    (\"time_since_last_arrest\", \"low\", \"No convictions and recent single arrest suggest limited current involvement in criminal activities.\"),\n    (\"employment_status\", \"medium\" if unemployed, \"low\" if employed, \"Employment can be protective against recidivism by providing structure and reducing time for criminal activity.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 45\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_235452_275285",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 162,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1405,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T16:22:55.264622634Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.111297053,
+    "load_duration": 0.024293248,
+    "prompt_eval_count": 317,
+    "prompt_eval_duration": 0.04,
+    "eval_count": 364,
+    "eval_duration": 5.044
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Young age is generally associated with higher recidivism rates due to developmental instability and lack of life experience.\"),\n    (\"race\", \"low\", \"Research shows inconsistent results regarding race and recidivism, thus it is given a lower weight.\"),\n    (\"arrest_count\", \"medium\", \"Three arrests suggests prior involvement in criminal behavior, indicating a medium risk.\"),\n    (\"convictions\", \"high\", \"Convictions add to the risk due to the individual's history with the criminal justice system.\"),\n    (\"height\", \"low\", \"Height does not significantly correlate with recidivism.\"),\n    (\"weight\", \"low\", \"Weight does not directly influence recidivism.\"),\n    (\"marital_status\", \"medium\", \"Living alone and never married may indicate fewer social ties, which can be a risk factor.\"),\n    (\"education_level\", \"medium\", \"High school diploma suggests limited future economic opportunities which can increase recidivism risk.\"),\n    (\"employment_history\", \"high\", \"Lack of employment can be indicative of financial strain and social disengagement, increasing risk.\"),\n    (\"drug_use\", \"medium\", \"Use of marijuana can indicate substance use issues which may lead to further criminal activity.\"),\n    (\"depression symptoms\", \"high\", \"Feeling 'down in the dumps' consistently indicates mental health challenges, which are linked to increased recidivism.\"),\n    (\"household_size_in_childhood\", \"low\", \"Growing up in a larger household does not directly affect adult recidivism.\"),\n    (\"urban_residence_during_young_age\", \"medium\", \"Urban upbringing can be associated with exposure to criminal environments, potentially increasing risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_112255_266180",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1405,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 8, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

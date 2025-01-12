@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 990,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:49:40.407048396Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.868880196,
+    "load_duration": 0.016590878,
+    "prompt_eval_count": 318,
+    "prompt_eval_duration": 0.026,
+    "eval_count": 311,
+    "eval_duration": 10.823
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age is generally associated with lower recidivism rates, but other factors can influence this.\"),\n    (\"gender\", \"medium\", \"Female gender tends to correlate with lower recidivism, yet this can be mitigated by other elements.\"),\n    (\"race\", \"medium\", \"White ethnicity does not strongly correlate with recidivism, but it can factor into socioeconomic considerations.\"),\n    (\"arrest_count\", \"low\", \"One arrest without conviction is often seen as a lower risk.\"),\n    (\"employment_history\", \"low\", \"Having held two jobs suggests stability and responsibility, which can reduce risk.\"),\n    (\"drug_use\", \"high\", \"Substance abuse, especially cocaine, indicates higher potential for future criminal activity.\"),\n    (\"depression_status\", \"low\", \"No recent depression symptoms suggest lower risk of impulsive actions.\"),\n    (\"household_size_at_young_age\", \"low\", \"Growing up in a household of four is relatively common and doesn't inherently signal high risk.\"),\n    (\"lack_of_religiosity\", \"medium\", \"Lack of belief in divine influence may correlate with certain lifestyle choices, though not directly causal.\"),\n    (\"conviction_status\", \"low\", \"No conviction indicates less likelihood of criminal behavior being institutionalized.\"),\n    (\"living_situation\", \"medium\", \"Living alone can be isolating and potentially more challenging to manage without support.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114940_408539",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 990,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 175 and 199 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

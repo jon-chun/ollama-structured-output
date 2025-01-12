@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 821,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T06:09:32.680521506Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.167710028,
+    "load_duration": 0.012398801,
+    "prompt_eval_count": 113,
+    "prompt_eval_duration": 0.065,
+    "eval_count": 453,
+    "eval_duration": 11.089
+  },
+  "response": {
+    "raw_message_text": "He smokes a pack of cigarettes per day (20/day), and he was never in the military.\n\"\"\"\n\ndef risk_analysis(race: str, gender: str, age: int, arrests: int, conviction: bool, smoking_intensity: float, service: str):\n    if race == 'White' or race == 'Caucasian':\n        white = True\n    else:\n        white = False\n\n    if gender == 'Male':\n        male = True\n    elif gender == 'Female':\n        male = False\n    else:\n        raise ValueError('Invalid gender')\n\n    if age < 18 or age > 65:\n        age_range = 'Not valid'\n    elif age >= 18 and age <= 29:\n        age_range = 'Young adult'\n    elif age >= 30 and age <= 49:\n        age_range = 'Mid-career'\n    else:\n        raise ValueError('Invalid age range')\n\n    if arrests > 1 or conviction == False:\n        criminal_record = 'Not good'\n    elif arrests == 1 and conviction == True:\n        criminal_record = 'Good'\n    else:\n        raise ValueError('Invalid criminal record')\n\n    if smoking_intensity >= 20.1 or service != 'No':\n        risk_factors = 'High risk'\n    elif smoking_intensity <= 20 and service == 'No':\n        risk_factors = 'Low risk'\n    else:\n        raise ValueError('Invalid smoking intensity')\n\n    if white and male and age_range == 'Mid-career' and criminal_record == 'Not good' and risk_factors == 'High risk':\n        return {\n            \"prediction\": \"YES\",\n            \"confidence\": 90\n        }\n    else:\n        return {\n            \"prediction\": \"NO\",\n            \"confidence\": 10\n        }",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_010932_681879",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 821,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n"
+  }
+}

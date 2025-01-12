@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1128,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "created_at": "2025-01-12T20:45:00.10282657Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.600165397,
+    "load_duration": 0.024658935,
+    "prompt_eval_count": 224,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 416,
+    "eval_duration": 3.557
+  },
+  "response": {
+    "raw_message_text": "To predict the three-year rearrest recidivism of this individual, we'll analyze each risk factor individually. \n\nHere's a step-by-step breakdown:\n\n- Gender: Male - This is considered high-risk in many criminal justice systems due to statistically higher rates of crime among men.\n- Never married and not cohabiting - These are considered medium-risk factors as they can indicate instability or lack of social support, but this varies greatly depending on the individual's personal circumstances and resources.\n- Held two jobs - This is a low-risk factor. Having multiple sources of income may suggest stability and less time to commit crimes.\n- Household size: Two people - This is considered medium-risk because it suggests potential financial strain that could lead to criminal activity, but also indicates potential support from other family members.\n- Lived with biological mother at age 12 - This factor carries a low-medium risk. Living with parents can provide structure and guidance, but if the individual was exposed to crime or delinquency during this time, it may increase their likelihood of engaging in criminal behavior.\n\nAfter considering all these factors together:\n\n{\n  \"risk_factors\": [\n    (\"Gender\", \"high\", \"Statistically, males have higher rates of criminal activity.\"),\n    (\"Marital status and Cohabitation\", \"medium\", \"These can indicate instability or lack of social support.\"),\n    (\"Work history\", \"low\", \"Multiple sources of income suggest stability.\"),\n    (\"Household size\", \"medium\", \"Potential financial strain could lead to crime but also indicates family support.\"),\n    (\"Family background at age 12\", \"low-medium\", \"Living with parents can provide structure and guidance, but exposure to criminal behavior may increase likelihood of criminal activity.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n\nThis prediction represents an estimated probability that this individual will be rearrested within three years. It should be noted that while the risk factors are statistically significant, they do not guarantee a future outcome and there may be other mitigating or enhancing circumstances at play.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_154500_104487",
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1128,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

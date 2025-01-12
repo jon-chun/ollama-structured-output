@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 536,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:57:17.917827995Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.760893444,
+    "load_duration": 0.019250494,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 354,
+    "eval_duration": 6.719
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals often have less life experience, which can be a risk factor for reoffending.\"),\n    (\"gender\", \"low\", \"Studies show that women generally have lower rearrest rates compared to men.\"),\n    (\"race\", \"medium\", \"Being Black can sometimes be associated with higher risk in some jurisdictions.\"),\n    (\"previous_arrests\", \"medium\", \"One arrest raises concern but no conviction suggests less severe involvement.\"),\n    (\"current_residence_status\", \"medium\", \"Living alone might lack the social control often present in households.\"),\n    (\"education_level\", \"low\", \"Higher education is generally associated with lower recidivism rates.\"),\n    (\"employment_history\", \"low\", \"Having held multiple jobs indicates adaptability and may reduce risk of idleness.\"),\n    (\"drug_usage\", \"medium\", \"Past drug use can be a risk factor for reoffending, particularly if recent.\"),\n    (\"mood_state\", \"low\", \"Feeling down does not directly indicate an inclination towards criminal behavior.\"),\n    (\"family_structure_as_child\", \"high\", \"Growing up in a stable, two-parent household generally decreases the likelihood of future criminality.\"),\n    (\"religion_and_beliefs\", \"medium\", \"Belief in a higher power can sometimes mitigate risk, suggesting potential for personal guidance and restraint.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```\n\nPlease note that this response is generated based on typical risk factors used in recidivism prediction models and general statistical correlations. However, individual circumstances and judicial context greatly influence the actual risk assessment. The confidence level reflects a common practice to convey uncertainty inherent in such predictions.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105717_919357",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 536,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 120 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

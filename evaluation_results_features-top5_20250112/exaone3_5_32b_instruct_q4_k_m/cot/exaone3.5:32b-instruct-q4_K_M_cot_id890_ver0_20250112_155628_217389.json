@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 890,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-12T20:56:28.216185094Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.304118711,
+    "load_duration": 0.019442848,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.106,
+    "eval_count": 305,
+    "eval_duration": 9.175
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status (Never Married)\", \"medium\", \"While never married can be associated with certain social factors linked to increased risk, it's not as strong a predictor as other factors like criminal history or substance abuse.\"),\n    (\"Living Situation (Lived with Biological Mother)\", \"low\", \"Living with a biological parent, especially a mother, can sometimes indicate stability and support, though this depends heavily on the family environment which is not fully detailed here.\"),\n    (\"Employment History (3 Jobs)\", \"medium\", \"Frequent job changes might suggest instability or challenges in maintaining employment, which can correlate with higher risk, but it's not definitive without more context.\"),\n    (\"Household Size (5)\", \"medium\", \"Larger households can indicate both potential support networks and stressors, making this a moderate risk factor depending on financial stability and family dynamics.\"),\n    (\"Marital Status Unknown at Age 12\", \"low\", \"This factor is historical and less predictive of current risk without more context on how this uncertainty impacted development or current circumstances.\"),\n    (\"Gender (Female)\", \"low\", \"Gender alone is generally a low risk factor, though societal and systemic factors can influence risk differently for males and females.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_155628_217389",
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 890,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

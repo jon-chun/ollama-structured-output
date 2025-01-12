@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 990,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-12T19:07:46.33004941Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.915692874,
+    "load_duration": 0.039305804,
+    "prompt_eval_count": 225,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 274,
+    "eval_duration": 5.858
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status (Never Married, Not Cohabiting)\", \"low\", \"Being unmarried is not inherently a risk factor for recidivism, especially at a young age. The lack of a partner does not significantly impact the likelihood of future criminal behavior.\"),\n    (\"Age at First Criminal Incident (12 years old)\", \"high\", \"Starting criminal activity at such a young age indicates a higher potential for ongoing behavioral issues and increased risk of future recidivism, especially without significant intervention or support.\"),\n    (\"Living Arrangement (With Biological Mother)\", \"medium\", \"While living with one's mother can provide stability, the specific circumstances are unknown. Some children in single-parent households may face challenges that could contribute to higher risk, but it is not definitive.\"),\n    (\"Household Size (4 members)\", \"low\", \"Household size alone is not a strong predictor of recidivism. It may influence an individual's environment and support system, but direct correlation is limited.\"),\n    (\"Employment History (2 Jobs)\", \"medium\", \"Having multiple jobs suggests some level of responsibility and stability, potentially mitigating risk. However, the nature of these jobs and any associated criminal activity must be considered.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_140746_331675",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 990,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

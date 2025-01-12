@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 169,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:23:00.859493905Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.330529639,
+    "load_duration": 0.019180191,
+    "prompt_eval_count": 253,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 281,
+    "eval_duration": 2.296
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status (Never Married)\", \"medium\", \"Never married status can indicate potential social or emotional instability, which may correlate with higher recidivism rates, but not definitively.\"),\n    (\"Living Situation (Never Cohabiting)\", \"low\", \"Not cohabiting alone does not inherently suggest higher risk without additional context on living conditions or stability.\"),\n    (\"Employment History (Held Two Jobs)\", \"low\", \"Having held two jobs could indicate adaptability but doesn't strongly correlate with recidivism on its own.\"),\n    (\"Household Size (Four Members)\", \"low\", \"Moderate household size alone does not significantly indicate higher risk without considering economic stressors or dependency levels.\"),\n    (\"Dependency in Childhood (Lived with Parents at Age 12)\", \"medium\", \"Early dependency can sometimes correlate with higher risk due to potential lack of independent support systems, but varies widely by individual circumstances.\"),\n    (\"Gender (Male)\", \"medium\", \"Gender alone is a weaker predictor but historically, males have shown slightly higher rearrest rates in certain contexts, though this varies widely.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162300_860779",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 169,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

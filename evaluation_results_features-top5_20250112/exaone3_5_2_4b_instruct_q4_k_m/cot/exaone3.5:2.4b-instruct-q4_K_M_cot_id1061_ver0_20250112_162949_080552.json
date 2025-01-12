@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1061,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:29:49.078779875Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.087926892,
+    "load_duration": 0.021142725,
+    "prompt_eval_count": 254,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 234,
+    "eval_duration": 1.058
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Unemployment\", \"high\", \"Unemployment often correlates strongly with higher recidivism rates as it can indicate financial instability and potential lack of social support systems.\"],\n    [\"Never married/No cohabitation\", \"medium\", \"While lack of marital status alone isn't conclusive, it suggests potential instability or absence of traditional supportive structures.\"],\n    [\"Large household size\", \"medium\", \"Living in a large household can imply challenges with supervision and management, though this factor alone doesn't definitively predict recidivism.\"],\n    [\"Lived with biological mother until age 12\", \"low\", \"Having a close familial relationship early on might provide some protective factors such as upbringing and emotional support.\"],\n    [\"Marital status unknown at age 12\", \"low\", \"The lack of specific marital status details at age 12 introduces ambiguity but does not inherently elevate risk significantly without further context.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162949_080552",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1061,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Unemployment",
+      "high",
+      "Unemployment often correlates strongly with higher recidivism rates as it can indicate financial instability and potential lack of social support systems."
+    ],
+    [
+      "Never married/No cohabitation",
+      "medium",
+      "While lack of marital status alone isn't conclusive, it suggests potential instability or absence of traditional supportive structures."
+    ],
+    [
+      "Large household size",
+      "medium",
+      "Living in a large household can imply challenges with supervision and management, though this factor alone doesn't definitively predict recidivism."
+    ],
+    [
+      "Lived with biological mother until age 12",
+      "low",
+      "Having a close familial relationship early on might provide some protective factors such as upbringing and emotional support."
+    ],
+    [
+      "Marital status unknown at age 12",
+      "low",
+      "The lack of specific marital status details at age 12 introduces ambiguity but does not inherently elevate risk significantly without further context."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and is currently unemployed with a household size of 8 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

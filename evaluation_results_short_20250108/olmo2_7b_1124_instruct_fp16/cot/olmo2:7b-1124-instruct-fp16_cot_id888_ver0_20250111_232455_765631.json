@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 888,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:24:55.764511882Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.20217029,
+    "load_duration": 0.024638743,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 171,
+    "eval_duration": 3.161
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"21-year-olds may have less life experience, but this individual's age alone does not significantly increase or decrease recidivism risk at this level.\"),\n    (\"race\", \"medium\", \"Being Black can be a risk factor due to potential societal biases in the criminal justice system, but without additional context, this factor is considered medium.\"),\n    (\"arrest_count\", \"high\", \"First-time offenders have higher recidivism rates compared to those with no arrest history, indicating a higher risk.\"),\n    (\"conviction\", \"medium\", \"Having been convicted increases the likelihood of reoffending; however, the nature of the conviction and support services available can mitigate this risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232455_765631",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 888,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

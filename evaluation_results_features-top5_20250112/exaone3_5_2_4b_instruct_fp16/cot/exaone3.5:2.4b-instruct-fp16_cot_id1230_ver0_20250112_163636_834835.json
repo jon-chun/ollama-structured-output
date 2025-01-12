@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1230,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:36:36.833673927Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.745017431,
+    "load_duration": 0.019180614,
+    "prompt_eval_count": 254,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 352,
+    "eval_duration": 2.716
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Unemployment\", \"medium\", \"Unemployment without employment history or steady job prospects can correlate with higher recidivism due to lack of stable income and support networks.\"),\n    (\"Single Household Size (4+)\", \"medium\", \"Larger household sizes often correlate with increased exposure to negative influences and potential for increased crime involvement among younger members.\"),\n    (\"Never Married\", \"high\", \"A lack of marriage may indicate fewer social ties and support structures that typically help mitigate criminal behavior.\"),\n    (\"Never Cohabited\", \"low\", \"Living with parents alone does not inherently increase recidivism risk unless other contributing factors are present.\"),\n    (\"Lived with Biological Mother\", \"low\", \"Living with biological parents can provide consistent care and structure, potentially mitigating risks associated with instability.\"),\n    (\"Age at 12 Unknown\", \"medium\", \"Historical context of developmental milestones and potential exposure to early life stressors can influence future behavior, though specific details are lacking.\"),\n    (\"Marital Status Unknown at Age 12\", \"medium\", \"Uncertainty around significant life events like marriage can leave gaps in understanding long-term behavioral patterns.\"),\n    (\"Gender (Male)\", \"low\", \"While societal stereotypes exist, gender alone does not definitively predict recidivism without contextual risk factors.\"),\n    (\"Unknown Marital Status\", \"low\", \"Similar to age at 12, uncertainty in marital status introduces ambiguity without concrete behavioral indicators.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163636_834835",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1230,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

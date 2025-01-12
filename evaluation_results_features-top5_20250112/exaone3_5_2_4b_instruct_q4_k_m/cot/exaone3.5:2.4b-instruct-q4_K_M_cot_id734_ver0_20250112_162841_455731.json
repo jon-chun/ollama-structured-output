@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 734,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:28:41.454390032Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.908504259,
+    "load_duration": 0.023194454,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 198,
+    "eval_duration": 0.877
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Unemployment\", \"high\", \"Unemployment is often linked with lower socioeconomic status, which increases vulnerability to criminal activity and difficulty reintegrating into stable employment post-release.\"],\n    [\"Never married\", \"medium\", \"While not inherently criminal, lack of marital status can indicate instability or previous failed relationships which might suggest underlying personal issues contributing to risk.\"],\n    [\"Household size of 6\", \"high\", \"A larger household size can imply financial strain or instability, potentially contributing to higher stress levels and social challenges that increase recidivism risk.\"],\n    [\"Single status (never married)\", \"medium\", \"Singlehood might correlate with fewer societal supports, which can exacerbate feelings of isolation or desperation leading to higher engagement risks.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162841_455731",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 734,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Unemployment",
+      "high",
+      "Unemployment is often linked with lower socioeconomic status, which increases vulnerability to criminal activity and difficulty reintegrating into stable employment post-release."
+    ],
+    [
+      "Never married",
+      "medium",
+      "While not inherently criminal, lack of marital status can indicate instability or previous failed relationships which might suggest underlying personal issues contributing to risk."
+    ],
+    [
+      "Household size of 6",
+      "high",
+      "A larger household size can imply financial strain or instability, potentially contributing to higher stress levels and social challenges that increase recidivism risk."
+    ],
+    [
+      "Single status (never married)",
+      "medium",
+      "Singlehood might correlate with fewer societal supports, which can exacerbate feelings of isolation or desperation leading to higher engagement risks."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 6.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

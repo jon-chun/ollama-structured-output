@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 201,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:51:59.282971916Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.789848487,
+    "load_duration": 0.019296423,
+    "prompt_eval_count": 329,
+    "prompt_eval_duration": 0.027,
+    "eval_count": 336,
+    "eval_duration": 11.739
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age can indicate lower life experience and stability, which might mitigate risk.\"),\n    (\"gender\", \"medium\", \"Female gender may present a lower risk for certain types of offenses.\"),\n    (\"ethnicity\", \"medium\", \"Hispanic ethnicity is not inherently a risk factor, but can influence social networks and community resources.\"),\n    (\"arrest_count\", \"medium\", \"One prior arrest indicates some level of criminal involvement, but no conviction suggests potential for change.\"),\n    (\"height_and_weight\", \"low\", \"Physical characteristics do not directly correlate with criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Not being married is not a risk factor for recidivism.\"),\n    (\"living_alone\", \"medium\", \"Living situation can impact social support and stability.\"),\n    (\"education_level\", \"medium\", \"Lack of education may indicate fewer opportunities and possibly higher risk.\"),\n    (\"employment_history\", \"low\", \"Having held multiple jobs suggests stability and adaptability.\"),\n    (\"drug_use\", \"low\", \"No recent drug use indicates less likelihood of substance-fueled criminal activity.\"),\n    (\"depression Symptoms\", \"medium\", \"Presence of depressive symptoms could indicate vulnerability to stressors, possibly increasing risk.\"),\n    (\"household_size_at_young_age\", \"low\", \"Growing up in a household of size 4 is relatively common and does not directly correlate with risk.\"),\n    (\"spiritual_beliefs\", \"low\", \"Belief in a guiding spiritual force does not inherently affect criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_115159_284149",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 201,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 160 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

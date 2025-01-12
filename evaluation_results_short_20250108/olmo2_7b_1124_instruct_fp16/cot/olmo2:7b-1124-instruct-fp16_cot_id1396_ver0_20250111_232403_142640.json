@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1396,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:24:03.141038366Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.664789771,
+    "load_duration": 0.018994844,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 303,
+    "eval_duration": 5.629
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"21-year-olds may have less maturity and experience, which can influence decision-making processes potentially increasing risk.\"),\n    (\"race\", \"low\", \"Studies show race does not independently predict criminal behavior; therefore, it carries a low weight.\"),\n    (\"arrest_count\", \"medium\", \"First-time arrestees sometimes demonstrate lower recidivism rates as a novelty effect wears off; however, one arrest indicates some level of engagement with the criminal justice system.\"),\n    (\"conviction\", \"high\", \"Having been convicted suggests a history of criminal behavior, indicating a higher likelihood of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object reflects the following reasoning:\n- The individual is young (21 years old), which can be associated with an increased risk due to potentially less mature decision-making.\n- Race was assigned a low weight because research indicates that race is not a reliable predictor of criminal behavior on its own.\n- Having been arrested once and convicted suggests that there has been previous engagement with illegal activities, placing this individual in a higher-risk category for rearrest within three years.\n- The prediction is \"YES\" based on the combination of factors, particularly the conviction, which typically signifies a higher risk of reoffending.\n- The confidence level is set at 75% due to the substantial weight given to the conviction and the typical trajectory of first-time offenders.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232403_142640",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1396,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

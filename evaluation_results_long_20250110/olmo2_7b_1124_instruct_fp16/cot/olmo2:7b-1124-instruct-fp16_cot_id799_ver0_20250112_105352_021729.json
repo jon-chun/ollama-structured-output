@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 799,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:53:52.02022383Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.465018259,
+    "load_duration": 0.024553591,
+    "prompt_eval_count": 340,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 375,
+    "eval_duration": 7.417
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Research shows that younger individuals may be at higher risk for recidivism.\"),\n    (\"arrest history\", \"high\", \"Multiple arrests increase the likelihood of reoffense.\"),\n    (\"conviction\", \"high\", \"Prior convictions are a strong predictor of future criminal behavior.\"),\n    (\"gender\", \"low\", \"Studies show little gender-based difference in recidivism rates.\"),\n    (\"race\", \"medium\", \"Racial disparities exist in the criminal justice system, but individual risk is multifaceted.\"),\n    (\"current living situation\", \"low\", \"Living alone is not directly correlated with increased risk of rearrest.\"),\n    (\"education level\", \"medium\", \"Higher education often correlates with lower recidivism rates.\"),\n    (\"employment history\", \"low\", \"Having held a job could suggest stability and decreased risk.\"),\n    (\"substance use\", \"medium\", \"Drug use, particularly cocaine, can increase impulsive behavior and risk of reoffense.\"),\n    (\"mood state\", \"low\", \"Transient feelings of depression do not necessarily indicate a high risk for rearrest.\"),\n    (\"early family environment\", \"medium\", \"Growing up in a stable, two-parent household may provide protective factors against future crime.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}\n```\n\nThe JSON object above takes into account various risk factors based on criminological research and assigns relative weights ('low', 'medium', 'high') based on their influence on the likelihood of rearrest within three years. The prediction is that the individual has a high risk of reoffense, with a confidence level of 72%. This is not an absolute prediction but rather indicates a high degree of certainty given the factors presented and current understanding of recidivism risk.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105352_021729",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 799,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 7 inches and weighs 135 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

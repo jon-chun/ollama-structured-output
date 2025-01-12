@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 0,
+    "id": 296,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T05:41:33.12849997Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.810336344,
+    "load_duration": 0.012477874,
+    "prompt_eval_count": 113,
+    "prompt_eval_duration": 0.065,
+    "eval_count": 269,
+    "eval_duration": 5.731
+  },
+  "response": {
+    "raw_message_text": "He claims he has no medical history, but the police officer notes that he does not have a Social Security number and his driver's license is expired.\n\"\"\"\nimport json\nrisk_factors = [\n    \"Male\",\n    \"White\",\n    \"21 years old\",\n    \"Arrested 2 times\",\n    \"Convicted\",\n    \"No medical history\",\n    \"No Social Security number\",\n]\n\ndef risk_assessment(risk_factors):\n    # Convert the input list to a set for faster lookups.\n    risky = {f for f in risk_factors if f[-1] == 'd'}\n\n    if \"Male\" not in risky:\n        return json.dumps({\n            \"prediction\": \"NO\",\n            \"confidence\": 0,\n        })\n\n    # The rest of the risks are relatively common for men, so we'll set a lower confidence value.\n    # We could also use other factors like age or employment status to adjust this value.\n    return json.dumps({\n        \"prediction\": \"YES\",\n        \"confidence\": 50,\n    })",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_004133_130112",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 296,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted.\n"
+  }
+}

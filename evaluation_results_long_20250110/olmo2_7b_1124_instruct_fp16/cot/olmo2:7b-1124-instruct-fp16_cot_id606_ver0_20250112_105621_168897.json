@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 606,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:56:21.167580257Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.076752078,
+    "load_duration": 0.01904229,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 370,
+    "eval_duration": 7.036
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger adults often have less life experience, which can be a risk factor for reoffending.\"),\n    (\"arrest history\", \"high\", \"Multiple arrests increase the likelihood of continuing criminal behavior.\"),\n    (\"conviction\", \"high\", \"Having been convicted indicates a prior willingness to engage in illegal activities.\"),\n    (\"gender\", \"medium\", \"Males are typically at higher risk for recidivism than females, but age and other factors also play a role.\"),\n    (\"race\", \"medium\", \"While this factor is social and not a behavioral predictor of risk, being White may be associated with different social environments and opportunities.\"),\n    (\"marital status\", \"medium\", \"Being unmarried can sometimes correlate with less social support, which might increase risk.\"),\n    (\"living situation\", \"medium\", \"Living alone can mean fewer social controls and potentially increased isolation.\"),\n    (\"education\", \"low\", \"Lack of a college education is often associated with lower socioeconomic status and potentially higher crime rates.\"),\n    (\"employment history\", \"high\", \"The absence of recent employment may indicate difficulties in adapting to legal societal norms.\"),\n    (\"drug use\", \"medium\", \"Past drug use, especially of illegal drugs, can be an indicator of continued substance abuse issues.\"),\n    (\"mental health\", \"low\", \"Recent lack of depression suggests stable mental health, which generally lowers recidivism risk.\"),\n    (\"family environment\", \"medium\", \"Growing up in a stable, two-parent household is often associated with lower risk of criminal behavior.\"),\n    (\"belief in divine intervention\", \"low\", \"Belief in a higher power may suggest a personal moral compass, potentially reducing reoffense likelihood.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105621_168897",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 606,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 11 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

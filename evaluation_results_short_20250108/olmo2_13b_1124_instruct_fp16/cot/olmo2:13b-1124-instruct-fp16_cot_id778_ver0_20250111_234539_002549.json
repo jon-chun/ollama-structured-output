@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 778,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:45:39.001137707Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.446225529,
+    "load_duration": 0.02352643,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 419,
+    "eval_duration": 14.4
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age can be indicative of lower recidivism if no prior record of serious offenses.\"),\n    (\"gender\", \"medium\", \"Female gender tends to correlate with lower rearrest rates compared to males, but other factors may influence.\"),\n    (\"race\", \"low\", \"White race is typically associated with lower rearrest rates, although individual circumstances matter.\"),\n    (\"previous_arrests\", \"high\", \"Two prior arrests suggest a pattern of involvement in criminal activities which can indicate higher risk.\"),\n    (\"convictions\", \"medium\", \"Convictions imply actual criminal behavior, indicating a higher likelihood of future offenses compared to those merely arrested.\"),\n    (\"age_at_first_arrest\", \"low\" if <18, \"high\" if \u226518, \"Early onset of criminal activity increases risk, but specifics depend on age at first arrest.\"),\n    (\"age_at_current_assessment\", \"medium\", \"Young adulthood is a critical period for criminal behavior, which can either stabilize or escalate.\"),\n    (\"employment_status\", \"medium\", \"Unemployment or unstable employment may increase the likelihood of reoffending due to lack of structure and financial strain.\"),\n    (\"educational_attainment\", \"low\" if high school diploma or above, \"high\" if lower, \"Higher education is associated with reduced recidivism rates.\"),\n    (\"nature_of_offenses\", \"medium\", \"The seriousness and nature of the offenses committed can indicate propensity for future criminal activity.\"),\n    (\"criminal_networks\", \"high\", \"Associations with criminal networks increase the risk of reoffending due to influence and exposure.\"),\n    (\"victimization_history\", \"medium\", \"A history of victimization can lead to both offending and reoffending, depending on coping mechanisms.\"),\n    (\"support_system\", \"low\" if strong, \"high\" if weak or absent, \"Strong support systems can mitigate risk, while lack of support may increase propensity for reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_234539_002549",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 778,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

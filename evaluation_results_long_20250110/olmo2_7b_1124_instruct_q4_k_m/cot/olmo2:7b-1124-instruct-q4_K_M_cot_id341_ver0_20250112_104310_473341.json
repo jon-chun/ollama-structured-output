@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 341,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T15:43:10.472085778Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.064446999,
+    "load_duration": 0.018728622,
+    "prompt_eval_count": 306,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 364,
+    "eval_duration": 3.027
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The individual is young, which might indicate less maturity and potentially higher impulsivity, but also less life experience which can correlate with lower risk.\"),\n    (\"arrest_history\", \"high\", \"Two prior arrests signal a pattern of engagement with the criminal justice system, indicating a higher likelihood of reoffending.\"),\n    (\"race\", \"low\", \"Identifying as White typically does not carry a specific recidivism risk factor, though socioeconomic factors may influence this.\"),\n    (\"marital_status\", \"low\", \"Never married does not directly correlate with higher risk unless considering social support networks.\"),\n    (\"living_situations\", \"low\", \"Living alone might lack the social control present in a shared household, but this factor alone is insufficient to elevate risk significantly.\"),\n    (\"education_level\", \"low\", \"A GED certificate is below a college degree but does not necessarily predict criminal behavior.\"),\n    (\"employment_status\", \"high\", \"Lack of job holding during the year suggests potential financial strain and lack of legal income, which can be a risk factor for crime.\"),\n    (\"drug_use\", \"medium\", \"Past drug use indicates a propensity toward substance abuse, which can be a contributing factor to criminal behavior.\"),\n    (\"mental_health_status\", \"low\", \"Lack of recent depression suggests stable mental health, mitigating risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object predicts a \"YES\" for 3-year rearrest recidivism with a confidence level of 75%, based on the detailed analysis provided. Each factor is weighed according to its potential influence on the individual's risk level for reoffending, considering both direct and contextual implications.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_104310_473341",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 341,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 10 inches and weighs 195 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 7, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

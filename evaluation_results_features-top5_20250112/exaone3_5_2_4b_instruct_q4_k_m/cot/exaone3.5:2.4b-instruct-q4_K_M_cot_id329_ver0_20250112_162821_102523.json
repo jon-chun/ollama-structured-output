@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 329,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:28:21.101225425Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.904524251,
+    "load_duration": 0.019896527,
+    "prompt_eval_count": 252,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 203,
+    "eval_duration": 0.876
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Unmarried Status\", \"medium\", \"Being unmarried may suggest instability in personal relationships, potentially impacting support networks and stability.\"],\n    [\"Current Cohabitation\", \"low\", \"Cohabitation without marriage does not inherently correlate with higher recidivism risk unless additional factors like substance abuse or instability exist.\"],\n    [\"Previous Employment History\", \"low\", \"Having held multiple jobs indicates potential adaptability and skill development, reducing recidivism likelihood.\"],\n    [\"Household Size\", \"medium\", \"A household of five provides more support but could also imply potential financial strain depending on employment stability.\"],\n    [\"Parental Care\", \"low\", \"Living with biological parents at age 12 suggests consistent nurturing environment, reducing risk factors associated with neglect or instability.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162821_102523",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 329,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Unmarried Status",
+      "medium",
+      "Being unmarried may suggest instability in personal relationships, potentially impacting support networks and stability."
+    ],
+    [
+      "Current Cohabitation",
+      "low",
+      "Cohabitation without marriage does not inherently correlate with higher recidivism risk unless additional factors like substance abuse or instability exist."
+    ],
+    [
+      "Previous Employment History",
+      "low",
+      "Having held multiple jobs indicates potential adaptability and skill development, reducing recidivism likelihood."
+    ],
+    [
+      "Household Size",
+      "medium",
+      "A household of five provides more support but could also imply potential financial strain depending on employment stability."
+    ],
+    [
+      "Parental Care",
+      "low",
+      "Living with biological parents at age 12 suggests consistent nurturing environment, reducing risk factors associated with neglect or instability."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 2 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

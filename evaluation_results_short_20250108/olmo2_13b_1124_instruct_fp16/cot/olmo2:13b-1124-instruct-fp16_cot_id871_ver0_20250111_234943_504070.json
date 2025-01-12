@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 871,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:49:43.502692512Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.447511674,
+    "load_duration": 0.024466293,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 216,
+    "eval_duration": 7.403
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can be associated with both higher impulsivity and potential for change; however, the specific age of 18 is balanced.\"),\n    (\"gender\", \"low\", \"Females generally have lower rates of recidivism compared to males.\"),\n    (\"race\", \"low\", \"While race can influence interactions with the criminal justice system, it is not a direct indicator of individual recidivism.\"),\n    (\"arrests_count\", \"high\", \"A history of multiple arrests suggests a pattern of involvement with law enforcement which can indicate higher risk.\"),\n    (\"convictions\", \"high\", \"Prior convictions suggest a greater likelihood of re-offending as they indicate a proven engagement in criminal behavior.\"),\n    (\"age_at_first_arrest\", \"low\" if not specified, \"N/A\" if not relevant, \"The age at first arrest is not specified but generally, earlier first arrest can be indicative of higher risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_234943_504070",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 871,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 7 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 886,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:20:41.617736299Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.186116357,
+    "load_duration": 0.023410939,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 168,
+    "eval_duration": 3.147
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"21-year-olds may have less established life routines, which could increase risk\"),\n    (\"race\", \"medium\", \"racial disparities in the criminal justice system suggest higher risk for Black individuals\"),\n    (\"arrest history\", \"low\", \"first-time arrest without conviction may indicate lower propensity for reoffense\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}\n```\n\nThis JSON object predicts a medium risk of 3-year rearrest for the individual, citing their age and racial background as significant factors. The assessment also considers that having no prior convictions might slightly reduce the risk compared to someone with more extensive arrest histories. The confidence level is set at 60%, reflecting the assessment's certainty based on available data.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232041_619118",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 886,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

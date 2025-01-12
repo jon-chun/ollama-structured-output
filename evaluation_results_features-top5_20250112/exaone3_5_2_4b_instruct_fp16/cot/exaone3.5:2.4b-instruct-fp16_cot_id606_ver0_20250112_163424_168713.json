@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 606,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:34:24.167403783Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.094061369,
+    "load_duration": 0.019109804,
+    "prompt_eval_count": 251,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 269,
+    "eval_duration": 2.063
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Unemployment\", \"medium\", \"Being unemployed increases vulnerability to engaging in criminal activities due to financial desperation, potentially leading to higher recidivism rates.\"),\n    (\"Never Married\", \"medium\", \"Lack of marital stability can correlate with higher risk of unstable living conditions and social disorganization, which are linked to increased recidivism.\"),\n    (\"Cohabitation Status\", \"low\", \"Not cohabiting does not inherently correlate strongly with recidivism unless there are specific issues like substance abuse or unstable partnerships.\"),\n    (\"Household Size\", \"low\", \"Household size of 4 might suggest independence but doesn't inherently increase risk if the individual has stable support networks.\"),\n    (\"Childhood Upbringing\", \"high\", \"Growing up with both biological parents until age 12 suggests positive early development influences, which generally mitigate later risk factors.\"),\n    (\"Age at Separation\", \"low\", \"Age at separation from parental care (12) does not strongly influence recidivism unless there are specific patterns of dependency or neglect present otherwise unspecified here.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163424_168713",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 606,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

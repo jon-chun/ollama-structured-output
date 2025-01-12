@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1032,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:36:49.162235071Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.710224122,
+    "load_duration": 0.019071381,
+    "prompt_eval_count": 210,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 122,
+    "eval_duration": 1.666
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"Age\", \"low\", \"Younger age often associated with lower recidivism, especially in first-time arrestees.\"], [\"Gender\", \"medium\", \"Female gender typically correlates with lower recidivism rates.\"], [\"Race\", \"low\", \"Mixed race does not strongly correlate with recidivism.\"], [\"Arrests\", \"low\", \"Single arrest without conviction suggests less entrenched criminal behavior.\"], [\"Convictions\", \"high\", \"Lack of convictions indicates lower likelihood of reoffending.\"]], \"prediction\": \"NO\", \"confidence\": 60}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_233649_163630",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1032,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "low",
+      "Younger age often associated with lower recidivism, especially in first-time arrestees."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Female gender typically correlates with lower recidivism rates."
+    ],
+    [
+      "Race",
+      "low",
+      "Mixed race does not strongly correlate with recidivism."
+    ],
+    [
+      "Arrests",
+      "low",
+      "Single arrest without conviction suggests less entrenched criminal behavior."
+    ],
+    [
+      "Convictions",
+      "high",
+      "Lack of convictions indicates lower likelihood of reoffending."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as mixed race. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

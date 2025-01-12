@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1121,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:29:50.093158679Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.010720097,
+    "load_duration": 0.026206251,
+    "prompt_eval_count": 254,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 223,
+    "eval_duration": 0.972
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Unemployment\", \"high\", \"Unemployment often correlates strongly with higher recidivism rates due to lack of stable income and increased reliance on potentially illicit means to support oneself.\"],\n    [\"Never Married\", \"high\", \"Lack of stable adult relationships or support networks typically increases vulnerability to reoffending due to fewer social supports.\"],\n    [\"Lived with Biological Mother\", \"medium\", \"Living primarily with one parent can indicate instability in early childhood environments, though the influence diminishes over time without further contextual factors.\"],\n    [\"Household Size\", \"low\", \"A larger household might suggest fewer resources per individual, potentially impacting opportunities for positive influences and stability.\"],\n    [\"Other Parent Present at Age 12\", \"medium\", \"Having another parent present by age 12 indicates continued parental involvement which can mitigate some risk factors associated with instability.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162950_094415",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1121,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Unemployment",
+      "high",
+      "Unemployment often correlates strongly with higher recidivism rates due to lack of stable income and increased reliance on potentially illicit means to support oneself."
+    ],
+    [
+      "Never Married",
+      "high",
+      "Lack of stable adult relationships or support networks typically increases vulnerability to reoffending due to fewer social supports."
+    ],
+    [
+      "Lived with Biological Mother",
+      "medium",
+      "Living primarily with one parent can indicate instability in early childhood environments, though the influence diminishes over time without further contextual factors."
+    ],
+    [
+      "Household Size",
+      "low",
+      "A larger household might suggest fewer resources per individual, potentially impacting opportunities for positive influences and stability."
+    ],
+    [
+      "Other Parent Present at Age 12",
+      "medium",
+      "Having another parent present by age 12 indicates continued parental involvement which can mitigate some risk factors associated with instability."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 5 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

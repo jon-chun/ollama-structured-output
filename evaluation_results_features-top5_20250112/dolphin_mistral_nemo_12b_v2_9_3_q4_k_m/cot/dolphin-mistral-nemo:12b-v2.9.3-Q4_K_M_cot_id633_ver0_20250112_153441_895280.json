@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 633,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-12T20:34:41.89412809Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.120353461,
+    "load_duration": 0.028180433,
+    "prompt_eval_count": 253,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 237,
+    "eval_duration": 3.079
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n     (\"Gender\", \"medium\", \"Being a male is typically associated with higher risk of recidivism, but not being married nor cohabiting could potentially reduce this\"),\n     (\"Marital Status\", \"low\", \"Unmarried individuals tend to have lower risk of recidivism than those who are married or in serious relationships\"),\n     (\"Cohabitation status\", \"medium\", \"Not living with a partner can be neutral, but it may increase the likelihood of isolation and thus higher risks\"),\n     (\"Employment Status\", \"high\", \"Holding 1 job suggests limited employment stability and can lead to recidivism due to lack of financial security\"),\n     (\"Household Size at Release\", \"low\", \"Living in a larger household could provide additional support, reducing the risk of rearrest\"),\n     (\"Parental Living Arrangement at Age 12\", \"high\", \"Living with both biological parents until age 12 is often associated with better social development and lower recidivism risks\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_153441_895280",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 633,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 50,
+    "id": 634,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-12T20:37:45.259710907Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.52560785,
+    "load_duration": 0.031414081,
+    "prompt_eval_count": 258,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 268,
+    "eval_duration": 3.482
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n     (\"gender\", \"low\", \"Being male is generally considered a low risk factor for recidivism, unless compounded with other high-risk factors.\"),\n     (\"marital_status\", \"medium\", \"Married individuals tend to have lower rates of recidivism compared to single or divorced individuals. However, the presence of a spouse does not guarantee decreased criminal activity.\"),\n     (\"job_history\", \"low\", \"Having held 2 jobs could indicate financial stability and responsibility, which tends to correlate with lower likelihood of reoffending.\"),\n     (\"household_size\", \"medium\", \"Living in a smaller household may provide more opportunities for monitoring and support, potentially reducing recidivism. However, it can also lead to increased stress or lack of resources that might increase risk.\"),\n     (\"age_12_group_quarters\", \"high\", \"Not living in group quarters at age 12 could indicate stable upbringing and less exposure to adverse childhood experiences which are linked with higher rates of recidivism.\"),\n     (\"biological_parent_status\", \"low\", \"Unknown biological parent status does not provide enough information to determine a significant risk factor.\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 50\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_153745_261151",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 634,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 2 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

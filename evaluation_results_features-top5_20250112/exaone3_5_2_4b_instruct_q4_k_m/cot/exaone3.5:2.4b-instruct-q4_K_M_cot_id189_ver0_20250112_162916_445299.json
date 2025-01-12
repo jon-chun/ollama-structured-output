@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 189,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:29:16.44409334Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.002837658,
+    "load_duration": 0.021791335,
+    "prompt_eval_count": 248,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 229,
+    "eval_duration": 0.973
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Married with spouse present\", \"low\", \"Having a stable relationship can provide social support and reduce isolation, lowering recidivism risk.\"],\n    [\"Household size of 6\", \"high\", \"Larger household size often correlates with fewer social connections outside immediate family, potentially increasing isolation and risky behaviors.\"],\n    [\"Lived with biological parents until age 12\", \"medium\", \"Early parental care can mitigate some developmental risks, though prolonged dependence might suggest vulnerabilities later if not managed properly.\"],\n    [\"Currently unemployed\", \"high\", \"Unemployment often indicates lack of financial stability and potential engagement in activities with higher criminal association, increasing recidivism risk.\"],\n    [\"No mention of prior criminal history explicitly\", \"medium\", \"While absence of explicit history doesn't guarantee no risk, absence itself suggests a lower baseline risk compared to those with a documented criminal past.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162916_445299",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 189,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Married with spouse present",
+      "low",
+      "Having a stable relationship can provide social support and reduce isolation, lowering recidivism risk."
+    ],
+    [
+      "Household size of 6",
+      "high",
+      "Larger household size often correlates with fewer social connections outside immediate family, potentially increasing isolation and risky behaviors."
+    ],
+    [
+      "Lived with biological parents until age 12",
+      "medium",
+      "Early parental care can mitigate some developmental risks, though prolonged dependence might suggest vulnerabilities later if not managed properly."
+    ],
+    [
+      "Currently unemployed",
+      "high",
+      "Unemployment often indicates lack of financial stability and potential engagement in activities with higher criminal association, increasing recidivism risk."
+    ],
+    [
+      "No mention of prior criminal history explicitly",
+      "medium",
+      "While absence of explicit history doesn't guarantee no risk, absence itself suggests a lower baseline risk compared to those with a documented criminal past."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and is currently unemployed with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

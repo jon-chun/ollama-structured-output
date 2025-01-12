@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1083,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:24:31.879356951Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.635740087,
+    "load_duration": 0.019757925,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 302,
+    "eval_duration": 5.598
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"21-year-olds may have less maturity but are also closer to adult responsibilities; being young can be a risk factor but this individual's age is not extreme\"),\n    (\"gender\", \"medium\", \"Gender can influence risk, but other factors are more predictive in this context. Males often have higher recidivism rates, but individual behavior is key\"),\n    (\"race\", \"medium\", \"Societal statistics show disparities, but individual behavior and life circumstances are more critical. This factor is indicative of general trends, not this case.\"),\n    (\"arrest_count\", \"high\", \"Multiple arrests suggest a pattern of engagement with the criminal justice system; however, convictions indicate more serious engagement\"),\n    (\"conviction_history\", \"high\", \"Having been convicted indicates a history of legal consequences; the nature and seriousness of the convictions are important here\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object predicts a moderate risk for 3-year rearrest based on several factors. The individual's age and gender are considered moderately risky due to typical behavioral patterns associated with these demographics, especially when considering recidivism rates. However, their multiple arrests and conviction history suggest a higher individual risk. The confidence in this prediction is set at 75% due to the combination of both demographic and individual behavior indicators pointing towards a higher likelihood of reoffense within three years.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232431_880887",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1083,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

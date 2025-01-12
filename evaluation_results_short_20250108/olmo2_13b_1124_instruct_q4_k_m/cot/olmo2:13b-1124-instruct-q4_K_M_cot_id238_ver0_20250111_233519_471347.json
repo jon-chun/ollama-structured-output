@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 238,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:35:19.469866132Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.329607631,
+    "load_duration": 0.019669936,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 312,
+    "eval_duration": 4.284
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Young age, particularly 19, is associated with higher recidivism rates due to developmental factors and life instability.\"),\n    (\"gender\", \"low\", \"Male gender typically associates with higher recidivism risk but not as strongly as other factors.\"),\n    (\"race\", \"medium\", \"Research indicates racial disparities, though individual experiences vary widely and race itself does not causally predict criminal behavior.\"),\n    (\"arrest_count\", \"high\", \"Three arrests suggest involvement in risky behaviors or environments, increasing the likelihood of reoffending.\"),\n    (\"conviction_status\", \"low\", \"Lack of convictions may indicate lesser criminal propensity or successful defense, potentially mitigating immediate risk.\"),\n    (\"age_at_first_arrest\", \"unknown\" (assumed early teens based on cumulative age of 19), \"Without the exact age at first arrest, this factor remains uncertain but early criminal activity often correlates with higher recidivism.\"),\n    (\"history_of_violence\", \"medium\", \"Assuming violent behavior based on arrest counts, violence increases the risk of future violent offenses.\"),\n    (\"support_system\", \"unknown\" (assumed minimal support given lack of conviction and arrests), \"Weak social support can lead to increased likelihood of reoffending.\"),\n    (\"prior_program_success\", \"low\", \"Without convictions, it's unclear if the individual has benefited from or complied with any prior programs or interventions.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_233519_471347",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 238,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 3 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

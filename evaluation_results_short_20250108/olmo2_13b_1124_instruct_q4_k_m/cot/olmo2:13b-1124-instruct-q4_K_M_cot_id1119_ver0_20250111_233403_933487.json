@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1119,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:34:03.932345718Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.43516221,
+    "load_duration": 0.02042961,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.022,
+    "eval_count": 248,
+    "eval_duration": 3.39
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can indicate higher impulsivity and instability.\"),\n    (\"gender\", \"low\", \"Male gender is generally associated with higher recidivism rates.\"),\n    (\"race\", \"medium\", \"Being Black may indicate systemic disadvantages affecting stability.\"),\n    (\"arrests_without_conviction\", \"high\", \"Multiple arrests without convictions could suggest issues with conforming to the law.\"),\n    (\"age_at_first_arrest\", \"low\", \"Age of 22 might be seen as relatively late for first arrests.\"),\n    (\"criminal_history_length\", \"high\", \"Six arrests indicate a pattern of criminal behavior.\"),\n    (\"education_level\", \"medium\", \"Lack of detail on education level leaves ambiguity; generally, lower education correlates with higher risk.\"),\n    (\"employment_status\", \"medium\", \"Unspecified employment status can suggest instability or difficulty integrating into society.\"),\n    (\"prior_violence\", \"high\", \"No direct information on violence, but assumption based on arrest pattern.\"),\n    (\"community_support\", \"medium\", \"Support not specified; lack of support can lead to higher risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_233403_933487",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1119,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

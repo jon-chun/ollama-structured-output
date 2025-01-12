@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 536,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:35:14.014848036Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.370745066,
+    "load_duration": 0.017926205,
+    "prompt_eval_count": 253,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 304,
+    "eval_duration": 2.342
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Previous Employment Stability\", \"medium\", \"Having held three distinct jobs within a relatively short period suggests potential instability or difficulty in maintaining employment, which could correlate with higher recidivism risk.\"),\n    (\"Household Size\", \"low\", \"Living with both biological parents indicates a supportive upbringing and potential stability, reducing risk factors typically associated with larger household sizes.\"),\n    (\"Marital Status\", \"high\", \"Never married and not cohabiting may indicate a lack of structured support systems post-release, potentially leading to higher recidivism rates.\"),\n    (\"Parental Support\", \"high\", \"Growing up with both biological parents likely provided foundational stability and possibly better guidance, mitigating against higher recidivism.\"),\n    (\"Age at Leaving Home\", \"medium\", \"Leaving home at age 12 suggests early independence but does not inherently indicate higher risk without additional context on subsequent life circumstances.\"),\n    (\"Cohabitation Experience\", \"low\", \"No cohabitation experience suggests fewer complex relationships or support networks that could complicate reintegration efforts.\"),\n    (\"Social Network Strength\", \"medium\", \"The absence of cohabitation implies limited social networks outside immediate family, which might affect access to support systems crucial for successful reintegration.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163514_015982",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 536,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

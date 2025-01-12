@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 851,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:13:20.408677854Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.756870333,
+    "load_duration": 0.018831094,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 330,
+    "eval_duration": 2.724
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"21-year-old males are often in the peak age range for crime, but with fewer risks compared to younger individuals due to potential life stage changes\"),\n    (\"race\", \"high\", \"Being Black can be a significant risk factor as there might be systemic biases and socio-economic factors that increase the likelihood of re-arrest\"),\n    (\"previous_arrests\", \"medium\", \"Two prior arrests indicate a pattern of behavior, but without convictions this may not always translate to high risk unless associated with specific types of offenses\"),\n    (\"prior_convictions\", \"high\", \"Convictions are a stronger indicator of a propensity for re-offense compared to mere arrests, suggesting a history of criminal behavior\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nIn this JSON object:\n- Factor 1 (age) is rated as 'medium' due to the developmental stage of being 21 years old.\n- Factor 2 (race) is rated as 'high' considering potential socio-economic and systemic factors.\n- Factor 3 (previous arrests) is rated as 'medium' because having been arrested before does not guarantee future offenses, especially without convictions.\n- Factor 4 (prior convictions) is rated as 'high' because convictions are a more concrete indicator of criminal behavior and a higher risk for re-arrest within three years.\n\nThe prediction is \"YES,\" suggesting a likelihood of re-arrest within three years. The confidence is set at 75, reflecting a considered but not absolute certainty based on the weighted factors.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_231320_410346",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 851,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

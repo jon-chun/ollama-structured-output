@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 425,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:38:20.420897307Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.989443337,
+    "load_duration": 0.019351814,
+    "prompt_eval_count": 253,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 253,
+    "eval_duration": 1.96
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status\", \"medium\", \"Never married suggests instability in personal relationships which can correlate with higher recidivism risk.\"),\n    (\"Household Size\", \"low\", \"Living with both biological parents suggests a stable upbringing that may mitigate risk factors.\"),\n    (\"Previous Employment\", \"low\", \"Having held multiple jobs indicates potential for employment history outside of criminal activity.\"),\n    (\"Cohabitation\", \"low\", \"Not cohabiting implies no recent involvement with potentially volatile living situations.\"),\n    (\"Age at Leaving Parental Home\", \"low\", \"Leaving parental home at age 12 could indicate early independence without significant prior criminal involvement documented.\"),\n    (\"Gender\", \"low\", \"Male demographics alone do not strongly predict recidivism without additional context; many males successfully reintegrate into society.\"),\n    (\"Family Background\", \"medium\", \"Growing up with both biological parents can contribute positively to behavioral development, reducing risk factors compared to disadvantaged backgrounds but not eliminating it entirely.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163820_422147",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 425,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

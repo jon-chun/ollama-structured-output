@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 391,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:23:23.272736321Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.452273624,
+    "load_duration": 0.016902252,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 299,
+    "eval_duration": 2.42
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Male Gender\", \"medium\", \"While gender can be a factor, it is not overwhelmingly predictive on its own without additional contextual factors.\"),\n    (\"Never Married\", \"medium\", \"Marital status can sometimes correlate with stability, but absence of marriage alone isn't strongly predictive without considering other life circumstances.\"),\n    (\"Not Cohabiting\", \"low\", \"Living alone or not cohabiting doesn't inherently indicate higher risk without additional context like financial stability or social isolation.\"),\n    (\"One Employment History\", \"low\", \"Having only one job history might suggest limited work experience but doesn't strongly correlate with higher recidivism risk.\"),\n    (\"Household Size of 5\", \"medium\", \"Larger household sizes might indicate potential dependency or familial support structures that could influence behavior, leaning towards medium risk.\"),\n    (\"Lived with Biological Mother\", \"medium\", \"Living with family, especially a parent, can indicate potential dependency or lack of independent living skills which might correlate moderately with risk.\"),\n    (\"Unknown Marital Status at Age 12\", \"low\", \"Early life marital status is less directly linked to adult criminal behavior unless there are significant underlying issues not evident here.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162323_274213",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 391,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

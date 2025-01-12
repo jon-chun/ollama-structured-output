@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 727,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:19:33.731748604Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.722450943,
+    "load_duration": 0.023791728,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 359,
+    "eval_duration": 6.681
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals may have less life experience and established routines, potentially increasing their risk for impulsive behavior and lack of responsibility.\"),\n    (\"race\", \"low\", \"Studies show that racial disparities exist in the criminal justice system, but individual race alone is not a strong predictor of recidivism.\"),\n    (\"arrest_history\", \"medium\", \"First-time offenders have a higher likelihood of reoffending compared to those with no arrest history, but the lack of a conviction implies it may not have been a severe or proven offense.\"),\n    (\"conviction_status\", \"high\", \"Individuals without convictions tend to be less engrained in the criminal justice system and may have fewer ties to criminal networks or environments.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```\n\nThis JSON object reflects a prediction that the individual has a medium risk of reoffending within three years. The reasoning behind each risk factor is as follows:\n\n- **Age (medium):** Being 19, he is at an age where impulsivity and lack of life experience can influence behavior.\n- **Race (low):** While racial disparities exist, individual race does not strongly predict recidivism without additional context.\n- **Arrest history (medium):** A single arrest suggests potential for future offenses, but the lack of a conviction implies it may not have been severe or proven.\n- **Conviction status (high):** Without a conviction, this individual might not yet be entrenched in the criminal justice system, potentially limiting his exposure to its networks and influences.\n\nThe prediction is \"YES\" with 65% confidence, indicating a moderately high likelihood of reoffending within three years.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_231933_733407",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 727,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 10,
+    "id": 89,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T05:56:59.395315665Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.727860489,
+    "load_duration": 0.012561645,
+    "prompt_eval_count": 114,
+    "prompt_eval_duration": 0.064,
+    "eval_count": 411,
+    "eval_duration": 8.649
+  },
+  "response": {
+    "raw_message_text": "He has no prior history of heart disease or any other health conditions, such as diabetes or cancer. His blood pressure is normal and his cholesterol level is within the healthy range.\nHis father had a heart attack at age 50, while his mother did not have any major illnesses during her life.\"\"\"\n\n# Predictive Model:\ndef predict(risk_factors):\n    # Risk Assessment\n    high_risk = False  # Initialize to false for initial iteration\n\n    for factor in risk_factors:\n        if \"male\" in factor or \"White\" in factor or \"arrested\" in factor \\\n                or \"consecutive\" in factor or \"heart disease\" in factor \\\n                or \"cancer\" in factor or \"father\" in factor and \"heart attack\" in factor\\\n                and \"50 years old\" not in factor:\n            high_risk = True  # Set to true if any of the risk factors are present.\n        elif \"female\" in factor or \"Black\" in factor or \"convicted\" in factor \\\n                or \"2 times\" in factor or \"no history\" in factor \\\n                or \"normal blood pressure\" not in factor:\n            high_risk = False  # Set to false if any of the risk factors are present.\n        elif \"heart attack\" in factor and \"50 years old\" in factor:\n            high_risk = True  # Set to true if any of the risk factors are present.\n        else:\n            print(\"Invalid input!\")\n    if high_risk == False:\n        return {\"prediction\": \"NO\", \"confidence\": 10}  # Return prediction and confidence level based on evaluation\n    elif high_risk == True:\n        return {\"prediction\": \"YES\", \"confidence\": 90}  # Return prediction and confidence level based on evaluation",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_005659_396481",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 89,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted.\n"
+  }
+}

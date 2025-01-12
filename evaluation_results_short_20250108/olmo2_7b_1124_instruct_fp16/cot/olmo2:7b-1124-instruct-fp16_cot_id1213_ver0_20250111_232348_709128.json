@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1213,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:23:48.70745374Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.257292538,
+    "load_duration": 0.019500048,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 281,
+    "eval_duration": 5.222
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young adults are often at a developmental stage where they are more likely to engage in risky behaviors, but a single arrest does not necessarily indicate a high recidivism risk at this age.\"),\n    (\"gender\", \"medium\", \"Females tend to have lower rearrest rates than males according to some studies, but this is moderated by other factors such as history of violence or substance abuse.\"),\n    (\"race\", \"low\", \"While race can be a factor in broader societal trends, without additional information on the specific socio-economic and environmental context, the impact on individual risk is limited.\"),\n    (\"arrest_count\", \"medium\", \"Having been arrested once can suggest potential for future illegal activities, but without a conviction, it may reflect a single encounter with the law rather than a pattern of behavior.\"),\n    (\"conviction_status\", \"high\", \"The lack of a conviction suggests that this arrest may not be indicative of ongoing criminal activity or a higher propensity for reoffending.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```\n\nThis JSON response weighs each factor based on established knowledge in the field of criminal justice, taking into account the provided details. The prediction reflects a low to medium risk of rearrest within three years, with an associated confidence level of 70%.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232348_709128",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1213,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

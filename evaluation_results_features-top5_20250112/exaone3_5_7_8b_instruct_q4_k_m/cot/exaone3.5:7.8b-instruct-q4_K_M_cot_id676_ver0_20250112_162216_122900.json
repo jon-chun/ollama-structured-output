@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 676,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:22:16.121518121Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.52098569,
+    "load_duration": 0.018528192,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 306,
+    "eval_duration": 2.488
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Gender (Male)\", \"medium\", \"While not a definitive predictor on its own, male offenders often exhibit higher recidivism rates compared to females, based on historical data.\"),\n    (\"Marital Status (Never Married)\", \"medium\", \"Unmarried status can correlate with higher risk due to potential social and economic instability.\"),\n    (\"Cohabitation Status (Not Cohabiting)\", \"medium\", \"Lack of stable cohabitation might indicate less social support networks, potentially contributing to higher recidivism.\"),\n    (\"Employment History (1 job)\", \"low\", \"Having held only one job may suggest limited work experience or stability, but not definitively linked to higher recidivism without further context.\"),\n    (\"Household Size (2)\", \"low\", \"Small household size generally does not strongly correlate with increased recidivism risk.\"),\n    (\"Living Situation (Lived with Biological Mother)\", \"low\", \"Living arrangements alone do not strongly indicate higher risk without additional context like family dynamics.\"),\n    (\"Presence of Other Parent (Present at Age 12)\", \"low\", \"Continued presence of a parent post-puberty typically mitigates some risk factors associated with childhood instability.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162216_122900",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 676,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 2 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

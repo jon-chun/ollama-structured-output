@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 50,
+    "id": 1299,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T05:15:09.812403989Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.418957331,
+    "load_duration": 0.017918305,
+    "prompt_eval_count": 113,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 143,
+    "eval_duration": 1.389
+  },
+  "response": {
+    "raw_message_text": "She works part time at a restaurant, makes $12 per hour, and lives alone with her mother in an apartment.\"\"\"\n\ndef risk_assessment(data):\n    risk = data[\"arrests\"] * 5 + (10 - data[\"convicted\"]) / 4\n    if risk < 7:\n        return {\"prediction\": \"NO\", \"confidence\": int(100 * ((7-risk) / 6.9))}\n    else:\n        return {\"prediction\": \"YES\", \"confidence\": 50 - (data[\"arrests\"] - risk)}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_001509_813930",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 1299,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is an 18-year-old female who identifies herself as Hispanic. She has been arrested 3 times and has been convicted.\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1283,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:38:27.820287449Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.853084835,
+    "load_duration": 0.017042946,
+    "prompt_eval_count": 254,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 367,
+    "eval_duration": 2.823
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Unemployment\", \"high\", \"Unemployment often correlates strongly with increased risk of reoffending due to lack of support structures, financial instability, and potential involvement in illegal activities.\"),\n    (\"Never Married\", \"medium\", \"While marital status is not as strongly linked as unemployment, being unmarried without stable cohabitation might suggest fewer positive social supports and increased vulnerability.\"),\n    (\"Household Size (3)\", \"low\", \"The size of the household does not inherently indicate higher risk unless coupled with other concerning factors like instability or lack of adult supervision.\"),\n    (\"Lived with Biological Mother Until Age 12\", \"medium\", \"Growing up without a stable married parent environment could indicate early life difficulties, potentially influencing future behavior patterns.\"),\n    (\"Marital Status Unknown at Age 12\", \"medium\", \"The lack of clarity regarding marital status during adolescence could suggest unstable family dynamics or past issues that might persist into adulthood.\"),\n    (\"Cohabitation Status Unknown\", \"low\", \"The absence of cohabitation details doesn't provide additional risk indicators without more context on the nature of living arrangements.\"),\n    (\"Gender (Male)\", \"medium\", \"Gender alone does not predict recidivism; however, societal biases and historical data suggest slightly elevated risks for males in certain contexts, though this varies widely.\"),\n    (\"Living Situation (with Biological Mother)\", \"medium\", \"Living with one's biological parent might indicate a stable but potentially isolated upbringing, which could affect social interaction patterns in adulthood.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163827_821579",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1283,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

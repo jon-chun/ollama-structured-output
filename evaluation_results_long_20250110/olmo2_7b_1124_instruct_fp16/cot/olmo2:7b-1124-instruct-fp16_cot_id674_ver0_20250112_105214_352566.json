@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 674,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:52:14.351068685Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.242964715,
+    "load_duration": 0.015225431,
+    "prompt_eval_count": 311,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 417,
+    "eval_duration": 8.204
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults, particularly males in their early 20s, are often at a higher risk for criminal behavior due to impulsivity and lack of life experience.\"),\n    (\"arrest history\", \"high\", \"One arrest indicates a prior engagement with the criminal justice system, suggesting a higher likelihood of reoffending.\"),\n    (\"conviction\", \"high\", \"Having been convicted suggests a history of criminal behavior that may increase the risk of rearrest.\"),\n    (\"physical characteristics\", \"medium\", \"Physical attributes such as height and weight can sometimes correlate with certain behaviors or stereotypes, but in this case, they are not strong indicators of risk.\"),\n    (\"marital status\", \"low\", \"Being unmarried is generally neutral; it does not significantly increase or decrease the risk of reoffending on its own.\"),\n    (\"residential situation\", \"medium\", \"Living alone might indicate a lack of social support, which can potentially increase risk. However, this needs context to be accurately assessed.\"),\n    (\"educational attainment\", \"low\", \"Having a high school diploma is typical for someone his age and does not inherently alter recidivism predictions significantly.\"),\n    (\"employment history\", \"medium\", \"One job held during the year may indicate stability or instability depending on broader circumstances. This requires more context to accurately assess.\"),\n    (\"drug use\", \"high\", \"The absence of drug use in the past four years is a positive factor, indicating reduced exposure to environments that might encourage criminal behavior.\"),\n    (\"mental health\", \"low\", \"Lack of depression in the past month is positive; however, unreported or unnoticed depression could be a hidden risk.\"),\n    (\"early family environment\", \"medium\", \"Growing up in a larger household with his biological mother could indicate a supportive environment during critical developmental years, potentially reducing risk. However, without information about family dynamics, this factor's weight is considered medium.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105214_352566",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 674,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 171 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 9. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

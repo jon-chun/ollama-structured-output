@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1235,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-12T21:36:31.902773595Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.274276938,
+    "load_duration": 0.022651091,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 288,
+    "eval_duration": 2.239
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Never Married\", \"medium\", \"Lack of stable marital status often correlates with higher risk of recidivism due to lack of social support and structured environment.\"),\n    (\"No Cohabiting Partners\", \"low\", \"Single status without cohabitation does not inherently indicate higher risk, though stable relationships can mitigate risks.\"),\n    (\"Two Jobs\", \"low\", \"Employment history may suggest financial stability and responsibility, reducing likelihood of reoffending.\"),\n    (\"Household Size of 7\", \"medium\", \"Larger household size can imply potential involvement in larger, possibly more complex criminal networks, increasing social vulnerability.\"),\n    (\"Lived with Biological Mother\", \"low\", \"Growing up without a father figure might indicate early exposure to instability, though it doesn't necessarily equate to higher risk without further context.\"),\n    (\"Unknown Marital Status at Age 12\", \"high\", \"Late revelation of marital status can suggest past unresolved issues or instability that might influence future behavior patterns.\"),\n    (\"Gender (Male)\", \"medium\", \"Research indicates males generally have higher recidivism rates, though this should be considered alongside other factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_163631_904552",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1235,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 7 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

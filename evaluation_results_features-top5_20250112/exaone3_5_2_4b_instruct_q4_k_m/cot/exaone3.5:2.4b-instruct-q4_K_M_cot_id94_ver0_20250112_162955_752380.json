@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 94,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-12T21:29:55.750902663Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.133519766,
+    "load_duration": 0.024802362,
+    "prompt_eval_count": 254,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 259,
+    "eval_duration": 1.099
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Single Status (Never Married)\", \"medium\", \"Being unmarried may correlate with higher risk due to potential lack of stable adult supervision and societal ties.\"],\n    [\"Household Size (3+)\", \"low\", \"A larger household could imply more adult supervision or support systems, potentially mitigating some risks.\"],\n    [\"Current Unemployment\", \"high\", \"Unemployment often correlates with higher stress, financial instability, and potential involvement in criminal activities.\"],\n    [\"Lived with Biological Mother\", \"low\", \"Living with a single parent can sometimes indicate financial hardship or lack of positive male role models, but depends on maternal influence.\"],\n    [\"Age at Marital Status Unknown (Age 12)\", \"medium\", \"While young age might suggest vulnerability to influences at that stage, it doesn't directly correlate with future recidivism without additional context.\"],\n    [\"Cohabiting Status\", \"low\", \"Not cohabiting suggests fewer familial ties but doesn't inherently indicate higher risk unless further complications are noted.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_162955_752380",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 94,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Single Status (Never Married)",
+      "medium",
+      "Being unmarried may correlate with higher risk due to potential lack of stable adult supervision and societal ties."
+    ],
+    [
+      "Household Size (3+)",
+      "low",
+      "A larger household could imply more adult supervision or support systems, potentially mitigating some risks."
+    ],
+    [
+      "Current Unemployment",
+      "high",
+      "Unemployment often correlates with higher stress, financial instability, and potential involvement in criminal activities."
+    ],
+    [
+      "Lived with Biological Mother",
+      "low",
+      "Living with a single parent can sometimes indicate financial hardship or lack of positive male role models, but depends on maternal influence."
+    ],
+    [
+      "Age at Marital Status Unknown (Age 12)",
+      "medium",
+      "While young age might suggest vulnerability to influences at that stage, it doesn't directly correlate with future recidivism without additional context."
+    ],
+    [
+      "Cohabiting Status",
+      "low",
+      "Not cohabiting suggests fewer familial ties but doesn't inherently indicate higher risk unless further complications are noted."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

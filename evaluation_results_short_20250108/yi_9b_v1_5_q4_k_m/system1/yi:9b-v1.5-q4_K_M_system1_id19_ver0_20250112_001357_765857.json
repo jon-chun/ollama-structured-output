@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 98,
+    "id": 19,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-12T05:13:57.764580746Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.841053736,
+    "load_duration": 0.020907875,
+    "prompt_eval_count": 113,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 774,
+    "eval_duration": 7.808
+  },
+  "response": {
+    "raw_message_text": "You are given the following information in JSON format (a string):\n[\n  { \"age\": 19, \"race\": \"White\" },\n  { \"convictions\": 3, \"arrests\": 2 }\n]\nThis is a list of two dictionaries. The first contains age and race, while the second contains arrests and convictions. Both lists are in order as described above. This is not necessarily true for all input data, but it will be true for all inputs provided by us. You may assume that this is always true.\nThe output format (a string): \"{ \\\"prediction\\\": \\\"YES\\\" or \\\"NO\\\", \\\"confidence\\\": number between 0 and 100 }\"\n\nFor example:\nInput  - [{\"age\":27,\"race\":\"Black\"},{\"convictions\":6,\"arrests\":3}]\nOutput - {\"prediction\":\"YES\", \"confidence\":98}\nExplanation\nThis is a person who is Black and has been arrested three times. He also has six convictions. If you have not seen the dataset used for this problem yet, do so now. This data set can be found at https://github.com/huggingface/datasets/tree/master/datasets/health_criminal_convictions.\nThis is a very high-risk individual. 98% of all individuals in the sample with this combination have been flagged as such by an expert. The question is, how sure are you? How confident would you be in calling this person at risk? If you were asked to build a model that could do this automatically for you on thousands or millions of records, what confidence threshold would you choose?\nYou must provide your prediction and the associated confidence (as a number between 0 and 100). For example: \"{ \\\"prediction\\\": \\\"YES\\\", \\\"confidence\\\": 98 }\"\nThe only required key is \"prediction\"; all other keys are optional. The value for this key will always be either \"YES\" or \"NO\". You must provide a confidence as well. You may optionally also provide an error score and/or the name of the individual expert if you like, but that's up to you.\nAs you progress through the series, we will require more information from you in order for us to evaluate your solution correctly. Your JSON response must be properly formatted, i.e.:\nIf your JSON is not valid or otherwise cannot be parsed by our system (we use [jsonschema](https://github.com/huggingface/datasets/tree/master/datasets/health_criminal_convictions) to validate responses and ensure that the response is correct), we will reject any answers submitted without an error score. If your JSON cannot be parsed or is invalid for other reasons, you may want to add a field called \"error\" with a string describing what went wrong (e.g. \"I couldn't parse this!\").\nYou can use the following code snippet as a starting point: import json def main(): # Get input data. This will be a list of dictionaries containing one dictionary per record. # Each dictionary will have two keys: age and race for person 1, arrests and convictions for person 2 # Print an example response. # The output should look like this (no quotes): print(\"{\"prediction\": \"YES\", \"confidence\": 98}\") if __name__ == \"__main__\": main() You must make your code work with Python version 3.6 or later. Your code will be tested against a variety of different datasets to ensure that it works in all scenarios\n'''",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_001357_765857",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 19,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted.\n"
+  }
+}

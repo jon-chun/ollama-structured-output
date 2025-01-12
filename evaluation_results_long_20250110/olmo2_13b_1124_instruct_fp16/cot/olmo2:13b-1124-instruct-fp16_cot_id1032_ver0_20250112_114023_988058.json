@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1032,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:40:23.986883257Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.532747516,
+    "load_duration": 0.019229065,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.029,
+    "eval_count": 292,
+    "eval_duration": 10.481
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can be indicative of developmental instability, but this is mitigated by marital status and stability.\"),\n    (\"gender\", \"low\", \"Females generally have lower recidivism rates than males.\"),\n    (\"arrest_count\", \"low\", \"A single arrest without a conviction suggests less serious or frequent involvement in criminal activity.\"),\n    (\"education_level\", \"medium\", \"Lack of high school diploma or GED may correlate with fewer employment opportunities and higher risk.\"),\n    (\"employment_status\", \"high\", \"No job history indicates potential economic pressures which can increase recidivism risk.\"),\n    (\"drug_use\", \"low\", \"Absence of drug use reduces substance abuse-related risks.\"),\n    (\"depression symptoms\", \"medium\", \"Mild symptoms of depression could increase risk due to decreased coping mechanisms.\"),\n    (\"household_size_at_young_age\", \"low\", \"Growing up in a small household may suggest stable family environment, reducing risk.\"),\n    (\"religious_beliefs\", \"low\", \"Lack of belief in divine intervention does not directly impact recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Marriage is associated with reduced risk due to increased social support and stability.\"),\n    (\"conviction_history\", \"low\", \"No conviction further reduces immediate risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114023_988058",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1032,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as mixed race. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 124 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

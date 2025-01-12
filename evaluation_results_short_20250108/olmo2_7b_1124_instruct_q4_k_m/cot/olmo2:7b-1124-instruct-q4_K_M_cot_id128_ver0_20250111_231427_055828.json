@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 128,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:14:27.054194731Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.157597539,
+    "load_duration": 0.021292158,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 377,
+    "eval_duration": 3.123
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults in their early 20s often have less experience and maturity, which can be associated with higher risk of reoffending.\"),\n    (\"gender\", \"medium\", \"Males tend to have higher rearrest rates compared to females, according to empirical data in criminal justice statistics.\"),\n    (\"previous convictions\", \"high\", \"Having been convicted increases the likelihood of reoffending significantly due to established patterns of behavior and legal consequences.\"),\n    (\"race\", \"low\", \"While race can be a factor in some contexts, in this case, given the generalization, it is assigned 'low' weight as there's no specific information suggesting a higher risk associated with being 'White'.\"),\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\n**Explanation:**\n\n* **Age:** Medium - The individual is young, but not in the youngest demographic typically associated with the highest reoffending rates.\n* **Gender:** Medium - Males do generally have a higher rearrest rate than females according to statistical data.\n* **Previous Convictions:** High - Individuals with prior convictions are at increased risk due to established patterns of behavior and potential legal consequences impacting their ability to reintegrate into society without committing further offenses.\n* **Race:** Low - In this context, race is given a low weight because there's no specific information suggesting that being 'White' increases or decreases the risk of reoffending. This is based on general principles of fairness and avoiding racial profiling.\n\n**Prediction:** The individual has a moderate to high likelihood of rearrest within 3 years due to his young age, male gender, and prior conviction(s).\n\n**Confidence:** The prediction is made with 75% confidence, indicating a strong belief in the accuracy of the assessment.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_231427_055828",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 128,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

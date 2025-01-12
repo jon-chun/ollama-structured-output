@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 375,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T15:41:30.328078548Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.089546647,
+    "load_duration": 0.019039877,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 363,
+    "eval_duration": 3.05
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults, particularly males in their early 20s, often display higher risk for recidivism due to developmental stage and potential for impulsivity.\"),\n    (\"number_of_arrests\", \"high\", \"Multiple arrests suggest a pattern of behavior that increases the likelihood of future criminal activity.\"),\n    (\"race\", \"low\", \"While race can be an indicator in some contexts, in this case, being White may not significantly alter the risk level given his overall profile.\"),\n    (\"education_level\", \"high\", \"Lack of a high school diploma or GED is often associated with higher recidivism rates due to limited employment opportunities and social integration.\"),\n    (\"current_residence\", \"medium\", \"Living arrangements can influence social support systems; not living alone might imply less isolation and potential social control.\"),\n    (\"drug_use\", \"low\", \"Past drug use, specifically marijuana, without recent usage and without signs of depression, may not significantly contribute to recidivism risk at this point.\"),\n    (\"mental_health_status\", \"low\", \"Lack of recent depressive episodes is generally positive, but needs to be monitored for any emerging issues.\"),\n    (\"family_structure_and_environment\", \"medium\", \"Growing up in a small household in an urban area might suggest fewer family constraints but also potentially less supervision and support.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object indicates that the predicted likelihood of rearrest within three years is 'YES', with a 75% confidence level. The reasoning behind each risk factor's rating is detailed in the \"textual reasoning\" field, taking into account various social and criminal justice research findings related to recidivism risks.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_104130_329528",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 375,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 5 feet 11 inches and weighs 135 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1192,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T04:13:24.527877496Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.384638921,
+    "load_duration": 0.020374315,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 164,
+    "eval_duration": 1.351
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"age\", \"low\", \"Young adult age is generally associated with higher recidivism, but the person's age suggests they are on the cusp of adulthood where risk begins to decrease.\"),\n  (\"gender\", \"low\", \"Female genders historically have lower rearrest rates compared to male counterparts.\"),\n  (\"race\", \"high\", \"Black individuals may face systemic disadvantages that can correlate with higher recidivism rates.\"),\n  (\"arrest history\", \"medium\", \"One arrest suggests potential for risky behavior, but no convictions indicate lower likelihood of repeat offenses.\"),\n  (\"conviction status\", \"high\", \"The absence of a conviction could suggest lower criminal propensity or effective legal intervention, but the single arrest is concerning.\")\n], \"prediction\": \"YES\", \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_231324_528997",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1192,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

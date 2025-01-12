@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 341,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "created_at": "2025-01-12T20:15:37.299358842Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.679000836,
+    "load_duration": 0.02690829,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 184,
+    "eval_duration": 3.635
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_index_12\", \"medium\", \"Lived with biological mother at age 12 indicates potential family support but also suggests possible dependency or lack of stable male role model.\"),\n    (\"household_size\", \"high\", \"A household size of 7, especially when living with the biological mother alone, can indicate overcrowding and increased stress levels, contributing to higher recidivism risk.\"),\n    (\"marital_status_at_12\", \"medium\", \"Unknown marital status at age 12 implies instability or absence of a stable family environment, which could be a predictive factor for future behavior.\"),\n    (\"employment_status\", \"high\", \"Current unemployment is a significant predictor of recidivism as it indicates economic instability and potentially higher likelihood to engage in criminal activities due to financial pressure.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_151537_300823",
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 341,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 7 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

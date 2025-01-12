@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 895,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T04:24:47.078330829Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.806320929,
+    "load_duration": 0.019049832,
+    "prompt_eval_count": 208,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 365,
+    "eval_duration": 6.771
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals often have less established patterns of behavior, but being 20 years old is on the cusp of adulthood where significant risk-taking behaviors can decrease. However, repeated arrests suggest persistent engagement in criminal behavior.\"),\n    (\"race\", \"low\", \"Studies show racial disparities in the criminal justice system, but individual attitudes and behaviors are more predictive of recidivism than race alone.\"),\n    (\"arrest_count\", \"high\", \"Multiple arrests indicate a pattern of offending. The higher the number of arrests, the greater the likelihood of continued involvement in criminal activities.\"),\n    (\"conviction_rate\", \"medium\", \"Convictions demonstrate a history of legal consequences for behavior. However, the fact that he has been convicted suggests some level of accountability or successful prosecution, which might mitigate risk to some degree.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object indicates that the expert has weighed the risk factors as follows:\n\n- **Age**: Medium - The individual is young but on the cusp of adulthood where behavior can change.\n- **Race**: Low - While acknowledging racial disparities, this factor alone does not significantly influence the prediction.\n- **Arrest Count**: High - Multiple arrests strongly suggest a pattern of offending that could continue.\n- **Conviction Rate**: Medium - Having been convicted before indicates a history of criminal behavior, but the person has also faced legal consequences.\n\nThe overall prediction is \"YES\" (the individual is at a high risk for rearrest within 3 years), with a confidence level of 75%. This reflects a somewhat higher confidence in the prediction due to strong evidence from arrest and conviction patterns, though there is some uncertainty inherent in predicting future behavior.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250111_232447_079877",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 895,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 370,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "created_at": "2025-01-12T20:17:57.742426824Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.771496735,
+    "load_duration": 0.028131926,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 189,
+    "eval_duration": 3.731
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender\", \"low\", \"The individual's male gender has a low risk impact based on general recidivism statistics which show males reoffending more than females but not solely based on gender.\"),\n    (\"marital_status\", \"medium\", \"Never married individuals generally have a higher recidivism rate, suggesting a medium risk due to potential lack of social support and stability.\"),\n    (\"employment_history\", \"low\", \"Holding 2 jobs indicates some level of job commitment and stability. This factor suggests low risk of reoffending.\"),\n    (\"household_size\", \"medium\", \"A household size of 4 with the individual living with both biological parents at age 12 may suggest a supportive environment, but also possible financial stress or crowded living conditions that could be medium-risk factors for recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_151757_743702",
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 370,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
