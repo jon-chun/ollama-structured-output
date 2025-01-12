@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 701,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-08T11:47:47.096382074Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.830665607,
+    "load_duration": 0.020506365,
+    "prompt_eval_count": 365,
+    "prompt_eval_duration": 0.154,
+    "eval_count": 381,
+    "eval_duration": 10.652
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"20 years old, still within a developmental stage where risk may decrease with maturity\"),\n    (\"Gender\", \"low\", \"Female offenders generally have lower recidivism rates compared to males\"),\n    (\"Race\", \"low\", \"Race itself is not a significant predictor of recidivism when controlled for other factors\"),\n    (\"Prior Conviction\", \"low\", \"No prior conviction, only an arrest without conviction suggests lower risk\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight within normal range, not indicative of risk\"),\n    (\"Marital Status\", \"medium\", \"Never married can sometimes correlate with higher risk, but not definitively\"),\n    (\"Living Situation\", \"medium\", \"Living alone might indicate instability, but not conclusive without more context\"),\n    (\"Education\", \"medium\", \"High school diploma but not in college could suggest limited educational engagement\"),\n    (\"Employment History\", \"low\", \"Multiple jobs in a year might indicate adaptability or instability, leaning towards low risk here due to adaptability\"),\n    (\"Drug Use\", \"medium\", \"Past marijuana use within the last four years suggests some involvement with substances, which can be a risk factor\"),\n    (\"Mental Health\", \"low\", \"No reported depression in the past month indicates good mental health status currently\"),\n    (\"Childhood Environment\", \"medium\", \"Growing up in a stable household with both parents could mitigate risk, but rural environment might have limited resources impacting resilience\"),\n    (\"Religious Belief\", \"low\", \"Lack of personal religious belief does not significantly correlate with recidivism risk\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_064747_097642",
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 701,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

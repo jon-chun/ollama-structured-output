@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1302,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-08T12:36:24.036428079Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.349170263,
+    "load_duration": 0.026444215,
+    "prompt_eval_count": 380,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 310,
+    "eval_duration": 1.31
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrests\", \"high\", \"Multiple arrests indicate a history of legal violations, suggesting potential recidivism.\"),\n    (\"Convictions\", \"high\", \"Having been convicted suggests prior judicial involvement and may indicate deeper issues contributing to criminal behavior.\"),\n    (\"Current Mental Health\", \"medium\", \"Subjective reporting of feelings of hopelessness may indicate underlying mental health issues that could impact reoffending likelihood.\"),\n    (\"Employment History\", \"medium\", \"Unemployment between jobs could suggest instability, though not conclusive without more context.\"),\n    (\"Substance Abuse\", \"high\", \"Recent drug use, especially cocaine, correlates strongly with higher recidivism rates.\"),\n    (\"Educational Attainment\", \"high\", \"Lack of high school diploma or college enrollment may limit opportunities and increase vulnerability.\"),\n    (\"Living Situation\", \"low\", \"Living alone may not inherently correlate strongly with increased recidivism without additional context on living conditions.\"),\n    (\"Family Background\", \"low\", \"Growing up with a larger household may expose him to diverse influences but doesn't directly indicate risk without further details.\"),\n    (\"Religious Beliefs\", \"low\", \"Personal belief systems do not directly correlate with criminal recidivism risk based on provided information.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_073624_037989",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1302,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 5 feet 10 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

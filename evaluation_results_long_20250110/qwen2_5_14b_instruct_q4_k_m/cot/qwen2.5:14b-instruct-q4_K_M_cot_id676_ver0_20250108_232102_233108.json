@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 676,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:21:02.230150039Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.105720989,
+    "load_duration": 0.033140286,
+    "prompt_eval_count": 346,
+    "prompt_eval_duration": 0.066,
+    "eval_count": 329,
+    "eval_duration": 4.998
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_assessment\", \"low\", \"Age is not a significant risk factor by itself but is relevant in the context of other factors.\"),\n    (\"race_ethnicity\", \"low\", \"Race does not directly influence recidivism risk without considering societal and systemic issues which are beyond individual assessment.\"),\n    (\"number_of_arrests\", \"high\", \"Multiple arrests indicate a pattern of criminal behavior, significantly increasing rearrest likelihood.\"),\n    (\"education_level\", \"medium\", \"Lack of high school diploma or GED can correlate with lower employment prospects and higher recidivism risk.\"),\n    (\"employment_status\", \"low\", \"Holding one job during the year shows some engagement in legal activities but does not mitigate multiple arrest history.\"),\n    (\"drug_use_history\", \"high\", \"Recent drug use, especially cocaine, is strongly linked to criminal behavior and high recidivism rates.\"),\n    (\"mental_health_issues\", \"medium\", \"Feeling persistently depressed may affect decision-making and stability, influencing the likelihood of rearrest.\"),\n    (\"living_situation\", \"low\", \"Living alone does not directly correlate with increased risk without additional context like social support or housing instability.\"),\n    (\"family_history_and_environment\", \"medium\", \"Growing up in an urban area with a single parent can influence early development and exposure to crime.\"),\n    (\"religious_involvement\", \"low\", \"Lack of religious involvement does not significantly predict recidivism but may reflect overall attitudes towards authority and social norms.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_232102_233108",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 676,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 22 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

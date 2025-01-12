@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 990,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-08T14:40:51.656319441Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.426746834,
+    "load_duration": 0.031122707,
+    "prompt_eval_count": 346,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 290,
+    "eval_duration": 5.374
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age is generally associated with lower recidivism rates.\"),\n    (\"Gender\", \"medium\", \"Female gender typically has a lower risk of reoffending compared to males, but individual factors may still apply.\"),\n    (\"Arrest History\", \"medium\", \"Single arrest without conviction suggests potential for rehabilitation but also some risk.\"),\n    (\"Physical Appearance\", \"low\", \"Body size is not strongly correlated with criminal behavior.\"),\n    (\"Marital Status\", \"medium\", \"Living alone might indicate independence, which can be a positive factor or could suggest isolation and potential risk.\"),\n    (\"Employment\", \"low\", \"Holding jobs reduces recidivism risk by providing structure and income.\"),\n    (\"Drug Use\", \"medium\", \"Past drug use is a significant risk factor, but recent abstinence is a positive indicator.\"),\n    (\"Mental Health\", \"low\", \"No history of depression in the past month suggests mental stability.\"),\n    (\"Family History\", \"medium\", \"Growing up with biological mother and a household of size 4 indicates some familial support, but not necessarily protective.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_094051_658144",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 990,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 175 and 199 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

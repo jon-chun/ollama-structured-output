@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-09T06:37:14.300621066Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.650290762,
+    "load_duration": 0.029849243,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.09,
+    "eval_count": 258,
+    "eval_duration": 5.528
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_18\", \"low\", \"Younger age typically correlates with lower recidivism rates.\"),\n    (\"race_ethnicity_white\", \"low\", \"Historical data suggests non-minorities have slightly lower risk, though it's a nuanced factor.\"),\n    (\"prior_arrests_2_convictions\", \"medium\", \"Multiple arrests and convictions indicate higher likelihood of future offenses.\"),\n    (\"current_unemployment\", \"high\", \"Unemployment is strongly linked to increased recidivism due to lack of financial stability.\"),\n    (\"drug_use_marijuana_cocaine_recently\", \"high\", \"Recent drug use, especially involving cocaine, indicates significant risk factors for reoffending.\"),\n    (\"living_alone\", \"medium\", \"Living alone may reduce social support and increase potential for negative influences or isolation.\"),\n    (\"enrolled_in_school\", \"low\", \"Education engagement is generally associated with lower recidivism rates as it provides alternative activities.\"),\n    (\"family_structure_biological_parents_urban_area\", \"low\", \"Growing up in a two-parent urban household can offer some protective factors against delinquency.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_013714_301930",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

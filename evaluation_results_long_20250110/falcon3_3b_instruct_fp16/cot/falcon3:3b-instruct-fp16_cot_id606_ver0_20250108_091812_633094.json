@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 606,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:18:12.631907018Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.406180583,
+    "load_duration": 0.028073403,
+    "prompt_eval_count": 346,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 396,
+    "eval_duration": 3.367
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is below 25, typically considered a lower risk period for recidivism.\"),\n    (\"prior_offenses\", \"medium\", \"Arrested twice and convicted, indicating a moderate level of criminal history.\"),\n    (\"height_weight\", \"low\", \"Average height and weight suggest typical physical characteristics that may not correlate strongly with criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Single status implies fewer social pressures or responsibilities that could increase risk.\"),\n    (\"living_alone\", \"medium\", \"Living alone might indicate a lack of community support which can influence recidivism.\"),\n    (\"education\", \"low\", \"GED certificate suggests some level of formal education, which generally lowers the risk of recidivating.\"),\n    (\"college_enrollment\", \"low\", \"Not enrolled in college further reduces the likelihood of returning to crime given educational opportunities.\"),\n    (\"employment\", \"medium\", \"No jobs during the year indicates a lack of economic stability or engagement, which could be associated with higher risk.\"),\n    (\"drug_use\", \"high\", \"Past use of marijuana and recent abstinence suggest potential for substance abuse issues that may increase risk.\"),\n    (\"depression\", \"low\", \"Not feeling depressed over the past month indicates stable mental health, lowering the risk.\"),\n    (\"family_history\", \"medium\", \"Growing up in a household with four biological parents suggests strong family bonds and possibly protective factors against crime.\"),\n    (\"religious_influence\", \"medium\", \"Belief in God influencing personal fate may provide spiritual support reducing risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_091812_633094",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 606,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 11 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

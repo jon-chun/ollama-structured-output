@@ -1,0 +1,84 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 867,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-09T06:52:47.34331866Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.739331703,
+    "load_duration": 0.014254999,
+    "prompt_eval_count": 352,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 207,
+    "eval_duration": 0.714
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"age\", \"low\", \"The person is a 19-year-old male\"],\n    [\"race\", \"high\", \"The person identifies himself as White\"],\n    [\"convictions\", \"medium\", \"He has been arrested three times, but not convicted\"],\n    [\"education\", \"medium\", \"He holds a high school diploma and is not currently enrolled in college\"],\n    [\"job_history\", \"low\", \"He has held two jobs during the year\"],\n    [\"drugs\", \"high\", \"He has used marijuana\"],\n    [\"mood\", \"high\", \"At some point in time he felt down in the dumps\"],\n    [\"family_history\", \"medium\", \"He has lived with his biological mother in a household of size four, in an urban area\"],\n    [\"religion\", \"low\", \"He does not believe that God has anything to do with what happens to him personally\"]\n  ],\n  \"prediction\": \"NO\"\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250109_015247_344865",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 867,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "low",
+      "The person is a 19-year-old male"
+    ],
+    [
+      "race",
+      "high",
+      "The person identifies himself as White"
+    ],
+    [
+      "convictions",
+      "medium",
+      "He has been arrested three times, but not convicted"
+    ],
+    [
+      "education",
+      "medium",
+      "He holds a high school diploma and is not currently enrolled in college"
+    ],
+    [
+      "job_history",
+      "low",
+      "He has held two jobs during the year"
+    ],
+    [
+      "drugs",
+      "high",
+      "He has used marijuana"
+    ],
+    [
+      "mood",
+      "high",
+      "At some point in time he felt down in the dumps"
+    ],
+    [
+      "family_history",
+      "medium",
+      "He has lived with his biological mother in a household of size four, in an urban area"
+    ],
+    [
+      "religion",
+      "low",
+      "He does not believe that God has anything to do with what happens to him personally"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 1 inch and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

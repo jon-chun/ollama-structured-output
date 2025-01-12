@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 802,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:21:53.404391373Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.998998304,
+    "load_duration": 0.023240231,
+    "prompt_eval_count": 364,
+    "prompt_eval_duration": 0.041,
+    "eval_count": 425,
+    "eval_duration": 10.929
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger males are statistically more likely to reoffend, but age alone is not a definitive indicator.\"),\n    (\"race\", \"low\", \"Race itself is not a significant predictor of recidivism; however, it may intersect with socioeconomic factors.\"),\n    (\"prior_arrests\", \"medium\", \"One arrest suggests some engagement with the legal system, increasing risk but not to an extreme level.\"),\n    (\"convictions\", \"low\", \"Lack of convictions indicates less serious involvement in the criminal justice system.\"),\n    (\"physical_attributes\", \"low\", \"Physical attributes do not significantly impact recidivism rates.\"),\n    (\"marital_status\", \"medium\", \"Being unmarried can be associated with higher risk, as social support is a protective factor.\"),\n    (\"living_situation\", \"low\", \"Living alone does not necessarily increase risk, but it may indicate a lack of social support.\"),\n    (\"education\", \"low\", \"High school education is a protective factor against recidivism.\"),\n    (\"employment\", \"low\", \"Holding multiple jobs within a year suggests stability and can be a protective factor.\"),\n    (\"drug_use\", \"high\", \"Past and recent drug use, especially of multiple substances, significantly increases the risk of reoffense.\"),\n    (\"mental_health\", \"medium\", \"Feelings of hopelessness can indicate underlying issues that may lead to further criminal behavior.\"),\n    (\"family_background\", \"low\", \"Growing up in a larger household may suggest some level of support, though urban areas can be associated with higher risk.\"),\n    (\"religious_beliefs\", \"medium\", \"Lack of religious involvement may reduce protective factors against reoffense.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_102153_405762",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 802,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 8 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

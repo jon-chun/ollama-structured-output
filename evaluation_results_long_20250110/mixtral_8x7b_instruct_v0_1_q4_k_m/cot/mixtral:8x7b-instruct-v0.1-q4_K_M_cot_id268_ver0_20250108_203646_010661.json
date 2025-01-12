@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 268,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-01-09T01:36:46.009031047Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.264218904,
+    "load_duration": 0.012465869,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.14,
+    "eval_count": 412,
+    "eval_duration": 6.109
+  },
+  "response": {
+    "raw_message_text": " {\n    \"risk_factors\": [\n        (\"number of prior arrests\", \"high\", \"The individual has been arrested 4 times, indicating a pattern of criminal behavior.\"),\n        (\"conviction history\", \"high\", \"The individual has a conviction, suggesting a higher likelihood of reoffending.\"),\n        (\"height and weight\", \"low\", \"While the individual is overweight, this alone does not significantly contribute to the risk of recidivism.\"),\n        (\"marital status\", \"medium\", \"Being unmarried may indicate less stability in life, but it does not necessarily increase the likelihood of recidivism.\"),\n        (\"living arrangements\", \"low\", \"Living alone does not significantly impact the risk of recidivism.\"),\n        (\"education level\", \"low\", \"Having only a high school diploma may limit opportunities for employment, but it does not directly increase the likelihood of reoffending.\"),\n        (\"employment history\", \"medium\", \"While having held 3 jobs in a year suggests instability, it is not a definitive indicator of recidivism risk.\"),\n        (\"drug use\", \"medium\", \"The individual has used marijuana in the past four years, which may increase the likelihood of recidivism due to potential involvement in drug-related crimes.\"),\n        (\"depression history\", \"low\", \"No recent feelings of depression indicate a lower risk associated with mental health issues.\"),\n        (\"family background\", \"low\", \"Growing up in a large family and living in an urban area do not directly influence the likelihood of recidivism.\"),\n        (\"religious beliefs\", \"low\", \"Believing that God has something to do with personal events does not impact the risk of recidivism.\")\n    ],\n    \"prediction\": \"YES\",\n    \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_203646_010661",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 268,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 4 times and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

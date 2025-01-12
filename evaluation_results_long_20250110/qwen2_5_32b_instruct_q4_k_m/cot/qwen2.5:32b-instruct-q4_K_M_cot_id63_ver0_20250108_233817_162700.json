@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 58,
+    "id": 63,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:38:17.161266165Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.48261217,
+    "load_duration": 0.025866788,
+    "prompt_eval_count": 348,
+    "prompt_eval_duration": 0.162,
+    "eval_count": 420,
+    "eval_duration": 12.289
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: 19 years old\", \"low\", \"Young adults in this age group are at a lower risk compared to younger juveniles.\"),\n    (\"Gender: Female\", \"low\", \"Females generally have lower recidivism rates than males.\"),\n    (\"Ethnicity: Hispanic\", \"medium\", \"Certain ethnicities may face social and economic challenges that can influence recidivism, but not definitively high.\"),\n    (\"Arrest history: 1 arrest, no conviction\", \"low\", \"A single arrest without a conviction indicates lower risk compared to multiple arrests or convictions.\"),\n    (\"Height and weight: 5'2\\\", 100-124 lbs.\", \"low\", \"Physical characteristics are not strong predictors of recidivism.\"),\n    (\"Marital status: Never married, not living alone\", \"medium\", \"Living arrangements can impact support systems; not living alone may provide some stability but being never married may indicate lack of long-term commitment.\"),\n    (\"Education: No high school diploma or GED, not enrolled in college\", \"high\", \"Lack of educational attainment is strongly associated with higher recidivism rates due to limited opportunities and economic challenges.\"),\n    (\"Employment history: No jobs during the year\", \"high\", \"Unemployment can lead to increased stress and a lack of stable income, often leading to criminal activity.\"),\n    (\"Drug use: None in past four years, recent emotional distress\", \"medium\", \"Recent emotional distress could indicate potential mental health issues that might influence behavior, but no recent drug use is positive.\"),\n    (\"Family background: Lived with both parents in household size 9 in urban area\", \"low\", \"Living with both biological parents can provide stability and support.\"),\n    (\"Religious belief: Belief in God's influence on personal life\", \"medium\", \"Belief in religion may offer some form of moral guidance and social support, but the impact varies widely.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 58\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_233817_162700",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 63,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 2 inches and weighs between 100 and 124 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 9, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

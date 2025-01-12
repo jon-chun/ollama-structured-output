@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 418,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-08T11:19:16.474156245Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.241244648,
+    "load_duration": 0.036817098,
+    "prompt_eval_count": 362,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 400,
+    "eval_duration": 5.187
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n      (\"age\", \"low\", \"The individual is young, which generally indicates a lower risk of recidivism.\"),\n      (\"ethnicity\", \"medium\", \"Asian / Pacific Islander ethnicity can sometimes be associated with higher rates of substance abuse, but this factor alone does not significantly impact risk assessment.\"),\n      (\"criminal history\", \"low\", \"The individual has only one arrest and no convictions, which is indicative of a lower likelihood to reoffend.\"),\n      (\"physical characteristics\", \"medium\", \"Height and weight do not have a significant impact on recidivism rates but can be associated with certain types of offenses.\"),\n      (\"marital status\", \"low\", \"Single individuals generally pose less risk compared to those who are married or divorced.\"),\n      (\"educational attainment\", \"low\", \"Having a high school diploma is indicative of a higher level of education, which typically correlates with lower recidivism rates.\"),\n      (\"employment history\", \"medium\", \"Holding one job in the past year indicates some stability and might reduce risk, but more stable employment histories would be better indicators.\"),\n      (\"drug use\", \"high\", \"Recent drug use is a strong predictor of recidivism as it suggests potential ongoing involvement with criminal activity.\"),\n      (\"mental health\", \"low\", \"The individual has not reported feelings of depression, which reduces the likelihood of future crime due to mental health issues.\"),\n      (\"household size at young age\", \"medium\", \"Growing up in a large household can sometimes indicate risk factors such as poverty or lack of parental supervision, but this is not universally true and depends on other context.\"),\n      (\"religious beliefs\", \"low\", \"Belief in God can potentially provide a moral framework that discourages criminal behavior.\")\n   ],\n   \"prediction\": \"NO\",\n   \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_061916_475625",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 418,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 1 time but has not been convicted. He is 5 feet 4 inches and weighs between 125 and 149 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

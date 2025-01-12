@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 78,
+    "id": 1191,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-09T06:22:19.105022921Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.241474594,
+    "load_duration": 0.024922252,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 237,
+    "eval_duration": 2.198
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"arrest history (2 convictions, 2 arrests)\", \"high\", \"Multiple prior convictions increase recidivism risk due to higher exposure to criminal networks\"),\n    (\"drug use in past 4 years (marijuana)\", \"medium\", \"Past substance abuse is correlated with increased reoffending rates\"),\n    (\"no college education\", \"low\", \"Lack of formal education can limit job opportunities and socio-economic stability, but not inherently high risk for recidivism\"),\n    (\"single living status\", \"low\", \"Living alone does not inherently predict higher recidivism; support systems are more critical)\",\n    (\"depression not reported recently\", \"low\", \"Absence of recent depression reduces psychological stressors associated with recidivism\"),\n    (\"urban upbringing (household size 5)\", \"medium\", \"Urban environments can expose individuals to high crime rates and negative peer influences\"),\n    (\"religion belief (God's influence)\", \"low\", \"Spiritual beliefs alone do not significantly mitigate or predict criminal behavior\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 78\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_012219_106494",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1191,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 152 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

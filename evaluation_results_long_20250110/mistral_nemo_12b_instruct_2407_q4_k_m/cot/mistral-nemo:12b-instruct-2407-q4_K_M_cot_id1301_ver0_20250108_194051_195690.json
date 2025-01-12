@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1301,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-09T00:40:51.194303328Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.485660575,
+    "load_duration": 0.028643046,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.034,
+    "eval_count": 448,
+    "eval_duration": 5.418
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Although she's young, age is not typically a strong predictor of recidivism.\"),\n    (\"Gender (Female)\", \"low\", \"Females generally have lower rates of recidivism than males.\"),\n    (\"Race (Black)\", \"medium\", \"Research suggests that certain racial disparities exist in the criminal justice system, but this factor alone is not determinative.\"),\n    (\"Arrests (2 times)\", \"high\", \"Multiple arrests are a strong indicator of increased risk.\"),\n    (\"Convictions (1 time)\", \"high\", \"A conviction history increases the likelihood of recidivism.\"),\n    (\"Physical Size (Small)\", \"low\", \"Physical size is not typically a significant risk factor.\"),\n    (\"Marital Status (Never married)\", \"medium\", \"Being unmarried can be linked to increased instability and risk-taking behavior.\"),\n    (\"Living Arrangement (Alone)\", \"high\", \"Living alone can indicate a lack of social support, which increases risk.\"),\n    (\"Education (No diploma/GED)\", \"high\", \"Lack of education is strongly linked to higher recidivism rates.\"),\n    (\"Employment (2 jobs in the past year)\", \"low\", \"Recent employment suggests some level of responsibility and stability.\"),\n    (\"Drug Use (Past marijuana use)\", \"medium\", \"Past drug use can indicate a tendency towards risky behavior, but its impact may have diminished since she hasn't used in four years.\"),\n    (\"Mental Health (No recent depression)\", \"low\", \"Lack of recent mental health issues suggests lower emotional distress that could lead to recidivism.\"),\n    (\"Growing Up with Biological Mother (>4 people in household, urban area)\", \"high\", \"Growing up in a large family in an urban area can be linked to increased disadvantage and risk-taking behavior.\"),\n    (\"Belief in God's Role\", \"low\", \"Beliefs about God's role are not typically linked to recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_194051_195690",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1301,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 2 times and has been convicted. She is 5 feet 1 inch and weighs 135 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

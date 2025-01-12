@@ -1,0 +1,89 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 19,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-09T06:35:10.545815026Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.930586599,
+    "load_duration": 0.027504846,
+    "prompt_eval_count": 340,
+    "prompt_eval_duration": 0.103,
+    "eval_count": 370,
+    "eval_duration": 7.798
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"age (20 years)\", \"low\", \"Youth typically exhibits higher impulsivity but is also more likely to change behaviors over time.\"],\n    [\"race (White)\", \"medium\", \"Race, while not deterministic, can influence social and judicial dynamics in some cases; however, individual factors weigh heavily here.\"],\n    [\"prior arrests (4 times)\", \"high\", \"Multiple arrests strongly correlate with higher recidivism risks according to empirical studies.\"],\n    [\"conviction status (yes)\", \"medium\", \"Having been convicted indicates a legal adjudication but not necessarily predictive of future criminal behavior alone.\"],\n    [\"education level (high school diploma, no college enrollment)\", \"low-medium\", \"While lower education is linked with higher risk, it's somewhat balanced by employment history and past drug use context.\"],\n    [\"employment status (5 jobs in the year)\", \"medium\", \"Stable work experience can mitigate some risks but doesn't entirely eliminate recidivism concerns.\"],\n    [\"past drug use (marijuana & cocaine), recent mood issues\", \"high\", \"Recent substance abuse and depression are significant predictors of criminal behavior recurrence.\"],\n    [\"living situation (alone, no marriage)\", \"low-medium\", \"Living alone may indicate independence but can also suggest lack of social support systems which could impact stability.\"],\n    [\"family background (lived with both parents in an urban area)\", \"medium\", \"Urban upbringing and stable family structure generally have mixed impacts; context is crucial.\"],\n    [\"spiritual beliefs (atheism-like stance)\", \"low-medium\", \"Belief systems can affect resilience, but its direct impact on recidivism risk is less conclusive.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_013510_547168",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 19,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age (20 years)",
+      "low",
+      "Youth typically exhibits higher impulsivity but is also more likely to change behaviors over time."
+    ],
+    [
+      "race (White)",
+      "medium",
+      "Race, while not deterministic, can influence social and judicial dynamics in some cases; however, individual factors weigh heavily here."
+    ],
+    [
+      "prior arrests (4 times)",
+      "high",
+      "Multiple arrests strongly correlate with higher recidivism risks according to empirical studies."
+    ],
+    [
+      "conviction status (yes)",
+      "medium",
+      "Having been convicted indicates a legal adjudication but not necessarily predictive of future criminal behavior alone."
+    ],
+    [
+      "education level (high school diploma, no college enrollment)",
+      "low-medium",
+      "While lower education is linked with higher risk, it's somewhat balanced by employment history and past drug use context."
+    ],
+    [
+      "employment status (5 jobs in the year)",
+      "medium",
+      "Stable work experience can mitigate some risks but doesn't entirely eliminate recidivism concerns."
+    ],
+    [
+      "past drug use (marijuana & cocaine), recent mood issues",
+      "high",
+      "Recent substance abuse and depression are significant predictors of criminal behavior recurrence."
+    ],
+    [
+      "living situation (alone, no marriage)",
+      "low-medium",
+      "Living alone may indicate independence but can also suggest lack of social support systems which could impact stability."
+    ],
+    [
+      "family background (lived with both parents in an urban area)",
+      "medium",
+      "Urban upbringing and stable family structure generally have mixed impacts; context is crucial."
+    ],
+    [
+      "spiritual beliefs (atheism-like stance)",
+      "low-medium",
+      "Belief systems can affect resilience, but its direct impact on recidivism risk is less conclusive."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted. He is 5 feet 6 inches and weighs 135 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 5 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

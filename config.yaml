@@ -59,14 +59,14 @@ logging:
 
 # Output configuration
 output:
-  # base_dir: "evaluation_results_long" # "evaluation_results_short", "evaluation_results_binary_class", "evaluation_results_multiclass", "evaluation_results_regression"
-  base_dir: "evaluation_results_short_20250108" # "evaluation_results_short" 
+  base_dir: "evaluation_results_long_20250110" # "evaluation_results_short", "evaluation_results_binary_class", "evaluation_results_multiclass", "evaluation_results_regression"
+  # base_dir: "evaluation_results_short_20250108" # "evaluation_results_short" 
 
 # Data configuration
 data:
   input_file: "./data/vignettes_renamed_clean.csv"
-  # risk_factors: "long_text_summary" # "short_text_summary" or "long_text_summary" # change coordinate with output['base_dir'] value
-  risk_factors: "short_text_summary"
+  risk_factors: "long_text_summary" # "short_text_summary" or "long_text_summary" # change coordinate with output['base_dir'] value
+  # risk_factors: "short_text_summary"
   outcome: "target"
   random_seed: 42
   train_split: 20  # 20% for training
@@ -131,7 +131,44 @@ prompts:
 # Model ensemble configuration 
 # Time out:
 #   yi:9b-v1.5-q4_K_M: 
-model_ensemble:  
+# ollama run command-r7b:7b-12-2024-fp16 --verbose
+# ollama run command-r7b:7b-12-2024-q4_K_M --verbose
+# ollama run olmo2:7b-1124-instruct-q4_K_M --verbose
+# ollama run olmo2:7b-1124-instruct-fp16 --verbose
+# ollama rolmo2:13b-1124-instruct-q4_K_M --verbose
+# ollama run olmo2:13b-1124-instruct-fp16 --verbose
+# model_ensemble_completed::  
+model_ensemble:
+  command-r7b:7b-12-2024-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  command-r7b:7b-12-2024-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  olmo2:7b-1124-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  olmo2:7b-1124-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  olmo2:13b-1124-instruct-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
+  olmo2:13b-1124-instruct-fp16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
   aya-expanse:8b-q4_K_M:
     max_load_time: 240
     max_response_time: 240
@@ -278,7 +315,7 @@ model_ensemble:
     max_num_predict: 4096
     max_context_window: 128000
   llama3.2:3b-instruct-q4_K_M:
-    max_load_time: 240
+    max_loaollama run command-r7b:7b-12-2024-q4_K_M --verbosed_time: 240
     max_response_time: 240
     max_num_predict: 4096
     max_context_window: 128000
@@ -466,6 +503,7 @@ model_ensemble:
   # ##   max_response_time: 240
   # ##   max_num_predict: 2048
   # ##   max_context_window: 32000  
+  # # # # model_ensemble:
   yi:9b-v1.5-q4_K_M:  # Slow
     max_load_time: 240
     max_response_time: 240

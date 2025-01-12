@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 942,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-fp16",
+    "created_at": "2025-01-08T17:41:53.224794532Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.743217596,
+    "load_duration": 0.019924546,
+    "prompt_eval_count": 324,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 387,
+    "eval_duration": 7.706
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at Last Arrest\", \"low\", \"The individual is young, with a first-time arrest at the age of 20. This suggests minimal prior exposure to the criminal justice system.\"),\n    (\"Number of Prior Arrests\", \"low\", \"A single arrest is not indicative of a pattern of recidivism.\"),\n    (\"Employment History\", \"medium\", \"Holding two jobs in a year indicates stability, but may also suggest pressure from employment or financial obligations that could contribute to recidivism.\"),\n    (\"Marital Status and Living Situation\", \"low\", \"Living alone without a partner or dependents reduces the likelihood of family-related stressors contributing to recidivism.\"),\n    (\"Education Level\", \"medium\", \"A high school diploma is generally considered sufficient for most entry-level positions, but may not provide additional stability or social support networks.\"),\n    (\"Drug Use History\", \"high\", \"Past use of marijuana and cocaine within the last four years indicates a risk factor for substance-related offenses or relapse.\"),\n    (\"Current Mental Health Status\", \"low\", \"Not feeling depressed in the past month is a positive indicator, but does not necessarily preclude future mental health issues that could contribute to recidivism.\"),\n    (\"Family Background\", \"medium\", \"Growing up in an urban household with both biological parents until a young age may provide some stability, but also exposes individuals to higher crime rates and social challenges.\"),\n    (\"Religious Beliefs\", \"low\", \"Believing God has something to do with personal events may influence behavior, but does not directly correlate with recidivism risk.\"),\n    (\"Body Mass Index (BMI)\", \"medium\", \"A BMI of approximately 23.6 indicates the individual is at a normal weight, which is generally considered beneficial for overall health and stability.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_124153_225971",
+    "model": "llama3.1:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 942,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

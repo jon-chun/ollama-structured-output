@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 852,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:21:31.658596699Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.962869906,
+    "load_duration": 0.0121078,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 426,
+    "eval_duration": 7.931
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The age of 20 is considered a medium risk factor for recidivism.\"),\n    (\"gender\", \"high\", \"Being female has been found to be a high risk factor for recidivism.\"),\n    (\"number_of_prior_arrests\", \"low\", \"Having only one prior arrest is considered a low risk factor for recidivism.\"),\n    (\"height\", \"medium\", \"Height is not typically used as a risk factor for recidivism.\"),\n    (\"weight\", \"medium\", \"Weight is not typically used as a risk factor for recidivism.\"),\n    (\"marital_status\", \"high\", \"Being unmarried has been found to be a high risk factor for recidivism.\"),\n    (\"housing_situation\", \"high\", \"Living alone is considered a high risk factor for recidivism.\"),\n    (\"education\", \"medium\", \"Having a high school diploma and being enrolled in college are both medium risk factors for recidivism.\"),\n    (\"employment_history\", \"low\", \"Holding 3 jobs during the year is considered a low risk factor for recidivism.\"),\n    (\"drug_use\", \"medium\", \"Using drugs (marijuana) in the past four years is considered a medium risk factor for recidivism.\"),\n    (\"depression\", \"low\", \"Feeling depressed over the past month is not typically used as a risk factor for recidivism.\"),\n    (\"early_childhood_home_life\", \"high\", \"Living with a biological mother in a household of size 3 in a rural area is considered a high risk factor for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192131_659938",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 852,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 2 inches and weighs 172 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in a rural area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

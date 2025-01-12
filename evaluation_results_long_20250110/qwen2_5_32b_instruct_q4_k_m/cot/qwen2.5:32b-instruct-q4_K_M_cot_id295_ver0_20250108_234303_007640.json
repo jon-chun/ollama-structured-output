@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 295,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:43:03.006036252Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.092261812,
+    "load_duration": 0.032864133,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.139,
+    "eval_count": 375,
+    "eval_duration": 10.911
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: 22\", \"medium\", \"Young adults are generally at higher risk for recidivism.\"),\n    (\"Gender: Male\", \"high\", \"Historically, males have a higher rate of rearrest compared to females.\"),\n    (\"Race: White\", \"low\", \"Racial disparities exist but being white is not typically associated with increased risk in most datasets.\"),\n    (\"Number of Arrests: 5\", \"high\", \"Multiple arrests suggest persistent involvement in criminal behavior.\"),\n    (\"Convicted: Yes\", \"high\", \"A conviction indicates a confirmed history of illegal activity.\"),\n    (\"Height and Weight: 6'5\\\", 210 lbs\", \"low\", \"Physical attributes alone are not strong predictors of recidivism.\"),\n    (\"Marital Status: Never Married, Living Alone\", \"medium\", \"Lack of social ties can be associated with higher risk.\"),\n    (\"Education Level: GED Certificate\", \"medium\", \"Lower educational attainment is linked to higher rates of criminal involvement.\"),\n    (\"Employment: 1 job in the past year\", \"high\", \"Limited employment history suggests instability which may correlate with increased recidivism.\"),\n    (\"Drug Use: Marijuana and Cocaine in Past Four Years\", \"high\", \"Recent drug use, especially hard drugs like cocaine, is a strong indicator of risk for rearrest.\"),\n    (\"Mental Health: Not Depressed Over the Past Month\", \"low\", \"Absence of recent depression may reduce immediate risk but does not negate overall risk factors.\"),\n    (\"Family Background: Both Biological Parents in Urban Household of 4\", \"medium\", \"Growing up with both parents can be protective, but urban environments and household size can vary greatly.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_234303_007640",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 295,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 5 times and has been convicted. He is 6 feet 5 inches and weighs 210 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

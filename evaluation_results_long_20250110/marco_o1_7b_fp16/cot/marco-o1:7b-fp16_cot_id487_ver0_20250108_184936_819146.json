@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 487,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-08T23:49:36.817989891Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.095166105,
+    "load_duration": 0.023671096,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 372,
+    "eval_duration": 7.039
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (21)\", \"low\", \"Young age may reduce recidivism risk.\"),\n    (\"Race/Ethnicity (White)\", \"low\", \"Cultural and socioeconomic factors associated with low crime rates.\"),\n    (\"Arrest History (2 times, no convictions)\", \"medium\", \"Multiple arrests without convictions indicate potential underlying issues.\"),\n    (\"Height/Weight (5'2\\\", 160 lbs)\", \"low\", \"Physical characteristics do not directly influence recidivism risk.\"),\n    (\"Marital Status (Single)\", \"low\", \"Lack of marital status may not significantly impact recidivism rates.\"),\n    (\"Housing Situation (Living alone)\", \"medium\", \"Lack of stable living arrangements can increase vulnerability.\"),\n    (\"Education Level (High school diploma, 2-year college enrollment)\", \"low\", \"Higher education is generally associated with lower recidivism.\"),\n    (\"Employment Status (2 jobs during the year)\", \"low\", \"Employment can reduce criminal behavior by providing structure and income.\"),\n    (\"Substance Use (Past four years: marijuana and cocaine)\", \"high\", \"Drug use increases the likelihood of criminal activity.\"),\n    (\"Mental Health (Felt down in dumps most days, unable to be cheered up)\", \"high\", \"Persistent depression may lead to impulsive behaviors or substance abuse relapse.\"),\n    (\"Family Background (Lived with both biological parents in a household of size 4, rural area)\", \"low\", \"Stable family environment typically contributes positively to behavior.\"),\n    (\"Religious/Spiritual Beliefs (God has nothing to do with personal life)\", \"medium\", \"Lack of spiritual beliefs may affect social support networks and coping mechanisms.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_184936_819146",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 487,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 2 inches and weighs 160 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

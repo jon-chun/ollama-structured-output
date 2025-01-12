@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 177,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-09T01:55:24.400067376Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.969730449,
+    "load_duration": 0.042574502,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 304,
+    "eval_duration": 1.914
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"A young individual is less likely to commit crimes, but the specific age of 18 may not be a strong indicator alone.\"),\n    (\"race/ethnicity (Black)\", \"high\", \"Research indicates that individuals who identify as Black have higher rates of recidivism. This factor should contribute significantly to the prediction.\"),\n    (\"employment status at present time (never been employed, currently enrolled in school)\", \"medium\", \"Individuals without employment may be more likely to engage in criminal behavior due to financial difficulties or other factors.\"),\n    (\"living situation alone versus living with family/other people\", \"high\", \"Living alone is a significant risk factor for recidivism as it often indicates lack of support network and stability. This should contribute significantly to the prediction.\"),\n    (\"drug use (has not used any drugs in past 4 years, some occasional use during past month)\", \"medium\", \"Drug use can indicate substance abuse or mental health issues which may be associated with recidivism.\"),\n    (\"living conditions as a child (urban area, size of household = 4) and considering that God has something to do with what happens to him personally\", \"low\", \"These factors are unlikely to contribute significantly to the prediction unless they have been previously linked to increased risk in research.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_205524_401196",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 177,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

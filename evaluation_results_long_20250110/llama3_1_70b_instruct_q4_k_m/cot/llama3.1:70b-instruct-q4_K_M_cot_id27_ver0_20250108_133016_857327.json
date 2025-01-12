@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 27,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "created_at": "2025-01-08T18:30:16.856167429Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.939690884,
+    "load_duration": 0.027958163,
+    "prompt_eval_count": 338,
+    "prompt_eval_duration": 0.302,
+    "eval_count": 296,
+    "eval_duration": 17.607
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The person is a young adult, but still within an age range where recidivism risk tends to be lower for females\"),\n    (\"Prior Arrests/Convictions\", \"low\", \"Only one arrest with no convictions suggests limited involvement in the justice system\"),\n    (\"Physical Characteristics\", \"low\", \"No notable physical characteristics that would increase recidivism risk\"),\n    (\"Marital Status\", \"medium\", \"Never being married may indicate instability, but is also common for someone of this age\"),\n    (\"Living Situation\", \"medium\", \"Living alone can be a risk factor due to lack of social support\"),\n    (\"Education/Employment\", \"low\", \"Having a GED certificate and holding multiple jobs suggests some stability\"),\n    (\"Substance Abuse\", \"high\", \"Recent frequent use of marijuana and cocaine significantly increases recidivism risk\"),\n    (\"Mental Health\", \"high\", \"Feeling down in the dumps all the time during the past month indicates potential mental health issues that can increase recidivism risk\"),\n    (\"Family Background\", \"low\", \"Living with both biological parents in a household of size 4 suggests a relatively stable upbringing\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God's influence on personal events does not directly impact recidivism risk\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_133016_857327",
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 27,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 139 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

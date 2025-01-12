@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 341,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-08T12:28:29.436755958Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.62030354,
+    "load_duration": 0.020279986,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 316,
+    "eval_duration": 2.58
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Number of Arrests (Unconvicted)\", \"MEDIUM\", \"Two arrests without convictions suggest some level of involvement in criminal activity, but insufficient for a high risk designation.\"),\n    (\"Age\", \"LOW\", \"At 21, he is relatively young but not necessarily at peak risk period for recidivism.\"),\n    (\"Employment History\", \"MEDIUM\", \"No employment for a year may indicate instability or potential association with criminal networks.\"),\n    (\"Education Level\", \"LOW\", \"GED certificate suggests basic educational attainment, which is not strongly correlated with recidivism on its own.\"),\n    (\"Living Situation (Alone)\", \"MEDIUM\", \"Living alone could indicate independence but also potential social isolation or vulnerability to certain risks.\"),\n    (\"Drug Use History\", \"HIGH\", \"Past use of marijuana and cocaine, especially over four years, indicates substance abuse issues which are strongly correlated with higher recidivism.\"),\n    (\"Family Background (Large Urban Household)\", \"MEDIUM\", \"Growing up in a large urban household could suggest potential socioeconomic challenges, but not definitively predictive without more context.\"),\n    (\"Marital Status\", \"LOW\", \"Never married status alone does not significantly elevate risk unless coupled with other factors indicating instability or risk-taking behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_072829_438146",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 341,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 10 inches and weighs 195 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 7, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

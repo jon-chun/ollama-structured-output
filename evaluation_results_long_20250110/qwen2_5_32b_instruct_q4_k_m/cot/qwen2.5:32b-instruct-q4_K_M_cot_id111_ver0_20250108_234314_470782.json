@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 111,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:43:14.469345321Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.358051112,
+    "load_duration": 0.027812929,
+    "prompt_eval_count": 340,
+    "prompt_eval_duration": 0.14,
+    "eval_count": 384,
+    "eval_duration": 11.182
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (19 years old)\", \"low\", \"Younger age is often associated with lower risk, especially when nearing the end of adolescence.\"),\n    (\"Gender (Female)\", \"low\", \"Females generally have a lower recidivism rate compared to males.\"),\n    (\"Ethnicity (Hispanic)\", \"medium\", \"Some studies suggest higher recidivism rates among Hispanic individuals, but this can vary widely based on context and additional factors.\"),\n    (\"Number of Arrests (5 times)\", \"high\", \"Multiple arrests indicate repeated involvement in criminal behavior, which is a strong predictor of future recidivism.\"),\n    (\"Conviction History\", \"high\", \"A conviction history indicates more serious offenses that have led to legal sanctions.\"),\n    (\"Marital Status (married)\", \"low\", \"Being married often correlates with lower risk due to support systems and stability.\"),\n    (\"Education Level (No high school diploma or GED)\", \"medium\", \"Lack of formal education is associated with higher recidivism, but the absence of college enrollment may also indicate fewer opportunities for structured engagement.\"),\n    (\"Employment Status (no jobs in a year)\", \"high\", \"Unemployment can lead to frustration and reduced opportunities, increasing the risk of recidivism.\"),\n    (\"Drug Use (none in past 4 years, some down feelings recently)\", \"medium\", \"Recent emotional struggles may indicate vulnerability but no recent drug use is a positive factor.\"),\n    (\"Family Background (both biological parents until young age)\", \"low\", \"Growing up with both biological parents can provide stable foundational influences.\"),\n    (\"Religion (considers God has something to do with personal events)\", \"low\", \"Religious beliefs often correlate with lower recidivism due to moral and social support structures.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_234314_470782",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 111,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 5 times and has been convicted. She is 5 feet 4 inches and weighs 140 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

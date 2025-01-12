@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 520,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:09:58.33416237Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.958122639,
+    "load_duration": 0.029356274,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 356,
+    "eval_duration": 2.909
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age may indicate fewer established patterns of behavior.\"),\n    (\"race\", \"low\", \"Race is not a direct predictor of recidivism; however, certain racial groups are overrepresented in criminal justice systems which can be a contextual factor.\"),\n    (\"arrests\", \"medium\", \"Single arrest without conviction suggests some involvement but no confirmed pattern or history of crime.\"),\n    (\"height_weight\", \"low\", \"Height and weight do not directly correlate with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Living alone does not necessarily indicate a higher risk; many people live independently during early adulthood.\"),\n    (\"education\", \"low\", \"High school diploma suggests some level of education, which can be protective against criminal behavior.\"),\n    (\"employment\", \"medium\", \"Having multiple jobs indicates stability and activity but also possible stress or lifestyle pressures that could lead to crime.\"),\n    (\"substance_use\", \"high\", \"Recent drug use (cannabis and cocaine) is a significant risk factor for recidivism as substance abuse often correlates with criminal behavior.\"),\n    (\"depression\", \"low\", \"No recent signs of depression suggest a stable mental state, which can be positive for preventing crime.\"),\n    (\"childhood_environment\", \"medium\", \"Growing up in an urban household of size 6 could expose her to environments that may increase the risk of delinquency and criminal behavior.\"),\n    (\"religious_belief\", \"low\", \"Believing God has a role in personal life might indicate higher moral standards, but this is subjective and not directly linked to recidivism without further context.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_230958_335384",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 520,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 10 inches and weighs between 125 and 149 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 6, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

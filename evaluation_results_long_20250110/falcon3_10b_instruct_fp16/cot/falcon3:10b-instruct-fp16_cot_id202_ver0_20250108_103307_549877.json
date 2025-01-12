@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 45,
+    "id": 202,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:33:07.548216498Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.299283925,
+    "load_duration": 0.023235601,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.041,
+    "eval_count": 397,
+    "eval_duration": 10.227
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which could indicate a lower risk as there may be more opportunities for rehabilitation and change.\"),\n    (\"gender\", \"low\", \"Being female might suggest a lower risk compared to males due to generally lower recidivism rates among females.\"),\n    (\"race\", \"low\", \"Race alone is not a strong predictor of recidivism; however, this factor should be considered alongside others.\"),\n    (\"arrest_history\", \"medium\", \"One arrest and one conviction suggests moderate risk as it indicates past involvement in criminal activities.\"),\n    (\"physical_attributes\", \"low\", \"Physical attributes such as height and weight do not directly correlate with recidivism rates.\"),\n    (\"marital_status\", \"medium\", \"Being single and living alone may increase the likelihood of engaging in criminal activities without social constraints.\"),\n    (\"education\", \"medium\", \"Lack of education can limit opportunities, potentially increasing risk.\"),\n    (\"employment\", \"medium\", \"Having only one job during the year might indicate instability, which could be a risk factor.\"),\n    (\"substance_use\", \"medium\", \"Past drug use suggests a medium risk, particularly with substances like cocaine.\"),\n    (\"mental_health\", \"low\", \"No recent depression indicates that mental health is not a current risk factor.\"),\n    (\"family_background\", \"low\", \"Growing up in a large household might have provided support, which could mitigate risk.\"),\n    (\"religion\", \"low\", \"Belief in divine influence may act as a deterrent and reduce the likelihood of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 45\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_103307_549877",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 202,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 7 inches and weighs between 200 and 224 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 7, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 843,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "created_at": "2025-01-08T11:37:52.544528442Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.040520818,
+    "load_duration": 0.028557192,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 234,
+    "eval_duration": 1.985
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is only moderately predictive as it falls within the range where recidivism rates are typically lower.\"),\n    (\"ethnicity\", \"low\", \"Ethnicity has little to no impact on recidivism rates.\"),\n    (\"prior_arrests_convictions\", \"high\", \"High number of arrests and convictions indicate a high risk for rearrest.\"),\n    (\"height_weight\", \"low\", \"Height and weight have minimal predictive power on recidivism.\"),\n    (\"marital_status\", \"medium\", \"Single status may increase the likelihood but not significantly.\"),\n    (\"education\", \"medium\", \"High school diploma increases risk, but not as much as arrests and convictions.\"),\n    (\"employment\", \"low\", \"Stable employment can decrease recidivism rate, so it is a mitigating factor.\"),\n    (\"drug_use\", \"high\", \"Substance abuse greatly increases the likelihood of rearrest.\"),\n    (\"family_history\", \"medium\", \"Growing up with both biological parents decreases risk moderately.\")\n  ],\n  \n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_063752_545851",
+    "model": "dolphin-2.9.2-qwen2-7b:Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 843,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 8 times and has been convicted. He is 5 feet 10 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 6. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

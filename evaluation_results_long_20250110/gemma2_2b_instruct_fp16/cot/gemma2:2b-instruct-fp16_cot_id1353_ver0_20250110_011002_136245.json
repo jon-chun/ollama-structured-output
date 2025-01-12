@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1353,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:10:02.134340972Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.810579502,
+    "load_duration": 0.043227285,
+    "prompt_eval_count": 353,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 518,
+    "eval_duration": 4.754
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Age is a significant risk factor for recidivism, particularly at young ages.\"),\n    (\"gender\", \"medium\", \"Male demographics can be associated with higher recidivism rates in certain contexts.\"), \n    (\"race\", \"high\", \"Racial bias and disproportionate arrest rates contribute to higher recidivism for some racial groups\"),\n    (\"arrests\", \"medium\", \"Three arrests without conviction may indicate a pattern, though further investigation is needed.\"),\n    (\"prior_conviction\", \"low\", \"Not yet convicted, providing a potential buffer but could be influenced by factors like the nature of the charges\"),\n    (\"employment\", \"medium\", \"Holding multiple jobs suggests some work stability but doesn't guarantee long-term success after release.\"), \n    (\"education\", \"low\", \"GED completion indicates basic literacy and possibly some work skills, potentially lessening risk.\"),\n    (\"single_living\", \"medium\", \"Living with others can provide social support, but it can also lead to dependence or pressure to conform\"),\n    (\"substance_abuse\", \"high\", \"Past marijuana use indicates a potential for future substance abuse issues which can be linked to recidivism\"), \n    (\"mental_health\", \"high\", \"Feelings of hopelessness and despair are strong indicators of risk for mental health complications.\"),\n    (\"family_background\", \"medium\", \"Childhood upbringing may impact current behavior, but further information is needed about the family dynamics\"),\n    (\"religious_beliefs\", \"low\", \"Religion can provide a sense of purpose and structure which can be helpful in rehabilitation.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation:**\n\nThis analysis is based on the provided information and standard risk assessment principles. It's important to remember that this is a simplified model: \n\n* **Risk factors are weighted subjectively.** The weighting system used here leans toward specific areas of concern due to statistical data trends, but subjective judgment can still impact results. \n* **Context matters.**  The individual's criminal history, mental health situation, and support systems need more in-depth analysis for a more accurate prediction.\n\n\n**Please Note:** This is an example, and real risk assessments require far greater nuance and consideration of the individual's circumstances. This model should not be used as a definitive tool for decision-making. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_011002_136245",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1353,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 3 times but has not been convicted. He is 5 feet 9 inches and weighs 170 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

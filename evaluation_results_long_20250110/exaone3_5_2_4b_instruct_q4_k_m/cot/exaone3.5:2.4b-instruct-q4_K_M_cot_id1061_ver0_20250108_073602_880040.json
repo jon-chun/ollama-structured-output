@@ -1,0 +1,94 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1061,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-08T12:36:02.878957193Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.735892331,
+    "load_duration": 0.020306556,
+    "prompt_eval_count": 378,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 403,
+    "eval_duration": 1.702
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Prior Arrest (Unconvicted)\", \"medium\", \"While an arrest indicates some level of involvement with law enforcement, the lack of conviction suggests it may not be a persistent pattern.\"],\n    [\"Race\", \"medium\", \"Historically, there are disparities in criminal justice outcomes based on race, but this alone doesn't predict recidivism without considering individual circumstances.\"],\n    [\"Age\", \"low\", \"Being young generally correlates with lower recidivism rates, assuming no severe underlying issues.\"],\n    [\"Body Size\", \"low\", \"Physical attributes alone have minimal predictive power for future criminal behavior.\"],\n    [\"Living Situation\", \"low\", \"Living alone may suggest fewer social supports but isn't inherently indicative of higher risk without other factors.\"],\n    [\"Education Level\", \"high\", \"Lack of high school completion and absence of college enrollment significantly increases likelihood of involvement in criminal activities due to limited opportunities and skill development.\"],\n    [\"Employment History\", \"high\", \"No employment suggests potential dependence on illegal activities for livelihood, raising concerns about continued involvement.\"],\n    [\"Substance Use\", \"high\", \"Recent history of drug use, particularly marijuana and cocaine recently, indicates potential vulnerability to substance-related offenses.\"],\n    [\"Mental Health\", \"medium\", \"Recent feelings of depression without specific treatment suggest potential vulnerability to substance abuse and impulsive behaviors.\"],\n    [\"Family Background\", \"low\", \"Growing up in a household of size 8 might indicate stability but doesn't inherently elevate risk without considering parental influence or additional stressors.\"],\n    [\"Spiritual Beliefs\", \"low\", \"Belief in divine intervention might influence coping mechanisms but doesn't predict criminal behavior directly.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_073602_880040",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1061,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrest (Unconvicted)",
+      "medium",
+      "While an arrest indicates some level of involvement with law enforcement, the lack of conviction suggests it may not be a persistent pattern."
+    ],
+    [
+      "Race",
+      "medium",
+      "Historically, there are disparities in criminal justice outcomes based on race, but this alone doesn't predict recidivism without considering individual circumstances."
+    ],
+    [
+      "Age",
+      "low",
+      "Being young generally correlates with lower recidivism rates, assuming no severe underlying issues."
+    ],
+    [
+      "Body Size",
+      "low",
+      "Physical attributes alone have minimal predictive power for future criminal behavior."
+    ],
+    [
+      "Living Situation",
+      "low",
+      "Living alone may suggest fewer social supports but isn't inherently indicative of higher risk without other factors."
+    ],
+    [
+      "Education Level",
+      "high",
+      "Lack of high school completion and absence of college enrollment significantly increases likelihood of involvement in criminal activities due to limited opportunities and skill development."
+    ],
+    [
+      "Employment History",
+      "high",
+      "No employment suggests potential dependence on illegal activities for livelihood, raising concerns about continued involvement."
+    ],
+    [
+      "Substance Use",
+      "high",
+      "Recent history of drug use, particularly marijuana and cocaine recently, indicates potential vulnerability to substance-related offenses."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Recent feelings of depression without specific treatment suggest potential vulnerability to substance abuse and impulsive behaviors."
+    ],
+    [
+      "Family Background",
+      "low",
+      "Growing up in a household of size 8 might indicate stability but doesn't inherently elevate risk without considering parental influence or additional stressors."
+    ],
+    [
+      "Spiritual Beliefs",
+      "low",
+      "Belief in divine intervention might influence coping mechanisms but doesn't predict criminal behavior directly."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 146 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 8, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

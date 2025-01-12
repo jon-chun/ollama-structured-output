@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 804,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-09T07:21:59.29988128Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.784919158,
+    "load_duration": 0.032923796,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 165,
+    "eval_duration": 0.746
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"divorce\", \"weight\": \"high\", \"textual reasoning\": \"This is a critical risk factor due to the potential for ongoing stress and trauma\"},\n    {\"factor2\": \"feeling down in the dumps\", \"weight\": \"medium\", \"textual reasoning\": \"This could be indicative of underlying mental health issues or personal struggles that may impact her ability to follow through with rehabilitation efforts\"},\n    {\"factor3\": \"lack of education\", \"weight\": \"low\", \"textual reasoning\": \"While not directly related to recidivism, this factor may indicate a lack of employability and social support, which can increase the likelihood of reoffending\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_022159_301328",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 804,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "divorce",
+      "weight": "high",
+      "textual reasoning": "This is a critical risk factor due to the potential for ongoing stress and trauma"
+    },
+    {
+      "factor2": "feeling down in the dumps",
+      "weight": "medium",
+      "textual reasoning": "This could be indicative of underlying mental health issues or personal struggles that may impact her ability to follow through with rehabilitation efforts"
+    },
+    {
+      "factor3": "lack of education",
+      "weight": "low",
+      "textual reasoning": "While not directly related to recidivism, this factor may indicate a lack of employability and social support, which can increase the likelihood of reoffending"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as mixed race. She has been arrested 7 times and has been convicted. She is 5 feet 4 inches and weighs 139 lbs. She is divorced and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has not used any drugs in the past four years and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

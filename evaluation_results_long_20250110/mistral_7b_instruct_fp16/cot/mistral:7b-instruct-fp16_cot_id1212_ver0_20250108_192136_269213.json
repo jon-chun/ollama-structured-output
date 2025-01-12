@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 50,
+    "id": 1212,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:21:36.26792886Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.504476734,
+    "load_duration": 0.018490513,
+    "prompt_eval_count": 373,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 239,
+    "eval_duration": 4.459
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    {\"factor1\", \"high\", \"The person has been convicted of a crime.\"},\n    {\"factor2\", \"medium\", \"The person is living alone.\"},\n    {\"factor3\", \"low\", \"The person has not used any drugs in the past four years.\"},\n    {\"factor4\", \"low\", \"Most of the time during the past month, the person felt so down that nothing could cheer them up.\"},\n    {\"factor5\", \"medium\", \"The person is a Black male with no high school diploma or GED certificate and is not enrolled in college.\"},\n    {\"factor6\", \"high\", \"The person has never held a job during the year.\"},\n    {\"factor7\", \"low\", \"The person lives in an urban area.\"},\n    {\"factor8\", \"low\", \"The person considers that God has nothing to do with what happens to them personally.\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 50\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192136_269213",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1212,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 9 inches and weighs 190 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1230,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:20:04.80129471Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.228446934,
+    "load_duration": 0.023084651,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 376,
+    "eval_duration": 3.191
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"A young age, typically under 30, is generally considered a lower risk for recidivism as individuals have more opportunities for rehabilitation and reintegration into society.\"),\n    (\"prior_arrest\", \"low\", \"The person has been arrested only once and not convicted, indicating less involvement in criminal activity.\"),\n    (\"race\", \"medium\", \"Being Black may introduce medium risk due to historical and systemic factors contributing to overrepresentation in the criminal justice system.\"),\n    (\"physical_attributes\", \"low\", \"A height of 5'11\" and weight of 145 lbs are considered average, which does not inherently correlate with higher risk.\"),\n    (\"marital_status\", \"low\", \"Living alone suggests a lack of immediate social support, but this is not typically a direct risk factor for recidivism.\"),\n    (\"education\", \"medium\", \"Having a high school diploma and no college enrollment indicates limited formal education, which can contribute to higher risk.\"),\n    (\"employment\", \"low\", \"No jobs during the year suggest potential barriers to reentry and could be associated with lower recidivism risk.\"),\n    (\"drug_use\", \"medium\", \"Not using drugs in the past four years and not feeling depressed over the past month, while positive, introduces medium risk factors related to mental health and substance use.\"),\n    (\"household_circumstances\", \"low\", \"Living with a mother at a young age in an urban area suggests a supportive environment but does not inherently indicate higher risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092004_802635",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1230,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 11 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

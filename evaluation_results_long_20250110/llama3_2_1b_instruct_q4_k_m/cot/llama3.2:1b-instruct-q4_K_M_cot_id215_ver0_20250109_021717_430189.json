@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 215,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-09T07:17:17.429116159Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.413820506,
+    "load_duration": 0.028570513,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 137,
+    "eval_duration": 0.379
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"family background (n=1)\", \"weight\": 20, \"reasoning\": \"Lived in a household of size 5\", \"classification\": \"high\"},\n    {\"factor2\": \"previous arrests and convictions (n=1)\", \"weight\": 30, \"reasoning\": \"2 previous arrests and convictions\", \"classification\": \"medium\"},\n    {\"factor3\": \"education level (n=1)\", \"weight\": 10, \"reasoning\": \"High school diploma\", \"classification\": \"low\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_021717_430189",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 215,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "family background (n=1)",
+      "weight": 20,
+      "reasoning": "Lived in a household of size 5",
+      "classification": "high"
+    },
+    {
+      "factor2": "previous arrests and convictions (n=1)",
+      "weight": 30,
+      "reasoning": "2 previous arrests and convictions",
+      "classification": "medium"
+    },
+    {
+      "factor3": "education level (n=1)",
+      "weight": 10,
+      "reasoning": "High school diploma",
+      "classification": "low"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs 130 lbs. She has never been married and is currently not living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived in a household of size 5. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 140,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.3:70b-instruct-q4_K_M",
+    "created_at": "2025-01-08T22:16:53.876744688Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 21.383508497,
+    "load_duration": 0.028796272,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.294,
+    "eval_count": 363,
+    "eval_duration": 21.059
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is 22 years old, which is considered young but not exceptionally high-risk for recidivism\"),\n    (\"Race\", \"low\", \"Being White does not inherently increase the risk of recidivism in this context\"),\n    (\"Prior Arrests\", \"high\", \"Six prior arrests indicate a significant history of criminal behavior and increased likelihood of recidivism\"),\n    (\"Conviction History\", \"high\", \"Having been convicted suggests a higher risk of future criminal activity\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight do not significantly impact the risk of recidivism\"),\n    (\"Marital Status\", \"medium\", \"Never being married may indicate instability or lack of social support, but its impact is moderate\"),\n    (\"Education\", \"high\", \"Lacking a high school diploma or GED certificate is associated with higher recidivism rates due to limited opportunities and skills\"),\n    (\"Employment Stability\", \"medium\", \"Holding two jobs in the past year suggests some level of employment stability, but frequent job changes can also indicate instability\"),\n    (\"Substance Use\", \"medium\", \"Past marijuana use is a risk factor, but its impact may be moderate compared to harder drugs\"),\n    (\"Mental Health\", \"medium\", \"Feeling down at times could indicate mental health issues that might increase the risk of recidivism if not addressed\"),\n    (\"Family and Upbringing\", \"low\", \"Living with a biological mother in an urban area does not significantly increase the risk by itself\"),\n    (\"Religious Beliefs\", \"low\", \"Believing in a higher power may actually provide a stabilizing influence\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_171653_878120",
+    "model": "llama3.3:70b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 140,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 6 times and has been convicted. He is 5 feet 7 inches and weighs 154 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 888,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "created_at": "2025-01-08T10:49:42.759709184Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.524078941,
+    "load_duration": 0.036265689,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 274,
+    "eval_duration": 5.468
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"race_ethnicity\", \"medium\", \"Research suggests individuals who identify as Black have higher recidivism rates compared to other ethnicities.\"),\n    (\"age\", \"low\", \"Younger adults tend to have lower recidivism rates than older adults.\"),\n    (\"number_of_arrests\", \"high\", \"A single arrest indicates previous criminal involvement, increasing the likelihood of future arrests.\"),\n    (\"employment_status\", \"medium\", \"Consistent employment can reduce the likelihood of recidivism; holding 2 jobs suggests some stability but not enough to offset past behavior.\"),\n    (\"education_level\", \"high\", \"Lack of a high school diploma or GED is associated with higher recidivism rates.\"),\n    (\"living_arrangement\", \"low\", \"Living alone does not have a strong correlation with recidivism.\"),\n    (\"marital_status\", \"low\", \"Marriage can sometimes reduce recidivism, but absence thereof does not strongly indicate increased risk.\"),\n    (\"prior_conviction\", \"high\", \"A conviction history significantly increases the likelihood of future criminal behavior.\"),\n    (\"drug_use\", \"low\", \"No drug use in the past four years is a positive factor; recent feelings of depression may counteract this.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 45\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_054942_760945",
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 888,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 5 inches and weighs 145 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

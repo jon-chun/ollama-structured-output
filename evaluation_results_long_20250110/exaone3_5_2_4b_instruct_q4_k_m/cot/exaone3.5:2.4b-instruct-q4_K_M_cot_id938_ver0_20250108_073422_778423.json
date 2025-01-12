@@ -1,0 +1,79 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 938,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-08T12:34:22.776960734Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.353124037,
+    "load_duration": 0.026628015,
+    "prompt_eval_count": 363,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 307,
+    "eval_duration": 1.312
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Arrest Record\", \"high\", \"Multiple arrests indicate a history of unlawful behavior, which significantly increases recidivism risk.\"],\n    [\"Ethnicity\", \"medium\", \"While race alone isn't predictive, societal disparities and systemic biases can contribute to higher rates of arrest and incarceration for certain racial groups.\"],\n    [\"Past Substance Abuse\", \"medium\", \"Current non-depression doesn't negate past drug use, which can negatively impact decision-making and lead to future legal troubles.\"],\n    [\"Employment History\", \"low\", \"Fluctuating employment suggests potential instability and challenges in securing stable income, which might correlate with higher risk but isn't definitive.\"],\n    [\"Education Level\", \"high\", \"Lack of formal education can limit opportunities and contribute to recidivism due to fewer avenues for socioeconomic advancement.\"],\n    [\"Living Situation\", \"medium\", \"Living without dependents might reduce certain social pressures but doesn't mitigate past criminal behavior entirely.\"],\n    [\"Age\", \"low\", \"Age alone doesn't strongly predict recidivism; individual circumstances are more influential.\"],\n    [\"Religious Belief\", \"low\", \"Personal belief systems generally don't directly correlate with future criminal behavior without other contextual factors.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_073422_778423",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 938,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Arrest Record",
+      "high",
+      "Multiple arrests indicate a history of unlawful behavior, which significantly increases recidivism risk."
+    ],
+    [
+      "Ethnicity",
+      "medium",
+      "While race alone isn't predictive, societal disparities and systemic biases can contribute to higher rates of arrest and incarceration for certain racial groups."
+    ],
+    [
+      "Past Substance Abuse",
+      "medium",
+      "Current non-depression doesn't negate past drug use, which can negatively impact decision-making and lead to future legal troubles."
+    ],
+    [
+      "Employment History",
+      "low",
+      "Fluctuating employment suggests potential instability and challenges in securing stable income, which might correlate with higher risk but isn't definitive."
+    ],
+    [
+      "Education Level",
+      "high",
+      "Lack of formal education can limit opportunities and contribute to recidivism due to fewer avenues for socioeconomic advancement."
+    ],
+    [
+      "Living Situation",
+      "medium",
+      "Living without dependents might reduce certain social pressures but doesn't mitigate past criminal behavior entirely."
+    ],
+    [
+      "Age",
+      "low",
+      "Age alone doesn't strongly predict recidivism; individual circumstances are more influential."
+    ],
+    [
+      "Religious Belief",
+      "low",
+      "Personal belief systems generally don't directly correlate with future criminal behavior without other contextual factors."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 5 times and has been convicted. He is 5 feet 8 inches and weighs 165 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

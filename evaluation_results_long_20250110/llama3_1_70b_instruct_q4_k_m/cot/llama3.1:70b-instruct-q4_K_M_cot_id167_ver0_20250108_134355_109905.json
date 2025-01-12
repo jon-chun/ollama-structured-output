@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 67,
+    "id": 167,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "created_at": "2025-01-08T18:43:55.10853542Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 21.989937631,
+    "load_duration": 0.036985377,
+    "prompt_eval_count": 316,
+    "prompt_eval_duration": 0.295,
+    "eval_count": 366,
+    "eval_duration": 21.656
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is relatively young, but not a juvenile, which reduces the likelihood of recidivism\"),\n    (\"Race\", \"low\", \"Research suggests that being White does not significantly increase or decrease recidivism risk\"),\n    (\"Number of arrests\", \"low\", \"Only one arrest indicates limited prior involvement with the justice system\"),\n    (\"Conviction history\", \"medium\", \"Having a conviction increases the likelihood of rearrest, but only having one conviction limits this impact\"),\n    (\"Physical characteristics\", \"low\", \"Height and weight do not have a significant relationship with recidivism risk\"),\n    (\"Marital status\", \"medium\", \"Being unmarried can be associated with instability, which may increase recidivism risk\"),\n    (\"Living situation\", \"medium\", \"Living alone can indicate isolation or lack of support, potentially increasing recidivism risk\"),\n    (\"Education level\", \"low\", \"Having a GED certificate and being enrolled in college indicates some stability and motivation to change\"),\n    (\"Employment history\", \"high\", \"Lack of employment can significantly increase recidivism risk due to financial instability and potential for idle time\"),\n    (\"Substance use\", \"medium\", \"Past marijuana use increases the likelihood of rearrest, but limited to only one substance reduces this impact\"),\n    (\"Mental health\", \"low\", \"No recent feelings of depression reduce the likelihood of recidivism\"),\n    (\"Childhood environment\", \"low\", \"Living with biological mother in a relatively small household indicates some stability in childhood\"),\n    (\"Religious beliefs\", \"medium\", \"Believing God has no involvement can indicate a lack of spiritual support or guidance\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 67\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_134355_109905",
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 167,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 1 inch and weighs 155 lbs. He has never been married and is currently living alone. He has a GED certificate and is enrolled in a 4-year college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

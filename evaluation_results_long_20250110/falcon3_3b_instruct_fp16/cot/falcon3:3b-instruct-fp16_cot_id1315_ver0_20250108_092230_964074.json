@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1315,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:22:30.962931913Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.389749512,
+    "load_duration": 0.02386819,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 395,
+    "eval_duration": 3.353
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Age of 20 is considered an early adulthood stage, which can influence behavior but not strongly\"),\n    (\"race\", \"high\", \"Identifies as Black, a common demographic associated with higher recidivism rates in criminal justice systems\"),\n    (\"prior_arrest_count\", \"high\", \"Has been arrested twice and convicted, indicating a history of criminal behavior\"),\n    (\"physical_attributes\", \"medium\", \"6'0\\\" height and 187 lbs are average adult measurements, but not indicative of dangerousness\"),\n    (\"marital_status\", \"low\", \"Single status may reduce social pressures related to crime\"),\n    (\"living_situation\", \"low\", \"Lives alone, which is less likely to be associated with high risk if stable and peaceful\"),\n    (\"education\", \"medium\", \"GED certificate suggests some level of literacy but not advanced education\"),\n    (\"employment\", \"medium\", \"Held 1 job in the year, indicating some economic stability\"),\n    (\"drug_use\", \"low\", \"Has not used drugs for the past four years, which reduces risk factors related to addiction\"),\n    (\"depression\", \"low\", \"Has not felt depressed over the past month, further reducing mental health risk factors\"),\n    (\"family_background\", \"medium\", \"Childhood lived with a biological father in a small rural household, which can influence behavioral patterns but is not inherently risky\"),\n    (\"religious_beliefs\", \"low\", \"Believes God has something to do with his life, which may offer some form of spiritual or moral guidance\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092230_964074",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1315,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 6 feet 0 inches and weighs 187 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological father in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

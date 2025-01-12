@@ -1,0 +1,87 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 451,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:29:35.042972454Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.658173459,
+    "load_duration": 0.018280697,
+    "prompt_eval_count": 360,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 518,
+    "eval_duration": 9.614
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    {\"factor1\": \"age\", \"value\": \"medium\"},\n    {\"factor2\": \"gender\", \"value\": \"low\"},\n    {\"factor3\": \"prior_criminal_record\", \"value\": \"high\"},\n    {\"factor4\": \"height\", \"value\": \"low\"},\n    {\"factor5\": \"weight\", \"value\": \"low\"},\n    {\"factor6\": \"marital_status\", \"value\": \"medium\"},\n    {\"factor7\": \"education_level\", \"value\": \"high\"},\n    {\"factor8\": \"employment_history\", \"value\": \"medium\"},\n    {\"factor9\": \"drug_use\", \"value\": \"low\"},\n    {\"factor10\": \"depression_status\", \"value\": \"low\"},\n    {\"factor11\": \"childhood_home_size\", \"value\": \"high\"},\n    {\"factor12\": \"spirituality\", \"value\": \"medium\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}\n```\nBased on the provided information, the risk factors and their corresponding weights have been assigned as follows:\n\n* Age: medium (20 years old)\n* Gender: low (female)\n* Prior criminal record: high (arrested once and convicted)\n* Height: low (5 feet 8 inches)\n* Weight: low (135 lbs)\n* Marital status: medium (not married, not living alone)\n* Education level: high (high school diploma and enrolled in a 4-year college)\n* Employment history: medium (held 3 jobs during the year)\n* Drug use: low (marijuana use in the past four years)\n* Depression status: low (not felt depressed over the past month)\n* Childhood home size: high (lived with biological mother in a household of size 2, in an urban area)\n* Spirituality: medium (considers that God has something to do with what happens to her personally)\n\nUsing these risk factors and weights, the prediction is \"NO\" with a confidence of 95%. This means that there is a low likelihood that this person will be rearrested within the next 3 years.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192935_044085",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 451,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "value": "medium"
+    },
+    {
+      "factor2": "gender",
+      "value": "low"
+    },
+    {
+      "factor3": "prior_criminal_record",
+      "value": "high"
+    },
+    {
+      "factor4": "height",
+      "value": "low"
+    },
+    {
+      "factor5": "weight",
+      "value": "low"
+    },
+    {
+      "factor6": "marital_status",
+      "value": "medium"
+    },
+    {
+      "factor7": "education_level",
+      "value": "high"
+    },
+    {
+      "factor8": "employment_history",
+      "value": "medium"
+    },
+    {
+      "factor9": "drug_use",
+      "value": "low"
+    },
+    {
+      "factor10": "depression_status",
+      "value": "low"
+    },
+    {
+      "factor11": "childhood_home_size",
+      "value": "high"
+    },
+    {
+      "factor12": "spirituality",
+      "value": "medium"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 8 inches and weighs 135 lbs. She has never been married and is currently not living alone. She has a high school diploma and is enrolled in a 4-year college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

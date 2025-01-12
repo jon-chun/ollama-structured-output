@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 161,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-09T06:36:51.405833965Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.32604912,
+    "load_duration": 0.030472012,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.091,
+    "eval_count": 282,
+    "eval_duration": 6.202
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age (19)\", \"low\", \"Young age generally correlates with lower recidivism rates.\"),\n    (\"race/ethnicity (White)\", \"medium\", \"While not a primary determinant, racial factors can influence systemic biases and outcomes.\"),\n    (\"number_of_convictions (4 times)\", \"high\", \"Multiple convictions indicate higher risk for future arrests.\"),\n    (\"current_education_status (enrolled in school)\", \"low\", \"Education engagement is associated with lower recidivism rates.\"),\n    (\"employment_history (3 jobs in a year)\", \"medium\", \"Moderate job stability suggests some positive behavior but not complete deterrence.\"),\n    (\"drug_use_in_past_four_years (marijuana, cocaine)\", \"high\", \"Substance use history significantly increases the risk of rearrest.\"),\n    (\"mental_health_status (not depressed)\", \"low\", \"Absence of recent depression is a mitigating factor.\"),\n    (\"living_situation (alone in urban area)\", \"medium\", \"Living alone can be isolating, but urban environments may offer more opportunities for negative influences.\"),\n    (\"early_living_conditions (group quarters, household size 4)\", \"medium-high\", \"Past living conditions in crowded group settings might correlate with higher risk behaviors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_013651_407421",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 161,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted. He is 6 feet 2 inches and weighs 190 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in group quarters in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

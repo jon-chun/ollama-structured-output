@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 895,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-09T01:56:35.485988923Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.071604923,
+    "load_duration": 0.054499052,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 320,
+    "eval_duration": 2.005
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age (20)\", \"medium\", \"Higher risk is associated with younger age.\"),\n    (\"race identification as Black\", \"low\", \"Minority race does not significantly increase the risk of recidivism in this sample.\"),\n    (\"number of arrests and convictions\", \"high\", \"More arrests and convictions are a strong indicator of higher rearrest risk.\"),\n    (\"height (6 feet 6 inches)\", \"medium\", \"Height is not a significant factor in predicting recidivism.\"),\n    (\"employment status\", \"low\", \"Employment history does not significantly affect rearrest rates.\"),\n    (\"marital status\", \"high\", \"Being unmarried increases the risk of rearrest.\"),\n    (\"living situation (single)\", \"medium\", \"Living alone is a moderate indicator of higher recidivism risk.\"),\n    (\"education level (no diploma or GED, no college enrollment)\", \"low\", \"Low educational attainment does not increase the risk of recidivism in this sample.\"),\n    (\"drug use history (marijuana) and current drug use\", \"high\", \"Drug use is a strong indicator of higher rearrest risk.\"),\n    (\"mental health status (feeling down, nothing can cheer up)\", \"medium\", \"Mental health issues are a moderate indicator of recidivism. Additional evaluation would be necessary to determine if this is related to substance abuse or other mental health concerns.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_205635_488553",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 895,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 6 feet 6 inches. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 7. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

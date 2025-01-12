@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 306,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:24:32.006907048Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.84154284,
+    "load_duration": 0.017466421,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 420,
+    "eval_duration": 10.787
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Being 19 indicates a younger age, which is generally associated with lower recidivism risk.\"),\n    (\"gender\", \"low\", \"Female gender is typically linked to lower recidivism rates compared to males.\"),\n    (\"race\", \"low\", \"White race does not inherently increase recidivism risk; however, socioeconomic factors should be considered.\"),\n    (\"arrest_history\", \"low\", \"Having been arrested once without conviction suggests limited prior involvement with the justice system.\"),\n    (\"physical_attributes\", \"low\", \"Physical attributes like height and weight do not directly impact recidivism risk.\"),\n    (\"marital_status\", \"medium\", \"Being unmarried could be seen as a factor, but it's not definitive; lifestyle and support systems are more critical.\"),\n    (\"living_arrangement\", \"low\", \"Living alone can indicate independence, which might suggest lower risk.\"),\n    (\"education\", \"low\", \"Enrollment in school suggests commitment to education, which is a protective factor.\"),\n    (\"employment\", \"low\", \"Holding one job indicates some level of stability and engagement in society.\"),\n    (\"substance_use\", \"medium\", \"Past drug use, particularly of marijuana and cocaine, raises some concern but is not conclusive evidence of future behavior.\"),\n    (\"mental_health\", \"low\", \"No recent depression suggests current mental stability, which is positive.\"),\n    (\"family_background\", \"low\", \"Growing up in a stable family environment could contribute to lower risk.\"),\n    (\"religious_belief\", \"high\", \"Lack of belief in God's role in personal life might suggest less reliance on spiritual support, potentially increasing risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_102432_008307",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 306,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 127 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

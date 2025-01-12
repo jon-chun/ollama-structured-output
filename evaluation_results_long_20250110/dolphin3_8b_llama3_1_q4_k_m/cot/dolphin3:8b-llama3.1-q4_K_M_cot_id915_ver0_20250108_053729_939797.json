@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 915,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-08T10:37:29.938535642Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.432821179,
+    "load_duration": 0.028121093,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 391,
+    "eval_duration": 3.388
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The person's age of 21 is neither very young nor very old for potential criminal behavior.\"),\n    (\"gender\", \"low\", \"Female gender has been historically associated with lower rates of recidivism.\"),\n    (\"race_ethnicity\", \"medium\", \"Being Black in the U.S. can present unique socio-economic challenges that may increase recidivism risk.\"),\n    (\"arrested_before\", \"high\", \"Prior arrest indicates a history of contact with the criminal justice system.\"),\n    (\"not_convicted\", \"low\", \"Not being convicted suggests lack of formal judicial determination of guilt.\"),\n    (\"physical_characteristics\", \"medium\", \"Overweight may be linked to certain health issues but not necessarily crime risk.\"),\n    (\"marital_status\", \"low\", \"Living alone does not have strong correlation with recidivism.\"),\n    (\"education_level\", \"low\", \"Having a high school diploma and no college education is common among many individuals without significant criminal history.\"),\n    (\"employment_status\", \"high\", \"No employment in the past year may indicate economic instability or lack of social integration.\"),\n    (\"drugs_use\", \"high\", \"Past year drug use, especially recent frequency, increases risk for future offenses.\"),\n    (\"mental_health\", \"medium\", \"Feelings of hopelessness can contribute to criminal behavior; self-reporting suggests potential issues.\"),\n    (\"family_environment_young_age\", \"high\", \"Larger household size and rural setting may present family dysfunction or instability.\"),\n    (\"religious_beliefs\", \"low\", \"The belief that God has nothing to do with personal happenings does not inherently increase crime risk.\"),\n    (\"lives_alone\", \"low\", \"Living alone at 21 is common and doesn't necessarily equate to criminal risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_053729_939797",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 915,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 230 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 6, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

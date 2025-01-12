@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 340,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:21:46.189893799Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.152872381,
+    "load_duration": 0.022752921,
+    "prompt_eval_count": 363,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 367,
+    "eval_duration": 3.12
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"A 21-year-old male is considered to be in a transitional phase, which can influence risk factors.\")\n    (\"prior_arrests\", \"low\", \"No prior arrests indicate a lower base level of criminal involvement.\")\n    (\"convictions\", \"low\", \"Not convicted after one arrest suggests low conviction history.\")\n    (\"physical_traits\", \"medium\", \"6 feet 0 inches and 165 lbs are average physical characteristics, which may not inherently increase risk.\")\n    (\"marital_status\", \"low\", \"Living alone with no prior marriage indicates a stable personal situation.\")\n    (\"education\", \"medium\", \"High school diploma and college enrollment suggest educational opportunities but not necessarily reduced risk.\")\n    (\"employment\", \"high\", \"Holding multiple jobs and working in the past four years indicate financial stability, which can mitigate risk.\")\n    (\"drug_use\", \"low\", \"No drug use over the past four years shows a positive influence on reducing risk.\")\n    (\"mental_health\", \"medium\", \"Feeling down occasionally suggests potential mental health challenges that could impact future behavior.\")\n    (\"family_environment\", \"high\", \"Growing up in an urban area with biological parents and a household of size 4 indicates strong family support, which can mitigate risk.\")\n    (\"religious_beliefs\", \"low\", \"Considering God to have something to do with personal events suggests a belief system that might influence positive behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092146_191000",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 340,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 3 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

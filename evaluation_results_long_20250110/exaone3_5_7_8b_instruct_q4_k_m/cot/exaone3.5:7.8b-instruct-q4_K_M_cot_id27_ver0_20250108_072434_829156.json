@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 27,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-08T12:24:34.827869072Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.54290877,
+    "load_duration": 0.026338825,
+    "prompt_eval_count": 375,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 304,
+    "eval_duration": 2.496
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrest Record\", \"MEDIUM\", \"One prior arrest without conviction suggests potential vulnerability but not definitive criminal propensity.\"),\n    (\"Age & Gender\", \"LOW\", \"Being young and female generally correlates with lower recidivism rates, though this varies widely.\"),\n    (\"Employment History\", \"MEDIUM\", \"Having held two jobs indicates some stability but limited work history.\"),\n    (\"Education Level\", \"LOW\", \"GED certificate suggests basic educational attainment, not necessarily indicative of high risk.\"),\n    (\"Living Situation\", \"MEDIUM\", \"Living alone could indicate instability or lack of support networks, slightly elevating risk.\"),\n    (\"Drug Use\", \"HIGH\", \"Past use of marijuana and cocaine, especially recent heavy usage impacting mood negatively, significantly elevates risk.\"),\n    (\"Mental Health Indicators\", \"MEDIUM\", \"Self-reported persistent low mood could suggest underlying mental health issues that may contribute to future risky behaviors.\"),\n    (\"Family Background\", \"LOW\", \"Growing up in a household of moderate size in an urban area doesn't inherently indicate high risk.\"),\n    (\"Spiritual Beliefs\", \"LOW\", \"Personal belief systems generally have minimal direct correlation with recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_072434_829156",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 27,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 139 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

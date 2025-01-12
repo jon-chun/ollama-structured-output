@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 559,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T02:49:02.690230828Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.475728709,
+    "load_duration": 0.035080669,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 154,
+    "eval_duration": 0.435
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"conviction history\", \"weight\": \"low\", \"textual reasoning\": \"Multiple arrests and convictions may indicate a higher risk of recidivism.\"},\n    {\"factor2\": \"drug use in past month\", \"weight\": \"medium\", \"textual reasoning\": \"Some level of drug use can be indicative of underlying issues, but it's not a direct predictor of recidivism.\"},\n    {\"factor3\": \"lack of education and job experience\", \"weight\": \"high\", \"textual reasoning\": \"Limited educational attainment and job history may suggest challenges in sustaining employment and overcoming systemic barriers to success.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_214902_691537",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 559,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "conviction history",
+      "weight": "low",
+      "textual reasoning": "Multiple arrests and convictions may indicate a higher risk of recidivism."
+    },
+    {
+      "factor2": "drug use in past month",
+      "weight": "medium",
+      "textual reasoning": "Some level of drug use can be indicative of underlying issues, but it's not a direct predictor of recidivism."
+    },
+    {
+      "factor3": "lack of education and job experience",
+      "weight": "high",
+      "textual reasoning": "Limited educational attainment and job history may suggest challenges in sustaining employment and overcoming systemic barriers to success."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 1 inch and weighs 215 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 843,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-07T02:49:02.10890263Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.632820268,
+    "load_duration": 0.02721973,
+    "prompt_eval_count": 346,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 222,
+    "eval_duration": 0.6
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"convictions\", \"weight\": 2, \"textual reasoning\": \"Multiple arrests and convictions indicate a higher risk of recidivism.\"},\n    {\"factor2\": \"substance_abuse\", \"weight\": 3, \"textual reasoning\": \"Past substance abuse and current feelings of despair suggest a higher risk of recidivism.\"},\n    {\"factor3\": \"family_history\", \"weight\": 1, \"textual reasoning\": \"Lack of close ties to family and living situation may contribute to instability and vulnerability to relapse.\"},\n    {\"factor4\": \"education_level\", \"weight\": 2, \"textual reasoning\": \"Limited education and job history suggest lower socio-economic status and potential barriers to employment and financial stability.\"},\n    {\"factor5\": \"housing_status\", \"weight\": 1, \"textual reasoning\": \"Current living situation appears unstable, which could exacerbate feelings of hopelessness and vulnerability to relapse.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_214902_110208",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 843,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "convictions",
+      "weight": 2,
+      "textual reasoning": "Multiple arrests and convictions indicate a higher risk of recidivism."
+    },
+    {
+      "factor2": "substance_abuse",
+      "weight": 3,
+      "textual reasoning": "Past substance abuse and current feelings of despair suggest a higher risk of recidivism."
+    },
+    {
+      "factor3": "family_history",
+      "weight": 1,
+      "textual reasoning": "Lack of close ties to family and living situation may contribute to instability and vulnerability to relapse."
+    },
+    {
+      "factor4": "education_level",
+      "weight": 2,
+      "textual reasoning": "Limited education and job history suggest lower socio-economic status and potential barriers to employment and financial stability."
+    },
+    {
+      "factor5": "housing_status",
+      "weight": 1,
+      "textual reasoning": "Current living situation appears unstable, which could exacerbate feelings of hopelessness and vulnerability to relapse."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 8 times and has been convicted. He is 5 feet 10 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 6. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

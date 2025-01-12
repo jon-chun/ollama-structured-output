@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 673,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-09T07:16:49.826150513Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.921916527,
+    "load_duration": 0.033956217,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 335,
+    "eval_duration": 0.882
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \" socioeconomic status (low)\", \"medium\": \"moderate\", \"high\": \"high\", \"textual reasoning\": \"Based on the household size of 5, this individual may experience limited economic opportunities and social support.\", \"classification\": \"low\"},\n    {\"factor2\": \" substance abuse (low)\", \"medium\": \"low\", \"high\": \"very high\", \"textual reasoning\": \"Given the individual's past use of cocaine, it is reasonable to assume a higher risk of future substance abuse-related recidivism.\", \"classification\": \"low\"},\n    {\"factor3\": \" employment status (low)\", \"medium\": \"low\", \"high\": \"extremely high\", \"textual reasoning\": \"Lacking a job or education, this individual lacks the skills and resources to secure stable employment, increasing their risk of recidivism.\", \"classification\": \"low\"},\n    {\"factor4\": \" marital status (low)\", \"medium\": \"low\", \"high\": \"very low\", \"textual reasoning\": \"As a single individual with no spouse or family ties, this person is unlikely to have the same level of support or social connections as those in cohabiting relationships.\", \"classification\": \"low\"},\n    {\"factor5\": \" age (medium)\", \"medium\": \"moderate\", \"high\": \"extremely high\", \"textual reasoning\": \"At 20 years old, this individual is considered young and potentially vulnerable to the effects of recidivism.\", \"classification\": \"medium\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_021649_827468",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 673,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": " socioeconomic status (low)",
+      "medium": "moderate",
+      "high": "high",
+      "textual reasoning": "Based on the household size of 5, this individual may experience limited economic opportunities and social support.",
+      "classification": "low"
+    },
+    {
+      "factor2": " substance abuse (low)",
+      "medium": "low",
+      "high": "very high",
+      "textual reasoning": "Given the individual's past use of cocaine, it is reasonable to assume a higher risk of future substance abuse-related recidivism.",
+      "classification": "low"
+    },
+    {
+      "factor3": " employment status (low)",
+      "medium": "low",
+      "high": "extremely high",
+      "textual reasoning": "Lacking a job or education, this individual lacks the skills and resources to secure stable employment, increasing their risk of recidivism.",
+      "classification": "low"
+    },
+    {
+      "factor4": " marital status (low)",
+      "medium": "low",
+      "high": "very low",
+      "textual reasoning": "As a single individual with no spouse or family ties, this person is unlikely to have the same level of support or social connections as those in cohabiting relationships.",
+      "classification": "low"
+    },
+    {
+      "factor5": " age (medium)",
+      "medium": "moderate",
+      "high": "extremely high",
+      "textual reasoning": "At 20 years old, this individual is considered young and potentially vulnerable to the effects of recidivism.",
+      "classification": "medium"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

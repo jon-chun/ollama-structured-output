@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 143,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:50:06.671403374Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.521829724,
+    "load_duration": 0.033214606,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.16,
+    "eval_count": 354,
+    "eval_duration": 10.321
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (22)\", \"low\", \"Younger adults typically have lower recidivism rates.\"),\n    (\"Gender (Female)\", \"low\", \"Females generally have lower rearrest rates compared to males.\"),\n    (\"Race (White)\", \"medium\", \"While race alone is not a strong predictor, it can interact with other factors in complex ways.\"),\n    (\"Arrest History (1 arrest, no conviction)\", \"low\", \"A single arrest without a conviction indicates low criminal history risk.\"),\n    (\"Marital Status (Single and living alone)\", \"medium\", \"Living alone can sometimes correlate with higher risk due to lack of social support.\"),\n    (\"Education Level (Bachelor's degree)\", \"low\", \"Higher education is typically associated with lower recidivism rates.\"),\n    (\"Employment Stability (4 jobs in a year)\", \"high\", \"Frequent job changes may indicate instability, which could be a risk factor for rearrest.\"),\n    (\"Substance Use (Marijuana and Cocaine)\", \"medium\", \"Recent drug use is a significant factor but less severe than ongoing heavy use or dependency.\"),\n    (\"Mental Health (Feeling down in the dumps)\", \"low\", \"Indications of temporary emotional distress are noted, but not severe enough to be highly concerning.\"),\n    (\"Family Background (Lived with both parents in an urban area)\", \"low\", \"Stable childhood environment typically supports lower recidivism risk.\"),\n    (\"Religious Beliefs (God has nothing to do with her life)\", \"medium\", \"Lack of religious belief might correlate with less social support or guidance, potentially increasing risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_235006_673010",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

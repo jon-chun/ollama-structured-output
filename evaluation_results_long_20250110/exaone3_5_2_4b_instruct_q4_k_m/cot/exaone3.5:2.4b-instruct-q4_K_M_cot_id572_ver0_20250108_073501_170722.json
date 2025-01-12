@@ -1,0 +1,79 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 572,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-08T12:35:01.169084394Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.319610984,
+    "load_duration": 0.019958096,
+    "prompt_eval_count": 360,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 300,
+    "eval_duration": 1.285
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Prior Arrests\", \"high\", \"Multiple arrests indicate previous involvement with the criminal justice system, suggesting a higher likelihood of reoffending.\"],\n    [\"Convictions\", \"medium\", \"Having been convicted suggests legal consequences but does not necessarily predict future behavior unless repeated offenses occur.\"],\n    [\"Current Employment Status\", \"low\", \"Fluctuating employment status may indicate instability but lacks direct evidence of criminal behavior linked to employment.\"],\n    [\"Drug Use\", \"medium\", \"Past drug use increases risk, especially considering duration over four years and lack of treatment history.\"],\n    [\"Marital Status\", \"high\", \"Living alone without marital ties often correlates with higher recidivism due to fewer social supports and potential increased vulnerability.\"],\n    [\"Education Level\", \"low\", \"Limited education might correlate with fewer opportunities for positive socioeconomic advancement but does not directly indicate criminal propensity.\"],\n    [\"Religious Beliefs\", \"low\", \"Religious beliefs do not directly correlate with criminal recidivism without additional context indicating conflict or lack of support systems.\"],\n    [\"Family Background\", \"medium\", \"Growing up in a stable but not affluent household might imply exposure to environmental factors affecting behavior, though direct causation is unclear.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_073501_170722",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 572,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Arrests",
+      "high",
+      "Multiple arrests indicate previous involvement with the criminal justice system, suggesting a higher likelihood of reoffending."
+    ],
+    [
+      "Convictions",
+      "medium",
+      "Having been convicted suggests legal consequences but does not necessarily predict future behavior unless repeated offenses occur."
+    ],
+    [
+      "Current Employment Status",
+      "low",
+      "Fluctuating employment status may indicate instability but lacks direct evidence of criminal behavior linked to employment."
+    ],
+    [
+      "Drug Use",
+      "medium",
+      "Past drug use increases risk, especially considering duration over four years and lack of treatment history."
+    ],
+    [
+      "Marital Status",
+      "high",
+      "Living alone without marital ties often correlates with higher recidivism due to fewer social supports and potential increased vulnerability."
+    ],
+    [
+      "Education Level",
+      "low",
+      "Limited education might correlate with fewer opportunities for positive socioeconomic advancement but does not directly indicate criminal propensity."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Religious beliefs do not directly correlate with criminal recidivism without additional context indicating conflict or lack of support systems."
+    ],
+    [
+      "Family Background",
+      "medium",
+      "Growing up in a stable but not affluent household might imply exposure to environmental factors affecting behavior, though direct causation is unclear."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 5 feet 9 inches and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

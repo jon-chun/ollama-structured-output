@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 143,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-09T17:20:31.206212156Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 59.669207811,
+    "load_duration": 0.018178816,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.704,
+    "eval_count": 408,
+    "eval_duration": 58.939
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest (22 years old)\", \"low\", \"Young adulthood can be a period of high risk, but the individual is not in the highest-risk adolescent category.\"),\n    (\"Race/Ethnicity (White)\", \"low\", \"While race should not be used as a direct predictor, societal factors and systemic issues must be considered. In this case, being White generally correlates with lower recidivism rates compared to some other racial groups.\"),\n    (\"Prior arrests (1 arrest, no convictions)\", \"medium\", \"A single arrest without conviction suggests some involvement in the criminal justice system but not necessarily a pattern of behavior that predicts future offending.\"),\n    (\"Educational attainment (Bachelor's degree)\", \"low\", \"Higher education is generally associated with lower recidivism rates as it often indicates better opportunities and stability.\"),\n    (\"Employment history (4 jobs in one year)\", \"medium\", \"Frequent job changes can indicate instability, but without more context, this factor alone does not strongly predict recidivism.\"),\n    (\"Substance use (marijuana and cocaine)\", \"medium\", \"Drug use is a significant risk factor for rearrest, particularly if it continues or escalates. However, the specific drugs mentioned here are relatively common and may not be as predictive of serious criminal behavior.\"),\n    (\"Mental health (depressive symptoms)\", \"high\", \"Depressive symptoms can significantly impact decision-making and coping mechanisms, increasing the likelihood of engaging in risky behaviors.\"),\n    (\"Family history (lived with both biological parents)\", \"low\", \"A stable family environment during early development is generally associated with lower recidivism risk.\"),\n    (\"Religious beliefs (no belief in God's influence on personal life)\", \"medium\", \"Lack of religious belief can indicate a lack of social support or moral framework, which may slightly increase risk but is not a strong predictor on its own.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250109_122031_207491",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

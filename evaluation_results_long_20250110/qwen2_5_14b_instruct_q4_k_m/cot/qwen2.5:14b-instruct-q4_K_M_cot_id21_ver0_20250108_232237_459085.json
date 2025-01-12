@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 21,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:22:37.4578166Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.563252783,
+    "load_duration": 0.030882482,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.058,
+    "eval_count": 360,
+    "eval_duration": 5.466
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Research indicates that the peak age for criminal activity is in early adulthood, which includes ages around 22.\"),\n    (\"ethnicity\", \"low\", \"Ethnicity alone does not strongly correlate with recidivism rates; it is more about socioeconomic and environmental factors.\"),\n    (\"number_of_previous_arrests_and_convictions\", \"high\", \"Having multiple arrests and convictions significantly increases the likelihood of rearrest, indicating a pattern of behavior that may continue.\"),\n    (\"employment_status\", \"low\", \"While currently employed, having only held one job in the past year might indicate instability or difficulty maintaining long-term employment, but it is not as critical compared to other factors.\"),\n    (\"education_level\", \"medium\", \"A GED certificate without college enrollment indicates a lower level of educational attainment, which can be associated with higher recidivism due to fewer opportunities and skills.\"),\n    (\"drug_use_in_past_year\", \"high\", \"Marijuana use in the past year is considered illegal and suggests ongoing involvement in potentially criminal activities or lifestyle.\"),\n    (\"past_month_depression_symptoms\", \"medium\", \"Feeling persistently depressed can impair judgment and decision-making, increasing risk of recidivism through risky behaviors to cope with negative emotions.\"),\n    (\"household_size_in_adolescence\", \"low\", \"While growing up in a larger household might indicate crowded conditions or lack of individual attention, this factor alone does not strongly correlate with future criminal behavior.\"),\n    (\"religious_beliefs\", \"low\", \"Believing that God influences personal circumstances is more related to one's worldview and coping mechanisms than to direct involvement in crime.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_232237_459085",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 21,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 3 times and has been convicted. He is 5 feet 7 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

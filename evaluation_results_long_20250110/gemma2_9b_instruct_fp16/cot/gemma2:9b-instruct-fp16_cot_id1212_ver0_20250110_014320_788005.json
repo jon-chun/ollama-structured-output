@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1212,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-fp16",
+    "created_at": "2025-01-10T06:43:20.786803958Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.960140535,
+    "load_duration": 0.032251893,
+    "prompt_eval_count": 349,
+    "prompt_eval_duration": 0.036,
+    "eval_count": 268,
+    "eval_duration": 6.888
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"21 is considered young, generally associated with lower recidivism\"),\n    (\"Race\", \"medium\", \"Statistical disparities exist, but individual assessment is crucial\"),\n    (\"Prior Arrests\", \"medium\", \"One prior arrest and conviction indicates some involvement in the justice system\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight are not significant predictors of recidivism\"),\n    (\"Marital Status\", \"medium\", \"Living alone may present social isolation risks\"),\n    (\"Education\", \"high\", \"Lack of high school diploma or GED is a strong risk factor\"),\n    (\"Employment\", \"high\", \"Unemployment is strongly correlated with criminal activity\"),\n    (\"Substance Use\", \"low\", \"No drug use in the past four years is positive\"),\n    (\"Mental Health\", \"medium\", \"Feeling down and hopeless suggests potential mental health issues which can increase risk\"),\n    (\"Upbringing\", \"low\", \"Household size and urban upbringing alone are not strong predictors\"),\n    (\"Religious Beliefs\", \"low\", \"Personal beliefs are unlikely to directly influence recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_014320_788005",
+    "model": "gemma2:9b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1212,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 9 inches and weighs 190 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 625,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-08T14:40:06.458507394Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.936789954,
+    "load_duration": 0.02384241,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 320,
+    "eval_duration": 5.892
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age often indicates a potential for change and rehabilitation.\"),\n    (\"Race/Ethnicity\", \"low\", \"No strong evidence suggests that race or ethnicity is a reliable predictor of recidivism.\"),\n    (\"Arrest History\", \"medium\", \"Single arrest without conviction suggests a low likelihood but not negligible risk.\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight alone do not significantly predict reoffending behavior.\"),\n    (\"Marital Status\", \"low\", \"Living alone may indicate independence but does not necessarily imply high risk.\"),\n    (\"Education Status\", \"low\", \"Enrolled in school suggests a focus on personal development and lower recidivism potential.\"),\n    (\"Employment History\", \"medium\", \"Holding a job for one year indicates some level of stability but not extensive work history.\"),\n    (\"Substance Abuse\", \"low\", \"No drug use in four years suggests a positive pattern in behavior control.\"),\n    (\"Mental Health\", \"low\", \"Not feeling depressed recently indicates good mental health, which is protective against recidivism.\"),\n    (\"Family Background\", \"medium\", \"Living with biological father at young age and current religious belief might suggest social support, yet past behaviors need consideration.\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_094006_459902",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 625,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 5 inches and weighs 220 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological father in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

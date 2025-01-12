@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 55,
+    "id": 213,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:30:55.106914527Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.207848696,
+    "load_duration": 0.024175289,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 0.036,
+    "eval_count": 356,
+    "eval_duration": 9.142
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Although young, age alone is not a significant predictor of recidivism without additional factors.\"),\n    (\"race\", \"low\", \"Race does not inherently increase risk; however, socioeconomic factors associated with certain racial groups may play a role.\"),\n    (\"previous arrests\", \"medium\", \"Two arrests indicate some involvement with the legal system, which is a moderate risk factor.\"),\n    (\"convictions\", \"low\", \"Lack of convictions suggests a lower likelihood of persistent criminal behavior.\"),\n    (\"physical attributes\", \"low\", \"Physical characteristics do not directly impact recidivism risk.\"),\n    (\"marital status\", \"medium\", \"Being unmarried could indicate instability, which might correlate with higher risk.\"),\n    (\"education\", \"medium\", \"Lack of formal education may limit opportunities and increase risk.\"),\n    (\"employment\", \"high\", \"Unemployment suggests financial instability and lack of social integration, both significant risk factors.\"),\n    (\"drug use\", \"low\", \"Past drug use indicates a risk but not necessarily ongoing substance abuse.\"),\n    (\"depression\", \"low\", \"Absence of recent depression is a positive factor.\"),\n    (\"family background\", \"medium\", \"Living in a small household at a young age may reflect socio-economic challenges.\"),\n    (\"religion\", \"low\", \"Belief in a higher power can be a protective factor against criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 55\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_103055_108660",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 213,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 5 feet 9 inches and weighs 188 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

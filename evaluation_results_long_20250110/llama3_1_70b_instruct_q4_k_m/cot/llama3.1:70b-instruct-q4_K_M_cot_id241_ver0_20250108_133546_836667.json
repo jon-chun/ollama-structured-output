@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 241,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "created_at": "2025-01-08T18:35:46.835060758Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 22.551875874,
+    "load_duration": 0.029058911,
+    "prompt_eval_count": 338,
+    "prompt_eval_duration": 0.302,
+    "eval_count": 375,
+    "eval_duration": 22.219
+  },
+  "response": {
+    "raw_message_text": "```\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"19 is considered young, but not unusually so for criminal behavior; still developing emotionally and cognitively\"),\n    (\"Sex\", \"low\", \"Females are generally less likely to recidivate than males\"),\n    (\"Ethnicity\", \"medium\", \"Whites have a lower recidivism rate compared to some other ethnicities, but this factor is complex and influenced by many variables\"),\n    (\"Arrest history\", \"low\", \"Only one arrest with no convictions suggests limited prior involvement in the justice system\"),\n    (\"Physical build\", \"low\", \"Small stature may indicate less physical aggression or threat potential\"),\n    (\"Marital status\", \"medium\", \"Never married, living alone might suggest lack of stability or support network\"),\n    (\"Education level\", \"medium\", \"Having a GED certificate is a positive factor, but not being enrolled in college could limit future opportunities and increase idle time\"),\n    (\"Employment history\", \"low\", \"Only one job held during the year may indicate instability or difficulties maintaining employment\"),\n    (\"Substance use history\", \"high\", \"Recent drug use, including cocaine, significantly increases recidivism risk due to potential addiction and associated lifestyle factors\"),\n    (\"Mental health indicators\", \"high\", \"Feeling down 'most of the time' in the past month could indicate underlying issues like depression, which may contribute to reoffending if left untreated\"),\n    (\"Family background\", \"medium\", \"Living with both biological parents initially is a protective factor, but its effects might be diminished by current circumstances and other risk factors\"),\n    (\"Religious views\", \"low\", \"Believing God influences personal events could offer some support or stability\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_133546_836667",
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 241,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 110 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

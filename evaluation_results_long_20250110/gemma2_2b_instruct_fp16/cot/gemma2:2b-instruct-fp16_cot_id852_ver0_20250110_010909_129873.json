@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 852,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:09:09.128136539Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.684052167,
+    "load_duration": 0.048405825,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 501,
+    "eval_duration": 4.624
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrest\", \"medium\", \"Past criminal history is a known indicator of future risk\"),\n    (\"Race\", \"low\", \"While race can be a factor, it's not a strong predictor in this case.\"),\n    (\"Age\", \"high\", \"Younger individuals are statistically more likely to recidivate.\"),\n    (\"Gender\", \"medium\", \"Female status has historically shown a lower recidivism rate than male offenders.\"),\n    (\"Education\", \"low\", \"Higher education level can act as a protective factor.\"),\n    (\"Employment\", \"low\", \"Multiple job holds are generally positive signs of stability.\"),\n    (\"Marital Status\", \"high\", \"Single or unmarried individuals tend to have higher recidivism rates.\"),\n    (\"Living Situation\", \"medium\", \"Living alone is less stable than living with family/partner, though not necessarily indicative of criminal behavior.\"),\n    (\"Substance Use History\", \"medium\", \"Past drug use can be a risk factor for future criminality, although this is not specific to this person.\"),\n    (\"Mental Health\", \"low\", \"No recent depression indicates a lower likelihood of recidivism, but mental health issues are complex.\") \n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n\n**Explanation:**\n\nThis assessment uses the provided information to identify potential risk factors. While some factors (prior arrest and substance use) can indicate higher recidivism, others (education, employment, mental health) are less predictive.  The prediction is \"NO\", which reflects a lower-than-average likelihood of rearrest in 3 years. This doesn't imply complete certainty, but rather a relative assessment based on the available information.\n\n**Important Notes:**\n\n* **Context Matters:** A holistic evaluation would require more detailed information about the individual's circumstances and the nature of their past arrest (e.g., violent vs non-violent offense).\n* **Statistical Significance:** The weighting given to each factor reflects general trends in criminal justice data, but doesn't guarantee perfect accuracy in individual cases. \n* **Ethical Considerations:**  This analysis should not be used as a sole basis for decision-making regarding an individual's life or legal outcome. It is crucial to use this information responsibly and ethically within the context of a comprehensive risk assessment process. \n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010909_129873",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 852,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 2 inches and weighs 172 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in a rural area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

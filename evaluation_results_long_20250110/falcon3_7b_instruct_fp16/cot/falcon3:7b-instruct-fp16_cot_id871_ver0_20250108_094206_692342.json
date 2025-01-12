@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 871,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-08T14:42:06.690915382Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.499554801,
+    "load_duration": 0.030197389,
+    "prompt_eval_count": 365,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 456,
+    "eval_duration": 8.446
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age often correlates with less stable life situations, but being an 18-year-old female may indicate a lower risk due to potential for growth and change.\"),\n    (\"Race\", \"low\", \"While race can be a factor in the criminal justice system, focusing on individual circumstances rather than race provides a more accurate assessment.\"),\n    (\"Arrest History\", \"medium\", \"Seven arrests, though not convictions, suggest past involvement in illegal activities which could indicate recidivism risk.\"),\n    (\"Convictions\", \"medium\", \"Being convicted increases the likelihood of reoffending as it indicates a pattern of criminal behavior.\"),\n    (\"Physical Characteristics\", \"low\", \"Physical attributes like height and weight do not typically correlate with recidivism rates.\"),\n    (\"Living Situation\", \"low\", \"Living alone may suggest independence and stability, potentially reducing the risk of reoffending.\"),\n    (\"Educational Status\", \"medium\", \"Lack of formal education and lack of enrollment in educational programs can be linked to higher recidivism rates due to limited opportunities.\"),\n    (\"Employment Status\", \"medium\", \"Unemployment can increase the chances of reoffending as it may lead to financial stress and desperation.\"),\n    (\"Drug Use\", \"high\", \"Recent drug use, especially cocaine, is a significant risk factor for recidivism as it often indicates a pattern of substance abuse and criminal behavior.\"),\n    (\"Mood\", \"medium\", \"Feeling consistently down can correlate with mental health issues, which may increase the risk of reoffending if not addressed.\"),\n    (\"Family Background\", \"low\", \"Growing up in a stable family environment in a rural area might suggest some resilience and support system, potentially reducing recidivism risk.\"),\n    (\"Religious Beliefs\", \"low\", \"Disconnection from religion does not inherently increase the risk of recidivism, as personal belief systems vary widely among individuals with similar backgrounds.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_094206_692342",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 871,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 7 times and has been convicted. She is 5 feet 5 inches and weighs 120 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

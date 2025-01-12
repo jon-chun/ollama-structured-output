@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 67,
+    "id": 238,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "created_at": "2025-01-08T10:55:42.480254326Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.810641534,
+    "load_duration": 0.028486091,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 239,
+    "eval_duration": 4.764
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The individual is 19, which falls in the medium-risk age bracket for recidivism.\"),\n    (\"arrest_history\", \"high\", \"Three arrests indicate a high risk of recidivism.\"),\n    (\"no_high_school_diploma_or_ged\", \"high\", \"Lack of formal education increases the likelihood of future offenses.\"),\n    (\"unemployed\", \"low\", \"Holding one job during the year suggests some stability, lowering the risk.\"),\n    (\"drugs\", \"medium\", \"Past drug use, especially recent marijuana usage, elevates the risk of recidivism.\"),\n    (\"depression_or_mood_issues\", \"high\", \"Feelings of persistent sadness or hopelessness can lead to higher reoffense rates.\"),\n    (\"large_family_size_childhood\", \"low\", \"Living in a household of 8 as a child may not significantly impact his future actions.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in God does not inherently correlate with crime rates, thus low risk factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 67\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_055542_481821",
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 238,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 3 times but has not been convicted. He is 6 feet 1 inch. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

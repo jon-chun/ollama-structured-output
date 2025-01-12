@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1158,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:23:22.313095261Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.011059543,
+    "load_duration": 0.017895276,
+    "prompt_eval_count": 357,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 429,
+    "eval_duration": 7.968
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"His age is 21, which places him in a higher risk category for recidivism.\"),\n    (\"number_of_arrests\", \"low\", \"While the person has been arrested 7 times, they have not been convicted, which suggests that these arrests may not be indicative of future offending behavior.\"),\n    (\"height_weight\", \"medium\", \"Being tall and heavy can suggest a higher risk of violence or aggression, but this is not definitive.\"),\n    (\"marital_status\", \"low\", \"Not being married or living alone does not necessarily indicate an increased risk of recidivism.\"),\n    (\"education\", \"medium\", \"Having a high school diploma and being enrolled in college can suggest a lower risk of recidivism, but it is not definitive.\"),\n    (\"employment_history\", \"low\", \"Holding only one job during the year does not necessarily indicate an increased risk of recidivism.\"),\n    (\"drug_use\", \"high\", \"Using drugs in the past four years (marijuana) places this person in a higher risk category for recidivism, as drug use is often associated with criminal behavior.\"),\n    (\"depression\", \"low\", \"Not feeling depressed over the past month does not necessarily indicate an increased risk of recidivism.\"),\n    (\"family_history\", \"medium\", \"Living with a biological mother in a household of size 4 at a young age may suggest a higher risk of recidivism due to potential exposure to negative influences or lack of stability.\"),\n    (\"spirituality\", \"low\", \"Identifying that God has something to do with what happens to them personally does not necessarily indicate an increased risk of recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192322_314495",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1158,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 7 times but has not been convicted. He is 6 feet 2 inches and weighs 215 lbs. He has never been married and is currently not living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

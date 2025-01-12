@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1275,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-09T06:24:18.985077591Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.129051862,
+    "load_duration": 0.025556006,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 224,
+    "eval_duration": 2.084
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"arrest_history_1stconvicted\", \"medium\", \"First-time offender with a conviction; minor offense but indicative of past risk\"),\n    (\"education_non-Diploma\", \"high\", \"Low formal education strongly correlates with higher recidivism rates\"), \n    (\"employment_stability\", \"low\", \"One job in the last year suggests poor employment stability and financial insecurity\"),\n    (\"drug_use_last_4years\", \"medium\", \"History of drug use (marijuana & cocaine) increases future criminal behavior risk\"),\n    (\"depression_status_negative\", \"low\", \"Lack of depression over past month implies no immediate mental health red flags\"),\n    (\"family_background_size3\", \"low\", \"Grew up in a small household; not inherently predictive of recidivism but family dynamics impact\"),\n    (\"religious belief_god\", \"neutral\", \"Belief in God might provide moral compass and support, mitigating some risk factors\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_012418_986271",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1275,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Hispanic. She has been arrested 1 time and has been convicted. She is 5 feet 8 inches and weighs 160 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

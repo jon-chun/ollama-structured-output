@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 673,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-08T23:56:49.173238785Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.462865112,
+    "load_duration": 0.032344393,
+    "prompt_eval_count": 321,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 339,
+    "eval_duration": 6.404
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"At 20 years old, the individual is relatively young; however, having been arrested once suggests some involvement in criminal behavior.\"),\n    (\"Number of previous arrests\", \"medium\", \"One prior arrest indicates a minor level of engagement with law enforcement but doesn't necessarily predict future recidivism.\"),\n    (\"Marital status and living arrangements\", \"low\", \"Living alone without being married may not inherently increase the risk, though it could indicate social isolation.\"),\n    (\"Educational attainment\", \"low\", \"A high school diploma is generally associated with lower risk, as education can provide opportunities that reduce criminal involvement.\"),\n    (\"Employment history\", \"medium\", \"No jobs during the year might suggest a lack of stable income or social ties, which can be linked to higher recidivism rates.\"),\n    (\"Drug use in past four years\", \"high\", \"Using marijuana and cocaine indicates substance abuse, which is strongly correlated with increased risk of criminal behavior and recidivism.\"),\n    (\"Depression status\", \"low\", \"Not feeling depressed over the past month suggests a lack of mental health issues that could contribute to criminal activity.\"),\n    (\"Family environment at young age\", \"low\", \"Growing up with both biological parents in a household of size 5 provides a stable upbringing, which is protective against criminal behavior.\"),\n    (\"Religious beliefs and spiritual practices\", \"medium\", \"Considering God has nothing to do with personal life may imply a lack of moral or ethical guidance, potentially increasing vulnerability to criminal influences.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_185649_175020",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 673,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1388,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:21:52.099138819Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.298906124,
+    "load_duration": 0.025434907,
+    "prompt_eval_count": 372,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 384,
+    "eval_duration": 3.261
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age may not have fully developed life experiences yet to influence long-term behavior\"),\n    (\"race\", \"low\", \"Being White is generally associated with lower risk of recidivism in many jurisdictions\"),\n    (\"number_of_prior_offenses\", \"high\", \"Multiple arrests indicate a pattern of criminal behavior\"),\n    (\"age_at_first_arrest\", \"medium\", \"19 years old at first arrest could suggest impulsive behavior\"),\n    (\"physical_attributes\", \"medium\", \"Moderate weight and height may not directly correlate with risk, but can be indicative of certain behaviors in urban environments\"),\n    (\"marital_status\", \"low\", \"Single status might imply fewer social bonds that could potentially deter criminal activity\"),\n    (\"education\", \"high\", \"Lack of formal education and no college enrollment is strongly correlated with higher recidivism risk\"),\n    (\"employment\", \"medium\", \"One job may indicate some level of stability, but it's not a guarantee against risk\"),\n    (\"drug_use\", \"high\", \"Substance use, particularly marijuana and cocaine, significantly increases the risk of recidivism\"),\n    (\"mental_health\", \"high\", \"Feeling down frequently suggests underlying mental health issues which can lead to criminal behavior\"),\n    (\"living_situation\", \"medium\", \"Living alone in an urban area with family history may indicate exposure to crime and potential for involvement in it\"),\n    (\"religious_beliefs\", \"low\", \"Spiritual beliefs are not a direct predictor but could provide social support\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092152_100270",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1388,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 7 times and has been convicted. She is 6 feet 0 inches and weighs between 175 and 199 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
