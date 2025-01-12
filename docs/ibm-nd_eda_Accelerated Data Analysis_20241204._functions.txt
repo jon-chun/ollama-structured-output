@@ -1,0 +1,265 @@
+DATA 
+FUNCTIONS
+
+DATA:
+==========
+
+Found 11 binary columns:
+Binary columns: ['homelessness', 'faminjail', 'foodstamp', 'victim', 'askgod', 'godhasnothingtodo', 'marijuana', 'cocaine', 'anydrug', 'arrestedby2002', 'convictedby2002']
+Non-binary columns: ['pubid', 'sex', 'married02', 'educ02', 'college02', 'experience02', 'hhsize97', 'parentrelations', 'urbanrural', 'expectdeath', 'depression', 'numberofarrestsby2002', 'arrestedafter2002', 'convictedafter2002', 'num_weight', 'short', 'long', 'age', 'height_total_inches', 'race']
+
+Feature types of non-binary columns:
+pubid: discrete_numeric
+sex: nominal_category
+married02: nominal_category
+educ02: ordinal_category
+college02: ordinal_category
+experience02: discrete_numeric
+hhsize97: discrete_numeric
+parentrelations: nominal_category
+urbanrural: nominal_category
+expectdeath: discrete_numeric
+depression: nominal_category
+numberofarrestsby2002: discrete_numeric
+arrestedafter2002: binary
+convictedafter2002: binary
+num_weight: discrete_numeric
+short: text
+long: text
+age: discrete_numeric
+height_total_inches: discrete_numeric
+race: nominal_category
+
+Converted 'homelessness' to boolean type
+Sample values after conversion: 0    False
+1    False
+2    False
+3    False
+4    False
+Name: homelessness, dtype: bool
+
+Converted 'faminjail' to boolean type
+Sample values after conversion: 0    False
+1    False
+2    False
+3    False
+4    False
+Name: faminjail, dtype: bool
+
+Converted 'foodstamp' to boolean type
+Sample values after conversion: 0    False
+1     True
+2    False
+3    False
+4    False
+Name: foodstamp, dtype: bool
+
+Converted 'victim' to boolean type
+Sample values after conversion: 0    False
+1    False
+2    False
+3    False
+4    False
+Name: victim, dtype: bool
+
+Converted 'askgod' to boolean type
+Sample values after conversion: 0     True
+1    False
+2     True
+3     True
+4     True
+Name: askgod, dtype: bool
+
+Converted 'godhasnothingtodo' to boolean type
+Sample values after conversion: 0    False
+1     True
+2    False
+3     True
+4     True
+Name: godhasnothingtodo, dtype: bool
+
+Converted 'marijuana' to boolean type
+Sample values after conversion: 0     True
+1     True
+2    False
+3     True
+4     True
+Name: marijuana, dtype: bool
+
+Converted 'cocaine' to boolean type
+Sample values after conversion: 0    False
+1    False
+2    False
+3     True
+4    False
+Name: cocaine, dtype: bool
+
+Converted 'anydrug' to boolean type
+Sample values after conversion: 0     True
+1     True
+2    False
+3     True
+4     True
+Name: anydrug, dtype: bool
+
+Converted 'arrestedby2002' to boolean type
+Sample values after conversion: 0    True
+1    True
+2    True
+3    True
+4    True
+Name: arrestedby2002, dtype: bool
+
+Converted 'convictedby2002' to boolean type
+Sample values after conversion: 0     True
+1    False
+2    False
+3    False
+4    False
+Name: convictedby2002, dtype: bool
+
+
+FUCTIONS:
+==========
+import pandas as pd
+from typing import List, Dict, Any
+
+
+(DEBUG)
+print(json.dumps(metadata_dt, indent=2))
+
+(DEBUG)
+for acol in col_category_ls:
+  df[acol].value_counts()
+  
+  
+  
+def get_data_upload():
+
+(DEBUG)
+def get_metadata_dict(df, indent=4):
+   """
+   Print out nested meta_dt
+   
+def print_dict(dictionary, indent=4, initial_indent=0):
+
+def compare_columns(df, col_ls=["weight", "num_weight"]):
+   """
+   Returns A pandas DataFrame showing the comparison and difference, or None if columns not found.
+
+(DEBUG)
+def df_col_unique_vals(df, col_skip_ls=['long', 'short'], col_neg_valid_ls=[]):
+   """
+   Print unique values and counts for each column, skipping specified columns.
+   Shows full value counts table, missing value counts, and negative value counts
+   (except for columns in col_neg_valid_ls).
+   
+def percent_equal_cols(df, col_ls):
+   """
+   Calculates the percentage of rows where two columns have exactly equal values.
+
+def convert_birthyear_to_age(df):
+
+def convert_height(df):
+
+def unify_race(df, col_race_ls=["race_ethnicity", "race_specific", "race"]):
+    """
+    Unifies race classification across multiple columns with priority order
+    and consistent categorization.
+
+def test_equal_cols(df, col_ls=['arreastedafter2002','recidivism']):
+   """
+   Counts the number of rows where the values of specified columns are not equal.
+   
+def get_null_cols(df):
+  """
+  Returns a list of columns with null values in a DataFrame.
+  
+def null_to_unknown(df, col_ls):
+    """Changes null values in specified columns to 'Unknown'."""
+    
+def get_percentage_col_map(df, col_name):
+   """
+   Custom function to get percentage expect death values
+
+def clean_percentage_col(df, col_name, label_map):
+   """
+   Custom function to clean percentage expect death values
+
+def get_binary_columns(metadata_dt: Dict[str, Dict[str, Any]]) -> List[str]:
+    """
+    Identifies binary columns using the metadata dictionary's 'feature' key.
+
+def convert_to_binary(df: pd.DataFrame, col_ls: List[str], metadata_dt: Dict[str, Dict[str, Any]],
+                     verbose: bool = True) -> int:
+    """
+    Converts specified DataFrame columns to boolean type (as object) based on metadata classification
+    and various binary representations.
+    
+def get_category_columns(metadata_dt: Dict[str, Dict[str, Any]]) -> List[str]:
+    """
+    Identifies categorical columns using the metadata dictionary's 'feature' key.
+    
+(DEBUG)
+def get_labels_dict(df, col_ls, DEBUG_FLAG=True):
+  """
+  get all the unique labels in a column
+  
+def norm_category_labels(df, metadata_dt):
+    """
+    Use metadata_dt to normalize various text_str to concise label set
+    
+def get_integer_columns(metadata_dt: Dict[str, Dict[str, Any]]) -> List[str]:
+    """
+    Identifies integer columns using the metadata dictionary's 'feature' key.
+    
+def convert_to_integer(df: pd.DataFrame, col_ls: List[str], metadata_dt: Dict[str, Dict[str, Any]],
+                     verbose: bool = True) -> int:
+    """
+    Converts specified DataFrame columns to integer type based on metadata classification
+    and various binary representations.
+  
+(DEBUG: Problem with pubid "2000 TO 2099' , '6000 TO 6999')  
+def validate_int_cols(df, col_ls):
+    """
+    Validates integer columns by identifying non-integer values, allowing NaN values.
+
+def validate_float_cols(df, col_ls):
+    """
+    Validates float columns by identifying non-numeric values, allowing NaN values.
+    
+def change_none_to_unknown(df, col_ls):
+    """
+    Changes all 'None' values to 'Unknown' in specified columns.
+    
+def rename_columns(df, metadata_dt):
+    """
+    rename columns in df according to metadata_dt mapping
+    
+def process_column_names(df, metadata_dt):
+    """
+    Process DataFrame column names based on metadata dictionary specifications.
+
+    This function applies the following rules:
+    1. If renamed == 'DROP': Remove the column entirely
+    2. If renamed == '': Skip to next column without changes
+    3. If renamed == 'TARGET': Add 'y_' prefix to column name
+    4. Otherwise: Rename column to the string value in 'renamed'
+    
+def df_nan_report(df):
+   """
+   Generate detailed report of NaN, None, and Unknown values for each column.
+   
+def get_col_unique_values(df):
+  """
+  for each col in df, show all unique values and the number of unique values
+  
+  
+        
+
+  
+
+   
+   
+   
+

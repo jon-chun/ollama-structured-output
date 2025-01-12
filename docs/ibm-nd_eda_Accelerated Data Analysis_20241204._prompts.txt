@@ -1,0 +1,150 @@
+###RAW_DATA_ANALYSIS:
+(attached)
+
+###INSTRUCTIONS:
+Please think step by step to carefully analyze ###RAW_DATA_ANALYSIS and think about how to preprocess this tabular dataset in order for downstream binary classifier prediction of 'recidivism' (= 'arrestedafter2002' which will be dropped') based upon the other columns/features by:
+1. inserting a new 'id' column at position 0 that of sequential integers
+2. Add new columns to df
+2.a. 'height_total_inches' calculated from 12*df['height_ft'] + df['height_in']
+2.b. 'age' calcuated from 1997 - df['birthyear'] 
+2.c. 'race_unified calculated using function unify_race(df, col_race_ls=["race_ethnicity", "race_specific", "race"])
+3. drop columns in cols_drop_ls=['weight','birthyear','birthmonth','height_ft','height_in','race_ethnicity','race_specific',
+              'race','recidivism','firstcrime','expectdeath','short','long'
+4. renames columns
+4.a. df.rename(columns={'race_unified': 'race'}, inplace=True)
+5. identifies predictors:
+5.a. y_arrested = arrestedafter2002
+5.b. y_conviced = convictedafter2002
+6. mutate columns
+6.a. df['num_weight'] = df['num_weight'].round().astype(int)
+6.b df = clean_percentage_col(df, 'expectdeath', percentage_map_dt) using percentage_map_dt
+6.c. result = convert_to_binary(df, df.columns.tolist(), metadata_dt)
+
+
+
+Found 11 binary columns:
+Binary columns: ['homelessness', 'faminjail', 'foodstamp', 'victim', 'askgod', 'godhasnothingtodo', 'marijuana', 'cocaine', 'anydrug', 'arrestedby2002', 'convictedby2002']
+Non-binary columns: ['pubid', 'sex', 'married02', 'educ02', 'college02', 'experience02', 'hhsize97', 'parentrelations', 'urbanrural', 'expectdeath', 'depression', 'numberofarrestsby2002', 'arrestedafter2002', 'convictedafter2002', 'num_weight', 'short', 'long', 'age', 'height_total_inches', 'race']
+
+Feature types of non-binary columns:
+pubid: discrete_numeric
+sex: nominal_category
+married02: nominal_category
+educ02: ordinal_category
+college02: ordinal_category
+experience02: discrete_numeric
+hhsize97: discrete_numeric
+parentrelations: nominal_category
+urbanrural: nominal_category
+expectdeath: discrete_numeric
+depression: nominal_category
+numberofarrestsby2002: discrete_numeric
+arrestedafter2002: binary
+convictedafter2002: binary
+num_weight: discrete_numeric
+short: text
+long: text
+age: discrete_numeric
+height_total_inches: discrete_numeric
+race: nominal_category
+
+integer columns:
+col_integer_ls = [
+    'experience02',
+    'hhsize97',
+    'expectdeath',
+    'num_weight',
+    'age',
+    'height_total_inches'
+]
+
+Index(['pubid', 'sex', 'married02', 'educ02', 'college02', 'experience02',
+       'hhsize97', 'parentrelations', 'urbanrural', 'homelessness',
+       'faminjail', 'foodstamp', 'victim', 'askgod', 'godhasnothingtodo',
+       'depression', 'marijuana', 'cocaine', 'anydrug', 'arrestedby2002',
+       'numberofarrestsby2002', 'arrestedafter2002', 'convictedby2002',
+       'num_weight', 'short', 'long', 'age', 'height_total_inches', 'race'],
+      dtype='object')
+      
+      Column 'pubid': 1412 unique values
+Column 'sex': 2 unique values
+Unique values: ['male' 'female']
+
+Column 'married02': 8 unique values
+Unique values: ['never married, cohabiting' 'never married, not cohabiting'
+ 'married, spouse present' 'separated, not cohabiting'
+ 'divorced, not cohabiting' 'married, spouse absent'
+ 'separated, cohabiting' 'divorced, cohabiting']
+
+Column 'educ02': 5 unique values
+Unique values: ['Unknown' 'GED' 'high school diploma (HS)'
+ 'associate/junior college (AA)' "bachelor's degree (BA, BS)"]
+
+Column 'college02': 10 unique values
+Column 'experience02': 9 unique values
+Unique values: [0 3 4 2 1 5 9 6 7]
+
+Column 'hhsize97': 11 unique values
+Column 'parentrelations': 11 unique values
+Column 'urbanrural': 3 unique values
+Unique values: ['urban' 'Unknown' 'rural']
+
+Column 'homelessness': 2 unique values
+Unique values: ['NO' 'YES']
+
+Column 'faminjail': 2 unique values
+Unique values: ['NO' 'YES']
+
+Column 'foodstamp': 2 unique values
+Unique values: [0 1]
+
+Column 'victim': 3 unique values
+Unique values: ['NO' 'YES' '-1']
+
+Column 'askgod': 4 unique values
+Unique values: ['TRUE' 'FALSE' '-2' '-1']
+
+Column 'godhasnothingtodo': 4 unique values
+Unique values: ['FALSE' 'TRUE' '-2' '-1']
+
+Column 'depression': 4 unique values
+Unique values: ['none of the time' 'most of the time' 'all of the time'
+ 'some of the time']
+
+Column 'marijuana': 2 unique values
+Unique values: [1 0]
+
+Column 'cocaine': 2 unique values
+Unique values: [0 1]
+
+Column 'anydrug': 2 unique values
+Unique values: [1 0]
+
+Column 'arrestedby2002': 1 unique values
+Unique values: [1]
+
+Column 'numberofarrestsby2002': 17 unique values
+Column 'arrestedafter2002': 2 unique values
+Unique values: [1 0]
+
+Column 'convictedby2002': 2 unique values
+Unique values: [1 0]
+
+Column 'num_weight': 144 unique values
+Column 'short': 342 unique values
+Column 'long': 1412 unique values
+Column 'age': 5 unique values
+Unique values: [38 41 42 39 40]
+
+Column 'height_total_inches': 33 unique values
+Column 'race': 6 unique values
+Unique values: ['hispanic' 'black' 'white' 'asian or pacific islander'
+ 'american indian, eskimo or aleut' 'mixed-race']
+ 
+ 
+
+7. transform column category values
+7.a. df = norm_category_labels(df, metadata_dt)
+8. rename columns
+8.a. df.rename(columns={'race_unified': 'race'}, inplace=True)
+
