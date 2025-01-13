@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 423,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "created_at": "2025-01-13T04:03:15.848471054Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.099322726,
+    "load_duration": 0.0125408,
+    "prompt_eval_count": 248,
+    "prompt_eval_duration": 0.059,
+    "eval_count": 291,
+    "eval_duration": 6.024
+  },
+  "response": {
+    "raw_message_text": " ```json\n{\n  \"risk_factors\": [\n    (\"gender_male\", \"medium\", \"Males generally have higher recidivism rates, but this is not a strong predictor on its own.\"),\n    (\"marital_status_never_married\", \"high\", \"Never being married can indicate lack of stability and support, which increases risk.\"),\n    (\"cohabitation_no\", \"high\", \"Not cohabiting suggests less social support and potential instability.\"),\n    (\"employment_history_2_jobs\", \"medium\", \"Holding multiple jobs could indicate either adaptability or lack of stability.\"),\n    (\"household_size_4\", \"low\", \"A larger household size can sometimes provide more support, but it's not a strong predictor.\"),\n    (\"lived_with_biological_father\", \"medium\", \"Living with the biological father could indicate stability, but the presence of another parent at age 12 suggests potential complexity in family dynamics.\"),\n    (\"other_parent_present_age_12\", \"low\", \"Presence of another parent can provide support and reduce risk, but its effect is less pronounced than other factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_230315_849919",
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 423,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their biological father, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

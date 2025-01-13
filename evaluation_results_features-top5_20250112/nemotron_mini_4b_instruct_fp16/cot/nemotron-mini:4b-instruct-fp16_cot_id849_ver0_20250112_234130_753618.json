@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 849,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-13T04:41:30.752490019Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.110597826,
+    "load_duration": 0.039385408,
+    "prompt_eval_count": 234,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 187,
+    "eval_duration": 2.061
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"gender\", \"female\", \"low\", \"textually based on the information provided, females have lower risk than males\"),\n    (\"marital_status\", \"never married\", \"low\", \"negative impact on rearrest rate due to lack of stability and commitment in relationship\"),\n    (\"cohabiting\", \"not cohabiting\", \"high\", \"positive impact on rearrest rate due to potential instability or abuse situations\"),\n    (\"household_size\", \"3\", \"medium\", \"some research suggests that larger households are associated with higher risk, but this is not a strong factor\"),\n    (\"age12livewithparents\", \"yes\", \"low\", \"negative impact on rearrest rate due to early independence and exposure to various environments\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234130_753618",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 849,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 399,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-13T04:41:00.688555004Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.988300041,
+    "load_duration": 0.043507887,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 176,
+    "eval_duration": 1.935
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Never married\", \"low\", \"Textual reasoning: Individuals who are never married may have different life experiences, which could impact their risk of reoffending.\"),\n    (\"Not cohabiting\", \"medium\", \"Textual reasoning: Cohabitation is a form of living together outside of marriage. Not cohabiting implies that the individual has not formed or maintained such an arrangement, which might influence recidivism rates.\"),\n    (\"1 job with household size 5\", \"high\", \"Judgment call based on typical household composition for each additional person in a single-person job. A household size of 5 suggests living arrangements with other individuals who may also impact the individual's risk level.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234100_689924",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 399,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

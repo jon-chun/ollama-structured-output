@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 425,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:27.225666016Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.611191973,
+    "load_duration": 0.029355867,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 134,
+    "eval_duration": 0.577
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"not married, not cohabiting\", \"weight\": 2, \"textual reasoning\": \"Negative relationship with family and social support\"},\n    {\"factor2\": \"held two jobs, household size is 5\", \"weight\": 3, \"textual reasoning\": \"Significant work-related stress and possibly low social interaction\"},\n    {\"factor3\": \"never married at age 12\", \"weight\": 1, \"textual reasoning\": \"Lack of life experience and potentially limited coping mechanisms\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194127_226737",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 425,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "not married, not cohabiting",
+      "weight": 2,
+      "textual reasoning": "Negative relationship with family and social support"
+    },
+    {
+      "factor2": "held two jobs, household size is 5",
+      "weight": 3,
+      "textual reasoning": "Significant work-related stress and possibly low social interaction"
+    },
+    {
+      "factor3": "never married at age 12",
+      "weight": 1,
+      "textual reasoning": "Lack of life experience and potentially limited coping mechanisms"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

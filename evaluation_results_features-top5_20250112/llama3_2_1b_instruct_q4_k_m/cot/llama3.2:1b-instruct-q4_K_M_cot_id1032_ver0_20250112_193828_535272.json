@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1032,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:38:28.534252167Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.532681915,
+    "load_duration": 0.027002199,
+    "prompt_eval_count": 214,
+    "prompt_eval_duration": 0.002,
+    "eval_count": 191,
+    "eval_duration": 0.502
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"name\": \"married\", \"weight\": \"low\", \"textual reasoning\": \"Marriage is often associated with a lower risk of rearrest recidivism, as it can provide emotional support and social connections.\", \"value\": \"0\"},\n    {\"name\": \"spouse present\", \"weight\": \"medium\", \"textual reasoning\": \"Having a spouse present may indicate a higher level of relationship commitment, which could potentially reduce stress and increase the likelihood of successful recidivism prevention efforts.\", \"value\": \"50\"},\n    {\"name\": \"household size\", \"weight\": \"high\", \"textual reasoning\": \"A larger household size is often correlated with increased stress levels and potential for family conflicts, both of which can contribute to higher rearrest recidivism rates.\", \"value\": \"100\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193828_535272",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1032,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "name": "married",
+      "weight": "low",
+      "textual reasoning": "Marriage is often associated with a lower risk of rearrest recidivism, as it can provide emotional support and social connections.",
+      "value": "0"
+    },
+    {
+      "name": "spouse present",
+      "weight": "medium",
+      "textual reasoning": "Having a spouse present may indicate a higher level of relationship commitment, which could potentially reduce stress and increase the likelihood of successful recidivism prevention efforts.",
+      "value": "50"
+    },
+    {
+      "name": "household size",
+      "weight": "high",
+      "textual reasoning": "A larger household size is often correlated with increased stress levels and potential for family conflicts, both of which can contribute to higher rearrest recidivism rates.",
+      "value": "100"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and is currently unemployed with a household size of 4.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

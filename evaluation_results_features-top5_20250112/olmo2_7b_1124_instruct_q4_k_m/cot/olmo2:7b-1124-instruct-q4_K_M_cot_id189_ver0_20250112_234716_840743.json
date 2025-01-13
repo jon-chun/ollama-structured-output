@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 189,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-13T04:47:16.838921128Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.51285145,
+    "load_duration": 0.019344809,
+    "prompt_eval_count": 215,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 299,
+    "eval_duration": 2.477
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"male\", \"medium\", \"Males are generally at a higher risk for rearrest, but being married and having a stable household may mitigate this.\"),\n    (\"married\", \"low\", \"Being married is generally associated with lower criminal activity risk due to social support systems.\"),\n    (\"unemployed\", \"medium\", \"Unemployment can increase risk due to financial stress and lack of structure. However, the household's size and support system might reduce this risk.\"),\n    (\"household_size_6\", \"low\", \"A larger family may provide a supportive environment, reducing the likelihood of criminal behavior.\"),\n    (\"lived_with_both_parents_at_12\", \"medium\", \"Growing up in a stable home environment can contribute to lower recidivism rates. However, moving out may lead to changes in social and familial support.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object represents the analysis, prediction, and confidence level based on the provided risk factors. The reasoning behind each assigned risk factor weight and the final prediction considers both the individual's personal circumstances (such as being married, unemployed, having a large household, and growing up in a stable environment) and their demographic characteristics (being male). The prediction is \"NO\" with a confidence level of 75%, suggesting that, given the described factors, the individual has a relatively low risk of rearrest within three years.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234716_840743",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 189,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and is currently unemployed with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 55,
+    "id": 259,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-12T22:40:52.912464374Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.213570442,
+    "load_duration": 0.02906171,
+    "prompt_eval_count": 242,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 279,
+    "eval_duration": 7.152
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual's age is not specified, but being male could be associated with higher recidivism rates, though it's generally considered a lower risk factor.\"),\n    (\"marital status\", \"medium\", \"Being never married and not cohabiting may increase the likelihood of impulsive behavior and lack of social support, contributing to higher risk.\"),\n    (\"employment status\", \"medium\", \"Unemployment can lead to financial stress and may encourage criminal activity as a means of income.\"),\n    (\"household size\", \"low\", \"A household size of three is not particularly large or small, and does not significantly skew the risk factor.\"),\n    (\"family history\", \"medium\", \"Lived with biological father and had other parent present at age 12 may suggest some family stability, but without further details on familial influences or support, it's considered a moderate risk factor.\"),\n    (\"parental presence at age 12\", \"low\", \"Having both parents present at age 12 can be a stabilizing factor, potentially reducing the risk of future criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 55\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_174052_913582",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 259,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 3 and lived with their biological father, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

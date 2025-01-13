@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 749,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:29.028046916Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.883707183,
+    "load_duration": 0.026911189,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 192,
+    "eval_duration": 0.851
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"lack of stable family environment\", \"weight\": 6, \"textual reasoning\": \"This is a critical risk factor as it can lead to increased stress and instability in the individual's life.\", \"probability_of_reoccurrence\": 0.7},\n    {\"factor2\": \"history of unemployment\", \"weight\": 5, \"textual reasoning\": \"Unemployment can be a significant stressor that may contribute to recidivism.\", \"probability_of_reoccurrence\": 0.6},\n    {\"factor3\": \"age at marriage\", \"weight\": 4, \"textual reasoning\": \"Age at marriage is typically associated with reduced risk of recidivism in the short-term, but high-risk factors may still apply.\", \"probability_of_reoccurrence\": 0.8}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194029_029618",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 749,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "lack of stable family environment",
+      "weight": 6,
+      "textual reasoning": "This is a critical risk factor as it can lead to increased stress and instability in the individual's life.",
+      "probability_of_reoccurrence": 0.7
+    },
+    {
+      "factor2": "history of unemployment",
+      "weight": 5,
+      "textual reasoning": "Unemployment can be a significant stressor that may contribute to recidivism.",
+      "probability_of_reoccurrence": 0.6
+    },
+    {
+      "factor3": "age at marriage",
+      "weight": 4,
+      "textual reasoning": "Age at marriage is typically associated with reduced risk of recidivism in the short-term, but high-risk factors may still apply.",
+      "probability_of_reoccurrence": 0.8
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

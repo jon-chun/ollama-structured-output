@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 27,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:54.575204289Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.790237742,
+    "load_duration": 0.033571802,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 170,
+    "eval_duration": 0.752
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married, not cohabiting\", \"weight\": \"medium\", \"textual reasoning\": \"High risk of future incarceration due to lack of stable family structure and potential for additional crime.\"},\n    {\"factor\": \"held 2 jobs with a household size of 4\", \"weight\": \"low\", \"textual reasoning\": \"Low risk of future incarceration, as this indicates stability and potentially lower rates of involvement in criminal activity.\"},\n    {\"factor\": \"lived with both biological parents at age 12\", \"weight\": \"high\", \"textual reasoning\": \"Highly predictive of successful reintegration into society, indicating a stable home environment and low likelihood of future involvement in crime.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194154_576291",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 27,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married, not cohabiting",
+      "weight": "medium",
+      "textual reasoning": "High risk of future incarceration due to lack of stable family structure and potential for additional crime."
+    },
+    {
+      "factor": "held 2 jobs with a household size of 4",
+      "weight": "low",
+      "textual reasoning": "Low risk of future incarceration, as this indicates stability and potentially lower rates of involvement in criminal activity."
+    },
+    {
+      "factor": "lived with both biological parents at age 12",
+      "weight": "high",
+      "textual reasoning": "Highly predictive of successful reintegration into society, indicating a stable home environment and low likelihood of future involvement in crime."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

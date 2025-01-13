@@ -1,0 +1,75 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1191,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:56.44231126Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.864314845,
+    "load_duration": 0.026548701,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 413,
+    "eval_duration": 1.832
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"age at first marriage unknown\", \"weight\": \"medium\", \"textual reasoning\": \"Lack of information about the person's marital history and age at first marriage makes it challenging to assess their likelihood of rearrest.\", \"value\": \"high\"},\n    {\"factor2\": \"job stability with household size 5\", \"weight\": \"low\", \"textual reasoning\": \"The fact that the individual has held one job with a household size of 5 may indicate some level of job stability, but this factor alone does not provide sufficient information to predict rearrest risk.\", \"value\": \"medium\"},\n    {\"factor3\": \"cohabitation at age 12\", \"weight\": \"low\", \"textual reasoning\": \"The lack of information about the person's marital status and cohabitation history at age 12 is concerning, but it does not provide a clear indication of their rearrest risk.\", \"value\": \"medium\"},\n    {\"factor4\": \"marital status unknown at age 12\", \"weight\": \"low\", \"textual reasoning\": \"The fact that the person's marital status at age 12 was unknown may indicate some level of uncertainty or instability, but this factor alone does not provide sufficient information to predict rearrest risk.\", \"value\": \"medium\"},\n    {\"factor5\": \"never married\", \"weight\": \"high\", \"textual reasoning\": \"The lack of a spouse and marriage history at age 12 makes it more likely that the individual is unmarried, which may increase their rearrest risk due to potential instability or financial difficulties.\", \"value\": \"high\"},\n    {\"factor6\": \"not cohabiting\", \"weight\": \"low\", \"textual reasoning\": \"Not cohabiting may indicate some level of independence or uncertainty about future relationships, but it does not provide a clear indication of rearrest risk.\", \"value\": \"medium\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194156_443829",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1191,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age at first marriage unknown",
+      "weight": "medium",
+      "textual reasoning": "Lack of information about the person's marital history and age at first marriage makes it challenging to assess their likelihood of rearrest.",
+      "value": "high"
+    },
+    {
+      "factor2": "job stability with household size 5",
+      "weight": "low",
+      "textual reasoning": "The fact that the individual has held one job with a household size of 5 may indicate some level of job stability, but this factor alone does not provide sufficient information to predict rearrest risk.",
+      "value": "medium"
+    },
+    {
+      "factor3": "cohabitation at age 12",
+      "weight": "low",
+      "textual reasoning": "The lack of information about the person's marital status and cohabitation history at age 12 is concerning, but it does not provide a clear indication of their rearrest risk.",
+      "value": "medium"
+    },
+    {
+      "factor4": "marital status unknown at age 12",
+      "weight": "low",
+      "textual reasoning": "The fact that the person's marital status at age 12 was unknown may indicate some level of uncertainty or instability, but this factor alone does not provide sufficient information to predict rearrest risk.",
+      "value": "medium"
+    },
+    {
+      "factor5": "never married",
+      "weight": "high",
+      "textual reasoning": "The lack of a spouse and marriage history at age 12 makes it more likely that the individual is unmarried, which may increase their rearrest risk due to potential instability or financial difficulties.",
+      "value": "high"
+    },
+    {
+      "factor6": "not cohabiting",
+      "weight": "low",
+      "textual reasoning": "Not cohabiting may indicate some level of independence or uncertainty about future relationships, but it does not provide a clear indication of rearrest risk.",
+      "value": "medium"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

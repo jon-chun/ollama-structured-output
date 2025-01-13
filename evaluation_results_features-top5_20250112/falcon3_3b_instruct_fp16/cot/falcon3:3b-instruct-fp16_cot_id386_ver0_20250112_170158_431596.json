@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 386,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-12T22:01:58.430487086Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.138635565,
+    "load_duration": 0.028752242,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 248,
+    "eval_duration": 2.099
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"never married\", \"low\", \"Being unmarried at any age typically reduces the likelihood of forming strong social bonds and commitment, which can be a protective factor against recidivism.\"),\n    (\"cohabiting\", \"medium\", \"Cohabitation may have different implications than marriage, potentially balancing the lack of legal responsibilities with some social support.\"),\n    (\"holding 4 jobs\", \"high\", \"Frequent employment indicates stable income and possibly a reduced risk of engaging in criminal activities due to financial stability.\"),\n    (\"household size 4\", \"medium\", \"A small household size may limit immediate resources but also reduces the potential for rapid escalation of criminal behavior.\"),\n    (\"living with biological mother\", \"low\", \"Stable family environment, particularly under maternal care, is generally protective against criminal activity.\"),\n    (\"unknown marital status at age 12\", \"medium\", \"Early exposure to uncertain or unstable social environments can increase vulnerability to future risks.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_170158_431596",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 386,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 4 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

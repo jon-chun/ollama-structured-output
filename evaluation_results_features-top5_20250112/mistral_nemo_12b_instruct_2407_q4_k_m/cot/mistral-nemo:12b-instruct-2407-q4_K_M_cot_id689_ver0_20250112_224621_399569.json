@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 689,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-13T03:46:21.398417521Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.016564873,
+    "load_duration": 0.036178491,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.022,
+    "eval_count": 244,
+    "eval_duration": 2.954
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender_Male\", \"high\", \"Being male is generally associated with higher recidivism rates.\"),\n    (\"Marital_Status_Never_Married\", \"medium\", \"Unmarried individuals may have less stable social support and are more likely to reoffend.\"),\n    (\"Cohabitation_No\", \"low\", \"Not cohabiting does not significantly impact recidivism in this context as other factors like marital status take precedence.\"),\n    (\"Employment_Held_2_Jobs\", \"medium\", \"Having held multiple jobs indicates some level of responsibility and may reduce the likelihood of reoffending, but it's not a strong indicator.\"),\n    (\"Household_Size_3\", \"low\", \"Household size alone does not significantly impact recidivism when other factors are considered.\"),\n    (\"Living_with_Biological_Father_at_12_Marital_Status_Unknown\", \"medium\", \"Growing up with a biological parent can have positive influences, but the unknown marital status introduces uncertainty.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_224621_399569",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 689,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their biological dad, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

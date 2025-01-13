@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 455,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:54:33.397503516Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.67934372,
+    "load_duration": 0.018995038,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 249,
+    "eval_duration": 4.642
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Gender female generally shows lower recidivism rates, but cohabitation and larger household size might increase social strain and opportunities for criminal behavior.\"),\n    (\"never_married\", \"high\", \"Individuals who have never been married may lack the stable relationships that can reduce criminal behavior.\"),\n    (\"cohabiting\", \"medium\", \"Cohabitation is common but may involve less formal commitment which can be associated with instability and potential stress factors increasing risk.\"),\n    (\"jobs_held\", \"low\", \"Having held multiple jobs may indicate adaptability, but it could also reflect a lack of stability which might correlate with higher risk.\"),\n    (\"household_size_6\", \"medium\", \"A larger household size may increase the likelihood of conflict and competition for resources, potentially leading to higher stress levels and increased risk for some individuals.\"),\n    (\"lived_with_both_parents_at_age_12\", \"low\", \"Growing up with both parents typically provides a stable environment which generally reduces recidivism risk. However, this factor needs to be considered in the context of other factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235433_398706",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 455,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 3 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

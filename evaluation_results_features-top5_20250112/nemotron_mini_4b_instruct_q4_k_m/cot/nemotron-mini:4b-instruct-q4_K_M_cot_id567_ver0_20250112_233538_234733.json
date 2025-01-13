@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 567,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-13T04:35:38.233149506Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.818532061,
+    "load_duration": 0.041156063,
+    "prompt_eval_count": 235,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 285,
+    "eval_duration": 1.768
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"male\", \"low\", \"This individual is a male, which has been associated with lower recidivism rates.\"),\n    (\"married\", \"medium\", \"While being married may indicate a stable living situation and reduced likelihood of reoffending, it could also be seen as an indicator that the individual has integrated into society in a positive way. Therefore, its weight is set to medium.\"),\n    (\"spouse_present\", \"low\", \"The presence of a spouse suggests a more stable living environment which may reduce recidivism risk. However, this information is not specific enough to assign it a higher weight.\"),\n    (\"jobs\", \"high\", \"Holding multiple jobs could indicate financial instability or stress levels that may increase the likelihood of reoffending. Therefore, its weight is set to high.\"),\n    (\"household_size\", \"low\", \"The size of one's household does not necessarily reflect their personal circumstances and therefore is given a low weight.\"),\n    (\"age_12_marital_status_unknown\", \"medium\", \"Being unmarried at age 12 could indicate an unstable childhood environment, which has been associated with increased recidivism risk. Therefore, its weight is set to medium.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_233538_234733",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 567,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

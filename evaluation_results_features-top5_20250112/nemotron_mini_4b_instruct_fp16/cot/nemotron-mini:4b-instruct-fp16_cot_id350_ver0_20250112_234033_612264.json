@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 350,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-13T04:40:33.61099079Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.255613852,
+    "load_duration": 0.040788809,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 200,
+    "eval_duration": 2.204
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"gender\", \"female\", \"low\", \"The person is a female, which typically correlates with lower risk of rearrest.\"),\n    (\"marital_status\", \"never married/cohabiting\", \"medium\", \"Living in non-traditional family structures may be associated with increased risk.\"),\n    (\"employment_history\", \"1 job held\", \"low\", \"Employment history is generally a positive factor for recidivism prediction.\"),\n    (\"household_size\", \"6\", \"low\", \"Larger households are typically associated with higher levels of support and stability, which can reduce risk factors.\"),\n    (\"age_at_residence_with_parents\", \"12\", \"medium\", \"Residing in a family home at an early age may indicate better life circumstances and reduced risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234033_612264",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 350,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

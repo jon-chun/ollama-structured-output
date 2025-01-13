@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 520,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-13T03:28:02.278298953Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.595030564,
+    "load_duration": 0.013734438,
+    "prompt_eval_count": 250,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 200,
+    "eval_duration": 1.568
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender\", \"medium\", \"Research shows that females are more likely to reoffend than males.\"),\n    (\"marital status\", \"low\", \"Being married or cohabiting can provide social support and stability, reducing the likelihood of reoffending.\"),\n    (\"employment history\", \"high\", \"Having a history of job instability can indicate a lack of commitment to society and an increased risk of reoffending.\"),\n    (\"household size\", \"low\", \"Living with a large household can provide social support and stability, reducing the likelihood of reoffending.\"),\n    (\"lived with biological mother at age 12\", \"medium\", \"Research suggests that childhood experiences can impact an individual's risk of reoffending.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_222802_279544",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 520,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 4 jobs with a household size of 6 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

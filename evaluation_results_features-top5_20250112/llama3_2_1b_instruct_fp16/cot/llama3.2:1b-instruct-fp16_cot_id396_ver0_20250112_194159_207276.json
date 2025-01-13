@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 396,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:59.205822094Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.146595301,
+    "load_duration": 0.034670671,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 252,
+    "eval_duration": 1.107
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married, not cohabiting\", \"weight\": \"medium\", \"textual reasoning\": \"This factor indicates a lack of stability in the individual's living situation, which may contribute to higher reoffending rates.\"},\n    {\"factor\": \"held 3 jobs with household size of 4\", \"weight\": \"high\", \"textual reasoning\": \"This factor suggests that the individual has had multiple job changes and may have been exposed to different social environments, increasing their likelihood of encountering new challenges or setbacks.\"},\n    {\"factor\": \"lived with biological dad (marital status unknown)\", \"weight\": \"medium\", \"textual reasoning\": \"While this factor does not directly indicate a higher risk of reoffending, it suggests that the individual may have experienced instability in their family environment, which could impact their ability to establish stable relationships or find employment.\"},\n    {\"factor\": \"age 12 (marital status unknown)\", \"weight\": \"low\", \"textual reasoning\": \"This factor is not directly related to recidivism and is primarily indicative of the individual's early life experiences.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194159_207276",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 396,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married, not cohabiting",
+      "weight": "medium",
+      "textual reasoning": "This factor indicates a lack of stability in the individual's living situation, which may contribute to higher reoffending rates."
+    },
+    {
+      "factor": "held 3 jobs with household size of 4",
+      "weight": "high",
+      "textual reasoning": "This factor suggests that the individual has had multiple job changes and may have been exposed to different social environments, increasing their likelihood of encountering new challenges or setbacks."
+    },
+    {
+      "factor": "lived with biological dad (marital status unknown)",
+      "weight": "medium",
+      "textual reasoning": "While this factor does not directly indicate a higher risk of reoffending, it suggests that the individual may have experienced instability in their family environment, which could impact their ability to establish stable relationships or find employment."
+    },
+    {
+      "factor": "age 12 (marital status unknown)",
+      "weight": "low",
+      "textual reasoning": "This factor is not directly related to recidivism and is primarily indicative of the individual's early life experiences."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their biological dad, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

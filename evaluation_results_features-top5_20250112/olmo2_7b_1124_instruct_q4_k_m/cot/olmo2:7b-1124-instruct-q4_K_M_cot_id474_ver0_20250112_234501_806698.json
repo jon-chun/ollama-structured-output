@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 474,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-13T04:45:01.805159831Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.338577547,
+    "load_duration": 0.018958785,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 272,
+    "eval_duration": 2.303
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Studies have shown that female offenders tend to have lower rates of recidivism, but the context of cohabitation, job stability, and family structure can influence this. Given the stable living situation and larger household size, this factor leans towards medium.\"),\n    (\"marital_status_never_married\", \"medium\", \"Individuals who have never been married often lack the social support networks that can be protective against recidivism. However, cohabitation might provide some level of stability which mitigates this risk.\"),\n    (\"number_of_jobs_held\", \"low\", \"One job held suggests a stable work history, which typically indicates lower risk for recidivism.\"),\n    (\"household_size_6\", \"medium\", \"A larger household can provide more social control and support, potentially reducing the risk of reoffending. However, the dynamic within such a household can also increase stress and decrease individual attention, introducing potential risks.\"),\n    (\"marital_status_age_12_unknown\", \"low\", \"The unknown marital status at age 12 does not provide clear information on whether this influenced early socialization or attachment styles which could affect future behavior. Given the lack of information, it remains low risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234501_806698",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 474,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 1 jobs with a household size of 6 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 223,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:56:05.601332967Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.024339118,
+    "load_duration": 0.048133284,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 431,
+    "eval_duration": 3.966
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status Unknown at Age 12\", \"high\", \"Past family dynamics\"),\n    (\"Never Married\", \"high\", \"Social and relationship factors\"),\n    (\"Not Cohabiting\", \"medium\", \"Relationship stability & living arrangements\"),\n    (\"Household Size 3\", \"low\", \"Limited social interaction\"),\n    (\"Two Jobs Held\", \"low\", \"Financial stability/employment patterns\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation:**\n\n1. **Marital Status Unknown at Age 12:** This is a significant risk factor as it suggests early instability and lack of supportive relationships, often associated with recidivism. This is assigned a high weight.\n2. **Never Married:**  Being unmarried generally indicates fewer social support networks and possibly more difficulty developing stable living arrangements. High weight.\n3. **Not Cohabiting:** While not necessarily indicative of criminal behavior, this indicates an individual may lack shared responsibilities and potential for community support within the home. Medium weight. \n4. **Household Size 3:** This suggests a limited social network and a smaller circle to provide support during challenging times. Low weight.\n5. **Two Jobs Held:**  This may indicate stability, but it also depends on individual circumstances. No significant risk factor associated with this.\n\n**Confidence Level:** The high weight given to factors related to family dynamics and relationship status (marital status unknown at age 12) creates a strong likelihood of recidivism. While other factors might be present, the combination of these indicates a heightened risk for rearrest within three years.  \n\n\n**Important Considerations:**\n\n* **Contextual Factors:** This analysis is simplified. A full assessment would require a detailed understanding of each individual's specific circumstances and prior criminal history (if any).\n* **Statistical Models:** More complex statistical models can refine this prediction by incorporating more variables, but a basic risk assessment using these factors provides a preliminary indication. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175605_602706",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 223,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

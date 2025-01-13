@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 181,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:59:23.361042445Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.611510578,
+    "load_duration": 0.019936094,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 299,
+    "eval_duration": 5.572
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Female subjects have been associated with certain recidivism patterns, but the context of this individual's life suggests mitigating factors that could lower the risk.\"),\n    (\"never_married\", \"low\", \"Marital status is often correlated with social support systems; the absence of a partner may reduce these supports but is less impactful without other mitigating or exacerbating factors.\"),\n    (\"not_cohabiting\", \"low\", \"Living arrangements can impact social ties and support systems. However, living with family members suggests a stable environment which typically reduces recidivism risk.\"),\n    (\"unemployed\", \"medium\", \"Unemployment often correlates with increased risk of reoffending due to financial stressors. However, the household size and living situation suggest potential familial support that could mitigate this factor.\"),\n    (\"household_size_5\", \"low\", \"A larger household can provide social support and a network that discourages criminal behavior. The presence of family members may provide structure and supervision.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```\n\nThis JSON object reflects a careful assessment of the provided risk factors, considering them within the context of the individual's life. It predicts a lower likelihood of rearrest within three years (assigned as 'NO'), with moderate confidence (70%). The reasoning behind each risk factor evaluation is detailed in the \"textual reasoning\" field.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235923_362553",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 181,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and is currently unemployed with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 750,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:49.175935456Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.236102427,
+    "load_duration": 0.034760141,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 270,
+    "eval_duration": 1.196
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"family history of crime\", \"weight\": 5, \"textual reasoning\": \"Positive family background may contribute to a higher risk of rearrest\"},\n    {\"factor2\": \"history of substance abuse\", \"weight\": 4, \"textual reasoning\": \"Substance abuse can lead to poorer decision-making and increased risk-taking behavior\"},\n    {\"factor3\": \"absence of stable employment\", \"weight\": 6, \"textual reasoning\": \"Unstable employment may indicate a lack of stability in life circumstances, potentially increasing the risk of rearrest\"},\n    {\"factor4\": \"age at first marriage\", \"weight\": 7, \"textual reasoning\": \"Young age at first marriage may be associated with lower educational attainment and reduced socio-economic status\"},\n    {\"factor5\": \"cohabitation history\", \"weight\": 3, \"textual reasoning\": \"Cohabiting without children may indicate a higher risk of rearrest due to potential lack of stability and support\"},\n    {\"factor6\": \"education level\", \"weight\": 2, \"textual reasoning\": \"Lower education level may be associated with lower socio-economic status and increased risk of rearrest\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194049_177403",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 750,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "family history of crime",
+      "weight": 5,
+      "textual reasoning": "Positive family background may contribute to a higher risk of rearrest"
+    },
+    {
+      "factor2": "history of substance abuse",
+      "weight": 4,
+      "textual reasoning": "Substance abuse can lead to poorer decision-making and increased risk-taking behavior"
+    },
+    {
+      "factor3": "absence of stable employment",
+      "weight": 6,
+      "textual reasoning": "Unstable employment may indicate a lack of stability in life circumstances, potentially increasing the risk of rearrest"
+    },
+    {
+      "factor4": "age at first marriage",
+      "weight": 7,
+      "textual reasoning": "Young age at first marriage may be associated with lower educational attainment and reduced socio-economic status"
+    },
+    {
+      "factor5": "cohabitation history",
+      "weight": 3,
+      "textual reasoning": "Cohabiting without children may indicate a higher risk of rearrest due to potential lack of stability and support"
+    },
+    {
+      "factor6": "education level",
+      "weight": 2,
+      "textual reasoning": "Lower education level may be associated with lower socio-economic status and increased risk of rearrest"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

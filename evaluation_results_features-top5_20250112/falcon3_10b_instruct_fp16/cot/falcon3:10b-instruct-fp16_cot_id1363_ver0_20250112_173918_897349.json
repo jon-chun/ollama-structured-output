@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1363,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-12T22:39:18.895903658Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.574930844,
+    "load_duration": 0.022822984,
+    "prompt_eval_count": 247,
+    "prompt_eval_duration": 0.027,
+    "eval_count": 216,
+    "eval_duration": 5.52
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age and marital status\", \"medium\", \"Being never married and not cohabiting can indicate higher risk due to potentially less stable social support structures.\"),\n    (\"employment status\", \"high\", \"Unemployment is a significant factor as it may lead to financial strain and increased opportunity for criminal activities.\"),\n    (\"household size and living situation\", \"medium\", \"Living in a larger household with adults can either provide support or create stress, impacting risk levels.\"),\n    (\"parental status and living arrangement at age 12\", \"low\", \"Lived with other adults and unknown biological parent status might not significantly alter the risk without further context.\"),\n    (\"group quarters at age 12\", \"low\", \"Not being in group quarters at that age generally indicates more stable early life experiences.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_173918_897349",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1363,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

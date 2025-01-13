@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 849,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-13T04:36:56.770927851Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.019498712,
+    "load_duration": 0.048799096,
+    "prompt_eval_count": 234,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 157,
+    "eval_duration": 0.962
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"gender\", \"female\", \"low\", \"Gender is a weak predictor of recidivism in this population.\"),\n    (\"marital status\", \"never married, not cohabiting\", \"low\", \"Individuals who have never been married or living together are typically more independent and less likely to commit crimes due to financial reasons.\"),\n    (\"employment history\", \"2 jobs held by household size of 3\", \"medium\", \"Holding two jobs during a time when the household size is three may indicate economic stress, which could be linked to criminal behavior. However, this correlation might not always hold true.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_233656_772436",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 849,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

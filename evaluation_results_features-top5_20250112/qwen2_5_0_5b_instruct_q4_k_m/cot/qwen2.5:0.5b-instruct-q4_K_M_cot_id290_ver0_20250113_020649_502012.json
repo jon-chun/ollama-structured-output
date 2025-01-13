@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 290,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "created_at": "2025-01-13T07:06:49.50077762Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.188558911,
+    "load_duration": 0.025416861,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 390,
+    "eval_duration": 1.15
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"never married\", \"medium\", \"The person is a female who has not been engaged in marriage, cohabiting, or being an adult partner. Married individuals are more likely to engage in criminal behavior because they often have children and live with their biological parents at age 12. However, the presence of other relatives such as mothers does not always mean that the individual will re-engage in criminal activity. It is essential to consider this factor when assessing risk\"],\n    [\"cohabiting\", \"medium\", \"The person is currently living with their mother and is cohabiting, which increases the likelihood of involvement in criminal activities if they do engage in them. Cohabiting couples are more likely than married couples to have children who can provide additional evidence for potential criminal behavior. In cases where a child is present, this factor increases the risk even further. However, the presence of other relatives such as parents does not always mean that the individual will re-engage in criminal activity. It is essential to consider this factor when assessing risk\"],\n    [\"lives with biological mother\", \"medium\", \"The person lives with their mother at age 12 and has no other immediate family members who are present, which means they have fewer social contacts and may be more vulnerable to crime or involvement in criminal activities. This is an important consideration when considering the overall risk of re-engage in criminal activity. The presence of another relative such as a parent does not necessarily mean that the individual will re-engage in criminal behavior, but it can increase the likelihood. In cases where multiple relatives are present, this factor may be more significant. However, the presence of other relatives such as parents does not always mean that the individual will re-engage in criminal activity. It is essential to consider this factor when assessing risk\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_020649_502012",
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 290,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "never married",
+      "medium",
+      "The person is a female who has not been engaged in marriage, cohabiting, or being an adult partner. Married individuals are more likely to engage in criminal behavior because they often have children and live with their biological parents at age 12. However, the presence of other relatives such as mothers does not always mean that the individual will re-engage in criminal activity. It is essential to consider this factor when assessing risk"
+    ],
+    [
+      "cohabiting",
+      "medium",
+      "The person is currently living with their mother and is cohabiting, which increases the likelihood of involvement in criminal activities if they do engage in them. Cohabiting couples are more likely than married couples to have children who can provide additional evidence for potential criminal behavior. In cases where a child is present, this factor increases the risk even further. However, the presence of other relatives such as parents does not always mean that the individual will re-engage in criminal activity. It is essential to consider this factor when assessing risk"
+    ],
+    [
+      "lives with biological mother",
+      "medium",
+      "The person lives with their mother at age 12 and has no other immediate family members who are present, which means they have fewer social contacts and may be more vulnerable to crime or involvement in criminal activities. This is an important consideration when considering the overall risk of re-engage in criminal activity. The presence of another relative such as a parent does not necessarily mean that the individual will re-engage in criminal behavior, but it can increase the likelihood. In cases where multiple relatives are present, this factor may be more significant. However, the presence of other relatives such as parents does not always mean that the individual will re-engage in criminal activity. It is essential to consider this factor when assessing risk"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

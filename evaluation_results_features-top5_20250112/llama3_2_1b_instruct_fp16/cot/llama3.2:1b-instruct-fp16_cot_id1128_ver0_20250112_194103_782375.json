@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1128,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:03.78101621Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.89648814,
+    "load_duration": 0.032986093,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 196,
+    "eval_duration": 0.858
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"never married, not cohabiting\", \"weight\": 2, \"textual reasoning\": \"This factor is a significant predictor of rearrest recidivism due to the lack of stable relationships, which can contribute to unstable living situations and decreased social support.\"},\n    {\"factor2\": \"held 2 jobs with household size of 2\", \"weight\": 1, \"textual reasoning\": \"Having multiple jobs may indicate some level of financial stability and job satisfaction, but it's not a direct predictor of rearrest recidivism.\"},\n    {\"factor3\": \"lived with biological mother at age 12\", \"weight\": 3, \"textual reasoning\": \"This significant life event can impact mental health, self-esteem, and social skills, potentially increasing the risk of rearrest recidivism.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194103_782375",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1128,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "never married, not cohabiting",
+      "weight": 2,
+      "textual reasoning": "This factor is a significant predictor of rearrest recidivism due to the lack of stable relationships, which can contribute to unstable living situations and decreased social support."
+    },
+    {
+      "factor2": "held 2 jobs with household size of 2",
+      "weight": 1,
+      "textual reasoning": "Having multiple jobs may indicate some level of financial stability and job satisfaction, but it's not a direct predictor of rearrest recidivism."
+    },
+    {
+      "factor3": "lived with biological mother at age 12",
+      "weight": 3,
+      "textual reasoning": "This significant life event can impact mental health, self-esteem, and social skills, potentially increasing the risk of rearrest recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

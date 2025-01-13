@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 1183,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-13T03:28:35.566246537Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.630457787,
+    "load_duration": 0.018138818,
+    "prompt_eval_count": 254,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 205,
+    "eval_duration": 1.599
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"male\", \"high\", \"Males are more likely to be arrested than females.\"),\n    (\"never married or cohabiting\", \"medium\", \"Marital status is not strongly associated with recidivism.\"),\n    (\"unemployed\", \"high\", \"Unemployment is a strong risk factor for recidivism.\"),\n    (\"household size of 4 or more\", \"low\", \"Household size does not have a significant impact on recidivism.\"),\n    (\"biological parent status unknown\", \"medium\", \"Biological parent status may be weakly associated with recidivism.\"),\n    (\"not group quarters at age 12\", \"high\", \"Group living in childhood is a strong risk factor for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_222835_567891",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1183,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 938,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-13T03:47:21.430631314Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.772334056,
+    "load_duration": 0.026982471,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 225,
+    "eval_duration": 2.724
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age unknown (assumed adult)\", \"low\", \"Assumption of adulthood is typically low risk.\"),\n    (\"Male\", \"high\", \"Males generally have higher recidivism rates than females.\"),\n    (\"Never married\", \"medium\", \"Marital status has been linked to stability; single individuals may have less support.\"),\n    (\"Cohabiting\", \"low\", \"Living with a partner can indicate stability and support, reducing risk.\"),\n    (\"3 jobs in the past (unknown timeframe)\", \"medium\", \"Job instability can increase risk, but number of jobs alone is not conclusive.\"),\n    (\"Household size 4\", \"low\", \"Larger households can sometimes indicate more support and structure, reducing risk.\"),\n    (\"Lived with biological mother at age 12 (marital status unknown)\", \"medium\", \"Stability in childhood home can reduce risk, but unknown marital status of mother introduces uncertainty.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_224721_431987",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 938,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 3 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

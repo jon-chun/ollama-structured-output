@@ -1,0 +1,56 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 543,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:38:26.146115749Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.44112599,
+    "load_duration": 0.02676239,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 152,
+    "eval_duration": 0.41
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Family Background\", \"low\", \"Lack of stable family environment may contribute to increased likelihood of reoffending.\", \"parental divorce at age 12 is a negative indicator\"],\n    [\"Economic History\", \"medium\", \"History of unemployment/underemployment with household income below $25,000 may increase the risk of recidivism.\", \"living with both biological parents and having held multiple jobs suggests some level of financial instability\"],\n    [\"Age at Marriage\", \"high\", \"Delay in marriage at age 12 may indicate a lower likelihood of personal development and social integration, increasing the risk of reoffending.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193826_147139",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 543,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Family Background",
+      "low",
+      "Lack of stable family environment may contribute to increased likelihood of reoffending.",
+      "parental divorce at age 12 is a negative indicator"
+    ],
+    [
+      "Economic History",
+      "medium",
+      "History of unemployment/underemployment with household income below $25,000 may increase the risk of recidivism.",
+      "living with both biological parents and having held multiple jobs suggests some level of financial instability"
+    ],
+    [
+      "Age at Marriage",
+      "high",
+      "Delay in marriage at age 12 may indicate a lower likelihood of personal development and social integration, increasing the risk of reoffending."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

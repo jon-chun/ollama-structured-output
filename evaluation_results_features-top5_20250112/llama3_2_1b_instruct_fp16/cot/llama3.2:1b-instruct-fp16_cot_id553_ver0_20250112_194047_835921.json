@@ -1,0 +1,60 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 553,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:47.834396808Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.087140664,
+    "load_duration": 0.030344946,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 237,
+    "eval_duration": 1.051
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"female\", \"weight\": 2, \"value\": \"never married, not cohabiting, 6 household members\", \"textual reasoning\": \"The presence of a spouse or partner could mitigate the risk of rearrest recidivism. However, given her lack of experience and potentially unstable living situation, this factor warrants attention.\", \"weighted_value\": 2},\n    {\"factor2\": \"job_history\", \"weight\": 3, \"value\": \"1 job with household size 6\", \"textual reasoning\": \"A history of unemployment or underemployment could indicate a lack of stability and potentially higher risk of rearrest recidivism.\", \"weighted_value\": 3},\n    {\"factor3\": \"education_level\", \"weight\": 2, \"value\": \"not cohabiting, high school diploma\", \"textual reasoning\": \"Limited education may be associated with reduced economic opportunities and higher stress levels, both of which could contribute to rearrest recidivism.\", \"weighted_value\": 2}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194047_835921",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 553,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "female",
+      "weight": 2,
+      "value": "never married, not cohabiting, 6 household members",
+      "textual reasoning": "The presence of a spouse or partner could mitigate the risk of rearrest recidivism. However, given her lack of experience and potentially unstable living situation, this factor warrants attention.",
+      "weighted_value": 2
+    },
+    {
+      "factor2": "job_history",
+      "weight": 3,
+      "value": "1 job with household size 6",
+      "textual reasoning": "A history of unemployment or underemployment could indicate a lack of stability and potentially higher risk of rearrest recidivism.",
+      "weighted_value": 3
+    },
+    {
+      "factor3": "education_level",
+      "weight": 2,
+      "value": "not cohabiting, high school diploma",
+      "textual reasoning": "Limited education may be associated with reduced economic opportunities and higher stress levels, both of which could contribute to rearrest recidivism.",
+      "weighted_value": 2
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 6.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

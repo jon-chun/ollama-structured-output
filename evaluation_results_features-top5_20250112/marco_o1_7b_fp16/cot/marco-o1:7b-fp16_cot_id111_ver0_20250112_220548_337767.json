@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 111,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-13T03:05:48.336726034Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.436288456,
+    "load_duration": 0.025722101,
+    "prompt_eval_count": 216,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 180,
+    "eval_duration": 3.385
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Employment Status: Unemployed\", \"high\", \"Unemployment can lead to financial stress, which may increase the likelihood of engaging in criminal activities.\"),\n    (\"Household Size: 4 Members\", \"medium\", \"A larger household size may strain resources and contribute to higher stress levels.\"),\n    (\"Living with Biological Parents at Age 12\", \"low\", \"Early exposure to a stable family environment is generally protective against criminal behavior.\"),\n    (\"Marital Status: Married, Spouse Present\", \"low\", \"Having a spouse present can provide social support and reduce the risk of criminal involvement.\"),\n    (\"Age at First Arrest: Not Provided\", \"medium\", \"The absence of information on age at first arrest makes it challenging to assess this factor accurately.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_220548_337767",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 111,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and is currently unemployed with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1201,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-12T22:38:28.777559941Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.115706899,
+    "load_duration": 0.022411147,
+    "prompt_eval_count": 243,
+    "prompt_eval_duration": 0.029,
+    "eval_count": 198,
+    "eval_duration": 5.059
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"female gender\", \"low\", \"Being female has been shown to be generally associated with lower recidivism rates.\"),\n    (\"never married\", \"medium\", \"Single marital status may indicate instability, which could potentially increase risk.\"),\n    (\"cohabiting\", \"low\", \"Living with a partner may suggest some level of stability.\"),\n    (\"3 jobs\", \"medium\", \"Holding multiple jobs might imply instability or difficulty finding a stable job, possibly increasing risk.\"),\n    (\"household size of 3\", \"low\", \"A small household size could indicate a stable living environment.\"),\n    (\"lived with biological mother\", \"low\", \"Having lived with a parent, especially the mother, can be a positive factor.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_173828_778882",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1201,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 3 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

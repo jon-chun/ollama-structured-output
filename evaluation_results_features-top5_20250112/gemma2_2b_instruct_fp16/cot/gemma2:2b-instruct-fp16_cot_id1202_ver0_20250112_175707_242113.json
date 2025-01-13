@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1202,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:57:07.240878506Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.315830012,
+    "load_duration": 0.053231129,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 460,
+    "eval_duration": 4.25
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status Unknown at Age 12\", \"high\", \"Family history and early life stability\"),\n    (\"Never Married\", \"medium\", \"Relationship status and potential for criminal activity\"),\n    (\"Cohabiting\", \"low\", \"Living arrangement and social support\"),\n    (\"3 Jobs\", \"medium\", \"Employment stability and ability to maintain routine\"),\n    (\"Household Size 2\", \"low\", \"Social network and community connections\"),\n    (\"Biological Mother Lived with Them\", \"medium\", \"Family environment and support system\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation of Risk Factor Weights:**\n\n* **Marital Status Unknown at Age 12:** This factor is assigned a high weight due to the potential for disrupted family environments, poor parenting skills, and early exposure to criminal activity. While not definitive, this lack of information creates a red flag.\n* **Never Married:**  A significant indicator that the individual may face challenges with social support networks and relationship stability, potentially increasing their risk of reoffending. \n* **Cohabiting:** This relatively low weight reflects the potential for cohabitating partners to offer social support and community ties which could mitigate risk.\n* **3 Jobs:** A medium weight signifies that this individual's employment history may be unstable or lack continuity, potentially leading to increased recidivism rates. \n* **Household Size 2:** This low weight suggests a relatively stable social environment and potential for strong familial support, mitigating the risk of reoffending. \n* **Biological Mother Lived with Them:**  This moderate weight reflects that individuals who have close family ties can offer emotional support and stability which could mitigate the risk of re-offending.\n\n**Overall Prediction:** Based on these weighted factors, the prediction is \"NO.\"\n\n\n\n**Important Considerations:** This analysis is based on limited information and should not be used to make definitive judgments about an individual's future behavior. It is crucial to recognize that criminal justice decisions should consider a wide range of factors, including individual circumstances and social context, alongside evidence-based risk assessment tools. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175707_242113",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1202,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 3 jobs with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

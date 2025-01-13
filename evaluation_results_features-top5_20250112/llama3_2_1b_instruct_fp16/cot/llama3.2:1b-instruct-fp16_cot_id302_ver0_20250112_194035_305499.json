@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 302,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:35.304517666Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.950851028,
+    "load_duration": 0.034606561,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 207,
+    "eval_duration": 0.909
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"lacks stable family environment (12)\", \"weight\": 8, \"textual reasoning\": \"Low risk of social isolation and lack of support from a stable home environment may contribute to higher recidivism rates\"},\n    {\"factor2\": \"never married or cohabiting\", \"weight\": 7, \"textual reasoning\": \"No established relationship with peers or community, potentially increasing the likelihood of isolation and disconnection\"},\n    {\"factor3\": \"held multiple jobs with a household size of 5\", \"weight\": 6, \"textual reasoning\": \"Higher stress levels associated with work demands may exacerbate mental health issues and reduce resilience\"},\n    {\"factor4\": \"marital status unknown at age 12\", \"weight\": 9, \"textual reasoning\": \"Limited social support networks and potential for increased vulnerability to exploitation or abuse in the past\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194035_305499",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 302,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "lacks stable family environment (12)",
+      "weight": 8,
+      "textual reasoning": "Low risk of social isolation and lack of support from a stable home environment may contribute to higher recidivism rates"
+    },
+    {
+      "factor2": "never married or cohabiting",
+      "weight": 7,
+      "textual reasoning": "No established relationship with peers or community, potentially increasing the likelihood of isolation and disconnection"
+    },
+    {
+      "factor3": "held multiple jobs with a household size of 5",
+      "weight": 6,
+      "textual reasoning": "Higher stress levels associated with work demands may exacerbate mental health issues and reduce resilience"
+    },
+    {
+      "factor4": "marital status unknown at age 12",
+      "weight": 9,
+      "textual reasoning": "Limited social support networks and potential for increased vulnerability to exploitation or abuse in the past"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

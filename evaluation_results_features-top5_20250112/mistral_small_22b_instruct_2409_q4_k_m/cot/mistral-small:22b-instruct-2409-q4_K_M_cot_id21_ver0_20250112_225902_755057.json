@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 21,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "created_at": "2025-01-13T03:59:02.753525491Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.03785128,
+    "load_duration": 0.015821689,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.058,
+    "eval_count": 192,
+    "eval_duration": 3.961
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"gender_male\", \"low\", \"Being male is a commonly observed risk factor, but without other aggravating factors, it is not heavily weighted.\"),\n    (\"marital_status\", \"medium\", \"Married status can reduce recidivism risk, but the presence of a spouse does not significantly offset other factors in isolation.\"),\n    (\"employment_history\", \"high\", \"Holding only one job indicates instability and limited opportunities, which increases the risk of reoffending.\"),\n    (\"household_size\", \"medium\", \"A larger household size can be both a protective and risk factor depending on other contexts; here it is neutral to slightly elevating due to potential strain on resources.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_225902_755057",
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 21,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 1 jobs with a household size of 4.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

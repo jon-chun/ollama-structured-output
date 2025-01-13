@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1315,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-13T04:41:22.919398597Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.655365072,
+    "load_duration": 0.041300541,
+    "prompt_eval_count": 237,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 236,
+    "eval_duration": 2.604
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Gender\", \"male\", \"low\", \"No text provided, but male is a risk factor for rearrest recidivism.\"),\n    (\"Marital Status (never married)\", \"not applicable to the given information.\", \"low\"),\n    (\"Cohabitation status (not cohabiting)\", \"no effect on rearrest recidivism. Focus on other factors.\", \"low\"),\n    (\"Number of jobs held\", \"1, which is a relatively low number compared to the general population. This could be a sign of underemployment or instability in employment history.\", \"medium\"),\n    (\"Household size (3)\", \"not applicable to the given information.\", \"low\"),\n    (\"Living with biological father at age 12\", \"positive indicator, indicating a stable and supportive family environment during critical developmental years. This is generally associated with lower rearrest recidivism rates.\", \"high\"),\n    (\"Other parent present at age 12\", \"not applicable to the given information.\", \"low\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234122_920496",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1315,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 3 and lived with their biological father, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

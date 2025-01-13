@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 804,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:46.744601997Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.583005116,
+    "load_duration": 0.026375311,
+    "prompt_eval_count": 232,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 351,
+    "eval_duration": 1.552
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"divorce_status\", \"weight\": \"low\", \"textual_reasoning\": \"There is no direct link between divorce status and rearrest recidivism. However, the lack of stability and potential for future trauma could contribute to reoffending.\"},\n    {\"factor\": \"cohabitation_history\", \"weight\": \"medium\", \"textual_reasoning\": \"Lack of cohabitation history may indicate difficulties in forming stable relationships or establishing a routine, potentially increasing the likelihood of recidivism.\"},\n    {\"factor\": \"job_holding_status\", \"weight\": \"high\", \"textual_reasoning\": \"Having held two jobs indicates stability and financial self-sufficiency, which can reduce stress and improve opportunities for personal growth, thereby decreasing the risk of rearrest.\"},\n    {\"factor\": \"household_size\", \"weight\": \"low\", \"textual_reasoning\": \"A household size of 3 may suggest a lack of social support or community engagement, potentially leading to increased isolation and vulnerability to recidivism.\"},\n    {\"factor\": \"biological_parentage\", \"weight\": \"medium\", \"textual_reasoning\": \"Not knowing the person's biological parentage at age 12 could indicate feelings of abandonment or uncertainty about their identity, which may contribute to emotional instability and reoffending.\"},\n    {\"factor\": \"marital_status_known_at_age_12\", \"weight\": \"low\", \"textual_reasoning\": \"Unknown marital status at age 12 might suggest difficulties in forming relationships or establishing a sense of belonging, potentially increasing the risk of recidivism.\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194046_745694",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 804,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "divorce_status",
+      "weight": "low",
+      "textual_reasoning": "There is no direct link between divorce status and rearrest recidivism. However, the lack of stability and potential for future trauma could contribute to reoffending."
+    },
+    {
+      "factor": "cohabitation_history",
+      "weight": "medium",
+      "textual_reasoning": "Lack of cohabitation history may indicate difficulties in forming stable relationships or establishing a routine, potentially increasing the likelihood of recidivism."
+    },
+    {
+      "factor": "job_holding_status",
+      "weight": "high",
+      "textual_reasoning": "Having held two jobs indicates stability and financial self-sufficiency, which can reduce stress and improve opportunities for personal growth, thereby decreasing the risk of rearrest."
+    },
+    {
+      "factor": "household_size",
+      "weight": "low",
+      "textual_reasoning": "A household size of 3 may suggest a lack of social support or community engagement, potentially leading to increased isolation and vulnerability to recidivism."
+    },
+    {
+      "factor": "biological_parentage",
+      "weight": "medium",
+      "textual_reasoning": "Not knowing the person's biological parentage at age 12 could indicate feelings of abandonment or uncertainty about their identity, which may contribute to emotional instability and reoffending."
+    },
+    {
+      "factor": "marital_status_known_at_age_12",
+      "weight": "low",
+      "textual_reasoning": "Unknown marital status at age 12 might suggest difficulties in forming relationships or establishing a sense of belonging, potentially increasing the risk of recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is divorced, not cohabiting and has held 2 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

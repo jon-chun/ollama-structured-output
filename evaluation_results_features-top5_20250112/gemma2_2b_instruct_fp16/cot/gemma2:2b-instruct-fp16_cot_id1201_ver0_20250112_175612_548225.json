@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 1201,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:56:12.546588238Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.206573315,
+    "load_duration": 0.047634845,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 450,
+    "eval_duration": 4.147
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status Unknown at Age 12\", \"medium\", \"Contextual Reasoning\"),\n    (\"Cohabiting\", \"low\", \"Social Context\"),\n    (\"Never Married\", \"high\", \"Relationship History\"),\n    (\"Household Size of 3\", \"low\", \"Support Network\"),\n    (\"Held 3 Jobs\", \"medium\", \"Employment Stability\"),\n    (\"Biological Mother Lived With\", \"low\", \"Family Structure\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n\n**Explanation of Risk Factor Weights:**\n\n* **Marital Status Unknown at Age 12 (Medium):** While this is an unusual circumstance, it's not inherently indicative of future risk. It could be a lack of information or a family dynamic that hasn't fully manifested.  \n* **Cohabiting (Low):** Cohabitation can indicate a stable relationship and shared support system, which reduces recidivism in some cases. \n* **Never Married (High):** Single status is generally associated with increased risk factors for crime, particularly violent offenses. \n* **Household Size of 3 (Low):**  A larger household may provide more social capital and a greater safety net, potentially reducing the risk. \n* **Held 3 Jobs (Medium):**  This indicates some level of employment stability, which is generally good for long-term reintegration.  However, it could also be indicative of instability. \n* **Biological Mother Lived With (Low):** Family structure plays a role in many factors affecting recidivism, but this individual's upbringing may not significantly predict their future behavior.\n\n**Confidence:**\n\nThe confidence score is 80% because the absence of strong indicators in several risk factors makes it difficult to definitively assign an extremely high or low prediction.  However, given the higher weight assigned to never married status, we lean towards a less likely prediction for recidivism in the next three years.\n\n\n\n\n**Disclaimer:** This analysis should not be considered definitive or a substitute for professional legal and forensic evaluation. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175612_548225",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1201,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 3 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

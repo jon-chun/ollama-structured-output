@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 1233,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-13T00:00:15.594361701Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.910878493,
+    "load_duration": 0.018512217,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 216,
+    "eval_duration": 1.877
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Marital Status\", \"low\", \"The individual has never been married, which generally indicates a lower risk of reoffending.\"),\n    (\"Cohabitation/Relationship History\", \"low\", \"Lack of known cohabiting relationships suggests less potential for domestic-related crimes.\"),\n    (\"Employment History\", \"medium\", \"Having held one job and lived with biological mother may indicate stability, but a single employment history could be seen as less reliable financially or emotionally.\"),\n    (\"Household Size\", \"low\", \"A family of two indicates a more stable environment compared to larger households, which can sometimes correlate with increased risk factors.\"),\n    (\"Age at Loss of Parental Guidance\", \"medium\", \"Being 12 years old when separated from parental guidance could potentially lead to increased vulnerability or engagement in criminal activities due to lack of supervision.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_190015_595568",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1233,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 1 jobs with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

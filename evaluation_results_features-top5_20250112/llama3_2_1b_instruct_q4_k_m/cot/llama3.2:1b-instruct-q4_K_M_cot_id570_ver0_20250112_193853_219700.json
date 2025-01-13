@@ -1,0 +1,67 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 570,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:38:53.218596911Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.748012702,
+    "load_duration": 0.027367889,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 264,
+    "eval_duration": 0.715
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"number of jobs held with household size 3\", \"weight\": \"high\", \"textual reasoning\": \"A person holding multiple jobs suggests financial stability, which can indicate a lower risk of recidivism.\", \"interpretation\": \"High weight\", \"value\": 8},\n    {\"factor\": \"household size\", \"weight\": \"low\", \"textual reasoning\": \"Having a household size of 3 may indicate a more challenging living situation, which could contribute to higher recidivism rates.\", \"interpretation\": \"Low weight\", \"value\": 2},\n    {\"factor\": \"number of biological parents at age 12\", \"weight\": \"high\", \"textual reasoning\": \"Having both biological parents present suggests a supportive environment, which can positively influence recidivism outcomes.\", \"interpretation\": \"High weight\", \"value\": 9},\n    {\"factor\": \"never married and not cohabiting\", \"weight\": \"low\", \"textual reasoning\": \"This combination may indicate a lack of stability in relationships or communities, potentially increasing recidivism risks.\", \"interpretation\": \"Low weight\", \"value\": 5}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193853_219700",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 570,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "number of jobs held with household size 3",
+      "weight": "high",
+      "textual reasoning": "A person holding multiple jobs suggests financial stability, which can indicate a lower risk of recidivism.",
+      "interpretation": "High weight",
+      "value": 8
+    },
+    {
+      "factor": "household size",
+      "weight": "low",
+      "textual reasoning": "Having a household size of 3 may indicate a more challenging living situation, which could contribute to higher recidivism rates.",
+      "interpretation": "Low weight",
+      "value": 2
+    },
+    {
+      "factor": "number of biological parents at age 12",
+      "weight": "high",
+      "textual reasoning": "Having both biological parents present suggests a supportive environment, which can positively influence recidivism outcomes.",
+      "interpretation": "High weight",
+      "value": 9
+    },
+    {
+      "factor": "never married and not cohabiting",
+      "weight": "low",
+      "textual reasoning": "This combination may indicate a lack of stability in relationships or communities, potentially increasing recidivism risks.",
+      "interpretation": "Low weight",
+      "value": 5
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

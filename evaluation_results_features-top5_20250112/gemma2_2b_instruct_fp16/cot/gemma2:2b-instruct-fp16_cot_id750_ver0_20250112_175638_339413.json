@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 750,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:56:38.337799968Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.655472816,
+    "load_duration": 0.046888014,
+    "prompt_eval_count": 236,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 393,
+    "eval_duration": 3.6
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status\", \"high\"),\n    (\"Cohabitation\", \"low\"),\n    (\"Household Size\", \"medium\"),\n    (\"Previous Family Structure\", \"medium\"),\n    (\"Employment Stability\", \"low\"),\n    (\"Age at Time of Offence\", \"low\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n``` \n\n\n**Explanation:**\n\n* **Marital Status (high):** Single males are statistically more likely to re-offend. This is a well-established risk factor for recidivism.\n* **Cohabitation (low):** Living alone is generally correlated with lower recidivism rates. This suggests a reduced social support network and potential isolation compared to married individuals.\n* **Household Size (medium):** A larger household size may indicate more familial ties, which could potentially lead to greater support during reintegration. \n* **Previous Family Structure (medium):** The individual's upbringing has some influence on their risk profile, but this factor is less powerful than marital status and cohabitation. \n* **Employment Stability (low):** Lack of stable employment history can increase the likelihood of engaging in risky behaviors and potentially experiencing instability, which increases recidivism.  \n* **Age at Time of Offense (low):** Younger offenders are generally at a lower risk of recidivism compared to older offenders.\n\n\n**Note:** This assessment is based on general trends and does not account for individual specific circumstances, mitigating factors, or the complexity of criminal justice systems. \n\n\nIt's crucial to remember that this analysis is a starting point in a comprehensive risk assessment process and should always be used with caution. A qualified professional can utilize more detailed information (e.g., crime type, severity, previous offenses) for a more accurate and nuanced prediction. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175638_339413",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 750,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1283,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:26:54.656337328Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.62392203,
+    "load_duration": 0.019183148,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 221,
+    "eval_duration": 7.584
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_12_marital_status_unknown\", \"low\", \"Unclear marital status at age 12 has a minimal direct impact on adult recidivism.\"),\n    (\"gender_male\", \"medium\", \"Studies suggest males are generally at a higher risk of recidivism compared to females.\"),\n    (\"marital_status_single\", \"high\", \"Being single and not cohabiting is associated with higher recidivism rates due to fewer social ties and support.\"),\n    (\"employment_status_unemployed\", \"high\", \"Unemployment is a strong predictor of recidivism, likely due to lack of structure and opportunities.\"),\n    (\"household_size_3\", \"low\", \"The size of the household does not directly influence recidivism risk unless related to overcrowding or lack of support.\"),\n    (\"living_with_biological_mother\", \"medium\", \"Living with a parent can offer some support, but it also might suggest a lack of independent living skills and support network.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_002654_657346",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1283,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

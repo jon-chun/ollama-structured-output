@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 340,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-12T22:03:09.050776599Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.659902197,
+    "load_duration": 0.029181848,
+    "prompt_eval_count": 241,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 192,
+    "eval_duration": 1.619
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"never married\", \"low\", \"Being unmarried generally reduces the likelihood of engaging in high-risk behavior or facing serious consequences.\"),\n    (\"no cohabitation\", \"medium\", \"Lack of a stable living arrangement may indicate lower social support and increased vulnerability to risk.\"),\n    (\"3 jobs held\", \"medium\", \"Employment stability can contribute to a reduced risk profile.\"),\n    (\"household size 4\", \"low\", \"A smaller household size suggests less strain on family resources, potentially reducing immediate risks.\"),\n    (\"lived with parents at age 12\", \"low\", \"Growing up in a stable environment with parental care can contribute to a lower risk of future criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_170309_052381",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 340,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

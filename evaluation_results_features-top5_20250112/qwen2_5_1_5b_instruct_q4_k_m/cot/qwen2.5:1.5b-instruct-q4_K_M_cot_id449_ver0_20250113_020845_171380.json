@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 449,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "created_at": "2025-01-13T07:08:45.170021634Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.008915624,
+    "load_duration": 0.033149595,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 249,
+    "eval_duration": 0.961
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"age_at_first_job\": \"low\", \"reasoning\": \"The person has been employed since a young age, suggesting they have been exposed to structured environments that may foster stability.\"},\n    {\"previous_marriage_status\": \"high\", \"reasoning\": \"No evidence of past marital relationships indicates a lack of stable social bonds or emotional support structures.\"},\n    {\"number_of_jobs_held\": \"medium\", \"reasoning\": \"The person has held two jobs, which suggests a balanced and potentially less unstable employment history compared to individuals who have not had multiple job experiences.\"},\n    {\"household_size\": \"high\", \"reasoning\": \"Living with four people in their household indicates a larger family structure that may require more care and coordination, increasing the risk of recidivism due to societal pressures or external influences.\"},\n    {\"age_12_marital_status\": \"unknown\", \"reasoning\": \"The marital status at age 12 is unknown, which could indicate a lack of early socialization experiences or fostered environments that might have influenced their future behaviors and criminal tendencies.\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_020845_171380",
+    "model": "qwen2.5:1.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 449,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "age_at_first_job": "low",
+      "reasoning": "The person has been employed since a young age, suggesting they have been exposed to structured environments that may foster stability."
+    },
+    {
+      "previous_marriage_status": "high",
+      "reasoning": "No evidence of past marital relationships indicates a lack of stable social bonds or emotional support structures."
+    },
+    {
+      "number_of_jobs_held": "medium",
+      "reasoning": "The person has held two jobs, which suggests a balanced and potentially less unstable employment history compared to individuals who have not had multiple job experiences."
+    },
+    {
+      "household_size": "high",
+      "reasoning": "Living with four people in their household indicates a larger family structure that may require more care and coordination, increasing the risk of recidivism due to societal pressures or external influences."
+    },
+    {
+      "age_12_marital_status": "unknown",
+      "reasoning": "The marital status at age 12 is unknown, which could indicate a lack of early socialization experiences or fostered environments that might have influenced their future behaviors and criminal tendencies."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 2 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 1157,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-13T03:28:07.520964621Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.304186792,
+    "load_duration": 0.01851623,
+    "prompt_eval_count": 251,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 291,
+    "eval_duration": 2.272
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_at_first_offense\", \"medium\", \"The person's age at first offense can indicate their level of maturity and potential for rehabilitation.\"),\n    (\"gender\", \"low\", \"Gender is not a significant risk factor for recidivism, but it may be taken into account in conjunction with other factors.\"),\n    (\"marital_status\", \"unknown\", \"The person's marital status at age 12 is unknown, which limits the ability to assess this factor. It may be considered a medium risk factor if there are indications of instability or lack of social support.\"),\n    (\"household_size\", \"low\", \"Having a household size of 5 and living with one's biological mother is not a significant risk factor for recidivism, but it may indicate a stable family environment that could help the person stay out of trouble.\"),\n    (\"jobs_held\", \"low\", \"Holding only one job is not a significant risk factor for recidivism, but it may indicate a lack of employment opportunities or skills training that could make it more difficult to find and maintain stable employment.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_222807_522291",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1157,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 576,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-13T03:46:30.001745432Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.201151599,
+    "load_duration": 0.027001881,
+    "prompt_eval_count": 224,
+    "prompt_eval_duration": 0.022,
+    "eval_count": 258,
+    "eval_duration": 3.149
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender_Female\", \"LOW\", \"Being female is generally associated with lower rates of recidivism\"),\n    (\"Marital_Status_Married_Spouse_Present\", \"MEDIUM\", \"Stable marital status may reduce risk, but presence of spouse could also indicate potential domestic conflicts\"),\n    (\"Employment_History_Four_Jobs\", \"HIGH\", \"Multiple jobs could indicate instability or higher likelihood of criminal activity\"),\n    (\"Household_Size_Four\", \"MEDIUM\", \"Larger household size may increase stress and financial strain, potentially increasing risk\"),\n    (\"Living_With_Other_Adults_Age_12\", \"LOW\", \"Stable living arrangement at a young age is typically associated with lower recidivism risk\"),\n    (\"Biological_Parent_Status_Unknown\", \"MEDIUM\", \"Unknown parent status could indicate instability or lack of positive role models\"),\n    (\"Not_In_Group_Quarters_Age_12\", \"LOW\", \"Not being in group quarters at age 12 suggests a more stable upbringing\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_224630_003054",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 576,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 4 jobs with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

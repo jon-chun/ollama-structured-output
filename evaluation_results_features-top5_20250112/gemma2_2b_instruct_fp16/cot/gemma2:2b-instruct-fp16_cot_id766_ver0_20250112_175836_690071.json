@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 766,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:58:36.688687133Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.74897142,
+    "load_duration": 0.043924486,
+    "prompt_eval_count": 236,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 290,
+    "eval_duration": 2.694
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital status unknown at age 12\", \"medium\", \"Explanation: While this factor suggests instability, it's a potential area of vulnerability that doesn't necessarily translate to recidivism. It may indicate challenges in family life but doesn't directly signal future criminal behavior.\"),\n    (\"Number of jobs held\", \"low\", \"The number of jobs is not considered an indicator of future recidivism. Job stability can be a positive factor, and having multiple jobs might indicate economic stability or resourcefulness.\"),\n    (\"Household size\", \"medium\", \"A larger household may indicate more support systems, which could have a protective effect on re-arrest rates.\"),\n    (\"Married\", \"low\", \"Marital status is not considered an independent predictor of recidivism. It can be positive or negative depending on the relationship's dynamics. \"),\n    (\"Spouse present\", \"low\", \"The presence of a spouse does not indicate risk for recidivism.\"), \n    (\"Biological mother living with the individual\", \"medium\", \"Living with family is generally a factor associated with lower recidivism, but the specifics of the relationship and the nature of her influence on the individual's choices need to be considered.\" ) \n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80 \n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175836_690071",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 766,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

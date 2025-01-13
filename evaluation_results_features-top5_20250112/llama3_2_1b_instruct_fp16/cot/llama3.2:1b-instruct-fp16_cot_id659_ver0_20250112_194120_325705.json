@@ -1,0 +1,60 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 659,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:20.324596452Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.874996715,
+    "load_duration": 0.031352135,
+    "prompt_eval_count": 232,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 193,
+    "eval_duration": 0.838
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"marital_status\", \"weight\": \"low\", \"description\": \"Never married, cohabiting\", \"textual reasoning\": \"No history of marriage suggests a higher likelihood of reoffending\"},\n    {\"factor\": \"cohabitation\", \"weight\": \"medium\", \"description\": \"Cohabiting without a partner may indicate instability or lack of commitment to a relationship, increasing the risk of reoffending\"},\n    {\"factor\": \"household_size\", \"weight\": \"high\", \"description\": \"Large household size with an unknown biological father suggests potential issues related to parental involvement and family dynamics\"},\n    {\"factor\": \"age_at_12\", \"weight\": \"low\", \"description\": \"Young age at the time of exposure to familial instability may indicate a more vulnerable or impressionable individual\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194120_325705",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 659,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "marital_status",
+      "weight": "low",
+      "description": "Never married, cohabiting",
+      "textual reasoning": "No history of marriage suggests a higher likelihood of reoffending"
+    },
+    {
+      "factor": "cohabitation",
+      "weight": "medium",
+      "description": "Cohabiting without a partner may indicate instability or lack of commitment to a relationship, increasing the risk of reoffending"
+    },
+    {
+      "factor": "household_size",
+      "weight": "high",
+      "description": "Large household size with an unknown biological father suggests potential issues related to parental involvement and family dynamics"
+    },
+    {
+      "factor": "age_at_12",
+      "weight": "low",
+      "description": "Young age at the time of exposure to familial instability may indicate a more vulnerable or impressionable individual"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

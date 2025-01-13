@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 0,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:58:27.56363766Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.012171563,
+    "load_duration": 0.01236856,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 268,
+    "eval_duration": 4.981
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"male\", \"high\", \"Males are generally more likely to be rearrested than females, particularly when considering demographics like age, socioeconomic status, and prior criminal behavior.\"),\n  (\"never married\", \"medium\", \"Never being married can sometimes indicate lower social support networks which might increase the risk of recidivism, although this can vary widely by individual circumstances.\"),\n  (\"cohabiting\", \"low\", \"Living with a partner does not inherently alter the risk for rearrest; it depends heavily on the stability and dynamics of the relationship.\"),\n  (\"unemployed\", \"high\", \"Unemployment can lead to increased stress, reduced access to resources, and opportunities which may correlate with a higher likelihood of criminal behavior.\"),\n  (\"household size\", \"low\", \"A larger household size does not directly correlate with an increased risk of recidivism; it might suggest more complex family dynamics but is not a direct predictor.\"),\n  (\"lived with biological mother\", \"medium\", \"Growing up in the same household as one's biological parent may indicate a stable home environment, but without additional context about the quality of that environment, it's considered medium risk. It could suggest continuity but also potentially lack of exposure to diverse role models.\")\n], \"prediction\": \"YES\", \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235827_564812",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 0,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and is currently unemployed with a household size of 6 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 556,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:57:54.900457847Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.96977315,
+    "load_duration": 0.041331819,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 429,
+    "eval_duration": 3.917
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status Unknown at Age 12\", \"medium\", \"This factor could indicate a lack of stable family structure, which can be associated with higher recidivism.\"),\n    (\"Never Married\", \"high\", \"A history of not being married suggests limited support systems and potential for instability that may contribute to recidivism.\"),\n    (\"Single Person\", \"medium\", \"Being single without cohabiting suggests a lack of strong social connections, which can increase the risk of recidivism.\"),\n    (\"Household Size 4\", \"low\", \"While having a larger household size might suggest potential familial bonds and support, it's not a strong indicator of recidivism risk.\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n``` \n\n\n**Explanation:**\n\n* **Marital Status Unknown at Age 12:** This is the most significant factor as it raises questions about stability and potentially increased vulnerability.  It's assigned a medium weight due to its potential impact on social support.\n* **Never Married:** High weight because it indicates a lack of long-term committed relationships, suggesting possible challenges in maintaining stable living arrangements and personal support systems. \n* **Single Person:** Medium weight as being single does not inherently suggest high recidivism risk; however, the lack of strong interpersonal connections can increase vulnerability to peer pressure or other social issues that might influence criminal behavior.\n* **Household Size 4:** Low weight because a larger household size doesn't directly correlate with higher recidivism risk. It could indicate potential support structures but isn't a significant predictor in this case.\n\n\n\n**Important Notes:**\n\n* This is a simplified example for demonstration purposes. \n* Real-world recidivism prediction is complex, involving numerous social, psychological, and environmental factors beyond what is captured by these basic variables.\n* The \"confidence\" value reflects the strength of the evidence based on the provided information. It's subjective and influenced by expert judgment.\n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175754_901872",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 556,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

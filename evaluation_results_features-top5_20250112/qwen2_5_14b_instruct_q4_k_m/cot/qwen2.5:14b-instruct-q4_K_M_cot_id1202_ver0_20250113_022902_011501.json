@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 1202,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-13T07:29:02.01001169Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.906155823,
+    "load_duration": 0.02523709,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.04,
+    "eval_count": 255,
+    "eval_duration": 3.834
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"male_gender\", \"medium\", \"Statistical data indicates males are more likely to be rearrested compared to females, but the weight is not as high as other factors such as criminal history.\"),\n    (\"never_married_cohabiting\", \"high\", \"Being unmarried and cohabiting suggests a less stable living situation which correlates with higher recidivism rates due to potential lack of social support.\"),\n    (\"job_history\", \"low\", \"Holding 3 jobs indicates some level of employment stability, but the number alone does not provide strong predictive power for rearrest without information on job duration and type.\"),\n    (\"household_size_2\", \"medium\", \"A household size of two could indicate a stable relationship or it could represent a high degree of responsibility which might deter criminal activity; however, this factor is somewhat neutral.\"),\n    (\"lived_with_biological_mother_at_age_12\", \"low\", \"Lacking detail on the stability and quality of this living situation makes it difficult to assign significant weight. However, it suggests a possible lack of father figure influence which may or may not correlate with crime.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 45\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_022902_011501",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1202,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 3 jobs with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

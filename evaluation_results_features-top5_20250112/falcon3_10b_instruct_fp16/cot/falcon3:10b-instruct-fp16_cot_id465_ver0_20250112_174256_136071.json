@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 465,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-12T22:42:56.134489589Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.054897786,
+    "load_duration": 0.029396692,
+    "prompt_eval_count": 249,
+    "prompt_eval_duration": 0.029,
+    "eval_count": 195,
+    "eval_duration": 4.99
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Gender\", \"low\", \"Being female generally correlates with lower recidivism rates.\"),\n    (\"Marital Status\", \"medium\", \"Not being married could indicate instability, but further context is needed.\"),\n    (\"Employment Stability\", \"low\", \"Holding 2 jobs suggests a stable work ethic and lower risk.\"),\n    (\"Household Size and Dynamics\", \"low\", \"A small household with other adults may provide social support and stability.\"),\n    (\"Parent Status\", \"medium\", \"Unknown biological parent status adds a layer of complexity and potential instability.\"),\n    (\"Group Quarters History\", \"low\", \"Not being in group quarters at age 12 suggests more stable living conditions.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_174256_136071",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 465,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

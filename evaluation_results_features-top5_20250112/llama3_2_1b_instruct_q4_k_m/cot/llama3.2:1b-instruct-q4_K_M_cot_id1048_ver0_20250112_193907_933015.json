@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1048,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:39:07.931914616Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.379370751,
+    "load_duration": 0.03547951,
+    "prompt_eval_count": 231,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 125,
+    "eval_duration": 0.339
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"unmarried, not cohabiting\", \"weight\": 3, \"textual reasoning\": \"Increased risk due to lack of social support\"},\n    {\"factor2\": \"household size 4\", \"weight\": -1, \"textual reasoning\": \"No clear correlation with recidivism\"},\n    {\"factor3\": \"biological mother unknown\", \"weight\": 2, \"textual reasoning\": \"Unknown status may not be a significant risk factor\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193907_933015",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1048,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "unmarried, not cohabiting",
+      "weight": 3,
+      "textual reasoning": "Increased risk due to lack of social support"
+    },
+    {
+      "factor2": "household size 4",
+      "weight": -1,
+      "textual reasoning": "No clear correlation with recidivism"
+    },
+    {
+      "factor3": "biological mother unknown",
+      "weight": 2,
+      "textual reasoning": "Unknown status may not be a significant risk factor"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

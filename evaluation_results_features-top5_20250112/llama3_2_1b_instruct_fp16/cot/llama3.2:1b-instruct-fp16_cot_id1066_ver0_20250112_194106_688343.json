@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 1066,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:06.686959927Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.935388766,
+    "load_duration": 0.0266285,
+    "prompt_eval_count": 231,
+    "prompt_eval_duration": 0.002,
+    "eval_count": 207,
+    "eval_duration": 0.904
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married, not cohabiting\", \"weight\": \"low\", \"textual_reasoning\": \"Limited social support and potential for loneliness may increase the likelihood of rearrest.\", \"probability\": 0.3},\n    {\"factor\": \"unemployed with a household size of 3\", \"weight\": \"medium\", \"textual_reasoning\": \"Higher unemployment rates may contribute to increased stress, decreased mental health, and reduced social connections, all of which can increase the risk of rearrest.\", \"probability\": 0.6},\n    {\"factor\": \"lived with biological mother, marital status unknown at age 12\", \"weight\": \"high\", \"textual_reasoning\": \"Family instability may lead to a higher likelihood of neglect, abuse, or other forms of harm, which can increase the risk of rearrest.\", \"probability\": 0.7}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194106_688343",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1066,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married, not cohabiting",
+      "weight": "low",
+      "textual_reasoning": "Limited social support and potential for loneliness may increase the likelihood of rearrest.",
+      "probability": 0.3
+    },
+    {
+      "factor": "unemployed with a household size of 3",
+      "weight": "medium",
+      "textual_reasoning": "Higher unemployment rates may contribute to increased stress, decreased mental health, and reduced social connections, all of which can increase the risk of rearrest.",
+      "probability": 0.6
+    },
+    {
+      "factor": "lived with biological mother, marital status unknown at age 12",
+      "weight": "high",
+      "textual_reasoning": "Family instability may lead to a higher likelihood of neglect, abuse, or other forms of harm, which can increase the risk of rearrest.",
+      "probability": 0.7
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

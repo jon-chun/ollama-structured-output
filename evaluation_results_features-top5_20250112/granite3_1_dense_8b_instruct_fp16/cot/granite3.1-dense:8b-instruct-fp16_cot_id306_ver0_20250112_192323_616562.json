@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 306,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-13T00:23:23.615276511Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.716184706,
+    "load_duration": 0.017569417,
+    "prompt_eval_count": 253,
+    "prompt_eval_duration": 0.025,
+    "eval_count": 262,
+    "eval_duration": 5.669
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender\", \"low\", \"Female gender is generally associated with lower rates of recidivism.\"),\n    (\"Marital Status\", \"low\", \"Never married status does not inherently increase risk.\"),\n    (\"Cohabitation\", \"low\", \"Not cohabiting does not significantly impact recidivism risk.\"),\n    (\"Employment History\", \"high\", \"Holding only one job may indicate instability and potential financial strain, increasing risk.\"),\n    (\"Household Size\", \"medium\", \"A larger household size might provide more social support, potentially reducing risk, but it could also imply resource sharing among family members with criminal involvement, increasing risk.\"),\n    (\"Parental Status at Age 12\", \"low\", \"Living with both biological parents at age 12 is generally associated with lower recidivism risk due to potential positive influences and support.\"),\n    (\"Overall Risk Score\", \"high\", \"Considering the high score from employment history, and the medium score from household size, the overall risk for 3-year rearrest recidivism is considered high.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_192323_616562",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 306,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

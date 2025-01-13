@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1194,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "created_at": "2025-01-13T03:56:36.139541314Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.701605019,
+    "load_duration": 0.012480124,
+    "prompt_eval_count": 249,
+    "prompt_eval_duration": 0.059,
+    "eval_count": 272,
+    "eval_duration": 5.627
+  },
+  "response": {
+    "raw_message_text": " ```json\n{\n  \"risk_factors\": [\n    (\"gender_male\", \"medium\", \"Being male is associated with slightly higher recidivism rates.\"),\n    (\"marital_status_never_married\", \"high\", \"Never being married indicates lack of social support, which increases risk of rearrest.\"),\n    (\"cohabiting_no\", \"high\", \"Not cohabiting suggests fewer stabilizing influences in daily life.\"),\n    (\"job_stability_2_jobs\", \"medium\", \"Two jobs can indicate either instability or an attempt to secure a steady income.\"),\n    (\"household_size_4\", \"low\", \"A larger household size can provide more support and structure, reducing risk.\"),\n    (\"lived_with_biological_mother\", \"medium\", \"Living with the biological mother alone may indicate both support and potential instability depending on the family dynamics.\"),\n    (\"marital_status_of_parent_unknown\", \"high\", \"Unknown marital status of parent at age 12 indicates uncertainty in early stability, contributing to higher risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_225636_141044",
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1194,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

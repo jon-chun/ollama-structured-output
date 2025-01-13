@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1032,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-13T00:02:12.024654804Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.799974836,
+    "load_duration": 0.01334132,
+    "prompt_eval_count": 237,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 206,
+    "eval_duration": 1.772
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Marital Status - Female\", \"low\", \"Females are generally assigned lower risk scores due to societal norms and research indicating lower recidivism rates.\"),\n    (\"Spouse Presence\", \"medium\", \"The presence of a spouse can be seen as a stabilizing factor, reducing isolation risk, but it doesn't guarantee against higher-risk behaviors in some cases.\"),\n    (\"Employment Status - Unemployed\", \"high\", \"Unemployment is often associated with increased financial stress and potential involvement in criminal activities to meet basic needs, thereby raising the risk of rearrest.\"),\n    (\"Household Size - Large (4 members)\", \"medium\", This factor can increase the likelihood of family dynamics that may inadvertently lead to criminal behavior or oversight, but it's not a definitive indicator.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_190212_026051",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1032,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and is currently unemployed with a household size of 4.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

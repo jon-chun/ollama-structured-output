@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 634,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:38:55.859879426Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.510862841,
+    "load_duration": 0.02610614,
+    "prompt_eval_count": 235,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 178,
+    "eval_duration": 0.48
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"family structure\", \"weight\": 50, \"textual reasoning\": \"The lack of a biological parent and unknown household status may indicate instability or absence of parental guidance, which can be a risk factor for recidivism.\"},\n    {\"factor2\": \"marital history\", \"weight\": 30, \"textual reasoning\": \"A spouse present but unknown biological parent status at age 12 could suggest an unstable home environment or lack of stability in the relationship.\"},\n    {\"factor3\": \"employment history\", \"weight\": 20, \"textual reasoning\": \"Lived with other adults and held two jobs, which may indicate a stable living situation and reduced risk of recidivism compared to those who experience instability or unemployment.\"},\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193855_860935",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 634,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 2 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

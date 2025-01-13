@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 766,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "glm4:9b-chat-q4_K_M",
+    "created_at": "2025-01-12T23:54:26.021781809Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.507906756,
+    "load_duration": 0.032474257,
+    "prompt_eval_count": 213,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 234,
+    "eval_duration": 2.456
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"sex\", \"low\", \"The individual's sex, female, is a non-risk factor in recidivism for this age group.\"),\n    (\"marital_status\", \"medium\", \"Married status with a present spouse suggests stability, which may reduce recidivism, but the unknown marital status at age 12 introduces some uncertainty.\"),\n    (\"employment_history\", \"high\", \"Having held two jobs indicates financial stability and responsibility, which is typically associated with lower recidivism.\"),\n    (\"household_size\", \"medium\", \"A household size of 5 suggests a complex home environment that could be either protective or stressful, therefore a moderate risk.\"),\n    (\"residence_with_biological_mother\", \"low\", \"Living with the biological mother at one point may indicate family support but is not a strong predictor of recidivism.\"),\n    (\"marital_status_at_12\", \"high\", \"The unknown marital status at age 12 suggests an unstable or chaotic early life, which is a significant risk factor for future criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_185426_022955",
+    "model": "glm4:9b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 766,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

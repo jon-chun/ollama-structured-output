@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 1353,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:42:00.133593141Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.924157391,
+    "load_duration": 0.032856773,
+    "prompt_eval_count": 232,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 201,
+    "eval_duration": 0.887
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married, cohabiting\", \"weight\": \"medium\", \"description\": \"Age 12: unknown marital status\", \"textual reasoning\": \"This factor is a high-risk indicator due to the lack of adult supervision and potential for impulsivity\"},\n    {\"factor\": \"3 jobs with household size 3\", \"weight\": \"high\", \"description\": \"Large number of work commitments, possible stress and financial strain\", \"textual reasoning\": \"This factor is a medium-risk indicator due to the potential for increased stress and financial difficulties\"},\n    {\"factor\": \"household size 3 and lived with biological mother\", \"weight\": \"low\", \"description\": \"Limited adult supervision, potential for impulsivity\", \"textual reasoning\": \"This factor is a low-risk indicator due to the lack of adult supervision and potential for impulsivity\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194200_135069",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1353,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married, cohabiting",
+      "weight": "medium",
+      "description": "Age 12: unknown marital status",
+      "textual reasoning": "This factor is a high-risk indicator due to the lack of adult supervision and potential for impulsivity"
+    },
+    {
+      "factor": "3 jobs with household size 3",
+      "weight": "high",
+      "description": "Large number of work commitments, possible stress and financial strain",
+      "textual reasoning": "This factor is a medium-risk indicator due to the potential for increased stress and financial difficulties"
+    },
+    {
+      "factor": "household size 3 and lived with biological mother",
+      "weight": "low",
+      "description": "Limited adult supervision, potential for impulsivity",
+      "textual reasoning": "This factor is a low-risk indicator due to the lack of adult supervision and potential for impulsivity"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 3 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 228,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:57:42.658328239Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.369958732,
+    "load_duration": 0.041413669,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 463,
+    "eval_duration": 4.319
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status Unknown at Age 12\", \"medium\", \"age at the time of offense\"),\n    (\"Never Married\", \"high\", \"relationship status\"),\n    (\"Household Size\", \"medium\", \"contextual factors\"),\n    (\"Live with Biological Mother\", \"low\", \"social support network\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n\n**Explanation:**\n\n1. **Marital Status Unknown at Age 12**: This factor presents a moderate risk due to the lack of stable family structures that can significantly impact recidivism. It's worth considering this is information that may be available through other sources, and its value as a predictor should be re-evaluated with additional data.\n2. **Never Married**:  Historically, individuals who are never married have higher rates of reoffending compared to those who have been married. This factor carries a significant weight due to the established social support network within marriage. \n3. **Household Size**: The number of people in the household can be a significant indicator of potential support systems and resource availability for an individual. In this case, it presents as a moderate risk factor due to its influence on the individual's access to resources and stability.  \n4. **Live with Biological Mother**: Having a strong social support network is generally associated with lower recidivism rates. However, we need more context regarding the nature of this relationship, which could have both positive and negative impacts. \n\n\n**Important Notes:**\n\n* **Context Matters:** This analysis relies on general trends; further information about the individual's current circumstances (criminal history, employment, substance abuse, etc.) is crucial for a truly accurate risk assessment.\n* **Data Limitations:** Using only limited data can lead to inaccurate conclusions. A comprehensive dataset is essential for effective prediction. \n* **Individualized Assessment:** This analysis provides a baseline but must be tailored to the specific individual's circumstances.\n\n\nThis is just one possible interpretation. A true risk assessment requires more nuanced data and context, and should always be conducted by qualified professionals in conjunction with their expert knowledge of legal and social contexts. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175742_659938",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 228,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

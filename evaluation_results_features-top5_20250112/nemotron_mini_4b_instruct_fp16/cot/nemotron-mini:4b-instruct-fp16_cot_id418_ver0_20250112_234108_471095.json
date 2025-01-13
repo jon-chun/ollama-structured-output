@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 418,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-13T04:41:08.469774225Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.575493564,
+    "load_duration": 0.043683876,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 139,
+    "eval_duration": 1.524
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"male\", \"low\", \"This risk factor is not significantly associated with recidivism in the dataset.\"),\n    (\"never married, not cohabiting\", \"medium\", \"Marital status has a moderate impact on recidivism. Individuals who are never married or not cohabiting have a higher likelihood of rearrest compared to those who are married or cohabiting.\"),\n    (\"1 jobs with household size 8\", \"low\", \"Occupational history and household size do not show a strong correlation in this dataset.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234108_471095",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 418,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 8.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

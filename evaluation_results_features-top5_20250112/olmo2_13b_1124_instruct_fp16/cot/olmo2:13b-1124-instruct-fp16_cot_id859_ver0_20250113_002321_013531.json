@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 40,
+    "id": 859,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:23:21.01216922Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.187458277,
+    "load_duration": 0.023135142,
+    "prompt_eval_count": 217,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 179,
+    "eval_duration": 6.138
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"gender\", \"low\", \"Generally, female offenders tend to have lower recidivism rates compared to male offenders\"], [\"marital_status\", \"low\", \"Married individuals often have stronger social ties which can reduce the likelihood of reoffending\"], [\"spouse_present\", \"low\", \"Presence of a spouse may offer additional social support and stability, potentially reducing risk\"], [\"employment_history\", \"low\", \"Stable employment history can be indicative of structure and responsibility, lowering risk\"], [\"household_size\", \"medium\", \"A larger household may provide more social control but also presents challenges that could increase stress and potential conflict\"], [\"living_situation_age_12\", \"low\", \"Living with both biological parents at age 12 often indicates a more stable upbringing, potentially reducing risk\"]], \"prediction\": \"NO\", \"confidence\": 40}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_002321_013531",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 859,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "gender",
+      "low",
+      "Generally, female offenders tend to have lower recidivism rates compared to male offenders"
+    ],
+    [
+      "marital_status",
+      "low",
+      "Married individuals often have stronger social ties which can reduce the likelihood of reoffending"
+    ],
+    [
+      "spouse_present",
+      "low",
+      "Presence of a spouse may offer additional social support and stability, potentially reducing risk"
+    ],
+    [
+      "employment_history",
+      "low",
+      "Stable employment history can be indicative of structure and responsibility, lowering risk"
+    ],
+    [
+      "household_size",
+      "medium",
+      "A larger household may provide more social control but also presents challenges that could increase stress and potential conflict"
+    ],
+    [
+      "living_situation_age_12",
+      "low",
+      "Living with both biological parents at age 12 often indicates a more stable upbringing, potentially reducing risk"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

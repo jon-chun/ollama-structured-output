@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 576,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-13T05:09:43.681208488Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.752398174,
+    "load_duration": 0.022440107,
+    "prompt_eval_count": 225,
+    "prompt_eval_duration": 0.027,
+    "eval_count": 270,
+    "eval_duration": 3.699
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_12_group_quarters\", \"low\", \"Individuals who have not lived in group quarters at age 12 tend to have more stable backgrounds, which can be associated with lower risk.\"),\n    (\"biological_parent_status_unknown\", \"medium\", \"Uncertainty about biological parent status may indicate complex family dynamics that could either increase or decrease risk.\"),\n    (\"employment_history\", \"low\", \"Having held multiple jobs may suggest stability and a history of engagement with the workforce, potentially lowering recidivism risk.\"),\n    (\"household_size\", \"medium\", \"A household size of 4 can be indicative of financial and social responsibilities, which may stabilize behavior but also present challenges that could increase stress and risk.\"),\n    (\"marital_status\", \"low\", \"Married individuals with a spouse present tend to have more social stability and support, which is generally associated with lower recidivism.\"),\n    (\"spouse_present\", \"low\", \"The presence of a spouse can provide additional social control and support, which may decrease the likelihood of reoffending.\"),\n    (\"gender\", \"low\", \"Statistically, females tend to have lower recidivism rates than males, though this factor alone is not determinative.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_000943_683007",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 576,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 4 jobs with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

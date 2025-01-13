@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 391,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi4:14b-fp16",
+    "created_at": "2025-01-13T06:26:11.184981926Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.006684735,
+    "load_duration": 0.024415443,
+    "prompt_eval_count": 224,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 220,
+    "eval_duration": 7.971
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"gender: male\", \"high\", \"Statistical data indicates that males have a higher likelihood of recidivism compared to females.\"),\n    (\"marital status: never married, not cohabiting\", \"medium\", \"Being unmarried and not cohabiting is associated with a moderate increase in the risk of recidivism due to potentially less social support and stability.\"),\n    (\"number of jobs held: 1\", \"high\", \"Having held only one job suggests potential instability or difficulty maintaining employment, which can be linked to higher recidivism risk.\"),\n    (\"household size: 5\", \"medium\", \"Larger household sizes can correlate with economic strain and stress, moderately increasing the risk of reoffending.\"),\n    (\"lived with biological mother, marital status unknown at age 12\", \"low\", \"While early family dynamics can influence behavior, this specific factor is less directly correlated with recidivism compared to other factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_012611_186087",
+    "model": "phi4:14b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 391,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

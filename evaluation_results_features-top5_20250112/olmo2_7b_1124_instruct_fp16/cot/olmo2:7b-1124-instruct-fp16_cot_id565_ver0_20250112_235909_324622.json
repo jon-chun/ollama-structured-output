@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 565,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:59:09.322710759Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.896000827,
+    "load_duration": 0.019135295,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 262,
+    "eval_duration": 4.86
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Research indicates that male offenders are generally at a higher risk for recidivism than female offenders. However, individual circumstances can significantly influence this dynamic.\"),\n    (\"never_married\", \"high\", \"Individuals who have never married may have fewer social ties and support networks, which can increase the likelihood of reoffending.\"),\n    (\"not_cohabiting\", \"medium\", \"Living independently without a partner can reduce the availability of social control mechanisms, potentially increasing the risk of recidivism.\"),\n    (\"held_2_jobs\", \"medium\", \"Having multiple jobs might indicate instability or difficulty in maintaining employment, which could be associated with higher risk for rearrest.\"),\n    (\"household_size_3\", \"low\", \"A larger household size typically provides more familial supervision and social control, potentially lowering the risk of reoffending.\"),\n    (\"lived_with_both_parents_at_age_12\", \"medium\", \"Growing up in a stable, two-parent household can provide a positive environment that supports healthy development and reduces risk of future criminal behavior. However, the absence of other stabilizing factors might elevate the risk to medium.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235909_324622",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 565,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

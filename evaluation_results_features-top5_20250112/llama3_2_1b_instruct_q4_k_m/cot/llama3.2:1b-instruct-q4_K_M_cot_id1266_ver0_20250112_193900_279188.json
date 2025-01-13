@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 1266,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:39:00.278160938Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.560036835,
+    "load_duration": 0.0348229,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 191,
+    "eval_duration": 0.519
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"divorced or separated at age 12\", \"weight\": 3, \"textual reasoning\": \"Increased risk of unstable family dynamics, potential for parental neglect or abuse.\", \"probability\": 0.2},\n    {\"factor2\": \"held only one job with household size of 6 and lived alone\", \"weight\": 4, \"textual reasoning\": \"Stable employment may indicate resilience, but lack of social support or structure could contribute to increased risk.\", \"probability\": 0.1},\n    {\"factor3\": \"never married, not cohabiting\", \"weight\": 2, \"textual reasoning\": \"Lack of commitment and stability in personal relationships may suggest underlying issues that contributed to the individual's lifestyle choices.\", \"probability\": 0.4}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193900_279188",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1266,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "divorced or separated at age 12",
+      "weight": 3,
+      "textual reasoning": "Increased risk of unstable family dynamics, potential for parental neglect or abuse.",
+      "probability": 0.2
+    },
+    {
+      "factor2": "held only one job with household size of 6 and lived alone",
+      "weight": 4,
+      "textual reasoning": "Stable employment may indicate resilience, but lack of social support or structure could contribute to increased risk.",
+      "probability": 0.1
+    },
+    {
+      "factor3": "never married, not cohabiting",
+      "weight": 2,
+      "textual reasoning": "Lack of commitment and stability in personal relationships may suggest underlying issues that contributed to the individual's lifestyle choices.",
+      "probability": 0.4
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

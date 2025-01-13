@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 40,
+    "id": 1212,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-13T03:33:58.121193273Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.87870533,
+    "load_duration": 0.016637924,
+    "prompt_eval_count": 250,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 154,
+    "eval_duration": 2.843
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender\", \"low\", \"Male\"),\n    (\"marital status\", \"unknown\", \"Marital status at age 12 is unknown\"),\n    (\"cohabiting\", \"unknown\", \"Current cohabitation status is unknown\"),\n    (\"employment status\", \"high\", \"Currently unemployed\"),\n    (\"household size\", \"low\", \"Household size of 6\"),\n    (\"lived with biological mother\", \"medium\", \"Lived with biological mother, but marital status at age 12 is unknown\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 40\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_223358_122386",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1212,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 6 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

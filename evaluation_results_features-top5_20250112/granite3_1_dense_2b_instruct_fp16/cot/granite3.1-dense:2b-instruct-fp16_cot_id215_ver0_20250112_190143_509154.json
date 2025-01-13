@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 215,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-13T00:01:43.507854686Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.443519268,
+    "load_duration": 0.016191468,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 163,
+    "eval_duration": 1.412
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender: Female\", \"low\", \"Historically, females have lower rates of recidivism than males.\"),\n    (\"Marital Status: Never married/Cohabiting\", \"low\", \"Individuals in stable relationships or not married may indicate a lower risk.\"),\n    (\"Employment History: Holds 3 jobs\", \"medium\", \"Consistent employment can suggest stability and responsibility, but more recent history would provide a better indication.\"),\n    (\"Household Size: 5\", \"high\", \"Larger households may indicate increased demand for resources and potential strain on the individual's ability to maintain lawful behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_190143_509154",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 215,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 3 jobs with a household size of 5.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

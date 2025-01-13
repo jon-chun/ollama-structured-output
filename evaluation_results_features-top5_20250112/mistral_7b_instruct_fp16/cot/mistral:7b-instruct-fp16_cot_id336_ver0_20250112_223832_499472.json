@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 336,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-13T03:38:32.49813728Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.361725009,
+    "load_duration": 0.01393721,
+    "prompt_eval_count": 251,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 287,
+    "eval_duration": 5.33
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender\", \"medium\", \"The person's gender is a potential risk factor, but does not carry significant weight.\"),\n    (\"marital status\", \"unknown\", \"The person's marital status at age 12 may indicate a lack of stability and commitment, but without additional information it cannot be definitively assessed.\"),\n    (\"cohabitation\", \"unknown\", \"Cohabitation is not available for this individual, which could indicate a lack of social support or family involvement, but without further information it cannot be definitively assessed.\"),\n    (\"household size\", \"high\", \"Living with a household size of 5 may indicate financial stress and difficulty supporting oneself, which could increase the likelihood of reoffending.\"),\n    (\"job history\", \"2 jobs\", \"Having held 2 jobs in the past is not necessarily a positive or negative factor, but it does suggest a certain level of job stability that could impact their likelihood of reoffending.\"),\n    (\"biological mother\", \"unknown\", \"Living with one's biological mother may indicate a lack of support from extended family, but without further information it cannot be definitively assessed.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_223832_499472",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 336,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

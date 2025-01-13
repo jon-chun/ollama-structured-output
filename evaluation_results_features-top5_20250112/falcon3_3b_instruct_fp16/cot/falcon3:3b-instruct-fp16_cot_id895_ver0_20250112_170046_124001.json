@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 895,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-12T22:00:46.122365274Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.733922089,
+    "load_duration": 0.022266038,
+    "prompt_eval_count": 227,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 203,
+    "eval_duration": 1.7
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"The individual's age, typically associated with increased risk due to developmental stages affecting decision-making and behavior.\"),\n    (\"marital status\", \"low\", \"Being unmarried generally indicates less social structure, which can be a protective factor against recidivism.\"),\n    (\"cohabitation\", \"low\", \"The absence of cohabitation suggests a lack of immediate familial support or supervision, potentially increasing risk.\"),\n    (\"employment status\", \"medium\", \"Unemployment might indicate financial instability and decreased social interaction, which can influence reoffending behavior.\"),\n    (\"household size\", \"high\", \"A large household can strain resources and limit personal interactions, possibly impacting the individual's ability to engage in prosocial activities.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_170046_124001",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 895,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 7.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

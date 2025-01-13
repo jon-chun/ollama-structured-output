@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 260,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_0",
+    "created_at": "2025-01-13T00:32:35.581788684Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.973177492,
+    "load_duration": 0.03481435,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 242,
+    "eval_duration": 1.928
+  },
+  "response": {
+    "raw_message_text": "\n{\n  \"risk_factors\": [\n    (\"male gender\", \"medium\", \"Men are more likely to reoffend than women, but not always. Gender alone is a poor predictor of recidivism.\"),\n    (\"never married or cohabiting\", \"high\", \"Unattached males have higher rates of criminal activity and are less anchored socially. Living situation matters.\"),\n    (\"1 jobs held\", \"medium\", \"Stable employment can reduce crime rates, but single job changes aren't strongly predictive one way or the other.\"),\n    (\"household size 3\", \"low\", \"Household size is a factor in poverty and social isolation, but small households alone don't strongly correlate with higher recidivism.\"),\n    (\"lived with biological mother at age 12\", \"low\", \"Living situation at age 12 has some predictive power for later criminal behavior. More context needed to assess impact fully.\"),\n    (\"marital status unknown at age 12\", \"medium\", \"The fact the marital status is unknown doesn't help, but lack of strong social anchors at a young age can be problematic.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193235_583223",
+    "model": "hermes3:8b-llama3.1-q4_0",
+    "prompt_type": "PromptType.COT",
+    "row_id": 260,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

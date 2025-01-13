@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 177,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-13T00:23:49.878258199Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.077191066,
+    "load_duration": 0.017740667,
+    "prompt_eval_count": 257,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 187,
+    "eval_duration": 4.032
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Male gender\", \"low\", \"Gender alone does not significantly predict recidivism.\"),\n    (\"Never married, not cohabiting\", \"medium\", \"Unmarried individuals may have less social integration and commitment, potentially increasing risk.\"),\n    (\"Currently unemployed\", \"high\", \"Unemployment is a strong predictor of recidivism due to economic stress and lack of structure in daily life.\"),\n    (\"Household size of 4\", \"low\", \"Larger household size does not significantly correlate with recidivism risk.\"),\n    (\"Living with biological mother at age 12\", \"medium\", \"Living arrangements in adolescence can indicate family support and stability, which may impact future criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_192349_879619",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 177,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

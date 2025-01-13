@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 624,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-13T07:44:40.413958061Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.30317297,
+    "load_duration": 0.033533099,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.093,
+    "eval_count": 246,
+    "eval_duration": 7.17
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"male gender\", \"medium\", \"Being male is a known risk factor for recidivism, as males are statistically more likely to be rearrested within the same timeframe.\"],\n    [\"never married, not cohabiting\", \"high\", \"Individuals who have never been in a stable relationship or do not live with a partner often exhibit higher recidivism rates due to lack of social support and stability.\"],\n    [\"unemployed\", \"high\", \"Unemployment is strongly correlated with increased risk for rearrest as it can lead to financial stress, limited access to resources, and fewer structured activities which might otherwise deter criminal behavior.\"],\n    [\"household size of 10\", \"medium\", \"Living in a large household may indicate overcrowding and potential strain on family relationships and resources. However, the impact can vary widely depending on other factors such as income level and family dynamics.\"],\n    [\"lived with both biological parents at age 12\", \"low\", \"Growing up with both biological parents is generally protective against criminal behavior due to stable familial support systems.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_024440_415239",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 624,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "male gender",
+      "medium",
+      "Being male is a known risk factor for recidivism, as males are statistically more likely to be rearrested within the same timeframe."
+    ],
+    [
+      "never married, not cohabiting",
+      "high",
+      "Individuals who have never been in a stable relationship or do not live with a partner often exhibit higher recidivism rates due to lack of social support and stability."
+    ],
+    [
+      "unemployed",
+      "high",
+      "Unemployment is strongly correlated with increased risk for rearrest as it can lead to financial stress, limited access to resources, and fewer structured activities which might otherwise deter criminal behavior."
+    ],
+    [
+      "household size of 10",
+      "medium",
+      "Living in a large household may indicate overcrowding and potential strain on family relationships and resources. However, the impact can vary widely depending on other factors such as income level and family dynamics."
+    ],
+    [
+      "lived with both biological parents at age 12",
+      "low",
+      "Growing up with both biological parents is generally protective against criminal behavior due to stable familial support systems."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 10 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

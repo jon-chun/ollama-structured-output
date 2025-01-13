@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 567,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-13T00:16:12.873191997Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.570070238,
+    "load_duration": 0.017552512,
+    "prompt_eval_count": 255,
+    "prompt_eval_duration": 0.025,
+    "eval_count": 209,
+    "eval_duration": 4.524
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender: Male\", \"low\", \"being male does not inherently increase recidivism risk\"),\n    (\"Marital Status: Married, Spouse Present\", \"medium\", \"marriage can reduce recidivism risk due to social stability, but the impact varies\"),\n    (\"Employment History: 2 jobs held\", \"low\" , \"having a job or multiple jobs can decrease recidivism risk, but the number of jobs is not a strong predictor\"),\n    (\"Household Size: 3\", \"medium\", \"larger households may offer more social support, potentially reducing recidivism risk\"),\n    (\"Mother Living Arrangement at Age 12: Biological Mother Present\", \"low\" , \"living with one's mother at age 12 does not significantly impact adult recidivism risk\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_191612_875001",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 567,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

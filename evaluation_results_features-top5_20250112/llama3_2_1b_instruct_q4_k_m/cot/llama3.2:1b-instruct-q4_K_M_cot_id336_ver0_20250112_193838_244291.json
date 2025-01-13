@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 336,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:38:38.243323507Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.429876463,
+    "load_duration": 0.0266017,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 148,
+    "eval_duration": 0.398
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Marital status unknown at age 12 (high)\", \"low\", \"not knowing the marital status of biological mother, which could indicate instability but does not necessarily predict recidivism.\", \"uncertain\"],\n    [\"Lived with biological mother (high)\", \"medium\", \"Living with a family member can provide a sense of security and stability, which may reduce the likelihood of recidivism.\", \"moderate\"],\n    [\"2 jobs (high)\", \"low\", \"Having multiple jobs may indicate financial instability or stress, but it is not necessarily a direct predictor of recidivism.\", \"uncertain\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193838_244291",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 336,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Marital status unknown at age 12 (high)",
+      "low",
+      "not knowing the marital status of biological mother, which could indicate instability but does not necessarily predict recidivism.",
+      "uncertain"
+    ],
+    [
+      "Lived with biological mother (high)",
+      "medium",
+      "Living with a family member can provide a sense of security and stability, which may reduce the likelihood of recidivism.",
+      "moderate"
+    ],
+    [
+      "2 jobs (high)",
+      "low",
+      "Having multiple jobs may indicate financial instability or stress, but it is not necessarily a direct predictor of recidivism.",
+      "uncertain"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

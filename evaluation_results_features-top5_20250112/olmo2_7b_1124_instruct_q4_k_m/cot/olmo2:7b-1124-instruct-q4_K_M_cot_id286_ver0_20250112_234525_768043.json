@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 286,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-13T04:45:25.76673237Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.386499175,
+    "load_duration": 0.025096656,
+    "prompt_eval_count": 228,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 280,
+    "eval_duration": 2.346
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"single_male\", \"high\", \"Males who are single tend to have higher recidivism rates due to potential social support deficits and lack of family structure, which can contribute to a higher propensity for criminal behavior.\"),\n    (\"no_cohabitation_or_marriage\", \"medium\", \"Lack of stable living arrangements may indicate less structured daily routines or less social integration, which can influence the likelihood of reoffending.\"),\n    (\"number_of_jobs\", \"low\", \"Holding multiple jobs might suggest instability or difficulty in maintaining employment, which could be associated with a higher risk of recidivism due to financial stress or lack of steady employment opportunities.\"),\n    (\"household_size_3\", \"medium\", \"A larger household size may imply less individual attention and potentially more strain on resources, potentially increasing the risk of criminal behavior as a coping mechanism.\"),\n    (\"biological_parent_status_unknown\", \"low\", \"The absence of clear parental figures may correlate with an increased likelihood of delinquent behaviors if other supportive structures are lacking\"),\n    (\"not_in_group_quarters_at_12\", \"medium\", \"Growing up in group quarters such as institutions or foster care can sometimes lead to higher risks due to the lack of stable family influences and potential exposure to peers with criminal tendencies.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234525_768043",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 286,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

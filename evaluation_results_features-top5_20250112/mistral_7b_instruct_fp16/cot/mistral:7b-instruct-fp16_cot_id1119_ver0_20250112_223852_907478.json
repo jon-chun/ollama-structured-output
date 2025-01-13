@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1119,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-13T03:38:52.905674111Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.825796171,
+    "load_duration": 0.018720496,
+    "prompt_eval_count": 234,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 205,
+    "eval_duration": 3.789
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"gender\",\n      \"value\": \"male\",\n      \"weight\": \"low\"\n    },\n    {\n      \"factor2\": \"marital status\",\n      \"value\": \"never married\",\n      \"weight\": \"high\"\n    },\n    {\n      \"factor3\": \"cohabiting\",\n      \"value\": \"not cohabiting\",\n      \"weight\": \"medium\"\n    },\n    {\n      \"factor4\": \"employment status\",\n      \"value\": \"unemployed\",\n      \"weight\": \"high\"\n    },\n    {\n      \"factor5\": \"household size\",\n      \"value\": \"4\",\n      \"weight\": \"medium\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_223852_907478",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1119,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "gender",
+      "value": "male",
+      "weight": "low"
+    },
+    {
+      "factor2": "marital status",
+      "value": "never married",
+      "weight": "high"
+    },
+    {
+      "factor3": "cohabiting",
+      "value": "not cohabiting",
+      "weight": "medium"
+    },
+    {
+      "factor4": "employment status",
+      "value": "unemployed",
+      "weight": "high"
+    },
+    {
+      "factor5": "household size",
+      "value": "4",
+      "weight": "medium"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

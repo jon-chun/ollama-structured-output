@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 886,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:56:43.622515411Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.97815979,
+    "load_duration": 0.04260599,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 433,
+    "eval_duration": 3.925
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age at first offense\", \"low\", \"textual reasoning\"),\n    (\"current employment status\", \"medium\", \"textual reasoning\"),\n    (\"marital status\", \"high\", \"textual reasoning\"),\n    (\"cohabitation status\", \"low\", \"textual reasoning\"),\n    (\"household size\", \"high\", \"textual reasoning\"),\n    (\"parental presence at age 12\", \"medium\", \"textual reasoning\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}\n``` \n\n\n**Explanation:**\n\n* **Age at first offense is low**: This is a less relevant factor for predicting recidivism as someone has likely been given the opportunity to learn from their mistakes and develop stronger coping mechanisms over time.\n* **Current employment status is medium**:  It's a decent indicator but doesn't necessarily guarantee stability or potential for future crime. \n* **Marital Status is high**: A lack of marital ties, particularly in relation to family structure can lead to instability, which can contribute to criminal activity.  This factor should be treated as high risk, however, it needs to be seen alongside other factors like employment status.\n* **Cohabitation status is low**: This suggests the individual may have a stronger support system and may not be isolated from potential criminal influences. \n* **Household size is high**: A large household size might suggest a limited personal space and difficulty maintaining self-discipline.  This could increase the risk of engaging in risky behavior, especially if they are not fully integrated into their home environment.\n* **Parental presence at age 12** was present but doesn't strongly affect recidivism.\n\n\n**Important Note:** This is a simplified example for demonstration purposes only. Real-world criminal justice risk assessment involves much more complex data and considerations, including detailed background information on the individual, specific crime history, substance abuse, mental health status, etc.  The use of this model alone cannot make accurate predictions about recidivism. \n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175643_624151",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 886,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

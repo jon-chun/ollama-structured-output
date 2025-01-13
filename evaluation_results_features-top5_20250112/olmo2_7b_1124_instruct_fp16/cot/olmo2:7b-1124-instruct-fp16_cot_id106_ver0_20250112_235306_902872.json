@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 106,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:53:06.901551314Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.308648941,
+    "load_duration": 0.01928301,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 177,
+    "eval_duration": 3.273
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"never married\", \"high\", \"Lack of marital status has been associated with increased recidivism, often related to fewer social support networks.\"),\n  (\"no cohabitation\", \"medium\", \"Living alone or without a partner can reduce social and familial controls, contributing to higher risk.\"),\n  (\"held 4 jobs\", \"medium\", \"High job turnover can indicate instability, potential for financial stress, and reduced access to employment-related support networks.\"),\n  (\"household size of 3\", \"low\", \"A larger household may provide more socialization and supervision, potentially reducing risk\"),\n  (\"lived alone at age 12\", \"high\", \"Youth living alone may indicate a lack of stable family environment, which can increase the likelihood of engaging in risky behaviors.\")\n], \"prediction\": \"YES\", \"confidence\": 72}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235306_902872",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 106,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 4 jobs with a household size of 3 and lived with their anything else at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

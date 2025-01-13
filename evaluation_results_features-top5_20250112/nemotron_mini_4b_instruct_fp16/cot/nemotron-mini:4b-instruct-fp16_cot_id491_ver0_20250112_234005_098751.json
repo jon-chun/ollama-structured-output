@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 491,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-13T04:40:05.097538386Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.735159489,
+    "load_duration": 0.04482994,
+    "prompt_eval_count": 236,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 243,
+    "eval_duration": 2.68
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"gender\", \"male\", \"low\", \"Gender is a significant risk factor for rearrest recidivism, as males are more likely to reoffend than females.\"),\n    (\"marital_status\", \"never married/cohabiting\", \"high\", \"Individuals who have never been married or cohabitating often have less social support and may be at higher risk of reoffending due to their unstable living situations.\"),\n    (\"jobs_held\", \"1\", \"medium\", \"Holding multiple jobs can indicate a lack of stability, which is a potential risk factor for rearrest recidivism.\"),\n    (\"household_size\", \"4\", \"low\", \"Living with a larger household size may not necessarily increase the likelihood of reoffending. However, it's worth considering as one of many factors in an assessment.\"),\n    (\"biological_dad_present\", \"yes\", \"low\", \"Having had a biological father at age 12 is generally considered protective against rearrest recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_234005_098751",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 491,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 1 jobs with a household size of 4 and lived with their biological dad, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

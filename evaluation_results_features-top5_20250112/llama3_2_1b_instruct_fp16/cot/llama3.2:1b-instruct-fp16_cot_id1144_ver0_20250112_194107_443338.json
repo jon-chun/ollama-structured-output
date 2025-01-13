@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1144,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:07.442305707Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.752240743,
+    "load_duration": 0.02619081,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 165,
+    "eval_duration": 0.721
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"never married, not cohabiting\", \"weight\": 8, \"textual reasoning\": \"Lack of social support and structure may contribute to increased risk of rearrest.\"},\n    {\"factor2\": \"held 1 job with household size 6\", \"weight\": 3, \"textual reasoning\": \"Limited work experience and living situation may not provide adequate opportunities for personal growth or release.\"},\n    {\"factor3\": \"lived with both biological parents at age 12\", \"weight\": 9, \"textual reasoning\": \"Early family instability may have had a lasting impact on the individual's emotional well-being and ability to cope with stress.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194107_443338",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1144,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "never married, not cohabiting",
+      "weight": 8,
+      "textual reasoning": "Lack of social support and structure may contribute to increased risk of rearrest."
+    },
+    {
+      "factor2": "held 1 job with household size 6",
+      "weight": 3,
+      "textual reasoning": "Limited work experience and living situation may not provide adequate opportunities for personal growth or release."
+    },
+    {
+      "factor3": "lived with both biological parents at age 12",
+      "weight": 9,
+      "textual reasoning": "Early family instability may have had a lasting impact on the individual's emotional well-being and ability to cope with stress."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

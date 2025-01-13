@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 442,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:33.774883627Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.913391142,
+    "load_duration": 0.02636369,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 203,
+    "eval_duration": 0.882
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"never married, not cohabiting\", \"weight\": 5, \"textual reasoning\": \"This factor indicates a lack of stability in the individual's personal life, which could contribute to increased risk of rearrest.\"},\n    {\"factor2\": \"held 5 jobs with household size 6\", \"weight\": 4, \"textual reasoning\": \"Having held multiple jobs and being part of a large household may suggest a high level of adaptability and resilience, potentially reducing the likelihood of rearrest.\"},\n    {\"factor3\": \"lived with biological mother, marital status unknown at age 12\", \"weight\": 2, \"textual reasoning\": \"This factor raises concerns about the individual's relationship stability and potential exposure to domestic violence or other forms of abuse, which could impact their ability to commit crimes or maintain stability in their life.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194133_776233",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 442,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "never married, not cohabiting",
+      "weight": 5,
+      "textual reasoning": "This factor indicates a lack of stability in the individual's personal life, which could contribute to increased risk of rearrest."
+    },
+    {
+      "factor2": "held 5 jobs with household size 6",
+      "weight": 4,
+      "textual reasoning": "Having held multiple jobs and being part of a large household may suggest a high level of adaptability and resilience, potentially reducing the likelihood of rearrest."
+    },
+    {
+      "factor3": "lived with biological mother, marital status unknown at age 12",
+      "weight": 2,
+      "textual reasoning": "This factor raises concerns about the individual's relationship stability and potential exposure to domestic violence or other forms of abuse, which could impact their ability to commit crimes or maintain stability in their life."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 5 jobs with a household size of 6 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

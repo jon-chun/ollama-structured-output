@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 575,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:56:47.395430694Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.769187586,
+    "load_duration": 0.047108894,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 410,
+    "eval_duration": 3.712
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status Unknown at Age 12\", \"high\", \"Individual background factors\"),\n    (\"Never Married\", \"medium\", \"Relationship Status & History\"),\n    (\"Cohabiting\", \"low\", \"Living arrangements\"),\n    (\"Household Size of 5\", \"medium\", \"Social support systems\"),\n    (\"Held 4 Jobs\", \"low\", \"Employment history\"),\n    (\"Biological Mother Living with them\", \"low\", \"Family relationships\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n``` \n\n\n**Explanation of Risk Factor Weights:**\n\n* **Marital Status Unknown at Age 12**: This factor carries a high weight as it indicates potential exposure to unstable environments and social support systems during childhood, which can impact future behavior. \n* **Never Married**:  The lack of marriage suggests limited involvement in the traditional institution of marriage, which can potentially be linked to increased risk of recidivism.\n* **Cohabiting**: This is a low weight factor as it generally reflects a positive social environment and potentially stable relationships. It's not inherently predictive of future criminal activity.\n* **Household Size of 5**: This moderately impacts the prediction, suggesting potential for family ties that might mitigate crime or conversely, a larger family with potential tension which could contribute to risk. \n* **Held 4 Jobs**:  This is a low weight factor as it reflects consistent employment history, not necessarily positive or negative implications on recidivism.\n* **Biological Mother Living with them**: This factor carries a low weight due to the influence of familial relationships and potential stability that may mitigate criminal behavior.\n\n\n**Note:**\n\nIt's crucial to remember that this is a simplified analysis based solely on limited information. A comprehensive risk assessment would require much more detailed data, such as prior convictions, drug use history, mental health status, and socioeconomic factors. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175647_396895",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 575,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 4 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

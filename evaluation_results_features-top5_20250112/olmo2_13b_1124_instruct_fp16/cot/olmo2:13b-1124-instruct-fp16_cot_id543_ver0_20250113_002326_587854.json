@@ -1,0 +1,44 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 40,
+    "id": 543,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:23:26.586767403Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.571384937,
+    "load_duration": 0.019173677,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.022,
+    "eval_count": 161,
+    "eval_duration": 5.527
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\"(age_12_living_with_parents, medium, \\\"Living with both biological parents at age 12 can offer stability but does not directly correlate with adult risk.\\\")\", \"(gender_male, medium, \\\"Male gender is associated with higher recidivism rates due to various socio-cultural factors.\\\")\", \"(marital_status_never_married, low, \\\"Never married status itself is a lower risk factor when isolated from other indicators.\\\")\", \"(employment_jobs_held, low, \\\"Having held multiple jobs may indicate some stability and employment history, reducing immediate risk.\\\")\", \"(household_size_4, medium, \\\"Larger household size can introduce stress and challenges that might increase risk if not managed well.\\\")\"], \"prediction\": \"NO\", \"confidence\": 40}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_002326_587854",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 543,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    "(age_12_living_with_parents, medium, \"Living with both biological parents at age 12 can offer stability but does not directly correlate with adult risk.\")",
+    "(gender_male, medium, \"Male gender is associated with higher recidivism rates due to various socio-cultural factors.\")",
+    "(marital_status_never_married, low, \"Never married status itself is a lower risk factor when isolated from other indicators.\")",
+    "(employment_jobs_held, low, \"Having held multiple jobs may indicate some stability and employment history, reducing immediate risk.\")",
+    "(household_size_4, medium, \"Larger household size can introduce stress and challenges that might increase risk if not managed well.\")"
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 40,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:36.236252688Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.296835201,
+    "load_duration": 0.0265008,
+    "prompt_eval_count": 235,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 288,
+    "eval_duration": 1.265
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"separated\", \"weight\": \"low\", \"description\": \"Separation may indicate a lack of social support and potentially higher stress levels, contributing to increased risk of rearrest.\"},\n    {\"factor\": \"unemployed\", \"weight\": \"medium\", \"description\": \"Unemployment can lead to financial instability, reduced access to resources, and decreased motivation, all of which can increase the likelihood of recidivism.\"},\n    {\"factor\": \"household size 4\", \"weight\": \"low\", \"description\": \"A larger household may indicate higher levels of family support and potentially more effective social networks, both of which can help mitigate rearrest risk.\"},\n    {\"factor\": \"lived with other adults (biological parent unknown)\", \"weight\": \"medium\", \"description\": \"This factor is complex, as a biological parent absence might be due to various reasons such as divorce or abandonment. However, the presence of other adults may still provide stability and social support, influencing rearrest risk.\"},\n    {\"factor\": \"not group quarters at age 12\", \"weight\": \"high\", \"description\": \"Living in a non-group quarters environment at a young age can be indicative of a more stable and potentially lower-risk living situation, which might reduce rearrest recidivism likelihood.\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194136_237504",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 40,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "separated",
+      "weight": "low",
+      "description": "Separation may indicate a lack of social support and potentially higher stress levels, contributing to increased risk of rearrest."
+    },
+    {
+      "factor": "unemployed",
+      "weight": "medium",
+      "description": "Unemployment can lead to financial instability, reduced access to resources, and decreased motivation, all of which can increase the likelihood of recidivism."
+    },
+    {
+      "factor": "household size 4",
+      "weight": "low",
+      "description": "A larger household may indicate higher levels of family support and potentially more effective social networks, both of which can help mitigate rearrest risk."
+    },
+    {
+      "factor": "lived with other adults (biological parent unknown)",
+      "weight": "medium",
+      "description": "This factor is complex, as a biological parent absence might be due to various reasons such as divorce or abandonment. However, the presence of other adults may still provide stability and social support, influencing rearrest risk."
+    },
+    {
+      "factor": "not group quarters at age 12",
+      "weight": "high",
+      "description": "Living in a non-group quarters environment at a young age can be indicative of a more stable and potentially lower-risk living situation, which might reduce rearrest recidivism likelihood."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is separated, not cohabiting and is currently unemployed with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

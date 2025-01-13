@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 240,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:53:26.045515604Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.088979441,
+    "load_duration": 0.020319769,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 269,
+    "eval_duration": 5.05
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"gender_male\", \"high\", \"Males are generally more likely to be re-arrested than females, especially in cases where there is no stable marriage or cohabitation.\"),\n    (\"never_married\", \"medium\", \"Never being married can indicate potential issues with forming stable relationships and commitments, which may correlate with higher risk of reoffending.\"),\n    (\"cohabitating_without_marriage\", \"medium\", \"Living together without being married can suggest instability in living arrangements, which might increase the risk of criminal behavior due to stressors such as financial or interpersonal issues.\"),\n    (\"jobs_held\", \"low\", \"Having held only one job suggests potential difficulties in employment stability, which could correlate with a higher likelihood of reoffending due to economic stress or lack of legal income.\"),\n    (\"household_size_4\", \"medium\", \"A larger household can increase stress and competition for resources, potentially leading to increased criminal activity as a means of survival or to assert dominance.\"),\n    (\"lived_with_biological_mother\", \"low\", \"Living with a biological parent may indicate a stable home environment during formative years, which could reduce the risk of future criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235326_047077",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 240,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 1 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1252,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-13T00:23:37.544353872Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.555774666,
+    "load_duration": 0.010653136,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 255,
+    "eval_duration": 5.518
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Male gender\", \"medium\", \"Historically, males tend to have higher rearrest rates than females.\"),\n    (\"Never married, not cohabiting\", \"high\", \"Unmarried individuals and those not living with a partner often lack social stabilizing factors that can reduce criminal behavior.\"),\n    (\"2 jobs held\", \"low\", \"Having multiple jobs might indicate employment instability or underemployment, but it's not typically associated with high recidivism risk.\"),\n    (\"Household size of 4\", \"low\", \"Larger households may provide more social support and supervision, which can reduce criminal behavior.\"),\n    (\"Biological mother present at age 12\", \"medium\", \"A stable parental relationship during adolescence is generally protective against criminal involvement, but the impact of a biological mother specifically is not definitively known.\"),\n    (\"Other parent present at age 12\", \"low\", \"The presence of both parents can provide additional social and economic resources, potentially reducing recidivism risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_192337_545468",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1252,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

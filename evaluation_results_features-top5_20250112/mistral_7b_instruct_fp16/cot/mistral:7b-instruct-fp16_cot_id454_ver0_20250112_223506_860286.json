@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 454,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-13T03:35:06.859155691Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.543204565,
+    "load_duration": 0.013583613,
+    "prompt_eval_count": 255,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 244,
+    "eval_duration": 4.512
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Younger individuals have a higher risk of recidivism.\"),\n    (\"gender\", \"low\", \"Gender is not a strong predictor of recidivism.\"),\n    (\"marital status\", \"medium\", \"Married or cohabiting individuals may have lower rates of recidivism due to increased social support and stability.\"),\n    (\"employment history\", \"low\", \"Holding only one job does not necessarily indicate a higher risk of recidivism.\"),\n    (\"household size\", \"medium\", \"Living with others can provide social support, but it also increases the likelihood of exposure to criminal activity.\"),\n    (\"biological parent status\", \"unknown\", \"Unknown biological relationships do not significantly affect recidivism rates.\"),\n    (\"group quarters at age 12\", \"low\", \"Residing in group quarters at a young age does not indicate a higher risk of recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_223506_860286",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 454,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

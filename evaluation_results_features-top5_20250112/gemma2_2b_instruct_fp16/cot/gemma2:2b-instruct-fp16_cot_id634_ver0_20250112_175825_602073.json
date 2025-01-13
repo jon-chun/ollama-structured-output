@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 634,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:58:25.600511741Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.54890491,
+    "load_duration": 0.042612127,
+    "prompt_eval_count": 241,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 165,
+    "eval_duration": 1.497
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status\", \"medium\", \"spouse present is a factor that can mitigate recidivism\"),\n    (\"Household Size\", \"low\", \"2 adults is a lower risk as compared to larger families or group living\"),\n    (\"Employment History\", \"low\", \"holding 2 jobs suggests stability and may reduce likelihood of future criminality\"),\n    (\"Biological Parent Status\", \"unknown\", \"not knowing the status can't be used for assessment, need more context\"),\n    (\"Group Quarters At Age 12\", \"medium\", \"group quarters at age 12 is a potential risk factor but not conclusive\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175825_602073",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 634,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 2 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

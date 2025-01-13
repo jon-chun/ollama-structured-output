@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 660,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:56.208104191Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.09085431,
+    "load_duration": 0.029381777,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 242,
+    "eval_duration": 1.057
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married\", \"weight\": \"low\", \"textual_reasoning\": \"Lack of social connections and emotional support may increase the likelihood of recidivism.\"},\n    {\"factor\": \"not cohabiting\", \"weight\": \"medium\", \"textual_reasoning\": \"Uncertainty in living situation may contribute to instability in life, potentially leading to recidivism.\"},\n    {\"factor\": \"held 1 job with household size 4\", \"weight\": \"high\", \"textual_reasoning\": \"Stability and routine at work may help prevent relapse into crime.\"},\n    {\"factor\": \"lived with biological mother\", \"weight\": \"low\", \"textual_reasoning\": \"History of instability in home life may have contributed to the individual's current situation, potentially increasing recidivism.\"},\n    {\"factor\": \"marital status unknown at age 12\", \"weight\": \"medium\", \"textual_reasoning\": \"Lack of clear role models or social support in early life may have set the stage for future problems.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194056_209239",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 660,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married",
+      "weight": "low",
+      "textual_reasoning": "Lack of social connections and emotional support may increase the likelihood of recidivism."
+    },
+    {
+      "factor": "not cohabiting",
+      "weight": "medium",
+      "textual_reasoning": "Uncertainty in living situation may contribute to instability in life, potentially leading to recidivism."
+    },
+    {
+      "factor": "held 1 job with household size 4",
+      "weight": "high",
+      "textual_reasoning": "Stability and routine at work may help prevent relapse into crime."
+    },
+    {
+      "factor": "lived with biological mother",
+      "weight": "low",
+      "textual_reasoning": "History of instability in home life may have contributed to the individual's current situation, potentially increasing recidivism."
+    },
+    {
+      "factor": "marital status unknown at age 12",
+      "weight": "medium",
+      "textual_reasoning": "Lack of clear role models or social support in early life may have set the stage for future problems."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

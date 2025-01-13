@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 852,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:59:31.709641479Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.258874439,
+    "load_duration": 0.018960014,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 227,
+    "eval_duration": 4.222
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Female gender has been associated with lower recidivism rates, but lack of marriage and stable living situations increase risk.\"),\n    (\"never_married\", \"high\", \"Single status can be a risk factor for reoffending, especially without cohabiting which might provide some social control.\"),\n    (\"no_cohabitation\", \"medium\", \"Living alone or without a partner can reduce social support, which is a known predictor of higher recidivism.\"),\n    (\"held_3_jobs\", \"low\", \"Multiple job changes may indicate instability, which is often linked to higher recidivism.\"),\n    (\"household_size_3\", \"medium\", \"A larger household might provide some social control and familial supervision, but without cohabitation this benefit is diminished.\"),\n    (\"lived_with_biological_mother\", \"low\", \"Living with a biological parent can provide a stable family environment, but the absence of another parent figure at age 12 might suggest less structured upbringing.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65}\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235931_710930",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 852,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 3 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

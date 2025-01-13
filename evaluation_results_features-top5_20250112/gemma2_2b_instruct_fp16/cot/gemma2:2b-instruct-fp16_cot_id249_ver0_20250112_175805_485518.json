@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 249,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:58:05.483957942Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.287025883,
+    "load_duration": 0.050071051,
+    "prompt_eval_count": 236,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 353,
+    "eval_duration": 3.226
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital status\", \"medium\"),\n    (\"Cohabitation status\", \"low\"),\n    (\"Household size\", \"low\"),\n    (\"Number of jobs held\", \"low\"),\n    (\"Family structure at age 12\", \"low\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n\n**Explanation:**\n\n* **Marital Status:**  Being single is generally associated with higher recidivism rates. However, this factor alone doesn't have a high predictive power for the complex dynamics of reoffending.  Therefore, a \"medium\" weight.\n* **Cohabitation Status:** This factor isn't strongly linked to recidivism, so it's assigned a low weight. \n* **Household Size:** Being in a larger household may suggest greater support networks but doesn't directly predict future criminal behavior. It's therefore given a low weight.\n* **Number of Jobs Held:** A person with more jobs might be perceived as having a stable career path and potentially less prone to reoffending, leading to a lower weight for this factor. \n* **Family Structure at Age 12:** Having positive family influences in childhood, especially strong parental figures, can act as a deterrent for future criminal activity.  This is given a low weight because it's an aspect of individual early development and doesn't strongly correlate to later crime.\n\n\n**Please Note:** This is a simplified analysis based on limited information. A comprehensive risk assessment requires a much more detailed examination of the individual's history, behavioral patterns, and current circumstances for accurate prediction. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175805_485518",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 249,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

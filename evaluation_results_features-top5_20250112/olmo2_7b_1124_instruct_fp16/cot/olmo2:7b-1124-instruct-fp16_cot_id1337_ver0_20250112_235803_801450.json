@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1337,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:58:03.800080075Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.453145626,
+    "load_duration": 0.018830646,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 238,
+    "eval_duration": 4.416
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_female\", \"high\", \"Studies show that female offenders have a lower recidivism rate compared to male offenders, but the absence of a partner and family structure could potentially increase social isolation and reduce support networks, which are associated with higher risk.\"),\n    (\"marital_status_never_married\", \"medium\", \"Individuals who have never been married may lack the stable social bonds that marriage often provides, which can be protective against reoffending. However, this factor alone does not necessarily indicate a high risk.\"),\n    (\"living arrangments_not_cohabiting\", \"low\", \"Living arrangements do not typically influence recidivism rates unless they lead to unstable environments or a lack of supervision. In this case, a household size of 4 suggests there may be familial structure which is generally protective.\"),\n    (\"employment_history_1_job\", \"medium\", \"Limited job stability can be a risk factor for recidivism if it leads to financial strain and boredom. However, having held at least one job suggests the individual has had some employment stability.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235803_801450",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1337,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 4.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

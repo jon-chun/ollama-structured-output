@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 34,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:59:25.506978677Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.933842362,
+    "load_duration": 0.040927619,
+    "prompt_eval_count": 224,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 425,
+    "eval_duration": 3.883
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Employment Status\", \"medium\", \"Job stability can be a factor in recidivism, and holding one job might indicate some level of resourcefulness. A higher likelihood of having multiple jobs could potentially suggest instability which may increase the risk.\"),\n    (\"Marital Status\", \"low\", \"Being unmarried is not inherently linked to recidivism, but it doesn't offer much mitigating social support which can be a factor in re-offending.\"),\n    (\"Living Situation\", \"medium\", \"A single person with no spouse or cohabitant might have less stable relationships and support systems. This could potentially impact their ability to stay on a positive trajectory.\"), \n    (\"Household Size\", \"low\", \"Living with a larger family size is typically linked to greater social network, providing more potential for support which could mitigate recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n``` \n\n**Explanation:** \n\nThe analysis considers:\n\n* **Employment Status:** The individual has a job, suggesting some level of stability and income. While this isn't a guarantee against recidivism, it's a mitigating factor, hence \"medium\".\n* **Marital Status:** Being unmarried is not inherently linked to higher recidivism risk. \n* **Living Situation:**  A single person might lack the same support system as married individuals or those living with family, but this alone doesn't automatically make them more likely to re-offend.  The individual\u2019s household size suggests potential support networks which is a mitigating factor.\n\n**Confidence Level:** 70% - The prediction is based on these factors, and it leans towards \"NO\". However, the assessment acknowledges that other factors may influence recidivism risk and cannot be fully determined from this limited information.  \n\n\nIt's important to emphasize that this is just a preliminary assessment. A comprehensive risk assessment would involve a more complex analysis of additional risk factors and individual circumstances. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175925_508427",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 34,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

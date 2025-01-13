@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 386,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-13T00:17:02.744761826Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.427807425,
+    "load_duration": 0.013468629,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.026,
+    "eval_count": 249,
+    "eval_duration": 5.384
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender: Male\", \"low\", \"Male individuals generally have a higher risk of rearrest compared to females, but this factor alone has limited predictive power.\"),\n    (\"Marital Status: Never Married\", \"medium\", \"Never married males may indicate less commitment and stability, potentially increasing the risk of recidivism.\"),\n    (\"Cohabitation Status: Cohabiting\", \"low\", \"Living with a partner does not significantly impact the risk of rearrest for males.\"),\n    (\"Employment History: 4 jobs held\", \"high\", \"Frequent job changes may indicate instability and potential involvement in criminal activities. This is a significant risk factor.\"),\n    (\"Household Size: 4 people\", \"low\", \"Larger household sizes do not significantly impact recidivism rates.\"),\n    (\"Mother's Marital Status at Age 12: Unknown\", \"medium\", \"A lack of parental stability during formative years may contribute to increased risk, but this factor has limited predictive power on its own.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_191702_746000",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 386,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 4 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

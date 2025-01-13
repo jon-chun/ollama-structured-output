@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 350,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:59:29.209010128Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.500860244,
+    "load_duration": 0.040182,
+    "prompt_eval_count": 235,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 162,
+    "eval_duration": 1.451
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age at time of offense\", \"medium\", \"age could be a factor\"),\n    (\"marital status\", \"low\", \"single is not a high risk factor\"),\n    (\"employment history\", \"low\", \"having one job may not indicate future employment difficulties\"),\n    (\"household size\", \"medium\", \"large household size could indicate more support needs, but also potential for social connection\"),\n    (\"cohabitation status\", \"low\", \"living with someone doesn't inherently indicate criminal behavior\"),\n    (\"parental relationships\", \"low\", \"early parental experiences may have limited impact on future actions\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175929_210354",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 350,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

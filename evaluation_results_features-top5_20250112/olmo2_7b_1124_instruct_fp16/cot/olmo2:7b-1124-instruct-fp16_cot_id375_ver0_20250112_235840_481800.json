@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 375,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:58:40.480206635Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.940102785,
+    "load_duration": 0.018787075,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 263,
+    "eval_duration": 4.901
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"gender\", \"medium\", \"Males, particularly those who have not been married, often show higher rates of rearrest due to potential challenges in forming stable relationships and maintaining employment.\"),\n    (\"marital status\", \"low\", \"The individual's unknown marital status at age 12 may indicate potential difficulties in forming long-term relationships, which could be a risk factor for future issues.\"),\n    (\"cohabitating\", \"medium\", \"Living together but not married can sometimes indicate less commitment to long-term stability, potentially increasing the risk of criminal behavior through relationship instability.\"),\n    (\"jobs held\", \"low\", \"Having held multiple jobs might suggest adaptability but could also indicate instability if these changes were frequent or unplanned.\"),\n    (\"household size\", \"medium\", \"A household of 2 suggests fewer social ties which may increase the likelihood of engaging in criminal activity as there are fewer supervisory influences at home.\"),\n    (\"living with biological mother\", \"medium\", \"Stable living arrangements are generally protective against crime. Living with one's biological mother, especially if the marital status is unknown and there is no indication of a supportive family unit, could be less stabilizing than other living situations.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235840_481800",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 375,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 3 jobs with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

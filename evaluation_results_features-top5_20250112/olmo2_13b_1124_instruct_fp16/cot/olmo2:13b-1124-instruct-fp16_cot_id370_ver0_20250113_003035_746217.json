@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 370,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:30:35.744936607Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.627677357,
+    "load_duration": 0.018990568,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 134,
+    "eval_duration": 4.586
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"gender\", \"medium\", \"Males generally have a higher recidivism rate\"], [\"marital_status\", \"low\", \"Never married may suggest less social stability but not directly indicative of criminal behavior\"], [\"employment_history\", \"low\", \"Having held 2 jobs can indicate some level of stability and responsibility\"], [\"household_size\", \"low\", \"A household size of 4 is relatively common and does not inherently suggest higher risk\"], [\"parental_upbringing\", \"low\", \"Living with both biological parents at age 12 suggests a potentially more stable upbringing\"]], \"prediction\": \"NO\", \"confidence\": 60}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_003035_746217",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 370,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "gender",
+      "medium",
+      "Males generally have a higher recidivism rate"
+    ],
+    [
+      "marital_status",
+      "low",
+      "Never married may suggest less social stability but not directly indicative of criminal behavior"
+    ],
+    [
+      "employment_history",
+      "low",
+      "Having held 2 jobs can indicate some level of stability and responsibility"
+    ],
+    [
+      "household_size",
+      "low",
+      "A household size of 4 is relatively common and does not inherently suggest higher risk"
+    ],
+    [
+      "parental_upbringing",
+      "low",
+      "Living with both biological parents at age 12 suggests a potentially more stable upbringing"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1407,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-13T05:13:17.335362005Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.261080433,
+    "load_duration": 0.019246664,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.031,
+    "eval_count": 162,
+    "eval_duration": 2.208
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\"(age_12_marital_status, medium, 'Unknown marital status at age 12 can be indicative of instability or lack of structured family environment which may contribute to higher risk')\", \"(household_size, high, 'Large household size can lead to complex familial dynamics and resource challenges, potentially increasing risk')\", \"(employment_stability, medium, 'Having held only one job could suggest limited employment experience or stability, indicating potential medium risk')\", \"(gender, low, 'Being female is generally associated with lower recidivism rates based on historical data')\", \"(marital_status_adult, unknown, 'Lack of current marital status information might suggest potential social instability which could be a medium risk factor')\"], \"prediction\": \"YES\", \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_001317_336554",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1407,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    "(age_12_marital_status, medium, 'Unknown marital status at age 12 can be indicative of instability or lack of structured family environment which may contribute to higher risk')",
+    "(household_size, high, 'Large household size can lead to complex familial dynamics and resource challenges, potentially increasing risk')",
+    "(employment_stability, medium, 'Having held only one job could suggest limited employment experience or stability, indicating potential medium risk')",
+    "(gender, low, 'Being female is generally associated with lower recidivism rates based on historical data')",
+    "(marital_status_adult, unknown, 'Lack of current marital status information might suggest potential social instability which could be a medium risk factor')"
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 10 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

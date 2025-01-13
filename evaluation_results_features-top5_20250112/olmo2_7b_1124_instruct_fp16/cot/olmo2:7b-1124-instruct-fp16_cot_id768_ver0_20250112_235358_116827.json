@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 768,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:53:58.115758691Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.552172337,
+    "load_duration": 0.017722429,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 297,
+    "eval_duration": 5.518
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Female individuals may face unique challenges in the criminal justice system, but demographic factors alone do not necessarily indicate a high risk for rearrest. The gender-specific socialization and opportunities can influence behaviors differently, yet this factor alone doesn't strongly suggest a high recidivism rate.\"),\n    (\"never_married\", \"medium\", \"Individuals who have never married might face social isolation or lack of supportive networks, which could potentially increase the risk of reoffending. However, marital status is just one element of a complex picture.\"),\n    (\"not_cohabiting\", \"low\", \"Living arrangements are influenced by numerous factors and don't directly correlate with a higher likelihood of reoffending. This factor, without additional context, carries a low weight.\"),\n    (\"held_3_jobs\", \"low\", \"Job turnover can suggest instability or difficulty in finding and maintaining employment, which may indirectly impact personal life. However, holding multiple jobs does not inherently elevate the risk for rearrest over a short term period like three years.\"),\n    (\"household_size_6\", \"medium\", \"A larger household size might imply more complex social dynamics and potentially less individual attention or resources within the home environment. This could indirectly influence behavior, but it doesn't directly translate to a high risk of reoffending without other contextual information.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235358_116827",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 768,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 6.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

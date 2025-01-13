@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 727,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:58:22.425332676Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.61634891,
+    "load_duration": 0.042983817,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 392,
+    "eval_duration": 3.562
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status Unknown at Age 12\", \"medium\"),\n    (\"Household Size\", \"medium\"),\n    (\"Never Married\", \"high\"),\n    (\"Number of Jobs\", \"low\"),\n    (\"Cohabitation Status\", \"unknown\") \n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n\n**Explanation:**\n\n* **Marital Status Unknown at Age 12**: This factor is considered significant as a lack of consistent social structure and support during formative years can increase risk.  The unknown marital status adds an element of uncertainty, pushing it to \"medium.\"\n* **Household Size**: A large household size (5) could potentially indicate higher stress levels or familial instability, which may contribute to recidivism risks. This factor is assigned a \"medium\" weight. \n* **Never Married:** Individuals who haven't formed stable, long-term relationships are statistically associated with a higher likelihood of recidivism.  This factor is assigned a \"high\" weight.\n* **Number of Jobs**: A person having two jobs suggests stability and routine, which typically mitigate recidivism risk. This factor is assigned a \"low\" weight. \n* **Cohabitation Status**: The lack of cohabitation data makes it difficult to assess, so this remains unknown (\"unknown\").\n\n\n**Important Considerations:**\n\n* It's crucial to acknowledge that these are relative weights based on general trends. Every case is unique and context-dependent. \n* A \"low\" weight doesn't mean a person is automatically safe, but rather suggests a lower likelihood of recidivism compared to other factors.\n* The provided data alone does not capture the full complexity of individual risk profiles.  This analysis serves as a preliminary evaluation within the broader context of a complete assessment system.\n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175822_426612",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 727,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

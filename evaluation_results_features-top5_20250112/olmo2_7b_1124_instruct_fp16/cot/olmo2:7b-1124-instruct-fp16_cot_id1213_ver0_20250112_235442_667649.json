@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1213,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:54:42.666489539Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.581130593,
+    "load_duration": 0.025714204,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 297,
+    "eval_duration": 5.537
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"gender_female\", \"high\", \"Studies have shown that female offenders generally have a lower recidivism rate compared to males, but the absence of a supportive family structure could elevate risk\"),\n  (\"never_married\", \"medium\", \"Individuals who have never been married may lack the social support networks that can mitigate risk. The absence of a stable relationship could be a risk factor, especially when combined with other factors\"),\n  (\"not_cohabiting\", \"medium\", \"Similar to marital status, living arrangement can indicate the presence or absence of supportive relationships. Living alone or without a partner increases the likelihood of social isolation and reduced accountability\"),\n  (\"held_1_job\", \"low\", \"Employment is generally associated with reduced recidivism as it provides structure and income. Holding one job suggests some level of employment stability, which may mitigate risk to some degree\"),\n  (\"household_size_5\", \"medium\", \"A larger household might provide some level of supervision and social control, but the absence of a father figure or other stable adult male figures could be a risk factor\"),\n  (\"lived_with_biological_mother\", \"low\", \"Living with one's biological mother typically implies a stable and supportive familial environment, which generally reduces recidivism risk. However, the marital status at age 12 being unknown suggests possible instability or lack of paternal involvement.\")\n], \"prediction\": \"YES\", \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235442_667649",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1213,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

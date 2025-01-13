@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 849,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:51.171663137Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.907693097,
+    "load_duration": 0.026174031,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.002,
+    "eval_count": 200,
+    "eval_duration": 0.877
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married\", \"weight\": \"low\", \"textual_reasoning\": \"This is a significant risk factor, as not being married may indicate a lack of stability and commitment to one's life.\"},\n    {\"factor\": \"not cohabiting\", \"weight\": \"high\", \"textual_reasoning\": \"Not living with a partner at age 12 may indicate difficulties in forming stable relationships or managing household responsibilities.\"},\n    {\"factor\": \"held 2 jobs\", \"weight\": \"low\", \"textual_reasoning\": \"Having held two jobs may suggest financial instability, but it does not necessarily imply poor behavior.\"},\n    {\"factor\": \"household size of 3\", \"weight\": \"medium\", \"textual_reasoning\": \"A household size of 3 may indicate a small family with limited resources and support systems.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194051_172751",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 849,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married",
+      "weight": "low",
+      "textual_reasoning": "This is a significant risk factor, as not being married may indicate a lack of stability and commitment to one's life."
+    },
+    {
+      "factor": "not cohabiting",
+      "weight": "high",
+      "textual_reasoning": "Not living with a partner at age 12 may indicate difficulties in forming stable relationships or managing household responsibilities."
+    },
+    {
+      "factor": "held 2 jobs",
+      "weight": "low",
+      "textual_reasoning": "Having held two jobs may suggest financial instability, but it does not necessarily imply poor behavior."
+    },
+    {
+      "factor": "household size of 3",
+      "weight": "medium",
+      "textual_reasoning": "A household size of 3 may indicate a small family with limited resources and support systems."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

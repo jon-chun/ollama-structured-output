@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 574,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:56:31.561226287Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.580064497,
+    "load_duration": 0.04119497,
+    "prompt_eval_count": 237,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 389,
+    "eval_duration": 3.529
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital status unknown at age 12\", \"medium\", \"contextual reasoning\"),\n    (\"Current unemployment\", \"high\", \"economic factors\"),\n    (\"Never married\", \"high\", \"relationship status and social support\"),\n    (\"Household size of 2\", \"low\", \"social context\"),\n    (\"Lived with biological mother\", \"low\", \"family structure\") \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n``` \n\n\n**Explanation:**\n\n* **Marital status unknown at age 12:** This factor carries a medium weight. The lack of information about her marital status at such a young age suggests possible instability in family relationships, but it's not conclusive for predicting future recidivism.  \n* **Current unemployment:**  This is a high-weight risk factor as it often correlates with financial instability and increased likelihood of engaging in criminal activity to meet basic needs. \n* **Never married:** This is a strong indicator of social isolation and limited support structures, leading to higher risk for recidivism.\n* **Household size of 2:** Low weight as this factor doesn't directly influence criminality. It might indicate a greater need for resources, which could potentially increase the risk if not addressed appropriately.\n* **Lived with biological mother:** A low weight. While family structure is important, having lived with her biological mother may offer stability and support systems that mitigate recidivism risk.\n\n\n**Important Considerations**: This assessment is based on a limited set of factors and does not account for complex individual circumstances or other potential influences (e.g., mental health, substance abuse).  Additionally, using this information for legal decisions should be done with caution, as it's crucial to consider all relevant factors and avoid biased profiling. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175631_562733",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 574,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and is currently unemployed with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

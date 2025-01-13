@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 89,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:57:50.928069279Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.990852334,
+    "load_duration": 0.0507505,
+    "prompt_eval_count": 236,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 432,
+    "eval_duration": 3.931
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"marital status\", \"medium\", \"The lack of marriage is a potential indicator of instability but not necessarily a predictor of recidivism.\"),\n    (\"cohabitation\", \"low\", \"Cohabitation suggests support systems and potentially less risk for re-offending\"),\n    (\"employment history\", \"high\", \"Joblessness could indicate difficulties in sustaining stable life, potentially increasing the risk of reoffending.\"),\n    (\"household size\", \"medium\", \"Larger households can offer greater social support but may also lead to increased exposure to risk factors.\"),\n    (\"age at parental separation\", \"low\", \"This is a factor that likely has less impact on adult crime patterns\"),\n    (\"criminal history\", \"high\", \"A criminal history, especially for violent or serious offenses, is a strong indicator of future recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}\n``` \n\n**Explanation:**\n\nThis analysis combines information from the provided data points to estimate the risk level. \n\n* **Marital status (medium):** While single individuals may face social and economic challenges, a lack of marriage itself doesn't automatically correlate with higher risk.\n* **Cohabitation (low):** The presence or absence of cohabitation is unlikely to be a major factor in predicting recidivism.  \n* **Employment history (high):** Joblessness can indicate difficulty sustaining stable life and increase the likelihood of re-offending. \n* **Household size (medium):** Larger households often offer greater social support, but they may also lead to increased exposure to risk factors.\n* **Age at parental separation (low):** This factor is likely less impactful on adult crime patterns. \n* **Criminal history (high):** A criminal history, especially for violent or serious offenses, is a strong indicator of future recidivism.\n\n\nThe prediction outcome (\"YES\") reflects the presence of factors that increase the risk of rearrest and the confidence level indicates the assessment's reliability.  \n\n\n\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175750_929226",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 89,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

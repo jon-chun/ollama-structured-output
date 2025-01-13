@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 633,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:57:40.254922488Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.976214844,
+    "load_duration": 0.022242853,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 266,
+    "eval_duration": 4.938
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_male\", \"high\", \"Males, especially those without marriage or cohabitation history, often have higher recidivism rates due to social isolation and lack of familial support.\"),\n    (\"never_married\", \"medium\", \"Individuals who have never been married may lack the social supports that come with stable relationships, which can increase risk for reoffending.\"),\n    (\"no_cohabiting\", \"low\", \"Living alone or without a partner does not inherently increase risk; however, social support is often stronger in cohabiting relationships.\"),\n    (\"one_job\", \"low\", \"Fewer job changes can be indicative of stability, which may reduce the likelihood of recidivism.\"),\n    (\"household_size_6\", \"low\", \"A larger household size might imply a supportive environment; however, this factor alone doesn't significantly impact recidivism risk.\"),\n    (\"lived_with_both_parents_at_age_12\", \"medium\", \"Growing up in a stable, two-parent home typically suggests a more stable and nurturing environment, which can decrease the likelihood of future criminal behavior. However, this benefit may diminish if other factors indicate social isolation or instability later in life.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235740_256585",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 633,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

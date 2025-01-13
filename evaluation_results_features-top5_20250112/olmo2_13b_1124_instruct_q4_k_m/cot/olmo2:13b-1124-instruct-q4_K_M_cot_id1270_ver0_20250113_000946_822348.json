@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1270,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-13T05:09:46.821226598Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.136262345,
+    "load_duration": 0.022058977,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 225,
+    "eval_duration": 3.083
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_12_marital_status_unknown\", \"high\", \"Unclear marital status during childhood may indicate instability or lack of structure which can correlate with higher recidivism.\"),\n    (\"marital_status_current\", \"high\", \"Being unmarried and not cohabiting can reflect difficulties in maintaining stable relationships which is a potential risk factor.\"),\n    (\"employment_status\", \"medium\", \"Unemployment may be indicative of difficulty integrating into societal norms and structures, increasing the risk of reoffending.\"),\n    (\"household_size\", \"medium\", \"Having a larger household size can introduce additional stressors and potential criminal influences, but does not automatically imply higher risk.\"),\n    (\"living_with_biological_mother\", \"low\", \"Living with a family member may provide some stability, reducing the risk compared to homelessness or transient living.\"),\n    (\"gender_male\", \"medium\", \"Research has shown that males are generally at a higher risk for criminal activity, though this factor alone does not definitively determine outcome.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_000946_822348",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1270,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

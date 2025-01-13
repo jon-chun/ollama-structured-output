@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1384,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-13T03:05:56.740101009Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.036815214,
+    "load_duration": 0.024815421,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 263,
+    "eval_duration": 4.99
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender (Female)\", \"medium\", \"Females may have different recidivism patterns compared to males, potentially influenced by societal factors.\"),\n    (\"Marital Status (Married)\", \"low\", \"Stable marriages can contribute to lower risk of reoffending as they provide social support and stability.\"),\n    (\"Spouse Present\", \"low\", \"The presence of a spouse may indicate stable relationships that can deter criminal behavior.\"),\n    (\"Employment History (1 Job)\", \"medium\", \"A single employment history suggests limited work experience, which might correlate with higher risk factors such as lack of job skills or economic instability.\"),\n    (\"Household Size (3)\", \"low\", \"Smaller household sizes may reduce opportunities for antisocial behaviors but can also indicate isolation risks.\"),\n    (\"Living Situation (Lived with Biological Mother)\", \"medium\", \"Having a close relationship with one's mother might provide emotional support, but it could also mean limited exposure to different environments that discourage criminal activity.\"),\n    (\"Marital Status Unknown at Age 12\", \"high\", \"Inconsistent or unknown family structures in early years can lead to unpredictable behavior patterns and higher risk of future crimes.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_220556_741374",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1384,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 1 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

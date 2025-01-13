@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1205,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:21:42.980014424Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.133762864,
+    "load_duration": 0.019203056,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 264,
+    "eval_duration": 9.091
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Research indicates that females generally have lower recidivism rates compared to males, but this can vary based on the nature of the offense.\"),\n    (\"marital_status_unmarried_and_not_cohabitating\", \"low\", \"Unmarried and not cohabitating individuals may have less stabilizing social influence which can reduce risk for some offenses but does not inherently increase risk.\"),\n    (\"employment_status_unemployed\", \"high\", \"Unemployment is often associated with higher recidivism due to lack of structure, financial strain, and limited access to social support.\"),\n    (\"household_size_3\", \"medium\", \"Larger household sizes can provide some social support but can also increase stress and competition for resources which may elevate risk.\"),\n    (\"living_with_birth_mother_at_age_12\", \"low\", \"Living with a birth parent during childhood does not directly influence adult recidivism, as the current living situation is more critical.\"),\n    (\"marital_status_unknown_at_age_12\", \"low\", \"Childhood marital status of parents is not a direct risk factor for adult recidivism; current social circumstances and support systems are more relevant.\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_002142_981124",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1205,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and is currently unemployed with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

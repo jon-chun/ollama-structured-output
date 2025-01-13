@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 306,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-12T22:18:53.449817704Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.728159079,
+    "load_duration": 0.013917604,
+    "prompt_eval_count": 241,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 198,
+    "eval_duration": 3.697
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"never married\", \"low\", \"Single marital status often correlates with lower risk due to fewer established routines and less societal entanglement.\"),\n    (\"not cohabiting\", \"low\", \"Living alone can indicate independence, reducing the likelihood of peer influence on criminal behavior.\"),\n    (\"held 1 job\", \"medium\", \"Stable employment can mitigate risk, but only one job might suggest limited financial stability or opportunities.\"),\n    (\"household size 5\", \"low\", \"Larger households can provide social support and stability, reducing the risk of involvement in criminal activities.\"),\n    (\"lived with both biological parents at age 12\", \"low\", \"Positive upbringing with both parents suggests a stable environment and lower risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_171853_450952",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 306,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

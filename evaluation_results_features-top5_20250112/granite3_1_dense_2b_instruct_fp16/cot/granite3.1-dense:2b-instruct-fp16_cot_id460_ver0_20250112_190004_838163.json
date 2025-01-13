@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 460,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-13T00:00:04.836753038Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.443637693,
+    "load_duration": 0.013587771,
+    "prompt_eval_count": 256,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 165,
+    "eval_duration": 1.415
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Employment history (4 jobs)\", \"medium\", \"Consistent employment can indicate stability, but the frequency and nature of these jobs might suggest a lack of long-term commitment or skills.\"),\n    (\"Household size (6 individuals)\", \"low\", \"Living with multiple family members suggests social support, which could mitigate risk.\"),\n    (\"Marital status unknown at age 12\", \"high\", \"Lack of marital experience may indicate a higher likelihood of future criminal behavior.\"),\n    (\"Never married or cohabiting\", \"medium\", \"This factor is less determinative without additional context about personal relationships and potential impact on crime risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_190004_838163",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 460,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 4 jobs with a household size of 6 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

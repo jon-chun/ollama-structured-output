@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 247,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-12T22:56:26.288583581Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.401036308,
+    "load_duration": 0.04164866,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 463,
+    "eval_duration": 4.35
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Marital Status\", \"high\", \"The presence of a spouse increases support networks and social ties which can act as deterrents to recidivism.\"),\n    (\"Household Size\", \"medium\", \"Larger households generally have more resources but also may create a complex social environment that could increase the risk of criminal activity.\"),\n    (\"Parental Background\", \"low\", \"The individual's upbringing, while providing some background context, does not provide strong predictive power for future actions. A stable childhood is typically associated with reduced recidivism.\"), \n    (\"Employment History\", \"medium\", \"Stable employment can lead to financial stability and a sense of purpose, which may reduce the likelihood of criminal activity. However, unemployment or a history of inconsistent work patterns could be problematic.\")\n  ],\n  \"prediction\": \"NO\", \n  \"confidence\": 70 \n}\n``` \n\n\n**Explanation:**\n\n* **Marital Status**:  The presence of a spouse is generally considered a protective factor for recidivism, as it suggests stability and support. Therefore, this factor is weighted higher.\n* **Household Size**: While larger households often come with greater financial burden, they can also offer social networks that may act as deterrents. This factor is considered medium due to the potential benefits and drawbacks. \n* **Parental Background**:  This factor's weight is low because it does not provide strong predictive power for future behavior. A stable childhood isn't a foolproof predictor of adult criminality. \n* **Employment History**:  A history of consistent employment can lead to financial stability and a sense of purpose, reducing the likelihood of criminal activity. However, job instability or unemployment could be associated with increased risk. This factor is rated medium because it carries some potential negative factors.\n\n**Note:** The prediction \"NO\" indicates that based on this individual's information, there is not enough evidence to predict high recidivism in three years. \n\n\nLet me emphasize again, this is a simplified example and real-world risk assessment involves much more complex analysis and consideration of many other factors. This is for illustrative purposes only.  For any actual application, professional judgment and expertise are essential. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_175626_290083",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 247,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and has held 2 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

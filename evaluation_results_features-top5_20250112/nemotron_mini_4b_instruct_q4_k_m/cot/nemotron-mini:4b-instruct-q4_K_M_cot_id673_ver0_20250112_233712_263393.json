@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 673,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-13T04:37:12.261922024Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.830057704,
+    "load_duration": 0.042970118,
+    "prompt_eval_count": 232,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 290,
+    "eval_duration": 1.779
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"male\", \"low\", \"The person's gender does not seem to be a significant risk factor, as it is not associated with higher recidivism rates.\"),\n    (\"never married/cohabiting\", \"medium\", \"Living in a non-marital relationship may indicate a lack of commitment or support structures that could increase the risk of reoffending. However, this information alone does not provide enough context to accurately assess recidivism risks.\"),\n    (\"unemployed\", \"high\", \"Being unemployed can lead to financial instability and stress, both of which are linked with higher crime rates. This factor should be given a high weight in the assessment.\"),\n    (\"household size 5\", \"\", \"Having a large household may suggest more stability or resources that could reduce risk; however, it is not directly associated with recidivism. Therefore, this information does not significantly contribute to the prediction of reoffending.\"),\n    (\"lived with both biological parents at age 12\", \"low\", \"Growing up in a stable and supportive home environment may indicate lower crime rates as an adult. However, there are many other factors that can influence recidivism, making it difficult to accurately predict reoffending based on this information alone.\"),\n    ...\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_233712_263393",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 673,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

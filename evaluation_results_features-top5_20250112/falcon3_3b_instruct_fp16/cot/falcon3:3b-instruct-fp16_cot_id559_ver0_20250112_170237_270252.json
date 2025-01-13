@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 559,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-12T22:02:37.268923436Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.571877338,
+    "load_duration": 0.026302854,
+    "prompt_eval_count": 229,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 183,
+    "eval_duration": 1.536
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"gender\", \"medium\", \"Male is generally considered to carry a moderate risk compared to female\"),\n    (\"marital_status\", \"low\", \"Never married individuals are typically less likely to recidivate due to fewer social pressures and obligations\"),\n    (\"cohabitation\", \"low\", \"Not cohabiting suggests a reduced likelihood of shared risks or support networks associated with such relationships\"),\n    (\"job_count\", \"medium\", \"Holding multiple jobs can indicate economic stability, but the specific number does not inherently elevate risk\"),\n    (\"household_size\", \"high\", \"A large household size might suggest increased logistical challenges and possibly higher stress levels\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_170237_270252",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 559,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 7.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

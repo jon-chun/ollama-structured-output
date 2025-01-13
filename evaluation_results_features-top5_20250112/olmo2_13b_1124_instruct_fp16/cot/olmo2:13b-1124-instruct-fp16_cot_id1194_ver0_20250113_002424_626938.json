@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 40,
+    "id": 1194,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:24:24.625753069Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.999341858,
+    "load_duration": 0.019101287,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 203,
+    "eval_duration": 6.958
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"gender\", \"medium\", \"Male gender is often associated with higher recidivism rates due to societal factors and behavior patterns.\"], [\"marital_status\", \"low\", \"Never married status does not inherently indicate a high risk factor for rearrest.\"], [\"cohabiting\", \"low\", \"Not cohabiting does not directly influence recidivism in isolation.\"], [\"jobs_held\", \"medium\", \"Having held 2 jobs may indicate some stability but also potential job-related stressors.\"], [\"household_size\", \"low\", \"A household size of 4 is relatively common and doesn't independently point to higher risk.\"], [\"lived_with_mother\", \"low\", \"Living with biological mother can indicate some family support, which may reduce risk.\"], [\"marital_status_age_12_unknown\", \"low\", \"The marital status at age 12 is not a current risk factor.\"]], \"prediction\": \"NO\", \"confidence\": 40}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_002424_626938",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1194,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "gender",
+      "medium",
+      "Male gender is often associated with higher recidivism rates due to societal factors and behavior patterns."
+    ],
+    [
+      "marital_status",
+      "low",
+      "Never married status does not inherently indicate a high risk factor for rearrest."
+    ],
+    [
+      "cohabiting",
+      "low",
+      "Not cohabiting does not directly influence recidivism in isolation."
+    ],
+    [
+      "jobs_held",
+      "medium",
+      "Having held 2 jobs may indicate some stability but also potential job-related stressors."
+    ],
+    [
+      "household_size",
+      "low",
+      "A household size of 4 is relatively common and doesn't independently point to higher risk."
+    ],
+    [
+      "lived_with_mother",
+      "low",
+      "Living with biological mother can indicate some family support, which may reduce risk."
+    ],
+    [
+      "marital_status_age_12_unknown",
+      "low",
+      "The marital status at age 12 is not a current risk factor."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

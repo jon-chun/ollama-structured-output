@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1048,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:54:55.451319342Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.891129575,
+    "load_duration": 0.024932275,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 207,
+    "eval_duration": 3.847
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_male\", \"medium\", \"Males are generally more likely to be rearrested than females, but being never married does not necessarily increase risk for all men.\"),\n    (\"never_married\", \"low\", \"Being never married itself is not typically a strong indicator of future criminal behavior.\"),\n    (\"currently_unemployed\", \"medium\", \"Unemployment can increase the risk of recidivism due to financial stress and lack of legitimate activities. However, the household size and living situation may provide additional support or stability.\"),\n    (\"household_size_4\", \"low\", \"A larger household could offer both more support and greater challenges in terms of resources and supervision.\"),\n    (\"lived_with_biological_mother_at_12\", \"medium\", \"Living with a biological parent at a young age can indicate a stable home environment, but the lack of information about parental marital status adds uncertainty.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235455_452937",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1048,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

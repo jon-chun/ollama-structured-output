@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 766,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-12T22:02:10.156358677Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.807300065,
+    "load_duration": 0.014190722,
+    "prompt_eval_count": 242,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 211,
+    "eval_duration": 1.781
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"gender\", \"medium\", \"Female is generally considered to have a moderate risk factor\"),\n    (\"marital_status\", \"low\", \"Married status with a spouse present indicates lower risk\"),\n    (\"number_of_jobs\", \"high\", \"Holding multiple jobs suggests higher financial independence and potentially lower risk\"),\n    (\"household_size\", \"medium\", \"A household of five people may indicate a larger social network but still within normal range\"),\n    (\"living_with_mother\", \"low\", \"Residing with biological mother at age 12 suggests stable early family environment and lower risk\"),\n    (\"marital_status_at_age_12\", \"unknown\", \"Unknown marital status at a young age adds complexity but does not drastically alter risk assessment\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_170210_157752",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 766,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

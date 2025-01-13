@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 309,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "phi4:14b-fp16",
+    "created_at": "2025-01-13T06:33:45.594640531Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.768097232,
+    "load_duration": 0.023975504,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 298,
+    "eval_duration": 10.735
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\n      \"gender_male\",\n      \"high\",\n      \"Statistical evidence consistently shows that males are more likely to reoffend compared to females.\"\n    ),\n    (\n      \"marital_status_never_married\",\n      \"medium\",\n      \"Individuals who have never been married often exhibit higher recidivism rates, possibly due to less social and economic stability.\"\n    ),\n    (\n      \"current_employment_status_unemployed\",\n      \"high\",\n      \"Unemployment is a significant risk factor for recidivism as it can lead to financial stress and fewer structured activities.\"\n    ),\n    (\n      \"household_size_of_2\",\n      \"low\",\n      \"Household size alone has minimal direct impact on recidivism, but context such as support levels within the household matters more.\"\n    ),\n    (\n      \"lived_with_biological_mother\",\n      \"medium\",\n      \"Growing up with a biological parent can provide stability; however, without knowing the quality of this relationship, it's difficult to assess its full impact on recidivism risk.\"\n    ),\n    (\n      \"unknown_marital_status_at_age_12\",\n      \"low\",\n      \"While early family instability is a factor in long-term outcomes, unknown marital status alone at age 12 does not strongly predict recidivism without additional context.\"\n    )\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_013345_595738",
+    "model": "phi4:14b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 309,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

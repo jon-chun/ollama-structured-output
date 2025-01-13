@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 140,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-13T03:10:54.080076405Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.170535995,
+    "load_duration": 0.023815956,
+    "prompt_eval_count": 224,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 220,
+    "eval_duration": 4.128
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Male gender\", \"medium\", \"Males are statistically more likely to engage in criminal behavior compared to females.\"),\n    (\"Never married\", \"low\", \"Lack of marital status may not directly impact recidivism without additional context.\"),\n    (\"Not cohabiting\", \"low\", \"Living independently does not inherently increase the risk of reoffending unless associated with other factors.\"),\n    (\"Held 2 jobs\", \"medium\", \"Employment stability is generally a protective factor, but multiple job changes might indicate instability.\"),\n    (\"Household size of 5\", \"high\", \"Larger households can strain resources and increase stress, potentially leading to criminal behavior.\"),\n    (\"Lived with biological mother\", \"low\", \"Having a stable living environment with a parent may provide support and reduce risk.\"),\n    (\"Marital status unknown at age 12\", \"medium\", \"Early lack of information about marital status might indicate potential instability in early life.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_221054_081128",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 140,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

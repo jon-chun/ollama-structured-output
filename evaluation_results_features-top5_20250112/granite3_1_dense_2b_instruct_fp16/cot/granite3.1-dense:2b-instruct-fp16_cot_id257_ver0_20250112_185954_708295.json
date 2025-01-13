@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 257,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-12T23:59:54.707027837Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.338173551,
+    "load_duration": 0.013449911,
+    "prompt_eval_count": 239,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 152,
+    "eval_duration": 1.309
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Not explicitly provided, but generally, younger individuals have lower recidivism rates.\"),\n    (\"marital_status\", \"low\", \"Never married\"),\n    (\"cohabitation_status\", \"low\", \"Not cohabiting\"),\n    (\"employment_history\", \"medium\", \"Holding 2 jobs suggests stability and self-sufficiency, but the household size of 6 indicates potential financial strain.\"),\n    (\"household_size\", \"high\", \"A larger household size may indicate more complex social dynamics, potentially increasing risk factors.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_185954_708295",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 257,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 6.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

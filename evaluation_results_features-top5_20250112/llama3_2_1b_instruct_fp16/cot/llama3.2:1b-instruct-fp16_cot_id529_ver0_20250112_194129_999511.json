@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 529,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:29.998352566Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.602244383,
+    "load_duration": 0.021068196,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 133,
+    "eval_duration": 0.577
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"marital_status_unknown_at_12\", \"weight\": \"medium\", \"reasoning\": \"Insufficient information to assess the risk\"},\n    {\"factor\": \"never_married_with_children\", \"weight\": \"high\", \"reasoning\": \"Significant gap in life experiences and stability, increasing recidivism risk\"},\n    {\"factor\": \"lived_with_biologicalMother\", \"weight\": \"low\", \"reasoning\": \"Limited social support and structure, potentially exacerbating the risk of reoffending\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194129_999511",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 529,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "marital_status_unknown_at_12",
+      "weight": "medium",
+      "reasoning": "Insufficient information to assess the risk"
+    },
+    {
+      "factor": "never_married_with_children",
+      "weight": "high",
+      "reasoning": "Significant gap in life experiences and stability, increasing recidivism risk"
+    },
+    {
+      "factor": "lived_with_biologicalMother",
+      "weight": "low",
+      "reasoning": "Limited social support and structure, potentially exacerbating the risk of reoffending"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

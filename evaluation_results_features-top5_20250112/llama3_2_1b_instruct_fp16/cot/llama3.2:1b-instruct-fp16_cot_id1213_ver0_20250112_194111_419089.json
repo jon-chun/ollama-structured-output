@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 1213,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:11.4180063Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.749092847,
+    "load_duration": 0.034849741,
+    "prompt_eval_count": 233,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 158,
+    "eval_duration": 0.709
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married, not cohabiting\", \"weight\": \"low\", \"reasoning\": \"Lack of social support and structure may contribute to higher recidivism rates.\"},\n    {\"factor\": \"held only 1 job with household size 5\", \"weight\": \"medium\", \"reasoning\": \"Unstable employment history may indicate underlying issues such as financial struggles, stress, or lack of motivation.\"},\n    {\"factor\": \"lived with biological mother at age 12\", \"weight\": \"high\", \"reasoning\": \"Early exposure to a dysfunctional family environment could have long-term effects on mental health and well-being.\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194111_419089",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1213,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married, not cohabiting",
+      "weight": "low",
+      "reasoning": "Lack of social support and structure may contribute to higher recidivism rates."
+    },
+    {
+      "factor": "held only 1 job with household size 5",
+      "weight": "medium",
+      "reasoning": "Unstable employment history may indicate underlying issues such as financial struggles, stress, or lack of motivation."
+    },
+    {
+      "factor": "lived with biological mother at age 12",
+      "weight": "high",
+      "reasoning": "Early exposure to a dysfunctional family environment could have long-term effects on mental health and well-being."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

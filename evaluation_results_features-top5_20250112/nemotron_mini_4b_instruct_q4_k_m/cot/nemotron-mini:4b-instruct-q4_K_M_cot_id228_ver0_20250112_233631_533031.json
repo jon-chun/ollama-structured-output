@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 228,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-13T04:36:31.531917924Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.74438395,
+    "load_duration": 0.041771137,
+    "prompt_eval_count": 237,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 271,
+    "eval_duration": 1.694
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"gender\", \"male\", \"low\", \"Male is a demographic factor that does not significantly contribute to risk prediction in this context.\"),\n    (\"never_married\", \"medium\", \"Medium. Having never been married increases the risk of recidivism, but it's only one factor among others.\"),\n    (\"not_cohabiting\", \"high\", \"High. Not cohabitating with a partner is associated with higher rearrest rates.\"),\n    (\"2_jobs\", \"medium\", \"Medium. Holding two jobs might indicate financial instability or stress which could contribute to reoffending.\"),\n    (\"household_size\", \"low\", \"Low. Household size does not significantly influence recidivism risk in this context.\"),\n    (\"biological_mother\", \"unknown at 12\", \"low\", \"Low. Information about the individual's relationship with their biological mother is generally not relevant for predicting reoffending.\"),\n    (\"marital_status_unknown_at_12\", \"low\", \"low\", \"Low. The marital status of an individual at a young age does not significantly contribute to risk prediction in this context.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_233631_533031",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 228,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

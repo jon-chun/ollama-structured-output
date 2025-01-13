@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 40,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-13T03:08:17.633506648Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.959027332,
+    "load_duration": 0.03194669,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 207,
+    "eval_duration": 3.904
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Male\", \"medium\", \"Men are statistically more likely to engage in criminal behavior.\"),\n    (\"Separated, not cohabiting\", \"high\", \"Lack of stable living arrangements may contribute to instability and increased risk.\"),\n    (\"Unemployed\", \"high\", \"Unemployment is a significant predictor of recidivism as it limits access to legal means of support.\"),\n    (\"Household size of 4\", \"medium\", \"A larger household can strain resources, potentially leading to stress or conflict.\"),\n    (\"Lived with other adults\", \"low\", \"Living in a supportive environment may provide structure and reduce risk.\"),\n    (\"Biological parent status unknown\", \"low\", \"The absence of information on parental status does not strongly indicate increased risk.\"),\n    (\"Not group quarters at age 12\", \"medium\", \"Early living arrangements can influence future behaviors, but specific details are needed.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_220817_635077",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 40,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is separated, not cohabiting and is currently unemployed with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

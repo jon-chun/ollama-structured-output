@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 330,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:55:53.190073134Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.559023589,
+    "load_duration": 0.01437412,
+    "prompt_eval_count": 219,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 296,
+    "eval_duration": 5.524
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Female subjects may have different risk profiles due to societal influences and potential support networks, but research shows that recidivism rates are generally similar across genders when controlling for other variables.\"),\n    (\"marital_status_never_married\", \"low\", \"Being never married is often associated with lower social support networks which could potentially increase the risk of recidivism, though this effect is typically modest and can be mitigated by other factors like employment and family structure.\"),\n    (\"living_arrangement_cohabiting\", \"medium\", \"Cohabitation without formal marriage might indicate less stable relationship structures, which can sometimes correlate with higher risk levels. However, the stability of the cohabiting arrangement itself is key; a stable household with supportive dynamics reduces recidivism risk.\"),\n    (\"employment_history_1_job\", \"low\", \"Having held only one job may suggest less resilience in maintaining employment, which could be a risk factor if it indicates broader life instability. However, the number of jobs alone might not significantly impact recidivism when other factors are considered.\"),\n    (\"household_size_5\", \"medium\", \"A larger household size might imply more familial supervision and support, which generally reduces recidivism. However, the quality of family relationships and overall household dynamics is crucial to assess the actual protective effect.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235553_191494",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 330,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 1 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

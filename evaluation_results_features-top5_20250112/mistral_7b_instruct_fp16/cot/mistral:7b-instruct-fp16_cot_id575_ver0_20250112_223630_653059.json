@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 575,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-13T03:36:30.6519199Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.032719936,
+    "load_duration": 0.018874229,
+    "prompt_eval_count": 250,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 270,
+    "eval_duration": 4.997
+  },
+  "response": {
+    "raw_message_text": "{\n\"risk_factors\": [\n{\"factor1\", \"low\", \"The person has held multiple jobs indicating stability in employment and a low risk of unemployment\"},\n{\"factor2\", \"medium\", \"The person is cohabiting, which can indicate an increased risk of domestic violence or family problems but also has some protective factors such as shared responsibility and support for each other\"},\n{\"factor3\", \"low\", \"Living with a biological mother at age 12 may have had positive effects on the person's upbringing and stability, indicating a low risk of neglect or maltreatment\"},\n{\"factor4\", \"high\", \"Never being married can indicate a lack of commitment, trust, and social support, increasing the risk of future criminal behavior\"},\n{\"factor5\", \"high\", \"A household size of 5 people may indicate overcrowding, stress, and increased competition for resources, leading to higher levels of conflict and aggression\"},\n{\"factor6\", \"medium\", \"Marital status unknown at age 12 can indicate a lack of stable relationships or support in childhood, which may increase the risk of relationship problems and emotional instability later in life\"}\n],\n\"prediction\": \"NO\",\n\"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_223630_653059",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 575,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 4 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

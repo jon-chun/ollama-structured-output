@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1341,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:3b-instruct-fp16",
+    "created_at": "2025-01-13T00:48:32.34522862Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.696668345,
+    "load_duration": 0.026882242,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 269,
+    "eval_duration": 2.662
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at Incarceration Unknown\", \"medium\", \"Lack of information on the individual's age at incarceration may impact assessment of risk factors associated with development stage\"),\n    (\"Female Gender\", \"low\", \"Female offenders are generally underrepresented in the correctional system and have lower recidivism rates compared to males\"),\n    (\"Married Spouse Absent\", \"high\", \"Presence or absence of a support network can significantly impact an individual's likelihood of recidivism\"),\n    (\"Lived with Biological Mother at Age 12\", \"medium\", \"Early life experiences, particularly those involving family structure and parental involvement, can influence risk factors for recidivism\"),\n    (\"Multiple Employment History\", \"low\", \"Employment stability may indicate a more stable home environment, which can positively impact recidivism rates\"),\n    (\"Household Size of 4\", \"medium\", \"Size of household can impact an individual's likelihood of recidivism; however, this factor alone is not sufficient to determine risk level\"),\n    (\"Unspecified Marital Status at Age 12\", \"low\", \"Lack of information on marital status at age 12 may limit analysis of its potential impact on risk factors\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194832_346326",
+    "model": "llama3.2:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1341,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse absent and has held 2 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

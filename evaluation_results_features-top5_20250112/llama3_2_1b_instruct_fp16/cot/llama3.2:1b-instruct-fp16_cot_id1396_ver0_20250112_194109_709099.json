@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 1396,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:09.708098435Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.752662083,
+    "load_duration": 0.034917031,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 163,
+    "eval_duration": 0.713
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married, not cohabiting\", \"weight\": \"low\", \"textual_reasoning\": \"Negative life event, but not a clear indicator of future recidivism\"},\n    {\"factor\": \"held 2 jobs with household size of 5\", \"weight\": \"medium\", \"textual_reasoning\": \"Positive indicator of stability and adaptability, but may be an indication of financial or personal difficulties\"},\n    {\"factor\": \"lived with both biological parents at age 12\", \"weight\": \"high\", \"textual_reasoning\": \"Strong indicator of a stable and supportive family environment, which can contribute to lower recidivism rates\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194109_709099",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1396,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married, not cohabiting",
+      "weight": "low",
+      "textual_reasoning": "Negative life event, but not a clear indicator of future recidivism"
+    },
+    {
+      "factor": "held 2 jobs with household size of 5",
+      "weight": "medium",
+      "textual_reasoning": "Positive indicator of stability and adaptability, but may be an indication of financial or personal difficulties"
+    },
+    {
+      "factor": "lived with both biological parents at age 12",
+      "weight": "high",
+      "textual_reasoning": "Strong indicator of a stable and supportive family environment, which can contribute to lower recidivism rates"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

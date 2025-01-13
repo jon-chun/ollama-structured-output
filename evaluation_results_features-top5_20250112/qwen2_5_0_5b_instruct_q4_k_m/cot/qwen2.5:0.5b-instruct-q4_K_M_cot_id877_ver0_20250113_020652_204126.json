@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 877,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "created_at": "2025-01-13T07:06:52.202886796Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.626333487,
+    "load_duration": 0.031849835,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 179,
+    "eval_duration": 0.576
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"never married\", \"high\", \"The individual is single, which increases the risk of reoffending.\"],\n    [\"not cohabiting\", \"medium\", \"Cohabitation can have a psychological impact on an individual and increase the likelihood of reoffending.\"],\n    [\"has held 1 jobs with a household size of 4 and lived with their both biological parents at age 12\", \"low\", \"Living with both biological parents increases the risk of recidivism, especially if they are not financially stable or have children. The individual is in foster care, which can increase the risk even further. Furthermore, living with two adults at an early age is considered a high-risk factor because it suggests instability and potential for future problems.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_020652_204126",
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 877,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "never married",
+      "high",
+      "The individual is single, which increases the risk of reoffending."
+    ],
+    [
+      "not cohabiting",
+      "medium",
+      "Cohabitation can have a psychological impact on an individual and increase the likelihood of reoffending."
+    ],
+    [
+      "has held 1 jobs with a household size of 4 and lived with their both biological parents at age 12",
+      "low",
+      "Living with both biological parents increases the risk of recidivism, especially if they are not financially stable or have children. The individual is in foster care, which can increase the risk even further. Furthermore, living with two adults at an early age is considered a high-risk factor because it suggests instability and potential for future problems."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

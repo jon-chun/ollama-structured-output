@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 56,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:38:24.925179195Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.96900429,
+    "load_duration": 0.029224657,
+    "prompt_eval_count": 232,
+    "prompt_eval_duration": 0.002,
+    "eval_count": 349,
+    "eval_duration": 0.936
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"poverty\", \"weight\": 8, \"textual_reasoning\": \"Based on her household size of 4 with an unknown marital status, it is uncertain whether she has access to economic resources.\"},\n    {\"factor2\": \"mental health\", \"weight\": 7, \"textual_reasoning\": \"Given that she experienced difficulties at age 12 and may not have received adequate support or services during this period.\"},\n    {\"factor3\": \"absence of parental supervision\", \"weight\": 9, \"textual_reasoning\": \"Considering her biological mother's unknown marital status, it is plausible that she was not adequately supervised as a child.\"},\n    {\"factor4\": \"lack of education\", \"weight\": 6, \"textual_reasoning\": \"Although her age at the time of the assessment is mentioned as 12, which might suggest some level of educational attainment or awareness about the importance of education, there is no explicit information to support this claim.\"},\n    {\"factor5\": \"cohabitation history\", \"weight\": 8, \"textual_reasoning\": \"Cohabiting with her biological mother may imply that she has experienced unstable living arrangements, which could be a risk factor for recidivism due to the lack of stable housing and support structures.\"},\n    {\"factor6\": \"family history of crime\", \"weight\": 4, \"textual_reasoning\": \"There is no information about her family's past criminal behavior or involvement in the justice system, making it difficult to assess a direct link between this factor and recidivism.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193824_926297",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 56,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "poverty",
+      "weight": 8,
+      "textual_reasoning": "Based on her household size of 4 with an unknown marital status, it is uncertain whether she has access to economic resources."
+    },
+    {
+      "factor2": "mental health",
+      "weight": 7,
+      "textual_reasoning": "Given that she experienced difficulties at age 12 and may not have received adequate support or services during this period."
+    },
+    {
+      "factor3": "absence of parental supervision",
+      "weight": 9,
+      "textual_reasoning": "Considering her biological mother's unknown marital status, it is plausible that she was not adequately supervised as a child."
+    },
+    {
+      "factor4": "lack of education",
+      "weight": 6,
+      "textual_reasoning": "Although her age at the time of the assessment is mentioned as 12, which might suggest some level of educational attainment or awareness about the importance of education, there is no explicit information to support this claim."
+    },
+    {
+      "factor5": "cohabitation history",
+      "weight": 8,
+      "textual_reasoning": "Cohabiting with her biological mother may imply that she has experienced unstable living arrangements, which could be a risk factor for recidivism due to the lack of stable housing and support structures."
+    },
+    {
+      "factor6": "family history of crime",
+      "weight": 4,
+      "textual_reasoning": "There is no information about her family's past criminal behavior or involvement in the justice system, making it difficult to assess a direct link between this factor and recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 2 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

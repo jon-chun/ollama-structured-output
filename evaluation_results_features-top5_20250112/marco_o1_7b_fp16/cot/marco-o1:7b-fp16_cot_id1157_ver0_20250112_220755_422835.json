@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1157,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-13T03:07:55.421520801Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.030543376,
+    "load_duration": 0.031163209,
+    "prompt_eval_count": 224,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 264,
+    "eval_duration": 4.976
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Female Gender\", \"medium\", \"Research indicates that female offenders may have different risk profiles compared to males, potentially influencing recidivism rates.\"),\n    (\"Never Married\", \"low\", \"Marital status is a less significant predictor for females and may not substantially increase the risk of rearrest.\"),\n    (\"Not Cohabiting\", \"low\", \"Living situation alone does not necessarily correlate with higher recidivism unless associated with other factors.\"),\n    (\"Held 1 Job\", \"medium\", \"Employment history can be a protective factor, but holding only one job may indicate instability or limited resources.\"),\n    (\"Household Size of 5\", \"high\", \"A larger household size can strain resources and increase stress levels, which are associated with higher recidivism rates.\"),\n    (\"Lived with Biological Mother at Age 12\", \"medium\", \"Early family dynamics play a role in future behavior; living with parents may provide support or lack thereof.\"),\n    (\"Marital Status Unknown at Age 12\", \"low\", \"The marital status of the biological mother at age 12 is not directly linked to the individual's risk unless there are specific factors related.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_220755_422835",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1157,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

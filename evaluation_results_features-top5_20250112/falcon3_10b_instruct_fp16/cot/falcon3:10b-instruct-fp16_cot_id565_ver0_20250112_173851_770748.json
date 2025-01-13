@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 565,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-12T22:38:51.769616761Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.453646815,
+    "load_duration": 0.024633006,
+    "prompt_eval_count": 241,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 172,
+    "eval_duration": 4.396
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"gender\", \"low\", \"Female offenders generally have lower recidivism rates compared to males.\"),\n    (\"marital_status\", \"low\", \"Being never married or not cohabiting is often associated with lower risk.\"),\n    (\"employment\", \"low\", \"Holding multiple jobs indicates stability and reduces the likelihood of reoffending.\"),\n    (\"household_size\", \"low\", \"A stable household size can contribute to a lower risk of recidivism.\"),\n    (\"family_background\", \"low\", \"Living with both biological parents at age 12 is associated with better social outcomes.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_173851_770748",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 565,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

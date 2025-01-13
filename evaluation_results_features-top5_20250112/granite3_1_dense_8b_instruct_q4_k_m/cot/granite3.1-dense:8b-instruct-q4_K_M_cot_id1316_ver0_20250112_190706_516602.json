@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 1316,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:07:06.515222584Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.663971241,
+    "load_duration": 0.014967047,
+    "prompt_eval_count": 251,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 174,
+    "eval_duration": 1.625
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender\", \"medium\", \"Male gender is a factor, but marital status and family structure can mitigate this risk\"),\n    (\"Marital Status\", \"low\", \"Married with spouse present generally indicates lower recidivism risk\"),\n    (\"Employment Status\", \"high\", \"Unemployment is a significant predictor of higher recidivism risk\"),\n    (\"Household Size\", \"medium\", \"Larger household size can be associated with increased stress and potential for crime, but this is context-dependent\"),\n    (\"Parental Involvement\", \"low\", \"Living with both biological parents at age 12 can indicate a lower risk due to potential positive socialization effects\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 45\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_190706_516602",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1316,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and is currently unemployed with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

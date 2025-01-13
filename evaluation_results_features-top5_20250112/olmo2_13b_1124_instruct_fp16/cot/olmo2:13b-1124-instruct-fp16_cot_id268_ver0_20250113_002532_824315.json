@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 268,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:25:32.82328153Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.934852196,
+    "load_duration": 0.018513258,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 143,
+    "eval_duration": 4.896
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"gender\", \"low\", \"Male gender is not typically a strong predictor of recidivism on its own\"], [\"marital_status\", \"medium\", \"Never married status can indicate less social stability\"], [\"employment_history\", \"medium\", \"Having held multiple jobs may suggest difficulty maintaining employment which could correlate with higher risk\"], [\"household_size\", \"low\", \"Living in a larger household might imply more social support but could also indicate resource strain\"], [\"family_structure_at_age_12\", \"low\", \"Living with both biological parents at age 12 generally indicates a more stable upbringing, potentially mitigating risk factors\"]], \"prediction\": \"NO\", \"confidence\": 60}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_002532_824315",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 268,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "gender",
+      "low",
+      "Male gender is not typically a strong predictor of recidivism on its own"
+    ],
+    [
+      "marital_status",
+      "medium",
+      "Never married status can indicate less social stability"
+    ],
+    [
+      "employment_history",
+      "medium",
+      "Having held multiple jobs may suggest difficulty maintaining employment which could correlate with higher risk"
+    ],
+    [
+      "household_size",
+      "low",
+      "Living in a larger household might imply more social support but could also indicate resource strain"
+    ],
+    [
+      "family_structure_at_age_12",
+      "low",
+      "Living with both biological parents at age 12 generally indicates a more stable upbringing, potentially mitigating risk factors"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 3 jobs with a household size of 5 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

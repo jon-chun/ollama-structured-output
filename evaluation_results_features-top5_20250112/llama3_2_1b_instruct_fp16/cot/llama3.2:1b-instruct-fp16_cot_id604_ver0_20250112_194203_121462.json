@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 604,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:42:03.120337045Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.251952943,
+    "load_duration": 0.033660822,
+    "prompt_eval_count": 230,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 271,
+    "eval_duration": 1.213
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"childhood adversity (never married, not cohabiting), household size (10), parental relationship (both biological parents at age 12)\", \"weight\": 5, \"textual reasoning\": \"Childhood adversity and low socioeconomic status may increase the likelihood of rearrest recidivism due to increased stress and limited social support.\"},\n    {\"factor2\": \"employment history\", \"weight\": 3, \"textual reasoning\": \"A history of holding two jobs with a household size of 10 suggests that the individual may have experienced financial instability or had to balance multiple responsibilities, potentially leading to decreased motivation and increased stress.\"},\n    {\"factor3\": \"singlehood at age 12\", \"weight\": 4, \"textual reasoning\": \"Being single at age 12 may indicate a lack of social support networks or family ties, which could contribute to an increased risk of rearrest recidivism.\"},\n    {\"factor4\": \"parental relationship (not cohabiting)\", \"weight\": 2, \"textual reasoning\": \"The absence of a stable parental relationship may lead to increased stress and decreased emotional well-being, potentially increasing the likelihood of rearrest recidivism.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194203_121462",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 604,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "childhood adversity (never married, not cohabiting), household size (10), parental relationship (both biological parents at age 12)",
+      "weight": 5,
+      "textual reasoning": "Childhood adversity and low socioeconomic status may increase the likelihood of rearrest recidivism due to increased stress and limited social support."
+    },
+    {
+      "factor2": "employment history",
+      "weight": 3,
+      "textual reasoning": "A history of holding two jobs with a household size of 10 suggests that the individual may have experienced financial instability or had to balance multiple responsibilities, potentially leading to decreased motivation and increased stress."
+    },
+    {
+      "factor3": "singlehood at age 12",
+      "weight": 4,
+      "textual reasoning": "Being single at age 12 may indicate a lack of social support networks or family ties, which could contribute to an increased risk of rearrest recidivism."
+    },
+    {
+      "factor4": "parental relationship (not cohabiting)",
+      "weight": 2,
+      "textual reasoning": "The absence of a stable parental relationship may lead to increased stress and decreased emotional well-being, potentially increasing the likelihood of rearrest recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 10 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

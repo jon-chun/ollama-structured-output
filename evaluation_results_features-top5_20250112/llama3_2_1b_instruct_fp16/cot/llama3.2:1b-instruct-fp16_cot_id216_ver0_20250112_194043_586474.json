@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 216,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:40:43.585392898Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.104046905,
+    "load_duration": 0.031760374,
+    "prompt_eval_count": 231,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 242,
+    "eval_duration": 1.067
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"never married\", \"weight\": \"low\", \"reasoning\": \"Lack of social connections and community ties may increase the likelihood of reoffending.\"},\n    {\"factor\": \"not cohabiting\", \"weight\": \"medium\", \"reasoning\": \"Not living with a partner may indicate a lack of stability and support, which can contribute to reoffending.\"},\n    {\"factor\": \"unemployed\", \"weight\": \"high\", \"reasoning\": \"Unemployment can be a significant source of stress and frustration, increasing the likelihood of recidivism.\"},\n    {\"factor\": \"household size (6)\", \"weight\": \"low\", \"reasoning\": \"A larger household may indicate increased responsibilities and pressures, potentially leading to reoffending.\"},\n    {\"factor\": \"biological mother's marital status unknown at age 12\", \"weight\": \"unknown\", \"reasoning\": \"This factor is not directly related to the individual's current situation, but its absence in the family context may contribute to a higher risk of recidivism.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194043_586474",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 216,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "never married",
+      "weight": "low",
+      "reasoning": "Lack of social connections and community ties may increase the likelihood of reoffending."
+    },
+    {
+      "factor": "not cohabiting",
+      "weight": "medium",
+      "reasoning": "Not living with a partner may indicate a lack of stability and support, which can contribute to reoffending."
+    },
+    {
+      "factor": "unemployed",
+      "weight": "high",
+      "reasoning": "Unemployment can be a significant source of stress and frustration, increasing the likelihood of recidivism."
+    },
+    {
+      "factor": "household size (6)",
+      "weight": "low",
+      "reasoning": "A larger household may indicate increased responsibilities and pressures, potentially leading to reoffending."
+    },
+    {
+      "factor": "biological mother's marital status unknown at age 12",
+      "weight": "unknown",
+      "reasoning": "This factor is not directly related to the individual's current situation, but its absence in the family context may contribute to a higher risk of recidivism."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and is currently unemployed with a household size of 6 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

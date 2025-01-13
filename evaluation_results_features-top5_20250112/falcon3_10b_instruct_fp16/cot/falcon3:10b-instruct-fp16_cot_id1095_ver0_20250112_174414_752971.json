@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1095,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-12T22:44:14.751663891Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.092888514,
+    "load_duration": 0.022619321,
+    "prompt_eval_count": 238,
+    "prompt_eval_duration": 0.026,
+    "eval_count": 197,
+    "eval_duration": 5.04
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is not at an age typically associated with higher recidivism rates.\"),\n    (\"marital_status\", \"medium\", \"Being separated and not cohabiting suggests instability, but does not necessarily indicate high risk.\"),\n    (\"employment\", \"medium\", \"Unemployment can be a risk factor, but without other indicators of severe financial strain, it is considered medium risk.\"),\n    (\"household_size\", \"high\", \"A large household size may indicate financial stress and potential instability, increasing the risk of reoffending.\"),\n    (\"family_background\", \"low\", \"Lived with both biological parents at age 12, which is typically associated with lower risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_174414_752971",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1095,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is separated, not cohabiting and is currently unemployed with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

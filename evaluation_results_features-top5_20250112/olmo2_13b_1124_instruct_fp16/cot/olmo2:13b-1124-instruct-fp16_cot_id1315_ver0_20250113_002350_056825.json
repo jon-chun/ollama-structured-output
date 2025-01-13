@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1315,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-13T05:23:50.05544968Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.759907812,
+    "load_duration": 0.019301857,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 138,
+    "eval_duration": 4.72
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"gender\", \"low\", \"Male gender is generally associated with higher recidivism rates but other factors will be considered\"], [\"marital_status\", \"medium\", \"Never married status can indicate less social stability\"], [\"employment_history\", \"high\", \"Having held only 1 job may indicate instability or difficulty in maintaining employment\"], [\"household_size\", \"low\", \"A household size of 3 is not inherently indicative of risk\"], [\"parental_support_at_age_12\", \"medium\", \"Living with both parents during adolescence can provide a more stable environment, but other factors are influential\"]], \"prediction\": \"YES\", \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_002350_056825",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1315,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "gender",
+      "low",
+      "Male gender is generally associated with higher recidivism rates but other factors will be considered"
+    ],
+    [
+      "marital_status",
+      "medium",
+      "Never married status can indicate less social stability"
+    ],
+    [
+      "employment_history",
+      "high",
+      "Having held only 1 job may indicate instability or difficulty in maintaining employment"
+    ],
+    [
+      "household_size",
+      "low",
+      "A household size of 3 is not inherently indicative of risk"
+    ],
+    [
+      "parental_support_at_age_12",
+      "medium",
+      "Living with both parents during adolescence can provide a more stable environment, but other factors are influential"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 3 and lived with their biological father, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

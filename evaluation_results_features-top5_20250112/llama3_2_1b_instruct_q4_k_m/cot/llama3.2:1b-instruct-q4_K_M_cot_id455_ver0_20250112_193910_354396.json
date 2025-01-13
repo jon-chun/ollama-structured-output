@@ -1,0 +1,65 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 455,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-13T00:39:10.353177563Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.535589143,
+    "load_duration": 0.03478734,
+    "prompt_eval_count": 229,
+    "prompt_eval_duration": 0.002,
+    "eval_count": 188,
+    "eval_duration": 0.496
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"gender\", \"female\", \"low\", \"cohabitation does not necessarily imply partnership in many societies, but given the lack of marriage information it is assumed to be low as she has never married\"],\n    [\"cohabitation\", \"high\", \"as cohabiting women are generally at higher risk due to potential child support issues and limited social network\"],\n    [\"job history\", \"low\", \"lacking a job may indicate financial instability and increased vulnerability to recidivism\"],\n    [\"household size\", \"medium\", \"given the family structure, there is an increased chance of support for each other in case of incarceration, potentially reducing recidivism\"],\n    [\"age at 12\", \"high\", \"early exposure to poverty and lack of social support may increase the likelihood of a poorer outcome\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_193910_354396",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 455,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "gender",
+      "female",
+      "low",
+      "cohabitation does not necessarily imply partnership in many societies, but given the lack of marriage information it is assumed to be low as she has never married"
+    ],
+    [
+      "cohabitation",
+      "high",
+      "as cohabiting women are generally at higher risk due to potential child support issues and limited social network"
+    ],
+    [
+      "job history",
+      "low",
+      "lacking a job may indicate financial instability and increased vulnerability to recidivism"
+    ],
+    [
+      "household size",
+      "medium",
+      "given the family structure, there is an increased chance of support for each other in case of incarceration, potentially reducing recidivism"
+    ],
+    [
+      "age at 12",
+      "high",
+      "early exposure to poverty and lack of social support may increase the likelihood of a poorer outcome"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 3 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

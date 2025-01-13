@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 340,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:53:30.751787936Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.703297563,
+    "load_duration": 0.018733659,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 250,
+    "eval_duration": 4.667
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"gender_male\", \"medium\", \"Males, particularly those who are single, have been shown to have higher rearrest rates compared to females.\"),\n    (\"never_married\", \"high\", \"Individuals who have never married often struggle with forming stable relationships and can experience social isolation, both of which are associated with higher criminal behavior risk.\"),\n    (\"no_cohabiting\", \"medium\", \"Living arrangements without a partner can indicate lower social support, which is linked to increased criminal activity risk.\"),\n    (\"held_3_jobs\", \"low\", \"Job stability is often associated with reduced crime risk; however, frequent job changes may indicate challenges in maintaining employment or adapting to social norms, potentially increasing risk.\"),\n    (\"household_size_of_4\", \"medium\", \"A larger household can increase competition for resources and attention, sometimes leading to higher stress levels which might correlate with increased criminal behavior risk.\"),\n    (\"lived_with_both_biological_parents_at_age_12\", \"low\", \"Growing up in a stable, two-parent household typically reduces the risk of future criminal behavior due to stable family structure and support system.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235330_753059",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 340,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

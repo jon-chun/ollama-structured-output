@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1384,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-13T04:55:47.627366037Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.648415918,
+    "load_duration": 0.018941548,
+    "prompt_eval_count": 220,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 355,
+    "eval_duration": 6.61
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_female\", \"medium\", \"Studies have shown that female offenders tend to have lower rates of recidivism than male offenders, but this can vary based on other factors such as age, prior offenses, and social support. Given the individual is married and has a stable household structure, this might mitigate some risk.\"),\n    (\"marital_status_present\", \"low\", \"Being married is generally associated with lower recidivism rates due to increased social support and stability. The spouse's presence may provide additional supervision and a more structured environment.\"),\n    (\"spouse_present\", \"medium\", \"Having a supportive spouse can reduce the likelihood of reoffending, but the effectiveness depends on various factors including the quality of the relationship and individual motivations.\"),\n    (\"number_of_jobs_held\", \"low\", \"Employment stability is often associated with reduced risk of recidivism as it provides structure and financial stability. Holding one job may indicate reliability, although without additional information about the nature of these jobs or the stability over time, this factor's weight remains moderate.\"),\n    (\"household_size_3\", \"low\", \"A larger household can offer more support networks and potentially less opportunity for unsupervised behavior, which generally lowers recidivism risk. However, the specific dynamics within the household are crucial to assess properly.\"),\n    (\"living_with_biological_mother\", \"medium\", \"Living with a biological parent could imply a stable familial relationship and support network, reducing the risk of reoffense. Yet, if there is no information on the quality of this relationship or the mother's influence on the individual's behavior, it remains medium-risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_235547_628788",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1384,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 1 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

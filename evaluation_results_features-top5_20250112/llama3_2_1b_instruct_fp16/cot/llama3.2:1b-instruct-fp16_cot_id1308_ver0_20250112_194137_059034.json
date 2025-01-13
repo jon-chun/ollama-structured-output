@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1308,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-13T00:41:37.057786194Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.818669339,
+    "load_duration": 0.02659261,
+    "prompt_eval_count": 231,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 177,
+    "eval_duration": 0.787
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor\": \"age 12 single parent household without spouse or children, unemployed\", \"weight\": \"high\", \"textual reasoning\": \"This individual has a history of family instability and may have had limited life experience, which could contribute to higher rearrest risk\"},\n    {\"factor\": \"lack of education level\", \"weight\": \"low\", \"textual reasoning\": \"While this factor does not directly indicate reoffending, it may be indicative of underlying social or economic challenges that could impact employment prospects and stability\"},\n    {\"factor\": \"family history of crime or incarceration\", \"weight\": \"high\", \"textual reasoning\": \"Given the family background, there may be a higher likelihood of similar circumstances leading to rearrest in this individual\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_194137_059034",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1308,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor": "age 12 single parent household without spouse or children, unemployed",
+      "weight": "high",
+      "textual reasoning": "This individual has a history of family instability and may have had limited life experience, which could contribute to higher rearrest risk"
+    },
+    {
+      "factor": "lack of education level",
+      "weight": "low",
+      "textual reasoning": "While this factor does not directly indicate reoffending, it may be indicative of underlying social or economic challenges that could impact employment prospects and stability"
+    },
+    {
+      "factor": "family history of crime or incarceration",
+      "weight": "high",
+      "textual reasoning": "Given the family background, there may be a higher likelihood of similar circumstances leading to rearrest in this individual"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

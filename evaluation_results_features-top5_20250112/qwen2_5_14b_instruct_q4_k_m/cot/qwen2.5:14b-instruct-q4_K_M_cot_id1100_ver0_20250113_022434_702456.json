@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1100,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-01-13T07:24:34.701199943Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.378114337,
+    "load_duration": 0.025464735,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 286,
+    "eval_duration": 4.312
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"male_gender\", \"medium\", \"Research indicates that males are more likely to be involved in criminal activity compared to females, but the difference is not extreme enough to be considered a high risk factor.\"),\n    (\"never_married\", \"low\", \"While being never married can correlate with certain types of behavior, it does not strongly indicate higher likelihood of recidivism without additional context such as age and stability.\"),\n    (\"not_cohabiting\", \"medium\", \"Not cohabiting may suggest a lack of stable social support system which could be associated with an increased risk of criminal activity.\"),\n    (\"two_jobs\", \"low\", \"Having held two jobs is generally seen as positive, indicating employment stability and financial responsibility. However, the number itself does not provide enough context to significantly mitigate other factors that might contribute to recidivism.\"),\n    (\"household_size_3\", \"medium\", \"A household size of three can imply a crowded living situation which may correlate with higher stress levels and increased likelihood of criminal behavior in some cases.\"),\n    (\"lived_with_adoptive_parents_at_age_12\", \"high\", \"Living with adoptive parents at age 12 suggests potential instability or disruption in early life, which could have lasting effects on social development and risk-taking behaviors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_022434_702456",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1100,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their adoptive parent(s) at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

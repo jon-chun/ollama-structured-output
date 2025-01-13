@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1262,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-13T03:36:39.005838627Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.350848528,
+    "load_duration": 0.01638033,
+    "prompt_eval_count": 251,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 450,
+    "eval_duration": 8.318
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"male\",\n      \"weight\": \"medium\",\n      \"textual reasoning\": \"Gender has been shown to be a predictor of recidivism, with males being more likely to reoffend than females.\"\n    },\n    {\n      \"factor2\": \"never married\",\n      \"weight\": \"low\",\n      \"textual reasoning\": \"Marital status is not strongly associated with recidivism.\"\n    },\n    {\n      \"factor3\": \"not cohabiting\",\n      \"weight\": \"medium\",\n      \"textual reasoning\": \"Cohabitation has been shown to provide a support system for offenders and reduce the risk of reoffending.\"\n    },\n    {\n      \"factor4\": \"held 2 jobs\",\n      \"weight\": \"high\",\n      \"textual reasoning\": \"Having a stable employment history is strongly associated with reduced recidivism, as it provides a sense of purpose and structure in offenders' lives.\"\n    },\n    {\n      \"factor5\": \"household size of 3\",\n      \"weight\": \"low\",\n      \"textual reasoning\": \"Household size is not strongly associated with recidivism.\"\n    },\n    {\n      \"factor6\": \"lived with biological dad\",\n      \"weight\": \"medium\",\n      \"textual reasoning\": \"Living with a family member, particularly a parent or guardian, can provide a sense of stability and support for offenders, reducing the risk of reoffending.\"\n    },\n    {\n      \"factor7\": \"marital status unknown at age 12\",\n      \"weight\": \"low\",\n      \"textual reasoning\": \"Marital status is not strongly associated with recidivism and is likely to have been established since the person was 12 years old.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_223639_007595",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1262,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "male",
+      "weight": "medium",
+      "textual reasoning": "Gender has been shown to be a predictor of recidivism, with males being more likely to reoffend than females."
+    },
+    {
+      "factor2": "never married",
+      "weight": "low",
+      "textual reasoning": "Marital status is not strongly associated with recidivism."
+    },
+    {
+      "factor3": "not cohabiting",
+      "weight": "medium",
+      "textual reasoning": "Cohabitation has been shown to provide a support system for offenders and reduce the risk of reoffending."
+    },
+    {
+      "factor4": "held 2 jobs",
+      "weight": "high",
+      "textual reasoning": "Having a stable employment history is strongly associated with reduced recidivism, as it provides a sense of purpose and structure in offenders' lives."
+    },
+    {
+      "factor5": "household size of 3",
+      "weight": "low",
+      "textual reasoning": "Household size is not strongly associated with recidivism."
+    },
+    {
+      "factor6": "lived with biological dad",
+      "weight": "medium",
+      "textual reasoning": "Living with a family member, particularly a parent or guardian, can provide a sense of stability and support for offenders, reducing the risk of reoffending."
+    },
+    {
+      "factor7": "marital status unknown at age 12",
+      "weight": "low",
+      "textual reasoning": "Marital status is not strongly associated with recidivism and is likely to have been established since the person was 12 years old."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 3 and lived with their biological dad, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
