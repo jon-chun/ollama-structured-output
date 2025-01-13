@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1270,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-13T08:11:16.252156204Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.451229924,
+    "load_duration": 0.030188533,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.048,
+    "eval_count": 172,
+    "eval_duration": 3.371
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"male_gender\", \"medium\", \"Males have a higher recidivism rate.\"),\n    (\"unemployment\", \"high\", \"Unemployment is strongly correlated with increased risk of rearrest.\"),\n    (\"never_married_cohabitation_status\", \"low\", \"While it's less favorable, its impact alone is moderate compared to other factors.\"),\n    (\"household_size_4\", \"medium\", \"Larger household size may indicate social support but also complicates supervision and interventions.\"),\n    (\"lived_with_biological_mother_at_age_12\", \"high\", \"Living with a biological mother suggests stable early childhood, potentially reducing risk; however, this is mitigated by overall context.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_031116_253264",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1270,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

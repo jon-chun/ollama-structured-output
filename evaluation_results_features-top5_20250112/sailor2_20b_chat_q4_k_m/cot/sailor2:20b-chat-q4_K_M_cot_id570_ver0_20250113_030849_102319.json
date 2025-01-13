@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 570,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-13T08:08:49.100597877Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.913117074,
+    "load_duration": 0.029541923,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.047,
+    "eval_count": 146,
+    "eval_duration": 2.834
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"low\", \"No specific age provided, thus less influence\"),\n    (\"marital_status\", \"high\", \"Never married suggests higher risk for instability\"), \n    (\"cohabitation\", \"medium\", \"Not cohabiting can indicate lack of support network\"),\n    (\"employment_history\", \"low\", \"1 job held with a household size of 3 may suggest some stability, but not substantial.\"),\n    (\"living_at_age_12\", \"high\", \"Living with both biological parents historically linked to lower recidivism risk\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_030849_102319",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 570,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

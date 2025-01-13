@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 424,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-13T08:03:58.529445077Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.473959504,
+    "load_duration": 0.026033317,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 488,
+    "eval_duration": 4.434
+  },
+  "response": {
+    "raw_message_text": "**Risk Factors Analysis:**\n\n1. **Marital Status & Cohabitation (Factor 1)**:\n   - **Low**: Female, never married, cohabiting indicates stable relationships with potential for support networks.\n   - **Textual Reasoning**: Stable housing and family involvement often reduce recidivism risks.\n\n2. **Employment History (Factor 2)**:\n   - **Medium**: Held 2 jobs; demonstrates work history and financial stability which reduces idle time likely involved in criminal activities.\n   - **Textual Reasoning**: Employment provides purpose, income, and social engagement.\n\n3. **Household Size & Family Structure at Age 12 (Factor 3)**:\n   - **Low**: Household size of 3 with biological mother present; suggests a supportive family environment.\n   - **Textual Reasoning**: Strong familial bonds reduce the likelihood of reoffending.\n\n4. **Residential Stability (Factor 4)**:\n   - **High**: Resided with biological mother until age 12, indicating stable early life experiences.\n   - **Textual Reasoning**: Consistent living arrangements contribute to mental health and social stability, reducing recidivism.\n\n**Prediction:**\n\n- **Risk Factors Scores**:\n  ```json\n  [\n    {\"factor\": \"Marital Status & Cohabitation\", \"weight\": \"low\", \"reason\": \"stable relationships\"},\n    {\"factor\": \"Employment History\", \"weight\": \"medium\", \"reason\": \"employment stability\"},\n    {\"factor\": \"Household Size & Family Structure at Age 12\", \"weight\": \"low\", \"reason\": \"supportive family\"},\n    {\"factor\": \"Residential Stability\", \"weight\": \"high\", \"reason\": \"stable early life\"}\n  ]\n  ```\n\n**Prediction: YES (3-year rearrest recidivism)**\n\n**Confidence**: **90%**\n\n```json\n{\n  \"risk_factors\": [\n    {\"factor\": \"Marital Status & Cohabitation\", \"weight\": \"low\"},\n    {\"factor\": \"Employment History\", \"weight\": \"medium\"},\n    {\"factor\": \"Household Size & Family Structure at Age 12\", \"weight\": \"low\"},\n    {\"factor\": \"Residential Stability\", \"weight\": \"high\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_030358_530969",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 424,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 2 jobs with a household size of 3 and lived with their biological mother, other parent present at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

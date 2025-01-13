@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 352,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-q4_K_M",
+    "created_at": "2025-01-13T08:53:36.552399155Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.614419218,
+    "load_duration": 0.026863456,
+    "prompt_eval_count": 229,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 285,
+    "eval_duration": 4.572
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender\", \"male\", \"Male gender is generally associated with higher recidivism rates, thus rated as 'medium'.\"),\n    (\"marital_status\", \"never_married\", \"Being never married may indicate a lack of stable social support which could contribute to higher risk, assigned 'medium'.\"),\n    (\"living_arrangements\", \"lived_with_other_adults\", \"Living with other adults but not cohabiting may suggest instability or lack of strong family ties, rated as 'medium'.\"),\n    (\"employment_status\", \"1_job\", \"Having held only one job might indicate less stable employment history and could be a medium risk factor.\"),\n    (\"household_size\", \"4\", \"A household size of four is somewhat larger than average which may offer some stability but not significantly impact risk, thus 'low'.\"),\n    (\"biological_parent_status\", \"unknown\", \"The unknown status of being a biological parent can imply lack of familial obligations and responsibilities impacting recidivism risk, rated as 'medium'.\"),\n    (\"group_quarters_at_age_12\", \"not_group_quarters\", \"Not living in group quarters at age 12 is usually a neutral factor; however, it does not provide substantial information about the individual's risk level, thus rated 'low'.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_035336_553570",
+    "model": "tulu3:8b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 352,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

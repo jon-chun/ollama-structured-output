@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 754,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-13T08:20:17.148840402Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.530769866,
+    "load_duration": 0.016896624,
+    "prompt_eval_count": 232,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 158,
+    "eval_duration": 0.507
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"unmarried\", \"low\", \"A person's marital status can impact their risk of recidivism. This individual is currently unmarried, which might increase his risk of recidivism.\"],\n    [\"cohabiting\", \"medium\", \"Living with a romantic partner or family members could have both positive and negative effects on an individual's behavior. This person cohabits, which may moderate the impact of other factors.\"],\n    [\"unemployed\", \"high\", \"A person with limited employment history might be more likely to reoffend due to financial instability. This individual is currently unemployed, which increases their risk of recidivism.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_032017_149965",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 754,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "unmarried",
+      "low",
+      "A person's marital status can impact their risk of recidivism. This individual is currently unmarried, which might increase his risk of recidivism."
+    ],
+    [
+      "cohabiting",
+      "medium",
+      "Living with a romantic partner or family members could have both positive and negative effects on an individual's behavior. This person cohabits, which may moderate the impact of other factors."
+    ],
+    [
+      "unemployed",
+      "high",
+      "A person with limited employment history might be more likely to reoffend due to financial instability. This individual is currently unemployed, which increases their risk of recidivism."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

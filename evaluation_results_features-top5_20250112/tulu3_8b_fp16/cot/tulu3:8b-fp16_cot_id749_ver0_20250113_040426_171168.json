@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 749,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-13T09:04:26.169757972Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.600187982,
+    "load_duration": 0.03511721,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 179,
+    "eval_duration": 3.553
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender\", \"male\", \"Male gender has historically been associated with higher recidivism rates in many studies.\"),\n    (\"marital_status\", \"high\", \"Being never married and not cohabiting might indicate a lack of stable social supports, which is often linked to higher criminal risk.\"),\n    (\"employment_stability\", \"medium\", \"Having held 1 job could suggest instability but does not provide enough information on duration or quality of employment.\"),\n    (\"household_size\", \"low\", \"A household size of 6 might indicate a supportive environment, potentially reducing individual stress and crime propensity.\"),\n    (\"family_background\", \"high\", \"Living with both biological parents at age 12 may correlate with lower risk for delinquency but the effect varies greatly.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_040426_171168",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 749,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

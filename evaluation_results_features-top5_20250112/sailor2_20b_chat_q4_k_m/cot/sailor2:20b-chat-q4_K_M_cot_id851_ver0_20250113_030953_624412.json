@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 851,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-01-13T08:09:53.623123029Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.739724035,
+    "load_duration": 0.02551085,
+    "prompt_eval_count": 216,
+    "prompt_eval_duration": 0.056,
+    "eval_count": 187,
+    "eval_duration": 3.656
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"male gender\", \"moderate\", \"Gender, while significant in recidivism rates, is considered moderate due to its correlation with societal norms rather than immediate personal behavior\"],\n    [\"married, spouse present\", \"low\", \"Marriage and a supportive family environment often reduce the likelihood of rearrest by providing stability and social support\"],\n    [\"unemployed\", \"high\", \"Unemployment can lead to financial stress and increased exposure to criminal opportunities or behaviors\"],\n    [\"household size 4\", \"moderate\", \"Moderately larger households may influence peer pressure but do not strongly predict recidivism on their own\"],\n    [\"lived with both biological parents at age 12\", \"low\", \"Stable childhood family structure generally reduces future risk of criminality\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_030953_624412",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 851,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "male gender",
+      "moderate",
+      "Gender, while significant in recidivism rates, is considered moderate due to its correlation with societal norms rather than immediate personal behavior"
+    ],
+    [
+      "married, spouse present",
+      "low",
+      "Marriage and a supportive family environment often reduce the likelihood of rearrest by providing stability and social support"
+    ],
+    [
+      "unemployed",
+      "high",
+      "Unemployment can lead to financial stress and increased exposure to criminal opportunities or behaviors"
+    ],
+    [
+      "household size 4",
+      "moderate",
+      "Moderately larger households may influence peer pressure but do not strongly predict recidivism on their own"
+    ],
+    [
+      "lived with both biological parents at age 12",
+      "low",
+      "Stable childhood family structure generally reduces future risk of criminality"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is married, spouse present and is currently unemployed with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

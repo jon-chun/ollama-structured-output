@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 391,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-13T08:19:58.027042959Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.476607609,
+    "load_duration": 0.01321735,
+    "prompt_eval_count": 237,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 140,
+    "eval_duration": 0.455
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Never married\", \"medium\", \"Having never been married has a medium impact on the risk of rearrest recidivism.\"],\n    [\"Cohabiting\", \"low\", \"A person not cohabiting with their partner or family members reduces the risk factor.\"],\n    [\"1 jobs\", \"high\", \"Having worked 1 job in the past provides a higher level of experience to consider when assessing recidivism.\"],\n    [\"Household size of 5\", \"high\", \"Living with multiple individuals, including children, increases potential for negative influences or stress levels.\"]\n  ],\n  \"prediction\": \"NO\"\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_031958_028019",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 391,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Never married",
+      "medium",
+      "Having never been married has a medium impact on the risk of rearrest recidivism."
+    ],
+    [
+      "Cohabiting",
+      "low",
+      "A person not cohabiting with their partner or family members reduces the risk factor."
+    ],
+    [
+      "1 jobs",
+      "high",
+      "Having worked 1 job in the past provides a higher level of experience to consider when assessing recidivism."
+    ],
+    [
+      "Household size of 5",
+      "high",
+      "Living with multiple individuals, including children, increases potential for negative influences or stress levels."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

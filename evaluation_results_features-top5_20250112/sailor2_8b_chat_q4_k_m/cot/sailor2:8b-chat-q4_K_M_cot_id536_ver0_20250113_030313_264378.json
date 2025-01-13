@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 536,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-13T08:03:13.26295323Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.524929322,
+    "load_duration": 0.024855279,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 384,
+    "eval_duration": 3.485
+  },
+  "response": {
+    "raw_message_text": "**Risk Factors Analysis:**\n\n1. **Never married (Factor 1)**:\n   - **Weight**: Medium\n   - **Reasoning**: Non-marital status might reflect past relational instability, but not necessarily criminal recidivism risk.\n2. **Not cohabiting (Factor 2)**:\n   - **Weight**: Low\n   - **Reasoning**: Cohabitation history has low predictive value for future crimes compared to employment and family stability.\n3. **Work history with 3 jobs (Factor 3)**:\n   - **Weight**: Medium-High\n   - **Reasoning**: Steady employment indicates economic responsibility and potentially reduced likelihood of recidivism due to stable income and structure.\n4. **Household size (Factor 4, 4 individuals)**:\n   - **Weight**: Low\n   - **Reasoning**: Household size alone does not significantly impact criminal behavior without other contextual factors.\n5. **Resided with both biological parents at age 12 (Factor 5)**:\n   - **Weight**: Medium\n   - **Reasoning: Stable family environment up to a certain point can influence early life development, possibly influencing later behaviors.\n\n**Integrated Prediction:**\n\n```json\n{\n  \"risk_factors\": [\n    (\"Never married\", \"Medium\", \"Non-marital status might affect relational stability but not directly criminal recidivism\"),\n    (\"Not cohabiting\", \"Low\", \"Minimal predictive power for future crimes\"),\n    (\"Work history (3 jobs)\", \"Medium-High\", \"Stable employment suggests reduced risk\"),\n    (\"Household size (4 individuals)\", \"Low\", \"Household size's impact is minimal without other context\"),\n    (\"Resided with biological parents at age 12\", \"Medium\", \"Positive family stability influence\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_030313_264378",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 536,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 4 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

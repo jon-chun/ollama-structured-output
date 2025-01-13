@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1096,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-13T08:01:33.432249427Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.914163944,
+    "load_duration": 0.032219895,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 314,
+    "eval_duration": 2.868
+  },
+  "response": {
+    "raw_message_text": "**Analysis:**\n\n1. **Marital Status (Never Married):** Generally neutral in recidivism prediction, but may reflect social support deficits.\n   - **Weight:** Medium\n2. **Living Arrangements (Not Cohabiting with Partner/Parents/Biological Kin after Age 12):** May indicate instability or lack of familial support.\n   - **Weight:** High\n3. **Employment History (3 Jobs):** Positive indicator for employment stability and economic resilience, reducing recidivism risk.\n   - **Weight:** Medium\n4. **Household Size (6):** Broad household context but not directly predictive; can reflect social ties or support.\n   - **Weight:** Low\n\n**Combined Risk Factors Weights:**\n- Total Weight Summed: 1 + 3 + 2 + 0 = 6\n\n**Prediction and Confidence Calculation:**\n\nGiven the mix of positive (employment) and neutral/negative factors, the overall risk leans towards lower recidivism. A refined model would consider more nuanced data but this structured view:\n\n```json\n{\n  \"risk_factors\": [\n    (\"Never Married\", \"medium\", \"Marital status influences social support\"),\n    (\"Not Cohabiting Post-12\", \"high\", \"Historical living instability\"),\n    (\"3 Jobs History\", \"medium\", \"Employment stability indicator\"),\n    (\"Household Size (6)\", \"low\", \"Broad family context\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_030133_433692",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1096,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, not cohabiting and has held 3 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

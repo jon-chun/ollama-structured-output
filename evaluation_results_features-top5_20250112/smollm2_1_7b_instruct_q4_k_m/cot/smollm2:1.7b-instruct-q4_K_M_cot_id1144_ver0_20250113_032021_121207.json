@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1144,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "created_at": "2025-01-13T08:20:21.120089693Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.022931661,
+    "load_duration": 0.016995363,
+    "prompt_eval_count": 234,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 306,
+    "eval_duration": 0.997
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"never married\", \"low\", \"Cohabitation is a risk factor for rearrest recidivism. Individuals who have never been married may face challenges in forming stable relationships, which can impact their ability to maintain employment and provide for themselves. Cohabiting with multiple partners increases the likelihood of strained relationships.\"],\n    [\"not cohabiting\", \"low\", \"Living with both biological parents at age 12 is a protective factor against rearrest recidivism. Children raised in stable, two-parent households tend to have better socio-economic outcomes and lower rates of crime. Not cohabiting may indicate that the individual values stability and commitment.\"],\n    [\"1 jobs\", \"low\", \"Having held only one job with a household size of 6 is a risk factor for rearrest recidivism. Individuals who are not employed or have limited employment experience may struggle to provide for themselves, leading to financial difficulties and potential involvement in crime. A larger household size can also impact an individual's ability to participate in the workforce.\"],\n    [\"household size\", \"low\", \"A household size of 6 is a risk factor for rearrest recidivism. Larger households often require more resources to manage, which can lead to increased stress levels and decreased opportunities for education or job training. Smaller household sizes may also be associated with higher rates of crime.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_032021_121207",
+    "model": "smollm2:1.7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1144,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "never married",
+      "low",
+      "Cohabitation is a risk factor for rearrest recidivism. Individuals who have never been married may face challenges in forming stable relationships, which can impact their ability to maintain employment and provide for themselves. Cohabiting with multiple partners increases the likelihood of strained relationships."
+    ],
+    [
+      "not cohabiting",
+      "low",
+      "Living with both biological parents at age 12 is a protective factor against rearrest recidivism. Children raised in stable, two-parent households tend to have better socio-economic outcomes and lower rates of crime. Not cohabiting may indicate that the individual values stability and commitment."
+    ],
+    [
+      "1 jobs",
+      "low",
+      "Having held only one job with a household size of 6 is a risk factor for rearrest recidivism. Individuals who are not employed or have limited employment experience may struggle to provide for themselves, leading to financial difficulties and potential involvement in crime. A larger household size can also impact an individual's ability to participate in the workforce."
+    ],
+    [
+      "household size",
+      "low",
+      "A household size of 6 is a risk factor for rearrest recidivism. Larger households often require more resources to manage, which can lead to increased stress levels and decreased opportunities for education or job training. Smaller household sizes may also be associated with higher rates of crime."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 6 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
