@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1112,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-13T19:53:26.468492408Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 35.752906314,
+    "load_duration": 0.019108424,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.388,
+    "eval_count": 248,
+    "eval_duration": 35.338
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_male\", \"low\", \"Being male is a demographic factor that correlates with higher recidivism rates, but it's not as strong as other factors like criminal history or substance abuse.\"),\n    (\"never_married\", \"medium\", \"Never being married can indicate less social stability and support, which are protective factors against recidivism. However, this alone does not strongly predict rearrest.\"),\n    (\"not_cohabiting\", \"medium\", \"Not cohabiting suggests a lack of stable relationships or support systems, which can increase the risk of reoffending, but it is still a moderate factor.\"),\n    (\"job_stability_2_jobs\", \"low\", \"Holding 2 jobs indicates some level of employment stability and responsibility, which generally reduces recidivism risk. However, this number of jobs might also suggest instability if the person frequently changes jobs.\"),\n    (\"household_size_2\", \"low\", \"A household size of 2 can be neutral or slightly protective, as it suggests a smaller social unit that may provide some support but is not indicative of significant risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_145326_469772",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1112,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 2 jobs with a household size of 2.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 375,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-13T20:21:54.510076048Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 36.344809216,
+    "load_duration": 0.02632965,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.475,
+    "eval_count": 251,
+    "eval_duration": 35.836
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_male\", \"medium\", \"Being male is a demographic factor that statistically correlates with higher rates of criminal behavior, but it is not as strong as other situational or behavioral factors.\"),\n    (\"never_married\", \"low\", \"Not being married can be a risk factor, but cohabiting suggests some level of social support, which may mitigate this risk.\"),\n    (\"job_history\", \"medium\", \"Holding 3 jobs could indicate instability in employment, which is a moderate risk factor for recidivism. However, it's not clear if the jobs were short-term or part of a career path.\"),\n    (\"household_size_2\", \"low\", \"A smaller household size can be neutral to slightly positive as it may suggest less complexity and potential stressors in the home environment.\"),\n    (\"lived_with_biological_mother_at_12\", \"medium\", \"Living with a biological mother at age 12 suggests some level of family stability during early development, but the marital status of the mother is unknown, which could introduce additional risk if there were issues like single parenting or instability.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_152154_511239",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 375,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, cohabiting and has held 3 jobs with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

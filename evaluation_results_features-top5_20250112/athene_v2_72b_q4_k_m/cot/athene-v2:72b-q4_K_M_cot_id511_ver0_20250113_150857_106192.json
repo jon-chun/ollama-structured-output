@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 511,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-13T20:08:57.104964919Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 33.937204936,
+    "load_duration": 0.025312489,
+    "prompt_eval_count": 221,
+    "prompt_eval_duration": 0.408,
+    "eval_count": 235,
+    "eval_duration": 33.497
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender\", \"medium\", \"Being male is associated with higher recidivism rates, but it's a general trend rather than a strong predictor.\"),\n    (\"marital_status\", \"high\", \"Never married status can indicate less social stability and fewer ties to the community, which are factors that correlate with higher recidivism.\"),\n    (\"employment_history\", \"low\", \"Holding 3 jobs suggests some level of employment but does not provide information about job stability or quality. This is a moderate risk factor, but it's weighted low due to limited information.\"),\n    (\"household_size\", \"medium\", \"A household size of 3 can indicate either stability (e.g., living with family) or instability (e.g., crowded conditions). It\u2019s a neutral to moderately risky factor without more context.\"),\n    (\"living_arrangements_at_age_12\", \"low\", \"Living with both biological parents at age 12 is generally associated with better outcomes and lower recidivism, as it suggests a stable early environment.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_150857_106192",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 511,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 3 jobs with a household size of 3 and lived with their both biological parents at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

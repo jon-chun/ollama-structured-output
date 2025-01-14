@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 581,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:72b-instruct-q4_K_M",
+    "created_at": "2025-01-13T23:44:19.64373907Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 37.401283869,
+    "load_duration": 0.027957011,
+    "prompt_eval_count": 223,
+    "prompt_eval_duration": 0.475,
+    "eval_count": 258,
+    "eval_duration": 36.89
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Gender (Female)\", \"low\", \"Females generally have a lower recidivism rate compared to males.\"),\n    (\"Marital Status (Never Married)\", \"medium\", \"Being never married can indicate less social stability, but it is not a strong predictor on its own.\"),\n    (\"Cohabiting\", \"low\", \"Cohabiting can provide some level of social support and stability, which may reduce recidivism risk.\"),\n    (\"Employment History (4 Jobs)\", \"medium\", \"Frequent job changes can indicate instability or difficulty maintaining employment, which is a moderate risk factor for recidivism.\"),\n    (\"Household Size (3)\", \"low\", \"A smaller household size can provide a more stable environment and support system, reducing the risk of recidivism.\"),\n    (\"Living with Biological Mother at Age 12\", \"medium\", \"Living with a biological mother can indicate some level of family support, but the unknown marital status adds uncertainty.\"),\n    (\"Marital Status of Biological Mother at Age 12 (Unknown)\", \"medium\", \"The unknown marital status introduces ambiguity in the level of family stability and support.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_184419_644745",
+    "model": "qwen2.5:72b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 581,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is never married, cohabiting and has held 4 jobs with a household size of 3 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

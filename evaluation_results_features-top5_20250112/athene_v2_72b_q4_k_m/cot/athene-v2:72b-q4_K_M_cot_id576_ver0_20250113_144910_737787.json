@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 576,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-13T19:49:10.736490433Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 41.208721145,
+    "load_duration": 0.016829453,
+    "prompt_eval_count": 226,
+    "prompt_eval_duration": 0.475,
+    "eval_count": 285,
+    "eval_duration": 40.71
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_female\", \"low\", \"Being female is generally associated with lower recidivism rates compared to males.\"),\n    (\"marital_status_married\", \"low\", \"Marriage, especially with the spouse present, often correlates with lower risk of recidivism due to increased social support and stability.\"),\n    (\"employment_stability_4_jobs\", \"medium\", \"Holding 4 jobs can indicate either stable employment or frequent job changes. Moderate risk as it's not clear if the jobs were long-term or short-term.\"),\n    (\"household_size_4\", \"low\", \"A moderate household size of 4 suggests a balanced living situation, which is generally associated with lower recidivism risk.\"),\n    (\"living_with_other_adults\", \"low\", \"Living with other adults can provide social support and stability, reducing the likelihood of reoffending.\"),\n    (\"biological_parent_status_unknown\", \"medium\", \"The unknown status of biological parent involvement introduces some uncertainty. If positive, it could be a protective factor; if negative, it might increase risk slightly.\"),\n    (\"not_group_quarters_at_age_12\", \"low\", \"Not living in group quarters at a young age suggests a more stable early environment, which is generally associated with lower recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250113_144910_737787",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 576,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a female who is married, spouse present and has held 4 jobs with a household size of 4 and lived with their other adults, biological parent status unknown, not group quarters at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

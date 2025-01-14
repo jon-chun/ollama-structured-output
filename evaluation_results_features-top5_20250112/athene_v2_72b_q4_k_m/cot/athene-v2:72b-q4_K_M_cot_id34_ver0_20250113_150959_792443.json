@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 34,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-13T20:09:59.791232905Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 30.903293192,
+    "load_duration": 0.017502702,
+    "prompt_eval_count": 209,
+    "prompt_eval_duration": 0.409,
+    "eval_count": 214,
+    "eval_duration": 30.47
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"gender_male\", \"medium\", \"Males are statistically more likely to recidivate compared to females, but this factor alone is not highly predictive.\"),\n    (\"never_married_not_cohabiting\", \"high\", \"Lack of stable relationships and social support can increase the risk of reoffending. Being unmarried and not cohabiting often indicates less social stability and support.\"),\n    (\"employment_history_1_job\", \"medium\", \"Holding only one job might indicate instability or difficulty in maintaining employment, which is a moderate risk factor for recidivism. However, it's not as strong an indicator as being unemployed.\"),\n    (\"household_size_5\", \"low\", \"A larger household can provide social support, but it can also be a source of stress. A household size of 5 is generally neutral to slightly positive in terms of risk, assuming the individual has some level of support within the household.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_150959_792443",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 34,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 5.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

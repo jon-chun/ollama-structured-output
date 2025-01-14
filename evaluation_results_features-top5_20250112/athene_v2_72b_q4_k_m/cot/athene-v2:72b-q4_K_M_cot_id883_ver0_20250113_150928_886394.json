@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 883,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-13T20:09:28.885205127Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 31.777455962,
+    "load_duration": 0.016754873,
+    "prompt_eval_count": 222,
+    "prompt_eval_duration": 0.41,
+    "eval_count": 220,
+    "eval_duration": 31.345
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"male\", \"medium\", \"Being male is a known demographic risk factor for criminal behavior, but it is not the highest. It contributes to moderate risk.\"),\n    (\"never married, not cohabiting\", \"high\", \"Lack of stable relationships and social support can increase the likelihood of recidivism. This factor suggests higher risk.\"),\n    (\"unemployed\", \"high\", \"Unemployment is strongly associated with increased risk of reoffending due to lack of structure, income, and social integration.\"),\n    (\"household size of 2\", \"medium\", \"A smaller household may indicate limited support systems, but it is not as critical as unemployment or relationship status.\"),\n    (\"lived with biological mother at age 12, marital status unknown\", \"low\", \"Living with a single parent can be a risk factor, but the lack of information about the mother's marital status and the individual's current relationship with her limits this factor's impact.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_150928_886394",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 883,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 2 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

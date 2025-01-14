@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1225,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-14T04:22:43.597886086Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.343898674,
+    "load_duration": 0.020939439,
+    "prompt_eval_count": 122,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 712,
+    "eval_duration": 7.309
+  },
+  "response": {
+    "raw_message_text": "If the answer is yes, provide a confidence level between 75% - 99% (inclusive). If the answer is no, provide a confidence level between 35% - 64% (inclusive). The confidence levels are not correlated to the data provided. There may be multiple possible answers with the same confidence level and the model should return at least one of them.\nHere's an example response for this input:\n{ \"prediction\": \"YES\", \"confidence\": 80 }\nYou will use a Python script called `main` that contains the code to load the model from disk and make inference on it. Please refer to the README for information about how you can install the required dependencies or run the application in your own environment. You are also welcome to change or add new files. The input data is provided as a JSON-formatted string at `input_data`, which will be parsed into an object before passing it through the model:\n\"\"\"\nimport json\nimport logging\nfrom typing import Dict\n\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger()\n\ndef main():\n    try:\n        input_json = input_data\n        if not isinstance(input_json, str):\n            raise ValueError('Input data is not JSON string')\n        try:\n            data = json.loads(input_json)\n        except Exception as e:\n            logger.error('Failed to parse the input data into a valid JSON object')\n            return {\n                \"prediction\": \"ERROR\",\n                \"confidence\": 0\n            }\n\n        if not isinstance(data, dict):\n            raise ValueError('Input is not a dictionary')\n\n        risk_factors = [data.get('gender', '') == 'Male', data.get('marital-status', '') == 'Never Married',\n                        data.get('current-employment-status', '') != 'Employed',\n                        data.get('household-size', None) in [None, 10],\n                        data.get('lived-with-both-parents-at-12', False)]\n\n        if all(risk_factors):\n            prediction = \"YES\"\n            confidence = random.randint(75, 99)  # Generate a random confidence between 75 and 99%\n        else:\n            prediction = \"NO\"\n            confidence = random.randint(35, 64)  # Generate a random confidence between 35 and 64%\n\n        logger.info('Prediction is %s with confidence level of %d%%', prediction, confidence)\n\n        return {\n            \"prediction\": prediction,\n            \"confidence\": confidence\n        }\n    except Exception as e:\n        logger.error(f'Error while processing the input data: {e}')\n        raise\n\nif __name__ == '__main__':\n    try:\n        result = main()\n        print(json.dumps(result))\n    except Exception as e:\n        logging.exception('An error occurred during inference:', exc_info=True)",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_232243_599295",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 1225,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a male who is never married, not cohabiting and is currently unemployed with a household size of 10 and lived with their both biological parents at age 12.\n"
+  }
+}

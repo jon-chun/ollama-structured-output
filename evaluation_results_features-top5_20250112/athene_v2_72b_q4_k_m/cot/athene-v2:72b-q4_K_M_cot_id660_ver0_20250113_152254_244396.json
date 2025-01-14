@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 660,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-13T20:22:54.243162137Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 29.746832605,
+    "load_duration": 0.016875154,
+    "prompt_eval_count": 224,
+    "prompt_eval_duration": 0.148,
+    "eval_count": 208,
+    "eval_duration": 29.576
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"male\", \"low\", \"Gender can be a factor, but it is generally not as strong as other factors like criminal history.\"),\n    (\"never married\", \"medium\", \"Being never married might suggest less social stability, which can moderately increase recidivism risk.\"),\n    (\"not cohabiting\", \"medium\", \"Lack of stable relationships or support networks can contribute to higher risk.\"),\n    (\"1 job held\", \"high\", \"Limited work history suggests instability and difficulty maintaining employment, both strong predictors of recidivism.\"),\n    (\"household size 4\", \"low\", \"Household size alone is not a strong predictor; it could be neutral or slightly positive if it indicates some form of support structure.\"),\n    (\"lived with biological mother at age 12\", \"medium\", \"Living with a single parent can sometimes indicate less stable family environments, which may moderately increase risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250113_152254_244396",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 660,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a male who is never married, not cohabiting and has held 1 jobs with a household size of 4 and lived with their biological mother, marital status unknown at age 12.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
