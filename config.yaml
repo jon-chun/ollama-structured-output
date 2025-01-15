@@ -60,15 +60,16 @@ logging:
 # Output configuration
 output:
   # base_dir: "evaluation_results_long_20250110" # "evaluation_results_short", "evaluation_results_binary_class", "evaluation_results_multiclass", "evaluation_results_regression"
+  base_dir: "evaluation_results_long_h100_20250115"
   # base_dir: "evaluation_results_short_20250108" # "evaluation_results_short" 
-  base_dir: "evaluation_results_features-top5_20250112" # "evaluation_results_short"
+  # base_dir: "evaluation_results_features-top5_20250112" # "evaluation_results_short"
 # Data configuration
 data:
-  # input_file: "./data/vignettes_renamed_clean.csv"
-  input_file: "./data/vignettes_filtered_0_features-6_text_summary.csv"
-  # risk_factors: "long_text_summary" # "short_text_summary" or "long_text_summary" # change coordinate with output['base_dir'] value
+  input_file: "./data/vignettes_renamed_clean.csv"
+  # input_file: "./data/vignettes_filtered_0_features-6_text_summary.csv"
+  risk_factors: "long_text_summary" # "short_text_summary" or "long_text_summary" # change coordinate with output['base_dir'] value
   # risk_factors: "short_text_summary"
-  risk_factors: "text_summary"
+  # risk_factors: "text_summary"
   outcome: "target"
   random_seed: 42
   train_split: 20  # 20% for training
@@ -193,6 +194,21 @@ model_ensemble:
     max_num_predict: 4096
     max_context_window: 16000
   dolphin-2.9.2-qwen2-7b:Q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  dolphin-llama3.1:8b-v2.9.4-Q8_0:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 32000
+  dolphin-mistral-nemo:12b-v2.9.3-F16:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 4096
+    max_context_window: 16000
+  dolphin-2.9.2-qwen2-7b:f16:
     max_load_time: 240
     max_response_time: 240
     max_num_predict: 4096
