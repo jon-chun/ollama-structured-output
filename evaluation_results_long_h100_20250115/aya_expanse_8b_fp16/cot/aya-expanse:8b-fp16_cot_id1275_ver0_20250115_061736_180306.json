@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1275,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-15T06:17:36.173284791Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.31834082,
+    "load_duration": 0.059977796,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.029,
+    "eval_count": 283,
+    "eval_duration": 4.218
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age alone is not a significant predictor of recidivism, especially with no other high-risk factors present.\"),\n    (\"Arrest History\", \"high\", \"One prior arrest and conviction indicates a history of contact with the criminal justice system, raising concern for potential repeat offenses.\"),\n    (\"Education Level\", \"medium\", \"Lack of a high school diploma or GED may indicate limited opportunities, potentially leading to economic stress and increased risk, but it is not a definitive indicator of future criminal behavior.\"),\n    (\"Employment Status\", \"low\", \"Having held one job during the year suggests some level of stability, although unemployment or underemployment can be a factor in recidivism.\"),\n    (\"Substance Use\", \"medium\", \"Past drug use, particularly of marijuana and cocaine, is a concern but does not necessarily predict future recidivism without other mitigating factors. The absence of recent depression is positive.\"),\n    (\"Family Background\", \"low\", \"Growing up in a household of size 3 with a biological mother does not provide sufficient evidence to significantly impact recidivism risk.\"),\n    (\"Spiritual Beliefs\", \"low\", \"Religious beliefs, while significant to the individual, are not directly correlated with criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250115_061736_180306",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1275,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Hispanic. She has been arrested 1 time and has been convicted. She is 5 feet 8 inches and weighs 160 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
