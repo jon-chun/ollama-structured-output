@@ -58,8 +58,7 @@ def logging_custom(level: str, message: str):
 # --------------------------------------------------------------------
 # 2. Global Constants
 # --------------------------------------------------------------------
-# EVALUATION_RESULTS_DIR = 'evaluation_results_long_20250110'
-EVALUATION_RESULTS_DIR = 'evaluation_results_long_h100_20250115'
+EVALUATION_RESULTS_DIR = 'evaluation_results_long_20250110'
 ROOT_DIR = os.path.abspath(EVALUATION_RESULTS_DIR)
 OUTPUT_DIR = os.path.join('aggregate_reports', os.path.basename(EVALUATION_RESULTS_DIR))
 os.makedirs(OUTPUT_DIR, exist_ok=True)
