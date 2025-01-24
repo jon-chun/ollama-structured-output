@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1301,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:00:06.519234743Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.137611367,
+    "load_duration": 0.033907205,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 364,
+    "eval_duration": 2.076
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: 18 years old\", \"high\", \"Young age can be a risk factor for impulsivity and lack of life experience.\"),\n    (\"Black race\", \"medium\", \"Race is known to influence recidivism rates, but not all Black individuals will reoffend.\"),\n    (\"Two prior arrests/convictions\", \"high\", \"Previous criminal history significantly increases the likelihood of rearrest.\"),\n    (\"Living alone\", \"low\" or \"neutral\", \"Lifestyle choice rather than a risk factor.\"),\n    (\"No formal education (no high school diploma/GED)\", \"high\", \"Low educational attainment is strongly correlated with higher recidivism rates.\"),\n    (\"Unemployed for most of the past year\", \"medium\", \"Being unemployed can contribute to criminal behavior but not all unemployed individuals will reoffend.\"),\n    (\"Past drug use in the last four years (marijuana only)\", \"low\" or \"neutral\", \"Drug use is a risk factor, but single marijuana use does not necessarily increase recidivism rate significantly.\"),\n    (\"No depressive symptoms within the past month\", \"high\" or \"medium\" or \"low\", \"Mood stability can be protective against criminal activity in some cases but may vary based on other factors.\"),\n    (\"Growing up with her mother in a large household (5 people)\", \"medium\", \"Family environment is not a strong predictor of recidivism, but growing up in such an environment may provide support and influence one's future behavior.\"),\n    (\"Believes in God\u2019s role\", \"neutral\" or \"low\", \"Cultural or religious beliefs are generally protective against criminal activities, as they often promote moral standards.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_230006_520954",
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1301,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 2 times and has been convicted. She is 5 feet 1 inch and weighs 135 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

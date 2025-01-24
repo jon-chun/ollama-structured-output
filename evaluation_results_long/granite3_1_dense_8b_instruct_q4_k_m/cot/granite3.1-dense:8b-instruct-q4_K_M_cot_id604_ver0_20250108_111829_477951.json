@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 604,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-08T16:18:29.476466087Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.064990842,
+    "load_duration": 0.017164511,
+    "prompt_eval_count": 384,
+    "prompt_eval_duration": 0.037,
+    "eval_count": 421,
+    "eval_duration": 4.006
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which generally correlates with higher risk of recidivism.\"),\n    (\"gender\", \"low\", \"Male gender does not inherently increase risk, but it's often associated with higher recidivism rates.\"),\n    (\"ethnicity\", \"low\", \"White ethnicity does not inherently increase risk.\"),\n    (\"prior_arrests\", \"medium\", \"1 prior arrest is a moderate indicator of future criminal behavior.\"),\n    (\"conviction\", \"low\", \"No prior convictions indicate less seriousness of past offenses.\"),\n    (\"age_at_first_arrest\", \"high\", \"Arrested at a young age can be indicative of persistent criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Never married is not a strong indicator of recidivism.\"),\n    (\"living_situation\", \"low\", \"Living alone does not inherently increase risk.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a large household could indicate exposure to more complex social dynamics and potential conflict.\"),\n    (\"education\", \"high\", \"GED certificate suggests lower educational attainment, which is associated with higher recidivism rates.\"),\n    (\"employment\", \"low\", \"Holding 2 jobs during the year indicates employment stability, which reduces risk.\"),\n    (\"drug_use\", \"medium\", \"Past and present marijuana use can indicate substance abuse issues that may lead to future criminal behavior.\"),\n    (\"depression\", \"high\", \"Feeling persistently sad or depressed could indicate mental health issues which may be associated with recidivism.\"),\n    (\"religious_belief\", \"low\", \"Believing in a higher power does not inherently increase risk of recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_111829_477951",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 604,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 6 inches and weighs 202 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 10. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

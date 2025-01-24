@@ -1,0 +1,79 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 874,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-01-08T12:36:39.303381653Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.36360041,
+    "load_duration": 0.026105156,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 315,
+    "eval_duration": 1.326
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Arrest Record\", \"medium\", \"One prior arrest and conviction suggests potential involvement in criminal activity, but limited history indicates it may not be deeply rooted.\"],\n    [\"Drug Use\", \"medium\", \"Past drug use (marijuana) within the past four years, but without depression or other indicators of ongoing substance abuse problem.\"],\n    [\"Employment Stability\", \"low\", \"Holding multiple jobs suggests engagement and effort to maintain employment, reducing likelihood of financial dependence on criminal activities.\"],\n    [\"Educational Attainment\", \"low\", \"Enrolled in college indicates potential for upward mobility and reduced risk of recidivism due to better socioeconomic prospects.\"],\n    [\"Family Background\", \"low\", \"Living with both parents at age suggests stable upbringing, though size of household (4) could indicate some challenges depending on specifics.\"],\n    [\"Religious Belief\", \"low\", \"Belief that God plays no role in personal affairs does not inherently correlate with higher risk, focusing more on personal choices and circumstances.\"],\n    [\"Living Situation\", \"medium\", \"Not living alone might indicate dependence on others or potential financial vulnerabilities, but lacks direct evidence of instability or criminal association.\"],\n    [\"Physical Attributes\", \"low\", \"Height and weight do not typically correlate strongly with criminal behavior risk.\"]\n  ],\n  \"prediction\": \"LOW\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_073639_304867",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 874,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Arrest Record",
+      "medium",
+      "One prior arrest and conviction suggests potential involvement in criminal activity, but limited history indicates it may not be deeply rooted."
+    ],
+    [
+      "Drug Use",
+      "medium",
+      "Past drug use (marijuana) within the past four years, but without depression or other indicators of ongoing substance abuse problem."
+    ],
+    [
+      "Employment Stability",
+      "low",
+      "Holding multiple jobs suggests engagement and effort to maintain employment, reducing likelihood of financial dependence on criminal activities."
+    ],
+    [
+      "Educational Attainment",
+      "low",
+      "Enrolled in college indicates potential for upward mobility and reduced risk of recidivism due to better socioeconomic prospects."
+    ],
+    [
+      "Family Background",
+      "low",
+      "Living with both parents at age suggests stable upbringing, though size of household (4) could indicate some challenges depending on specifics."
+    ],
+    [
+      "Religious Belief",
+      "low",
+      "Belief that God plays no role in personal affairs does not inherently correlate with higher risk, focusing more on personal choices and circumstances."
+    ],
+    [
+      "Living Situation",
+      "medium",
+      "Not living alone might indicate dependence on others or potential financial vulnerabilities, but lacks direct evidence of instability or criminal association."
+    ],
+    [
+      "Physical Attributes",
+      "low",
+      "Height and weight do not typically correlate strongly with criminal behavior risk."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs 240 lbs. He has never been married and is currently not living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

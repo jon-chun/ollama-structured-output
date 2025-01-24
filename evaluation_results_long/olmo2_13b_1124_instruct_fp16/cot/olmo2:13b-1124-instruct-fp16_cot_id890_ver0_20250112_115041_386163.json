@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 890,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:50:41.384999982Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.937947515,
+    "load_duration": 0.016753056,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.029,
+    "eval_count": 336,
+    "eval_duration": 11.889
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are generally at a medium risk level for recidivism.\"),\n    (\"sex\", \"low\", \"Females typically have lower rates of rearrest compared to males.\"),\n    (\"arrest_count\", \"high\", \"Having two arrests increases the likelihood of future offenses.\"),\n    (\"convictions\", \"high\", \"Convictions further elevate the risk of reoffending.\"),\n    (\"education_level\", \"medium\", \"Graduating from an associate/junior college indicates some stability but does not reduce risk significantly.\"),\n    (\"employment_stability\", \"low\", \"Holding multiple jobs can be indicative of instability, but also adaptability.\"),\n    (\"drug_use_past_year\", \"high\", \"Substance abuse increases the likelihood of criminal activity.\"),\n    (\"depression_signs\", \"medium\", \"Feelings of depression can correlate with higher recidivism risk, especially without treatment.\"),\n    (\"childhood_household_size\", \"low\", \"Growing up in a household of five may indicate certain socio-economic challenges but does not directly affect adult recidivism.\"),\n    (\"current_living_situation\", \"medium\", \"Living alone might suggest less immediate social influence on behavior, but it could also mean more autonomy.\"),\n    (\"rural_or_urban_upbringing\", \"low\", \"Urban upbringing may expose individuals to more crime opportunities, but does not directly dictate personal criminality.\"),\n    (\"spiritual_beliefs\", \"low\", \"Having a belief in divine influence is not a direct predictor of criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_115041_386163",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 890,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She has completed study at an associate/junior college and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

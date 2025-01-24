@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 198,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:56:55.334848144Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.513761301,
+    "load_duration": 0.018573067,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 338,
+    "eval_duration": 6.471
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Youth is often associated with higher risk of recidivism, but completing a degree and further education show potential for positive life changes.\"),\n    (\"number_of_arrests\", \"medium\", \"Two arrests indicate a history of offending, but not chronic or severe offending.\"),\n    (\"conviction\", \"high\", \"A criminal conviction is a strong indicator of past offending behavior that has led to legal consequences.\"),\n    (\"physical_description\", \"low\", \"Physical attributes such as height and weight are typically less relevant to criminal risk assessments.\"),\n    (\"marital_status\", \"medium\", \"Never married status could potentially indicate fewer social support systems, which might increase risk, but education indicates potential for stable relationships.\"),\n    (\"employment_history\", \"medium\", \"Holding a job in the year prior to assessment suggests a degree of stability and responsibility, mitigating risk.\"),\n    (\"drug_usage\", \"high\", \"Use of drugs, particularly cocaine, is associated with increased risk of criminal behavior and relapse into drug use.\"),\n    (\"mental_health_status\", \"low\", \"Lack of recent depression symptoms is a positive factor suggesting mental health is not contributing to risk at this time.\"),\n    (\"early_life_environment\", \"medium\", \"Growing up in a stable household with both biological parents might suggest a more favorable background, but young age and drug exposure could counteract this advantage.\"),\n    (\"belief_in_god\", \"low\", \"Belief in a higher power may provide personal moral guidance but is less directly predictive of criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105655_336326",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 198,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 8 inches and weighs 145 lbs. He has never been married and is currently living alone. He has completed a Bachelor's degree and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

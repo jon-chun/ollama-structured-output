@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1144,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:25:25.278017732Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.021457659,
+    "load_duration": 0.009364503,
+    "prompt_eval_count": 356,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 483,
+    "eval_duration": 8.985
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The person is a 19-year-old male, which is typically not considered a high-risk age for recidivism.\"),\n    (\"number\\_of\\_arrests\", \"high\", \"The person has been arrested 3 times, even though they have not been convicted, indicating a history of criminal behavior.\"),\n    (\"height\", \"low\", \"The person's height is not an indicator of risk for recidivism.\"),\n    (\"weight\", \"medium\", \"The person's weight is above average, which could be associated with a higher risk for recidivism due to potential health issues or substance abuse.\"),\n    (\"marital\\_status\", \"low\", \"Being unmarried does not necessarily indicate an increased risk for recidivism.\"),\n    (\"housing\\_situation\", \"high\", \"Living alone could increase the person's risk for recidivism due to potential feelings of isolation and lack of support.\"),\n    (\"education\\_level\", \"low\", \"Having a GED certificate and not being enrolled in college may indicate lower cognitive abilities or less access to resources, which could increase the person's risk for recidivism.\"),\n    (\"employment\\_status\", \"low\", \"Holding only one job during the year is not an indicator of risk for recidivism.\"),\n    (\"drug\\_use\", \"low\", \"Not using any drugs in the past four years indicates a lower risk for drug-related offenses.\"),\n    (\"depression\", \"low\", \"Feeling depressed over the past month is not an indicator of increased risk for recidivism.\"),\n    (\"family\\_history\", \"high\", \"Growing up with both biological parents in an urban household of size 6 could indicate exposure to negative influences and potential criminal behavior.\"),\n    (\"religious\\_affiliation\", \"low\", \"Not considering that God has anything to do with what happens to them personally is not an indicator of increased risk for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192525_279190",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1144,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 3 times but has not been convicted. He is 5 feet 10 inches and weighs 290 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 280,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T02:53:08.627619871Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.357953662,
+    "load_duration": 0.027472328,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 302,
+    "eval_duration": 1.325
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"weight\": \"low\", \"textual reasoning\": \"The individual's racial identity may be associated with social determinants of health, such as socioeconomic status, access to education and employment opportunities. However, this factor is not directly related to recidivism,\"},\n    {\"factor2\": \"education\", \"weight\": \"medium\", \"textual reasoning\": \"Limited education and lack of formal training may contribute to a higher risk of recidivism due to limited employability skills and lower socio-economic status,\"},\n    {\"factor3\": \"employment history\", \"weight\": \"high\", \"textual reasoning\": \"A job held in the past year indicates stability, which is a crucial factor in reducing recidivism. Lack of employment may increase stress, anxiety, and feelings of hopelessness,\"},\n    {\"factor4\": \"substance abuse\", \"weight\": \"low\", \"textual reasoning\": \"The absence of drug use in the past four years suggests a lower risk of substance-related offenses or reoffending,\"},\n    {\"factor5\": \"mental health\", \"weight\": \"medium\", \"textual reasoning\": \"Depression may be a factor, but its impact on recidivism is not clear. Some individuals with depression may engage in riskier behaviors, while others may experience increased stability and reduced stress levels,\"}\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250106_215308_628779",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 280,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "weight": "low",
+      "textual reasoning": "The individual's racial identity may be associated with social determinants of health, such as socioeconomic status, access to education and employment opportunities. However, this factor is not directly related to recidivism,"
+    },
+    {
+      "factor2": "education",
+      "weight": "medium",
+      "textual reasoning": "Limited education and lack of formal training may contribute to a higher risk of recidivism due to limited employability skills and lower socio-economic status,"
+    },
+    {
+      "factor3": "employment history",
+      "weight": "high",
+      "textual reasoning": "A job held in the past year indicates stability, which is a crucial factor in reducing recidivism. Lack of employment may increase stress, anxiety, and feelings of hopelessness,"
+    },
+    {
+      "factor4": "substance abuse",
+      "weight": "low",
+      "textual reasoning": "The absence of drug use in the past four years suggests a lower risk of substance-related offenses or reoffending,"
+    },
+    {
+      "factor5": "mental health",
+      "weight": "medium",
+      "textual reasoning": "Depression may be a factor, but its impact on recidivism is not clear. Some individuals with depression may engage in riskier behaviors, while others may experience increased stability and reduced stress levels,"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted. He is 5 feet 7 inches and weighs 170 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

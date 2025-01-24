@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 239,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:48:37.436320979Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.995557081,
+    "load_duration": 0.025046306,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.027,
+    "eval_count": 368,
+    "eval_duration": 12.939
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults in this age range are statistically more likely to engage in criminal behavior due to developmental factors and peer influence.\"),\n    (\"race\", \"low\", \"White males do not exhibit significantly higher or lower recidivism rates compared to other races based on general statistics.\"),\n    (\"arrests_without_conviction\", \"medium\", \"Multiple arrests without convictions can indicate involvement in criminal activity, but the lack of convictions suggests some legal awareness.\"),\n    (\"height_and_weight\", \"low\", \"Physical dimensions alone do not correlate with risk for rearrest.\"),\n    (\"marital_status\", \"low\", \"Being unmarried is less predictive of recidivism than other factors.\"),\n    (\"living_situation\", \"medium\", \"Living alone may increase social isolation and lack of supervision, which can contribute to recidivism.\"),\n    (\"educational_status\", \"medium\", \"Lack of education is associated with higher recidivism rates due to limited employment opportunities and social skills.\"),\n    (\"employment_history\", \"low\", \"Having held one job can indicate some level of stability, reducing the risk factor.\"),\n    (\"drug_use\", \"medium\", \"Recent marijuana use is a moderate risk factor as it may correlate with other illegal activities.\"),\n    (\"depression_status\", \"low\", \"Absence of depression lowers risk; however, other mental health issues not assessed could still be a factor.\"),\n    (\"childhood_environment\", \"medium\", \"Growing up in a household of size 5 in an urban area can expose individuals to higher risks due to environmental influences.\"),\n    (\"religious_beliefs\", \"low\", \"Lack of belief in divine influence does not directly impact recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114837_437780",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 239,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 7 feet 3 inches and weighs 140 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

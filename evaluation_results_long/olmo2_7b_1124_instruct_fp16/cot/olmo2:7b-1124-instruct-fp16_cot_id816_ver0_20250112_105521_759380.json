@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 816,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:55:21.758005495Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.414225251,
+    "load_duration": 0.024494235,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 446,
+    "eval_duration": 8.369
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can be associated with less life experience, potentially higher impulsivity, and peer influences, but completion of education suggests maturity.\"),\n    (\"gender\", \"low\", \"There's limited evidence to suggest significant gender-based recidivism differences for non-violent crimes in the US.\"),\n    (\"arrest count\", \"medium\", \"One arrest suggests a single incident rather than a pattern, but conviction indicates a serious breach of law.\"),\n    (\"conviction\", \"high\", \"Having been convicted indicates an actual offense and legal system involvement, which is a strong predictor of future criminal behavior.\"),\n    (\"physical description\", \"low\", \"Physical attributes such as height and weight do not directly correlate with recidivism risk.\"),\n    (\"marital status\", \"low\", \"Being unmarried might correlate with certain lifestyle choices, but it's not a direct indicator of recidivism.\"),\n    (\"educational attainment\", \"medium\", \"Higher education is often associated with lower recidivism rates; however, the 2-year college status indicates she may be balancing life and studies rather than focusing solely on education.\"),\n    (\"employment history\", \"medium\", \"Having held one job suggests stability, which can be protective against recidivism. However, lack of employment immediately post-release might increase risk.\"),\n    (\"drug use\", \"medium\", \"Past drug use indicates potential involvement with illegal activities or risky behaviors that could influence future criminality.\"),\n    (\"mental health\", \"low\", \"No recent signs of depression may indicate mental stability, which is generally favorable for reducing recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```\n\nThis JSON object incorporates various risk factors and assigns them relative weights based on their typical influence on the likelihood of recidivism within the criminal justice system. The prediction is \"YES,\" suggesting a higher likelihood of rearrest within three years due to a combination of conviction history, some evidence of past drug use, and a single employment experience. However, the moderate confidence reflects an understanding that individual outcomes can vary and are influenced by many other factors not included in this simplified model.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105521_759380",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 816,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 4 inches and weighs 110 lbs. She has never been married and is currently not living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 1 job during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 4, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

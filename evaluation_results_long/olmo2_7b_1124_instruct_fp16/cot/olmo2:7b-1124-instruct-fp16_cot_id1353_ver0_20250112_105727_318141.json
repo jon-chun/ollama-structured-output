@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1353,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:57:27.316409141Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.395210638,
+    "load_duration": 0.02155648,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 499,
+    "eval_duration": 9.351
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are often at a higher risk for reoffending due to impulsivity and lack of life experience, but being 21 years old is within a slightly older range where this risk may start to decrease.\"),\n    (\"arrest_count\", \"high\", \"Multiple arrests often correlate with higher recidivism rates due to repeated exposure to criminal environments and the likelihood of unresolved issues that lead to further criminal behavior.\"),\n    (\"race\", \"medium\", \"Statistically, some racial groups may have higher recidivism rates; however, individual behavior and environment play significant roles. Given no specific local demographic data, this factor is considered medium.\"),\n    (\"never married\", \"medium\", \"Marriage has been linked to reduced risk of reoffending for some individuals, but the absence of a marital status can also reflect a lack of stable social networks or support systems.\"),\n    (\"current living situation\", \"low\", \"Living arrangements do not directly predict recidivism without additional context on the quality of these relationships or environments.\"),\n    (\"education\", \"medium\", \"Lack of higher education is associated with increased risk, as it can limit employment opportunities and access to positive social networks. However, a GED certificate indicates some educational attainment.\"),\n    (\"job history\", \"low\", \"Having held jobs indicates the person has had some stability and interaction with societal norms, potentially reducing the risk of reoffending.\"),\n    (\"drug use\", \"medium\", \"Past drug use can be indicative of potential substance-related issues, which can affect decision-making and increase the likelihood of involvement in criminal activities. Recent use suggests it remains a current concern.\"),\n    (\"depression symptoms\", \"high\", \"Feeling persistently down can be linked to a higher risk of reoffending due to a lack of coping mechanisms and potentially increased engagement in risky behaviors.\"),\n    (\"early family environment\", \"medium\", \"Growing up in a household with three people in a rural area may suggest limited exposure to positive role models or community resources, which could elevate the risk of reoffending. However, the 'rural' aspect needs local context for precise evaluation.\"),\n    (\"belief in divine intervention\", \"low\", \"Belief in a higher power can sometimes provide individuals with a moral compass and hope for redemption, potentially lowering reoffending risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105727_318141",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1353,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 3 times but has not been convicted. He is 5 feet 9 inches and weighs 170 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

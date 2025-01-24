@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 344,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:22:05.557893757Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.792642287,
+    "load_duration": 0.014531466,
+    "prompt_eval_count": 376,
+    "prompt_eval_duration": 0.024,
+    "eval_count": 309,
+    "eval_duration": 5.751
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"She is a 20-year-old female.\"),\n    (\"gender\", \"low\", \"She identifies herself as White.\"),\n    (\"prior\\_arrests\", \"medium\", \"She has been arrested once but not convicted.\"),\n    (\"height\", \"low\", \"She is 5 feet 0 inches.\"),\n    (\"weight\", \"low\", \"She weighs 180 lbs.\"),\n    (\"marital\\_status\", \"low\", \"She is not married and lives alone.\"),\n    (\"education\", \"medium\", \"She has a high school diploma but is not enrolled in college.\"),\n    (\"employment\", \"high\", \"She has held 9 jobs during the year.\"),\n    (\"drug_use\", \"medium\", \"She has used drugs (marijuana and cocaine) in the past four years, including some time during the past month when she felt down.\"),\n    (\"childhood\\_home\", \"low\", \"She lived with both of her biological parents in a household of size 5, in a rural area.\"),\n    (\"spirituality\", \"medium\", \"She considers that God has something to do with what happens to her personally.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192205_559625",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 344,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 0 inches and weighs 180 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 9 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1119,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:07:59.485585423Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.662976094,
+    "load_duration": 0.04256515,
+    "prompt_eval_count": 350,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 492,
+    "eval_duration": 4.607
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrests\", \"high\", \"Number of arrests suggests a history of criminal activity.\"),\n    (\"Age\", \"medium\", \"Younger age is often associated with higher recidivism rates, but individual circumstances matter.\"),\n    (\"Race\", \"low\", \"While racial bias exists in the justice system, race alone does not predict recidivism.\"),\n    (\"Height/Weight\", \"low\", \"These factors are unrelated to criminal behavior.\"),\n    (\"Marital Status\", \"low\", \"Relationship status is not a strong predictor of criminal activity.\"),\n    (\"Living Situation\", \"low\", \"Living arrangement doesn't directly correlate to future actions.\"),\n    (\"Education Level\", \"high\", \"Lack of education can be associated with higher recidivism risk\"),\n    (\"Employment History\", \"medium\", \"No employment history indicates potential for instability and limited support systems.\"),\n    (\"Substance Use\", \"high\", \"Drug use is a significant predictor of criminal behavior, particularly in the context of mental health struggles.\"),\n    (\"Mental Health\", \"high\", \"Feelings of depression and low self-esteem are strong risk factors for recidivism.\"),\n    (\"Family History\", \"low\", \"Lack of detailed family history information limits assessment here.\") \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}\n``` \n\n**Explanation:**\n\nThis analysis focuses on the most significant risk factors based on general criminal justice knowledge. While individual circumstances are complex, these factors provide a framework for understanding potential recidivism risk:\n\n* **Prior Arrests (High):** The individual has multiple arrests without convictions, indicating potential involvement in criminal activity.\n* **Substance Use (High):** Drug use is linked to both higher rates of re-offending and the possibility of mental health issues that can increase recidivism risk.\n* **Mental Health (High):**  The individual's reported feelings of depression and low self-esteem strongly suggest a need for support and rehabilitation services, which might mitigate future criminal behavior. \n\nIt is important to note that this assessment is limited by the provided information and does not capture all potential factors influencing recidivism. A comprehensive risk assessment would likely include a more detailed evaluation of each individual's personal history, social networks, and specific circumstances.\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010759_486817",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1119,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted. He is 6 feet 2 inches and weighs 140 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

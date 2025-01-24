@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 56,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T15:44:05.058329405Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.162568742,
+    "load_duration": 0.018462329,
+    "prompt_eval_count": 346,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 489,
+    "eval_duration": 4.121
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals can be more impulsive and less experienced, which may increase risk.\"),\n    (\"gender\", \"low\", \"Females often face different types of risks in the criminal justice system, but overall, gender alone is not a strong predictor of recidivism.\"),\n    (\"arrest history\", \"high\", \"Multiple arrests suggest a pattern of behavior that increases the likelihood of reoffending.\"),\n    (\"convictions\", \"high\", \"Having been convicted indicates a history of illegal activity and potential for future offenses.\"),\n    (\"physical description\", \"neutral\", \"Physical attributes such as height and weight do not directly influence risk level.\"),\n    (\"relationship status\", \"low\", \"Being unmarried does not typically impact recidivism rates significantly unless it reflects social isolation.\"),\n    (\"education\", \"high\", \"Lack of a high school diploma or GED may indicate lower educational attainment, which can correlate with higher recidivism rates.\"),\n    (\"employment history\", \"low\", \"Holding jobs does not inherently increase or decrease risk; it's the stability and type of employment that could be more telling.\"),\n    (\"drug use\", \"high\", \"Current drug use, especially illicit drugs like cocaine, significantly increases the risk of reoffending.\"),\n    (\"mood state\", \"medium\", \"Feeling down could indicate mental health issues which may increase risk if not addressed.\"),\n    (\"early life environment\", \"medium\", \"Living in a household with four people in an urban setting during formative years can provide both risks and supports, but it's not strongly predictive on its own.\"),\n    (\"belief in divine intervention\", \"low\", \"Perception of divine involvement typically does not influence behavioral risk; however, it might indicate a lack of perceived responsibility for personal actions.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object reflects an analysis based on typical risk factors associated with criminal justice recidivism. The prediction is that the individual has a higher likelihood of rearrest within three years, with a moderate level of confidence (75%). The reasoning behind each risk factor rating is provided in the \"textual reasoning\" field. Note that this is a fictional prediction for the purpose of demonstrating how the data might be structured and does not reflect an actual assessment of the individual's behavior or future actions.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_104405_059637",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 56,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 3 times and has been convicted. She is 5 feet 3 inches and weighs between 175 and 199 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

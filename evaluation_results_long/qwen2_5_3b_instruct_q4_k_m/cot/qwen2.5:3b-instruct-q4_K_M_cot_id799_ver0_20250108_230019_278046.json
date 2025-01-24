@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 799,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:00:19.276158425Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.157882558,
+    "load_duration": 0.033291199,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 372,
+    "eval_duration": 2.1
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Male, age 21\", \"high\", \"Young male with prior arrests and convictions carry higher risk of rearrest.\"),\n    (\"Two previous arrests\", \"high\", \"Multiple prior arrests increase the likelihood of recidivism.\"),\n    (\"Convicted criminal history\", \"high\", \"Past conviction significantly increases the chances of future offenses.\"),\n    (\"Body Mass Index (BMI) 135 lbs, height 5'7\\\"\", \"low\", \"Individual's physical characteristics do not directly correlate with risk level without considering other factors.\"),\n    (\"No marital status or family influence in past four years\", \"medium\", \"Lack of stable familial or romantic support can be a factor in recidivism.\"),\n    (\"Single and living alone\", \"high\", \"Living alone, especially if lacking social ties, increases vulnerability to crime.\"),\n    (\"High school diploma and enrolled in 4-year college\", \"low\", \"Continued education may reduce risk but is not definitive.\"),\n    (\"Only held one job during the year\", \"medium\", \"Lack of consistent employment history can be a concern for recidivism.\"),\n    (\"Past drug use (marijuana and cocaine)\", \"high\", \"Drug addiction history often correlates with increased criminal activity.\"),\n    (\"Feeling persistently depressed in the past month\", \"high\", \"Persistent depression or mental health issues are associated with higher rates of crime.\"),\n    (\"Lived with both biological parents as a child\", \"low\", \"While positive, living with parents during childhood does not necessarily protect from future crimes.\"),\n    (\"Believes God plays a role in his life\", \"medium\", \"Personal beliefs and spirituality can impact risk perception but do not directly predict recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_230019_278046",
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 799,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 7 inches and weighs 135 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

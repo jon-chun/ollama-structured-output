@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 201,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-08T10:35:44.262746917Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.71674186,
+    "load_duration": 0.022382412,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 423,
+    "eval_duration": 3.677
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The person is young but not extremely young, which can be a neutral factor.\"),\n    (\"gender\", \"low\", \"Female; generally lower risk than male for recidivism.\"),\n    (\"race_ethnicity\", \"medium\", \"Hispanic ethnicity can present some unique challenges in the criminal justice system that may increase the likelihood of recidivism.\"),\n    (\"arrested_before\", \"high\", \"Previous arrest indicates higher potential for future involvement with the criminal justice system.\"),\n    (\"not_convicted\", \"low\", \"Not being convicted suggests lower level offense or lack of evidence leading to less severe consequences.\"),\n    (\"height_weight\", \"low\", \"Physical size does not significantly impact risk assessment in this context.\"),\n    (\"marital_status\", \"medium\", \"Never married may indicate a lack of stable support structures, potentially increasing recidivism risk.\"),\n    (\"living_arrangement\", \"low\", \"Not living alone can be protective but doesn't provide strong evidence either way for rearrest risk.\"),\n    (\"education_level\", \"high\", \"Lack of high school diploma or GED and not being enrolled in college are indicative of fewer resources to mitigate against criminal behavior.\"),\n    (\"employment_history\", \"medium\", \"Holding 3 jobs suggests effort at stability but doesn't necessarily reduce recidivism risk.\"),\n    (\"drug_use\", \"low\", \"No drug use for four years is a positive factor, reducing the likelihood of future offenses related to substance abuse.\"),\n    (\"mental_health\", \"high\", \"Experiencing depressive symptoms regularly can indicate potential for increased criminal behavior due to mental health issues.\"),\n    (\"family_size_of_origin\", \"medium\", \"Growing up in a household of size 4 may suggest some socioeconomic disadvantages but is not conclusive evidence of future criminal behavior.\"),\n    (\"religion_beliefs\", \"low\", \"Belief that God has something to do with personal events does not directly correlate with criminal recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_053544_264043",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 201,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 160 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 938,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:58:47.60145563Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.041493944,
+    "load_duration": 0.018947783,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 375,
+    "eval_duration": 7.0
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals may be more susceptible to the influences that lead to criminal behavior, but age 22 is an adulthood transition period where risks can vary widely depending on life experiences.\"),\n    (\"arrest_count\", \"high\", \"Multiple arrests suggest a pattern of behavior that increases the likelihood of reoffending.\"),\n    (\"conviction_history\", \"high\", \"Having been convicted in the past indicates a history of offending, which increases risk.\"),\n    (\"physical_description\", \"low\", \"Physical appearance such as height and weight does not typically correlate with criminal behavior predictably.\"),\n    (\"marital_status\", \"medium\", \"Unmarried status may suggest a lack of stable family influence, but this factor alone does not significantly increase recidivism risk.\"),\n    (\"educational attainment\", \"high\", \"Lack of a high school diploma or GED typically correlates with lower socio-economic status and increased risk for reoffending.\"),\n    (\"job_history\", \"low\", \"Holding jobs during the year can suggest stability and a potential deterrent from criminal behavior, especially if these jobs are full-time and income-generating.\"),\n    (\"drug_use\", \"medium\", \"Drug use, particularly within the past four years, increases the risk of reoffending, as it may indicate ongoing involvement with drug-related activities or communities.\"),\n    (\"mental_health_status\", \"low\", \"The absence of depression in the past month suggests a stable mental health status, which generally lowers the risk of recidivism.\"),\n    (\"childhood_home_environment\", \"medium\", \"Growing up in a household of four and in an urban area could indicate exposure to higher crime rates, which might influence behavior, but it's not deterministic.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105847_602622",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 938,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 5 times and has been convicted. He is 5 feet 8 inches and weighs 165 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

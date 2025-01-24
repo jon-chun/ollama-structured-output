@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 843,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:32b-q4_K_M",
+    "created_at": "2025-01-08T09:36:00.677737328Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.729633479,
+    "load_duration": 0.033293284,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 0.087,
+    "eval_count": 380,
+    "eval_duration": 10.605
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"While young adults aged 18-24 have a higher arrest rate than any other age group, the risk is not as high as for younger adolescents. Being 19 years old is not considered a significant risk factor in isolation.\"),\n    (\"Gender\", \"high\", \"Males are more likely to be arrested and reoffend compared to females.\"),\n    (\"Race/Ethnicity\", \"low\", \"Research suggests that disparities in arrest rates are more attributable to socioeconomic factors and systemic biases than race/ethnicity itself. Self-identifying as White is a neutral factor in this context.\"),\n    (\"Arrest History\", \"high\", \"A history of multiple arrests (8 in this case) is a strong indicator of potential future reoffending.\"),\n    (\"Employment Status\", \"medium\", \"Having held only 2 jobs in the past year may suggest instability or lack of commitment to employment, which could be a risk factor.\"),\n    (\"Substance Abuse\", \"high\", \"Recent drug use (marijuana and cocaine) is concerning and increases the likelihood of reoffending, especially if it is linked to the original offense(s).\"),\n    (\"Mental Health\", \"medium\", \"Experiencing periods of depression ('felt so down in the dumps') could be a contributing factor, especially if left unaddressed.\"),\n    (\"Family Background\", \"low\", \"Growing up with both biological parents present does not necessarily indicate risk, but a household size of 6 may suggest potential challenges or lack of individual attention.\"),\n    (\"Religious Beliefs\", \"low\", \"The individual's belief that God has no personal involvement is unlikely to have a direct impact on recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_043600_679211",
+    "model": "aya-expanse:32b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 843,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 8 times and has been convicted. He is 5 feet 10 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 6. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1316,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:50:53.885963953Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.396569299,
+    "load_duration": 0.020903023,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 351,
+    "eval_duration": 12.343
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age can be indicative of lower recidivism if proper interventions are in place.\"),\n    (\"gender\", \"medium\", \"Male gender is associated with higher recidivism rates due to various socio-cultural factors.\"),\n    (\"race\", \"medium\", \"Being Black may correlate with higher risk due to systemic inequalities, but individual circumstances vary widely.\"),\n    (\"prior_arrests\", \"low\", \"Single arrest without conviction suggests lower immediate risk.\"),\n    (\"spousal_support\", \"low\", \"Living with spouse can provide stability and reduce likelihood of reoffending.\"),\n    (\"education_level\", \"medium\", \"GED indicates some educational achievement but also suggests potential challenges in employment.\"),\n    (\"employment_status\", \"high\", \"Unemployed may indicate fewer opportunities and increased risk of involvement in illegal activities.\"),\n    (\"drug_use\", \"high\", \"Recent marijuana use suggests potential for substance-related issues which can increase risk.\"),\n    (\"depression_symptoms\", \"high\", \"Feeling down most days indicates mental health concerns that could contribute to recidivism if untreated.\"),\n    (\"family_history\", \"medium\", \"Growing up in a household of size 5 and rural background may influence social environment but specifics matter.\"),\n    (\"spiritual_beliefs\", \"low\", \"Belief in divine influence could offer moral framework reducing risk, depending on interpretation.\"),\n    (\"residence_type\", \"low\", \"Living with spouse often provides a stable home environment, potentially reducing risk.\"),\n    (\"marital_status\", \"low\", \"Being married can provide social support and reduce isolation that may contribute to criminal activity.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_115053_887328",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1316,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 8 inches and weighs 165 lbs. He is married and is currently living with his spouse. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

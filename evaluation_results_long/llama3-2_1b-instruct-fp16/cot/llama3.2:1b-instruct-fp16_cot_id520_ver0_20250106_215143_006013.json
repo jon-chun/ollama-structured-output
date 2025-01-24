@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 520,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-07T02:51:43.004770393Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.218587071,
+    "load_duration": 0.027023435,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 258,
+    "eval_duration": 1.186
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"age\", \"weight\": \"low\", \"reasoning\": \"At 21 years old, she has not had much life experience, which can impact her decision-making abilities and problem-solving skills.\"},\n    {\"factor2\": \"family background\", \"weight\": \"medium\", \"reasoning\": \"Her upbringing with her biological mother in a household of size 6 may have contributed to her difficulties in forming healthy relationships or achieving stability.\"},\n    {\"factor3\": \"education level\", \"weight\": \"low\", \"reasoning\": \"Lack of education beyond high school may limit her job prospects and economic opportunities, increasing the likelihood of reoffending.\"},\n    {\"factor4\": \"job history\", \"weight\": \"medium\", \"reasoning\": \"Having held multiple jobs in a short period suggests impulsivity and a lack of stability, which can be indicative of future problems.\"},\n    {\"factor5\": \"substance abuse\", \"weight\": \"low\", \"reasoning\": \"While she has used drugs before, it's mentioned that she hasn't felt depressed over the past month, suggesting some level of coping mechanisms in place.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250106_215143_006013",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 520,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "weight": "low",
+      "reasoning": "At 21 years old, she has not had much life experience, which can impact her decision-making abilities and problem-solving skills."
+    },
+    {
+      "factor2": "family background",
+      "weight": "medium",
+      "reasoning": "Her upbringing with her biological mother in a household of size 6 may have contributed to her difficulties in forming healthy relationships or achieving stability."
+    },
+    {
+      "factor3": "education level",
+      "weight": "low",
+      "reasoning": "Lack of education beyond high school may limit her job prospects and economic opportunities, increasing the likelihood of reoffending."
+    },
+    {
+      "factor4": "job history",
+      "weight": "medium",
+      "reasoning": "Having held multiple jobs in a short period suggests impulsivity and a lack of stability, which can be indicative of future problems."
+    },
+    {
+      "factor5": "substance abuse",
+      "weight": "low",
+      "reasoning": "While she has used drugs before, it's mentioned that she hasn't felt depressed over the past month, suggesting some level of coping mechanisms in place."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 10 inches and weighs between 125 and 149 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 6, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

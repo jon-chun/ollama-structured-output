@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1183,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-08T11:21:02.742690851Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.025261379,
+    "load_duration": 0.028168982,
+    "prompt_eval_count": 364,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 304,
+    "eval_duration": 3.985
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n    (\"age\", \"low\", \"22-year-old is a risk factor due to being statistically more likely to engage in criminal behavior\"),\n    (\"gender\", \"medium\", \"Males are often overrepresented in crime statistics and arrest records, showing a medium level of risk\"),\n    (\"race\", \"high\", \"Black individuals tend to be disproportionately affected by recidivism rates due to various societal factors such as systemic inequalities\"),\n    (\"arrest_history\", \"high\", \"Having been arrested once increases the likelihood of rearrest in the future\"),\n    (\"marital_status\", \"medium\", \"Single individuals are often associated with a higher risk, possibly due to lack of stabilizing social relationships\"),\n    (\"employment_status\", \"high\", \"Unemployed individuals may have less to lose and more time available for criminal behavior\"),\n    (\"drug_use\", \"low\", \"Past marijuana use is not strongly correlated with violent recidivism\"),\n    (\"depression\", \"medium\", \"No recent depression reported, but past history could be a factor\"),\n    (\"family_background\", \"high\", \"Living in an unstable family environment at a young age can contribute to risk of criminal behavior\"),\n    (\"religious_beliefs\", \"low\", \"Belief in God does not directly correlate with higher recidivism rates and may even have protective effects\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_062102_744135",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1183,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs 178 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

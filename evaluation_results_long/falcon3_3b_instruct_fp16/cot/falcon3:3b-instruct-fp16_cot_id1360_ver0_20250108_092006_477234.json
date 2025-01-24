@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1360,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:20:06.475878244Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.671681469,
+    "load_duration": 0.022934771,
+    "prompt_eval_count": 338,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 193,
+    "eval_duration": 1.637
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age 22 is considered relatively low risk for recidivism\"),\n    (\"race/ethnicity\", \"medium\", \"Being Black carries a medium risk due to historical patterns and systemic issues\"),\n    (\"prior arrests\", \"low\", \"No prior convictions contribute to a lower risk of reoffending\"),\n    (\"height\", \"medium\", \"Height does not typically impact recidivism risk directly\"),\n    (\"marital status\", \"low\", \"Living alone and unmarried generally lowers the risk profile\")\n    // Additional factors could include employment, drug use, mental health, living environment, belief systems...\n    // For brevity, assuming these are assessed similarly or less impactful here.\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092006_477234",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1360,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as Black. She has been arrested 2 times but has not been convicted. She is 5 feet 7 inches. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 2. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

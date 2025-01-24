@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 805,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-fp16",
+    "created_at": "2025-01-08T14:38:49.469668181Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.681120036,
+    "load_duration": 0.015273354,
+    "prompt_eval_count": 363,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 305,
+    "eval_duration": 5.642
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Arrest History\", \"medium\", \"Moderate arrest history with 2 convictions suggests some level of engagement with the criminal justice system.\"),\n    (\"Age\", \"low\", \"Young age generally indicates a lower risk of recidivism as individuals are more likely to settle into adult responsibilities.\"),\n    (\"Marital Status\", \"low\", \"Living alone without marital status could suggest independence, potentially reducing risk.\"),\n    (\"Education\", \"low\", \"High school diploma with college enrollment points towards educational achievement and future stability.\"),\n    (\"Employment History\", \"low\", \"Holding multiple jobs indicates employment stability, which is typically associated with lower recidivism rates.\"),\n    (\"Substance Use\", \"low\", \"No drug use in the past four years and recent sobriety reduce the likelihood of substance-related crimes.\"),\n    (\"Emotional State\", \"medium\", \"Feelings of depression indicate potential mental health issues that could impact behavior.\"),\n    (\"Family Background\", \"low\", \"Growing up with both parents suggests a stable childhood environment, which can be protective against future offending.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in divine influence may contribute to a sense of morality and personal accountability.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_093849_471009",
+    "model": "falcon3:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 805,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 10 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 4 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

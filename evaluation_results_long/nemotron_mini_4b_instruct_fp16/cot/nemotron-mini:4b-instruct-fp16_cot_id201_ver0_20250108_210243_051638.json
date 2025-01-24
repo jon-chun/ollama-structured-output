@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 201,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-01-09T02:02:43.050338612Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.192748894,
+    "load_duration": 0.044238339,
+    "prompt_eval_count": 347,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 371,
+    "eval_duration": 4.135
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Race/ethnicity\", \"medium\", \"The individual identifies as Hispanic, which is a risk factor for rearrest recidivism.\"),\n    (\"Age group\", \"low\", \"The person is in the early adult age range (20-35)\"),\n    (\"Number of arrests and convictions\", \"high\", \"This individual has been arrested but not convicted. This increases their rearrest risk.\"),\n    (\"Height and weight\", \"medium\", \"A 160 lb female at 5'3\\\" height is considered to have an increased rearrest risk due to obesity or poor health habits.\"),\n    (\"Marital status\", \"low\", \"The individual has never been married, which does not significantly impact recidivism rates.\"),\n    (\"Living situation\", \"medium\", \"Not living alone increases rearrest risk but being in a household of size 4 is neutral (not increasing or decreasing rearrest risk).\"),\n    (\"Education level\", \"low\", \"Lack of high school diploma/GED does not significantly impact recidivism rates.\"),\n    (\"Employment history\", \"medium\", \"Having held three jobs during the year indicates a higher likelihood of involvement in criminal activity, which increases rearrest risk.\"),\n    (\"Drug use\", \"high\", \"Not using drugs for four years and feeling down but unable to be cheered up may indicate substance abuse issues. Substance abuse is strongly associated with recidivism.\"),\n    (\"Early life factors\", \"low\", \"Living conditions during childhood (household size 4) are neutral; God's presence in one's life does not significantly impact rearrest risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_210243_051638",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 201,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 160 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 302,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:49:17.122769622Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.756783752,
+    "load_duration": 0.025678361,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.03,
+    "eval_count": 357,
+    "eval_duration": 12.698
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age may contribute to impulsivity, but she has no extensive criminal history.\"),\n    (\"gender\", \"low\", \"Female gender typically associates with lower recidivism rates.\"),\n    (\"race\", \"low\", \"White race does not significantly impact risk in this context.\"),\n    (\"arrest_count\", \"low\", \"Single arrest suggests limited experience with the criminal justice system.\"),\n    (\"conviction\", \"medium\", \"A conviction indicates interaction with the legal system which can increase risk.\"),\n    (\"height_weight\", \"low\", \"Physical characteristics have minimal influence on recidivism.\"),\n    (\"marital_status\", \"low\", \"Living alone and never married may slightly increase perceived isolation.\"),\n    (\"education_level\", \"low\", \"High school diploma is a baseline educational attainment.\"),\n    (\"employment_stability\", \"low\", \"Having held three jobs could indicate instability, but it also shows adaptability.\"),\n    (\"drug_use_past\", \"medium\", \"Past marijuana use is a risk factor; current use would be more concerning.\"),\n    (\"depression_symptoms\", \"medium\", \"Feeling down indicates potential mental health issues which can correlate with higher risk.\"),\n    (\"childhood_household\", \"medium\", \"Growing up in a household of size 5 in an urban area may have contributed to exposure to various influences.\"),\n    (\"spiritual_beliefs\", \"low\", \"Belief in a higher power influencing life may provide a protective factor.\"),\n    (\"rearrest_prediction\", \"NO\", \"Collectively, these factors suggest a medium risk, but the lack of severe risk indicators points toward lower likelihood of rearrest.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114917_124451",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 302,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 3 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 63,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-01-09T06:24:11.868971613Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.267269334,
+    "load_duration": 0.032830257,
+    "prompt_eval_count": 348,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 344,
+    "eval_duration": 3.211
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age (19)\", \"low\", \"Youth with no prior convictions typically have lower recidivism rates\"),\n    (\"gender & ethnicity (Hispanic female)\", \"medium\", \"Historical data show moderate risk in certain demographic groups due to socio-economic factors\"),\n    (\"arrest record (1 non-conviction)\", \"low\", \"First-time minor offense without conviction generally low-risk\"),\n    (\"body characteristics (5'2'', 100-124 lbs.)\", \"low\", \"Physical attributes have minimal direct predictive value in recidivism\"),\n    (\"marital status & living arrangement (single, non-solitary)\", \"medium\", \"Lack of strong social bonds increases slight risk\"),\n    (\"educational attainment (no diploma/GED, not college enrolled)\", \"high\", \"Lack of formal education is a significant predictor of higher recidivism rates\"),\n    (\"employment status (unemployed year-long)\", \"high\", \"Unemployment can lead to financial stress and lack of social support\"),\n    (\"substance use history (drug-free in last 4 years, occasional depressive symptoms)\", \"low-medium\", \"Recent stable behavior suggests lower risk; mild depression may impact but not overwhelmingly affect recidivism\"),\n    (\"childhood environment (9-person household, urban area)\", \"medium\", \"Complex family dynamics and urban living can contribute to increased vulnerability\"),\n    (\"spiritual belief (God's influence on personal life)\", \"low\", \"Spirituality itself is neutral in predicting criminal behavior; specific impact context-dependent\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250109_012411_870124",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 63,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 2 inches and weighs between 100 and 124 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 9, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

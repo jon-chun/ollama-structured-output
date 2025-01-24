@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 270,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-08T16:06:39.085447918Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.341559213,
+    "load_duration": 0.014826405,
+    "prompt_eval_count": 372,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 381,
+    "eval_duration": 3.303
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"An 18-year-old is generally considered a juvenile, but the factor of being convicted multiple times suggests a more serious offense.\"),\n    (\"Gender\", \"medium\", \"Being male does not inherently increase criminal risk, but societal biases and legal sentencing can influence outcomes.\"),\n    (\"Ethnicity\", \"low\", \"White individuals do not have a higher recidivism rate compared to other ethnicities based on current data.\"),\n    (\"Education level\", \"low\", \"Current enrollment in school indicates a desire for education, which is generally linked to lower recidivism rates.\"),\n    (\"Employment history\", \"high\", \"Lack of employment history suggests potential instability and financial strain that could lead to reoffending.\"),\n    (\"Substance abuse history\", \"medium\", \"Past use of drugs, while concerning, does not definitively predict future criminal behavior unless it's linked to additional crimes or worsening substance-related issues.\"),\n    (\"Family background (lived with both parents in a large household)\", \"low\", \"This factor suggests some level of support and supervision, which can mitigate risk.\"),\n    (\"Religious beliefs (belief in divine intervention)\", \"low\", \"While religion can influence personal behavior, it does not necessarily predict criminal recidivism.\"),\n    (\"Urban upbringing\", \"medium\", \"Living in an urban area may expose one to higher crime rates or strained resources, but this is not a definitive predictor of future offenses.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_110639_086813",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 270,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 1 inch and weighs 180 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

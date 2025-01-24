@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 674,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:54:03.064211779Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.085981882,
+    "load_duration": 0.023087818,
+    "prompt_eval_count": 311,
+    "prompt_eval_duration": 0.025,
+    "eval_count": 336,
+    "eval_duration": 12.035
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age can indicate adaptability, but it also means less life experience influencing decision-making.\"),\n    (\"gender\", \"low\", \"Male gender is generally associated with higher recidivism rates, but other factors may mitigate this.\"),\n    (\"arrest_count\", \"medium\", \"Single arrest suggests some involvement with the criminal justice system, which can indicate risk.\"),\n    (\"conviction_status\", \"medium\", \"Conviction indicates at least some level of interaction with law enforcement and judicial system.\"),\n    (\"height_and_weight\", \"low\", \"Physical attributes do not directly correlate with criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Living alone and never married may affect social support but is not a strong predictor on its own.\"),\n    (\"education_level\", \"low\", \"High school diploma suggests some level of achievement, reducing risk compared to lower education levels.\"),\n    (\"employment_history\", \"low\", \"Having held one job in the past year indicates stability and may reduce risk.\"),\n    (\"drug_use\", \"low\", \"No drug use in the past four years suggests lower risk associated with substance abuse.\"),\n    (\"mental_health\", \"low\", \"No depression reported over the past month implies better mental health, reducing risk.\"),\n    (\"childhood_household_size\", \"medium\", \"Living in a large household can influence socialization and peer influence, which might affect behavior.\"),\n    (\"spiritual_beliefs\", \"low\", \"Belief in God may correlate with lower recidivism due to potential moral guidance.\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_115403_065544",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 674,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 171 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 9. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

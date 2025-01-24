@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 421,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:20:21.430530435Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.968540122,
+    "load_duration": 0.022924301,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 344,
+    "eval_duration": 2.934
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"A young age might indicate potential for change and growth, but a 22-year-old is still in the early stages of adulthood where certain behaviors may be more pronounced.\"),\n    (\"prior_convictions\", \"high\", \"Multiple arrests and convictions suggest a history of criminal behavior which significantly increases recidivism risk.\"),\n    (\"physical_attributes\", \"medium\", \"His height and weight are average, which does not inherently correlate with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Living alone without being married reduces social support and stability, which might mitigate some risks.\"),\n    (\"education\", \"low\", \"Having a high school diploma but no college education limits educational opportunities that could lead to positive life changes.\"),\n    (\"employment\", \"high\", \"Multiple jobs suggest potential for income instability, which can contribute to risky behavior.\"),\n    (\"drug_use\", \"medium\", \"Some drug use indicates past struggles with mental health or substance abuse, but recent abstention suggests improvement.\"),\n    (\"mental_health\", \"high\", \"Feeling down and unable to cheer up frequently points to potential mental health issues that could lead to recidivism if untreated.\"),\n    (\"family_history\", \"medium\", \"Residing in an urban area with both parents present at a young age indicates exposure to stressors and influences from family dynamics.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092021_432158",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 421,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 268,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-08T10:35:40.542365573Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.312485451,
+    "load_duration": 0.036143909,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 380,
+    "eval_duration": 3.26
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"low\", \"The individual's age at first arrest is not significantly youthful, reducing the likelihood of future recidivism.\"),\n    (\"prior_arrests\", \"high\", \"Multiple prior arrests suggest a pattern of criminal behavior that increases the risk of rearrest in the next three years.\"),\n    (\"employment_history\", \"medium\", \"Consistent employment may reduce the likelihood of future offenses due to increased stability and structure, but only three jobs during the year indicates potential instability.\"),\n    (\"education_level\", \"low\", \"A high school diploma is generally considered sufficient for basic literacy; further education is not required for this assessment.\"),\n    (\"household_composition\", \"low\", \"Living in a household of five with both biological parents as caregivers typically provides stability and reduces risk factors associated with single-parent households or other non-traditional environments.\"),\n    (\"drug_use\", \"medium\", \"Past marijuana use within the four-year period may indicate potential for substance-related issues impacting decision-making, but absence of recent depressive symptoms is a positive indicator.\"),\n    (\"marital_status\", \"low\", \"Single status does not inherently contribute to risk factors associated with recidivism; living alone does not necessarily imply increased risk.\"),\n    (\"body_weight\", \"medium\", \"Normal body weight does not directly correlate with criminal behavior but may indirectly impact health and overall well-being.\"),\n    (\"recidivism_history\", \"high\", \"Conviction history indicates a pattern of criminal behavior that significantly increases the likelihood of future offenses.\"),\n    (\"religion_beliefs\", \"low\", \"Belief in a higher power or divine intervention is generally considered neutral with respect to recidivism prediction; it does not inherently influence an individual's propensity for crime.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_053540_544136",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 268,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 4 times and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

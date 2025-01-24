@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 181,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-09T09:27:47.154365432Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.341982777,
+    "load_duration": 0.035610689,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 368,
+    "eval_duration": 7.288
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"At 19 years old, she is young but not exceptionally prone to high recidivism rates compared to older adults.\"),\n    (\"gender\", \"low\", \"Female offenders have historically lower rearrest rates than male offenders.\"),\n    (\"race\", \"high\", \"Being Black often correlates with higher likelihood of rearrest due to systemic inequalities and bias in the criminal justice system.\"),\n    (\"criminal_history\", \"medium\", \"Three arrests and convictions suggest a pattern of behavior, but it's not extensive. The impact on recidivism is moderately increased.\"),\n    (\"living_status\", \"low\", \"Living alone might be an indicator of social isolation, which can increase risk, but it doesn't significantly contribute by itself.\"),\n    (\"education\", \"low\", \"Being enrolled in school can lower the likelihood of rearrest if she remains engaged and supported.\"),\n    (\"employment\", \"high\", \"Lack of employment is a strong predictor of recidivism as it often correlates with financial instability and lack of structure.\"),\n    (\"drug_use\", \"medium\", \"Past drug use, especially recent marijuana use, increases risk but the severity of this factor can vary greatly.\"),\n    (\"mental_health\", \"high\", \"Depression may increase her likelihood to reoffend by impacting impulse control and decision-making abilities.\"),\n    (\"family_background\", \"high\", \"Growing up in a large household (size 5) in an urban area could indicate exposure to stressors, violence, or instability which might contribute to higher risk.\"),\n    (\"spirituality\", \"low\", \"Her belief that God has something to do with what happens to her personally does not have a significant impact on recidivism prediction.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_042747_155573",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 181,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 3 times and has been convicted. She is 5 feet 4 inches and weighs 138 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

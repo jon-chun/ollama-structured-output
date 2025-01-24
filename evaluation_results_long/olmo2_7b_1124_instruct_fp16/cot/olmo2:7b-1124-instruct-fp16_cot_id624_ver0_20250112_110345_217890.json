@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 624,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:03:45.216143991Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.594521744,
+    "load_duration": 0.02464374,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 297,
+    "eval_duration": 5.549
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can be associated with a higher risk for recidivism, but not having a long criminal history suggests lower risk.\"),\n    (\"number_of_arrests\", \"high\", \"Multiple arrests may indicate a higher propensity for reoffending, especially when not convicted.\"),\n    (\"ethnicity\", \"low\", \"Identifying as Hispanic does not inherently influence risk, though societal factors may play a role.\"),\n    (\"living_solely\", \"medium\", \"Living alone may increase social isolation, which can be a risk factor for offending.\"),\n    (\"education_level\", \"high\", \"Lack of a high school diploma or GED could reflect lower educational attainment and potentially higher recidivism rates.\"),\n    (\"employment_status\", \"high\", \"No job during the year may indicate financial strain and increased likelihood of engaging in illegal activities for income.\"),\n    (\"drug_use\", \"low\", \"Past marijuana use does not suggest an active substance abuse problem at present, lowering the risk factor substantially.\"),\n    (\"mental_health_state\", \"medium\", \"Lack of recent depression may indicate stable mental health, reducing the risk of reoffending due to mental distress.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```\n\nThis JSON object predicts a moderate risk of rearrest within 3 years based on the provided factors, with a confidence level of 70%.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110345_217890",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 624,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 6 times but has not been convicted. He is 5 feet 11 inches and weighs 165 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 10, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1405,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:38:02.289167617Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.044336165,
+    "load_duration": 0.018630882,
+    "prompt_eval_count": 317,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 358,
+    "eval_duration": 12.995
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Young age is associated with higher recidivism risk.\"),\n    (\"gender\", \"medium\", \"Male gender tends to be associated with higher recidivism rates.\"),\n    (\"race\", \"medium\", \"Black individuals may face disparities in the criminal justice system leading to different recidivism rates.\"),\n    (\"arrest_history\", \"high\", \"Multiple arrests can indicate a pattern of criminal behavior.\"),\n    (\"convictions\", \"high\", \"Convictions suggest a higher likelihood of reoffense.\"),\n    (\"height\", \"low\", \"Height alone is not a significant predictor of recidivism.\"),\n    (\"weight\", \"low\", \"Weight alone is not a significant predictor of recidivism.\"),\n    (\"marital_status\", \"medium\", \"Marital status can influence social support and stability.\"),\n    (\"living_alone\", \"high\", \"Living alone might affect social support and supervision.\"),\n    (\"education_level\", \"medium\", \"High school diploma is less protective against recidivism than higher education.\"),\n    (\"employment_history\", \"high\", \"Lack of employment can indicate instability and lack of opportunity.\"),\n    (\"drug_use\", \"high\", \"Drug use, especially chronic use, can correlate with criminal behavior.\"),\n    (\"depression_symptoms\", \"medium\", \"Depression symptoms may indicate underlying issues that can lead to recidivism.\"),\n    (\"household_size_at_young_age\", \"low\", \"Household size does not directly influence recidivism but may impact early social environment.\"),\n    (\"urban_living\", \"medium\", \"Living in an urban area can expose individuals to different risks and stressors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_113802_290828",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1405,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 8, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

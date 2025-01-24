@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 673,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:51:42.274880618Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.776327586,
+    "load_duration": 0.023259787,
+    "prompt_eval_count": 317,
+    "prompt_eval_duration": 0.027,
+    "eval_count": 489,
+    "eval_duration": 9.722
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are often at a higher risk for recidivism compared to older individuals due to less life stability and experience. Being 20 years old, this individual is within a high-risk age group.\"),\n    (\"arrest_count\", \"medium\", \"First-time offenders generally have a moderate risk of reoffending. One arrest indicates they've already engaged in criminal behavior, but without further data, the level of risk is considered medium.\"),\n    (\"conviction\", \"high\", \"Having been convicted signifies that this individual has committed a crime and been found guilty by the legal system, which typically indicates a higher risk for rearrest.\"),\n    (\"physical_description\", \"neutral\", \"Physical attributes such as height and weight typically do not have a direct impact on recidivism risk unless related to health or fitness levels.\"),\n    (\"marital_status\", \"low\", \"Being unmarried does not significantly alter recidivism risk; it's more the stability of living situation or support network which could influence risk, but in this case, the information is too limited to make a strong determination.\"),\n    (\"education_level\", \"medium\", \"A high school diploma suggests a basic level of education, which can correlate with lower risk levels compared to no education. However, without further education or vocational training, the risk remains moderate.\"),\n    (\"employment_status\", \"high\", \"Lack of employment over the past year could indicate potential financial stressors, which are often associated with higher recidivism rates.\"),\n    (\"substance_use\", \"medium\", \"Past drug use (marijuana and cocaine) suggests possible engagement in illegal activities or lifestyle choices that might increase risk. However, not using drugs in the past month may imply a reduction in risk if substance use was a contributing factor to criminal behavior.\"),\n    (\"mental_health_status\", \"low\", \"Not feeling depressed in the past month is typically positive, indicating lower stress levels which could reduce the propensity for criminal behavior. However, this information alone does not provide sufficient evidence to classify as low risk without more comprehensive mental health information.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object incorporates various risk factors based on the provided information, weighs each factor according to its potential impact on recidivism, and provides a collective prediction along with an estimated level of confidence.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105142_276471",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 673,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

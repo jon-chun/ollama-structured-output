@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 106,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-09T09:30:14.437272629Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.990848081,
+    "load_duration": 0.029773147,
+    "prompt_eval_count": 315,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 247,
+    "eval_duration": 4.942
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which typically correlates with lower risk of recidivism.\"),\n    (\"arrest_history\", \"medium\", \"Three arrests indicate some level of prior involvement with the criminal justice system but not a severe history.\"),\n    (\"education_level\", \"low\", \"Having a high school diploma and being enrolled in college suggests higher potential for positive lifestyle changes.\"),\n    (\"employment_status\", \"low\", \"Holding multiple jobs can indicate stability and structure, reducing the risk of recidivism.\"),\n    (\"drug_use\", \"medium\", \"Past drug use is a concern but marijuana use alone might not be as severe as harder drugs.\"),\n    (\"mental_health\", \"low\", \"Not reporting feelings of depression in the past month suggests lower mental health risks.\"),\n    (\"household_size_young\", \"low\", \"Growing up in a household of three is generally considered stable and less likely to correlate with delinquent behavior.\"),\n    (\"religion_belief\", \"low\", \"Belief in God might suggest a potential source of moral guidance, which could be protective.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250109_043014_438664",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 106,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

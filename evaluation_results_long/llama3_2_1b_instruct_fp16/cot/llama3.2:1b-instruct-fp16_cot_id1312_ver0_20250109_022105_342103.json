@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1312,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-09T07:21:05.340934145Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.918423717,
+    "load_duration": 0.033309126,
+    "prompt_eval_count": 337,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 195,
+    "eval_duration": 0.879
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"weight\": \"low\", \"textual reasoning\": \"The individual's racial background may influence societal perceptions and biases, potentially impacting the likelihood of rearrest. However, this factor is relatively low in weight due to its indirect and complex nature.\"},\n    {\"factor2\": \"substance_use\", \"weight\": \"medium\", \"textual reasoning\": \"As a history of marijuana and cocaine use, there's a moderate probability that he may engage in substance abuse again. This risk can be attributed to the individual's past experiences and potential vulnerabilities.\"},\n    {\"factor3\": \"education_level\", \"weight\": \"high\", \"textual reasoning\": \"His lack of education and educational pursuits may contribute to higher rearrest probabilities, as individuals with limited knowledge or skills may face greater challenges in navigating societal systems.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_022105_342103",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1312,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "weight": "low",
+      "textual reasoning": "The individual's racial background may influence societal perceptions and biases, potentially impacting the likelihood of rearrest. However, this factor is relatively low in weight due to its indirect and complex nature."
+    },
+    {
+      "factor2": "substance_use",
+      "weight": "medium",
+      "textual reasoning": "As a history of marijuana and cocaine use, there's a moderate probability that he may engage in substance abuse again. This risk can be attributed to the individual's past experiences and potential vulnerabilities."
+    },
+    {
+      "factor3": "education_level",
+      "weight": "high",
+      "textual reasoning": "His lack of education and educational pursuits may contribute to higher rearrest probabilities, as individuals with limited knowledge or skills may face greater challenges in navigating societal systems."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 11 inches and weighs 158 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 11, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

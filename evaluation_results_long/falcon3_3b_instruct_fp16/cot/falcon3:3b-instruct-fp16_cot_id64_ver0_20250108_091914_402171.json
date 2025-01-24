@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 64,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:19:14.40089022Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.32370118,
+    "load_duration": 0.023662361,
+    "prompt_eval_count": 347,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 270,
+    "eval_duration": 2.288
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"A 22-year-old female is considered a low risk in terms of recidivism due to her age.\"),\n    (\"prior_arrest_count\", \"medium\", \"Arrested and convicted once indicates a moderate level of risk.\"),\n    (\"height_and_weight\", \"low\", \"She is petite, which might be associated with lower risk factors in some studies.\"),\n    (\"marital_status\", \"low\", \"Living alone suggests reduced risk compared to being married.\"),\n    (\"education\", \"low\", \"Having a high school diploma and no college enrollment indicates basic skills but not advanced risk.\"),\n    (\"employment\", \"low\", \"Holding one job in the past year suggests stable employment, which can mitigate risk.\"),\n    (\"drug_use\", \"medium\", \"Past marijuana use is notable but does not immediately elevate risk significantly\"),\n    (\"depression\", \"high\", \"Not feeling depressed for the past month indicates a lower risk of relapse or severe reoffending.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_091914_402171",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 64,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 6 inches and weighs 115 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

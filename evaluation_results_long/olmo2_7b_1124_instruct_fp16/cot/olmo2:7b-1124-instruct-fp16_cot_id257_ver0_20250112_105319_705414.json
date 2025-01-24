@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 257,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:53:19.703680854Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.557694589,
+    "load_duration": 0.01900688,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 370,
+    "eval_duration": 7.515
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young adults often present a lower risk of rearrest due to less established patterns compared to older individuals, but the lack of conviction and stable living situation suggest a mitigating factor.\"),\n    (\"gender\", \"medium\", \"Females generally have a lower recidivism rate than males, but the context of first-time arrest without conviction suggests a need for careful consideration.\"),\n    (\"previous_arrests\", \"low\", \"First-time arrest without a conviction does not typically indicate a high risk, but the absence of a criminal record is offset by the current use of drugs and past feelings of depression.\"),\n    (\"current_living_situation\", \"medium\", \"Living alone could suggest less social support which can increase risk, however, being enrolled in school indicates engagement with positive environments.\"),\n    (\"employment_history\", \"low\", \"Having held two jobs within a year shows some level of employment stability, which can be protective against recidivism.\"),\n    (\"drug_use\", \"high\", \"Current drug use, particularly marijuana, can increase the risk of rearrest due to potential involvement in drug-related offenses.\"),\n    (\"depressive_symptoms\", \"medium\", \"Recent episodes of depression could indicate a need for support and potentially increase risk if not addressed, but the individual is seeking help through school enrollment.\"),\n    (\"early_life_housing_size\", \"low\", \"Growing up in a larger household may have provided a supportive environment, which could mitigate some risk factors.\"),\n    (\"spiritual_beliefs\", \"medium\", \"Belief in a higher power can provide a framework for positive behavior, but it's the actions and support system that are more indicative of recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105319_705414",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 257,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as mixed race. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 120 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 6. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

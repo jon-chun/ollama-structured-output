@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 140,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-08T11:20:42.320733074Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.165749645,
+    "load_duration": 0.035363091,
+    "prompt_eval_count": 379,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 391,
+    "eval_duration": 5.115
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n      (\"Age\", \"high\", \"The age of the individual is a significant factor in criminal risk assessment, with younger individuals often exhibiting higher recidivism rates.\"),\n      (\"Race/Ethnicity\", \"medium\", \"While not directly indicative of future behavior, belonging to an overrepresented minority group can influence the severity of criminal charges and sentencing, thus indirectly affecting recidivism.\"),\n      (\"Gender\", \"low\", \"Gender is not a strong predictor of recidivism on its own. However, it may be relevant in combination with other factors such as age or criminal history.\"),\n      (\"Number of Arrests\", \"high\", \"A higher number of arrests typically correlates with an increased likelihood of future offenses.\"),\n      (\"Marital Status\", \"medium\", \"Single individuals often have a higher risk of recidivism due to lack of stability and accountability from relationships.\"),\n      (\"Living Situation\", \"low\", \"Living alone does not significantly impact the risk of reoffending, but instability in living conditions could be a contributing factor.\"),\n      (\"Education Level\", \"high\", \"Lower education levels often correlate with higher recidivism rates due to reduced opportunities and decreased social mobility.\"),\n      (\"Employment History\", \"low\", \"While consistent employment can reduce the risk of reoffending, having multiple jobs in a short period might indicate instability and lack of commitment.\"),\n      (\"Drug Use\", \"medium\", \"Past drug use, particularly if recent or ongoing, is associated with higher recidivism rates due to its correlation with other criminogenic factors.\"),\n      (\"Mental Health\", \"high\", \"Depression can be a significant contributing factor in criminal behavior and therefore should be taken into consideration for potential future offenses.\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_062042_322224",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 140,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 6 times and has been convicted. He is 5 feet 7 inches and weighs 154 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

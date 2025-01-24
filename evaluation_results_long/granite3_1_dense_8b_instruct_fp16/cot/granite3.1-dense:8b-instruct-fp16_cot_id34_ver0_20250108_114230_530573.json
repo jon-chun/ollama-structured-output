@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 34,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "created_at": "2025-01-08T16:42:30.529396512Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.44474858,
+    "load_duration": 0.016488152,
+    "prompt_eval_count": 368,
+    "prompt_eval_duration": 0.038,
+    "eval_count": 340,
+    "eval_duration": 7.386
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is an 18-year-old, who typically falls within the lowest risk category for recidivism.\"),\n    (\"Gender\", \"low\", \"Male gender does not inherently indicate higher risk of recidivism.\"),\n    (\"Race/Ethnicity\", \"low\", \"Asian/Pacific Islander is associated with lower recidivism rates.\"),\n    (\"Arrests and Convictions\", \"high\", \"Two prior arrests and convictions suggest a significant risk for future criminal behavior.\"),\n    (\"Employment History\", \"medium\", \"Holding only one job in the past year might indicate instability, but it's not as strong a factor as arrests or convictions.\"),\n    (\"Education\", \"low\", \"High school diploma and college enrollment generally correlate with lower recidivism rates.\"),\n    (\"Marital Status\", \"low\", \"Never married is not indicative of higher risk of recidivism.\"),\n    (\"Living Arrangement\", \"low\", \"Living alone does not inherently increase the risk of recidivism.\"),\n    (\"Religious Beliefs\", \"medium\", \"Belief in God could potentially act as a deterrent to criminal behavior, but its impact is not universally predictive.\"),\n    (\"Family Size\", \"low\", \"Growing up in a household of five does not significantly contribute to recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_114230_530573",
+    "model": "granite3.1-dense:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 34,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 2 times and has been convicted. He is 5 feet 7 inches and weighs 135 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

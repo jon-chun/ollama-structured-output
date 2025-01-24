@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1396,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:08:44.280475411Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.181214042,
+    "load_duration": 0.034011775,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 380,
+    "eval_duration": 3.123
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"21-year-olds have a lower risk compared to older adults, but this is not the most significant factor.\"),\n    (\"race\", \"low\", \"Race alone does not provide strong predictive power for recidivism rates. White individuals do not generally face higher or lower risks than others without additional context.\"),\n    (\"arrests_and_convictions\", \"medium\", \"One prior arrest and conviction increase the risk, but it is moderate given that he has no recent offenses or history of repeat behavior.\"),\n    (\"height_weight\", \"low\", \"Physical attributes such as height and weight do not have a strong predictive value in recidivism models.\"),\n    (\"marital_status\", \"low\", \"Living alone does not inherently increase the risk, though it could be relevant if linked to social support networks or other factors.\"),\n    (\"education\", \"low\", \"Having a high school diploma reduces the likelihood of recidivism compared to individuals with less education.\"),\n    (\"employment\", \"low\", \"Holding two jobs during the year suggests stability and potentially lower risk for reoffending.\"),\n    (\"drug_use\", \"low\", \"No drug use in the past four years is positive, indicating better control over substance-related behaviors which can be a factor in recidivism.\"),\n    (\"depression\", \"low\", \"Not feeling depressed reduces the likelihood of psychological factors contributing to criminal behavior.\"),\n    (\"childhood_environment\", \"low\", \"Growing up with both parents and a household size of 5 is generally associated with better socialization and support, which can reduce risk.\"),\n    (\"religious_involvement\", \"low\", \"Belief in God's influence on personal matters could suggest moral guidance and possibly lower the likelihood of criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_230844_281832",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1396,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 3 inches and weighs between 175 and 199 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

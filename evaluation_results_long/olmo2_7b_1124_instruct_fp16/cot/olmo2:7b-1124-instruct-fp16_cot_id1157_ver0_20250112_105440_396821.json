@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1157,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:54:40.395333918Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.72228326,
+    "load_duration": 0.01891173,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 456,
+    "eval_duration": 8.679
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can be associated with higher risk of recidivism, however, the individual's age being 19 is on the cusp where risk starts to increase significantly.\"),\n    (\"gender\", \"low\", \"Generally, gender does not significantly impact risk assessment, but research indicates that male offenders may have a slightly higher recidivism rate.\"),\n    (\"arrest history\", \"medium\", \"First-time arrestees can be at medium risk due to the lack of a criminal record. However, absence of conviction suggests less severe involvement or possibly a plea deal.\"),\n    (\"marital status\", \"low\", \"Unmarried status does not typically influence risk; it is more the stability and support system in place that matters.\"),\n    (\"living situation\", \"medium\", \"Living alone can potentially increase social isolation and lack of supervision, which may elevate the risk of offending. However, she is young, which could mitigate this factor.\"),\n    (\"education level\", \"low\", \"Having a high school diploma indicates some level of education, which typically lowers recidivism risk.\"),\n    (\"employment status\", \"medium\", \"Employment is generally associated with lower risk, but having held only one job in the past year suggests possible instability or challenges in maintaining employment, which could be a concern.\"),\n    (\"drug use\", \"high\", \"History and recent drug use (marijuana and cocaine) are strong indicators of higher risk for rearrest due to substance-related offenses.\"),\n    (\"mental health\", \"medium\", \"Feeling depressed or down can indicate potential mental health issues that might contribute to increased risk of offending, especially if exacerbated by drug use.\"),\n    (\"family environment\", \"medium\", \"Growing up in a household with five people and in an urban area suggests some level of family support, which can be protective. However, living with a single biological mother may have its own set of challenges that could elevate risk depending on the nature of that environment.\"),\n    (\"religious beliefs\", \"low\", \"Belief in a higher power can sometimes be associated with lower risk due to increased resilience and positive coping mechanisms.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105440_396821",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1157,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

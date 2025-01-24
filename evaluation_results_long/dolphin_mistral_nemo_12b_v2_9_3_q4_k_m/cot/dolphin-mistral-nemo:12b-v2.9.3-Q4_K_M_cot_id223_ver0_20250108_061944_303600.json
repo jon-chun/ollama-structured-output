@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 223,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-08T11:19:44.302211016Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.791536776,
+    "load_duration": 0.027928463,
+    "prompt_eval_count": 362,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 367,
+    "eval_duration": 4.751
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n     (\"age\", \"medium\", \"The person is young, which can be a risk factor\"),\n     (\"race\", \"low\", \"Being white in itself does not contribute significantly to recidivism\"),\n     (\"prior arrests\", \"medium\", \"Having been arrested once can indicate some level of risk\"),\n     (\"conviction status\", \"low\", \"No prior conviction reduces the likelihood of reoffending\"),\n     (\"body mass index\", \"low\", \"Physical characteristics are generally not significant predictors of recidivism\"),\n     (\"marital status\", \"medium\", \"Being single could potentially increase the likelihood of criminal behavior due to lack of social control\"),\n     (\"living situation\", \"low\", \"Living alone does not necessarily indicate a higher risk\"),\n     (\"educational attainment\", \"high\", \"Higher education can reduce recidivism as it offers better opportunities and social integration\"),\n     (\"employment history\", \"medium\", \"Having held multiple jobs suggests some level of stability, but it is not definitive\"),\n     (\"drug use\", \"low\", \"Past drug use does not strongly correlate with future criminal behavior if the individual has since stopped or reduced usage\"),\n     (\"depression\", \"high\", \"Lack of reported depression can reduce recidivism risk as mental health problems often contribute to criminal activity\"),\n     (\"childhood environment\", \"medium\", \"Growing up in an urban area and larger family could potentially increase risks due to environmental factors and lack of parental supervision\"),\n     (\"religious beliefs\", \"low\", \"Belief in a higher power can generally be seen as a protective factor, reducing the likelihood of recidivism\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_061944_303600",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 223,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 2 jobs during the year. He has used drugs in the past four years (cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 27,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:00:03.297065105Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.97528365,
+    "load_duration": 0.018965858,
+    "prompt_eval_count": 338,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 584,
+    "eval_duration": 10.932
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are generally at a higher risk for reoffending, but being 21 is on the cusp of adulthood, which might suggest less risk compared to younger individuals.\"),\n    (\"arrests_count\", \"low\", \"One arrest with no convictions suggests a lower risk, especially if there's no recent history of offenses.\"),\n    (\"race\", \"medium\", \"White individuals may face different social and legal dynamics than other races, which could influence recidivism rates. However, race alone is not a strong predictor without additional context.\"),\n    (\"marital_status\", \"low\", \"Being unmarried can be a risk factor for some populations; however, this person's age and no prior convictions might mitigate this factor.\"),\n    (\"living_situations\", \"medium\", \"Living alone may slightly increase the risk if there's a lack of social support or supervision. However, the person's age and single status could also imply independence and self-reliance.\"),\n    (\"education_level\", \"low\", \"Having a GED certificate is lower education attainment, which can be a risk factor; however, it's not clear if this individual has the motivation or opportunities to further her education or training, which might offset this concern.\"),\n    (\"employment_history\", \"medium\", \"Holding two jobs within a year shows some level of employment stability, which could mitigate reoffense risk. However, the lack of detailed information about these jobs and their stability is a limitation.\"),\n    (\"drug_use\", \"high\", \"Drug use, particularly cocaine, is a strong risk factor for recidivism due to its potential impact on mental health, impulsivity, and involvement in drug-related crimes.\"),\n    (\"mental_health_status\", \"high\", \"Feeling down for an extended period can be indicative of depression or other mental health issues, which are strongly associated with higher recidivism rates.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a stable household with both biological parents might provide some protective factors; however, the person's current living situation and drug use could counteract this advantage.\"),\n    (\"spiritual_beliefs\", \"low\", \"Belief in a higher power can sometimes provide a sense of purpose and support, which may reduce the risk of reoffending. However, this factor is subjective and less quantifiable.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```\n\nThis JSON object incorporates various risk factors with their assigned weights, considering both quantitative aspects and qualitative information. The prediction suggests a moderate risk of rearrest within three years due to significant factors like drug use and mental health issues, despite some protective factors such as stable family background and belief in a higher power. The confidence level is set at 65% to reflect the complexity and uncertainties inherent in predicting criminal behavior.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110003_298454",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 27,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 139 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

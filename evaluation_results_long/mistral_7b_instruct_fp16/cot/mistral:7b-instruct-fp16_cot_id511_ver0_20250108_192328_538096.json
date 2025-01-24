@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 511,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:23:28.536762533Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.220669399,
+    "load_duration": 0.014094708,
+    "prompt_eval_count": 371,
+    "prompt_eval_duration": 0.025,
+    "eval_count": 332,
+    "eval_duration": 6.179
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"He is a 19-year-old male.\"),\n    (\"gender\", \"medium\", \"He identifies himself as Black.\"),\n    (\"arrest_history\", \"high\", \"He has been arrested once and convicted.\"),\n    (\"height\", \"medium\", \"He is 6 feet 0 inches tall.\"),\n    (\"weight\", \"medium\", \"He weighs 165 lbs.\"),\n    (\"marital_status\", \"low\", \"He is currently living alone.\"),\n    (\"education_level\", \"high\", \"He has a high school diploma and is enrolled in a 4-year college.\"),\n    (\"employment_history\", \"medium\", \"He has held 3 jobs during the year.\"),\n    (\"drug_use\", \"medium\", \"He has used drugs in the past four years (marijuana)\"),\n    (\"mental_health\", \"low\", \"Some of the time during the past month he has felt so down in the dumps that nothing could cheer him up.\"),\n    (\"family_history\", \"high\", \"At a young age, he lived with both of his biological parents in a household of size 3.\"),\n    (\"religion\", \"medium\", \"He considers that God has something to do with what happens to him personally.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192328_538096",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 511,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

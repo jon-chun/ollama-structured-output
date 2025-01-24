@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 164,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "created_at": "2025-01-08T16:06:53.967438741Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.998075049,
+    "load_duration": 0.0173889,
+    "prompt_eval_count": 381,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 226,
+    "eval_duration": 1.957
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"21-year-old is in the age range where first offenses are common\"),\n    (\"Criminal history\", \"high\", \"1 conviction indicates a higher risk of reoffending\"),\n    (\"Employment history\", \"low\", \"Holding 1 job may not demonstrate stable employment skills\"),\n    (\"Education level\", \"low\", \"High school diploma but enrolled in college suggests potential for improvement, yet incomplete education can be a factor\"),\n    (\"Family background\", \"medium\", \"Living with both biological parents and in an urban area could indicate social influences, but specific details are lacking\"),\n    (\"Religious beliefs\", \"low\", \"Personal religious beliefs may impact behavior, but do not directly predict criminal recidivism\"),\n    (\"Physical attributes\", \"low\", \"Height and weight range are generally unrelated to recidivism risk\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_110653_969003",
+    "model": "granite3.1-dense:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 164,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 3 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1366,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T15:44:00.892993776Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.077923517,
+    "load_duration": 0.018946241,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 238,
+    "eval_duration": 2.039
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Being young can correlate with higher risk of recidivism.\"),\n    (\"gender\", \"medium\", \"Females generally have lower recidivism rates compared to males.\"),\n    (\"number_of_arrests\", \"high\", \"One arrest indicates a higher chance of reoffending.\"),\n    (\"educational attainment\", \"medium\", \"Higher education is often associated with lower recidivism rates.\"),\n    (\"past drug use\", \"medium\", \"Drug use can increase the likelihood of reoffending.\"),\n    (\"employment history\", \"low\", \"Holding multiple jobs might indicate instability, potentially increasing risk.\"),\n    (\"current living situation\", \"low\", \"Living alone may lack the social controls associated with reduced risk.\"),\n    (\"mental health\", \"low\", \"Lack of recent depression symptoms suggests stable mental state\"),\n    (\"family environment in childhood\", \"medium\", \"Growing up in a larger household and urban area can have mixed impacts, potentially increasing risk due to exposure to crime environments but also possibly reducing it through familial bonds\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_104400_894160",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1366,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 4 inches and weighs between 125 and 149 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

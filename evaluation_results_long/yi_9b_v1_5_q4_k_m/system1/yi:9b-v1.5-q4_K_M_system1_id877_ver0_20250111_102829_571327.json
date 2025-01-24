@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 877,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "yi:9b-v1.5-q4_K_M",
+    "created_at": "2025-01-11T15:28:29.569798818Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 40.237491882,
+    "load_duration": 0.012650027,
+    "prompt_eval_count": 225,
+    "prompt_eval_duration": 0.144,
+    "eval_count": 1503,
+    "eval_duration": 40.079
+  },
+  "response": {
+    "raw_message_text": "\"\"\"\nimport json\ndef risk_assessment(age,gender,race,education,employment,married,income,drink,drug,depression):\n    personality = []\n    if age < 30: personality.append('young')\n    elif age >=75: personality.append('old')\n    else: personality.append('middle_aged')\n    if gender == 'female': personality.append('woman')\n    else: personality.append('man')\n    if race =='white': personality.append('person of color')\n    elif race =='black': personality.append('non-person of color')\n    elif race=='asian': personality.append('non-person of color')\n    elif race=='other_racial_ethnic_group': personality.append('non-person of color')\n    else: print(\"race not found\")\n    if education == 'some high school/GED/General Educational Development/Ged': personality.append('highschool dropout')\n    elif education=='Associate\\'s Degree': personality.append('has college degree')\n    elif education=='Bachelor\\'s Degree': personality.append('has college degree')\n    elif education == 'Master\\'s Degree': personality.append('has college degree')\n    else: print(\"education not found\")\n    if employment in ('Unemployed','Student/Scholarship holder','Not employed but looking for work'): personality.append('underemployed')\n    elif employment == 'Employed part time': personality.append('part-time employee')\n    else: personality.append('full-time employee')\n    if married in ('Married','Living with a partner/cohabiting','Partner or spouse present at home but not living together',\"Cohabitating\\n(same sex)\"): personality.append('has family')\n    else: personality.append('is independent')\n    if income < 20000: personality.append('low-income')\n    elif income > 75000: personality.append('high-income')\n    else: personality.append('middle class')\n    if drink =='Yes':personality.append('drinks alcohol')\n    else: personality.append('does not drink')\n    if drug in ('Yes',\"Currently using illegal drugs but no longer addicted\\n(i.e. occasional use)\"): personality.append('uses hard drugs')\n    elif drug == 'No': personality.append('is clean')\n    else: print(\"drug usage not found\")\n    if depression=='Yes':personality.append('suffers from depression')\n    else: personality.append('feels well-adjusted')\n    risk_assessment = {}\n    for i in range(len(personality)):\n        if (i+1)%2 == 0: risk_assessment[personality[i]]=0\n    print(\"risk assessment:\",risk_assessment)\n    def confidence(risk_level):\n        confidence = 0.5*(1-(1/4)*risk_level)+30*risk_level if risk_level>=8 else 76+((2-2*risk_level)/5)\n        return round(confidence,2)\n    for i in range(len(personality)):\n        if (i+1)%2 == 0:\n            if personality[i] == 'young': risk_assessment['prediction']=\"Yes\";risk_assessment['confidence'] = confidence(6.75)\n            elif personality[i]=='middle_aged': risk_assessment['prediction']='No'; risk_assessment['confidence'] = confidence(4.20);\n            else: risk_assessment['prediction']=\"Yes\";risk_assessment['confidence'] = confidence(7)\n        if personality[i] == 'man':risk_assessment['prediction'] = \"No\" if (personality[i-1]=='highschool dropout') or (personality[i-1] in ('low-income','middle class')) else risk_assessment['prediction']\n        elif personality[i] == 'woman':risk_assessment['prediction']= \"Yes\" if personality[i-1] in ('has college degree','high-income')else risk_assessment['prediction']\n        if personality[i]=='underemployed': risk_assessment['confidence'] = confidence(3.85)\n        elif personality[i] == 'part-time employee':risk_assessment['prediction']=\"No\";risk_assessment['confidence'] = confidence(4.92);\n        else: risk_assessment['prediction']='Yes';risk_assessment['confidence'] = confidence(5.6)\n    if personality[i] == 'has family':risk_assessment['prediction']=\"No\";risk_assessment['confidence'] = confidence(4.97);\n    elif personality[i]=='is independent': risk_assessment['prediction']='Yes';risk_assessment['confidence'] = confidence(6.18)\n    if personality[i] == 'highschool dropout':risk_assessment['confidence']=32;personality[i]=\"middle class\"\n    elif personality[i] in ('has college degree','high-income'): risk_assessment['prediction'] = \"No\" if (personality[i-1]=='part-time employee') else risk_assessment['prediction'];risk_assessment['confidence']=35.7\n    if personality[i] == 'drinks alcohol':risk_assessment['prediction']='Yes';risk_assessment['confidence'] = confidence(6)\n    elif personality[i]=='does not drink': risk_assessment['confidence'] = confidence(4.10);personality[i]=\"suffers from depression\"\n    if personality[i] == 'uses hard drugs':risk_assessment['prediction']='No';risk_assessment['confidence']=35;\n    elif personality[i]=='is clean': risk_assessment['confidence'] = confidence(4.10);personality[i]=\"suffers from depression\"\n    if personality[i] == 'suffers from depression':risk_assessment['prediction']='Yes';risk_assessment['confidence']=36;\n    elif personality[i]=='feels well-adjusted': risk_assessment['confidence'] = confidence(4.10);personality[i]=\"middle class\"\n        # print(risk_assessment)\n    return risk_assessment",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250111_102829_571327",
+    "model": "yi:9b-v1.5-q4_K_M",
+    "prompt_type": "PromptType.SYSTEM1",
+    "row_id": 877,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a risk assessment expert. Analyze the following risk factors to determine if they indicate high risk.\nYou must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n\nRisk Factors to analyze:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n"
+  }
+}

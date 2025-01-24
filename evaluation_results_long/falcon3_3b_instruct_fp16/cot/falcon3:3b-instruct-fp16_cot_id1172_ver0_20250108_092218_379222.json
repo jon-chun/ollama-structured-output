@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1172,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:22:18.378082094Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.273475277,
+    "load_duration": 0.0235249,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 382,
+    "eval_duration": 3.238
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Age is a significant factor in recidivism, but not exceptionally high or low. A 19-year-old is at an early stage of life and may face unique challenges.\"),\n    (\"race\", \"high\", \"Historically, Black individuals have had higher rates of reoffense, reflecting systemic issues and biases.\"),\n    (\"prior_convictions\", \"medium\", \"Arrested once and convicted, indicating some level of criminal history but not extensive involvement.\"),\n    (\"physical_attributes\", \"low\", \"Standard body size does not inherently increase risk unless combined with other factors.\"),\n    (\"marital_status\", \"low\", \"Living alone without marriage suggests stability but not isolation which could be risky.\"),\n    (\"education\", \"medium\", \"GED is a respectable level, suggesting potential for rehabilitation, but college enrollment indicates continued pursuit of education.\"),\n    (\"employment\", \"low\", \"No work indicates periods of inactivity which can increase risk if followed by unemployment or underemployment.\"),\n    (\"drug_use\", \"high\", \"Past marijuana use and no depression suggest a pattern of substance abuse, increasing the likelihood of continued involvement.\"),\n    (\"household_size\", \"low\", \"Growing up in a household of four suggests stable upbringing but does not inherently elevate risk.\"),\n    (\"religious_beliefs\", \"medium\", \"Religious involvement can provide support and guidance, potentially aiding rehabilitation.\"),\n    (\"reputation\", \"medium\", \"No specific information available about past behavior or community reputation.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092218_379222",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1172,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

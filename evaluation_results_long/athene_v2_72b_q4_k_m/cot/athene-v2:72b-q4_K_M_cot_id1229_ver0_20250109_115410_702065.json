@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1229,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-01-09T16:54:10.700976266Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 55.353982523,
+    "load_duration": 0.018117394,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.63,
+    "eval_count": 379,
+    "eval_duration": 54.7
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (19 years old)\", \"low\", \"Young age is often associated with higher recidivism, but the risk may be mitigated by other factors.\"),\n    (\"Race (Black)\", \"medium\", \"Racial disparities in the criminal justice system can influence outcomes, though it's a complex factor.\"),\n    (\"Arrest History (1 arrest, no conviction)\", \"low\", \"A single arrest with no convictions suggests a low level of prior involvement in the criminal justice system.\"),\n    (\"Educational Attainment (no high school diploma or GED)\", \"high\", \"Lack of education is strongly correlated with higher recidivism rates.\"),\n    (\"Employment Stability (3 jobs in one year)\", \"medium\", \"Frequent job changes can indicate instability and difficulty maintaining employment, which is a risk factor for recidivism.\"),\n    (\"Substance Use (marijuana use in the past four years)\", \"medium\", \"Drug use, particularly ongoing, is a known risk factor for reoffending.\"),\n    (\"Mental Health (feeling down most of the time)\", \"high\", \"Persistent feelings of depression can affect decision-making and increase the likelihood of engaging in risky behaviors.\"),\n    (\"Living Situation (living alone)\", \"medium\", \"Lack of social support and stability can contribute to higher recidivism risk.\"),\n    (\"Family Structure (lived in a household of size 5 at a young age)\", \"low\", \"While not ideal, living in a larger household is less predictive of recidivism compared to other factors.\"),\n    (\"Religious Beliefs (considers God has an influence on personal outcomes)\", \"low\", \"Religious beliefs can provide emotional support and may have a protective effect against reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_115410_702065",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1229,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 145 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 5. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

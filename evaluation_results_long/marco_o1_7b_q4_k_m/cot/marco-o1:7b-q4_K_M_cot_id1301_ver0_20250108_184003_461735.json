@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1301,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-08T23:40:03.46012018Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.185501276,
+    "load_duration": 0.033055919,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 381,
+    "eval_duration": 3.132
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest (18)\", \"low\", \"Young age may reduce risk due to limited criminal history.\"),\n    (\"Race (Black)\", \"medium\", \"Certain demographic factors can influence recidivism rates, but individual circumstances vary.\"),\n    (\"Number of prior arrests (2)\", \"high\", \"Multiple prior arrests indicate higher likelihood of future offending.\"),\n    (\"Number of convictions (1)\", \"high\", \"Convictions are strong indicators of potential for reoffending.\"),\n    (\"Height and weight (5'1\", 135 lbs)\", \"low\", \"Physical attributes do not directly influence recidivism.\"),\n    (\"Marital status (Single, never married)\", \"medium\", \"Lack of stable relationships may increase vulnerability to criminal behavior.\"),\n    (\"Education level (No high school diploma or GED)\", \"high\", \"Educational attainment is a significant predictor of reduced risk.\"),\n    (\"Employment status (Holds 2 jobs during the year)\", \"low\", \"Employed individuals generally have lower recidivism rates.\"),\n    (\"Drug use history (Used drugs in past four years, marijuana only)\", \"medium\", \"Drug use can contribute to criminal behavior but varies in impact based on other factors.\"),\n    (\"Mental health status (Not felt depressed over the past month)\", \"low\", \"No recent depression reduces risk of impulsivity or seeking crime as a coping mechanism.\"),\n    (\"Family background (Lived with biological mother, household size 5, urban area)\", \"medium\", \"Urban environments and family dynamics can influence criminal behavior but depend on specific circumstances.\"),\n    (\"Religious beliefs (Considers God has something to do with personal experiences)\", \"low\", \"Spiritual or religious beliefs may provide a support system reducing risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_184003_461735",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1301,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 2 times and has been convicted. She is 5 feet 1 inch and weighs 135 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

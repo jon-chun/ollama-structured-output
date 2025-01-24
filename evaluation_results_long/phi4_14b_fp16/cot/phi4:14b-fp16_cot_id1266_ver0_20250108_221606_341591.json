@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1266,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "phi4:14b-fp16",
+    "created_at": "2025-01-09T03:16:06.340256394Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.659897508,
+    "load_duration": 0.023719423,
+    "prompt_eval_count": 349,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 431,
+    "eval_duration": 15.616
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger age is generally associated with a higher risk of recidivism due to less stability in life circumstances.\"),\n    (\"gender\", \"low\", \"Females typically have lower rates of recidivism compared to males.\"),\n    (\"ethnicity\", \"low\", \"Hispanic individuals may face certain socio-economic challenges, but ethnicity alone does not significantly predict recidivism without considering other factors.\"),\n    (\"arrests_without_convictions\", \"medium\", \"Multiple arrests can indicate patterns of behavior that might lead to future offenses, even if convictions have not occurred yet.\"),\n    (\"physical_description\", \"low\", \"Height and weight are not significant predictors of criminal behavior or recidivism.\"),\n    (\"marital_status\", \"medium\", \"Being unmarried and living alone may contribute to a lack of social support, which can increase the risk of reoffending.\"),\n    (\"education_level\", \"high\", \"Lack of high school diploma or GED is strongly correlated with higher rates of criminal behavior and recidivism due to limited employment opportunities.\"),\n    (\"employment_status\", \"medium\", \"Having held only one job in a year indicates instability in employment, which can contribute to financial stress and increase the risk of reoffending.\"),\n    (\"substance_use\", \"high\", \"Past use of drugs such as marijuana and cocaine is a significant predictor of recidivism, especially when combined with recent emotional distress.\"),\n    (\"mental_health\", \"high\", \"Feeling down in the dumps indicates possible depression, which can be linked to higher rates of criminal behavior if untreated.\"),\n    (\"family_background\", \"medium\", \"Growing up in a larger family in an urban area may expose individuals to more socio-economic challenges and potential exposure to crime, but it is not a definitive predictor on its own.\"),\n    (\"religiosity\", \"low\", \"A belief that God has something to do with personal outcomes can sometimes provide protective effects against recidivism through community support and moral guidance.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_221606_341591",
+    "model": "phi4:14b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1266,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 2 times but has not been convicted. She is 5 feet 2 inches and weighs between 125 and 149 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 6, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

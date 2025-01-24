@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1363,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:00:21.245846785Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.415213912,
+    "load_duration": 0.01894382,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.026,
+    "eval_count": 388,
+    "eval_duration": 7.367
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger adults are often less settled and more prone to risk-taking behaviors, which can influence recidivism.\"),\n    (\"arrest_count\", \"high\", \"Multiple arrests suggest a pattern of behavior that may increase the likelihood of future offenses.\"),\n    (\"race\", \"medium\", \"Statistical data indicate that certain racial groups have higher arrest rates, but individual attitudes and behaviors also play a significant role.\"),\n    (\"education_level\", \"low\", \"Lack of education has been correlated with higher crime rates, but this factor is less influential when considering other factors like age and previous criminal history.\"),\n    (\"employment_status\", \"high\", \"Unemployment can increase the likelihood of criminal activity due to financial stress and lack of alternative activities.\"),\n    (\"drug_use\", \"medium\", \"Current drug use, particularly hard drugs, increases the risk of engaging in criminal activity.\"),\n    (\"mental_health_status\", \"medium\", \"Feeling depressed and unmotivated can affect decision-making and increase risk for criminal behavior.\"),\n    (\"early_home_environment\", \"low\", \"Growing up in a non-traditional home environment may influence social development but does not directly correlate with immediate recidivism risk.\"),\n    (\"religious_beliefs\", \"medium\", \"Belief in a higher power can sometimes provide a support system, but its impact on recidivism is less direct and depends heavily on personal interpretation.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object assigns relative weights to the risk factors based on typical patterns seen in recidivism research, considering both statistical correlations and qualitative reasoning. The prediction here suggests a high likelihood of recidivism within three years, but it is not absolute due to the individual's complexity and potential for change. The confidence level reflects the strength of the evidence supporting this prediction.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110021_247362",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1363,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 6 times and has been convicted. He is 5 feet 9 inches and weighs 180 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

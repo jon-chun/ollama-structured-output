@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 487,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:44:34.951174447Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.982716546,
+    "load_duration": 0.019280547,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 285,
+    "eval_duration": 9.931
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are at a medium risk due to developmental instability and peer influence.\"),\n    (\"gender\", \"low\", \"Female gender tends to correlate with lower recidivism rates.\"),\n    (\"race\", \"medium\", \"White race does not significantly alter recidivism risk in broad analysis.\"),\n    (\"prior_arrests_without_conviction\", \"medium\", \"Multiple arrests without conviction indicate potential behavior issues but do not confirm criminality.\"),\n    (\"employment_history\", \"low\", \"Having held multiple jobs suggests stability and responsibility.\"),\n    (\"drug_use\", \"high\", \"Regular drug use, especially cocaine, indicates higher risk of future offenses.\"),\n    (\"depression Symptoms\", \"high\", \"Persistent depression symptoms may impair judgment and increase likelihood of recidivism.\"),\n    (\"family_history\", \"low\", \"Growing up in a rural household with both biological parents may suggest more stable upbringing.\"),\n    (\"residence_status\", \"medium\", \"Living alone can indicate independence but also potential isolation from supportive networks.\"),\n    (\"education_level\", \"low\", \"High school diploma and college enrollment indicate some level of future orientation and planning.\"),\n    (\"religious_beliefs\", \"low\", \"Lack of faith in personal influence by a higher power does not directly impact recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114434_952485",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 487,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 2 inches and weighs 160 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

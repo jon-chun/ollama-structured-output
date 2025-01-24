@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 460,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:31:03.737946406Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.627381945,
+    "load_duration": 0.025151217,
+    "prompt_eval_count": 348,
+    "prompt_eval_duration": 0.04,
+    "eval_count": 333,
+    "eval_duration": 8.555
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age may suggest impulsivity but also potential for change.\"),\n    (\"race\", \"low\", \"Race itself is not a predictive factor; focus on other variables.\"),\n    (\"prior_arrest\", \"low\", \"Single arrest without conviction indicates limited criminal history.\"),\n    (\"height_weight\", \"low\", \"Physical attributes do not directly contribute to recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Never married does not inherently increase recidivism risk.\"),\n    (\"living_alone\", \"medium\", \"Not living alone may suggest a lack of social support or increased risk of isolation.\"),\n    (\"education\", \"low\", \"GED indicates basic education but could be a positive step towards stability.\"),\n    (\"employment\", \"medium\", \"Multiple jobs show work ethic but instability may suggest impulsivity.\"),\n    (\"drug_use\", \"high\", \"Past drug use, especially cocaine, indicates potential ongoing issues.\"),\n    (\"mental_health\", \"low\", \"No recent depression suggests stable mental health.\"),\n    (\"family_background\", \"medium\", \"Large urban household may suggest less parental supervision or influence.\"),\n    (\"religious_belief\", \"low\", \"Lack of religious belief does not directly correlate with recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_103103_739792",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 460,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches and weighs 204 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

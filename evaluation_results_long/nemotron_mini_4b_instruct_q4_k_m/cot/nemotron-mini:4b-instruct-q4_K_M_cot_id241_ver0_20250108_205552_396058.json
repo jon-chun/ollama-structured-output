@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 241,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-01-09T01:55:52.394904196Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.792600905,
+    "load_duration": 0.04826132,
+    "prompt_eval_count": 355,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 276,
+    "eval_duration": 1.725
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age (female, 19)\", \"medium\", \"Female offenders tend to recidivate more than male offenders. This is a medium risk factor.\"),\n    (\"employment status (employed, never married, no college enrollment)\", \"low\", \"Employment suggests better adaptation in the community and less likelihood of reoffending. This is a low risk factor.\"),\n    (\"drug use history (marijuana/cocaine, past four years, monthly frequency)\", \"medium\", \"Drug use indicates higher risk for recidivism due to potential impairment or criminal behavior patterns that may not be captured by other factors.\"),\n    (\"residential environment (urban area of size 4) and living alone\", \"low\", \"Urban areas often have higher crime rates but this is a low risk factor as there are many reasons why someone might live alone. Living in an urban area does not necessarily increase recidivism risk if the individual has no other risk factors.\"),\n    (\"religious belief (God has something to do with what happens personally)\", \"low\", \"Religious beliefs often indicate better community integration and lower risk for recidivism as they suggest a greater likelihood of rehabilitation. This is a low risk factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_205552_396058",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 241,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 110 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

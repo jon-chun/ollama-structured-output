@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 280,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-fp16",
+    "created_at": "2025-01-09T09:31:15.26315971Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.631514334,
+    "load_duration": 0.027429043,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 231,
+    "eval_duration": 4.586
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The individual is young, which can be a risk factor for higher recidivism rates.\"),\n    (\"race\", \"high\", \"Black individuals often face systemic biases in the criminal justice system, which may increase their risk of rearrest.\"),\n    (\"arrest_history\", \"high\", \"A history of multiple arrests suggests a pattern of offending behavior.\"),\n    (\"education_level\", \"high\", \"Lack of a high school diploma or GED certificate is associated with higher crime rates.\"),\n    (\"employment_status\", \"medium\", \"Having held only one job in the year may indicate instability which could contribute to higher risk.\"),\n    (\"living_arrangement\", \"low\", \"Living alone does not significantly alter recidivism risk compared to living arrangements.\"),\n    (\"drug_use\", \"low\", \"The individual has been drug-free for four years, reducing immediate risks.\"),\n    (\"mental_health_status\", \"low\", \"The person is not currently depressed, which may lower the likelihood of impulsive behaviors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_043115_264994",
+    "model": "tulu3:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 280,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted. He is 5 feet 7 inches and weighs 170 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

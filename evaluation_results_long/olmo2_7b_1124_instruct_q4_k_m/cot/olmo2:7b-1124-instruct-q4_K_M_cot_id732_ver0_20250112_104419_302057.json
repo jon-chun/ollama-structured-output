@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 732,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T15:44:19.300416428Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.375078612,
+    "load_duration": 0.019691067,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 397,
+    "eval_duration": 3.335
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"age\", \"high\", \"Younger individuals often have less maturity and experience, which can influence risk of reoffending.\"),\n  (\"criminal_history\": \"medium\", \"One arrest and conviction indicate a history of offending, but the lack of multiple offenses is slightly mitigating.\"),\n  (\"gender\": \"low\", \"Studies show that men are generally at higher risk for reoffending compared to women, but this factor alone does not significantly alter our assessment.\"),\n  (\"race\": \"low\", \"Race typically does not have a direct impact on recidivism risk assessment unless associated with specific socioeconomic or environmental factors.\"),\n  (\"education\": \"high\", \"Lack of a high school diploma or GED can indicate lower educational attainment, which often correlates with higher recidivism rates.\"),\n  (\"marital_status\": \"low\", \"Being unmarried does not directly influence recidivism but could reflect social support systems, which are generally beneficial in reducing reoffense risk.\"),\n  (\"employment_history\": \"medium\", \"Having held one job suggests some stability, but the lack of continuous employment could indicate difficulties adhering to societal norms and legal obligations.\"),\n  (\"drug_use\": \"high\", \"Past drug use, especially involving substances like marijuana and cocaine, indicates a potential for substance-related criminal behavior and potentially a higher risk of reoffending.\"),\n  (\"mental_health\": \"low\", \"Not feeling depressed in the past month is generally positive but does not eliminate the risks associated with prior substance abuse and criminal behavior.\"),\n  (\"family_structure\": \"medium\", \"Growing up in a household of 4 suggests potential family support; however, living alone now may reduce this influence.\"),\n  (\"belief_system\": \"low\", \"Belief that God does not intervene in personal affairs is not typically a direct predictor of recidivism but may reflect an individual's lack of reliance on external support systems.\")\n], \"prediction\": \"YES\", \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_104419_302057",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 732,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs over 250 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

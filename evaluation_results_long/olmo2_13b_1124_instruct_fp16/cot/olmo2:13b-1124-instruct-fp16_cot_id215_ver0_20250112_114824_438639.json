@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 215,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:48:24.436974141Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.228509179,
+    "load_duration": 0.019082042,
+    "prompt_eval_count": 313,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 370,
+    "eval_duration": 13.178
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can indicate higher impulsivity but is balanced by lack of prior convictions.\"),\n    (\"gender\", \"low\", \"Female gender is generally associated with lower recidivism rates.\"),\n    (\"race\", \"low\", \"White race does not significantly alter baseline risk.\"),\n    (\"arrest_count\", \"medium\", \"Two arrests suggest a history of involvement in criminal activities but not excessively high.\"),\n    (\"convictions\", \"high\", \"Convictions increase the likelihood of future offenses.\"),\n    (\"height\", \"low\", \"Physical characteristics have minimal impact on recidivism.\"),\n    (\"weight\", \"low\", \"Body weight is largely irrelevant to predictive risk.\"),\n    (\"marital_status\", \"low\", \"Marital status does not typically influence risk significantly.\"),\n    (\"living_situation\", \"medium\", \"Not living alone may indicate less stable environment but is balanced by other factors.\"),\n    (\"education_level\", \"medium\", \"High school diploma can indicate limited future opportunities leading to potential risk.\"),\n    (\"employment_stability\", \"low\", \"Having held multiple jobs can suggest adaptability and resilience, reducing risk.\"),\n    (\"drug_use\", \"high\", \"Use of cocaine and marijuana indicates potential substance abuse issues which are a strong predictor of recidivism.\"),\n    (\"depression\", \"low\", \"Lack of depression reduces risk of reoffense related to mental health issues.\"),\n    (\"household_size_at_young_age\", \"low\", \"Growing up in a household of size 5 may offer both challenges and support, not directly impacting risk.\"),\n    (\"religious_beliefs\", \"low\", \"Atheistic or non-religious beliefs do not directly affect criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114824_438639",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 215,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs 130 lbs. She has never been married and is currently not living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived in a household of size 5. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

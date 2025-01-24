@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 290,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-08T21:16:59.392478264Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.968614298,
+    "load_duration": 0.040417722,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 272,
+    "eval_duration": 5.907
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Previous Arrest\", \"low\", \"One non-convicted arrest at a young age suggests limited prior involvement in the criminal justice system.\"),\n    (\"Demographics (Race/Ethnicity)\", \"medium\", \"Black identity may influence societal perceptions and potential bias, but alone does not indicate high recidivism.\"),\n    (\"Marital Status & Living Arrangement\", \"low\", \"Not living alone and never being married are not direct indicators of future arrests.\"),\n    (\"Education\", \"low\", \"GED holder without college enrollment does not strongly predict recidivism, especially given young age.\"),\n    (\"Employment\", \"high\", \"Unemployment for an extended period can lead to financial strain, increased frustration, and higher risk of reoffending.\"),\n    (\"Substance Use (Marijuana)\", \"medium\", \"Past marijuana use is not a strong predictor, but ongoing substance abuse can contribute to criminal behavior.\"),\n    (\"Mental Health (Depression)\", \"low\", \"No recent depression indicates low risk for impulsivity or mood-related offenses.\"),\n    (\"Early Life Environment (Urban/Household Size)\", \"medium\", \"Urban upbringing and family size provide context, but do not strongly predict future arrests.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_161659_393946",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 290,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 9 inches and weighs between 175 and 199 lbs. She has never been married and is currently not living alone. She has a GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

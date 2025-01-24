@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 641,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-09T04:51:35.341662737Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.169210104,
+    "load_duration": 0.027360869,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.137,
+    "eval_count": 480,
+    "eval_duration": 13.997
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: 19 years old\", \"low\", \"Young adults in this age group often have higher recidivism rates, but the risk decreases as they mature.\"),\n    (\"Gender: Female\", \"low\", \"Females generally have lower rearrest rates compared to males.\"),\n    (\"Race: White\", \"medium\", \"Some studies indicate that race can influence interactions with law enforcement and sentencing, but this factor alone is not highly predictive.\"),\n    (\"Number of Arrests: 1\", \"low\", \"A single arrest is a low indicator for future recidivism unless accompanied by other high-risk factors.\"),\n    (\"Conviction Status: Convicted\", \"medium\", \"Having a conviction can increase the risk as it reflects a formal judgment of guilt and may limit opportunities for rehabilitation.\"),\n    (\"Height & Weight: 5'8\\\" / 120 lbs\", \"low\", \"Physical stature is not typically considered a significant predictor of recidivism.\"),\n    (\"Marital Status: Unmarried\", \"medium\", \"Being unmarried can correlate with higher risk, as stable relationships are protective factors against recidivism.\"),\n    (\"Living Situation: Living alone\", \"high\", \"Lack of social support and living alone may increase the likelihood of engaging in criminal behavior due to lack of supervision or guidance.\"),\n    (\"Education Level: GED certificate, not enrolled in college\", \"medium\", \"Having only a GED without current educational engagement can be risky as education is protective against recidivism.\"),\n    (\"Employment Status: Held 3 jobs during the year\", \"high\", \"Frequent job changes may indicate instability and difficulty maintaining employment, which are risk factors for recidivism.\"),\n    (\"Drug Use: No use in past four years, but recent emotional distress\", \"medium\", \"Lack of recent drug use is positive; however, current mental health issues could lead to substance abuse or criminal behavior as a coping mechanism.\"),\n    (\"Childhood Household: Size 2, Urban area\", \"low\", \"A small household size and urban upbringing are not inherently high-risk factors.\"),\n    (\"Religious Involvement: None\", \"medium\", \"Lack of religious involvement can be associated with fewer protective social networks that support rehabilitation.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_235135_343113",
+    "model": "qwen2.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 641,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 8 inches and weighs 120 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

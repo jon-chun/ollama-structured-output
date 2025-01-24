@@ -1,0 +1,109 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 230,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:44:24.965161294Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.009837358,
+    "load_duration": 0.022613675,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.025,
+    "eval_count": 428,
+    "eval_duration": 14.957
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"age\", \"medium\", \"Young age can indicate lower life stability but is not always a predictor of recidivism.\"], [\"gender\", \"low\", \"Males are generally more likely to be arrested, but the impact on recidivism can vary widely based on other factors.\"], [\"race\", \"medium\", \"Research shows varying impacts, and while White males typically have lower recidivism rates, this factor alone is not conclusive.\"], [\"arrest_count\", \"medium\", \"Two arrests indicate some level of criminal involvement, which is a risk factor for future offenses.\"], [\"convictions\", \"high\", \"Convictions are a strong indicator of past criminal behavior and can correlate with higher risk of reoffense.\"], [\"height\", \"low\", \"Physical stature does not directly influence criminal behavior or recidivism.\"], [\"weight\", \"low\", \"Weight is not a significant factor in assessing recidivism.\"], [\"marital_status\", \"medium\", \"Living alone and not married may indicate less social stability, which can correlate with higher risk.\"], [\"education_level\", \"low\", \"High school diploma and college enrollment suggest some level of future opportunity and investment in one's future, potentially reducing risk.\"], [\"employment_history\", \"medium\", \"Having held one job in the past year indicates some degree of stability, but limited work history can also point to challenges in maintaining employment.\"], [\"drug_use\", \"high\", \"Substance use, especially cocaine, increases the likelihood of engaging in criminal behavior and recidivism.\"], [\"depression_status\", \"low\", \"Lack of depression in the past month could indicate a stable mental state, which might lower risk.\"], [\"family_history\", \"medium\", \"Growing up in a household of size 5 in an urban area could suggest exposure to various influences, some of which might increase risk.\"], [\"spiritual_beliefs\", \"low\", \"Belief in a higher power does not directly affect recidivism but may influence personal choices.\"]], \"prediction\": \"YES\", \"confidence\": 65}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114424_966575",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 230,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "medium",
+      "Young age can indicate lower life stability but is not always a predictor of recidivism."
+    ],
+    [
+      "gender",
+      "low",
+      "Males are generally more likely to be arrested, but the impact on recidivism can vary widely based on other factors."
+    ],
+    [
+      "race",
+      "medium",
+      "Research shows varying impacts, and while White males typically have lower recidivism rates, this factor alone is not conclusive."
+    ],
+    [
+      "arrest_count",
+      "medium",
+      "Two arrests indicate some level of criminal involvement, which is a risk factor for future offenses."
+    ],
+    [
+      "convictions",
+      "high",
+      "Convictions are a strong indicator of past criminal behavior and can correlate with higher risk of reoffense."
+    ],
+    [
+      "height",
+      "low",
+      "Physical stature does not directly influence criminal behavior or recidivism."
+    ],
+    [
+      "weight",
+      "low",
+      "Weight is not a significant factor in assessing recidivism."
+    ],
+    [
+      "marital_status",
+      "medium",
+      "Living alone and not married may indicate less social stability, which can correlate with higher risk."
+    ],
+    [
+      "education_level",
+      "low",
+      "High school diploma and college enrollment suggest some level of future opportunity and investment in one's future, potentially reducing risk."
+    ],
+    [
+      "employment_history",
+      "medium",
+      "Having held one job in the past year indicates some degree of stability, but limited work history can also point to challenges in maintaining employment."
+    ],
+    [
+      "drug_use",
+      "high",
+      "Substance use, especially cocaine, increases the likelihood of engaging in criminal behavior and recidivism."
+    ],
+    [
+      "depression_status",
+      "low",
+      "Lack of depression in the past month could indicate a stable mental state, which might lower risk."
+    ],
+    [
+      "family_history",
+      "medium",
+      "Growing up in a household of size 5 in an urban area could suggest exposure to various influences, some of which might increase risk."
+    ],
+    [
+      "spiritual_beliefs",
+      "low",
+      "Belief in a higher power does not directly affect recidivism but may influence personal choices."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 7 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1012,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "created_at": "2025-01-08T12:56:14.828181356Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.499305244,
+    "load_duration": 0.020801355,
+    "prompt_eval_count": 383,
+    "prompt_eval_duration": 0.011,
+    "eval_count": 318,
+    "eval_duration": 2.462
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Conviction\", \"medium\", \"A single conviction suggests a pattern of behavior that warrants caution, though the severity isn't indicative of future offenses without additional context.\"),\n    (\"Race\", \"medium\", \"While racial disparities exist in criminal justice systems, this factor alone doesn't definitively predict recidivism without considering socioeconomic factors.\"),\n    (\"Substance Use\", \"high\", \"Current and past drug use, especially marijuana and cocaine, coupled with recent feelings of depression, strongly indicate potential continued engagement in illegal activities.\"),\n    (\"Employment History\", \"high\", \"Lack of employment history suggests limited opportunities for positive reintegration and potential reliance on illicit means.\"),\n    (\"Family Background\", \"low\", \"Living with a single parent in a household of four at age suggests stability but doesn't directly correlate to recidivism risk.\"),\n    (\"Education Level\", \"high\", \"Not holding a high school diploma or pursuing further education increases vulnerability to engaging in risky behaviors prevalent among those with limited formal education.\"),\n    (\"Living Situation\", \"medium\", \"Living alone indicates independence but may lack supportive structures that could mitigate risk factors.\"),\n    (\"Religious Beliefs\", \"low\", \"Personal beliefs alone do not significantly influence criminal behavior unless directly linked to illegal activities or substance abuse patterns.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_075614_829730",
+    "model": "exaone3.5:2.4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1012,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 6 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

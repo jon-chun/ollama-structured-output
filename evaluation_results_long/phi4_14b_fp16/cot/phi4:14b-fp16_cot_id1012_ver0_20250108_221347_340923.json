@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1012,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi4:14b-fp16",
+    "created_at": "2025-01-09T03:13:47.339748537Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.122384805,
+    "load_duration": 0.019404132,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 334,
+    "eval_duration": 12.087
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Younger individuals have a higher risk of recidivism, but age alone is not determinative.\"),\n    (\"gender\", \"low\", \"Females generally have lower recidivism rates compared to males.\"),\n    (\"race_ethnicity\", \"medium\", \"Minority groups may face systemic challenges that can influence recidivism risk, although race itself is a complex factor in predictions.\"),\n    (\"arrests_convictions\", \"high\", \"Having been arrested and convicted increases the likelihood of future arrests due to established criminal behavior patterns.\"),\n    (\"employment_status\", \"high\", \"Unemployment is strongly correlated with higher rates of recidivism as it limits access to resources and social stability.\"),\n    (\"education_level\", \"medium\", \"Lack of education can limit job opportunities, which may contribute to recidivism; however, its impact is less direct than employment status.\"),\n    (\"substance_use\", \"high\", \"Recent drug use is a significant risk factor for reoffending due to potential ongoing addiction and associated criminal behavior.\"),\n    (\"mental_health\", \"medium\", \"Feelings of depression can influence decision-making and increase the likelihood of engaging in risky behaviors, including crime.\"),\n    (\"family_structure\", \"low\", \"Growing up in an urban area with moderate household size has a minimal direct impact on recidivism compared to other factors.\"),\n    (\"religiosity\", \"low\", \"Religious beliefs may provide some protective effect but are not reliable predictors of criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_221347_340923",
+    "model": "phi4:14b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1012,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 6 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

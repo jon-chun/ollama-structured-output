@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 684,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:59:27.548102253Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.134780258,
+    "load_duration": 0.024701032,
+    "prompt_eval_count": 316,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 431,
+    "eval_duration": 8.089
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Youth can be associated with higher risk, but the individual's age is within a range where impulsivity and peer influences are significant, yet not as much as in younger years.\"),\n    (\"arrest history\", \"high\", \"One prior arrest indicates a history of criminal behavior, which is a strong predictor of recidivism.\"),\n    (\"conviction\", \"high\", \"Having been convicted suggests a higher likelihood of reoffending compared to those with only arrests.\"),\n    (\"physical characteristics\", \"low\", \"The individual's height and weight may indicate a physical build that could be associated with higher risk, but these factors alone do not significantly alter recidivism risk without other behavioral indicators.\"),\n    (\"marital status\", \"medium\", \"Never being married might suggest a lack of stable social support networks which can influence behavior. However, it's not a definitive predictor on its own.\"),\n    (\"residence status\", \"low\", \"Living alone may imply less immediate social control, but this factor is relatively weak in isolation.\"),\n    (\"education level\", \"medium\", \"A high school diploma suggests some educational attainment, which can be indicative of lower risk; however, not pursuing higher education is a neutral factor in recidivism prediction.\"),\n    (\"employment history\", \"low\", \"Having held multiple jobs suggests adaptability and a willingness to work, which could be associated with a lower risk of recidivism.\"),\n    (\"drug use\", \"high\", \"The use of drugs, particularly illegal ones like marijuana and cocaine, significantly increases the risk of reoffending due to potential substance-related offending.\"),\n    (\"mental health\", \"medium\", \"Not feeling depressed in the past month is positive, but history of drug use may still affect judgment and decision-making, thus maintaining a medium level of risk.\"),\n    (\"family environment\", \"medium\", \"Growing up in a household with five people may have provided some family structure, but it also depends on the quality of that environment.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105927_549599",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 684,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 11 inches and weighs 230 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

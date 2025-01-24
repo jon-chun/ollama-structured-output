@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 55,
+    "id": 701,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-12T16:21:15.225460287Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.644796623,
+    "load_duration": 0.019052105,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.041,
+    "eval_count": 331,
+    "eval_duration": 4.581
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age is associated with higher recidivism, but the specific age of 20 is not strongly indicative alone.\"),\n    (\"gender\", \"low\", \"Female gender generally associated with lower recidivism rates.\"),\n    (\"arrests_without_conviction\", \"medium\", \"One arrest without a conviction suggests some involvement in criminal activity but does not confirm a criminal record.\"),\n    (\"race\", \"N/A\", \"Ethnicity is not directly a risk factor according to most risk assessment tools.\"),\n    (\"height_and_weight\", \"low\", \"Physical stature typically does not influence recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Living alone and marital status do not have strong links to recidivism.\"),\n    (\"education_level\", \"medium\", \"Lack of college enrollment could indicate lower opportunity, possibly linked to higher recidivism.\"),\n    (\"employment_history\", \"medium\", \"Frequent job changes may suggest instability, potentially correlated with recidivism.\"),\n    (\"drug_use\", \"medium\", \"Recent drug use, particularly marijuana, can be associated with higher recidivism rates.\"),\n    (\"depression_status\", \"low\", \"Lack of reported depression is generally favorable.\"),\n    (\"family_history\", \"medium\", \"Growing up in a larger family in a rural area could indicate mixed social influences; neither inherently protective nor risk-increasing.\"),\n    (\"religious_beliefs\", \"low\", \"Beliefs about divine influence are not directly linked to recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 55\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_112115_226834",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 701,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

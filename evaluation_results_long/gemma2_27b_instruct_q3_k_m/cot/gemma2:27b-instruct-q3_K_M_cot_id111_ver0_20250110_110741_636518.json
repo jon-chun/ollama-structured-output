@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 111,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:27b-instruct-q3_K_M",
+    "created_at": "2025-01-10T16:07:41.634980491Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.86249751,
+    "load_duration": 0.041329845,
+    "prompt_eval_count": 351,
+    "prompt_eval_duration": 0.123,
+    "eval_count": 302,
+    "eval_duration": 8.695
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"19 years old is relatively young\"),\n    (\"gender\", \"low\", \"Female gender is generally associated with lower recidivism rates\"),\n    (\"ethnicity\", \"medium\", \"Hispanic ethnicity may have some association with increased risk, but it's complex and requires further context\"),\n    (\"prior arrests\", \"high\", \"5 prior arrests indicates a history of criminal involvement\"),\n    (\"marital status\", \"low\", \"Being married is generally considered a protective factor\"),\n    (\"living situation\", \"low\", \"Living with spouse is stable housing\"),\n    (\"education\", \"medium\", \"Lack of high school diploma or GED can increase risk\"),\n    (\"employment\", \"high\", \"No employment in the past year is a significant risk factor\"),\n    (\"drug use\", \"low\", \"No drug use in the past four years is positive\"),\n    (\"mental health\", \"medium\", \"Feeling down and hopeless could indicate potential mental health issues that need assessment\"),\n    (\"family background\", \"medium\", \"Living with both parents in a stable household as a child is generally protective, but context is important\"),\n    (\"religious beliefs\", \"low\", \"Religious belief can be a positive influence, but it's not a direct predictor\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_110741_636518",
+    "model": "gemma2:27b-instruct-q3_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 111,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 5 times and has been convicted. She is 5 feet 4 inches and weighs 140 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

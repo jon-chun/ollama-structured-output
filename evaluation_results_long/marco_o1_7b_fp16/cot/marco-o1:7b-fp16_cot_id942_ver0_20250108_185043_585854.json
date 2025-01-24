@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 942,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-08T23:50:43.58458802Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.47094636,
+    "load_duration": 0.026824306,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 340,
+    "eval_duration": 6.416
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is relatively young, which may indicate a higher likelihood of rehabilitation.\"),\n    (\"Race/Ethnicity\", \"medium\", \"His identification as White doesn't inherently correlate with higher recidivism rates but could be influenced by societal perceptions and other factors.\"),\n    (\"Number of Arrests\", \"low\", \"Only one arrest without a conviction suggests limited criminal history.\"),\n    (\"Height/Weight\", \"low\", \"Physical attributes like height and weight are not directly indicative of future criminal behavior.\"),\n    (\"Marital Status\", \"low\", \"Living alone might contribute to isolation but doesn't necessarily increase the risk of reoffending.\"),\n    (\"Education Level\", \"medium\", \"A high school diploma is a positive indicator, but not pursuing higher education may limit opportunities and influence decision-making.\"),\n    (\"Employment History\", \"low\", \"Holding two jobs within a year indicates some level of responsibility and structure.\"),\n    (\"Drug Use\", \"high\", \"Recent drug use (marijuana and cocaine) can contribute to impulsive behaviors and increased risk-taking.\"),\n    (\"Mental Health\", \"low\", \"Not feeling depressed in the past month suggests good mental health, which is beneficial for rehabilitation.\"),\n    (\"Upbringing\", \"medium\", \"Growing up with both parents in an urban area may have provided a stable environment but could also expose him to certain influences.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God can provide a support system and moral guidance, reducing the likelihood of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_185043_585854",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 942,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

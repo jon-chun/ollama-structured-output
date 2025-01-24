@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 511,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-fp16",
+    "created_at": "2025-01-08T15:18:25.284881397Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.710585128,
+    "load_duration": 0.023462561,
+    "prompt_eval_count": 360,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 374,
+    "eval_duration": 9.638
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young, which may imply a period of growth and change.\"),\n    (\"race\", \"medium\", \"While race can be a factor in societal bias, it doesn't directly correlate with criminal behavior.\"),\n    (\"prior_arrests\", \"medium\", \"One arrest suggests a level of engagement with the justice system, but not a high frequency.\"),\n    (\"prior_convictions\", \"low\", \"A single conviction without additional incidents indicates a manageable level of risk.\"),\n    (\"height_weight\", \"low\", \"Physical characteristics do not significantly impact risk of recidivism.\"),\n    (\"marital_status\", \"medium\", \"Being single and living alone might suggest fewer social ties, which can be a risk factor.\"),\n    (\"education\", \"low\", \"Having a high school diploma and being in college suggests investment in personal development.\"),\n    (\"employment\", \"low\", \"Holding multiple jobs indicates stability and responsibility.\"),\n    (\"drug_use\", \"medium\", \"Past drug use, though not severe, may indicate impulsivity or risk-taking behavior.\"),\n    (\"depression\", \"medium\", \"Experiencing depression might lead to poor decision-making but is not a definitive indicator of recidivism.\"),\n    (\"family_background\", \"low\", \"Positive early family environment suggests resilience and support.\"),\n    (\"religious_beliefs\", \"low\", \"Strong religious beliefs can be a protective factor against criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_101825_286007",
+    "model": "falcon3:10b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 511,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

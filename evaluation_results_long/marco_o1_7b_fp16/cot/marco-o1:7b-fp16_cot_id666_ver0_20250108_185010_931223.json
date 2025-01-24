@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-fp16",
+    "created_at": "2025-01-08T23:50:10.929880897Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.226092903,
+    "load_duration": 0.031594381,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 379,
+    "eval_duration": 7.167
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18)\", \"low\", \"Young age may not be a strong predictor of recidivism.\"),\n    (\"Race (White)\", \"medium\", \"While race can influence societal perceptions, it's not directly linked to crime rates.\"),\n    (\"Number of Arrests (2)\", \"high\", \"Multiple arrests indicate higher risk of future criminal behavior.\"),\n    (\"Conviction Status (Yes)\", \"high\", \"A history of conviction is a significant predictor of recidivism.\"),\n    (\"Height and Weight (5'9\\\", 140 lbs)\", \"low\", \"Physical attributes alone do not strongly influence recidivism.\"),\n    (\"Marital Status (Single)\", \"medium\", \"Lack of marital ties may increase the likelihood of criminal activity.\"),\n    (\"Housing Situation (Living Alone)\", \"medium\", \"Living alone can contribute to isolation, potentially increasing risk.\"),\n    (\"Education Status (Enrolled in School)\", \"low\", \"Engagement in education is generally protective against recidivism.\"),\n    (\"Employment Status (No Jobs during the Year)\", \"high\", \"Unemployment is a strong predictor of increased criminal behavior.\"),\n    (\"Drug Use (Marijuana and Cocaine in Past 4 Years)\", \"high\", \"Substance use significantly increases risk of reoffending.\"),\n    (\"Depression (Not Depressed Over Last Month)\", \"low\", \"Absence of depression may mitigate some risks.\"),\n    (\"Family Background (Both Biological Parents, Household Size 4, Urban Area)\", \"medium\", \"While family environment can influence behavior, specific details are needed for a precise assessment.\"),\n    (\"Religious Beliefs (God Influences Personal Decisions)\", \"low\", \"Personal beliefs do not directly impact recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_185010_931223",
+    "model": "marco-o1:7b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

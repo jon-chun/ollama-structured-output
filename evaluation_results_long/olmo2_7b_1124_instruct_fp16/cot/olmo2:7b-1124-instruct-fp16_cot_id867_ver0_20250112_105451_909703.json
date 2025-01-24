@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 867,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:54:51.908433083Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.407530499,
+    "load_duration": 0.025370773,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.022,
+    "eval_count": 583,
+    "eval_duration": 11.356
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are often at a developmental phase where risk-taking behavior is common, but this individual's age is on the cusp of adulthood, indicating a medium level of concern.\"),\n    (\"arrest_history\", \"high\", \"Multiple arrests are associated with higher recidivism rates. Three arrests suggest a pattern of behavior that could indicate increased risk.\"),\n    (\"race\", \"medium\", \"Research indicates racial disparities in the criminal justice system, but individual experiences and socio-economic factors play a significant role. Given no specific socio-economic information, we will consider this as medium.\"),\n    (\"marital_status\", \"low\", \"Being unmarried is not typically a strong predictor of recidivism by itself, especially for younger individuals who may not have established stable relationships.\"),\n    (\"living_situation\", \"medium\", \"Living alone might be associated with less social support and potentially higher risk, but without information on his living environment or socioeconomic status, this remains medium.\"),\n    (\"education_status\", \"low\", \"Having a high school diploma is generally associated with lower risk levels. However, not pursuing further education could indicate less investment in long-term goals.\"),\n    (\"employment_history\", \"medium\", \"Holding two jobs in a year can be seen as positive in terms of employment activity, but the context (e.g., stability, type of jobs) is missing. This factor is assessed as medium.\"),\n    (\"drug_use\", \"high\", \"Drug use, particularly recent use, is strongly correlated with higher recidivism rates due to potential impact on judgment and involvement in drug-related activities.\"),\n    (\"mental_health_status\", \"medium\", \"Feeling depressed or down can affect decision-making and increase the risk of reoffending. This factor is assessed as medium based on self-reported feelings.\"),\n    (\"family_environment\", \"low\", \"Growing up in a household with 4 people and living in an urban area may provide some level of social support, which typically reduces risk. However, information about family dynamics is lacking, so we rate this as low.\"),\n    (\"belief_system\", \"medium\", \"A belief that God has no influence on personal events suggests a potentially pragmatic worldview that could reduce the influence of religious or moral factors on behavior. This factor is rated medium.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object provides a structured analysis of the individual's risk factors, categorized by their relative weight as either low, medium, or high, along with textual reasoning for each rating. The final prediction is that the person has a moderate likelihood of being rearrested within three years, reflecting the balance of risk and protective factors identified in the provided details. The confidence level assigned to this prediction is 75%, indicating a well-supported but not absolute certainty in the outcome.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105451_909703",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 867,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 1 inch and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

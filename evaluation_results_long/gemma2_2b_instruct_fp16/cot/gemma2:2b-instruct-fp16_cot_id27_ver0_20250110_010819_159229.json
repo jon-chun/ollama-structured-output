@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 27,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-fp16",
+    "created_at": "2025-01-10T06:08:19.158027897Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.947864811,
+    "load_duration": 0.04101879,
+    "prompt_eval_count": 356,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 421,
+    "eval_duration": 3.893
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"The age is a significant factor, as it correlates with higher recidivism rates.\"),\n    (\"prior arrest\", \"medium\", \"Single prior arrest suggests potential risk but doesn't necessarily indicate high-risk behavior.\"),\n    (\"gender\", \"low\", \"Gender alone doesn't have a strong predictive value for recidivism.\"),\n    (\"race\", \"low\", \"Race is not considered a significant factor in predicting recidivism.\"),\n    (\"height and weight\", \"low\", \"Height and weight are not relevant to criminal behavior.\"),\n    (\"marital status\", \"low\", \"Marital status doesn't indicate criminal behavior.\"),\n    (\"employment\", \"low\", \"Stable employment can reduce risk, but it is not a primary factor in recidivism.\"),\n    (\"education\", \"low\", \"Lack of higher education does not necessarily correlate with high-risk behaviors.\"),\n    (\"drug use\", \"high\", \"History of drug use indicates potential for future reoffending.\"),\n    (\"mental health\", \"high\",  \"Describing feeling 'down' and lacking cheer could indicate a significant mental health issue, increasing the risk.\"),\n    (\"family background\", \"medium\", \"Living with both parents in a large household may contribute to positive social support but is not conclusive on recidivism.\"),\n    (\"religious affiliation\", \"low\", \"Religion does not generally correlate with criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n``` \n\n**Explanation of reasoning:**  This assessment considers several factors, focusing more heavily on the strong correlation between drug use and recidivism. The individual's reported mental health struggles are significant and warrant closer attention to potential risk. \n\n\nLet me emphasize that this is a simplified example. A comprehensive risk assessment requires in-depth analysis, considering various legal history, social context, psychological evaluation, and other factors relevant to the situation.  \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250110_010819_159229",
+    "model": "gemma2:2b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 27,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 139 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

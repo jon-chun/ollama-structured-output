@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 667,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:52:32.881236847Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.579446679,
+    "load_duration": 0.026108796,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.029,
+    "eval_count": 330,
+    "eval_duration": 11.52
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Younger individuals are generally associated with lower risk of recidivism.\"),\n    (\"sex\", \"low\", \"Female offenders typically have lower rearrest rates compared to male offenders.\"),\n    (\"arrest_count\", \"low\", \"One prior arrest indicates a lower initial involvement in criminal activities.\"),\n    (\"conviction\", \"medium\", \"A conviction can be indicative of actual criminal behavior, increasing risk.\"),\n    (\"height_weight\", \"neutral\", \"Physical characteristics do not directly influence recidivism risk.\"),\n    (\"marital_status\", \"neutral\", \"Marital status typically has a minor impact on recidivism.\"),\n    (\"living_alone\", \"low\", \"Living alone can be indicative of independence, potentially lowering risk.\"),\n    (\"education_level\", \"low\", \"Higher education is often correlated with lower recidivism rates.\"),\n    (\"employment_history\", \"low\", \"Stable employment history may indicate a lower likelihood of reoffending.\"),\n    (\"drug_use_past_four_years\", \"medium\", \"Substance abuse increases the risk of reoffending, especially if it continues.\"),\n    (\"depression_screening\", \"medium\", \"Feeling hopeless can indicate mental health issues which may lead to higher risk.\"),\n    (\"family_history\", \"medium\", \"Growing up in a household of size 4 and an urban area could imply various influences on behavior.\"),\n    (\"religious_beliefs\", \"neutral\", \"Lack of belief in divine intervention generally does not directly affect recidivism.\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_115232_882406",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 667,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 1 inch and weighs 110 lbs. She has never been married and is currently not living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

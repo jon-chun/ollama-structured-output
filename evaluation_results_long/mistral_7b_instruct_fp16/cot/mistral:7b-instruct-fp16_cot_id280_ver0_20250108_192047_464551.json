@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 280,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-fp16",
+    "created_at": "2025-01-09T00:20:47.463087749Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.748611009,
+    "load_duration": 0.014082287,
+    "prompt_eval_count": 362,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 253,
+    "eval_duration": 4.709
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"21 years old\"),\n    (\"gender\", \"low\", \"Male\"),\n    (\"arrest_history\", \"medium\", \"6 arrests, no convictions\"),\n    (\"height\", \"low\", \"5 feet 7 inches\"),\n    (\"weight\", \"low\", \"170 lbs\"),\n    (\"marital_status\", \"high\", \"Never married\"),\n    (\"housing_history\", \"medium\", \"Lived with biological parents in an urban household of size 4 at a young age\"),\n    (\"education_level\", \"low\", \"No high school diploma or GED certificate, not enrolled in college\"),\n    (\"employment_history\", \"high\", \"Only held one job during the year\"),\n    (\"drug_use\", \"low\", \"Has not used drugs in the past four years\"),\n    (\"depression\", \"low\", \"Has not felt depressed over the past month\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_192047_464551",
+    "model": "mistral:7b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 280,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted. He is 5 feet 7 inches and weighs 170 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

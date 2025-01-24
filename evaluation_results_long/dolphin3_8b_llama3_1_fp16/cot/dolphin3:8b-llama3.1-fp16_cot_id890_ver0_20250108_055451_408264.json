@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 890,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "created_at": "2025-01-08T10:54:51.407081821Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.225570483,
+    "load_duration": 0.027454073,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 408,
+    "eval_duration": 8.172
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The individual's age is 22, which falls in the medium risk category for recidivism.\"),\n    (\"race_ethnicity\", \"low\", \"The individual identifies as White, which typically has a lower risk level compared to other races/ethnicities.\"),\n    (\"arrested\", \"high\", \"Having been arrested twice increases the likelihood of future arrests.\"),\n    (\"convicted\", \"medium\", \"Conviction history indicates that she may have broken more serious laws and could be at higher risk for recidivism.\"),\n    (\"height_weight\", \"low\", \"The individual's height and weight are average, which is not considered a significant factor in recidivism risk assessment.\"),\n    (\"marital_status\", \"medium\", \"Not being married can contribute to instability in life circumstances potentially increasing the likelihood of criminal behavior.\"),\n    (\"living_arrangement\", \"medium\", \"Living alone may indicate less social support or supervision, contributing to higher risk.\"),\n    (\"education\", \"low\", \"Completion of an associate degree suggests some stability and lower educational attainment might not be associated with high recidivism risk.\"),\n    (\"employment\", \"low\", \"Holding 3 jobs in a year shows effort towards maintaining stable employment, which can mitigate criminal behavior.\"),\n    (\"drugs\", \"high\", \"Prior drug use, including recent use of marijuana and cocaine, is a significant predictor for future criminal activity.\"),\n    (\"mood_depression\", \"medium\", \"Feeling persistently down may suggest mental health issues that could contribute to criminal behavior.\"),\n    (\"childhood_environment\", \"medium\", \"Growing up in an urban household with five people might have some adverse effects on her development but is not strongly correlated with recidivism risk.\"),\n    (\"religious_beliefs\", \"low\", \"Her belief in God's involvement in her life may provide some moral compass, lowering the risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_055451_408264",
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 890,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She has completed study at an associate/junior college and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

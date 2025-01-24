@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 520,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-fp16",
+    "created_at": "2025-01-09T07:19:20.761066514Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.072669919,
+    "load_duration": 0.031119299,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 235,
+    "eval_duration": 1.036
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \" socioeconomic status (SES), specifically household income and education level\", \"low\", \"She is currently living alone, has a high school diploma, and is not enrolled in college.\", \"textual reasoning: The person's SES is likely to be low due to her current living situation and lack of educational attainment.\"},\n    {\"factor2\": \" history of substance abuse (marijuana and cocaine) but no current feelings of depression\", \"low\", \"Although she has a history of drug use, there is no indication that it has negatively impacted her mental health or well-being in the past month.\"},\n    {\"factor3\": \" religious beliefs\", \"medium\", \"She considers God to be involved in her life and experiences.\", \"textual reasoning: While this may provide some emotional support, it does not directly relate to her likelihood of reoffending.\"},\n    {\"factor4\": \" age (21 years)\", \"high\", \"Her young age at the time of arrest is a significant factor given the context of her criminal history.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_021920_762414",
+    "model": "llama3.2:1b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 520,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 10 inches and weighs between 125 and 149 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 6, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

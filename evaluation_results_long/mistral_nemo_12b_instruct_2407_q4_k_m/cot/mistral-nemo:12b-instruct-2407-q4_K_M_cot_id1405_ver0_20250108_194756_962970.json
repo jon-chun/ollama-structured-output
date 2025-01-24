@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1405,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-01-09T00:47:56.960337777Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.50317201,
+    "load_duration": 0.028183622,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 280,
+    "eval_duration": 3.438
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"Young age is generally associated with higher risk, but not yet firmly established in adulthood\"),\n    (\"Gender\", \"low\", \"Male gender is typically associated with lower risk of recidivism compared to female\"),\n    (\"Race\", \"medium\", \"Research shows mixed results on the impact of race on recidivism; considering societal factors, a medium weight is assigned\"),\n    (\"Number of Prior Arrests\", \"high\", \"Multiple prior arrests indicate a high likelihood of future criminal behavior\"),\n    (\"Employment Status\", \"high\", \"Consistently unemployed increases the likelihood of recidivism\"),\n    (\"Education Level\", \"medium\", \"High school diploma without further education is associated with higher risk\"),\n    (\"Drug Use (Past Month)\", \"low\", \"Recent marijuana use suggests a possible substance abuse issue, but does not strongly correlate to violent crime\"),\n    (\"Depression Symptoms\", \"high\", \"Presence of depressive symptoms increases the likelihood of future criminal behavior, especially when combined with other risk factors\"),\n    (\"Family Structure in Childhood\", \"medium\", \"Growing up in a large family (8 members) in an urban area may be indicative of increased stress and potential instability\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_194756_962970",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1405,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 8, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

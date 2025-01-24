@@ -1,0 +1,109 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 368,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:40:13.450892712Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.530734274,
+    "load_duration": 0.021927835,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.025,
+    "eval_count": 348,
+    "eval_duration": 12.48
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [[\"age\", \"medium\", \"Young adults are at an increased risk due to developmental challenges and peer influence.\"], [\"race\", \"low\", \"There is no significant association between being White and recidivism based on available research.\"], [\"number_of_arrests\", \"low\", \"One arrest with no conviction suggests lower involvement in serious or chronic offending.\"], [\"height\", \"irrelevant\", \"Physical attributes do not directly correlate with criminal behavior.\"], [\"weight\", \"irrelevant\", \"Physical attributes do not directly correlate with criminal behavior.\"], [\"marital_status\", \"medium\", \"Single status may indicate less stable social support network.\"], [\"living_alone\", \"medium\", \"Living alone can suggest fewer social influences and potential supervision.\"], [\"education_level\", \"low\", \"High school diploma with college enrollment indicates some level of future orientation.\"], [\"employment_history\", \"low\", \"Having held one job suggests some stability and attachment to community norms.\"], [\"drug_use_past_four_years\", \"medium\", \"Marijuana use can be indicative of engaging in risky behaviors.\"], [\"depression_past_month\", \"low\", \"Lack of recent depressive symptoms suggests better mental health.\"], [\"childhood_family_structure\", \"low\", \"Growing up with both biological parents in a larger family may indicate more stable upbringing.\"], [\"childhood_residence_type\", \"low\", \"Rural upbringing might have different risk factors than urban; however, this alone is not a strong indicator.\"], [\"spiritual_beliefs\", \"low\", \"Belief in a higher power influencing personal fate does not directly impact recidivism.\"]], \"prediction\": \"NO\", \"confidence\": 60}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250112_114013_452355",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 368,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "medium",
+      "Young adults are at an increased risk due to developmental challenges and peer influence."
+    ],
+    [
+      "race",
+      "low",
+      "There is no significant association between being White and recidivism based on available research."
+    ],
+    [
+      "number_of_arrests",
+      "low",
+      "One arrest with no conviction suggests lower involvement in serious or chronic offending."
+    ],
+    [
+      "height",
+      "irrelevant",
+      "Physical attributes do not directly correlate with criminal behavior."
+    ],
+    [
+      "weight",
+      "irrelevant",
+      "Physical attributes do not directly correlate with criminal behavior."
+    ],
+    [
+      "marital_status",
+      "medium",
+      "Single status may indicate less stable social support network."
+    ],
+    [
+      "living_alone",
+      "medium",
+      "Living alone can suggest fewer social influences and potential supervision."
+    ],
+    [
+      "education_level",
+      "low",
+      "High school diploma with college enrollment indicates some level of future orientation."
+    ],
+    [
+      "employment_history",
+      "low",
+      "Having held one job suggests some stability and attachment to community norms."
+    ],
+    [
+      "drug_use_past_four_years",
+      "medium",
+      "Marijuana use can be indicative of engaging in risky behaviors."
+    ],
+    [
+      "depression_past_month",
+      "low",
+      "Lack of recent depressive symptoms suggests better mental health."
+    ],
+    [
+      "childhood_family_structure",
+      "low",
+      "Growing up with both biological parents in a larger family may indicate more stable upbringing."
+    ],
+    [
+      "childhood_residence_type",
+      "low",
+      "Rural upbringing might have different risk factors than urban; however, this alone is not a strong indicator."
+    ],
+    [
+      "spiritual_beliefs",
+      "low",
+      "Belief in a higher power influencing personal fate does not directly impact recidivism."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 1 inch and weighs 205 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

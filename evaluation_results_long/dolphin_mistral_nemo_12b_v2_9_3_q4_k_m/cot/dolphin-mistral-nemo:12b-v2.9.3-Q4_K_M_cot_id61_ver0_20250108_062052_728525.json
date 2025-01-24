@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 61,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "created_at": "2025-01-08T11:20:52.727158488Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.815565059,
+    "load_duration": 0.037300967,
+    "prompt_eval_count": 368,
+    "prompt_eval_duration": 0.012,
+    "eval_count": 439,
+    "eval_duration": 5.76
+  },
+  "response": {
+    "raw_message_text": "{\n   \"risk_factors\": [\n     (\"age\", \"low\", \"The person is young, which tends to decrease risk.\"),\n     (\"gender\", \"medium\", \"Male gender has a mixed effect on recidivism. Some studies show it's higher for males but others don't find significant differences.\"),\n     (\"ethnicity\", \"high\", \"Asian / Pacific Islander ethnicity often faces challenges in the criminal justice system and may have a slightly higher risk of recidivism.\"),\n     (\"number_of_arrests\", \"low\", \"One arrest is less indicative of high risk compared to multiple arrests.\"),\n     (\"convictions\", \"low\", \"No convictions suggest lower likelihood of reoffending.\"),\n     (\"physical_attributes\", \"medium\", \"The person's physical attributes are neutral factors, but their height might be slightly negatively associated with recidivism in some cases.\"),\n     (\"marital_status\", \"medium\", \"Single status is a mixed factor, as it can indicate instability or lack of social control.\"),\n     (\"education_level\", \"low\", \"High school diploma and college enrollment are positive factors that often correlate to lower risk.\"),\n     (\"employment_history\", \"high\", \"Lack of employment indicates potential financial stress and unstable life conditions which could contribute to higher risk.\"),\n     (\"drug_use\", \"medium\", \"Past use of marijuana is a mixed factor; it can indicate substance abuse issues, but may not necessarily lead to recidivism on its own.\"),\n     (\"depression_status\", \"low\", \"No indication of depression suggests lower likelihood of mental health-related reoffending.\"),\n     (\"family_history\", \"medium\", \"Living with biological parents until a young age is a positive factor, suggesting stability and strong family ties. However, urban upbringing might be associated with higher risk due to increased exposure to crime.\"),\n     (\"religious_beliefs\", \"low\", \"Belief in God may serve as a form of moral control reducing the likelihood of recidivism.\")\n   ],\n   \"prediction\": \"NO\",\n   \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_062052_728525",
+    "model": "dolphin-mistral-nemo:12b-v2.9.3-Q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 61,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 1 time but has not been convicted. He is 6 feet 1 inch and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

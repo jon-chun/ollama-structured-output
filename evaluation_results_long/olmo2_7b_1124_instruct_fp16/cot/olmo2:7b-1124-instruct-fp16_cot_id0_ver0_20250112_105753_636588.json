@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 0,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T15:57:53.634980555Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.847879423,
+    "load_duration": 0.019047429,
+    "prompt_eval_count": 329,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 257,
+    "eval_duration": 4.806
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Younger individuals often have less life experience, which can correlate with higher risk of reoffending.\"),\n    (\"previous convictions\", \"high\", \"Convicted individuals are more likely to reoffend.\"),\n    (\"number of prior arrests\", \"high\", \"Multiple arrests suggest a pattern of criminal behavior and higher propensity for future offenses.\"),\n    (\"past drug use\", \"medium\", \"Drug use can be associated with a higher risk of recidivism, especially if it's recent or chronic.\"),\n    (\"current employment status\", \"low\", \"Lack of employment may indicate challenges in finding stable social integration and financial stability, potentially increasing risk.\"),\n    (\"living situation\", \"low\", \"Not living alone might mean less personal responsibility and increased exposure to influences that could lead to criminal behavior.\"),\n    (\"education level\", \"low\", \"Lower educational attainment is often linked to fewer opportunities and higher unemployment rates, which can correlate with higher recidivism rates.\"),\n    (\"religious beliefs\", \"low\", \"Belief in a higher power may suggest a moral compass that could mitigate the risk of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_105753_636588",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 0,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 0 inches and weighs between 150 and 174 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 464,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "created_at": "2025-01-08T10:52:47.647594633Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.613913365,
+    "load_duration": 0.027950093,
+    "prompt_eval_count": 315,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 378,
+    "eval_duration": 7.568
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is 18 years old, which is below the middle age bracket typically associated with higher recidivism rates.\"),\n    (\"race_ethnicity\", \"medium\", \"Statistical studies show that Caucasians have lower recidivism rates compared to other ethnicities, but still carry some risk.\"),\n    (\"arrest_history\", \"high\", \"One arrest indicates a level of involvement in the criminal justice system and increased potential for future contact.\"),\n    (\"conviction_history\", \"low\", \"Absence of a conviction suggests less severity in past offenses or cases that were dropped/adjourned.\"),\n    (\"height_weight\", \"low\", \"The individual's height and weight are average for an adult male, not suggesting any physical vulnerabilities or advantages related to crime.\"),\n    (\"marital_status\", \"medium\", \"Living alone could imply a lack of strong social connections which might be tied to criminal behavior.\"),\n    (\"current_education_or_employment\", \"low\", \"Enrolled in school and having held one job during the year indicates potential for stability and lower likelihood of turning to crime.\"),\n    (\"drug_use\", \"low\", \"Non-use of drugs over the past four years suggests a lower risk associated with substance-related offenses.\"),\n    (\"mental_health\", \"low\", \"No reported depressive episodes in the past month may indicate emotional stability, reducing the risk of impulsive criminal behavior.\"),\n    (\"family_history\", \"medium\", \"Living with both parents in an urban area as a child might have provided some level of stability, but the household size does not necessarily correlate with recidivism risk.\"),\n    (\"religious_beliefs\", \"low\", \"The individual's belief system may contribute to moral frameworks that reduce criminal inclinations.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250108_055247_648787",
+    "model": "dolphin3:8b-llama3.1-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 464,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

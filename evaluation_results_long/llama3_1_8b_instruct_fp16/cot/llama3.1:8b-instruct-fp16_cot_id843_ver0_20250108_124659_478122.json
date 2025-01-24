@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 74,
+    "id": 843,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-fp16",
+    "created_at": "2025-01-08T17:46:59.47675066Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.194168083,
+    "load_duration": 0.028594192,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 361,
+    "eval_duration": 7.148
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at Release (19)\", \"medium\", \"Young adult offenders are more likely to reoffend due to impulsivity and peer influences.\"),\n    (\"Number of Arrests (8)\", \"high\", \"Multiple arrests indicate a pattern of behavior that increases the likelihood of future recidivism.\"),\n    (\"Marital Status (single, living alone)\", \"low\", \"Living with others can provide stability and social support, potentially reducing recidivism risk.\"),\n    (\"Employment History (2 jobs in a year)\", \"medium\", \"Stable employment is associated with lower recidivism rates, but having only 2 jobs may indicate instability.\"),\n    (\"Education Level (high school diploma)\", \"low\", \"Higher education levels are generally linked to lower recidivism rates, but this individual is not enrolled in college.\"),\n    (\"Past Substance Abuse (marijuana and cocaine in the past 4 years)\", \"high\", \"Substance abuse is a significant predictor of recidivism, particularly when combined with other risk factors.\"),\n    (\"Mental Health Indicators (feeling down often)\", \"medium\", \"Depression or low mood can contribute to increased recidivism risk, especially if unaddressed.\"),\n    (\"Family Background (large household, lived with both parents)\", \"low\", \"Growing up in a large household may have provided some social support, but this does not negate the potential impact of his current living situation.\"),\n    (\"Religiosity (does not believe God has anything to do with personal life events)\", \"medium\", \"Lack of religiosity or spiritual beliefs can contribute to increased recidivism risk, particularly if combined with other risk factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 74\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_124659_478122",
+    "model": "llama3.1:8b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 843,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 8 times and has been convicted. He is 5 feet 10 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 6. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

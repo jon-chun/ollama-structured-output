@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1359,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "falcon3:3b-instruct-fp16",
+    "created_at": "2025-01-08T14:20:14.621335482Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.611975093,
+    "load_duration": 0.023064521,
+    "prompt_eval_count": 347,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 303,
+    "eval_duration": 2.577
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age is generally associated with less recidivation\"),\n    (\"prior_arrests\", \"medium\", \"2 prior arrests indicate a moderate level of risk\"),\n    (\"race/ethnicity\", \"high\", \"Being Black has historically been associated with higher recidivism rates\"),\n    (\"convictions\", \"high\", \"Convicted status indicates significant past criminal behavior\"),\n    (\"height/weight\", \"low\", \"Moderate physical characteristics are not a strong predictor of risk\"),\n    (\"marital_status\", \"low\", \"Single status may suggest less involvement in risky behaviors\"),\n    (\"employment\", \"medium\", \"No recent employment indicates potential for increased risk\"),\n    (\"drug_use\", \"high\", \"Past drug use suggests a higher likelihood of continued or resumed behavior\"),\n    (\"depression\", \"low\", \"Lack of depression indicates better mental health, reducing risk\"),\n    (\"age_at_residence\", \"medium\", \"Living with parents at a young age is often associated with increased risk\"),\n    (\"religious_beliefs\", \"medium\", \"Belief in God's intervention can influence behavior but not directly impact recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_092014_622456",
+    "model": "falcon3:3b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1359,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 6 feet 1 inch and weighs between 175 and 199 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

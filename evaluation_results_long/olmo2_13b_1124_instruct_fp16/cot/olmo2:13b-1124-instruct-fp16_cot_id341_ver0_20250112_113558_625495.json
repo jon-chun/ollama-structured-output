@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 341,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:35:58.624401931Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.238734576,
+    "load_duration": 0.016900499,
+    "prompt_eval_count": 306,
+    "prompt_eval_duration": 0.028,
+    "eval_count": 292,
+    "eval_duration": 10.19
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"age\", \"medium\", \"Young adulthood is a critical period for criminal behavior development.\"),\n  (\"gender\", \"low\", \"Male gender is generally associated with higher recidivism rates, but this factor is somewhat mitigated by others.\"),\n  (\"arrests_without_conviction\", \"high\", \"Having multiple arrests without convictions may indicate persistent criminal involvement.\"),\n  (\"marital_status\", \"medium\", \"Lack of marriage can indicate fewer social ties and responsibilities which might influence recidivism.\"),\n  (\"living_alone\", \"medium\", \"Living alone may suggest fewer immediate social influences, potentially increasing risk.\"),\n  (\"education_level\", \"low\", \"A GED indicates lower educational attainment, which correlates with higher recidivism rates.\"),\n  (\"employment_status\", \"high\", \"Lack of employment can be indicative of difficulties with social integration and lawful behavior.\"),\n  (\"drug_use\", \"high\", \"Substance abuse, especially cocaine, increases the likelihood of future criminal activity.\"),\n  (\"depression_status\", \"low\", \"No recent depression symptoms suggest a lower risk related to mental health.\"),\n  (\"household_size_at_young_age\", \"medium\", \"Growing up in a larger household can influence socialization and behavior.\"),\n  (\"residence_type\", \"medium\", \"Urban residence may expose the individual to more criminal opportunities.\")\n], \n  \"prediction\": \"YES\",\n  \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_113558_625495",
+    "model": "olmo2:13b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 341,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 10 inches and weighs 195 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 7, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

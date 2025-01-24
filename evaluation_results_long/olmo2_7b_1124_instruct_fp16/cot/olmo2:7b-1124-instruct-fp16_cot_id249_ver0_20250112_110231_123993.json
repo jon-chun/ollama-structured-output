@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 249,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:02:31.122813786Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.662591791,
+    "load_duration": 0.019363755,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 458,
+    "eval_duration": 8.621
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals may have less life experience, but this individual is at an age where many are establishing adult routines which could mitigate risk.\"),\n    (\"arrest_count\", \"low\", \"One arrest suggests a single instance of involvement in illegal activity, which may not be indicative of a pattern.\"),\n    (\"conviction_record\", \"medium\", \"Having been convicted indicates a history of criminal behavior that could increase risk, but the context is important.\"),\n    (\"physical_description\", \"neutral\", \"The physical description does not inherently influence risk for reoffending. It's more about behavior and circumstances than appearance.\"),\n    (\"living_situation\", \"low\", \"Living alone may mean less social control, but without additional context, such as financial stability or support network, this factor remains low-risk.\"),\n    (\"educational_status\", \"medium\", \"Enrollment in school shows a commitment to structured activities which could reduce risk. However, the impact is medium due to potential academic and social pressures.\"),\n    (\"employment_history\", \"low\", \"Holding jobs indicates adaptability and responsibility, which generally reduce reoffense risk.\"),\n    (\"past_drug_use\", \"medium\", \"Past drug use, particularly marijuana, can be a risk factor for some offenses but without recent use or dependence, it remains medium.\"),\n    (\"mental_health_status\", \"high\", \"Feeling no depression in the past month is positive, but past experiences of living in a stable household and current religious belief could mitigate this to medium.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a stable, intact family home can provide a strong foundation, potentially lowering risk. However, being unmarried and living alone increases the need for external support and stability.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThe prediction is based on a combination of factors that collectively suggest a moderate risk of rearrest within three years. The confidence level indicates a 75% certainty in this assessment. Each factor's weightage is justified by its potential influence on criminal behavior and reoffense risk, considering both positive indicators (like education and employment) and negative ones (previous criminal conviction and drug use).",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110231_123993",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 249,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 9 inches and weighs between 225 and 249 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

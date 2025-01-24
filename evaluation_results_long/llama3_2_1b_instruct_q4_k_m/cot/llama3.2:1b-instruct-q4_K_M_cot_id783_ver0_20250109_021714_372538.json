@@ -1,0 +1,57 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 783,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-01-09T07:17:14.371121806Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.501145494,
+    "load_duration": 0.029126042,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 167,
+    "eval_duration": 0.467
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"educational background low\", \"risk_factor_type\": \"low\", \"textual_reasoning\": \"This factor is a simple indicator of education level, but it's not directly related to criminal behavior.\", \"value\": \"Low\"},\n    {\"factor2\": \"employment history poor\", \"risk_factor_type\": \"medium\", \"textual_reasoning\": \"Lack of employment can contribute to higher crime rates and recidivism.\", \"value\": \"Medium\"},\n    {\"factor3\": \"family situation stable\", \"risk_factor_type\": \"high\", \"textual_reasoning\": \"A stable family environment may reduce the likelihood of recidivism.\", \"value\": \"High\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250109_021714_372538",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 783,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "educational background low",
+      "risk_factor_type": "low",
+      "textual_reasoning": "This factor is a simple indicator of education level, but it's not directly related to criminal behavior.",
+      "value": "Low"
+    },
+    {
+      "factor2": "employment history poor",
+      "risk_factor_type": "medium",
+      "textual_reasoning": "Lack of employment can contribute to higher crime rates and recidivism.",
+      "value": "Medium"
+    },
+    {
+      "factor3": "family situation stable",
+      "risk_factor_type": "high",
+      "textual_reasoning": "A stable family environment may reduce the likelihood of recidivism.",
+      "value": "High"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 4 inches and weighs 115 lbs. She is married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 5. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

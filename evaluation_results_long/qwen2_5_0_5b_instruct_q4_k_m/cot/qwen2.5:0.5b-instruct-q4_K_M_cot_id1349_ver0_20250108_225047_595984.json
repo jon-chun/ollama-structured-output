@@ -1,0 +1,54 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1349,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "created_at": "2025-01-09T03:50:47.595012143Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.63104325,
+    "load_duration": 0.033674254,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 204,
+    "eval_duration": 0.581
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    {\n      \"factor1\": \"black ethnicity\",\n      \"weight\": \"high\",\n      \"textual reasoning\": \"The person is an 18-year-old female who identifies herself as Black. She has been arrested 10 times and has been convicted.\"\n    },\n    {\n      \"factor2\": \"past criminal history\",\n      \"weight\": \"low\",\n      \"textual reasoning\": \"She has never been married, currently living alone, and does not have a high school diploma or GED certificate which is not relevant to her criminal history.\"\n    },\n    {\n      \"factor3\": \"occupation\",\n      \"weight\": \"medium\",\n      \"textual reasoning\": \"She works in a low-paying job with no college education. She has not used drugs, feels depressed over the past month, and considers God as her personal deity.\"\n    }\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250108_225047_595984",
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1349,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "black ethnicity",
+      "weight": "high",
+      "textual reasoning": "The person is an 18-year-old female who identifies herself as Black. She has been arrested 10 times and has been convicted."
+    },
+    {
+      "factor2": "past criminal history",
+      "weight": "low",
+      "textual reasoning": "She has never been married, currently living alone, and does not have a high school diploma or GED certificate which is not relevant to her criminal history."
+    },
+    {
+      "factor3": "occupation",
+      "weight": "medium",
+      "textual reasoning": "She works in a low-paying job with no college education. She has not used drugs, feels depressed over the past month, and considers God as her personal deity."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 10 times and has been convicted. She is 5 feet 0 inches and weighs 109 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

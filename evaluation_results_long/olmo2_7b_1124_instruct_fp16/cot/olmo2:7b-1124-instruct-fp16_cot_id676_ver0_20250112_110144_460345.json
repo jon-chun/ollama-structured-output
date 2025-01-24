@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 676,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "created_at": "2025-01-12T16:01:44.458770955Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.182285524,
+    "load_duration": 0.019213563,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 362,
+    "eval_duration": 7.138
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults often face transitional challenges that can increase risk for reoffending.\"),\n    (\"arrest_count\", \"high\", \"A higher number of arrests is generally indicative of a higher risk of recidivism.\"),\n    (\"race\", \"low\", \"In this context, being White does not significantly alter the risk assessment based on available data.\"),\n    (\"education_status\", \"high\", \"Lack of a high school diploma or GED certificate can correlate with a higher risk of recidivism.\"),\n    (\"employment_history\", \"medium\", \"Having held one job during the year suggests some stability, which may moderate risk, but the lack of employment history could be concerning.\"),\n    (\"drug_use\", \"medium\", \"Substance use, particularly illicit drugs, often correlates with a higher risk of criminal behavior.\"),\n    (\"depression_symptoms\", \"high\", \"Feeling down for long periods can influence behavior and increase the likelihood of engaging in criminal activities.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a single-parent household might have increased risks, but without recent family structure change, this might have less impact.\"),\n    (\"belief_in_retribution_by_god\", \"low\", \"The belief that God has no role in personal events may suggest a lack of moral or divine deterrents.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThe JSON object provided takes into account various risk factors that have been associated with criminal behavior and predicts a 3-year rearrest recidivism risk as \"YES\" with a confidence level of 75%. The reasoning for each factor's assigned weight is detailed in the \"textual reasoning\" portion of the JSON object.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250112_110144_460345",
+    "model": "olmo2:7b-1124-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 676,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 22 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
