@@ -59,24 +59,6 @@ ENSEMBLE_SIZE_LS = [
     "deepseek-r1:70b",
 ]
 
-EMSEMBLE_SIZE_DIR = [
-    "llama3_1_8b_instruct_q4_k_m",
-    "llama3_2_1b_instruct_q4_k_m",
-    "llama3_2_3b_instruct_q4_k_m",
-    "llama3_3_70b_instruct_q4_k_m",
-    "qwen2_5_0_5b_instruct_q4_k_m",
-    "qwen2_5_14b_instruct_q4_k_m",
-    "qwen2_5_1_5b_instruct_q4_k_m",
-    "qwen2_5_32b_instruct_q4_k_m",
-    "qwen2_5_7b_instruct_q4_k_m",
-    "deepseek-r1:1.5b",
-    "deepseek-r1:7b",
-    "deepseek-r1:8b",
-    "deepseek-r1:14b",
-    "deepseek-r1:32b",
-    "deepseek-r1:70b",
-]
-
 ENSEMBLE_OSS_LS = [
     "command-r:35b-08-2024-q4_K_M",
     "gemma2:9b-instruct-q4_K_M",
@@ -86,16 +68,6 @@ ENSEMBLE_OSS_LS = [
     "phi4:14b-q4_K_M",
     "qwen2.5:7b-instruct-q4_K_M",      # in previous SIZE ensemble
     "llama3.1:8b-instruct-q4_K_M",     # in previous SIZE ensemble
-]
-ENSEMBLE_OSS_DIR = [
-    "command_r_35b_08_2024_q4_k_m",
-    "gemma2_9b_instruct_q4_k_m",
-    "granite3_1_dense_8b_instruct_q4_k_m",
-    "granite3_1_moe_3b_instruct_q4_k_m",
-    "mistral_7b_instruct_q4_k_m",
-    "phi4_14b_q4_k_m",
-    "qwen2_5_7b_instruct_q4_k_m",
-    "llama3_1_8b_instruct_q4_k_m",
 ]
 
 ENSEMBLE_REASONING_LS = [
@@ -111,37 +83,6 @@ ENSEMBLE_REASONING_LS = [
     "smallthinker:3b-preview-q4_K_M",    # 104
     "tulu3:8b-q4_K_M",
 ]
-ENSEMBLE_REASONING_DIR = [
-    "athene_v2_72b_q4_k_m",
-    "dolphin3_8b_llama3_1_q4_k_m",
-    "exaone3_5_7_8b_instruct_q4_k_m",
-    "falcon3_7b_instruct_q4_k_m",
-    "glm4_9b_chat_q4_k_m",
-    "hermes3_8b_llama3_1_q4_k_m",
-    "marco_o1_7b_q4_k_m",
-    "nemotron_mini_4b_instruct_q4_k_m",
-    "olmo2_7b_1124_instruct_q4_k_m",
-    "smallthinker_3b_preview_q4_k_m",
-    "tulu3_8b_q4_k_m",
-] 
-# Add these from previous SIZE ensemble
-#     "qwen2.5:7b-instruct-q4_K_M",
-#     "llama3.1:8b-instruct-q4_K_M",
-# Add these from previous REASONING ensemble
-#     "command-r:35b-08-2024-q4_K_M",
-#     "falcon3:7b-instruct-q4_K_M",
-#     "gemma2:9b-instruct-q4_K_M",
-#     "granite3.1-dense:8b-instruct-q4_K_M",
-#     "llama3.1:8b-instruct-q4_K_M",
-#     "marco-o1:7b-q4_K_M",
-#     "phi4:14b-q4_K_M",
-#     "qwen2.5:7b-instruct-q4_K_M",
-#     "tulu3:8b-q4_K_M",
-# Add the LARGE REASONING models
-#     "tulu3:8b-q4_K_M",
-#     "qwq:32b-preview-q4_K_M",
-#     "qwen2.5:72b-instruct-q4_K_M",
-#     "reflection:70b-q4_K_M",
 
 ENSEMBLE_ALL_LS = [
     "athene-v2:72b-q4_K_M",
@@ -185,49 +126,6 @@ ENSEMBLE_ALL_LS = [
     "qwq:32b-preview-q4_K_M",
     "smallthinker:3b-preview-q4_K_M",    # 104
     "tulu3:8b-q4_K_M",
-]
-
-ENSEMBLE_ALL_DIR = [
-    "athene_v2_72b_q4_k_m",
-    "aya_expanse_8b_q4_k_m",
-    "command_r_35b_08_2024_q4_K_M",
-    "deepseek_r1_1_5b",
-    "deepseek_r1_7b",
-    "deepseek_r1_8b",
-    "deepseek_r1_14b",
-    "deepseek_r1_32b",
-    "deepseek_r1_70b",
-    "dolphin3_8b_llama3_1_q4_k_m",
-    "exaone3_5_7_8b_instruct_q4_k_m",
-    "falcon3_7b_instruct_q4_k_m",
-    "gemma2_9b_instruct_q4_k_m",
-    "glm4_9b_chat_q4_k_m",
-    "granite3_1_dense_8b_instruct_q4_k_m",
-    "granite3_1_moe_3b_instruct_q4_k_m",
-    "hermes3_8b_llama3_1_q4_k_m",
-    "llama3_1_70b_instruct_q4_k_m",
-    "llama3_1_8b_instruct_fp16",
-    "llama3_1_8b_instruct_q4_k_m",
-    "llama3_2_1b_instruct_fp16",
-    "llama3_2_1b_instruct_q4_k_m",
-    "llama3_2_3b_instruct_fp16",
-    "llama3_2_3b_instruct_q4_k_m",
-    "llama3_3_70b_instruct_q4_k_m",
-    "marco_o1_7b_q4_k_m",
-    "mistral_7b_instruct_q4_k_m",
-    "nemotron_mini_4b_instruct_q4_k_m",
-    "olmo2_7b_1124_instruct_q4_k_m",
-    "phi4_14b_q4_k_m",
-    "qwen2_5_0_5b_instruct_q4_k_m",
-    "qwen2_5_14b_instruct_q4_k_m",
-    "qwen2_5_1_5b_instruct_q4_k_m",
-    "qwen2_5_32b_instruct_q4_k_m",
-    "qwen2_5_3b_instruct_q4_k_m_partial-34",
-    "qwen2_5_72b_instruct_q4_k_m",
-    "qwen2_5_7b_instruct_q4_k_m",
-    "qwq_32b_preview_q4_partial-140",
-    "smallthinker_3b_preview_q4_k_m",
-    "tulu3_8b_q4_k_m",
 ]
 
 ENSEMBLE_NAME = 'all'
