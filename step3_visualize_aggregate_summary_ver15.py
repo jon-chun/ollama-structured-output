@@ -2,7 +2,7 @@
 """
 step4_visualize_statistics_csv.py
 
-Modifications:
+Modifications / Revisions:
 1. Reads from CSV instead of JSON.
 2. Treats each (model_name, prompt_type) pair as a unique model row 
    in the plots/tables, using the naming convention:
@@ -10,7 +10,14 @@ Modifications:
 3. Defines exactly two ensembles: MODEL_SUBSET_LS, MODEL_ALL_LS
 4. Outputs go to evaluation_reports_summary/plots.
 
-Additional Revisions (per user instructions):
+Enhancements (per user instructions):
+- Use MODEL_DESCRIPTION_DT and METRICS_DESCRIPTION_DT to simplify model name and metric labeling
+  across all output files (plots, tables, text report).
+- Where we see 'f"{model_name}_({prompt_type})"', display something like
+  'f"{MODEL_DESCRIPTION_DT[model_name]} ({prompt_type})"' in plots, or
+  'f"{MODEL_DESCRIPTION_DT[model_name]}\n({prompt_type})"' in tables, etc.
+
+Other instructions from earlier steps remain:
 - For each of the 3 bar plots, draw a vertical line to separate top-n vs bottom-n groups
   and add floating text labeling 'Top {n} Models' on the left half, 'Bottom {n} Models' on
   the right half (both at ~25% down from the top of the chart).
@@ -34,6 +41,53 @@ from datetime import datetime
 
 # For PDF output (ensure you have installed the fpdf package: pip install fpdf)
 from fpdf import FPDF
+
+# --------------------------------------------------------------------------
+# Data Structures (Provided)
+# --------------------------------------------------------------------------
+MODEL_DESCRIPTION_DT = {
+    "athene-v2:72b-q4_K_M": "Athene-v2 (72b)",
+    "aya-expanse:8b-q4_K_M": "Aya Expanse (8b,)",
+    "command-r:35b-08-2024-q4_K_M": "Command-R (35b)",
+    "dolphin3:8b-llama3.1-q4_K_M": "Dolphin3-Llama3.1 (8b)",
+    "exaone3.5:7.8b-instruct-q4_K_M": "ExaOne3.5 (7.8b)",
+    "falcon3:7b-instruct-q4_K_M": "Falcon3 (7b)",
+    "gemma2:9b-instruct-q4_K_M": "Gemma2 (9b)",
+    "glm4:9b-chat-q4_K_M": "GLM4 (9b)",
+    "granite3.1-dense:8b-instruct-q4_K_M": "Granite3.1 Dense (8b)",
+    "hermes3:8b-llama3.1-q4_K_M": "Hermes3 (8b)",
+    "llama3.1:70b-instruct-q4_K_M": "Llama3.1 (70b)",
+    "llama3.2:1b-instruct-q4_K_M": "Llama3.2 (1b)",
+    "llama3.2:3b-instruct-q4_K_M": "Llama3.2 (3b)",
+    "llama3.1:8b-instruct-q4_K_M": "Llama3.1 (8b)",
+    "llama3.3:70b-instruct-q4_K_M": "Llama3.3 (70b)",
+    "marco-o1:7b-q4_K_M": "Marco-o1 (7b)",
+    "mistral:7b-instruct-q4_K_M": "Mistral (7b)",
+    "nemotron-mini:4b-instruct-q4_K_M": "Nemotron Mini (4b)",
+    "olmo2:7b-1124-instruct-q4_K_M": "Olmo2 (7b)",
+    "phi4:14b-q4_K_M": "Phi4 (14b)",
+    "qwen2.5:0.5b-instruct-q4_K_M": "Qwen2.5 (0.5b)",
+    "qwen2.5:1.5b-instruct-q4_K_M": "Qwen2.5 (1.5b)",
+    "qwen2.5:3b-instruct-q4_K_M": "Qwen2.5 (3b)",
+    "qwen2.5:7b-instruct-q4_K_M": "Qwen2.5 (7b)",
+    "qwen2.5:14b-instruct-q4_K_M": "Qwen2.5 (14b)",
+    "qwen2.5:32b-instruct-q4_K_M": "Qwen2.5 (32b)",
+    "qwen2.5:72b-instruct-q4_K_M": "Qwen2.5 (72b)",
+    "smallthinker:3b-preview-q4_K_M": "Smallthinker (3b)",
+    "tulu3:8b-q4_K_M": "Tulu3 (8b)",
+}
+
+METRICS_DESCRIPTION_DT = {
+    "f1_score": "F1",
+    "accuracy": "Acc",
+    "precision": "Prec",
+    "recall": "Recall",
+    "execution_time_mean": "Exec (s)",
+    "execution_time_sd": "Exec SD (s)",
+    "eval_duration_mean": "Eval Mean (s)",
+    "prompt_eval_count_mean": "Prompt Count",
+    "eval_count_mean": "Eval Count",
+}
 
 # --------------------------------------------------------------------------
 # Ensemble definitions
@@ -75,50 +129,6 @@ MODEL_ALL_LS = [
     "tulu3:8b-q4_K_M",
 ]
 
-MODEL_DESCRIPTION_DT = {
-    "athene-v2:72b-q4_K_M": "Athene-v2 (72b)",
-    "aya-expanse:8b-q4_K_M": "Aya Expanse (8b,)",
-    "command-r:35b-08-2024-q4_K_M": "Command-R (35b)",
-    "dolphin3:8b-llama3.1-q4_K_M": "Dolphin3-Llama3.1 (8b)",
-    "exaone3.5:7.8b-instruct-q4_K_M": "ExaOne3.5 (7.8b)",
-    "falcon3:7b-instruct-q4_K_M": "Falcon3 (7b)",
-    "gemma2:9b-instruct-q4_K_M": "Gemma2 (9b)",
-    "glm4:9b-chat-q4_K_M": "GLM4 (9b)",
-    "granite3.1-dense:8b-instruct-q4_K_M": "Granite3.1 Dense (8b)",
-    "hermes3:8b-llama3.1-q4_K_M": "Hermes3 (8b)",
-    "llama3.1:70b-instruct-q4_K_M": "Llama3.1 (70b)",
-    "llama3.2:1b-instruct-q4_K_M": "Llama3.2 (1b)",
-    "llama3.2:3b-instruct-q4_K_M": "Llama3.2 (3b)",
-    "llama3.1:8b-instruct-q4_K_M": "Llama3.1 (8b)",
-    "llama3.3:70b-instruct-q4_K_M": "Llama3.3 (70b)",
-    "marco-o1:7b-q4_K_M": "Marco-o1 (7b)",
-    "mistral:7b-instruct-q4_K_M": "Mistral (7b)",
-    "nemotron-mini:4b-instruct-q4_K_M": "Nemotron Mini (4b)",
-    "olmo2:7b-1124-instruct-q4_K_M": "Olmo2 (7b)",
-    "phi4:14b-q4_K_M": "Phi4 (14b)",
-    "qwen2.5:0.5b-instruct-q4_K_M": "Qwen2.5 (0.5b)",
-    "qwen2.5:1.5b-instruct-q4_K_M": "Qwen2.5 (1.5b)",
-    "qwen2.5:3b-instruct-q4_K_M": "Qwen2.5 (3b)",
-    "qwen2.5:7b-instruct-q4_K_M": "Qwen2.5 (7b)",
-    "qwen2.5:14b-instruct-q4_K_M": "Qwen2.5 (14b)",
-    "qwen2.5:32b-instruct-q4_K_M": "Qwen2.5 (32b)",
-    "qwen2.5:72b-instruct-q4_K_M": "Qwen2.5 (72b)",
-    "smallthinker:3b-preview-q4_K_M": "Smallthinker (3b)",
-    "tulu3:8b-q4_K_M": "Tulu3 (8b)",
-}
-
-METRICS_DESCRIPTION_DT = {
-    "f1-score": "F1",
-    "accuracy": "Acc",
-    "precision": "Prec",
-    "recall": "Recall",
-    "execution_time_mean": "Exec (s)",
-    "execution_time_sd": "Exec SD (s)",
-    "eval_duration_mean": "Eval Mean (s)",
-    "prompt_eval_count_mean": "Prompt Count",
-    "eval_count_mean": "Eval Count",
-}
-
 # Change this variable to either "subset" or "all" to switch ensembles
 ENSEMBLE_NAME = "all"  # pick one in ['subset', 'all']
 TOP_OR_BOTTOM_CT = 10  # how many models to plot for each of the top and bottom categories
@@ -146,6 +156,52 @@ def setup_logging():
     return logging.getLogger(__name__)
 
 logger = setup_logging()
+
+# --------------------------------------------------------------------------
+# Utility: Parse & rename model strings and metric labels
+# --------------------------------------------------------------------------
+def get_pretty_model_label(model_str, use_linebreak=False):
+    """
+    Convert something like:
+      'athene-v2:72b-q4_K_M_(system1)'
+    into:
+      'Athene-v2 (72b) (system1)'   or   'Athene-v2 (72b)\n(system1)'
+    depending on use_linebreak.
+
+    We:
+      1. Split at '_(' to separate the base model from the prompt type.
+      2. Look up a short name from MODEL_DESCRIPTION_DT for the base model.
+      3. Append the prompt type in parentheses. 
+    """
+    if "_(" not in model_str:
+        # If there's no prompt suffix, just do a fallback
+        base = model_str
+        prompt_type = ""
+    else:
+        parts = model_str.split("_(")
+        base = parts[0]
+        prompt_type = parts[1].rstrip(")")  # remove trailing )
+    
+    # Look up a short label if possible
+    base_label = MODEL_DESCRIPTION_DT.get(base, base)
+    
+    # If there's a prompt type, we add it in parentheses
+    if prompt_type:
+        # Decide whether to insert line break
+        if use_linebreak:
+            return f"{base_label}\n({prompt_type})"
+        else:
+            return f"{base_label} ({prompt_type})"
+    else:
+        return base_label
+
+def get_pretty_metric_label(metric_key):
+    """
+    Convert metric keys like "f1_score" => "F1", 
+    "execution_time_mean" => "Exec (s)", etc.,
+    via METRICS_DESCRIPTION_DT. Fallback if not found.
+    """
+    return METRICS_DESCRIPTION_DT.get(metric_key, metric_key)
 
 # --------------------------------------------------------------------------
 # Utility / filtering
@@ -224,6 +280,7 @@ def create_performance_plot(df, output_path, root_filename):
             'accuracy_normalized': combined['accuracy'] / 100.0
         })
 
+        # Melt so we can bar-plot by "metric"
         perf_melt = plot_data.melt(
             id_vars="model",
             value_vars=["f1_score", "accuracy_normalized"],
@@ -231,13 +288,19 @@ def create_performance_plot(df, output_path, root_filename):
             value_name="value"
         )
 
+        # Create display columns with simpler names
+        perf_melt['display_model'] = perf_melt['model'].apply(
+            lambda x: get_pretty_model_label(x, use_linebreak=False)  # No line break on x-axis
+        )
+        perf_melt['display_metric'] = perf_melt['metric'].apply(get_pretty_metric_label)
+
         plt.figure(figsize=(12, 7))
         # Use a custom palette for the two metrics
         custom_colors = ["#1f77b4", "#ff7f0e"]
         ax = sns.barplot(
-            x="model", 
+            x="display_model", 
             y="value", 
-            hue="metric", 
+            hue="display_metric", 
             data=perf_melt, 
             palette=custom_colors
         )
@@ -299,17 +362,20 @@ def create_timing_plot(df, output_path, root_filename):
         bottom_models = df_sorted.tail(TOP_OR_BOTTOM_CT)
         combined = pd.concat([top_models, bottom_models], axis=0).reset_index(drop=True)
 
+        # For simpler x-axis labels:
+        display_labels = [get_pretty_model_label(m, use_linebreak=False) for m in combined['model']]
+
         plt.figure(figsize=(12, 7))
         ax = plt.bar(
-            combined['model'],
+            display_labels,
             combined['eval_duration_mean'],
-            label='Evaluation Duration'
+            label=get_pretty_metric_label("eval_duration_mean")
         )
         plt.bar(
-            combined['model'],
+            display_labels,
             combined['execution_time_mean'],
             bottom=combined['eval_duration_mean'],
-            label='Execution Time'
+            label=get_pretty_metric_label("execution_time_mean")
         )
 
         plt.xticks(rotation=45, ha='right', fontsize=7)
@@ -348,17 +414,20 @@ def create_token_plot(df, output_path, root_filename):
         bottom_models = df_sorted.tail(TOP_OR_BOTTOM_CT)
         combined = pd.concat([top_models, bottom_models], axis=0).reset_index(drop=True)
 
+        # For simpler x-axis labels:
+        display_labels = [get_pretty_model_label(m, use_linebreak=False) for m in combined['model']]
+
         plt.figure(figsize=(12, 7))
         ax = plt.bar(
-            combined['model'],
+            display_labels,
             combined['prompt_eval_count_mean'],
-            label='Prompt Eval Count'
+            label=get_pretty_metric_label("prompt_eval_count_mean")
         )
         plt.bar(
-            combined['model'],
+            display_labels,
             combined['eval_count_mean'],
             bottom=combined['prompt_eval_count_mean'],
-            label='Evaluation Count'
+            label=get_pretty_metric_label("eval_count_mean")
         )
 
         plt.xticks(rotation=45, ha='right', fontsize=7)
@@ -396,15 +465,31 @@ def generate_markdown_table(df, output_path, root_filename):
         bottom_models = df_sorted.tail(TOP_OR_BOTTOM_CT)
         combined = pd.concat([top_models, bottom_models], axis=0)
 
+        # Prepare lines for table
         md_lines = []
         md_lines.append("# Model Performance and Compute Summary (Top & Bottom Models)")
         md_lines.append("")
-        md_lines.append("| model | f1_score | accuracy | precision | recall | execution_time_mean | execution_time_sd | eval_duration_mean | prompt_eval_count_mean | eval_count_mean |")
-        md_lines.append("|-------|---------:|---------:|----------:|-------:|--------------------:|-------------------:|--------------------:|-----------------------:|-----------------:|")
+        # Table header line (with simplified metric names)
+        md_lines.append(
+            "| Model | "
+            + " | ".join(
+                get_pretty_metric_label(col) for col in 
+                ["f1_score", "accuracy", "precision", "recall", 
+                 "execution_time_mean", "execution_time_sd", 
+                 "eval_duration_mean", "prompt_eval_count_mean", "eval_count_mean"]
+            )
+            + " |"
+        )
+        # Table header alignment line
+        md_lines.append(
+            "|-------|" + "|".join(["------:"] * 9) + "|"
+        )
 
+        # Table rows
         for _, row in combined.iterrows():
+            model_display = get_pretty_model_label(row['model'], use_linebreak=True)
             md_lines.append(
-                f"| {row['model']} "
+                f"| {model_display} "
                 f"| {row['f1_score']:.4f} "
                 f"| {row['accuracy']:.4f} "
                 f"| {row['precision']:.4f} "
@@ -432,7 +517,7 @@ def generate_markdown_table(df, output_path, root_filename):
 def generate_html_table(df, output_path, root_filename):
     """
     Generates an HTML file containing the same top-(n) and bottom-(n) model data
-    as the Markdown table.
+    as the Markdown table, using simplified model and metric names.
     """
     logger.info("Generating HTML table...")
 
@@ -442,7 +527,6 @@ def generate_html_table(df, output_path, root_filename):
         bottom_models = df_sorted.tail(TOP_OR_BOTTOM_CT)
         combined = pd.concat([top_models, bottom_models], axis=0)
 
-        # Create a basic HTML table
         html_lines = []
         html_lines.append("<html>")
         html_lines.append("<head>")
@@ -452,32 +536,39 @@ def generate_html_table(df, output_path, root_filename):
         html_lines.append("<body>")
         html_lines.append("<h1>Model Performance and Compute Summary (Top & Bottom Models)</h1>")
         html_lines.append("<table border='1' style='border-collapse: collapse;'>")
-        html_lines.append("<tr>")
-        html_lines.append("<th>model</th>")
-        html_lines.append("<th>f1_score</th>")
-        html_lines.append("<th>accuracy</th>")
-        html_lines.append("<th>precision</th>")
-        html_lines.append("<th>recall</th>")
-        html_lines.append("<th>execution_time_mean</th>")
-        html_lines.append("<th>execution_time_sd</th>")
-        html_lines.append("<th>eval_duration_mean</th>")
-        html_lines.append("<th>prompt_eval_count_mean</th>")
-        html_lines.append("<th>eval_count_mean</th>")
-        html_lines.append("</tr>")
 
+        # Table header
+        headers = [
+            "Model",
+            get_pretty_metric_label("f1_score"),
+            get_pretty_metric_label("accuracy"),
+            get_pretty_metric_label("precision"),
+            get_pretty_metric_label("recall"),
+            get_pretty_metric_label("execution_time_mean"),
+            get_pretty_metric_label("execution_time_sd"),
+            get_pretty_metric_label("eval_duration_mean"),
+            get_pretty_metric_label("prompt_eval_count_mean"),
+            get_pretty_metric_label("eval_count_mean")
+        ]
+
+        html_lines.append("<tr>" + "".join(f"<th>{h}</th>" for h in headers) + "</tr>")
+
+        # Table rows
         for _, row in combined.iterrows():
-            html_lines.append("<tr>")
-            html_lines.append(f"<td>{row['model']}</td>")
-            html_lines.append(f"<td>{row['f1_score']:.4f}</td>")
-            html_lines.append(f"<td>{row['accuracy']:.4f}</td>")
-            html_lines.append(f"<td>{row['precision']:.4f}</td>")
-            html_lines.append(f"<td>{row['recall']:.4f}</td>")
-            html_lines.append(f"<td>{row['execution_time_mean']:.4f}</td>")
-            html_lines.append(f"<td>{row['execution_time_sd']:.4f}</td>")
-            html_lines.append(f"<td>{row['eval_duration_mean']:.4f}</td>")
-            html_lines.append(f"<td>{row['prompt_eval_count_mean']:.2f}</td>")
-            html_lines.append(f"<td>{row['eval_count_mean']:.2f}</td>")
-            html_lines.append("</tr>")
+            model_display = get_pretty_model_label(row['model'], use_linebreak=False)
+            cells = [
+                model_display,
+                f"{row['f1_score']:.4f}",
+                f"{row['accuracy']:.4f}",
+                f"{row['precision']:.4f}",
+                f"{row['recall']:.4f}",
+                f"{row['execution_time_mean']:.4f}",
+                f"{row['execution_time_sd']:.4f}",
+                f"{row['eval_duration_mean']:.4f}",
+                f"{row['prompt_eval_count_mean']:.2f}",
+                f"{row['eval_count_mean']:.2f}"
+            ]
+            html_lines.append("<tr>" + "".join(f"<td>{c}</td>" for c in cells) + "</tr>")
 
         html_lines.append("</table>")
         html_lines.append("</body></html>")
@@ -498,7 +589,7 @@ def generate_html_table(df, output_path, root_filename):
 def generate_pdf_table(df, output_path, root_filename):
     """
     Generates a PDF file containing the same top-(n) and bottom-(n) model data
-    as the Markdown table. This uses the fpdf library.
+    as the Markdown table, using simplified model and metric names.
     """
     logger.info("Generating PDF table...")
 
@@ -514,23 +605,33 @@ def generate_pdf_table(df, output_path, root_filename):
         pdf.cell(0, 10, "Model Performance and Compute Summary (Top & Bottom Models)", ln=True, align='C')
         pdf.ln(5)
 
-        # Table header
+        # Table headers
         pdf.set_font("Arial", 'B', 10)
-        headers = ["model", "f1_score", "accuracy", "precision", "recall",
-                   "exec_time_mean", "exec_time_sd", "eval_duration_mean",
-                   "prompt_eval_count_mean", "eval_count_mean"]
+        headers = [
+            "Model",
+            get_pretty_metric_label("f1_score"),
+            get_pretty_metric_label("accuracy"),
+            get_pretty_metric_label("precision"),
+            get_pretty_metric_label("recall"),
+            get_pretty_metric_label("execution_time_mean"),
+            get_pretty_metric_label("execution_time_sd"),
+            get_pretty_metric_label("eval_duration_mean"),
+            get_pretty_metric_label("prompt_eval_count_mean"),
+            get_pretty_metric_label("eval_count_mean")
+        ]
+        col_widths = [45, 13, 13, 13, 13, 16, 16, 17, 18, 18]  # Rough column widths
 
-        col_widths = [40, 15, 15, 15, 15, 18, 18, 20, 25, 25]  # rough column widths
+        # Print header row
         for h, w in zip(headers, col_widths):
             pdf.cell(w, 8, txt=h, border=1, align='C')
         pdf.ln(8)
 
         # Table rows
         pdf.set_font("Arial", '', 9)
-
         for _, row in combined.iterrows():
+            model_display = get_pretty_model_label(row['model'], use_linebreak=False)
             row_data = [
-                row['model'],
+                model_display,
                 f"{row['f1_score']:.4f}",
                 f"{row['accuracy']:.4f}",
                 f"{row['precision']:.4f}",
@@ -562,15 +663,10 @@ def generate_text_report(df, output_path, root_filename):
     Outputs a plain-text summary of top/bottom model performance and additional 
     info that may not be in other files (e.g., total number of API calls, 
     number of failures, success rates, etc.).
-    
-    This is a generalized example. Adjust if your CSV has different or no 
-    such columns for 'api_calls' or 'failures', or if you have other stats 
-    to include.
     """
     logger.info("Generating text report...")
 
     try:
-        # Sort by f1_score descending
         df_sorted = df.sort_values('f1_score', ascending=False).reset_index(drop=True)
         top_models = df_sorted.head(TOP_OR_BOTTOM_CT)
         bottom_models = df_sorted.tail(TOP_OR_BOTTOM_CT)
@@ -582,20 +678,21 @@ def generate_text_report(df, output_path, root_filename):
         lines.append("Top & Bottom Models (by F1 Score):")
         lines.append("----------------------------------\n")
 
-        for i, row in combined.iterrows():
-            lines.append(f"Model: {row['model']}")
-            lines.append(f"  F1 Score: {row['f1_score']:.4f}")
-            lines.append(f"  Accuracy: {row['accuracy']:.4f}")
-            lines.append(f"  Precision: {row['precision']:.4f}")
-            lines.append(f"  Recall: {row['recall']:.4f}")
-            lines.append(f"  Execution Time (mean): {row['execution_time_mean']:.4f}")
-            lines.append(f"  Execution Time (sd): {row['execution_time_sd']:.4f}")
-            lines.append(f"  Eval Duration (mean): {row['eval_duration_mean']:.4f}")
-            lines.append(f"  Prompt Eval Count (mean): {row['prompt_eval_count_mean']:.2f}")
-            lines.append(f"  Eval Count (mean): {row['eval_count_mean']:.2f}")
-            lines.append("\n")
+        for _, row in combined.iterrows():
+            model_display = get_pretty_model_label(row['model'], use_linebreak=False)
+            lines.append(f"Model: {model_display}")
+            lines.append(f"  {get_pretty_metric_label('f1_score')}: {row['f1_score']:.4f}")
+            lines.append(f"  {get_pretty_metric_label('accuracy')}: {row['accuracy']:.4f}")
+            lines.append(f"  {get_pretty_metric_label('precision')}: {row['precision']:.4f}")
+            lines.append(f"  {get_pretty_metric_label('recall')}: {row['recall']:.4f}")
+            lines.append(f"  {get_pretty_metric_label('execution_time_mean')}: {row['execution_time_mean']:.4f}")
+            lines.append(f"  {get_pretty_metric_label('execution_time_sd')}: {row['execution_time_sd']:.4f}")
+            lines.append(f"  {get_pretty_metric_label('eval_duration_mean')}: {row['eval_duration_mean']:.4f}")
+            lines.append(f"  {get_pretty_metric_label('prompt_eval_count_mean')}: {row['prompt_eval_count_mean']:.2f}")
+            lines.append(f"  {get_pretty_metric_label('eval_count_mean')}: {row['eval_count_mean']:.2f}")
+            lines.append("")
 
-        # Additional metadata (example: total API calls, failures)
+        # Additional metadata (e.g., total API calls, failures)
         lines.append("Additional Metadata:\n")
         # Attempt to compute stats if columns exist
         if 'api_calls' in df.columns:
@@ -605,15 +702,14 @@ def generate_text_report(df, output_path, root_filename):
         if 'failures' in df.columns:
             total_failures = df['failures'].sum()
             lines.append(f"  Total Failures: {int(total_failures)}")
-            if 'api_calls' in df.columns:
+            if 'api_calls' in df.columns and total_api_calls > 0:
                 # Compute success rate
-                success_rate = (total_api_calls - total_failures) / total_api_calls * 100 if total_api_calls > 0 else 0
+                success_rate = (total_api_calls - total_failures) / total_api_calls * 100
                 lines.append(f"  Success Rate: {success_rate:.2f}%")
 
-        # You might include other derived stats from your dataset here...
-        # e.g., average F1 across all models
+        # Example: average F1 across all models
         avg_f1 = df['f1_score'].mean()
-        lines.append(f"\n  Average F1 Score (across entire dataset): {avg_f1:.4f}")
+        lines.append(f"\n  Average {get_pretty_metric_label('f1_score')} (across entire dataset): {avg_f1:.4f}")
 
         lines.append("\n========== END OF TEXT REPORT ==========\n")
 
@@ -686,8 +782,7 @@ def main():
     ]].copy()
 
     # If you have extra columns for text report stats (like api_calls, failures),
-    # you might need to check for them before usage. We'll keep them in the df.
-    # For example:
+    # copy them too if they exist:
     for col in ['api_calls', 'failures']:
         if col in df_raw.columns:
             df[col] = df_raw[col]
@@ -701,7 +796,7 @@ def main():
     
     sns.set_theme(style="whitegrid")
 
-    # Existing table and plots
+    # Existing outputs
     generate_markdown_table(df_filtered, OUTPUT_ROOT_DIR, ROOT_FILENAME)
     create_performance_plot(df_filtered, OUTPUT_ROOT_DIR, ROOT_FILENAME)
     create_timing_plot(df_filtered, OUTPUT_ROOT_DIR, ROOT_FILENAME)
