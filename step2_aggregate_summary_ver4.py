@@ -14,7 +14,7 @@ from datetime import datetime
 # --------------------------------------------------------------------
 
 # EVALUATION_RESULTS_DIR = 'evaluation_results_long_20250110'
-EVALUATION_RESULTS_DIR = 'evaluation_results_short_20250108'
+EVALUATION_RESULTS_DIR = 'evaluation_results_long'
 
 ROOT_DIR = os.path.abspath(EVALUATION_RESULTS_DIR)
 OUTPUT_DIR = os.path.join('aggregate_reports', os.path.basename(EVALUATION_RESULTS_DIR))

@@ -12,7 +12,7 @@ from typing import Dict, List, Optional, Union, Tuple
 # --------------------------------------------------------------------
 # 1. Global Constants
 # --------------------------------------------------------------------
-EVALUATION_RESULTS_DIR = "evaluation_results_short_20250108"
+EVALUATION_RESULTS_DIR = "evaluation_results_long"
 INPUT_ROOT_DIR = os.path.abspath(EVALUATION_RESULTS_DIR)
 
 OUTPUT_DIR = os.path.join("aggregate_reports", os.path.basename(EVALUATION_RESULTS_DIR))
