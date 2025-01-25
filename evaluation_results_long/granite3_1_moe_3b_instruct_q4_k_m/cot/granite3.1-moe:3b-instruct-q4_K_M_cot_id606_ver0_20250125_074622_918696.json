@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 606,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-01-25T12:46:22.917154275Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.848471344,
+    "load_duration": 0.009085226,
+    "prompt_eval_count": 373,
+    "prompt_eval_duration": 0.689,
+    "eval_count": 286,
+    "eval_duration": 10.145
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Age at first arrest\", \"medium\", \"At 19, he is relatively young for his criminal history. This could suggest a higher risk of recidivism.\"],\n    [\"Criminal history\", \"high\", \"Two previous arrests indicate a pattern of offending behavior.\"],\n    [\"Conviction type\", \"low\", \"While not a first-time offender, convictions are for non-violent crimes.\"],\n    [\"Drug use in past 4 years\", \"medium\", \"Marijuana use suggests a potential substance abuse issue, which is concerning but not necessarily indicative of high risk.\"],\n    [\"Living situation at young age\", \"high\", \"Raised by both biological parents in a multi-person household with an urban setting could indicate positive influences and a stable environment.\"],\n    [\"Education level\", \"medium\", \"Having a GED shows some educational attainment, which is generally associated with lower recidivism rates.\"],\n    [\"Employment status\", \"high\", \"Being unemployed for the past year is concerning but not necessarily indicative of high risk if he's actively seeking work or has recently secured employment.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_074622_918696",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 606,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age at first arrest",
+      "medium",
+      "At 19, he is relatively young for his criminal history. This could suggest a higher risk of recidivism."
+    ],
+    [
+      "Criminal history",
+      "high",
+      "Two previous arrests indicate a pattern of offending behavior."
+    ],
+    [
+      "Conviction type",
+      "low",
+      "While not a first-time offender, convictions are for non-violent crimes."
+    ],
+    [
+      "Drug use in past 4 years",
+      "medium",
+      "Marijuana use suggests a potential substance abuse issue, which is concerning but not necessarily indicative of high risk."
+    ],
+    [
+      "Living situation at young age",
+      "high",
+      "Raised by both biological parents in a multi-person household with an urban setting could indicate positive influences and a stable environment."
+    ],
+    [
+      "Education level",
+      "medium",
+      "Having a GED shows some educational attainment, which is generally associated with lower recidivism rates."
+    ],
+    [
+      "Employment status",
+      "high",
+      "Being unemployed for the past year is concerning but not necessarily indicative of high risk if he's actively seeking work or has recently secured employment."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 11 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

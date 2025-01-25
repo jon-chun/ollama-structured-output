@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 169,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-01-25T12:39:54.546956436Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.594980639,
+    "load_duration": 0.009268252,
+    "prompt_eval_count": 375,
+    "prompt_eval_duration": 0.695,
+    "eval_count": 307,
+    "eval_duration": 10.886
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Age of first arrest\", \"medium\", \"The individual has been arrested three times, which suggests a level of criminal involvement that could indicate a higher risk of recidivism. The age at first arrest (21) is relatively young, and the fact that he's never been married and currently lives alone may also contribute to this high-risk profile.\"],\n    [\"Criminal history\", \"medium\", \"With three prior convictions, there's a clear pattern of involvement with the criminal justice system. This indicates a higher likelihood of future offenses.\"],\n    [\"Substance abuse (marijuana)\", \"high\", \"His use of marijuana over the past four years could be a risk factor for future substance-related offenses, which may also contribute to his overall recidivism risk.\"],\n    [\"Education level\", \"low\", \"Not being enrolled in college suggests a lack of educational opportunities and potentially limited resources or support systems, both of which could impact rehabilitation efforts and increase the likelihood of future offenses.\"],\n    [\"Occupation stability\", \"medium\", \"Holding jobs for only one year each increases the risk of unemployment or underemployment, leading to financial instability that may contribute to recidivism.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_073954_548095",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 169,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age of first arrest",
+      "medium",
+      "The individual has been arrested three times, which suggests a level of criminal involvement that could indicate a higher risk of recidivism. The age at first arrest (21) is relatively young, and the fact that he's never been married and currently lives alone may also contribute to this high-risk profile."
+    ],
+    [
+      "Criminal history",
+      "medium",
+      "With three prior convictions, there's a clear pattern of involvement with the criminal justice system. This indicates a higher likelihood of future offenses."
+    ],
+    [
+      "Substance abuse (marijuana)",
+      "high",
+      "His use of marijuana over the past four years could be a risk factor for future substance-related offenses, which may also contribute to his overall recidivism risk."
+    ],
+    [
+      "Education level",
+      "low",
+      "Not being enrolled in college suggests a lack of educational opportunities and potentially limited resources or support systems, both of which could impact rehabilitation efforts and increase the likelihood of future offenses."
+    ],
+    [
+      "Occupation stability",
+      "medium",
+      "Holding jobs for only one year each increases the risk of unemployment or underemployment, leading to financial instability that may contribute to recidivism."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 210 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

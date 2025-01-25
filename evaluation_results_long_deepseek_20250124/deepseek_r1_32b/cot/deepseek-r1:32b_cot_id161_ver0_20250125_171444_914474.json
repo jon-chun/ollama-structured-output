@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 161,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "deepseek-r1:32b",
+    "created_at": "2025-01-25T22:14:44.912838383Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 123.323308796,
+    "load_duration": 0.025233587,
+    "prompt_eval_count": 337,
+    "prompt_eval_duration": 0.915,
+    "eval_count": 880,
+    "eval_duration": 122.379
+  },
+  "response": {
+    "raw_message_text": "<think>\nAlright, I'm going to tackle this criminal risk assessment step by step. Let me start by understanding the case.\n\nThe individual is a 19-year-old male, White, arrested four times with a conviction. He's 6'2\", 190 lbs, not married, living alone, enrolled in school, had three jobs in the past year, used marijuana and cocaine in the last four years, hasn't been depressed recently, grew up in group quarters in an urban area with a household size of four, and doesn't believe God influences his life.\n\nFirst, I'll list out the risk factors mentioned:\n\n1. Age: 19\n2. Gender: Male\n3. Race/Ethnicity: White\n4. Number of prior arrests: 4\n5. Conviction history: Yes\n6. Height and weight: Not directly a risk factor, but might relate to other areas.\n7. Marital status: Never married\n8. Living situation: Alone\n9. Education/employment: Enrolled in school, three jobs in the past year\n10. Drug use: Marijuana and cocaine in the last four years\n11. Mental health: Not depressed recently\n12. Early living environment: Group quarters, urban area, household size 4\n13. Religious beliefs: Doesn't believe God influences him\n\nNow, I'll assign weights to each factor based on their impact on recidivism.\n\n1. Age (low): Young adults have higher recidivism rates, but at 19, it's moderate.\n2. Gender (high): Males are more likely to recidivate than females.\n3. Race/Ethnicity: Not a significant standalone factor; low.\n4. Prior arrests (high): Four arrests indicate a pattern of criminal behavior.\n5. Conviction history (high): Having been convicted suggests propensity for reoffending.\n6. Marital status (medium): Unmarried individuals may have less social support.\n7. Living alone (low to medium): Could lead to isolation but not as significant without other issues.\n8. Education/employment (medium): Being enrolled in school is positive, but frequent job changes might indicate instability.\n9. Drug use (high): Use of illicit drugs like cocaine increases risk.\n10. Mental health (low): Not currently depressed reduces this risk.\n11. Early living environment (low to medium): Group quarters and urban area may contribute but aren't the strongest factors.\n12. Religious beliefs: Doesn't have a direct significant impact; low.\n\nConsidering all these, the high-risk factors like gender, prior arrests, conviction history, and drug use heavily influence the prediction towards rearrest. The positive aspects like being in school might mitigate some risk, but overall, the likelihood is higher than not.\n</think>\n\n```json\n{\n   \"risk_actors\": [\n     (\"age\", \"medium\", \"Age 19 is within a high-risk demographic for recidivism.\"),\n     (\"gender\", \"high\", \"Males have a higher rate of rearrest compared to females.\"),\n     (\"race_ethnicity\", \"low\", \"Race/ethnicity alone is not a significant predictor without other factors.\"),\n     (\"prior_arrests\", \"high\", \"Four prior arrests indicate a pattern of criminal behavior.\"),\n     (\"conviction_history\", \"high\", \"Conviction history suggests a propensity for reoffending.\"),\n     (\"marital_status\", \"medium\", \"Never married individuals may have less social support reducing recidivism risk.\"),\n     (\"living_situation\", \"low\", \"Living alone can lead to isolation but isn't a strong standalone factor.\"),\n     (\"education_employment\", \"medium\", \"Enrolled in school is positive, but frequent job changes may indicate instability.\"),\n     (\"drug_use\", \"high\", \"Illicit drug use increases the risk of rearrest and recidivism.\"),\n     (\"mental_health\", \"low\", \"Not currently depressed reduces this risk factor.\"),\n     (\"early_living_env\", \"medium\", \"Group quarters in an urban area may contribute but aren't as significant.\"),\n     (\"religious_beliefs\", \"low\", \"Lack of religious influence doesn't significantly impact recidivism.\")\n   ],\n   \"prediction\": \"YES\",\n   \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_171444_914474",
+    "model": "deepseek-r1:32b",
+    "prompt_type": "PromptType.COT",
+    "row_id": 161,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted. He is 6 feet 2 inches and weighs 190 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in group quarters in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

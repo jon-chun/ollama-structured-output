@@ -1,0 +1,89 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1073,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-01-25T12:41:20.666830191Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.129819585,
+    "load_duration": 0.009686263,
+    "prompt_eval_count": 370,
+    "prompt_eval_duration": 0.684,
+    "eval_count": 350,
+    "eval_duration": 12.432
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Arrest history\", \"medium\", \"Given the two arrests, this factor indicates a moderate level of risk for recidivism.\"],\n    [\"Criminal conviction\", \"high\", \"The previous conviction underscores a high likelihood of future offenses.\"],\n    [\"Age at first arrest\", \"medium\", \"Starting at 19, this is a relatively young age to start engaging in criminal behavior.\"],\n    [\"Ever-incarcerated\", \"low\", \"Not yet convicted of any crime while incarcerated.\"],\n    [\"Substance abuse (Marijuana)\", \"medium\", \"The past use of marijuana indicates a risk factor for potential future criminal activity.\"],\n    [\"Education/Vocational status\", \"low\", \"Not holding any job and lacking formal education or training increases the risk.\"],\n    [\"Lived with biological family at young age\", \"medium\", \"Growing up in a household of four teenagers may have influenced behavior.\"],\n    [\"Religious beliefs\", \"high\", \"Claiming no involvement with God suggests a potential lack of moral guidance or support system.\"],\n    [\"Living alone\", \"low\", \"Living alone can increase the risk of criminal activity, especially if it's in an urban area.\"],\n    [\"Drug use (Marijuana) in past 4 years\", \"high\", \"Regular drug use indicates a potential for future offenses.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_074120_668390",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1073,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Arrest history",
+      "medium",
+      "Given the two arrests, this factor indicates a moderate level of risk for recidivism."
+    ],
+    [
+      "Criminal conviction",
+      "high",
+      "The previous conviction underscores a high likelihood of future offenses."
+    ],
+    [
+      "Age at first arrest",
+      "medium",
+      "Starting at 19, this is a relatively young age to start engaging in criminal behavior."
+    ],
+    [
+      "Ever-incarcerated",
+      "low",
+      "Not yet convicted of any crime while incarcerated."
+    ],
+    [
+      "Substance abuse (Marijuana)",
+      "medium",
+      "The past use of marijuana indicates a risk factor for potential future criminal activity."
+    ],
+    [
+      "Education/Vocational status",
+      "low",
+      "Not holding any job and lacking formal education or training increases the risk."
+    ],
+    [
+      "Lived with biological family at young age",
+      "medium",
+      "Growing up in a household of four teenagers may have influenced behavior."
+    ],
+    [
+      "Religious beliefs",
+      "high",
+      "Claiming no involvement with God suggests a potential lack of moral guidance or support system."
+    ],
+    [
+      "Living alone",
+      "low",
+      "Living alone can increase the risk of criminal activity, especially if it's in an urban area."
+    ],
+    [
+      "Drug use (Marijuana) in past 4 years",
+      "high",
+      "Regular drug use indicates a potential for future offenses."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted. He weighs 140 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

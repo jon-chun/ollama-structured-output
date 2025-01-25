@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 754,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-01-25T12:44:08.009783515Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.426923888,
+    "load_duration": 0.007340279,
+    "prompt_eval_count": 376,
+    "prompt_eval_duration": 0.694,
+    "eval_count": 246,
+    "eval_duration": 8.721
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Criminal History\", \"low\", \"The individual has been arrested but not convicted, indicating a low likelihood of ongoing criminal activity.\"],\n    [\"Age\", \"medium\", \"Young adulthood (21) is generally associated with higher risk for recidivism, although it varies based on personal circumstances and support systems.\"],\n    [\"Drug Use\", \"high\", \"Regular marijuana use over the past four years increases the likelihood of future criminal behavior related to substance abuse.\"],\n    [\"Education\", \"low\", \"No formal education beyond high school suggests limited coping mechanisms and potential for further education as a means to reduce risk.\"],\n    [\"Employment History\", \"medium\", \"Holding no jobs in the past year indicates potential lack of stable income, which can be a factor in future recidivism.\"],\n    [\"Living Arrangements\", \"low\", \"Living alone could increase isolation and potentially lead to risky behaviors, but also provides flexibility for personal growth.\"]\n  ],\n  \"prediction\": \"HIGH\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_074408_011169",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 754,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Criminal History",
+      "low",
+      "The individual has been arrested but not convicted, indicating a low likelihood of ongoing criminal activity."
+    ],
+    [
+      "Age",
+      "medium",
+      "Young adulthood (21) is generally associated with higher risk for recidivism, although it varies based on personal circumstances and support systems."
+    ],
+    [
+      "Drug Use",
+      "high",
+      "Regular marijuana use over the past four years increases the likelihood of future criminal behavior related to substance abuse."
+    ],
+    [
+      "Education",
+      "low",
+      "No formal education beyond high school suggests limited coping mechanisms and potential for further education as a means to reduce risk."
+    ],
+    [
+      "Employment History",
+      "medium",
+      "Holding no jobs in the past year indicates potential lack of stable income, which can be a factor in future recidivism."
+    ],
+    [
+      "Living Arrangements",
+      "low",
+      "Living alone could increase isolation and potentially lead to risky behaviors, but also provides flexibility for personal growth."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 11 inches and weighs 220 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

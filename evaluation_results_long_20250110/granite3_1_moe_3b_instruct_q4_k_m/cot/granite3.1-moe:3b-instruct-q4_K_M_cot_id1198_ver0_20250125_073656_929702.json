@@ -1,0 +1,89 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 1198,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-01-25T12:36:56.928370096Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.30627734,
+    "load_duration": 0.009263068,
+    "prompt_eval_count": 371,
+    "prompt_eval_duration": 0.692,
+    "eval_count": 299,
+    "eval_duration": 10.601
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"age\", \"medium\", \"Young adult, recently arrested twice but not convicted yet, living alone at 20 years old.\"],\n    [\"race\", \"low\", \"Being Black is a demographic factor, not inherently indicative of criminal behavior.\"],\n    [\"prior_arrests\", \"medium\", \"Two arrests, but no convictions as of now.\"],\n    [\"height\", \"low\", \"5 feet 9 inches, within average range for adult males.\"],\n    [\"weight\", \"low\", \"Weight between 150 and 174 lbs., normal BMI range.\"],\n    [\"marital_status\", \"high\", \"Not married, living alone could indicate risk of criminal behavior.\"],\n    [\"education_level\", \"medium\", \"High school diploma, may impact future prospects.\"],\n    [\"employment_history\", \"low\", \"One job in the past year, stable employment crucial for low recidivism.\"],\n    [\"substance_use\", \"medium\", \"Has not used drugs in last four years.\"],\n    [\"mental_health\", \"low\", \"No reported depression or other mental health issues over past month.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_073656_929702",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1198,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "medium",
+      "Young adult, recently arrested twice but not convicted yet, living alone at 20 years old."
+    ],
+    [
+      "race",
+      "low",
+      "Being Black is a demographic factor, not inherently indicative of criminal behavior."
+    ],
+    [
+      "prior_arrests",
+      "medium",
+      "Two arrests, but no convictions as of now."
+    ],
+    [
+      "height",
+      "low",
+      "5 feet 9 inches, within average range for adult males."
+    ],
+    [
+      "weight",
+      "low",
+      "Weight between 150 and 174 lbs., normal BMI range."
+    ],
+    [
+      "marital_status",
+      "high",
+      "Not married, living alone could indicate risk of criminal behavior."
+    ],
+    [
+      "education_level",
+      "medium",
+      "High school diploma, may impact future prospects."
+    ],
+    [
+      "employment_history",
+      "low",
+      "One job in the past year, stable employment crucial for low recidivism."
+    ],
+    [
+      "substance_use",
+      "medium",
+      "Has not used drugs in last four years."
+    ],
+    [
+      "mental_health",
+      "low",
+      "No reported depression or other mental health issues over past month."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 5 feet 9 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
