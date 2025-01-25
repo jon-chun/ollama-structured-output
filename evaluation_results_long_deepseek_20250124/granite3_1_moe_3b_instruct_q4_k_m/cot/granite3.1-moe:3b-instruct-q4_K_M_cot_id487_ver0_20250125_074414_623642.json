@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 487,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-01-25T12:44:14.622373346Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.50662467,
+    "load_duration": 0.009325981,
+    "prompt_eval_count": 400,
+    "prompt_eval_duration": 0.717,
+    "eval_count": 163,
+    "eval_duration": 5.776
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"prior arrests\", \"low\", \"No convictions yet, but has been arrested twice\"),\n    (\"substance abuse (past 4 years)\", \"medium\", \"Has used marijuana and cocaine in the past four years\"),\n    (\"recent depression (last month)\", \"high\", \"Expressed feeling so down that nothing could cheer her up\"),\n    (\"living situation at age of first arrest\", \"medium\", \"Lived with both parents in a household of 4, rural area\"],\n    (\"relationship to religion\", \"low\", \"Views God as having no influence on personal life\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_074414_623642",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 487,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 2 inches and weighs 160 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

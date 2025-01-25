@@ -137,7 +137,7 @@ TOP_OR_BOTTOM_CT = 15
 # NEW Global Flag: If True, remove zero-value rows (for relevant metrics)
 # before computing top/bottom sets in the plots.
 # --------------------------------------------------------------------------
-FLAG_NO_ZEROS = False
+FLAG_NO_ZEROS = True
 
 # --------------------------------------------------------------------------
 # Configurable exclude lists (if needed)
@@ -384,33 +384,45 @@ def create_timing_plot(df, output_path, root_filename):
     logger.info("Creating timing plot...")
 
     try:
-        # Possibly remove zero-rows for timing
         df_used = remove_zero_rows_for_timing_plot(df)
+        # Convert ns to seconds
+        df_used['execution_time_mean'] = df_used['execution_time_mean'] / 1e9
+        df_used['eval_duration_mean'] = df_used['eval_duration_mean'] / 1e9
         df_used['total_time'] = df_used['execution_time_mean'] + df_used['eval_duration_mean']
         df_sorted = df_used.sort_values('total_time', ascending=False).reset_index(drop=True)
 
-        # Take the top-(n) and bottom-(n)
         top_models = df_sorted.head(TOP_OR_BOTTOM_CT)
-        bottom_models = df_sorted.tail(TOP_OR_BOTTOM_CT)
+        if FLAG_NO_ZEROS:
+            non_zero_df = df_sorted[df_sorted['total_time'] > 0]
+            bottom_models = non_zero_df.tail(TOP_OR_BOTTOM_CT)
+        else:
+            bottom_models = df_sorted.tail(TOP_OR_BOTTOM_CT)
+        
         combined = pd.concat([top_models, bottom_models], axis=0).reset_index(drop=True)
-
-        # For simpler x-axis labels
-        display_labels = [
-            get_pretty_model_label(m, use_linebreak=False) for m in combined['model']
-        ]
+        display_labels = [get_pretty_model_label(m, use_linebreak=False) for m in combined['model']]
 
         plt.figure(figsize=(12, 7))
-        ax = plt.bar(
+        plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: format(int(x), ',')))
+        
+        bars1 = plt.bar(
             display_labels,
             combined['eval_duration_mean'],
             label=get_pretty_metric_label("eval_duration_mean")
         )
-        plt.bar(
+        bars2 = plt.bar(
             display_labels,
             combined['execution_time_mean'],
             bottom=combined['eval_duration_mean'],
             label=get_pretty_metric_label("execution_time_mean")
         )
+
+        # Add value labels only on top
+        for i, _ in enumerate(display_labels):
+            total = combined.iloc[i]['total_time']
+            plt.text(i, total + (total * 0.05), f'{total:.2g}',
+                    ha='center', va='bottom', 
+                    fontsize=int(plt.rcParams['font.size']*(.75)),
+                    rotation=90, color='black')
 
         plt.xticks(rotation=45, ha='right', fontsize=7)
         plt.title(f"Compute (Timing) Metrics by Model (Top & Bottom - {ENSEMBLE_NAME.upper()} ensemble)")
@@ -422,7 +434,6 @@ def create_timing_plot(df, output_path, root_filename):
         add_top_bottom_divider_text(ax_curr, TOP_OR_BOTTOM_CT)
 
         plt.tight_layout()
-
         output_filename = f"{root_filename}_compute-timing_top-bottom-{TOP_OR_BOTTOM_CT}.png"
         output_fullpath = os.path.join(output_path, output_filename)
         plt.savefig(output_fullpath)
@@ -639,10 +650,10 @@ def generate_pdf_table(df, output_path, root_filename):
         pdf.cell(0, 10, "Model Performance and Compute Summary (Top & Bottom Models)", ln=True, align='C')
         pdf.ln(5)
 
-        pdf.set_font("Arial", 'B', 10)
+        pdf.set_font("helvetica", 'B', 14) # pdf.set_font("Arial", 'B', 10)
         # Print header
         for h, w in zip(headers, col_widths):
-            pdf.cell(w, 8, txt=h, border=1, align='C')
+            pdf.cell(w, 8, text=h, border=1, align='C')
         pdf.ln(8)
 
         pdf.set_font("Arial", '', 9)

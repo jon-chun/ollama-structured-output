@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 163,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-01-25T12:33:17.306933994Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.528733043,
+    "load_duration": 0.007316221,
+    "prompt_eval_count": 382,
+    "prompt_eval_duration": 0.703,
+    "eval_count": 277,
+    "eval_duration": 9.814
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Age of first arrest\", \"low\", \"She is a young adult, which historically shows lower risk of recidivism compared to older individuals. The first offense also suggests less severe or non-violent crimes.\"],\n    [\"Race/Ethnicity\", \"medium\", \"While the term 'White' might suggest some level of privilege, individual experiences and circumstances can vary widely within this racial group. It's crucial to consider her overall life situation.\"],\n    [\"Conviction history\", \"high\", \"Her conviction indicates a pattern of law-breaking behavior.\"],\n    [\"Prior employment stability\", \"medium\", \"Holding 4 jobs in one year suggests she may have strong work ethic and organizational skills, which can be positive signs.\"],\n    [\"Substance abuse\", \"medium\", \"Her past drug use (marijuana and cocaine) and recent feelings of depression could indicate potential risks. Treatment and counseling might be beneficial.\"],\n    [\"Living arrangement\", \"low\", \"Living alone can pose certain challenges, but also offers independence and self-reliance.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250125_073317_308308",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 163,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age of first arrest",
+      "low",
+      "She is a young adult, which historically shows lower risk of recidivism compared to older individuals. The first offense also suggests less severe or non-violent crimes."
+    ],
+    [
+      "Race/Ethnicity",
+      "medium",
+      "While the term 'White' might suggest some level of privilege, individual experiences and circumstances can vary widely within this racial group. It's crucial to consider her overall life situation."
+    ],
+    [
+      "Conviction history",
+      "high",
+      "Her conviction indicates a pattern of law-breaking behavior."
+    ],
+    [
+      "Prior employment stability",
+      "medium",
+      "Holding 4 jobs in one year suggests she may have strong work ethic and organizational skills, which can be positive signs."
+    ],
+    [
+      "Substance abuse",
+      "medium",
+      "Her past drug use (marijuana and cocaine) and recent feelings of depression could indicate potential risks. Treatment and counseling might be beneficial."
+    ],
+    [
+      "Living arrangement",
+      "low",
+      "Living alone can pose certain challenges, but also offers independence and self-reliance."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 9 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
