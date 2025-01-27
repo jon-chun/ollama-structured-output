@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 581,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-27T04:14:24.929504189Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.735666741,
+    "load_duration": 0.019483912,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.075,
+    "eval_count": 380,
+    "eval_duration": 14.633
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (22)\", \"low\", \"Young age may contribute to higher recidivism rates, but the individual is still relatively young.\"),\n    (\"Race/Ethnicity (White)\", \"medium\", \"While not inherently a high-risk factor, societal and systemic factors associated with race can influence risk assessment.\"),\n    (\"Number of Arrests (1)\", \"low\", \"One arrest without conviction suggests low immediate risk.\"),\n    (\"Height/Weight (5'3\\\" to 174 lbs)\", \"low\", \"Physical attributes alone do not strongly indicate recidivism risk.\"),\n    (\"Marital Status (Unmarried, Not Living Alone)\", \"medium\", \"Living status can influence access to resources and support networks.\"),\n    (\"Education Level (GED Certificate)\", \"low\", \"Educational attainment is generally correlated with lower recidivism rates.\"),\n    (\"Employment History (4 Jobs in a Year)\", \"high\", \"Multiple job changes may indicate instability or difficulty maintaining steady employment, which can be a risk factor.\"),\n    (\"Drug Use History (No Drugs in Past 4 Years)\", \"low\", \"Lack of recent drug use reduces the likelihood of substance-related reoffending.\"),\n    (\"Mental Health Concerns ('Some' Feelings of Depression)\", \"medium\", \"Mild to moderate depression may affect decision-making and behavior, increasing risk slightly.\"),\n    (\"Childhood Environment (Lived with Biological Mother in Urban Area at Young Age)\", \"low\", \"A stable childhood environment generally correlates with lower recidivism rates.\"),\n    (\"Religious Beliefs ('God has something to do with what happens to her personally')\", \"medium\", \"While personal beliefs can provide support, they are not a direct indicator of recidivism risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_231424_930921",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 581,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs between 150 and 174 lbs. She has never been married and is currently not living alone. She has a GED certificate and is not enrolled in college. She has held 4 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

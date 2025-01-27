@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 78,
+    "id": 0,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:48:26.02704567Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.536764529,
+    "load_duration": 0.018209473,
+    "prompt_eval_count": 329,
+    "prompt_eval_duration": 0.1,
+    "eval_count": 286,
+    "eval_duration": 11.414
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"age\", \"high\", \"Younger individuals often have less mature decision-making skills, potentially leading to increased impulsivity.\"),\n  (\"previous_arrests\", \"high\", \"Multiple arrests suggest a pattern of offending behavior and a higher likelihood of future criminal activity.\"),\n  (\"race\", \"medium\", \"Cultural and socio-economic factors can influence risk; Hispanic males may face certain systemic challenges.\"),\n  (\"education_level\", \"high\", \"Lack of a high school diploma or GED usually indicates lower educational attainment, which is associated with higher recidivism rates.\"),\n  (\"employment_status\", \"high\", \"Unemployment can lead to increased free time and fewer legal ways to occupy oneself, potentially leading to crime.\"),\n  (\"drug_use\", \"medium\", \"Past drug use can indicate a substance-related lifestyle that may correlate with criminal behavior.\"),\n  (\"mental_health\", \"low\", \"The absence of recent depression suggests stable mental health, which generally lowers recidivism risk.\"),\n  (\"family_structure\", \"medium\", \"Living in a larger household during youth might offer less individual supervision and potentially more exposure to criminal influences or environments.\"),\n  (\"religious_beliefs\", \"medium\", \"Belief in a higher power can sometimes provide a moral compass that reduces risk, though it can also be interpreted as a passive acceptance of fate.\")\n], \"prediction\": \"YES\", \"confidence\": 78}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_004826_028199",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 0,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 0 inches and weighs between 150 and 174 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

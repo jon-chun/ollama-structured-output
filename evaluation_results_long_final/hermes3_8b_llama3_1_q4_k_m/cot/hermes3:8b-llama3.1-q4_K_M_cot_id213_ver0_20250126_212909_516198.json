@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 213,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:29:09.514919321Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.457818086,
+    "load_duration": 0.028729546,
+    "prompt_eval_count": 319,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 278,
+    "eval_duration": 11.341
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age may indicate less criminal history but also potential for change.\"),\n    (\"male\", \"medium\", \"Males tend to have higher recidivism rates than females in general.\"),\n    (\"Black race\", \"high\", \"Black individuals often face systemic barriers and bias that can increase risk of re-arrest.\"),\n    (\"2 prior arrests\", \"medium\", \"Multiple arrests indicate higher likelihood of criminal behavior but no conviction yet.\"),\n    (\"height_and_weight\", \"low\", \"Physical stature does not appear to be a significant factor in recidivism.\"),\n    (\"marital_status\", \"low\", \"Living alone may increase risk, but is not a strong indicator on its own.\"),\n    (\"education\", \"high\", \"Lack of education or job history can contribute to criminal behavior and higher risk of re-arrest.\"),\n    (\"employment_status\", \"high\", \"No job in the past year indicates possible economic hardship or antisocial behavior.\"),\n    (\"drug_use\", \"medium\", \"Past marijuana use is a factor, but may not be as significant as harder drugs for rearrest risk.\"),\n    (\"depression\", \"low\", \"Not feeling depressed does not lower risk substantially since there's no major criminogenic needs.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_212909_516198",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 213,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 5 feet 9 inches and weighs 188 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1338,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "glm4:9b-chat-q4_K_M",
+    "created_at": "2025-01-27T00:24:51.07594044Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 21.762901277,
+    "load_duration": 0.023926921,
+    "prompt_eval_count": 311,
+    "prompt_eval_duration": 0.156,
+    "eval_count": 457,
+    "eval_duration": 21.579
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"Individuals aged 20-24 have a higher recidivism rate than younger individuals but are less likely to recidivate than older adults.\"),\n    (\"Hispanic ethnicity\", \"low\", \"Ethnicity alone does not predict recidivism, but Hispanic males may face additional challenges that could increase risk factors such as socioeconomic status or discrimination.\"),\n    (\"Prior arrest without conviction\", \"medium\", \"A single prior arrest indicates a potential for criminal behavior, though the absence of conviction suggests it was either minor or resolved in the individual's favor.\"),\n    (\"Height and weight\", \"low\", \"Physical characteristics do not directly predict recidivism; however, they may be associated with other underlying risk factors such as socioeconomic status or access to opportunities.\"),\n    (\"Marital status\", \"low\", \"Unmarried individuals generally have lower recidivism rates compared to married individuals, but this factor is less significant in a young adult population.\"),\n    (\"Living alone\", \"medium\", \"Not living alone may suggest some form of social support, which can mitigate risk. However, the level of support and its effectiveness are not specified.\"),\n    (\"Education level\", \"low\", \"Having a high school diploma generally correlates with lower recidivism rates compared to those without formal education, but being out of college does not necessarily increase risk.\"),\n    (\"Employment history\", \"medium\", \"Holding one job in the past year may suggest some degree of stability, though the nature and duration of employment are unknown.\"),\n    (\"Drug and mental health use\", \"low\", \"No drug use or depression in the past four years suggests a lower immediate risk factor for recidivism related to substance abuse or mental health issues.\"),\n    (\"Family structure during childhood\", \"medium\", \"Living with a large family may be indicative of other risk factors such as lack of parental supervision, but the urban area and biological mother living situation are not necessarily predictive on their own.\"),\n    (\"Religious beliefs\", \"low\", \"Belief in God does not directly predict recidivism but can be associated with lower levels of criminal behavior due to perceived moral guidance.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_192451_077236",
+    "model": "glm4:9b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1338,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs 130 lbs. He has never been married and is currently not living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 511,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "created_at": "2025-01-27T03:36:28.360675514Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.369944328,
+    "load_duration": 0.029390475,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 510,
+    "eval_duration": 4.323
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"The individual is a 19-year-old male, indicating a relatively young age of first contact with the justice system.\"),\n    (\"Prior record length\", \"medium\", \"He has been arrested 1 time and convicted, suggesting some evidence of prior offending behavior but not extensive criminal history.\"),\n    (\"Offense severity (not given)\", \"N/A\", \"Severity of offense is not provided in this case, so we cannot evaluate its influence on recidivism risk.\"),\n    (\"Racial group\", \"high\", \"Individual identifies as Black, which has been associated with higher recidivism rates compared to other racial groups in some studies.\"),\n    (\"Physical characteristics (height and weight)\", \"low\", \"He is a relatively tall male, but his weight does not indicate any obvious health or physical concerns that could contribute to recidivism risk.\"),\n    (\"Marital status\", \"medium\", \"Living alone at the age of 19 may increase vulnerability to certain factors that could contribute to recidivism risk, such as isolation and increased exposure to negative influences.\"),\n    (\"Employment history (3 jobs)\", \"low\", \"Stable employment is a protective factor against recidivism, but working three jobs in one year suggests some level of instability or uncertainty, which may not be entirely beneficial for this individual's long-term prospects.\"),\n    (\"Substance use history (marijuana usage)\", \"high\", \"Past substance use can contribute to recidivism risk due to the association between drug use and criminal behavior. Frequent marijuana use within the past month is a concerning indicator of ongoing problematic behavior.\"),\n    (\"Emotional/mental health indicators (feeling down, depressed)\", \"medium\", \"The individual's reported feelings of despair may indicate underlying emotional or mental health issues that could contribute to recidivism risk if not addressed.\"),\n    (\"Family background (family size and structure at youth)\", \"low\", \"Living in a household with both biological parents at a young age is generally considered protective against various negative outcomes, including recidivism risk.\"),\n    (\"Social support and personal beliefs (God's role in life events)\", \"medium\", \"While the individual believes God has something to do with his personal life events, this does not necessarily provide clear insight into recidivism risk. The presence of such beliefs can be both protective and risky depending on their expression and impact on behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_223628_361903",
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 511,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

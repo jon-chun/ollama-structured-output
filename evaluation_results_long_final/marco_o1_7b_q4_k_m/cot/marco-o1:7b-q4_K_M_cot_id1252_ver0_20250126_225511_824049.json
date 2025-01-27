@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1252,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-27T03:55:11.822583956Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.014045314,
+    "load_duration": 0.015309499,
+    "prompt_eval_count": 324,
+    "prompt_eval_duration": 0.069,
+    "eval_count": 415,
+    "eval_duration": 15.922
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (21)\", \"low\", \"Young age may reduce risk due to potential for rehabilitation.\"),\n    (\"Race (Black)\", \"medium\", \"Minority status can influence recidivism rates but context matters.\"),\n    (\"Number of Arrests (1, not convicted)\", \"low\", \"Single arrest without conviction suggests limited criminal history.\"),\n    (\"Height and Weight (6'8\", 145 lbs)\", \"low\", \"Physical attributes do not directly correlate with recidivism.\"),\n    (\"Marital Status (Single)\", \"low\", \"Lack of stable relationships may impact rehabilitation opportunities.\"),\n    (\"Living Situation (Alone)\", \"low\", \"Suggests lack of support systems which could be a risk factor but in this case, the person is young and single which might mitigate some risks.\"),\n    (\"Education Level (No HS diploma or GED)\", \"medium\", \"Lack of education can increase recidivism rates as it limits employment prospects.\"),\n    (\"Employment Status (2 jobs during year)\", \"low\", \"Employed individuals tend to have lower recidivism rates due to structure and income stability.\"),\n    (\"Drug Use History (Used drugs in past 4 years, marijuana)\", \"medium\", \"Drug use is a significant risk factor for recidivism but the type of drug may influence the level of risk.\"),\n    (\"Mental Health (Not felt depressed over past month)\", \"low\", \"Absence of depression reduces the likelihood of mental health-related issues contributing to recidivism.\"),\n    (\"Childhood Environment (Lived with biological mother in household size 4 at young age)\", \"low\", \"Stable family environment generally supports better outcomes but context-specific factors are important.\"),\n    (\"Religious Beliefs (Considers God has something to do with what happens to him personally)\", \"medium\", \"Spiritual beliefs can provide support networks and structure, potentially reducing recidivism rates.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_225511_824049",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1252,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 6 feet 8 inches and weighs 145 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

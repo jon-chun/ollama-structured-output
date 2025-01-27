@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 915,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-27T07:42:31.240444676Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.67742038,
+    "load_duration": 0.019501623,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.068,
+    "eval_count": 380,
+    "eval_duration": 14.584
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young, which may indicate a lower risk of recidivism.\"),\n    (\"arrest_history\", \"medium\", \"There was one arrest but no conviction; this could suggest potential issues with legal compliance or behaviors that may lead to future arrests.\"),\n    (\"physical_attributes\", \"low\", \"Physical attributes such as height and weight do not typically correlate with criminal behavior or risk of recidivism.\"),\n    (\"marital_status\", \"low\", \"Living alone does not inherently increase the risk of recidivism; however, social support systems are important, and this might indicate a lack of them.\"),\n    (\"education_level\", \"low\", \"A high school diploma is generally associated with lower rates of criminal behavior compared to no formal education.\"),\n    (\"employment_status\", \"medium\", \"No job during the past year may suggest unemployment issues or behavioral problems that could contribute to future crime, but this is speculative without more information.\"),\n    (\"drug_use_history\", \"low\", \"Mild drug use (marijuana) does not typically correlate strongly with high recidivism rates unless it's frequent and problematic.\"),\n    (\"recent_mood_state\", \"medium\", \"Feeling down for days on end could indicate depression or other mental health issues, which may increase the risk of criminal behavior as a coping mechanism.\"),\n    (\"childhood_environment\", \"low\", \"Rural upbringing with multiple family members can be protective against some forms of crime; however, it is not without risks, especially if there were no religious or spiritual influences.\"),\n    (\"religious_involvement\", \"high\", \"Lack of religious or spiritual involvement could indicate a higher risk factor as many studies suggest that spiritual support reduces the likelihood of criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_024231_241946",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 915,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 230 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 6, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

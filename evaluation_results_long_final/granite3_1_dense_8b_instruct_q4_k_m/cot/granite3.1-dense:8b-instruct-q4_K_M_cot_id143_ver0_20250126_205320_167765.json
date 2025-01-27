@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 143,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-27T01:53:20.166633302Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.859821721,
+    "load_duration": 0.010717461,
+    "prompt_eval_count": 397,
+    "prompt_eval_duration": 0.036,
+    "eval_count": 411,
+    "eval_duration": 3.809
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Being young can indicate higher risk, but at 22, this factor is relatively low.\"),\n    (\"Gender\", \"low\", \"Female gender generally correlates with lower recidivism rates.\"),\n    (\"Ethnicity\", \"low\", \"White ethnicity does not significantly impact risk levels in this context.\"),\n    (\"Previous Arrests\", \"medium\", \"1 arrest without conviction is a low-to-medium factor, but it indicates some involvement in criminal activity.\"),\n    (\"Convicted Status\", \"low\", \"Not being convicted reduces the severity of this factor.\"),\n    (\"Height & Weight\", \"low\", \"These physical attributes have no significant bearing on recidivism risk.\"),\n    (\"Marital Status\", \"low\", \"Never married is a neutral factor in this context.\"),\n    (\"Living Situation\", \"low\", \"Living alone suggests some level of independence and autonomy, which can be protective against recidivism.\"),\n    (\"Education Level\", \"medium\", \"A Bachelor's degree indicates lower risk due to increased employment opportunities and life skills.\"),\n    (\"Employment History\", \"high\", \"Frequent job changes may indicate instability or underlying issues that could increase risk.\"),\n    (\"Substance Use\", \"medium\", \"Past drug use, especially cocaine, can suggest higher risk for recidivism.\"),\n    (\"Current Mental Health\", \"medium\", \"Persistent feelings of sadness and hopelessness can be associated with increased risk.\"),\n    (\"Family Background\", \"low\", \"Growing up in a two-parent household can indicate better socialization and lower risk.\"),\n    (\"Religiosity\", \"low\", \"Lack of religious involvement does not significantly impact recidivism risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_205320_167765",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1048,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:33:44.010804375Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.259507075,
+    "load_duration": 0.018502196,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.1,
+    "eval_count": 279,
+    "eval_duration": 11.137
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Youth is often associated with higher risk for recidivism, especially in the early 20s.\"),\n    (\"previous arrests\", \"high\", \"Multiple arrests increase the likelihood of continued criminal behavior.\"),\n    (\"drug use\", \"medium\", \"Current drug use can correlate with a higher risk for rearrest, particularly if it involves substances like marijuana and cocaine.\"),\n    (\"depressive symptoms\", \"medium\", \"Feeling down or depressed can lead to risky behaviors and increased impulsivity, which could contribute to criminal activity.\"),\n    (\"family structure\", \"medium\", \"Growing up in a non-traditional family setting may influence risk factors for offending.\"),\n    (\"marital status\", \"low\", \"Being unmarried does not significantly alter recidivism risk at this stage of life compared to being married.\"),\n    (\"employment history\", \"high\", \"Lack of steady employment can increase the time available for criminal activity and reduce resources for coping with stress.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object reflects a risk assessment based on the given factors, predicting a high likelihood of rearrest within the next three years. The confidence level in this prediction is set at 75% based on the detailed analysis and weighting of the various risk factors.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_003344_012068",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1048,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 5 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 788,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:36:05.188316897Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.415491799,
+    "load_duration": 0.018060605,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.101,
+    "eval_count": 514,
+    "eval_duration": 20.292
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults tend to have higher recidivism rates, but being 21 is on the cusp of adulthood where there may be less stability and fewer life commitments, which can increase risk.\"),\n    (\"previous_arrests\", \"high\", \"Multiple arrests suggest a pattern of repeated offending, which generally correlates with higher recidivism.\"),\n    (\"convictions\", \"high\", \"A history of convictions indicates a prior willingness to engage in criminal behavior, raising the risk for future offenses.\"),\n    (\"gender\", \"medium\", \"Males tend to have higher recidivism rates compared to females. However, individual differences can significantly impact this factor.\"),\n    (\"race\", \"medium\", \"White individuals often have varying recidivism rates depending on socioeconomic factors and community environment.\"),\n    (\"marital_status\", \"high\", \"Being unmarried at a young age may indicate less social support and potentially more risk for engaging in criminal behavior.\"),\n    (\"living_situations\", \"low\", \"Living alone can present opportunities for unsupervised behavior, but without additional context about the living conditions or neighborhood, this factor remains low risk.\"),\n    (\"education_status\", \"medium\", \"Higher education is associated with lower recidivism rates. Holding a high school diploma suggests a basic educational attainment, which may have mixed effects on risk.\"),\n    (\"employment_history\", \"low\", \"Having held jobs indicates some level of employment stability and potential for income, which generally reduces recidivism risk.\"),\n    (\"substance_use\", \"medium\", \"The use of illicit drugs can significantly increase the risk of re-arrest due to impaired judgment, association with high-risk peers, and availability of criminal opportunities.\"),\n    (\"past_mood_state\", \"low\", \"Feeling down in the dumps occasionally does not directly correlate with increased recidivism risk unless it leads to other factors such as substance abuse or criminal behavior.\"),\n    (\"childhood_home_environment\", \"medium\", \"Growing up in a household of four suggests a stable family environment, which typically reduces recidivism risk. However, the absence of parental guidance could be a mitigating factor if associated with other adverse conditions.\"),\n    (\"spiritual_beliefs\", \"low\", \"Belief in a higher power can sometimes serve as a protective factor against criminal behavior; however, without additional context on how this belief impacts decision-making and social support systems, it is considered low risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_003605_189664",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 788,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 11 inches and weighs 160 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

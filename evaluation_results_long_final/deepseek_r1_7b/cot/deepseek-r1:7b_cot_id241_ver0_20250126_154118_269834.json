@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 241,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "deepseek-r1:7b",
+    "created_at": "2025-01-26T20:41:18.268528529Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.634264353,
+    "load_duration": 0.01275315,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 819,
+    "eval_duration": 6.603
+  },
+  "response": {
+    "raw_message_text": "<think>\nAlright, so I need to figure out the rearrest recidivism risk for this 19-year-old female. Let me go through each factor step by step.\n\nFirst, she's White with a GED. GED holders sometimes have lower re-arrest rates because they might seek help more than others, but being White can sometimes be associated with higher re-arrest rates in some studies due to systemic issues. But since she has a GED, I think that factor is low.\n\nShe was arrested once and not convicted. First-time offenses usually don't lead to high recidivism unless there's other risk factors. So medium here because she could be at risk if other factors push her over the edge.\n\nAge-wise, 19 isn't too young or old for recidivism prediction. The model might consider that she's still developing, so maybe lower risk? Not sure yet.\n\nHer height and weight don't seem relevant to re-arrest rates. Probably a low factor since they're just physical attributes without any other info.\n\nNot married and living alone... Living situation can affect support networks. More isolation might increase risk, but it depends on other factors like substance use. I'll mark this as medium because it's a risk factor that could be significant if combined with others.\n\nNo college enrollment despite having a job. Maybe she has a stable job which usually correlates with lower recidivism. So low here since not in school and working seems positive, but maybe she's still vulnerable for other reasons.\n\nUsed drugs (marijuana and cocaine) in the past four years. Substance use is a major risk factor because it impairs judgment, increases crime rate, etc. High risk due to recent substance use affecting her ability to reintegrate successfully.\n\nFeeling down most of the time could indicate mental health issues or stressors, which can lead to substance abuse and higher recidivism rates. So high here as well.\n\nHer early life was in a household of four with both parents, which might have had some stressors but being in an urban area isn't directly related. Maybe low impact unless she experienced abuse or neglect, which isn't mentioned.\n\nShe believes in God. Religious factors can provide support and reduce recidivism, so this is probably a protective factor. Low here because it's positive and shouldn't push her into high risk.\n\nPutting all together: High due to drug use and feeling down most of the time, medium for prior arrest and living alone, low on GED, height/weight, no school, job, and religion. So overall, she might have a high risk.\n</think>\n\n```json\n{\n  \"risk_factors\": [\n    (\"Has a GED\", \"low\", \"Her having a GED may indicate she sought help, which could lower recidivism rates compared to others without this qualification.\"),\n    (\"One non-convicted arrest\", \"medium\", \"A single offense, especially non-convicted, might suggest some risk but not necessarily high re-arrest rates.\"),\n    (\"Living alone\", \"medium\", \"Living alone can increase isolation and stress, which may contribute to higher recidivism risk when combined with other factors like drug use.\"),\n    (\"Recent substance use (marijuana and cocaine)\", \"high\", \"Substance use is a significant indicator of higher re-arrest rates due to its impact on judgment and decision-making abilities.\"),\n    (\"Feeling down most of the time\", \"high\", \"Persistent negative emotions can lead to substance abuse, increased stress, and decreased ability to reintegrate positively into society, increasing recidivism risk.\"),\n    (\"Living with both parents at a young age\", \"low\", \"Experiencing family in early life is generally protective unless there were adverse experiences, which are not mentioned here.\"),\n    (\"Believes in God\", \"low\", \"Religious beliefs often provide support networks and can contribute to lower recidivism rates by offering guidance and stability.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_154118_269834",
+    "model": "deepseek-r1:7b",
+    "prompt_type": "PromptType.COT",
+    "row_id": 241,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 110 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

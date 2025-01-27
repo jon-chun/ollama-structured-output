@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 63,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:54:28.682170477Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.059641522,
+    "load_duration": 0.0137153,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.114,
+    "eval_count": 376,
+    "eval_duration": 14.928
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can be a risk factor for higher recidivism, but without a conviction record, this is less severe.\"),\n    (\"gender\", \"low\", \"Female offenders generally have lower rearrest rates than male offenders, which lowers the risk.\"),\n    (\"previous arrests\", \"medium\", \"One arrest indicates a history of contact with the justice system, which can be a predictor of future offenses.\"),\n    (\"race\", \"low\", \"Hispanic ethnicity itself does not significantly correlate with recidivism in risk models.\"),\n    (\"education\", \"high\", \"Lack of a high school diploma or GED and no employment history increases the risk of reoffending.\"),\n    (\"marital status\", \"low\", \"Being unmarried is not strongly associated with higher recidivism rates alone.\"),\n    (\"living situation\", \"medium\", \"Not living alone might suggest a lack of personal space or support, potentially increasing risk.\"),\n    (\"drug use\", \"low\", \"No drug use in the past four years and infrequent use in the last month indicates low substance abuse risk.\"),\n    (\"mental health\", \"high\", \"Feeling down in the dumps sometimes suggests potential mental health issues which can impact risk level.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```\n\nThis JSON object reflects a careful analysis based on known factors associated with criminal justice risk assessment. Each factor is assigned a relative weight based on its general influence on recidivism, and these weights are combined to predict the likelihood of reoffense over a 3-year period. The prediction leans towards a \"YES\" due to the combination of low to high-risk factors, but the confidence score indicates that while it's more likely than not, there is still a substantial degree of uncertainty.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_005428_683862",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 63,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 2 inches and weighs between 100 and 124 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 9, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

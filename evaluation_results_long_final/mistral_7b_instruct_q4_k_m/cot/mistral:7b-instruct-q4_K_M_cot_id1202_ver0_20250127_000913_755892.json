@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1202,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:09:13.754743051Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.786949305,
+    "load_duration": 0.010855101,
+    "prompt_eval_count": 366,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 224,
+    "eval_duration": 1.755
+  },
+  "response": {
+    "raw_message_text": "{\n\"risk_factors\": [\n{\"factor1\", \"high\", \"The person has been arrested three times and convicted.\"},\n{\"factor2\", \"medium\", \"He is enrolled in a two-year college but hasn't completed any degree or certificate yet.\"},\n{\"factor3\", \"low\", \"He has never used drugs in the past four years.\"},\n{\"factor4\", \"low\", \"Some of the time during the past month he has felt so down in the dumps that nothing could cheer him up.\"},\n{\"factor5\", \"high\", \"He identifies as Black.\"},\n{\"factor6\", \"medium\", \"He lives with his biological mother in a household of size 2 at a young age.\"},\n{\"factor7\", \"medium\", \"He considers that God has something to do with what happens to him personally.\"},\n{\"factor8\", \"low\", \"He is currently not living alone.\"}\n],\n\"prediction\": \"YES\",\n\"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_000913_755892",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1202,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted. He is 5 feet 8 inches and weighs 168 lbs. He has never been married and is currently not living alone. He has a GED certificate and is enrolled in a 2-year college. He has held 3 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 2. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

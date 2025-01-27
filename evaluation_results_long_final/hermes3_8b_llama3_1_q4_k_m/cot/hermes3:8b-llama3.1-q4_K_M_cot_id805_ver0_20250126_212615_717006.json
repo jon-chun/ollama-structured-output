@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 805,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:26:15.715351531Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.128341362,
+    "load_duration": 0.028715506,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 244,
+    "eval_duration": 10.011
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young, which generally correlates with lower recidivism rates.\"),\n    (\"gender\", \"low\", \"Males tend to have higher arrest rates compared to females, but this factor alone may not be decisive.\"),\n    (\"arrest_history\", \"high\", \"Having been arrested twice and convicted suggests a pattern of criminal behavior that increases risk of further arrests.\"),\n    (\"employment_status\", \"medium\", \"Holding multiple jobs can indicate stability or desperation; more context needed for clear assessment.\"),\n    (\"education_level\", \"low\", \"Being enrolled in college may lower recidivism risk, though correlation is not always predictive.\"),\n    (\"drug_use\", \"low\", \"Not using drugs in the past 4 years significantly lowers risk of criminal activity compared to active users.\"),\n    (\"depression\", \"medium\", \"Feelings of hopelessness increase risk for committing crimes, but specific link needs further analysis.\"),\n    (\"family_background\", \"low\", \"Growing up in an urban household with both biological parents may have protected him from delinquency.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_212615_717006",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 805,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 10 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 4 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

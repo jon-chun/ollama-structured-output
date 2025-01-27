@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1407,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "glm4:9b-chat-q4_K_M",
+    "created_at": "2025-01-27T00:47:49.963517746Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 18.717124523,
+    "load_duration": 0.019523943,
+    "prompt_eval_count": 321,
+    "prompt_eval_duration": 0.157,
+    "eval_count": 391,
+    "eval_duration": 18.536
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which can be a mitigating factor for recidivism.\"),\n    (\"gender\", \"medium\", \"Female gender alone does not significantly increase or decrease recidivism risk but should be considered in conjunction with other factors.\"),\n    (\"race/ethnicity\", \"medium\", \"Being Black may contribute to higher arrest rates due to systemic issues, but it doesn't inherently predict recidivism.\"),\n    (\"arrest history\", \"medium\", \"Three arrests without conviction suggest potential for offending behavior but does not confirm a criminal history that leads to recidivism.\"),\n    (\"physical stature\", \"low\", \"Height and weight do not significantly impact the risk of rearrest or recidivism.\"),\n    (\"marital status\", \"low\", \"Not being married typically does not predict recidivism directly.\"),\n    (\"residence situation\", \"medium\", \"Living alone may increase social isolation, which could be a factor contributing to recidivism in some cases.\"),\n    (\"education\", \"high\", \"Enrollment in school suggests engagement in pro-social activities and is often a strong mitigating factor against recidivism.\"),\n    (\"employment\", \"low\", \"Having one job during the year indicates employment stability, which can be a positive indicator for reducing recidivism.\"),\n    (\"drug use\", \"medium\", \"No drug use in the past four years is beneficial; however, occasional feelings of depression may contribute to risk if not addressed.\"),\n    (\"family background\", \"low\", \"Living with a large family size does not necessarily increase or decrease recidivism risk but could indicate resilience or instability depending on the context.\"),\n    (\"religiosity\", \"low\", \"Belief in God is typically considered a mitigating factor as it may contribute to positive life choices and community engagement.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_194749_964998",
+    "model": "glm4:9b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1407,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 3 times but has not been convicted. She is 5 feet 4 inches and weighs 105 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 10, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

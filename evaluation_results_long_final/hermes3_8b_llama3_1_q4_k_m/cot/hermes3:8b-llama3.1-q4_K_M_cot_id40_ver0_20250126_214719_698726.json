@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 40,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:47:19.697007514Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 18.35636178,
+    "load_duration": 0.018852439,
+    "prompt_eval_count": 348,
+    "prompt_eval_duration": 0.098,
+    "eval_count": 450,
+    "eval_duration": 18.237
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The offender is young, but not particularly high risk in terms of recidivism based on age alone.\"),\n    (\"gender\", \"low\", \"Male offenders tend to have a higher recidivism rate compared to females, so this is a moderate risk factor.\"),\n    (\"ethnicity\", \"low\", \"Hispanic offenders generally have similar or slightly lower recidivism rates compared to Caucasian offenders.\"),\n    (\"arrest_history\", \"high\", \"Multiple prior arrests indicates a pattern of criminal behavior which increases the likelihood of future rearrests.\"),\n    (\"conviction_history\", \"medium\", \"Having been convicted in the past shows a willingness to engage in criminal behavior and face consequences, increasing risk moderately.\"),\n    (\"physical_attributes\", \"low\", \"Height and weight are not strong predictors of criminal behavior or recidivism on their own.\"),\n    (\"marital_status\", \"medium\", \"Being separated and living alone may contribute to social isolation which can increase the likelihood of reoffending.\"),\n    (\"living_arrangement\", \"medium\", \"Living independently without a support system could be a risk factor for recidivism.\"),\n    (\"education_level\", \"high\", \"Lack of high school diploma or GED suggests lower socioeconomic status and potential barriers to obtaining legal employment, increasing risk of crime.\"),\n    (\"employment_status\", \"high\", \"No job in the past year indicates financial instability which may drive criminal behavior to support oneself.\"),\n    (\"drug_use\", \"high\", \"Recent drug use, especially marijuana and cocaine, is a strong predictor of increased likelihood of future criminal activity.\"),\n    (\"depression_symptoms\", \"medium\", \"Feeling chronically down can impact decision-making and impulse control, increasing risk moderately.\"),\n    (\"childhood_environment\", \"medium\", \"Growing up in a large urban foster household at an early age may have contributed to social and emotional challenges, but is not highly predictive on its own.\"),\n    (\"religious_affiliation\", \"low\", \"Lacking a belief that God influences one's life personally is not a strong predictor of criminal behavior or recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_214719_698726",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 40,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 3 times and has been convicted. He is 5 feet 11 inches and weighs between 175 and 199 lbs. He is separated and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

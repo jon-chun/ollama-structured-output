@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-27T04:03:55.16049282Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.653462959,
+    "load_duration": 0.021115254,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.066,
+    "eval_count": 353,
+    "eval_duration": 13.558
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at First Arrest\", \"low\", \"At 18 years old, the individual is within a typical age range for first-time offenders.\"),\n    (\"Number of Previous Arrests\", \"medium\", \"2 arrests indicate some involvement in criminal activity but not an extensive history.\"),\n    (\"Conviction Status\", \"high\", \"Previous convictions suggest a higher likelihood of future offending.\"),\n    (\"Height and Weight\", \"low\", \"Physical attributes do not directly correlate with recidivism risk.\"),\n    (\"Marital Status\", \"low\", \"Single status does not inherently increase the risk of reoffending.\"),\n    (\"Living Situation\", \"medium\", \"Living alone may provide more opportunity for criminal behavior but lacks direct evidence.\"),\n    (\"Education Status\", \"low\", \"Enrolled in school shows a desire to engage with society and potentially reduce recidivism.\"),\n    (\"Employment History\", \"high\", \"No jobs during the year indicate lack of stable income or social ties, increasing risk.\"),\n    (\"Substance Use\", \"medium\", \"Past four years of drug use, specifically marijuana and cocaine, are significant risk factors for reoffending.\",\n    (\"Mental Health Status\", \"low\", \"Not feeling depressed in the past month suggests no immediate mental health concerns affecting behavior.\"),\n    (\"Family Background\", \"low\", \"Grew up with both biological parents in an urban area of size 4 provides a stable upbringing, which is protective against recidivism.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God and its influence on personal life may provide moral guidance but lacks direct impact on criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_230355_161681",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

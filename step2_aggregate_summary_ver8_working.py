@@ -15,7 +15,7 @@ from datetime import datetime
 # --------------------------------------------------------------------
 
 # EVALUATION_RESULTS_DIR = 'evaluation_results_long_20250110'
-EVALUATION_RESULTS_DIR = 'evaluation_results_long'
+EVALUATION_RESULTS_DIR = 'evaluation_results_long_final'
 
 ROOT_DIR = os.path.abspath(EVALUATION_RESULTS_DIR)
 OUTPUT_DIR = os.path.join('aggregate_reports', os.path.basename(EVALUATION_RESULTS_DIR))
@@ -24,7 +24,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 # OUTPUT_FILENAME = f"aggregate_model_reports_{timestamp}.csv"
-OUTPUT_FILENAME = f"aggregate_model_reports.json"
+OUTPUT_FILENAME = f"aggregate_model_report_long_final.csv" # not *.json
 
 # --------------------------------------------------------------------
 # 2. Setup Logging

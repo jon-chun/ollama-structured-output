@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 178,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-27T03:54:17.736222774Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.15379691,
+    "load_duration": 0.155518436,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.078,
+    "eval_count": 360,
+    "eval_duration": 13.912
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (20)\", \"low\", \"Young age may indicate lower risk, but multiple arrests suggest potential for reoffending.\"),\n    (\"Race (Black)\", \"medium\", \"Certain demographics have higher recidivism rates, though individual circumstances vary.\"),\n    (\"Number of Arrests (8)\", \"high\", \"Multiple prior arrests increase the likelihood of future offending.\"),\n    (\"Employment History (2 jobs in a year)\", \"low\", \"Employment can be a protective factor against reoffending; however, limited job history may indicate instability.\"),\n    (\"Education Level (No high school diploma/GED)\", \"medium\", \"Lack of education is associated with higher recidivism rates.\"),\n    (\"Marital Status (Unmarried and living alone)\", \"low\", \"Living arrangements can influence social support networks but not directly tied to recidivism.\"),\n    (\"Recreational Drug Use (Marijuana and cocaine in past four years)\", \"high\", \"Drug use, especially more potent substances like cocaine, is linked to higher risk of reoffending.\"),\n    (\"Mental Health (Feel down for some time during the last month)\", \"medium\", \"Substance use often co-occurs with mental health issues, which can influence behavior and decision-making.\"),\n    (\"Family Background (Lived in household size 7, urban area at young age)\", \"low\", \"Urban environments may present more opportunities but do not directly correlate to recidivism without additional context.\"),\n    (\"Religious Belief (Considers God has something to do with personal events)\", \"low\", \"Spiritual beliefs can provide support and structure, which may mitigate risk factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_225417_737364",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 178,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 8 times and has been convicted. He is 5 feet 7 inches and weighs 154 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 7, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 511,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "glm4:9b-chat-q4_K_M",
+    "created_at": "2025-01-27T00:31:06.19979032Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.912863146,
+    "load_duration": 0.019333833,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.158,
+    "eval_count": 331,
+    "eval_duration": 15.732
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but not at the very low risk end of adolescence.\"),\n    (\"race\", \"medium\", \"Race is a social construct that doesn't inherently predict recidivism but can be a proxy for other factors such as socioeconomic status.\"),\n    (\"arrest_history\", \"high\", \"Having been arrested and convicted suggests higher engagement with the criminal justice system.\"),\n    (\"body_height_weight\", \"low\", \"Height and weight do not indicate an increased risk of rearrest or recidivism.\"),\n    (\"marital_status\", \"low\", \"Single status is common among young adults and does not inherently predict increased recidivism.\"),\n    (\"residence_status\", \"medium\", \"Living alone may increase social isolation, which could be a risk factor for recidivism.\"),\n    (\"education_level\", \"medium\", \"Having a high school diploma with college enrollment indicates some educational stability but not the highest level of risk reduction.\"),\n    (\"employment_history\", \"high\", \"Changing jobs frequently might suggest unemployment or instability, both of which can increase recidivism risk.\"),\n    (\"drug_use\", \"high\", \"Regular drug use and recent feelings of depression may indicate substance abuse issues that are associated with higher recidivism rates.\"),\n    (\"family_background\", \"low\", \"Living with both biological parents at a young age is generally protective against recidivism.\"),\n    (\"religion\", \"low\", \"Believing in God does not inherently predict increased or decreased risk of recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_193106_201520",
+    "model": "glm4:9b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 511,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

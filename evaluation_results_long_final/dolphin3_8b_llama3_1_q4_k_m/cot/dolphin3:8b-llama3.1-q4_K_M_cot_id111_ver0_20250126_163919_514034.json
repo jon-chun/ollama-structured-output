@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 82,
+    "id": 111,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:39:19.512665622Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.412303605,
+    "load_duration": 0.021992692,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 277,
+    "eval_duration": 11.303
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"high\", \"Young age at first arrest is a strong predictor of future criminal behavior.\"),\n    (\"number_of_prior_arrests\", \"high\", \"Multiple prior arrests indicate a pattern of criminal behavior that may persist.\"),\n    (\"lack_of_education\", \"high\", \"Limited formal education can be associated with higher recidivism rates due to fewer employment opportunities and lower socioeconomic status.\"),\n    (\"unemployment\", \"high\", \"Lack of employment is often correlated with increased criminal activity due to financial stress and limited social support networks.\"),\n    (\"mood_depression\", \"medium\", \"Occasional feelings of depression may suggest mental health issues that could impact future decisions or coping mechanisms.\"),\n    (\"no_drug_use\", \"low\", \"Absence of drug use in the past four years is a positive indicator, as substance abuse problems are often correlated with criminal behavior.\"),\n    (\"family_environment\", \"medium\", \"Living with two parents and having religious beliefs may provide some stability, but family dynamics can still be influential for criminal behavior.\"),\n    (\"current_marital_status\", \"low\", \"Being married and living with a spouse might provide additional support and reduce the likelihood of future incarceration due to cohabiting responsibilities.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 82\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_163919_514034",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 111,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 5 times and has been convicted. She is 5 feet 4 inches and weighs 140 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

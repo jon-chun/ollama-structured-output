@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 676,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-27T04:06:34.842972898Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.002916454,
+    "load_duration": 0.025447458,
+    "prompt_eval_count": 346,
+    "prompt_eval_duration": 0.077,
+    "eval_count": 413,
+    "eval_duration": 15.888
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Number of Arrests (22)\", \"high\", \"A history of multiple arrests indicates a higher likelihood of repeated offenses.\"),\n    (\"Conviction Status\", \"high\", \"Having been convicted suggests the individual has already engaged in criminal behavior, increasing future risk.\"),\n    (\"Age at First Arrest (21)\", \"medium\", \"Young age at first arrest is often associated with higher rates of recidivism due to factors like impulsivity and lack of life experience.\"),\n    (\"Marital Status (Single)\", \"low\", \"Being single may not directly influence recidivism but could be related to personal circumstances.\"),\n    (\"Employment History (1 job in a year)\", \"medium\", \"Lack of consistent employment can contribute to instability, increasing the risk of criminal behavior.\"),\n    (\"Educational Attainment (No High School Diploma/GED)\", \"high\", \"Lower educational attainment is linked to higher rates of recidivism as it limits future opportunities and prospects.\"),\n    (\"Residential Stability (Living Alone)\", \"low\", \"Living alone may not directly impact recidivism but could be related to personal circumstances.\"),\n    (\"Substance Use (Drugs in Past 4 Years, Cocaine and Marijuana)\", \"high\", \"Drug use is a significant risk factor for criminal behavior and higher rates of recidivism.\"),\n    (\"Mental Health Status ('Down in dumps' most of the time past month)\", \"medium\", \"Persistent feelings of depression can contribute to behavioral issues and increased likelihood of reoffending.\"),\n    (\"Childhood Environment (Lived with biological mother, household size 2, urban area)\", \"low\", \"While living arrangements can influence behavior, this factor alone may not strongly impact recidivism.\"),\n    (\"Religious or Spiritual Beliefs ('God has nothing to do with what happens to him personally')\", \"low\", \"Personal beliefs regarding religion and spirituality are less direct indicators of criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_230634_844388",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 676,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 22 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

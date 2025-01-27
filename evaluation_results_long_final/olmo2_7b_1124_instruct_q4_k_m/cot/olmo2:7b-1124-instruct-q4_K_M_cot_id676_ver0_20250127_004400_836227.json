@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 78,
+    "id": 676,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:44:00.834495868Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.131104355,
+    "load_duration": 0.01482886,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.101,
+    "eval_count": 404,
+    "eval_duration": 16.01
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"Younger individuals often have less life experience and may be less likely to mature out of high-risk behaviors.\"),\n    (\"arrest_count\", \"high\", \"A higher number of arrests generally indicates a higher likelihood of recidivism.\"),\n    (\"race\", \"low\", \"There is limited evidence linking race to recidivism; this factor has minimal predictive value.\"),\n    (\"marital_status\", \"medium\", \"Married individuals may have more stable social support systems, which can reduce the risk of reoffending.\"),\n    (\"education\", \"high\", \"Lack of education is often associated with lower socioeconomic status and higher recidivism rates.\"),\n    (\"employment_history\", \"low\", \"Having held a job indicates some level of stability and responsibility, potentially reducing recidivism risk.\"),\n    (\"drug_usage\", \"medium\", \"Current drug use can be indicative of broader lifestyle choices and potential involvement in criminal activities.\"),\n    (\"depression_symptoms\", \"medium\", \"Mental health issues such as depression can affect judgment and increase the likelihood of reoffending.\"),\n    (\"early_life_environment\", \"low\", \"The quality of early life environment has a significant impact, but this specific detail provides limited insight into current risk factors.\"),\n    (\"religious_beliefs\", \"medium\", \"Belief in a higher power can sometimes provide a support system that reduces the likelihood of reoffending, but this individual's lack of belief may not substantially affect their risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 78\n}\n```\n\nThis JSON object represents an analysis where key factors like age, arrest count, education level, drug usage, and depression symptoms are rated as high-risk, while marital status, employment history, early life environment, and religious beliefs are rated lower. The overall prediction is \"YES\" indicating a higher likelihood of rearrest within three years, with a confidence score of 78%.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_004400_836227",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 676,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 22 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

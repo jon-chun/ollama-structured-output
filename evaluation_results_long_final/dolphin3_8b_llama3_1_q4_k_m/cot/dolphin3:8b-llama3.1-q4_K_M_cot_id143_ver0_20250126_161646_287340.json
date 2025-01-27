@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 143,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:16:46.285651738Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.810415628,
+    "load_duration": 0.025662886,
+    "prompt_eval_count": 338,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 312,
+    "eval_duration": 12.696
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_of_onset\", \"medium\", \"The individual's criminal activity has started at a medium age.\"),\n    (\"employment_status\", \"low\", \"She has held 4 jobs during the year, indicating some job instability but not extremely high risk.\"),\n    (\"marital_status\", \"low\", \"Not married indicates lower risk in terms of family responsibilities.\"),\n    (\"education_level\", \"low\", \"Completed a Bachelor's degree is indicative of low risk for criminal behavior.\"),\n    (\"number_of_jobs_held_last_year\", \"medium\", \"Holding multiple jobs may indicate financial instability or exploration, which could be related to higher recidivism rates.\"),\n    (\"past_month_depression\", \"high\", \"Feeling so down that nothing cheers her up during some times in the past month is a significant risk factor for criminal behavior and recidivism.\"),\n    (\"number_of_arrests\", \"low\", \"Only arrested once, indicating low frequency of criminal activity.\"),\n    (\"drug_use_in_the_past_four_years\", \"high\", \"Using drugs like marijuana and cocaine within the last four years significantly increases the likelihood of future criminal activity.\"),\n    (\"lived_with_both_parents\", \"low\", \"Living with both parents as a child is often associated with lower risk behaviors.\"),\n    (\"urban_area_of_residence\", \"medium\", \"Urban area living can be associated with increased opportunities for crime, but also access to community services.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_161646_287340",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

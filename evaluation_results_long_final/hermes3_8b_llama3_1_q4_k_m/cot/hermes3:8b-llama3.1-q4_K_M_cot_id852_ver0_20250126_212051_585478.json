@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 852,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:20:51.583991027Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.529606333,
+    "load_duration": 0.020387748,
+    "prompt_eval_count": 306,
+    "prompt_eval_duration": 0.076,
+    "eval_count": 357,
+    "eval_duration": 14.43
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age may indicate less criminal history but still early in life for risk assessment.\"),\n    (\"gender\", \"low\", \"Females generally have lower recidivism rates than males.\"),\n    (\"race\", \"medium\", \"Black individuals have higher arrest and incarceration rates compared to other races.\"),\n    (\"arrest_history\", \"high\", \"Prior arrest indicates likelihood of future contact with the criminal justice system.\"),\n    (\"conviction_status\", \"high\", \"Having been convicted increases risk of rearrest due to established pattern.\"),\n    (\"height_weight\", \"low\", \"Physical attributes not significantly correlated with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Being unmarried does not indicate higher risk for rearrest.\"),\n    (\"living_arrangement\", \"medium\", \"Living alone may increase isolation and risk of reoffending compared to support systems.\"),\n    (\"education_level\", \"low\", \"Having a high school diploma and being enrolled in college indicates positive trajectory, reducing recidivism risk.\"),\n    (\"employment_history\", \"low\", \"Holding multiple jobs during the year suggests stability and reduces risk of rearrest.\"),\n    (\"drug_use\", \"medium\", \"Past marijuana use increases risk but less significantly than harder drugs.\"),\n    (\"depression\", \"low\", \"Not feeling depressed in past month indicates mental well-being and lower recidivism risk.\"),\n    (\"family_size\", \"low\", \"Growing up in a household of 3 is not strongly correlated with rearrest risk.\"),\n    (\"residential_area\", \"medium\", \"Rural residence may provide less opportunities and support, increasing risk compared to urban areas.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_212051_585478",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 852,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 2 inches and weighs 172 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in a rural area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

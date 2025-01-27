@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 0,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:38:28.194347098Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.661193124,
+    "load_duration": 0.028579269,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 283,
+    "eval_duration": 11.545
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"high\", \"The person is a young adult, which often correlates with higher risk behaviors.\"),\n    (\"arrest_history\", \"high\", \"Six prior arrests indicate frequent involvement with the justice system.\"),\n    (\"no_highschool_diploma\", \"high\", \"Lack of formal education increases the likelihood of future offenses.\"),\n    (\"no_job\", \"medium\", \"Unemployment can contribute to criminal behavior due to financial stress and lack of structure.\"),\n    (\"drug_use_past_4_years\", \"high\", \"Marijuana use in the past four years is an indicator for potential substance-related issues or involvement in crime.\"),\n    (\"urban_upbringing\", \"medium\", \"Growing up in an urban area may expose individuals to higher crime rates and negative influences.\"),\n    (\"no_marital_status\", \"low\", \"Single status alone does not significantly impact recidivism risk.\"),\n    (\"living_arrangements\", \"medium\", \"Not living alone might suggest lack of stable environment but is neutral without further context.\"),\n    (\"height_weight\", \"low\", \"Physical size doesn't contribute to criminal behavior risk in this assessment.\"),\n    (\"god_beliefs\", \"low\", \"The person's belief that God influences personal events does not directly correlate with criminality.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_163828_195740",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 0,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 0 inches and weighs between 150 and 174 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

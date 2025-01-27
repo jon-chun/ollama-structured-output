@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 764,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:31:22.671404158Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.394814642,
+    "load_duration": 0.028710424,
+    "prompt_eval_count": 317,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 327,
+    "eval_duration": 13.279
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The person is young but not extremely so.\"),\n    (\"race\", \"medium\", \"Being White does not carry a significant risk factor for recidivism in most datasets, but it's worth considering the interaction with other factors.\"),\n    (\"arrest_history\", \"high\", \"One arrest and one conviction indicate a higher likelihood of future involvement in criminal activities.\"),\n    (\"physical_stature\", \"low\", \"Height and weight do not typically correlate with criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Living alone does not necessarily contribute to recidivism, but being unmarried may imply certain life circumstances that could increase risk.\"),\n    (\"employment_status\", \"low\", \"Being enrolled in school and having held one job suggests a commitment to productive activities.\"),\n    (\"drug_use\", \"high\", \"Past drug use within four years increases the likelihood of future criminal behavior due to potential addiction or continued substance abuse.\"),\n    (\"mental_health\", \"low\", \"Not feeling depressed over the past month is a positive sign for low risk of recidivism related to mental health issues.\"),\n    (\"childhood_environment\", \"high\", \"Living in an urban area with only two people in the household, especially if that includes just a mother, can be associated with higher crime rates and more limited resources.\"),\n    (\"religious_beliefs\", \"low\", \"Lack of belief in God's influence on personal life does not directly increase the risk of recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_163122_673202",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 764,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 2 inches and weighs 210 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

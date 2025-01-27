@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 915,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-26T22:19:47.366447213Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.671953375,
+    "load_duration": 0.018163563,
+    "prompt_eval_count": 370,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 330,
+    "eval_duration": 2.629
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Single Arrest (Non-Convicted)\", \"medium\", \"A single arrest suggests potential involvement in criminal activity, though without conviction, it indicates less severe or proven criminal behavior.\"),\n    (\"Demographics (Age, Race, Weight, Height)\", \"low\", \"Age, race alone without additional criminal history, and physical attributes typically do not strongly indicate high recidivism risk.\"),\n    (\"Education Level (High School Diploma Only)\", \"medium\", \"Lower educational attainment can correlate with higher recidivism rates due to limited opportunities and skills.\"),\n    (\"Employment History (None in Last Year)\", \"medium\", \"Lack of employment might suggest instability or difficulty integrating into mainstream society, potentially linked to higher risk behaviors.\"),\n    (\"Substance Use (Past Marijuana Use, Recent Depression)\", \"high\", \"History of drug use, particularly marijuana, combined with recent depressive episodes indicates potential vulnerability to engaging in risky behaviors.\"),\n    (\"Family Background (Rural, Large Household, Single Parent)\", \"medium\", \"Growing up in a large rural household with single parent could imply challenges in socialization and support systems that might affect future behavior.\"),\n    (\"Religious Belief (Non-Religious)\", \"low\", \"Lack of religious affiliation alone has mixed impacts on recidivism; it does not strongly predict risk without additional contextual factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_171947_368380",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 915,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 230 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 6, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

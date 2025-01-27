@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1338,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-27T01:55:19.746942758Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.302893131,
+    "load_duration": 0.010745466,
+    "prompt_eval_count": 372,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 462,
+    "eval_duration": 4.254
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"being young, under 25, is a risk factor; being 20-24 is still relatively low\"),\n    (\"gender\", \"low\", \"male gender is a risk factor, but its impact is low\"),\n    (\"race\", \"medium\", \"Hispanic ethnicity can be a moderate risk factor due to socioeconomic factors\"),\n    (\"prior_arrests\", \"medium\", \"1 prior arrest is a medium risk factor; multiple arrests would increase concern\"),\n    (\"conviction\", \"low\", \"no conviction lowers the risk as it suggests less serious or repeated offenses\"),\n    (\"height\", \"low\", \"height has no impact on recidivism risk\"),\n    (\"weight\", \"low\", \"weight has no impact on recidivism risk\"),\n    (\"marital_status\", \"medium\", \"never married can be a moderate risk factor, linked to social instability\"),\n    (\"living_alone\", \"high\", \"not living alone is a high risk factor; family/community support can increase pressure or entanglement in criminal activities\"),\n    (\"education\", \"low\", \"having a high school diploma is low risk; no college enrollment is neutral\"),\n    (\"employment\", \"medium\", \"holding 1 job is a medium risk factor; unemployment or underemployment can increase risk\"),\n    (\"drug_use\", \"low\", \"no drug use in past four years is a low risk factor\"),\n    (\"depression\", \"low\", \"no feelings of depression in the last month is a low risk factor\"),\n    (\"family_structure\", \"medium\", \"growing up in a single-parent household can be a moderate risk factor\"),\n    (\"urban_upbringing\", \"high\", \"urban upbringing can be a high risk factor due to higher crime rates and fewer social controls\"),\n    (\"religious_belief\", \"low\", \"belief in God has no direct impact on recidivism risk\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_205519_748642",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1338,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs 130 lbs. He has never been married and is currently not living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

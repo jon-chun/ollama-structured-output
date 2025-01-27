@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 641,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:49:35.267852495Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.775162898,
+    "load_duration": 0.021506208,
+    "prompt_eval_count": 329,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 437,
+    "eval_duration": 17.665
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Younger individuals generally have a higher risk of recidivism, but the difference between 19 and other adult ages is not as significant.\"),\n    (\"gender\", \"low\", \"Women tend to have lower rates of recidivism compared to men across most demographic groups.\" ),\n    (\"number_of_arrests\", \"medium\", \"A history of arrest indicates prior engagement with criminal justice system, which increases risk. 1 arrest suggests a low number but not zero risk.\"),\n    (\"convicted\", \"high\", \"Conviction represents formal legal judgement against the individual, indicating higher risk compared to just an arrest.\" ),\n    (\"height_and_weight\", \"low\", \"Physical stature alone is not a strong predictor of criminal behavior or recidivism risk.\"),\n    (\"marital_status\", \"medium\", \"Unmarried individuals tend to have slightly elevated rates of recidivism relative to those who are married. Living alone is also a factor.\" ),\n    (\"living_situation\", \"low\", \"Living situation alone does not strongly correlate with criminal behavior, but may be indicative of broader social factors.\"),\n    (\"education_level\", \"low\", \"Having only a GED suggests some educational disadvantage compared to higher education levels, which could be a risk factor. Not enrolled in college is also noteworthy.\" ),\n    (\"employment_history\", \"low\", \"Holding multiple jobs during the year indicates strong work ethic and stability, which generally reduces recidivism risk.\"),\n    (\"drug_use\", \"medium\", \"No drug use in past 4 years is good sign. But some recent depression and feeling down is concerning, especially if she has a history of substance abuse or mental health issues.\" ),\n    (\"family_background\", \"low\", \"Growing up in an urban area with only one parent generally indicates some socioeconomic disadvantage. But specific circumstances would be needed to assess risk fully.\"),\n    (\"religious_affiliation\", \"low\", \"Lacking any religious affiliation does not correlate strongly with criminal behavior, although it may indicate other social factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_214935_269449",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 641,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 8 inches and weighs 120 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

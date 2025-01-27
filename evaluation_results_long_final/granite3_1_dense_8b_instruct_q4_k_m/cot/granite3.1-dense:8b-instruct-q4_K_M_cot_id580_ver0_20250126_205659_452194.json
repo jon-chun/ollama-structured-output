@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 580,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-27T01:56:59.450666193Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.905755715,
+    "load_duration": 0.010253804,
+    "prompt_eval_count": 374,
+    "prompt_eval_duration": 0.035,
+    "eval_count": 417,
+    "eval_duration": 3.856
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"Younger age is a stronger predictor of recidivism, but this individual was arrested at 22, which is relatively old.\"),\n    (\"Gender\", \"low\", \"No evidence suggests that gender alone significantly impacts recidivism risk.\"),\n    (\"Race\", \"low\", \"There's no significant racial disparity in recidivism rates among White individuals.\"),\n    (\"Number of arrests\", \"medium\", \"1 prior arrest is a low number, but it does indicate some level of criminal behavior.\"),\n    (\"Conviction history\", \"medium\", \"Having a conviction suggests an increased likelihood of reoffending.\"),\n    (\"Marital status\", \"low\", \"Not being married doesn't significantly correlate with recidivism risk.\"),\n    (\"Living situation\", \"low\", \"Not living alone isn't associated with higher recidivism rates.\"),\n    (\"Educational attainment\", \"low\", \"A high school diploma and college enrollment generally indicate lower recidivism risk.\"),\n    (\"Employment history\", \"medium\", \"Having 1 job in the past year suggests some level of stability, but a longer employment history would be better.\"),\n    (\"Drug use\", \"low\", \"No drug use in the past four years is a strong protective factor against recidivism.\"),\n    (\"Depression symptoms\", \"low\", \"Not feeling depressed in the past month suggests lower risk of recidivism.\"),\n    (\"Family history\", \"low\", \"Growing up in an urban area and a household of 5 doesn't significantly impact recidivism risk.\"),\n    (\"Religious beliefs\", \"low\", \"Belief that God has no role in personal events isn't associated with higher recidivism rates.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_205659_452194",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 580,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 2 inches and weighs 120 lbs. He has never been married and is currently not living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

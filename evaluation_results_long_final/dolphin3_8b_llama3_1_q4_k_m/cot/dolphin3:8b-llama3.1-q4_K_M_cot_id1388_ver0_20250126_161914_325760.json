@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1388,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:19:14.324187769Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.457583481,
+    "load_duration": 0.022513907,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.097,
+    "eval_count": 302,
+    "eval_duration": 12.336
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"low\", \"The individual is young, but not extremely so.\"),\n    (\"number_of_prior_arrests\", \"high\", \"Seven prior arrests indicate a history of criminal behavior.\"),\n    (\"history_of_substance_abuse\", \"medium\", \"Past year use of marijuana and cocaine, with recent periods of depression suggest ongoing substance issues.\"),\n    (\"unstable_living_conditions\", \"low\", \"Living alone might be stable or unstable depending on individual circumstances not specified here.\"),\n    (\"educational_achievement\", \"high\", \"No high school diploma or GED suggests lower socio-economic status and potential lack of job skills.\"),\n    (\"employment_status\", \"medium\", \"Holding only one job in the year may indicate instability or dissatisfaction with employment.\"),\n    (\"prior_convictions\", \"high\", \"Being convicted suggests a pattern of criminal behavior that may continue.\"),\n    (\"current_mood_and_depression\", \"medium\", \"Feeling so down that nothing cheers her up can lead to further criminal behaviors as an escape from these feelings.\"),\n    (\"support_system\", \"low\", \"Living with only biological mother in the past and currently living alone indicates lack of support system.\"),\n    (\"religious_beliefs_or_spiritual_activity\", \"low\", \"Belief in God does not necessarily translate into positive behavioral outcomes without active engagement.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_161914_325760",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1388,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 7 times and has been convicted. She is 6 feet 0 inches and weighs between 175 and 199 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

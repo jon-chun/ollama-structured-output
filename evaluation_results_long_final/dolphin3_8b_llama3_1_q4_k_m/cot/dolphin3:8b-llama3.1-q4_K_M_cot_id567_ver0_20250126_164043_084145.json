@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 567,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:40:43.082267011Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.105199666,
+    "load_duration": 0.021758827,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 345,
+    "eval_duration": 13.995
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_of_admission\", \"medium\", \"The individual is at a medium risk age for recidivism.\"),\n    (\"number_of_arrests\", \"low\", \"Having only been arrested once puts the individual at a lower risk for recidivism.\"),\n    (\"highest_level_of_education\", \"high\", \"Not having a high school diploma or GED and not being enrolled in college significantly increases the likelihood of future offenses.\"),\n    (\"employment_status\", \"medium\", \"Holding 2 jobs during the year suggests some level of stability, but without a degree, this factor has limited mitigating impact on recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Being married and living with a spouse indicates potential social support which could be a protective factor against recidivism.\"),\n    (\"current_drug_use\", \"low\", \"No drug use in the past four years is a positive indicator reducing the likelihood of future criminal behavior related to substance abuse.\"),\n    (\"mental_health_status\", \"low\", \"Not feeling depressed over the past month indicates good mental health, which may reduce the risk of recidivism due to impulsive behaviors.\"),\n    (\"juvenile_environment\", \"medium\", \"Growing up in a household of 3 in a rural area could have both negative and positive influences on behavior; however, without specific details, this is assessed as medium risk.\"),\n    (\"religious_beliefs\", \"low\", \"Believing that God has something to do with personal events may contribute positively by instilling moral values, thus lowering the risk of criminal activity.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_164043_084145",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 567,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches and weighs 145 lbs. He is married and is currently living with his spouse. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 475,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:34:01.335316048Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.684950318,
+    "load_duration": 0.014438282,
+    "prompt_eval_count": 321,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 385,
+    "eval_duration": 15.582
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but not extremely young to be considered low risk.\"),\n    (\"gender\", \"medium\", \"Female offenders are less likely to recidivate than male offenders, but still present a moderate risk based on historical data.\"),\n    (\"race\", \"low\", \"Being White has historically correlated with lower recidivism rates in criminal justice systems.\"),\n    (\"arrest_history\", \"high\", \"Having two arrests indicates a pattern of offending behavior and increases the likelihood of future involvement with the system.\"),\n    (\"no_conviction\", \"medium\", \"Not being convicted may indicate luck or effective defense, but it doesn't rule out the possibility of reoffending.\"),\n    (\"employment_status\", \"low\", \"Holding 4 jobs in a year suggests some level of stability and potentially less time for criminal activity.\"),\n    (\"marital_status\", \"low\", \"Being married and living with a spouse indicates potential social support that may deter future offenses.\"),\n    (\"education_level\", \"low\", \"Having a high school diploma is generally considered a positive factor against recidivism.\"),\n    (\"drug_use_past_4_years\", \"high\", \"Using drugs, particularly marijuana, can be a predictor of future offending due to its potential for addiction and mental health issues.\"),\n    (\"depression\", \"low\", \"Not feeling depressed in the last month may indicate better mental stability and less likelihood of impulsive behavior.\"),\n    (\"family_structure\", \"medium\", \"Growing up in an urban area with both parents present suggests a stable environment but is not definitive against criminal behavior.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in God or higher power can sometimes reduce the likelihood of offending due to moral constraints and a sense of personal responsibility.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_163401_337159",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 475,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 2 inches and weighs 180 lbs. She is married and is currently living with her spouse. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 3, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

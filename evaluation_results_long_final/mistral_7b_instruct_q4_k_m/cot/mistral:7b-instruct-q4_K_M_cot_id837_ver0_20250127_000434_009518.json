@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 837,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:04:34.008358341Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.042244192,
+    "load_duration": 0.011497225,
+    "prompt_eval_count": 382,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 257,
+    "eval_duration": 2.009
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"He is an 18-year-old male.\"),\n    (\"prior_offense\", \"medium\", \"He has been arrested once and convicted.\"),\n    (\"physical_characteristics\", \"high\", \"Height and weight are relevant risk factors.\"),\n    (\"marital_status\", \"low\", \"He is not married.\"),\n    (\"education\", \"low\", \"He does not have a high school diploma or GED certificate.\"),\n    (\"employment_history\", \"low\", \"He has held only one job in the past year.\"),\n    (\"drug_use\", \"medium\", \"Marijuana use is a relevant risk factor.\"),\n    (\"mood_state\", \"medium\", \"Feeling down in the dumps is a relevant risk factor.\"),\n    (\"early_life_experience\", \"low\", \"Living with his biological mother in a rural area does not appear to be particularly relevant.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250127_000434_009518",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 837,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 3 inches and weighs between 175 and 199 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 5, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

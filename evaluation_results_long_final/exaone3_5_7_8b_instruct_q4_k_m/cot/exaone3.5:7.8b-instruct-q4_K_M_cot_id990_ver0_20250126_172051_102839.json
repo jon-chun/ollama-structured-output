@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 990,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-26T22:20:51.101705161Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.596682432,
+    "load_duration": 0.018184284,
+    "prompt_eval_count": 357,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 321,
+    "eval_duration": 2.557
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Single Arrest History\", \"low\", \"Only one arrest with no conviction indicates minimal recidivism risk at this stage.\"),\n    (\"Age and Gender (18 female)\", \"low\", \"Younger age with no significant criminal history typically correlates with lower recidivism risk.\"),\n    (\"Employment History (2 jobs)\", \"medium\", \"Some employment history suggests stability, though frequency and type of jobs are also important factors not specified here.\"),\n    (\"Education (Enrolled in School)\", \"low\", \"Current enrollment in school generally correlates with lower future criminal behavior.\"),\n    (\"Drug Use (Past Marijuana and Cocaine Use)\", \"medium\", \"Past drug use, particularly involving cocaine, can indicate higher risk, though cessation and context matter.\"),\n    (\"Living Situation (Living Alone)\", \"medium\", \"Living alone can sometimes correlate with higher risk behaviors, but context of support systems is important.\"),\n    (\"Family Background (Lived with Large Household)\", \"low\", \"Growing up in a larger household may not directly correlate strongly with recidivism without additional context on household dynamics.\"),\n    (\"Religious/Spiritual Beliefs (Non-religious)\", \"low\", \"Non-religious beliefs alone do not significantly impact recidivism risk on their own.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_172051_102839",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 990,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 175 and 199 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

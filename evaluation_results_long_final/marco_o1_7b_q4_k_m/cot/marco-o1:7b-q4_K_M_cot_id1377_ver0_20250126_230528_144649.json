@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 78,
+    "id": 1377,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-27T04:05:28.143445591Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.135807388,
+    "load_duration": 0.019374684,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.069,
+    "eval_count": 366,
+    "eval_duration": 14.04
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (21)\", \"low\", \"Young age may indicate less stability but not necessarily high risk.\"),\n    (\"Race (Mixed)\", \"medium\", \"Mixed race can introduce complexities in social dynamics, potentially affecting recidivism rates.\"),\n    (\"Number of Arrests (2)\", \"medium\", \"Multiple arrests suggest ongoing involvement with the criminal justice system.\"),\n    (\"Conviction Status (Yes)\", \"high\", \"Prior convictions are strong indicators of future offending.\"),\n    (\"Height and Weight (5'8\\\" 148 lbs)\", \"low\", \"Physical attributes alone do not significantly impact recidivism risk.\"),\n    (\"Marital Status (Married, Living with Spouse)\", \"medium\", \"Stable living arrangements can positively influence behavior but may also limit social circles that could lead to reoffending.\"),\n    (\"Education Level (No High School Diploma or GED)\", \"high\", \"Lack of education is strongly correlated with higher recidivism rates.\"),\n    (\"Employment Status (1 Job in the Past Year)\", \"low\", \"Employment can provide a positive structure but may also limit access to certain social networks.\"),\n    (\"Substance Use History (Cocaine, Used in Last 4 Years)\", \"high\", \"Drug use is a significant risk factor for recidivism.\"),\n    (\"Mood State ('Down in the dumps' for Past Month)\", \"medium\", \"Emotional struggles can contribute to impulsive behaviors and stress-related offenses.\"),\n    (\"Age at Which Lived with Biological Mother (Young Age, Urban Household of Size 3)\", \"low\", \"Early life factors can influence development but may not directly impact current recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 78\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_230528_144649",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1377,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as mixed race. She has been arrested 2 times and has been convicted. She is 5 feet 8 inches and weighs 148 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (cocaine) and all of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in an urban area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

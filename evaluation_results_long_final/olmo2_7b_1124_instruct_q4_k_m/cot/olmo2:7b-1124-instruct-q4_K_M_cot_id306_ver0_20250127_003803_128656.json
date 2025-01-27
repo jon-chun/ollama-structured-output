@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 306,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:38:03.127462658Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.690018744,
+    "load_duration": 0.013754203,
+    "prompt_eval_count": 316,
+    "prompt_eval_duration": 0.099,
+    "eval_count": 290,
+    "eval_duration": 11.573
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"age\", \"medium\", \"Being young can be associated with a higher risk of recidivism, but having never been convicted and being enrolled in school suggests a lower risk.\"),\n    (\"gender\", \"low\", \"Statistically, gender does not significantly impact recidivism rates.\"),\n    (\"previous_arrests\", \"high\", \"One arrest indicates an increased risk compared to those with no arrests, but no conviction suggests a low level of criminal involvement.\"),\n    (\"current_residence_status\", \"low\", \"Living alone can be a risk factor if it signifies social isolation, but being enrolled in school implies a structured environment which mitigates this risk.\"),\n    (\"employment_history\", \"medium\", \"Having held one job indicates some stability and a potential deterrent to crime for gainful employment.\"),\n    (\"substance_use\", \"high\", \"Past drug use can be a significant risk factor for reoffending, particularly with drugs like cocaine that often correlate with more severe criminal activity.\"),\n    (\"mental_health_status\", \"low\", \"The absence of recent depression is a positive indicator; mental health issues are correlated with higher recidivism rates.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a stable home environment can provide protective factors against criminal behavior. However, the lack of current family support could be a neutralizing factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_003803_128656",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 306,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 127 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

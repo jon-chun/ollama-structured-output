@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:27:15.871592247Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.9045407,
+    "load_duration": 0.033312451,
+    "prompt_eval_count": 318,
+    "prompt_eval_duration": 0.084,
+    "eval_count": 390,
+    "eval_duration": 15.785
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age is generally associated with higher recidivism rates, but this individual is enrolled in school which could mitigate the risk.\"),\n    (\"gender\", \"low\", \"Females typically have lower recidivism rates than males, so this increases the overall risk for an 18-year-old male.\"),\n    (\"race_ethnicity\", \"low\", \"White individuals generally have slightly lower recidivism rates compared to other ethnicities.\"),\n    (\"arrest_history\", \"high\", \"Two prior arrests and a conviction indicate higher risk of future criminal activity.\"),\n    (\"height_weight\", \"low\", \"Physical attributes like height and weight do not appear to be significant predictors for recidivism.\"),\n    (\"marital_status\", \"low\", \"Living alone and never married may or may not influence recidivism, as single individuals can have varying levels of stability and support networks.\"),\n    (\"living_arrangement\", \"low\", \"Currently living alone but enrolled in school which could provide some structure and supervision.\"),\n    (\"employment_status\", \"high\", \"No jobs held during the year indicates lack of stable income or purposeful activity which can increase recidivism risk.\"),\n    (\"drug_use\", \"medium\", \"Past use of marijuana and cocaine increases risk, but extent and current frequency not specified. No other substance abuse mentioned.\"),\n    (\"depression\", \"low\", \"Not feeling depressed in past month lowers the risk compared to individuals struggling with mental health issues.\"),\n    (\"family_background\", \"low\", \"Grew up with both parents in an urban area which could have provided a stable foundation, but we don't know about current relationship with family.\"),\n    (\"religious_beliefs\", \"low\", \"Believing God influences personal events may provide some sense of purpose or morality, potentially lowering risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_212715_872827",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

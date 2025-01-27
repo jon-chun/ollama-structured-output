@@ -226,8 +226,9 @@ class PerformanceTracker:
         prompt_type_str = prompt_type_mapping.get(str(self.prompt_type), str(self.prompt_type))
 
         # Create model's reports directory
-        clean_name = re.sub(r'[^\w\-_]', '_', self.model_name.lower())
-        reports_dir = self.output_base_dir / clean_name / 'reports'
+        clean_name = re.sub(r'[^\w\-_]', '_', self.model_name.lower()) + '_reports'
+        # reports_dir = self.output_base_dir / clean_name / 'reports'
+        reports_dir = self.output_base_dir / clean_name 
         reports_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

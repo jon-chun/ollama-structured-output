@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 345,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:30:58.96634553Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 18.923317187,
+    "load_duration": 0.022041293,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 466,
+    "eval_duration": 18.815
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young which might indicate lower risk.\"),\n    (\"race_ethnicity\", \"medium\", \"Being White does not have a strong correlation with recidivism, but it may affect the perception of risk by law enforcement and judges.\"),\n    (\"gender\", \"low\", \"Male gender has been associated with higher recidivism rates, but this individual is young and relatively unexperienced in the criminal justice system.\"),\n    (\"number_of_arrests\", \"high\", \"One arrest suggests some level of involvement with the criminal justice system which increases risk of further interaction.\"),\n    (\"conviction_status\", \"medium\", \"Conviction indicates a serious legal matter, but no information on the type or severity is provided. This could range from a minor offense to a violent crime.\"),\n    (\"physical_appearance\", \"low\", \"Height and weight do not have a direct correlation with criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Living alone does not necessarily suggest higher risk, as many adults choose this lifestyle for various reasons.\"),\n    (\"education_level\", \"medium\", \"A high school diploma is considered the minimum level of educational achievement. Not being enrolled in college may indicate a lack of further education goals or resources that could impact employment opportunities and stability.\"),\n    (\"employment_history\", \"medium\", \"Holding 4 jobs in one year can suggest instability which might increase risk, but it also shows adaptability and willingness to work.\"),\n    (\"drugs_use\", \"high\", \"Using drugs in the past four years indicates potential for substance-related issues that could contribute to criminal behavior.\"),\n    (\"mental_health\", \"low\", \"Not feeling depressed in the past month suggests a relatively stable mental state.\"),\n    (\"family_environment\", \"medium\", \"Growing up with both biological parents in a rural area can have various impacts on an individual's worldview and choices; however, without specific data on family dynamics or socioeconomic status, this factor is difficult to assess.\"),\n    (\"religious_beliefs\", \"low\", \"Believing that God has control over personal events may suggest a sense of purpose or guidance but does not inherently contribute to criminal risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_163058_967597",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 345,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 128 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

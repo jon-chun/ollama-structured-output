@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 423,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:27:52.444756695Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.904109014,
+    "load_duration": 0.013623418,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.101,
+    "eval_count": 527,
+    "eval_duration": 20.785
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults may have higher recidivism rates due to less life experience and maturity, but the individual's age is within a range where this factor typically doesn't significantly increase risk. Moderate weight.\"),\n    (\"prior_arrests\", \"medium\", \"Two prior arrests suggest a history of offending, which can be a risk factor. However, the lack of recent arrests before this assessment period indicates a potential reduction in risk.\"),\n    (\"convictions\", \"high\", \"Having been convicted indicates a more serious criminal history and higher propensity for reoffending.\"),\n    (\"demographics\", \"low\", \"Being white and male generally does not significantly impact recidivism risk, though societal and systemic factors may play a role.\"),\n    (\"living arrangements\", \"medium\", \"Living alone might increase the likelihood of isolation and lack of support, which can influence recidivism positively if not balanced by other mitigating factors.\"),\n    (\"education\", \"high\", \"Lack of a high school diploma or GED correlates with lower socioeconomic status and potentially higher risk for reoffending.\"),\n    (\"employment\", \"low\", \"Holding jobs suggests some level of stability and engagement with the workforce, which can reduce the risk of recidivism.\"),\n    (\"substance use\", \"medium\", \"Drug use, especially substances like cocaine, can increase impulsivity and opportunities for criminal behavior. The recent use indicates a potential ongoing issue.\"),\n    (\"mental health\", \"medium\", \"Feeling depressed and hopeless can be indicative of underlying mental health issues that may affect impulse control and decision-making.\"),\n    (\"family environment\", \"low\", \"Growing up in a household with 4 people suggests a potentially stable family environment, which could mitigate risk factors. However, the absence of a parental figure could also be a negative influence depending on the dynamics.\"),\n    (\"religious beliefs\", \"low\", \"The individual's belief in a higher power may provide personal moral guidance and reduce the likelihood of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object indicates a moderate to high risk for 3-year rearrest recidivism based on the provided risk factors. The reasoning behind each scoring is detailed in the \"textual reasoning\" field for each factor. The prediction is \"YES,\" reflecting a cautious judgment given the individual's criminal history, substance use, and lack of education, alongside other indicators suggesting a potential for reoffending. The assigned confidence level is 75% to reflect this assessment's reliability.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_002752_446109",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 423,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 5 inches and weighs 155 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological father in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

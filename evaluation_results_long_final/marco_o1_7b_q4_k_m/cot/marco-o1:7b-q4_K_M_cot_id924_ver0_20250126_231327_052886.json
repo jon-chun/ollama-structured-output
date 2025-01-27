@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 924,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "marco-o1:7b-q4_K_M",
+    "created_at": "2025-01-27T04:13:27.051294144Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.624994273,
+    "load_duration": 0.02552914,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.066,
+    "eval_count": 272,
+    "eval_duration": 10.527
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"Young age may indicate less developed decision-making capabilities.\"),\n    (\"Number of prior arrests\", \"high\", \"Multiple arrests suggest higher likelihood of reoffending.\"),\n    (\"Conviction history\", \"high\", \"Previous convictions increase the risk of future criminal behavior.\"),\n    (\"Educational attainment\", \"medium\", \"Lack of formal education can limit opportunities, potentially leading to crime.\"),\n    (\"Employment status\", \"low\", \"Holding two jobs during the year indicates some level of engagement and responsibility.\"),\n    (\"Marital status and living situation\", \"low\", \"Not married and living alone does not inherently indicate increased risk.\"),\n    (\"Drug use history\", \"high\", \"Past four years of drug use, including marijuana and cocaine, is a significant risk factor.\"),\n    (\"Depression symptoms\", \"low\", \"No recent feelings of depression reduce the risk associated with mental health issues.\"),\n    (\"Upbringing in rural household\", \"medium\", \"Rural environments may offer limited resources and support systems.\"),\n    (\"Religious/spiritual beliefs\", \"low\", \"Doesn't believe God has anything to do with personal happenings, which doesn't directly influence criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_231327_052886",
+    "model": "marco-o1:7b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 924,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted. He is 5 feet 8 inches and weighs 160 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

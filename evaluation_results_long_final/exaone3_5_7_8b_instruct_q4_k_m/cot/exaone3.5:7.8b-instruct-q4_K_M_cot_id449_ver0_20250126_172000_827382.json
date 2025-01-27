@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 449,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-26T22:20:00.825599497Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.141983515,
+    "load_duration": 0.013772945,
+    "prompt_eval_count": 360,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 388,
+    "eval_duration": 3.107
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Single Arrest (Unconvicted)\", \"MEDIUM\", \"One arrest without conviction suggests some involvement with the legal system but insufficient evidence for strong recidivism indication.\"),\n    (\"Age (20)\", \"LOW\", \"Young age can sometimes correlate with higher risk, but potential for rehabilitation and change is also high.\"),\n    (\"White Ethnicity\", \"LOW\", \"Ethnicity alone is not a strong predictor of recidivism.\"),\n    (\"Height/Weight (6'2\", \"MEDIUM\", \"Physical attributes alone rarely significantly impact recidivism risk without additional context.\"),\n    (\"GED Only (No College)\", \"MEDIUM\", \"Education level can influence future opportunities but does not directly indicate recidivism risk.\"),\n    (\"Past Substance Use (Marijuana/Cocaine)\", \"MEDIUM\", \"History of drug use, particularly cocaine, suggests potential for continued involvement which can impact recidivism.\"),\n    (\"Current Employment Status (2 Jobs Recently)\", \"LOW\", \"Recent employment indicates some stability, which may be protective against recidivism.\"),\n    (\"Never Married, Not Living Alone\", \"MEDIUM\", \"Relationship status and living situation can reflect social support networks; lack thereof might slightly elevate risk.\"),\n    (\"Urban Upbringing in Large Household\", \"MEDIUM\", \"Growing up in an urban environment with multiple siblings might indicate exposure to certain social risks, but too broad a generalization.\"),\n    (\"Religious Belief (Lack of Influence)\", \"LOW\", \"Lack of religious belief doesn't directly correlate with higher recidivism risk based on empirical evidence.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_172000_827382",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 449,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 2 inches and weighs 170 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 852,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:04:31.8600088Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.994892064,
+    "load_duration": 0.008270694,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 387,
+    "eval_duration": 2.969
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\", \"high\", \"The person is a Black female, which has been found to be associated with an increased risk of recidivism in some studies.\"},\n    {\"factor2\", \"medium\", \"The person has only been arrested once and convicted, which suggests they may have lower recidivism risk compared to repeat offenders.\"},\n    {\"factor3\", \"low\", \"The person is 5 feet 2 inches tall and weighs 172 lbs, which does not appear to be strongly related to recidivism.\"},\n    {\"factor4\", \"medium\", \"The person has never been married and lives alone, which may indicate a lack of social support that could increase recidivism risk.\"},\n    {\"factor5\", \"low\", \"The person has a high school diploma and is enrolled in a 2-year college, which suggests they have some educational attainment that could lower recidivism risk.\"},\n    {\"factor6\", \"medium\", \"The person has held three jobs in the past year, which may indicate transience or instability in their employment that could increase recidivism risk.\"},\n    {\"factor7\", \"low\", \"The person has used marijuana in the past four years but does not report feeling depressed over the past month, which suggests they do not have a significant mental health problem that could increase recidivism risk.\"},\n    {\"factor8\", \"medium\", \"The person lived with their biological mother in a household of size 3 at a young age, which may suggest a lack of positive family relationships that could increase recidivism risk.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_000431_861307",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 852,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 2 inches and weighs 172 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in a rural area.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

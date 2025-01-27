@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 119,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-01-26T22:18:47.840823762Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.352550403,
+    "load_duration": 0.018133251,
+    "prompt_eval_count": 366,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 290,
+    "eval_duration": 2.31
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrest\", \"MEDIUM\", \"One arrest without conviction suggests potential behavioral issues but insufficient data for high risk.\"),\n    (\"Education Level\", \"LOW\", \"High school diploma and college enrollment indicate educational engagement which generally correlates with lower recidivism.\"),\n    (\"Employment History\", \"LOW\", \"Having held one job indicates some level of stability, though frequency and consistency could be better assessed.\"),\n    (\"Substance Use\", \"MEDIUM\", \"Past use of marijuana and cocaine indicates substance abuse history, which is a moderate risk factor.\"),\n    (\"Mental Health\", \"LOW\", \"No current depression suggests psychological stability, though past substance use may indicate vulnerabilities.\"),\n    (\"Family Background\", \"LOW\", \"Growing up in a family size of four in an urban area doesn't inherently suggest high risk without additional contextual factors.\"),\n    (\"Living Situation\", \"MEDIUM\", \"Living alone at age 20 could indicate independence but also potential instability or lifestyle choices impacting risk.\"),\n    (\"Religious Belief\", \"LOW\", \"Belief in God's influence may provide psychological support but lacks direct correlation with recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_171847_842215",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 119,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 11 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

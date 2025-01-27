@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1407,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:47:01.234430393Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.998081848,
+    "load_duration": 0.028144936,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 266,
+    "eval_duration": 10.882
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Youthful age is generally associated with lower criminal recidivism risk.\"),\n    (\"gender\", \"low\", \"Females tend to have lower rates of recidivism compared to males across various studies.\"),\n    (\"race\", \"medium\", \"Black individuals may face systemic barriers and bias, which could influence criminal behavior and interactions with the legal system.\"),\n    (\"arrests\", \"high\", \"Multiple prior arrests indicate a higher likelihood for continued involvement in criminal activity.\"),\n    (\"unemployed\", \"low\", \"Having held 1 job suggests some level of stability, which can reduce recidivism risk compared to those without employment.\"),\n    (\"drug_use\", \"low\", \"No drug use in the past 4 years and only occasional use recently indicates lower potential for criminal behavior associated with substance abuse.\"),\n    (\"depression\", \"medium\", \"Occasional feelings of despair could potentially be linked to higher likelihood of antisocial behavior, but this is not a strong indicator on its own.\"),\n    (\"family_size\", \"low\", \"Growing up in a large family does not have a clear link to recidivism risk and may even indicate greater support systems.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_214701_235733",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1407,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 3 times but has not been convicted. She is 5 feet 4 inches and weighs 105 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 10, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

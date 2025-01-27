@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 548,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "deepseek-r1:7b",
+    "created_at": "2025-01-26T20:30:53.76437099Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.163737729,
+    "load_duration": 0.028359137,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 390,
+    "eval_duration": 3.112
+  },
+  "response": {
+    "raw_message_text": "<think>\nAlright, let me try to figure out the risk assessment for this 18-year-old female. She's white, hasn't been convicted yet, but has one arrest. Her height is 5'4\" and she weighs 130 lbs\u2014she might be at a higher risk due to her weight if substance use is involved.\n\nShe's living alone without a spouse, which could mean she relies on herself more for support. She's in school now, so maybe she has some stability from education. However, she's had three jobs in the past year, but that doesn't immediately signal high risk unless there were issues with those jobs.\n\nHer substance use history is a red flag\u2014marijuana and cocaine use over four years could indicate ongoing issues. Her recent feelings of low mood might be a sign of deeper mental health concerns, which can affect her ability to reintegrate into society positively.\n\nGrowing up in a household of four under God's influence adds some complexity. She might have experienced family dynamics that could contribute to her behavior or mental state. \n\nConsidering all these factors\u2014past substance use, emotional state, living alone without support\u2014the risk of rearrest seems high.\n</think>\n\n```json\n{\n  \"risk_factors\": [\n    (\"past substance use (marijuana and cocaine)\", \"high\", \"She has a history of substance use over four years, which can indicate ongoing behavioral issues that may contribute to recidivism.\"),\n    (\"recent emotional low mood\", \"medium\", \"Her recent feelings of low mood could signal mental health issues or stressors that might affect her ability to reintegrate positively after release.\"),\n    (\"living alone\", \"low\", \"Living alone without a support network can sometimes reduce risk, but combined with other factors like substance use and unstable living conditions from the past, it increases risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_153053_766096",
+    "model": "deepseek-r1:7b",
+    "prompt_type": "PromptType.COT",
+    "row_id": 548,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 130 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological dad in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

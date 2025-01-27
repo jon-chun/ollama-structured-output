@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 574,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:19:51.185571487Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.938918576,
+    "load_duration": 0.022150927,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 341,
+    "eval_duration": 13.829
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Younger age tends to correlate with higher recidivism rates, but 21 years old is relatively low risk.\"),\n    (\"gender\", \"low\", \"Females typically have lower rearrest rates compared to males.\"),\n    (\"arrests\", \"medium\", \"Single arrest suggests a lower risk of reoffending, but history is limited.\"),\n    (\"convictions\", \"low\", \"No convictions indicate lower risk of recidivism.\"),\n    (\"height_and_weight\", \"low\", \"Physical stature does not correlate with criminal behavior.\"),\n    (\"marital_status\", \"low\", \"Being unmarried alone does not predict future criminal activity.\"),\n    (\"living_arrangements\", \"low\", \"Living alone is neutral in terms of predicting future crime.\"),\n    (\"education_level\", \"low\", \"Having a high school diploma and enrolled in college suggests lower risk of recidivism.\"),\n    (\"employment_history\", \"medium\", \"No jobs held in the past year could be a negative indicator, but more information needed.\"),\n    (\"drug_use\", \"high\", \"Past use of marijuana and cocaine increases the likelihood of rearrest due to substance abuse issues.\"),\n    (\"depression\", \"low\", \"Not feeling depressed in the past month suggests lower risk of criminal activity.\"),\n    (\"family_background\", \"medium\", \"Living with a single parent in an urban area could be a neutral factor, but requires more context for accurate assessment.\"),\n    (\"religious_beliefs\", \"low\", \"Personal beliefs about God's involvement does not correlate with future crime.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_211951_187157",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 574,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 4-year college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

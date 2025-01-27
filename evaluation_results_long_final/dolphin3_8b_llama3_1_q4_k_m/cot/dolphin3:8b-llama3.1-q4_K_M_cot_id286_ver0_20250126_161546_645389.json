@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 286,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:15:46.643650698Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.474554113,
+    "load_duration": 0.028563106,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.087,
+    "eval_count": 379,
+    "eval_duration": 15.357
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"medium\", \"The individual's age at first arrest, 22, is considered a medium risk factor as it suggests the person has not yet accumulated significant experience with the criminal justice system.\"),\n    (\"prior_arrests\", \"low\", \"Despite being arrested once, this individual does not have multiple prior arrests, which lowers their overall risk profile.\"),\n    (\"marital_status\", \"low\", \"Being single and living alone may indicate a lower level of responsibility and support structures that could contribute to potential recidivism.\"),\n    (\"education_level\", \"medium\", \"Having a high school diploma and being enrolled in a 4-year college suggests some academic achievement, which is a medium risk factor as it shows potential for stability but also the possibility of future stressors related to education.\"),\n    (\"employment_status\", \"low\", \"Holding two jobs indicates a certain level of job commitment or financial necessity that could be stabilizing, thus lowering their risk.\"),\n    (\"drugs_used_in_the_past_four_years\", \"high\", \"Usage of both marijuana and cocaine within the past four years significantly increases the risk due to associated criminal behavior and health risks.\"),\n    (\"feels_depressed\", \"low\", \"Not feeling depressed over the past month suggests a better mental well-being, which is a positive indicator.\"),\n    (\"youth_environment\", \"medium\", \"Living with adults other than biological parents in an urban area, especially at a young age, may have exposed him to various environments and situations that could influence criminal behavior positively or negatively.\"),\n    (\"religion_importance\", \"low\", \"The belief that God has something to do with what happens to them personally might suggest a lower risk of recidivism due to potential moral constraints.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_161546_645389",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 286,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches and weighs 180 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

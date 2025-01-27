@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1353,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-01-27T05:39:10.396601992Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.093866285,
+    "load_duration": 0.013470784,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.101,
+    "eval_count": 301,
+    "eval_duration": 11.976
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"age\", \"medium\", \"Younger adults are often at higher risk for recidivism due to less life experience, but this individual is at the cusp where risk may start to decrease.\"),\n    (\"race\", \"low\", \"Studies show racial disparities in the criminal justice system, but without additional context on social-economic factors, this factor holds low weight.\"),\n    (\"arrests\", \"medium\", \"Multiple arrests, especially without convictions, can indicate a higher propensity for reoffending.\"),\n    (\"education_level\", \"low\", \"Lower levels of education are associated with higher recidivism rates. However, holding a GED indicates some educational attainment.\"),\n    (\"living_situations\", \"low\", \"Not living alone could be a factor if it indicates a lack of personal responsibility or support. However, without more context, this remains low risk.\"),\n    (\"past_drug_use\", \"medium\", \"Drug use can correlate with higher risk for recidivism, but past use alone is less predictive than current use.\"),\n    (\"past_mood_state\", \"low\", \"Feeling down does not directly link to criminal behavior unless it leads to substance abuse or other mental health issues.\"),\n    (\"early_life_environment\", \"medium\", \"Early adverse environments can influence future behavior. Living in a household of three and in a rural area may suggest stable family structure, reducing risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250127_003910_398260",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1353,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 3 times but has not been convicted. He is 5 feet 9 inches and weighs 170 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

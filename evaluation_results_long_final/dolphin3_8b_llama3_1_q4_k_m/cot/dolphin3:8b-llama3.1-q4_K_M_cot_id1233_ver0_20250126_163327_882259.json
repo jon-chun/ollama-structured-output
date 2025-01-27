@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 62,
+    "id": 1233,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:33:27.880989942Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.22558467,
+    "load_duration": 0.021993277,
+    "prompt_eval_count": 337,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 373,
+    "eval_duration": 15.116
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young, which may contribute to lower maturity and impulse control.\"),\n    (\"prior_arrests\", \"medium\", \"One arrest suggests some level of involvement with the criminal justice system but not a pattern indicative of high risk.\"),\n    (\"no_highest_education\", \"high\", \"Lack of higher education can limit employment opportunities and increase susceptibility to reoffending.\"),\n    (\"unemployment\", \"low\", \"Having held one job during the year indicates some capability for stable employment, reducing future risk.\"),\n    (\"no_drug_use\", \"low\", \"Absence of drug use in the past four years suggests a reduced likelihood of substance-related criminal behavior.\"),\n    (\"depression\", \"medium\", \"Reports of feeling down that nothing could cheer her up may indicate potential mental health issues impacting decision-making and impulse control.\"),\n    (\"living_arrangement\", \"medium\", \"Not living alone might provide some stability, but the lack of familial support or a couple's presence may be concerning.\"),\n    (\"religion\", \"low\", \"Religious beliefs can contribute positively to an individual's moral compass; however, this alone does not lower risk.\"),\n    (\"black_identity\", \"medium\", \"Being Black may increase exposure to certain socioeconomic conditions and police interactions but is not conclusive of future criminal behavior.\"),\n    {\n      \"factor\": \"recidivism\",\n      \"weight\": \"NO\",\n      \"textual_reasoning\": \"Combining all factors, she shows a complex set of conditions with both potential risk factors and mitigating circumstances. The lack of a consistent pattern of offending and the presence of some stabilizing factors such as stable employment suggest a lower risk for recidivism.\"\n    }\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 62\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_163327_882259",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1233,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 190 lbs. She has never been married and is currently not living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

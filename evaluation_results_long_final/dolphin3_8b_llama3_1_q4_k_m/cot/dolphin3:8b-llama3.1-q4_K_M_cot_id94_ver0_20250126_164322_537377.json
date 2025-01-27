@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 94,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:43:22.535623351Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.21527172,
+    "load_duration": 0.022000885,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 272,
+    "eval_duration": 11.106
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"young_age\", \"high\", \"The client was raised in a household of size 3, with potential lack of parental guidance and support.\"),\n    (\"arrested_once\", \"medium\", \"Single prior arrest may indicate some risk, but only one incident.\"),\n    (\"convicted\", \"high\", \"Conviction implies more severe offense and higher likelihood of repeat behavior.\"),\n    (\"unemployed\", \"low\", \"Not holding a job does not significantly affect recidivism without other factors.\"),\n    (\"GED_no_college\", \"medium\", \"Limited education may suggest lack of skills for stable employment, contributing to risk.\"),\n    (\"no_job\", \"low\", \"No job held in the year does not strongly correlate with recidivism without additional context.\"),\n    (\"past_drug_use\", \"high\", \"Past drug use is a strong indicator of potential future criminal behavior.\"),\n    (\"marijuana_in_past_month\", \"medium\", \"Recent marijuana usage suggests ongoing substance issues, impacting decision-making and compliance with legal obligations.\"),\n    (\"depression\", \"medium\", \"Feeling so down in the dumps that nothing could cheer him up indicates mental health concerns that can contribute to criminal activity and poor decisions.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_164322_537377",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 94,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 178 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

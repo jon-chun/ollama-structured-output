@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1096,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-26T21:13:34.722126526Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.143877264,
+    "load_duration": 0.021872586,
+    "prompt_eval_count": 313,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 270,
+    "eval_duration": 11.035
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"arrested_before\", \"medium\", \"The individual has a history of arrest indicating potential for repeat offenses.\"),\n    (\"not_enrolled_in_college\", \"low\", \"Individual's decision not to further their education does not strongly indicate risk beyond lack of support for desistance from crime.\"),\n    (\"unemployed\", \"low\", \"Current employment suggests some stability and less likelihood to engage in criminal behavior for financial reasons.\"),\n    (\"no_drug_use_past_4_years\", \"low\", \"Long-term absence from drug use significantly reduces the risk of future offenses related to substance abuse.\"),\n    (\"not_depressed\", \"low\", \"The absence of reported depression implies a more stable mental state, reducing the likelihood of impulsive behavior leading to recidivism.\"),\n    (\"never_married\", \"medium\", \"Single status may increase vulnerability and lack of support system but does not directly correlate with criminal behavior.\"),\n    (\"lived_with_parents\", \"low\", \"A stable childhood environment suggests potential resilience and lower risk for future antisocial behaviors.\"),\n    (\"belief_in_god\", \"medium\", \"Religious or spiritual beliefs can influence moral compass, potentially decreasing likelihood of re-offense, but this effect is variable.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250126_161334_723826",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1096,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 1 inch. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 6, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

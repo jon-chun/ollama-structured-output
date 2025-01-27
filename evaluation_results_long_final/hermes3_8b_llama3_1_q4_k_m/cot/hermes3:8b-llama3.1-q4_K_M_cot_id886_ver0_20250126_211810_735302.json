@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 886,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-27T02:18:10.733726827Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.674700327,
+    "load_duration": 0.029063117,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.077,
+    "eval_count": 335,
+    "eval_duration": 13.566
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age is a risk factor for recidivism, but not necessarily high risk at 21.\"),\n    (\"male\", \"low\", \"Being male is a common demographic, not particularly high risk on its own.\"),\n    (\"Black race\", \"high\", \"Higher arrest rates and recidivism rates among Black individuals compared to other races.\"),\n    (\"1 prior arrest\", \"medium\", \"A single arrest is a risk factor, but more weight should be given to conviction history.\"),\n    (\"height\", \"low\", \"Height is not a significant risk factor for criminal behavior.\"),\n    (\"single status\", \"low\", \"Single or married status does not seem to have a strong correlation with recidivism.\"),\n    (\"no high school diploma or GED, not enrolled in college\", \"high\", \"Lack of education is associated with higher rates of criminal behavior.\"),\n    (\"1 job held during the year\", \"medium\", \"Limited employment history may be a risk factor for recidivism.\"),\n    (\"past marijuana use\", \"low\", \"Marijuana use is less likely to be directly linked to increased rearrest risk than harder drugs.\"),\n    (\"not depressed in past month\", \"low\", \"Mental health issues can contribute to criminal behavior, but this is not an indication of such issues.\"),\n    (\"lived with biological mother in rural area at young age\", \"low\", \"Family background and living environment may be risk factors, but more information would be needed to assess the weight of this factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250126_211810_735302",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 886,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
