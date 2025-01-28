@@ -95,7 +95,7 @@ def plot_f1_by_model_prompt(df):
     create_plot_base(figsize=(15, 6))
     plot_data.plot(kind='bar', width=0.8, color=COLORS)
     
-    plt.title('F1 Scores by Model and Prompt Type (Top 10 and Bottom 10)')
+    plt.title('F1 Scores by Model and Prompt Type (StandardLLM)')
     plt.xlabel('Model')
     plt.ylabel('F1 Score')
     plt.legend(title='Prompt Type', bbox_to_anchor=(0, 0), loc='lower left', fontsize=7.5)
@@ -125,7 +125,7 @@ def plot_accuracy_by_model_prompt(df):
     create_plot_base(figsize=(15, 6))
     plot_data.plot(kind='bar', width=0.8, color=COLORS)
     
-    plt.title('Accuracy by Model and Prompt Type (Top 10 and Bottom 10)')
+    plt.title('Accuracy by Model and Prompt Type (StandardLLM)')
     plt.xlabel('Model')
     plt.ylabel('Accuracy')
     plt.legend(title='Prompt Type', bbox_to_anchor=(0, 0), loc='lower left', fontsize=7.5)
@@ -164,7 +164,7 @@ def plot_top_bottom_f1_scores(df):
     plt.text(14.5, max_height * 0.9, 'BOTTOM 10',
              ha='center', va='center', fontsize=32, fontweight='bold', alpha=0.5)
     
-    plt.title('Top 10 and Bottom 10 F1 Scores by Model + Prompt Type')
+    plt.title('Top 10 and Bottom 10 F1 Scores (StandardLLM)')
     plt.xlabel('Model + Prompt Type')
     plt.ylabel('F1 Score')
     plt.xticks(range(len(plot_data)), plot_data['model_prompt'], rotation=45, ha='right')
@@ -253,7 +253,7 @@ def plot_metric_vs_variable(df, x_var, x_label, output_filename):
             print(f"Error adding label for point: {row['model_name_clean']}")
             print(f"Error details: {e}")
     
-    plt.title(f'F1 Score vs {x_label} (All Models)', fontsize=16)
+    plt.title(f'F1 Score vs {x_label} (StandardLLM)', fontsize=16)
     plt.xlabel(x_label, fontsize=14)
     plt.ylabel('F1 Score', fontsize=14)
     plt.grid(True, alpha=0.3)
