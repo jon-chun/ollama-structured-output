@@ -25,8 +25,7 @@ from datetime import datetime
 # Ensemble definitions
 # --------------------------------------------------------------------------
 MODEL_SUBSET_LS = [
-    'athene-v2:72b-q4_K_M',
-    'aya-expanse:8b-q4_K_M',
+    'deepseek-r1:7b-q4_K_M',
 ]
 
 MODEL_ALL_LS = [

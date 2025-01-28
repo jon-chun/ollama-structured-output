@@ -21,7 +21,7 @@ ROOT_DIR = os.path.abspath(EVALUATION_RESULTS_DIR)
 OUTPUT_DIR = os.path.join('aggregate_reports', os.path.basename(EVALUATION_RESULTS_DIR))
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-OUTPUT_FILENAME = "aggregate_model_reports.csv"
+OUTPUT_FILENAME = "aggregate_model_reports_last.csv"
 
 
 # --------------------------------------------------------------------
