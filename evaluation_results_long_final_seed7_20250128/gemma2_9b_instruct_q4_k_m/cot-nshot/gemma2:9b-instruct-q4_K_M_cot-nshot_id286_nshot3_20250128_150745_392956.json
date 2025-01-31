@@ -1,0 +1,38 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 286,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-28T20:07:45.391110829Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.040553995,
+    "load_duration": 0.03940311,
+    "prompt_eval_count": 883,
+    "prompt_eval_duration": 0.054,
+    "eval_count": 642,
+    "eval_duration": 7.942
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"22 is slightly older than the average age of those with higher recidivism in the examples, but not significantly so.\"),\n    (\"Race\", \"low\", \"White individuals did not show a strong correlation to recidivism in the examples.\"),\n    (\"Prior Arrests/Convictions\", \"low\", \"Only one prior arrest and no convictions suggests a lower risk compared to those with multiple arrests or convictions.\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight are not typically strong predictors of recidivism.\"),\n    (\"Marital Status\", \"medium\", \"Never married might be associated with higher risk, but the examples were mixed.\"),\n    (\"Education\", \"low\", \"High school diploma and college enrollment are generally protective factors against recidivism.\"),\n    (\"Employment\", \"medium\", \"Two jobs in a year is less than Example #1, but more than Example #2.  Could indicate some instability.\"),\n    (\"Drug Use\", \"high\", \"Use of both marijuana and cocaine is a concerning factor, suggesting potential for relapse and involvement in criminal activity.\"),\n    (\"Mental Health\", \"low\", \"No reported depression is positive.\"),\n    (\"Upbringing Environment\", \"medium\", \"Living with adults other than biological family could indicate some instability or lack of support.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in a higher power's influence is not strongly correlated to recidivism in the examples.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n``` \n\n\n**Explanation of Weighting:**\n\n* **High Weight:** Factors like drug use (marijuana and cocaine) are considered high risk because they significantly increase the likelihood of re-offending. \n* **Medium Weight:** Factors like age, marital status, employment history, and upbringing environment carry some weight as they can indicate potential risk factors but are not as strong as drug use.\n* **Low Weight:**  Physical characteristics (height/weight), race (in this limited data set), and religious beliefs were given low weight as they did not show a clear connection to recidivism in the examples provided.\n\n**Prediction and Confidence:**\n\nWhile the individual's background shows some risk factors, particularly drug use, other factors like education, employment, and lack of mental health issues point towards a lower risk of re-offending.  Therefore, the prediction is \"NO\" with a confidence level of 65%. The confidence level reflects the uncertainty inherent in any risk assessment, especially with limited data.\n\n\n\n**Important Notes:**\n\n* **Context Matters:** This analysis is based solely on the provided information and examples. Real-world risk assessments consider a much broader range of factors and individual circumstances.\n* **Ethical Considerations:** Risk assessment tools should be used responsibly and ethically. They should not be used to make discriminatory or prejudicial decisions. \n* **Not a Guarantee:**  Risk assessments are probabilistic, not deterministic. They can provide valuable insights but cannot definitively predict future behavior.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250128_150745_392956",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT_NSHOT",
+    "row_id": 286,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0,
+    "nshot_ct": 3
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:\n\nExample #1:\nRisk Factors: The person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\nOutcome: NO\n\nExample #2:\nRisk Factors: The person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\nOutcome: NO\n\nExample #3:\nRisk Factors: The person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in a rural area. He considers that God has nothing to do with what happens to him personally.\nOutcome: YES\n\n\nNext, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches and weighs 180 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nBased on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.\nRespond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

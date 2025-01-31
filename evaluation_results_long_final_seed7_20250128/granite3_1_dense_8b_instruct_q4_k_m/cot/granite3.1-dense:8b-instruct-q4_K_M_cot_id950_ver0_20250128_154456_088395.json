@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 950,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T20:44:56.086982676Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.651961102,
+    "load_duration": 0.011693872,
+    "prompt_eval_count": 384,
+    "prompt_eval_duration": 0.209,
+    "eval_count": 296,
+    "eval_duration": 13.426
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"At 18, she is still young and has the potential for personal growth and development.\"),\n    (\"Gender\", \"low\", \"Generally, females have lower recidivism rates than males.\"),\n    (\"Ethnicity\", \"low\", \"As a White female, there's no particular ethnic risk factor here.\"),\n    (\"Previous Arrests\", \"medium\", \"1 arrest but no conviction is a medium-level risk factor.\"),\n    (\"School Enrollment\", \"low\", \"Being enrolled in school can indicate a lower likelihood of recidivism.\"),\n    (\"Employment History\", \"low\", \"Having held 1 job this year suggests some stability and employability.\"),\n    (\"Drug Use\", \"medium\", \"Past marijuana use is a medium risk factor for recidivism.\"),\n    (\"Mental Health\", \"high\", \"Feeling persistently down could indicate underlying mental health issues, which can be a high-level risk factor.\"),\n    (\"Family Background\", \"low\", \"Living with her biological mother in a small family doesn't suggest major family dysfunction.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God doesn't correlate with higher recidivism rates.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250128_154456_088395",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 950,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 156 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1182,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-30T23:13:58.76606043Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.414895487,
+    "load_duration": 0.022938891,
+    "prompt_eval_count": 318,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 279,
+    "eval_duration": 2.376
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The individual is at a medium risk age for recidivism.\"),\n    (\"race_ethnicity\", \"low\", \"Being Black does not significantly increase the risk of recidivism in this context.\"),\n    (\"arrest_history\", \"high\", \"Seven arrests indicate a high likelihood of prior criminal behavior.\"),\n    (\"employment_status\", \"medium\", \"Holding 2 jobs suggests some stability, but not enough to offset past behavior.\"),\n    (\"education_level\", \"low\", \"Having a high school diploma does not significantly impact recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Living alone and never married do not contribute additional risk factors.\"),\n    (\"drug_use\", \"high\", \"Past marijuana use within four years is a significant risk factor for future criminal behavior.\"),\n    (\"mental_health\", \"low\", \"No reported depression in the past month reduces the likelihood of impulsive behavior leading to recidivism.\"),\n    (\"family_environment\", \"medium\", \"Living with a large family in an urban area may have contributed to current circumstances, but does not significantly increase risk.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in God's influence does not contribute to criminal behavior risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250130_181358_767749",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1182,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 7 times and has been convicted. He is 5 feet 7 inches and weighs 142 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

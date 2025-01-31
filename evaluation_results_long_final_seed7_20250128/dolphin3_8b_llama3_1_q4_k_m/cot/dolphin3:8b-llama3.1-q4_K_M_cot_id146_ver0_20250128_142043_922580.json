@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 146,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T19:20:43.920947298Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.628818277,
+    "load_duration": 0.026626127,
+    "prompt_eval_count": 311,
+    "prompt_eval_duration": 0.085,
+    "eval_count": 328,
+    "eval_duration": 13.515
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"The individual is within the typical age range for high-risk behavior.\"),\n    (\"Gender\", \"low\", \"Female, generally lower risk compared to males in criminal activity.\"),\n    (\"Race/Ethnicity\", \"low\", \"White, typically lower recidivism rates than other races/ethnicities.\"),\n    (\"Prior Arrests\", \"medium\", \"Two arrests suggest some engagement with the justice system.\"),\n    (\"Prior Convictions\", \"high\", \"Having been convicted indicates a higher likelihood of reoffense.\"),\n    (\"Marital Status\", \"low\", \"Living alone does not significantly impact recidivism rates.\"),\n    (\"Employment History\", \"low\", \"Holding multiple jobs in one year shows stability and potential for future employment.\"),\n    (\"Education Level\", \"low\", \"Having a high school diploma is generally considered sufficient education level without increasing risk.\"),\n    (\"Drug Use\", \"high\", \"Past use of marijuana and cocaine within the last four years significantly increases the likelihood of reoffense.\"),\n    (\"Mood/Stability\", \"low\", \"Not feeling depressed in the past month suggests better emotional stability.\"),\n    (\"Family Size, Age Lived\", \"low\", \"Living in a household size of 3 at a young age does not significantly impact risk factors.\"),\n    (\"Belief System\", \"medium\", \"A belief that God has control over personal life might affect decision-making but does not directly contribute to risk assessment without additional context.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_142043_922580",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 146,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

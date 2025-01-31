@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 608,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-31T14:18:26.181342728Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.00587864,
+    "load_duration": 0.043247158,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 282,
+    "eval_duration": 5.941
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The defendant is young, which generally indicates a lower risk of recidivism.\"),\n    (\"Gender\", \"low\", \"Being female does not significantly impact recidivism rates.\"),\n    (\"Number of Arrests/Convictions\", \"medium\", \"Three arrests and convictions suggest a history of criminal behavior, but the frequency is not extremely high.\"),\n    (\"Employment Status\", \"medium\", \"Holding multiple jobs indicates some stability, but lack of formal education could lead to future challenges.\"),\n    (\"Education Level\", \"high\", \"Absence of a high school diploma or GED increases the likelihood of limited job prospects and potential involvement in criminal activities.\"),\n    (\"Substance Use\", \"medium\", \"Past drug use, especially marijuana, is common but not indicative of severe addiction. Cocaine use is more concerning, but recent abstinence is noted.\"),\n    (\"Mental Health\", \"low\", \"No reported depression suggests a lower risk for mental health-related recidivism.\"),\n    (\"Family Background\", \"low\", \"Growing up in a household with three people does not inherently signal a higher risk.\"),\n    (\"Religious Beliefs\", \"low\", \"Spiritual beliefs are personal and do not directly correlate to criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_091826_182977",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 608,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 3 times and has been convicted. She is 5 feet 4 inches and weighs 120 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

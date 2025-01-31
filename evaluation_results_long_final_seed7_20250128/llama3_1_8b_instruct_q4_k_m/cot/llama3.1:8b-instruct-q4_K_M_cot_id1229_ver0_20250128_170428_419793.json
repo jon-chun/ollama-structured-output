@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1229,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T22:04:28.41793249Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.446521906,
+    "load_duration": 0.022718723,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 283,
+    "eval_duration": 2.407
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at First Arrest\", \"low\", \"This individual is relatively young, but it's not their first offense. However, the lack of prior convictions suggests some degree of caution.\"),\n    (\"Prior Record - Severity\", \"medium\", \"Arrest without conviction indicates a risk level somewhere in between low and high severity.\"),\n    (\"Current Employment Status\", \"low\", \"Three jobs in one year suggests stability and a willingness to work, reducing recidivism likelihood.\"),\n    (\"Marital Status\", \"high\", \"Living alone at 19 may indicate a lack of support system, increasing the likelihood of future offenses.\"),\n    (\"Education Level\", \"medium\", \"No high school diploma or GED certificate is concerning, but not as severe as being uneducated or dropping out entirely.\"),\n    (\"Substance Abuse History\", \"high\", \"Past marijuana use and recent feelings of depression may indicate a higher risk for substance-facilitated crime or recidivism.\"),\n    (\"Family Size at Age 5\", \"low\", \"Growing up in a larger household does not significantly increase the likelihood of future offenses.\"),\n    (\"Religious Affiliation\", \"low\", \"Belief that God has a personal role in life events is unlikely to impact criminal behavior, so it's considered low risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_170428_419793",
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1229,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 145 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 5. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

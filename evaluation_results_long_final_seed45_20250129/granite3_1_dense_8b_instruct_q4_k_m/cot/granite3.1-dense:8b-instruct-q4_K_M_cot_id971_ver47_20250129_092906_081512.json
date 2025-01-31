@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 971,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-29T14:29:06.080255444Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.752668156,
+    "load_duration": 0.011763638,
+    "prompt_eval_count": 390,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 410,
+    "eval_duration": 3.731
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"He is young but not in a high-risk age group.\"),\n    (\"Gender\", \"low\", \"No gender bias in recidivism risk.\"),\n    (\"Ethnicity\", \"low\", \"Being White does not indicate a higher risk.\"),\n    (\"Previous Arrests\", \"medium\", \"1 arrest is relatively low, but it's still a factor.\"),\n    (\"Convictions\", \"medium\", \"Having 1 conviction suggests a higher risk.\"),\n    (\"Height/Weight\", \"low\", \"Physical characteristics are generally not predictive factors.\"),\n    (\"Marital Status\", \"low\", \"Being unmarried does not indicate a higher risk.\"),\n    (\"Living Arrangement\", \"low\", \"Living alone is not indicative of recidivism risk.\"),\n    (\"Education Level\", \"medium\", \"GED certificate suggests lower education, which can correlate with higher risk.\"),\n    (\"Enrolled in College\", \"low\", \"Being enrolled indicates potential for positive change, reducing risk.\"),\n    (\"Employment History\", \"high\", \"1 job held may suggest instability and higher risk.\"),\n    (\"Drug Use\", \"medium\", \"Past marijuana use can indicate a higher risk of recidivism.\"),\n    (\"Depression\", \"high\", \"Feeling persistently down can be indicative of mental health issues, which correlate with higher risk.\"),\n    (\"Family Background\", \"low\", \"Living with biological mother in childhood does not significantly impact recidivism risk.\"),\n    (\"Urban Upbringing\", \"medium\", \"Urban upbringing can sometimes correlate with higher risk due to environmental factors.\"),\n    (\"Religious Beliefs\", \"low\", \"Not considering God's involvement in personal life does not impact recidivism risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250129_092906_081512",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 971,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 47
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a GED certificate and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

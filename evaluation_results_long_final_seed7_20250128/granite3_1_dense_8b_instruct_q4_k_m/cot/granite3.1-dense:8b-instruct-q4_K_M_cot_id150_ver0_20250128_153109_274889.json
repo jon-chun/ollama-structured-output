@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 150,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T20:31:09.273400652Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.781332947,
+    "load_duration": 0.012032032,
+    "prompt_eval_count": 380,
+    "prompt_eval_duration": 0.208,
+    "eval_count": 455,
+    "eval_duration": 20.557
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"22 is relatively young, suggesting potential for further criminal behavior.\"),\n    (\"gender\", \"low\", \"Gender alone does not significantly predict recidivism risk.\"),\n    (\"ethnicity\", \"medium\", \"Hispanic individuals may have higher recidivism rates due to socioeconomic factors.\"),\n    (\"arrests_convictions\", \"high\", \"6 arrests and convictions indicate a pattern of criminal behavior.\"),\n    (\"age_at_first_offense\", \"medium\", \"Without knowing the age, it's hard to determine if this is an early start to criminal activity.\"),\n    (\"height_weight\", \"low\", \"Physical attributes do not directly correlate with recidivism risk.\"),\n    (\"marital_status\", \"medium\", \"Unmarried individuals may have higher recidivism rates due to lack of social constraints.\"),\n    (\"living_situation\", \"medium\", \"Living alone can be a risk factor, suggesting less social control.\"),\n    (\"education\", \"high\", \"Only a high school diploma and no college enrollment may limit employment opportunities and lead to frustration/delinquency.\"),\n    (\"employment\", \"low\", \"Holding 1 job in the past year suggests some employability, which can reduce recidivism risk.\"),\n    (\"drug_use\", \"high\", \"Past drug use, particularly marijuana, is a known risk factor for recidivism.\"),\n    (\"depression\", \"medium\", \"Lack of depression over the past month reduces psychological risk factors.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a single-parent household can be associated with higher recidivism rates.\"),\n    (\"urban_residence\", \"medium\", \"Urban environments may have higher crime rates and social stressors.\"),\n    (\"religious_belief\", \"low\", \"Belief in God does not significantly predict recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_153109_274889",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 150,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 8 inches and weighs between 175 and 199 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

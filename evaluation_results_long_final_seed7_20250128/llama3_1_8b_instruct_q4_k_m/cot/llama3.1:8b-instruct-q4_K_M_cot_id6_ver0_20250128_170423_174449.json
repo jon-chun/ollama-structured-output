@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 6,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T22:04:23.172865527Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.046617689,
+    "load_duration": 0.014312015,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 355,
+    "eval_duration": 3.015
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at arrest\", \"high\", \"18-year-old male, significantly younger than the average age of first-time offenders\"),\n    (\"Number of prior arrests\", \"low\", \"only 1 time arrested, relatively low number of previous contacts with law enforcement\"),\n    (\"Prior conviction\", \"medium\", \"previous conviction indicates a higher likelihood of recidivism, but not extremely high\"),\n    (\"Physical description\", \"low\", \"height and weight are within the average range for an adult male\"),\n    (\"Marital status\", \"medium\", \"not married, which can be a risk factor for some individuals, but may not apply in this case\"),\n    (\"Living arrangement\", \"high\", \"living alone at a young age without support system increases likelihood of recidivism\"),\n    (\"Education level\", \"low\", \"has high school diploma, which is a positive indicator, although not currently enrolled in college\"),\n    (\"Employment status\", \"high\", \"no jobs held during the year indicates lack of stability and structure\"),\n    (\"Substance abuse history\", \"medium\", \"past use of marijuana may be a risk factor, but not extremely concerning given age\"),\n    (\"Mental health indicators\", \"high\", \"feeling down for most of the past month is a significant red flag for potential recidivism\"),\n    (\"Family background\", \"low\", \"lived with biological mother in a household of size 4 at a young age, which may have contributed to current issues\"),\n    (\"Religious beliefs\", \"medium\", \"believes God has nothing to do with personal life, which may indicate a lack of guidance or support\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_170423_174449",
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 6,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

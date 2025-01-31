@@ -103,20 +103,22 @@ def find_report_jsons(root_dir: str) -> List[Path]:
     
     return json_files
 
-def main():
+def main(): 
     """
     Main function to aggregate evaluation results and create a summary CSV file.
     """
     # Define input and output paths
-    input_root_dir = os.path.join('..','evaluation_results_long_final_FREEZE')
-    output_dir = os.path.join('..','aggregation_summary')
-    output_filepath = os.path.join(output_dir, 'aggregation_summary_report.csv')
+    # INPUT_ROOTDIR = 'evaluation_results_long_final_FREEZE'
+    INPUT_ROOTDIR_NAME = 'evaluation_results_long_final_seed7_20250128'
+    INPUT_ROOTDIR_PATH = os.path.join('..', INPUT_ROOTDIR_NAME)
+    OUTPUT_DIR = os.path.join('..','aggregation_summary')
+    OUTPUT_FILEPATH = os.path.join(OUTPUT_DIR, f'aggregation_{INPUT_ROOTDIR_NAME}.csv')
     
     # Create output directory if it doesn't exist
-    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     
     # Find all metrics JSON files
-    json_files = find_report_jsons(input_root_dir)
+    json_files = find_report_jsons(INPUT_ROOTDIR_PATH)
     
     # Extract metrics from each JSON file
     all_metrics = []
@@ -132,8 +134,8 @@ def main():
         df = pd.DataFrame(all_metrics)
         # Sort by model_name and prompt_type for better organization
         df = df.sort_values(['model_name', 'prompt_type'])
-        df.to_csv(output_filepath, index=False)
-        print(f"Successfully created summary report: {output_filepath}")
+        df.to_csv(OUTPUT_FILEPATH, index=False)
+        print(f"Successfully created summary report: {OUTPUT_FILEPATH}")
         print(f"Processed {len(all_metrics)} evaluation files")
     else:
         print("No metrics files were found or successfully processed")

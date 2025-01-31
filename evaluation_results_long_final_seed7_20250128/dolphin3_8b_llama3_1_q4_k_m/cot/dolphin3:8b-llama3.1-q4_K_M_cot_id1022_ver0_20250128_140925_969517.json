@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1022,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T19:09:25.96778482Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.232314203,
+    "load_duration": 0.025965967,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.087,
+    "eval_count": 368,
+    "eval_duration": 15.117
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_of_onset\", \"high\", \"Young adult offenders typically have a higher rate of recidivism due to the increased likelihood of engaging in risky behaviors such as drug use.\"),\n    (\"arrest_record\", \"high\", \"Individuals with extensive arrest records are more likely to re-offend given their familiarity and comfort with the criminal justice system and the patterns that come with it.\"),\n    (\"employment_history\", \"low\", \"Employment, although limited in number of positions held, shows some stability indicating a potential for positive change with support.\"),\n    (\"education_level\", \"high\", \"No high school diploma or GED certificate significantly raises the risk of recidivism due to limited job prospects and lower socio-economic status.\"),\n    (\"living_arrangement\", \"medium\", \"Living alone may indicate less social support, but it doesn't directly correlate with criminal behavior as much as lack of education and employment.\"),\n    (\"drug_use\", \"high\", \"Past use of drugs in the last four years is a significant predictor of future crime given that drug use can increase propensity for criminal behavior and recidivism.\"),\n    (\"self_reports_depression\", \"low\", \"Lack of self-reported depression suggests an emotional stability which may help mitigate against criminal behavior, though this must be cross-referenced with other factors.\"),\n    (\"family_environment\", \"medium\", \"Growing up in a household of six in an urban area could indicate economic hardship and instability, however the presence of multiple individuals may also provide support networks.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in God could potentially serve as a moral compass or support system, though its predictive value for recidivism is uncertain without deeper analysis.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_140925_969517",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1022,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 11 times and has been convicted. He is 5 feet 6 inches and weighs 185 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

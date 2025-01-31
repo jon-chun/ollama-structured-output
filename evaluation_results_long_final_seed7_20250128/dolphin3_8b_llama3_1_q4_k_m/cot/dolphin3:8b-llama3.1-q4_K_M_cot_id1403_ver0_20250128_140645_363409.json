@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 1403,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T19:06:45.361927775Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.16807614,
+    "load_duration": 0.02316153,
+    "prompt_eval_count": 337,
+    "prompt_eval_duration": 0.087,
+    "eval_count": 366,
+    "eval_duration": 15.056
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_at_first_arrest\", \"low\", \"The individual's age at first arrest is young but not significantly high risk for recidivism.\"),\n    (\"number_of_prior_arrests\", \"medium\", \"One prior arrest indicates some level of criminal involvement, increasing the likelihood of recidivism moderately.\"),\n    (\"prior_convictions\", \"high\", \"Presence of a conviction shows a pattern of criminal behavior and enhances the likelihood of future offenses significantly.\"),\n    (\"current_age_gender_race_ethnicity\", \"medium\", \"Young female identifying as Black is a common demographic with varied risk levels, but increased scrutiny in some communities may slightly affect recidivism probability.\"),\n    (\"unemployment\", \"high\", \"No employment over the past year is indicative of financial instability and potential desperation which can contribute to higher likelihood of reoffending.\"),\n    (\"education_level\", \"high\", \"Lack of a high school diploma or GED and no college enrollment significantly increase risk due to limited job opportunities and skills.\"),\n    (\"household_structure_age\", \"medium\", \"Living in a large urban household at a young age may indicate instability, but its direct impact on recidivism is moderate.\"),\n    (\"marital_status_living_arrangement\", \"low\", \"Living alone has a minimal impact on risk assessment for recidivism.\"),\n    (\"substance_use\", \"high\", \"Past and recent drug use, particularly if frequent or in large quantities, significantly increases the risk of reoffending due to potential substance dependency issues.\"),\n    (\"mental_health_issues\", \"medium\", \"Feeling down frequently may indicate mental health concerns that could impact behavior but its direct link to crime is moderate.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_140645_363409",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1403,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 5 inches and weighs 160 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 6, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

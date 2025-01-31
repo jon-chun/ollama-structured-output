@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 6,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-28T22:30:41.223784895Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.608553232,
+    "load_duration": 0.020660927,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.071,
+    "eval_count": 272,
+    "eval_duration": 10.506
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is young, which might correlate with a higher likelihood of rehabilitation.\"),\n    (\"Number of Previous Arrests/Convictions\", \"medium\", \"One prior conviction suggests some level of risk but not necessarily high given the limited history.\"),\n    (\"Current Employment Status\", \"high\", \"No job during the year could indicate lack of stable employment and social integration, which are linked to higher recidivism rates.\"),\n    (\"Substance Use\", \"low\", \"Marijuana use alone is less indicative of serious criminal behavior compared to harder drugs or chronic substance abuse.\"),\n    (\"Mental Health\", \"medium\", \"Persistent feelings of depression could indicate underlying mental health issues that may need addressing to reduce future risk.\"),\n    (\"Living Situation\", \"low\", \"Lives alone but this factor alone does not strongly predict recidivism without additional context on stability and support networks.\"),\n    (\"Educational Level\", \"low\", \"High school diploma suggests some level of formal education, which can be a protective factor against criminal behavior.\"),\n    (\"Religious or Spiritual Beliefs\", \"high\", \"Lack of belief in God may correlate with less moral restraint and higher risk factors for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_173041_225426",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 6,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 155 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

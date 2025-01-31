@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 688,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-30T07:55:17.769310204Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.984711771,
+    "load_duration": 0.022875209,
+    "prompt_eval_count": 317,
+    "prompt_eval_duration": 0.003,
+    "eval_count": 359,
+    "eval_duration": 2.956
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"young_age_household_size\", \"low\", \"She lived in a household of size 4, which may have provided support, but this factor alone does not significantly increase risk.\"),\n    (\"single_status\", \"medium\", \"Living alone might suggest independence or lack of social support; however, she is still young and enrolled in college, which could mitigate risks.\"),\n    (\"employment\", \"low\", \"Holding one job during the year suggests stability and positive engagement in society.\"),\n    (\"education_level\", \"low\", \"Being enrolled in a 2-year college and having completed an associate/junior college shows commitment to education, lowering risk of recidivism.\"),\n    (\"past_drug_use\", \"medium\", \"Past marijuana use within four years is concerning but may not be as significant a factor given the relatively low impact of this drug compared to others.\"),\n    (\"no_depression\", \"low\", \"The absence of depressive feelings in the past month suggests emotional stability, which can positively affect behavior and choices.\"),\n    (\"past_arrest_and_conviction\", \"high\", \"Having been arrested once and convicted indicates prior criminal involvement, increasing the likelihood of future offenses.\"),\n    (\"height_weight_proportion\", \"medium\", \"Being 6 feet 1 inch tall and weighing 163 lbs may suggest an individual who can defend themselves or potentially intimidate; however, this is subjective and may not be a direct predictor of recidivism.\"),\n    (\"religious_beliefs\", \"low\", \"Her belief that 'God has something to do with what happens to her personally' could imply a moral compass, potentially reducing the likelihood of reoffending.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250130_025517_771128",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 688,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 80
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 6 feet 1 inch and weighs 163 lbs. She has never been married and is currently living alone. She has completed study at an associate/junior college and is enrolled in a 2-year college. She has held 1 job during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived in a household of size 4. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

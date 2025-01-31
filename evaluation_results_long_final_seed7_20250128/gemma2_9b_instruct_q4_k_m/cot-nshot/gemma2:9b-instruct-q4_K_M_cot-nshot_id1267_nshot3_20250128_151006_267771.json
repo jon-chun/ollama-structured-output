@@ -1,0 +1,38 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1267,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-28T20:10:06.266403412Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.191910505,
+    "load_duration": 0.039034728,
+    "prompt_eval_count": 896,
+    "prompt_eval_duration": 0.055,
+    "eval_count": 338,
+    "eval_duration": 4.094
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"He is 19, closer to the younger end of typical recidivism risk\"),\n    (\"Race/Ethnicity\", \"low\", \"Hispanic background doesn't show a strong predictive link in this limited data\"),\n    (\"Prior Arrests\", \"low\", \"One prior arrest without conviction suggests lower risk than Example #3\"),\n    (\"Conviction History\", \"low\", \"No convictions indicate less serious offenses or successful diversion programs\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight are not significant risk factors in this context\"),\n    (\"Marital Status\", \"medium\", \"Living alone could be a factor, but Example #2 also lived alone with no recidivism\"),\n    (\"Education\", \"high\", \"Lack of high school diploma or GED is a common risk factor for recidivism\"),\n    (\"Employment History\", \"low\", \"Holding 5 jobs in a year suggests stability and may mitigate other risks\"),\n    (\"Drug Use\", \"medium\", \"Recent marijuana use and feeling depressed indicate potential substance abuse issues\"),\n    (\"Mental Health\", \"high\", \"Feeling down and uncheered is concerning and could point to underlying mental health problems\"),\n    (\"Upbringing\", \"medium\", \"Living with non-biological adults as a child might indicate instability, but more context needed\"),\n    (\"Religious Beliefs\", \"low\", \"Personal beliefs about God don't appear strongly linked to recidivism in this data\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_151006_267771",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT_NSHOT",
+    "row_id": 1267,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0,
+    "nshot_ct": 3
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:\n\nExample #1:\nRisk Factors: The person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\nOutcome: NO\n\nExample #2:\nRisk Factors: The person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\nOutcome: NO\n\nExample #3:\nRisk Factors: The person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in a rural area. He considers that God has nothing to do with what happens to him personally.\nOutcome: YES\n\n\nNext, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted. He is 5 feet 11 inches and weighs 160 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 5 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nBased on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.\nRespond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

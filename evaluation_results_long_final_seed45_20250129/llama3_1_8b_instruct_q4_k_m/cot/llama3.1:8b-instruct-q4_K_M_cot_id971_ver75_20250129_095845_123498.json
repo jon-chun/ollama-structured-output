@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 971,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "created_at": "2025-01-29T14:58:45.12233632Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 19.232031806,
+    "load_duration": 0.022953878,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.005,
+    "eval_count": 481,
+    "eval_duration": 19.202
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at First Arrest\", \"low\", \"Only one arrest and relatively young age, which is a good prognostic indicator for reduced recidivism\"),\n    (\"Prior Record - Number of Prior Arrests\", \"low\", \"Only one prior arrest, which suggests a low risk of recidivism\"),\n    (\"Prior Record - Prior Convictions\", \"medium\", \"One conviction may indicate some propensity towards criminal behavior, but it's not extremely high\"),\n    (\"Age at Time of Sentence\", \"high\", \"21 years old is relatively young and may increase the likelihood of rearrest due to ongoing development and lack of life stability\"),\n    (\"Sex\", \"low\", \"Males are generally more likely to be rearrested than females, but this individual's behavior will ultimately determine his risk\"),\n    (\"Racial/Ethnic Category\", \"medium\", \"Being White does not necessarily increase or decrease the likelihood of recidivism; it's a neutral factor in this case\"),\n    (\"Body Mass Index\", \"low\", \"140 lbs at 5'7\" is slightly below average weight, which may not be a significant risk factor for rearrest\"),\n    (\"Marital Status\", \"medium\", \"Living alone without being married may indicate some instability and potentially increase the likelihood of rearrest\"),\n    (\"Education Level - Highest Degree Earned\", \"low\", \"Having a GED certificate and currently enrolled in college is a positive indicator, suggesting a desire to improve life prospects\"),\n    (\"Employment History - Job Stability\", \"medium\", \"Holding one job during the year may indicate some employment challenges or instability, which could increase the likelihood of rearrest\"),\n    (\"Substance Abuse Severity\", \"high\", \"Using marijuana in the past four years and experiencing depression is a concerning combination, indicating possible substance abuse issues that could lead to increased recidivism risk\"),\n    (\"Family Structure at Age 15\", \"low\", \"Living with biological mother in an urban area of size three is not necessarily a significant risk factor for rearrest\"),\n    (\"Religious Affiliation\", \"medium\", \"Not believing in God's direct involvement in personal life may indicate some sense of nihilism or lack of moral guidance, potentially increasing the likelihood of recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250129_095845_123498",
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 971,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 75
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a GED certificate and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

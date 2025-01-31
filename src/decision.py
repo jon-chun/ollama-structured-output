@@ -108,14 +108,16 @@ def check_existing_output(output_dir: Path, model_name: str, prompt_type: Prompt
 def process_model_response(response_text: str, model_name: str) -> Dict:
     """
     Attempt multiple parsing strategies to interpret the model output as JSON
-    with {'prediction': 'YES'|'NO', 'confidence': 0..100, 'risk_factors': [...] }.
+    with {'prediction': 'YES'|'NO', 'confidence': 0..100, 'risk_factors': [...], 'original_text': ...}.
     """
     try:
         logging.debug(f"Raw model response: {response_text}")
         clean_text = response_text.replace('```json', '').replace('```', '')
         parsed_response = None
 
-        # Strategy 1: Direct JSON parsing
+        #
+        # --- Strategy 1: Direct JSON parsing ---
+        #
         try:
             parsed_response = json.loads(clean_text.strip())
             logging.debug("Successfully parsed response as JSON")
@@ -124,7 +126,9 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
         except json.JSONDecodeError:
             logging.debug("Failed to parse as direct JSON")
 
-        # Strategy 2: Extract JSON from text using regex
+        #
+        # --- Strategy 2: Extract JSON from text using regex ---
+        #
         if not parsed_response:
             import re
             json_pattern = r'\{.*\}'
@@ -138,7 +142,9 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
                 except json.JSONDecodeError:
                     continue
 
-        # Strategy 3: Structured text parsing for specific fields
+        #
+        # --- Strategy 3: Structured text parsing for specific fields ---
+        #
         if not parsed_response:
             import re
             prediction_match = re.search(r'prediction[\s:"]*([YN]ES|NO)', clean_text, re.IGNORECASE)
@@ -156,33 +162,101 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
                     except json.JSONDecodeError:
                         logging.warning("Could not parse risk_factors JSON")
                 logging.debug("Parsed structured text response")
-        
+
+        #
+        # --- Strategy 4: "json_repair" fallback ---
+        #
+        if not parsed_response:
+            repaired_text = remove_think_tags_and_triple_quotes(clean_text)
+
+            # Attempt to parse again as JSON after best-effort “repair”
+            try:
+                maybe_json = json.loads(repaired_text)
+                parsed_response = maybe_json
+                parsed_response['original_text'] = response_text
+                logging.debug("json_repair strategy succeeded in parsing as JSON")
+            except json.JSONDecodeError:
+                logging.debug("json_repair strategy failed to parse as JSON")
+
+        #
+        # --- Strategy 5: "unstruct" fallback ---
+        #
+        if not parsed_response:
+            unstruct_text = remove_think_tags_and_triple_quotes(clean_text)
+
+            # parse from the bottom up for a pattern like:
+            #    "... "prediction": YES"
+            # or "... "rearrest_prediction": No"
+            # Then optionally next line or same line: "confidence": 72
+            # or "rearrest_confidence": 72
+
+            # We want to do it from the bottom up, so let's reverse-split by lines
+            lines = unstruct_text.splitlines()
+            lines.reverse()
+
+            prediction = None
+            confidence = None
+
+            import re
+            # We'll prepare some case-insensitive patterns
+            pred_pattern = re.compile(r'(prediction|rearrest_prediction)\s*:\s*(yes|no)', re.IGNORECASE)
+            conf_pattern = re.compile(r'(confidence|rearrest_confidence)\s*:\s*(\d+)', re.IGNORECASE)
+
+            for line in lines:
+                pred_match = pred_pattern.search(line)
+                if pred_match and not prediction:
+                    # Found a "prediction" or "rearrest_prediction"
+                    raw_pred = pred_match.group(2).upper()
+                    prediction = 'YES' if raw_pred.startswith('Y') else 'NO'
+                conf_match = conf_pattern.search(line)
+                if conf_match and not confidence:
+                    # Found a "confidence" or "rearrest_confidence"
+                    confidence = int(conf_match.group(2))
+
+                # If we have both, we can stop scanning
+                if prediction is not None and confidence is not None:
+                    break
+
+            if prediction:
+                parsed_response = {
+                    "prediction": prediction,
+                    "confidence": confidence if confidence is not None else 90,
+                    "original_text": response_text
+                }
+                logging.debug("unstruct strategy extracted minimal data")
+
+        #
+        # If still no luck, raise an error
+        #
         if not parsed_response:
             raise ValueError("Could not extract valid response from model output")
 
-        # Normalize the response while keeping original text
-        normalized = {
-            'original_text': response_text  # Always include original text
-        }
+        #
+        # --- Normalize the final response ---
+        #
+        normalized = {'original_text': response_text}
 
-        # Handle prediction
+        # Handle 'prediction'
         pred_value = str(parsed_response.get('prediction', '')).upper()
-        normalized['prediction'] = (
-            pred_value if pred_value in ['YES', 'NO']
-            else 'YES' if any(ind in pred_value for ind in ['YES', 'TRUE', '1', 'HIGH'])
-            else 'NO'
-        )
+        if pred_value in ['YES', 'NO']:
+            normalized['prediction'] = pred_value
+        else:
+            # fallback logic: interpret unrecognized values
+            if any(ind in pred_value for ind in ['YES', 'TRUE', '1', 'HIGH']):
+                normalized['prediction'] = 'YES'
+            else:
+                normalized['prediction'] = 'NO'
 
-        # Handle confidence
+        # Handle 'confidence'
         conf_value = parsed_response.get('confidence', None)
         if conf_value is not None:
             if isinstance(conf_value, str):
                 conf_value = float(conf_value.replace('%', ''))
             normalized['confidence'] = int(min(max(float(conf_value), 0.0), 100.0))
         else:
-            normalized['confidence'] = 90  # Default confidence
+            normalized['confidence'] = 90  # default
 
-        # Handle risk_factors
+        # Handle 'risk_factors'
         if 'risk_factors' in parsed_response:
             normalized['risk_factors'] = parsed_response['risk_factors']
 
@@ -194,6 +268,25 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
         logging.error(f"Error processing model response: {str(e)}")
         logging.error(f"Raw response: {response_text}")
         raise
+
+
+def remove_think_tags_and_triple_quotes(text: str) -> str:
+    """
+    1) Remove <THINK>...</THINK> tags and all enclosed text.
+    2) Remove any triple quotes.
+    Returns a cleaned-up string.
+    """
+    import re
+    # Remove <THINK> ... </THINK> (case-insensitive for the tags if needed)
+    text = re.sub(r'<THINK>.*?</THINK>', '', text, flags=re.DOTALL | re.IGNORECASE)
+
+    # Remove triple quotes of all forms
+    triple_quotes_patterns = [r'```', r'"""', r"'''"]
+    for pattern in triple_quotes_patterns:
+        text = re.sub(pattern, '', text)
+
+    return text.strip()
+
 
 async def get_decision(
     prompt_type: PromptType,

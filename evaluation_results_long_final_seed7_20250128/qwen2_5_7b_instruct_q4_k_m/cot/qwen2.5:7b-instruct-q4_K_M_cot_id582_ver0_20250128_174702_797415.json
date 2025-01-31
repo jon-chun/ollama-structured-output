@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 582,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-28T22:47:02.795708733Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.322560881,
+    "load_duration": 0.020771371,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.069,
+    "eval_count": 370,
+    "eval_duration": 14.222
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"20-year-olds tend to have less stable life histories compared to older adults, but this alone is not a strong indicator of future recidivism.\"),\n    (\"race\", \"low\", \"Race by itself does not significantly predict recidivism rates, although racial biases can influence other factors.\"),\n    (\"arrests_and_convictions\", \"high\", \"5 arrests and 4 convictions suggest a pattern of behavior that may increase the likelihood of reoffending.\"),\n    (\"height_weight\", \"low\", \"Physical attributes like height and weight do not directly correlate with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Being single does not necessarily correlate with higher recidivism rates, though it might affect support networks.\"),\n    (\"education\", \"medium\", \"No high school diploma or GED can limit future opportunities, which may increase the likelihood of criminal behavior to make ends meet.\"),\n    (\"employment\", \"low\", \"Holding 4 jobs in a year indicates some level of activity and engagement with society, but not necessarily stable employment history.\"),\n    (\"substance_use\", \"high\", \"Using drugs (marijuana and cocaine) can indicate behavioral patterns that may contribute to criminal behavior.\"),\n    (\"depression\", \"medium\", \"Feeling down for most days in the past month might suggest underlying mental health issues that could influence future actions.\"),\n    (\"childhood_environment\", \"low\", \"Growing up in a household of 4 is typical and does not inherently predict higher recidivism rates, but may have influenced behaviors.\"),\n    (\"religious_views\", \"low\", \"Beliefs about God\u2019s influence do not directly correlate with recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_174702_797415",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 582,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 5 times and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

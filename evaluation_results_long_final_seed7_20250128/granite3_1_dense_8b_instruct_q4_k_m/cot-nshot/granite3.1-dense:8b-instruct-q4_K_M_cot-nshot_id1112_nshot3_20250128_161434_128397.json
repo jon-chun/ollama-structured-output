@@ -1,0 +1,38 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1112,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T21:14:34.127151505Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 21.032841479,
+    "load_duration": 0.008894782,
+    "prompt_eval_count": 970,
+    "prompt_eval_duration": 0.235,
+    "eval_count": 446,
+    "eval_duration": 20.783
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"This individual is a 19-year-old, which is on the younger side of the spectrum. While age itself can be a risk factor due to inexperience and immaturity, it is not considered high when compared to other factors.\"),\n    (\"Gender\", \"low\", \"The individual's gender does not significantly contribute to recidivism risk.\"),\n    (\"Race/Ethnicity\", \"medium\", \"Historically, certain racial and ethnic groups have been disproportionately represented in the criminal justice system. However, this factor alone is not a reliable predictor of recidivism.\"),\n    (\"Marital Status\", \"low\", \"Living alone does not necessarily indicate an increased risk of recidivism.\"),\n    (\"Education Level\", \"medium\", \"Having only a GED certificate suggests lower educational attainment, which can be associated with higher risk. However, this factor is not overly significant on its own.\"),\n    (\"Employment\", \"low\", \"Holding 2 jobs during the year indicates some level of employability and stability, suggesting a lower risk.\"),\n    (\"Drug Use\", \"medium\", \"No recent drug use (past four years) suggests less involvement in criminal activities often associated with substance abuse. However, past use could still be a factor.\"),\n    (\"Depression\", \"low\", \"Not feeling depressed over the past month indicates lower psychological risk factors for recidivism.\"),\n    (\"Household Size\", \"low\", \"Living in a household of size 2 does not significantly contribute to recidivism risk.\"),\n    (\"Parental Structure\", \"medium\", \"Lack of parental structure (living with both parents) can be associated with higher risk, but this factor is not overly significant on its own.\"),\n    (\"Religious Belief\", \"low\", \"Belief or disbelief in divine intervention does not significantly contribute to recidivism risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250128_161434_128397",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT_NSHOT",
+    "row_id": 1112,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0,
+    "nshot_ct": 3
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:\n\nExample #1:\nRisk Factors: The person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\nOutcome: NO\n\nExample #2:\nRisk Factors: The person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\nOutcome: NO\n\nExample #3:\nRisk Factors: The person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in a rural area. He considers that God has nothing to do with what happens to him personally.\nOutcome: YES\n\n\nNext, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 2. He considers that God has nothing to do with what happens to him personally.\n\nBased on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.\nRespond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

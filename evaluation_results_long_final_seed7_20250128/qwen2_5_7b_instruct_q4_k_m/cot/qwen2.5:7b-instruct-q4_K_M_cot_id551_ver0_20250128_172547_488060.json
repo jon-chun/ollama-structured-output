@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 551,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-28T22:25:47.486358483Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.811877067,
+    "load_duration": 0.020460593,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.069,
+    "eval_count": 384,
+    "eval_duration": 14.715
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"arrest_history\", \"high\", \"Ten prior arrests and convictions indicate a high likelihood of reoffending.\"),\n    (\"age\", \"low\", \"Age 21 is relatively young, which can be associated with more youthful behaviors but does not necessarily predict recidivism strongly without other factors.\"),\n    (\"race_ethnicity\", \"medium\", \"Racial identity as Black may correlate with higher rates of arrest and conviction, though this is a general trend rather than an individual factor.\"),\n    (\"education\", \"high\", \"No high school diploma or GED suggests limited education and job prospects, increasing the risk of criminal behavior due to lack of legitimate opportunities.\"),\n    (\"employment_status\", \"high\", \"Lack of any job during the year may indicate disengagement from lawful activities, contributing to a higher risk of reoffending.\"),\n    (\"drug_use\", \"medium\", \"Recent drug use (marijuana) can be a factor but is less severe than harder drugs and typically does not predict serious recidivism unless frequent or combined with other factors like mental health issues.\"),\n    (\"mental_health\", \"medium\", \"Feelings of depression indicate potential underlying psychological issues, which can lead to behavioral problems if not addressed.\"),\n    (\"childhood_environment\", \"low\", \"Living in a household of size 6 as a child may have provided more social interaction but does not directly correlate with higher or lower recidivism risk.\"),\n    (\"religious_beliefs\", \"low\", \"Belief that God has something to do with personal events is common and does not inherently indicate high or low recidivism risk.\"),\n    (\"housing_status\", \"medium\", \"Living alone at 21 may suggest lack of support systems, which can be a risk factor for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_172547_488060",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 551,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 10 times and has been convicted. He is 5 feet 7 inches and weighs 223 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 6. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

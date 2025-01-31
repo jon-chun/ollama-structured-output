@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 971,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-29T13:08:27.354875452Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.971846452,
+    "load_duration": 0.029823754,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 472,
+    "eval_duration": 3.932
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"low\", \"The individual is relatively young, but this factor alone does not significantly increase the risk of recidivism.\"),\n    (\"Race/ethnicity\", \"medium\", \"Being White may have a neutral to slightly lower risk compared to other demographics, considering crime rates across ethnic groups and statistical evidence showing that White individuals are less likely to be rearrested.\"),\n    (\"Prior Arrests\", \"high\", \"Having been arrested once before shows some propensity for criminal behavior; the fact that it's only one arrest suggests limited prior involvement.\"),\n    (\"Prior Convictions\", \"medium\", \"Being convicted implies a higher risk of recidivism, but its weight is tempered by the individual's young age and no extensive record.\"),\n    (\"Physical Characteristics\", \"low\", \"The provided physical characteristics are standard and do not contribute significantly to predicting recidivism.\"),\n    (\"Marital Status\", \"low\", \"Living alone does not inherently increase the risk of recidivism; it can be a neutral factor in this context.\"),\n    (\"Education Level\", \"medium\", \"Having a GED and being enrolled in college may indicate potential for reform and lower recidivism, but the impact is uncertain without completion or employment history.\"),\n    (\"Employment Status\", \"medium\", \"Holding one job within the year suggests stability; however, the quality of this employment and its duration are not specified.\"),\n    (\"Drugs - Lifetime\", \"high\", \"Prior drug use, especially recent use, significantly increases the risk due to the potential for substance-related offenses or relapse post-release.\"),\n    (\"Mood/Emotional State\", \"medium\", \"Feeling 'down' regularly can suggest emotional instability that might affect decision-making; however, it's not directly tied to criminal behavior without more context.\"),\n    (\"Family Environment Growing Up\", \"low\", \"Living in an urban area and having a household of three does not inherently increase risk; family dynamics are not specified.\"),\n    (\"God/Guardian Influence\", \"medium\", \"Lacking belief in God's influence might suggest a lack of guidance or moral compass but can also reflect personal autonomy that may reduce reliance on others for behavioral control.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250129_080827_356349",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 971,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 65
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a GED certificate and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

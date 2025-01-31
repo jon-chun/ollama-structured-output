@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 502,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-28T22:39:53.020683055Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.075050128,
+    "load_duration": 0.023650587,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.072,
+    "eval_count": 284,
+    "eval_duration": 10.972
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age may reduce risk of serious reoffense, but is not a strong predictor.\"),\n    (\"prior_convictions\", \"low\", \"One arrest without conviction suggests low prior involvement with the justice system.\"),\n    (\"height_weight\", \"low\", \"Physical characteristics do not strongly influence recidivism rates.\"),\n    (\"marital_status\", \"low\", \"Living alone does not strongly correlate with higher risk of reoffense in young women.\"),\n    (\"education\", \"low\", \"High school diploma, though not college enrollment, is generally associated with lower risk.\"),\n    (\"employment\", \"low\", \"Stable employment suggests a level of responsibility and structure that may reduce recidivism.\"),\n    (\"drug_use\", \"medium\", \"Past four years drug use indicates potential for substance abuse issues which can contribute to reoffense.\"),\n    (\"depression_like_symptoms\", \"high\", \"Feelings of hopelessness could indicate underlying mental health issues, increasing risk.\"),\n    (\"upbringing\", \"low\", \"Living with biological mother in a small household in a rural area generally does not correlate strongly with recidivism.\"),\n    (\"religious_views\", \"low\", \"Personal beliefs about God's influence do not have a strong predictive value for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_173953_021798",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 502,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs between 175 and 199 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 2, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

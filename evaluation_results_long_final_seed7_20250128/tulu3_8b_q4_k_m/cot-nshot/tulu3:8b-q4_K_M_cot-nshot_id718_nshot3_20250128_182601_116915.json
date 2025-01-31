@@ -1,0 +1,38 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 718,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-q4_K_M",
+    "created_at": "2025-01-28T23:26:01.115555837Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.543675238,
+    "load_duration": 0.033544839,
+    "prompt_eval_count": 853,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 291,
+    "eval_duration": 2.488
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n  (\"Arrest History\", \"medium\", \"The individual has been arrested twice, which is a concerning indicator.\"),\n  (\"Age\", \"low\", \"Being 18 years old suggests she might still be influenced by her formative years.\"),\n  (\"Race/Ethnicity\", \"low\", \"Identifying as White typically does not carry a significant recidivism risk on its own.\"),\n  (\"Weight\", \"low\", \"Her weight range (125-149 lbs) doesn't provide specific risk information.\"),\n  (\"Marital Status\", \"low\", \"Being single and living with others might indicate some level of support system.\"),\n  (\"Education Level\", \"medium\", \"Having a high school diploma is generally positive, but not being in college could be concerning.\"),\n  (\"Employment History\", \"medium\", \"Held three jobs may suggest stability but also potential stressors.\"),\n  (\"Drug Use\", \"low\", \"No drug use in the past four years is a favorable factor.\"),\n  (\"Mental Health\", \"high\", \"Felt depressed some of the time could indicate emotional struggles.\"),\n  (\"Family Background\", \"medium\", \"Lived with both parents in a rural area may suggest a supportive environment.\"),\n  (\"Religious Beliefs\", \"low\", \"Believes God has something to do with her life, which can be protective.\")\n],\n\"prediction\": \"NO\",\n\"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250128_182601_116915",
+    "model": "tulu3:8b-q4_K_M",
+    "prompt_type": "PromptType.COT_NSHOT",
+    "row_id": 718,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0,
+    "nshot_ct": 3
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:\n\nExample #1:\nRisk Factors: The person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\nOutcome: NO\n\nExample #2:\nRisk Factors: The person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\nOutcome: NO\n\nExample #3:\nRisk Factors: The person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in a rural area. He considers that God has nothing to do with what happens to him personally.\nOutcome: YES\n\n\nNext, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 5 inches and weighs between 125 and 149 lbs. She has never been married and is currently not living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in a rural area. She considers that God has something to do with what happens to her personally.\n\nBased on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.\nRespond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

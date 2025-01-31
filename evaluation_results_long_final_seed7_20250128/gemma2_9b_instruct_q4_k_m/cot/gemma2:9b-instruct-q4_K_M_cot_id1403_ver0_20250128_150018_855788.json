@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1403,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-28T20:00:18.854430715Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.247744,
+    "load_duration": 0.035175849,
+    "prompt_eval_count": 351,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 432,
+    "eval_duration": 5.168
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"21 is younger than the average age of recidivism\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males\"),\n    (\"Race\", \"medium\", \"Black individuals may face systemic barriers increasing risk\"),\n    (\"Prior Arrests/Convictions\", \"medium\", \"A previous conviction indicates some risk\"),\n    (\"Marital Status\", \"medium\", \"Living alone can increase social isolation and risk factors\"),\n    (\"Education\", \"high\", \"Lack of high school diploma is a strong predictor of recidivism\"),\n    (\"Employment\", \"high\", \"Unemployment is strongly correlated with criminal activity\"),\n    (\"Drug Use\", \"high\", \"Recent drug use suggests potential for relapse and criminal behavior\"),\n    (\"Mental Health\", \"high\", \"Feelings of depression indicate potential vulnerability\"),\n    (\"Childhood Environment\", \"medium\", \"Growing up in a large, urban household could present challenges\"),\n    (\"Religious Beliefs\", \"low\", \"No clear link between religious beliefs and recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n``` \n\n\n**Explanation of Weighting:**\n\n* **Low Risk Factors:** Age, Gender. These are demographic factors generally associated with lower recidivism.\n* **Medium Risk Factors:** Race (acknowledging systemic disparities), Prior Arrests/Convictions, Marital Status, Childhood Environment. These factors suggest some increased risk but not as strongly as others.\n* **High Risk Factors:** Education, Employment, Drug Use, Mental Health. These are powerful predictors of recidivism due to their direct link to criminal behavior and vulnerability.\n\n\n\n**Prediction and Confidence:**\n\nThe prediction is \"YES\" because the higher-weighted risk factors outweigh the lower-weighted ones. \n\nThe confidence level is 65% because while several high-risk factors are present, there are also mitigating factors (like age) that contribute to a less certain prediction.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_150018_855788",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1403,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 5 inches and weighs 160 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 6, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

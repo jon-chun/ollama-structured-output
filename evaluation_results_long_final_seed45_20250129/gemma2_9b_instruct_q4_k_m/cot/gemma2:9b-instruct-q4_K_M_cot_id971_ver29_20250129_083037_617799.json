@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 971,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-29T13:30:37.616413616Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 26.578021068,
+    "load_duration": 0.036946691,
+    "prompt_eval_count": 350,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 488,
+    "eval_duration": 26.531
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"21 is considered young, statistically lower risk\"),\n    (\"Race/Ethnicity\", \"low\", \"White individuals generally have lower recidivism rates in aggregate data\"),\n    (\"Prior Convictions\", \"medium\", \"One prior conviction suggests some level of criminal history\"),\n    (\"Physical Attributes\", \"low\", \"Height and weight are not strong predictors of recidivism\"),\n    (\"Marital Status\", \"medium\", \"Never married can be a risk factor, but not definitive\"),\n    (\"Living Situation\", \"medium\", \"Living alone can sometimes indicate instability\"),\n    (\"Education\", \"low\", \"GED and college enrollment suggest positive trajectory\"),\n    (\"Employment\", \"low\", \"Holding one job in the year is insufficient to assess stable employment\"),\n    (\"Drug Use\", \"medium\", \"Recent marijuana use indicates potential substance abuse issues\"),\n    (\"Mental Health\", \"medium\", \"Feeling down and hopeless could signal depression or other mental health concerns\"),\n    (\"Upbringing\", \"low\", \"Growing up in a small urban household is not inherently linked to higher risk\"),\n    (\"Religious Beliefs\", \"low\", \"Atheistic views are not predictive of recidivism\"),\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}\n``` \n\n\n**Explanation:**\n\nThis assessment weighs each factor based on its typical correlation with recidivism. Some factors are considered more influential than others. For example, prior convictions carry more weight than physical attributes.\n\n* **Factors leaning towards higher risk:** Prior conviction, drug use, mental health concerns, marital status, living situation.\n* **Factors leaning towards lower risk:** Young age, education, employment (though limited).\n\nThe overall prediction is \"NO\" because the mitigating factors outweigh the risk factors. However, the confidence level is only 60% due to the presence of some medium-risk factors.  \n\n\n**Important Notes:**\n\n* This is a simplified example and real-world risk assessment involves much more complex algorithms and data points.\n* Risk assessments should never be used as the sole basis for legal decisions. They are tools to inform decision-making alongside other relevant information. \n* Ethical considerations are paramount in risk assessment, ensuring fairness and avoiding bias.",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250129_083037_617799",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 971,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 29
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a GED certificate and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1021,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T21:04:20.11131248Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 21.38986672,
+    "load_duration": 0.009261703,
+    "prompt_eval_count": 384,
+    "prompt_eval_duration": 0.209,
+    "eval_count": 469,
+    "eval_duration": 21.168
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"At 20 years old, the individual is young and statistically has a higher chance of committing future crimes. However, this factor is considered low because his age is not an outlier.\"),\n    (\"Gender\", \"low\", \"Male gender does not inherently increase risk for recidivism.\"),\n    (\"Ethnicity\", \"medium\", \"Being Hispanic is not a direct risk factor but could indirectly correlate with socioeconomic status or community factors that may influence crime rates.\"),\n    (\"Arrest history\", \"high\", \"Having been arrested 10 times suggests a pattern of criminal behavior and a high likelihood of recidivism.\"),\n    (\"Education level\", \"high\", \"Not having a high school diploma or GED is associated with higher recidivism rates, as it limits employment opportunities and social integration.\"),\n    (\"Employment status\", \"high\", \"Being unemployed increases the risk for recidivism, especially if the individual lacks job skills and training.\"),\n    (\"Drug use\", \"high\", \"Past drug use, particularly of cocaine, is a strong predictor of future crime involvement.\"),\n    (\"Marital status\", \"low\", \"Being unmarried does not inherently increase risk for recidivism.\"),\n    (\"Living situation\", \"medium\", \"Living alone may indicate less social control and support, potentially increasing risk.\"),\n    (\"Depression\", \"low\", \"Not feeling depressed recently does not directly influence recidivism rates, though mental health issues can be correlated with criminal behavior.\"),\n    (\"Family background\", \"medium\", \"Growing up in a single-parent household and having lived with biological mother might indicate exposure to certain social risks, but this factor's relevance is less clear without additional context.\"),\n    (\"Religious belief\", \"low\", \"Believing in God does not increase the risk for recidivism; in fact, some studies suggest a protective effect, though this is not universally true.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_160420_112514",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1021,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 10 times and has been convicted. He is 5 feet 7 inches and weighs 180 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

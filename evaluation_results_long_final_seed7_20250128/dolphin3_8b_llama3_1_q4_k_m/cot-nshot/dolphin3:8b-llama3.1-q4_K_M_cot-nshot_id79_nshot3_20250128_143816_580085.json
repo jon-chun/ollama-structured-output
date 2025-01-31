@@ -1,0 +1,38 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 79,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T19:38:16.578893345Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.639181736,
+    "load_duration": 0.02318707,
+    "prompt_eval_count": 844,
+    "prompt_eval_duration": 0.113,
+    "eval_count": 415,
+    "eval_duration": 17.5
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The person is young, which is a low risk factor.\"),\n    (\"race\", \"medium\", \"Being Black is associated with a higher risk of recidivism but not the highest.\"),\n    (\"arrested_times\", \"high\", \"Having been arrested 1 time indicates a higher likelihood of future arrests.\"),\n    (\"not_convicted\", \"low\", \"Not being convicted may suggest a lower chance of being imprisoned and therefore a lower risk.\"),\n    (\"height_weight\", \"medium\", \"Height and weight alone do not give much insight into the individual's behavior, but in combination with other factors they can be considered as medium risk indicators.\"),\n    (\"marital_status\", \"low\", \"Living alone is a common situation and does not necessarily indicate higher recidivism.\"),\n    (\"education\", \"low\", \"Having a high school diploma may suggest some stability but it doesn't significantly contribute to the prediction of recidivism.\"),\n    (\"job_held_year\", \"medium\", \"Holding one job during the year could be an indicator of low socioeconomic status or lack of opportunities, which might increase recidivism risk.\"),\n    (\"drug_use_past_4_years\", \"low\", \"Not using drugs in the past 4 years suggests a lower likelihood to engage in criminal activities related to substance abuse.\"),\n    (\"felt_down_dumps_last_month\", \"high\", \"Feeling down most of the time during the last month is a high risk factor for recidivism, as it may indicate mental health issues or lack of resilience.\"),\n    (\"household_size_age_young\", \"low\", \"Living in a household size 3 at young age does not significantly affect the prediction of recidivism.\"),\n    (\"believe_god_control\", \"medium\", \"Believing that God has something to do with what happens to them personally may suggest a higher likelihood of engaging in criminal activities for religious or moral reasons.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_143816_580085",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT_NSHOT",
+    "row_id": 79,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0,
+    "nshot_ct": 3
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:\n\nExample #1:\nRisk Factors: The person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\nOutcome: NO\n\nExample #2:\nRisk Factors: The person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\nOutcome: NO\n\nExample #3:\nRisk Factors: The person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in a rural area. He considers that God has nothing to do with what happens to him personally.\nOutcome: YES\n\n\nNext, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 8 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nBased on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.\nRespond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

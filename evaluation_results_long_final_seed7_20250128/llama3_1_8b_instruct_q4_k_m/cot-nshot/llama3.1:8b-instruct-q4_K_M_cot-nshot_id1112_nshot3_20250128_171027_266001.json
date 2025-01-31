@@ -1,0 +1,38 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1112,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T22:10:27.264833238Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.121598486,
+    "load_duration": 0.030325434,
+    "prompt_eval_count": 822,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 362,
+    "eval_duration": 3.073
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age is generally associated with lower recidivism rates, but this individual's history of one arrest may indicate a need for closer examination.\"),\n    (\"Arrest History\", \"medium\", \"One arrest in the past suggests some level of involvement in crime, but lack of conviction indicates potential for rehabilitation.\"),\n    (\"Racial Identity\", \"low\", \"Research suggests that being Black does not inherently increase recidivism risk; other factors are more predictive.\"),\n    (\"Employment History\", \"medium\", \"Holding two jobs in a year indicates stability and potential for prosocial activities, but may also suggest stress or dissatisfaction.\"),\n    (\"Education Level\", \"high\", \"Lack of college enrollment and only having a GED certificate suggests lower socioeconomic status and potential for future involvement in crime.\"),\n    (\"Living Arrangements\", \"medium\", \"Living alone at age 19 may indicate independence and responsibility, but could also contribute to stress or lack of support.\"),\n    (\"Substance Use\", \"low\", \"No reported substance use in the past four years suggests low risk for recidivism related to addiction.\"),\n    (\"Mental Health\", \"low\", \"Lack of depression over the past month indicates good mental health and lower risk for recidivism related to emotional instability.\"),\n    (\"Upbringing\", \"medium\", \"Living with only one parent at a young age may indicate stress or instability in childhood, but could also promote resilience and resourcefulness.\"),\n    (\"Personal Beliefs\", \"low\", \"Lack of belief in divine intervention in personal affairs suggests a more realistic outlook on life and lower risk for recidivism related to fatalism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250128_171027_266001",
+    "model": "llama3.1:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT_NSHOT",
+    "row_id": 1112,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0,
+    "nshot_ct": 3
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:\n\nExample #1:\nRisk Factors: The person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\nOutcome: NO\n\nExample #2:\nRisk Factors: The person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\nOutcome: NO\n\nExample #3:\nRisk Factors: The person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in a rural area. He considers that God has nothing to do with what happens to him personally.\nOutcome: YES\n\n\nNext, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 2. He considers that God has nothing to do with what happens to him personally.\n\nBased on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.\nRespond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

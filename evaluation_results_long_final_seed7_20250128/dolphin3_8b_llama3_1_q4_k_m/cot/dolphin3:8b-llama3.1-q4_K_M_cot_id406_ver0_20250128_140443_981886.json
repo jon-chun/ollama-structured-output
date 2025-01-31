@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 406,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T19:04:43.980706573Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.948207971,
+    "load_duration": 0.044414409,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.087,
+    "eval_count": 360,
+    "eval_duration": 14.814
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The person's age is not significantly high to be considered a risk factor for recidivism.\"),\n    (\"race_ethnicity\", \"medium\", \"Being White may have lower recidivism rates compared to other races/ethnicities, but individual behavior matters more than demographic factors in this case.\"),\n    (\"prior_arrests\", \"high\", \"Having been arrested 4 times significantly increases the likelihood of future arrests based on past behavior.\"),\n    (\"employment_status\", \"low\", \"Holding one job during the year is a positive indicator; however, stability and type of employment are not clearly defined in this context.\"),\n    (\"education_level\", \"medium\", \"Not being enrolled in college might be a risk factor due to limited educational achievements beyond GED. Further details on his work history and skills would help assess this more precisely.\"),\n    (\"marital_status\", \"low\", \"Living alone does not necessarily contribute to the recidivism rate since many factors are unknown.\"),\n    (\"drug_use\", \"high\", \"Past drug use, especially regular use in the past month, is a significant risk factor due to its potential impact on mental health and behavior.\"),\n    (\"mental_health\", \"high\", \"Feeling consistently down might indicate underlying mental health issues that could contribute to recidivism if not addressed.\"),\n    (\"household_environment\", \"medium\", \"Living with three people in an urban area may have some influence, but specific details are needed to fully assess this risk factor.\"),\n    (\"religious_views\", \"low\", \"Having religious beliefs does not typically directly correlate with criminal behavior; it can be a positive influence for rehabilitation.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_140443_981886",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 406,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted. He is 5 feet 11 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

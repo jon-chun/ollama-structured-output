@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 58,
+    "id": 230,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T19:16:06.919914772Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.843171232,
+    "load_duration": 0.023738349,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.087,
+    "eval_count": 333,
+    "eval_duration": 13.73
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"young_age_living_with_parents\", \"low\", \"The client lived with both parents in a household of size 5, indicating stability.\"),\n    (\"no_depression_recently\", \"low\", \"No recent symptoms of depression which might suggest mental health issues leading to recidivism.\"),\n    (\"employed_during_year\", \"medium\", \"Having held one job during the year suggests some level of employment stability but not high enough to be considered low risk due to only having one job and the overall financial stability that comes with multiple jobs or higher education employment opportunities.\"),\n    (\"higher_education_enrolled\", \"low\", \"Being enrolled in a 4-year college is indicative of a lower risk profile as it implies a focus on future plans and personal development.\"),\n    (\"past_drug_use\", \"high\", \"The use of marijuana and cocaine within the past four years significantly increases the risk of recidivism due to substance abuse history.\"),\n    (\"arrests_and_convictions_history\", \"high\", \"Having been arrested twice and convicted is a strong indicator of criminal tendencies and past behavior that can be predictive of future criminal activity.\"),\n    (\"single_living_status\", \"low\", \"Living alone does not inherently suggest a higher risk, but it should be noted in conjunction with other factors.\"),\n    (\"religious_belief_in_divine_intervention\", \"medium\", \"Believing that God has control over personal events could indicate resilience or fatalism; the latter might contribute to recidivism if one gives up on changing life circumstances.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 58\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250128_141606_921068",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 230,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 7 inches and weighs 168 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

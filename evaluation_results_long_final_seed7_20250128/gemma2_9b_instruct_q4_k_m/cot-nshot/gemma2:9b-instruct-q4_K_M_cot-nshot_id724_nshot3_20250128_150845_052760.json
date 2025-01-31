@@ -1,0 +1,38 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 724,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-28T20:08:45.051605969Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.487725479,
+    "load_duration": 0.042873206,
+    "prompt_eval_count": 870,
+    "prompt_eval_duration": 0.051,
+    "eval_count": 362,
+    "eval_duration": 4.389
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"Older individuals tend to have lower recidivism rates, but this person is still relatively young.\"),\n    (\"Race\", \"low\", \"While race can be a factor in the criminal justice system, it's not a direct predictor of recidivism.\"),\n    (\"Prior Arrests\", \"high\", \"Multiple arrests indicate a higher likelihood of reoffending.\"),\n    (\"Prior Convictions\", \"high\", \"A prior conviction suggests a history of engaging in criminal behavior.\"),\n    (\"Height/Weight\", \"low\", \"Physical attributes are not strong indicators of recidivism.\"),\n    (\"Marital Status\", \"medium\", \"Unmarried individuals sometimes have higher recidivism rates, but this is not always the case.\"),\n    (\"Living Situation\", \"medium\", \"Living alone might increase risk factors for some individuals.\"),\n    (\"Education\", \"low\", \"Having a GED is better than no formal education, but it's not a strong predictor on its own.\"),\n    (\"Employment\", \"low\", \"Holding two jobs suggests some stability, which can be a positive factor.\"),\n    (\"Drug Use\", \"medium\", \"Past drug use can be associated with increased risk of recidivism.\"),\n    (\"Mental Health\", \"low\", \"No indication of current depression is a positive sign.\"),\n    (\"Childhood Environment\", \"low\", \"Living with one parent in a household of four is not necessarily a strong risk factor.\"),\n    (\"Religious Beliefs\", \"low\", \"Personal beliefs are complex and don't have a clear link to recidivism.\"),\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n\n\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_150845_052760",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT_NSHOT",
+    "row_id": 724,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0,
+    "nshot_ct": 3
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. First,analyze the following example cases of risk factors and resulting 3 year rearrest recidivism outcome:\n\nExample #1:\nRisk Factors: The person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs 190 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\nOutcome: NO\n\nExample #2:\nRisk Factors: The person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\nOutcome: NO\n\nExample #3:\nRisk Factors: The person is a 19-year-old male who identifies himself as White. He has been arrested 3 times but has not been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 3, in a rural area. He considers that God has nothing to do with what happens to him personally.\nOutcome: YES\n\n\nNext, step back and take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism for this case:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 8 times and has been convicted. He is 5 feet 11 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nBased on the above n-shot examples and your weighted risk factor analysis for this particular case, predict the 3-year rearrest recidivism outcome for this case.\nRespond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 406,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "created_at": "2025-01-28T19:59:42.709372332Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.960642223,
+    "load_duration": 0.055087346,
+    "prompt_eval_count": 347,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 568,
+    "eval_duration": 6.86
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"21 is a relatively young age, generally associated with lower recidivism.\"),\n    (\"Race/Ethnicity\", \"low\", \"No strong statistical association between White race and recidivism.\"),\n    (\"Prior Arrests\", \"medium\", \"Four prior arrests indicate some history of legal trouble.\"),\n    (\"Prior Convictions\", \"medium\", \"Convictions suggest a pattern of criminal behavior.\"),\n    (\"Height/Weight\", \"low\", \"Physical attributes are not strong predictors of recidivism.\"),\n    (\"Marital Status\", \"medium\", \"Never married could indicate instability, but not conclusive.\"),\n    (\"Living Situation\", \"medium\", \"Living alone might contribute to social isolation, a risk factor.\"),\n    (\"Education\", \"medium\", \"GED is better than no diploma, but not a strong indicator of success.\"),\n    (\"Employment\", \"low\", \"Holding one job in the year suggests some work history.\"),\n    (\"Drug Use\", \"high\", \"Recent marijuana use indicates potential for substance abuse issues.\"),\n    (\"Mental Health\", \"high\", \"Feeling consistently down and hopeless is a serious concern, potentially linked to depression or other mental health issues.\"),\n    (\"Childhood Environment\", \"low\", \"Growing up in a small urban household is not inherently predictive of recidivism.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in a higher power doesn't directly correlate with criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n``` \n\n\n**Explanation:**\n\nThis risk assessment considers various factors and assigns weights based on their potential influence on recidivism.  \n\n* **High Weight Factors:** Drug use and mental health concerns are major red flags, significantly increasing the likelihood of future criminal activity.\n* **Medium Weight Factors:** Prior arrests and convictions, marital status, living situation, education, and employment history all contribute to a moderate level of risk.\n* **Low Weight Factors:**  Age, race/ethnicity, height/weight, childhood environment, and religious beliefs have less impact on predicting recidivism in this case.\n\n**Important Notes:**\n\n* This is a simplified assessment based on limited information. \n* A comprehensive risk assessment would involve more detailed interviews, psychological evaluations, and access to criminal history records.\n* The \"confidence\" level reflects the overall weight of the factors considered. It's not a guarantee of future behavior but rather an indication of the likelihood of recidivism based on the available data.\n\n\nRemember, risk assessments are tools to inform decision-making, not deterministic predictions. They should be used in conjunction with other information and professional judgment.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_145942_710702",
+    "model": "gemma2:9b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 406,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted. He is 5 feet 11 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

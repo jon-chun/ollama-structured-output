@@ -9,7 +9,6 @@ from typing import Optional, Tuple, List, Dict, Any, Set
 
 from config import Config
 
-
 class DataManager:
     """
     Manages data loading, splitting, and preprocessing for model evaluation.
@@ -32,6 +31,7 @@ class DataManager:
         """
         self.config = config
         self.data_path = Path(config.data["input_file"])
+        self.random_seed = config.data["random_seed"]
         # Initialize dataframes as None until data is loaded
         self.df: Optional[pd.DataFrame] = None
         self.df_train: Optional[pd.DataFrame] = None
@@ -283,7 +283,7 @@ class DataManager:
                 )
             
             # Get random sample of rows
-            batch_df = available_samples.sample(n=actual_batch_size)
+            batch_df = available_samples.sample(n=actual_batch_size, random_state=self.random_seed)
             logging.info(f"Selected batch of {actual_batch_size} samples from {dataset} dataset")
         
         # Convert selected rows to list of dictionaries

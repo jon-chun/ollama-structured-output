@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 950,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T19:00:29.894464156Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.751982396,
+    "load_duration": 0.022950358,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.088,
+    "eval_count": 405,
+    "eval_duration": 16.638
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at First Arrest\", \"low\", \"The individual is young but not extremely so, considering her age of first arrest.\"),\n    (\"Number of Prior Adult Arrests\", \"low\", \"She has only been arrested once prior to this incident.\"),\n    (\"Current Age and Sex\", \"low\", \"As a female in her teens, she may be more susceptible to certain influences but is not inherently at high risk due to her age or gender alone.\"),\n    (\"Prior Juvenile Delinquency Record\", \"low\", \"No information on juvenile delinquency record available; assuming no severe prior offenses.\"),\n    (\"Marital Status and Living Arrangement\", \"medium\", \"Living alone, which could increase vulnerability but also implies some degree of independence; not a significant factor without evidence of criminal tendencies in isolation.\"),\n    (\"Employment History\", \"low\", \"Stable employment is generally a positive indicator; however, the sample size of one year's job may not be representative.\"),\n    (\"Education Status\", \"medium\", \"Enrolled in school suggests a positive trajectory but does not guarantee continued stability or lack of future criminal behavior.\"),\n    (\"Prior Drug Use\", \"high\", \"Current drug use, especially recent marijuana consumption and feelings of depression, significantly increases the risk of recidivism. The combination with occasional deep despair points to potential mental health issues that could exacerbate criminal behavior.\"),\n    (\"Family Environment - Childhood\", \"medium\", \"Rural upbringing with a family size of three might suggest a stable environment but does not exclude the possibility of adverse influences; however, without specific details on dysfunction or support systems, this factor is somewhat neutral in its impact assessment.\"),\n    (\"Religiosity/Spirituality\", \"low\", \"The individual's belief that God has something to do with her life could be seen as a stabilizing influence but lacks concrete evidence of behavioral impact.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_140029_895677",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 950,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 156 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1174,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "tulu3:8b-q4_K_M",
+    "created_at": "2025-01-30T11:13:41.01650763Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.344844596,
+    "load_duration": 0.022646786,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 384,
+    "eval_duration": 15.313
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"prior_arrests\", \"high\", \"The individual has a history of multiple arrests (4 times), indicating higher risk for recidivism.\"),\n    (\"convictions\", \"medium\", \"Having been convicted suggests a pattern of lawbreaking behavior and potentially indicates more serious offenses.\"),\n    (\"age\", \"low\", \"Being 18 years old is a young age, suggesting potential for change and possibly lower propensity for recidivism compared to older adults.\"),\n    (\"race\", \"high\", \"Identifying as Black has been associated with higher risk in certain statistical models of criminal justice outcomes.\"),\n    (\"height_and_weight\", \"low\", \"Physical characteristics such as height (5'10\") and weight (145 lbs) do not typically correlate strongly with recidivism risk.\"),\n    (\"marital_status\", \"medium\", \"Living alone may indicate a lack of social support networks, which can be a medium-risk factor for reoffending.\"),\n    (\"education\", \"high\", \"Lack of high school diploma or GED and not being enrolled in college are associated with higher risks of recidivism due to reduced opportunities and education level.\"),\n    (\"employment\", \"medium\", \"Having held only 1 job during the year suggests instability, which can be a medium-risk factor.\"),\n    (\"drug_use\", \"low\", \"No drug use in past four years is a positive sign but occasional feelings of depression could indicate underlying issues.\"),\n    (\"family_size_in_youth\", \"high\", \"Growing up in a larger household (size 4) has been associated with higher risk factors for later criminal behavior.\"),\n    (\"religious_belief\", \"low\", \"The person does not believe in the influence of God on personal events, which may correlate weakly if at all to recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250130_061341_018170",
+    "model": "tulu3:8b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1174,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 84
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 5 feet 10 inches and weighs 145 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

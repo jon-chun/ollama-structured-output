@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 597,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-28T20:41:16.53724237Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.010676836,
+    "load_duration": 0.009073524,
+    "prompt_eval_count": 377,
+    "prompt_eval_duration": 0.183,
+    "eval_count": 373,
+    "eval_duration": 16.814
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"He is young, but this factor alone is not a significant predictor of recidivism.\"),\n    (\"Gender\", \"low\", \"No evidence suggests that gender is a strong predictor of recidivism.\"),\n    (\"Ethnicity\", \"low\", \"Being White does not indicate a higher risk of recidivism.\"),\n    (\"Arrests\", \"high\", \"Three previous arrests suggest a pattern of criminal behavior.\"),\n    (\"Convictions\", \"high\", \"Prior convictions are a strong indicator of future offenses.\"),\n    (\"Marital Status\", \"low\", \"Living alone is not a significant predictor of recidivism.\"),\n    (\"Height/Weight\", \"low\", \"Physical attributes do not correlate with recidivism risk.\"),\n    (\"Employment History\", \"high\", \"Frequent job changes can indicate instability, which may be linked to recidivism.\"),\n    (\"Drug Use\", \"low\", \"No recent drug use suggests less impulsive behavior and lower risk.\"),\n    (\"Depression\", \"low\", \"No depression reported suggests less likelihood of self-medicating with drugs or crime.\"),\n    (\"Family Structure\", \"medium\", \"Living in a large household with non-biological adults could indicate instability or lack of positive role models.\"),\n    (\"Religious Belief\", \"low\", \"Belief in God does not correlate with recidivism risk.\"),\n    (\"Rural Upbringing\", \"medium\", \"Growing up in a rural area may offer fewer opportunities for rehabilitation or reintegration.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_154116_538794",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 597,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 180 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 6, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

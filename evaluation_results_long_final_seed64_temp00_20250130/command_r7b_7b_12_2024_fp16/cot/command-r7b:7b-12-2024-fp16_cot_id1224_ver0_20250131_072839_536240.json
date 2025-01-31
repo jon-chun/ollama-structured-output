@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1224,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "command-r7b:7b-12-2024-fp16",
+    "created_at": "2025-01-31T12:28:39.535041815Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.712374133,
+    "load_duration": 0.032845616,
+    "prompt_eval_count": 711,
+    "prompt_eval_duration": 0.023,
+    "eval_count": 405,
+    "eval_duration": 8.65
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: Young Adult\", \"medium\", \"The individual is a young adult, which can be associated with higher risk due to potential lack of stability and life experience.\"),\n    (\"Race/Ethnicity: Black\", \"high\", \"Research indicates that racial disparities exist in the criminal justice system, particularly for Black individuals. This factor carries significant weight.\"),\n    (\"Prior Arrests and Convictions\", \"high\", \"Multiple arrests and convictions suggest a pattern of involvement with the criminal justice system, indicating a higher risk of recidivism.\"),\n    (\"Employment History: None in the Past Year\", \"medium\", \"Lack of employment can be a red flag, potentially indicating financial strain or disengagement from society.\"),\n    (\"Education: Enrolled in School\", \"low\", \"Enrolment in school suggests a willingness to engage with education and potentially break the cycle of crime. This factor may mitigate other risks.\"),\n    (\"Marital Status: Never Married\", \"medium\", \"Being single can be associated with increased risk, as it may provide more freedom for risky behaviors or lack of social support.\"),\n    (\"Living Situation: Living Alone\", \"low\", \"Living alone does not necessarily indicate a higher risk, but it could suggest a level of independence and potential isolation.\"),\n    (\"Mental Health: Recent Depression Symptoms\", \"high\", \"Feeling down in the dumps frequently is a significant indicator of depression. Mental health issues can contribute to recidivism if not addressed.\"),\n    (\"Family Structure: Rural Area with Large Household\", \"low\", \"Living in a rural area with a large household may provide some social support, which could be beneficial for stability.\"),\n    (\"Religious Beliefs: God's Role in Personal Life\", \"medium\", \"Strong religious beliefs can have both positive and negative impacts. While it may provide guidance, it could also lead to extreme behaviors or a lack of accountability.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_072839_536240",
+    "model": "command-r7b:7b-12-2024-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1224,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 5 feet 10 inches and weighs 155 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 7, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

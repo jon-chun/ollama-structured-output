@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 78,
+    "id": 905,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "command-r7b:7b-12-2024-fp16",
+    "created_at": "2025-01-31T12:24:42.850126052Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.600671117,
+    "load_duration": 0.043443499,
+    "prompt_eval_count": 701,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 401,
+    "eval_duration": 8.529
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: Young Adult (22 years)\", \"medium\", \"Young adults are more likely to engage in risky behaviors due to a combination of factors such as peer influence, lack of long-term planning, and limited life experience.\"),\n    (\"Race/Ethnicity: Black Male\", \"high\", \"Research shows that Black males face systemic barriers and higher arrest rates compared to other demographics. This factor significantly increases the risk of recidivism.\"),\n    (\"Arrest History (2 times)\", \"medium\", \"Having been arrested twice indicates a history of involvement in the criminal justice system, which can be a predictor of future behavior.\"),\n    (\"Employment Instability: 3 Jobs in 1 Year\", \"low-medium\", \"Multiple jobs in a short period could suggest instability or a lack of commitment to employment, but it doesn't necessarily equate to a higher risk of recidivism.\"),\n    (\"Living Alone\", \"low\", \"Living alone does not directly correlate with recidivism. However, it may indicate a level of independence and personal responsibility.\"),\n    (\"Education: High School Diploma Only\", \"medium-high\", \"Limited education can limit job prospects and increase the likelihood of engaging in criminal activities to sustain oneself.\"),\n    (\"No Drug Use in 4 Years\", \"low\", \"A lack of drug use is generally a positive indicator, reducing the risk of recidivism associated with substance abuse.\"),\n    (\"No Depressive Symptoms in the Past Month\", \"low\", \"The absence of depressive symptoms suggests emotional stability and a reduced likelihood of engaging in criminal behavior out of mental health issues.\"),\n    (\"Family Structure: Biological Mother (Household Size 5)\", \"medium\", \"Living with a biological mother can provide some level of support and guidance, potentially reducing the risk of recidivism. However, larger family sizes are often associated with different dynamics.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 78\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_072442_851836",
+    "model": "command-r7b:7b-12-2024-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 905,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 5 feet 11 inches and weighs between 175 and 199 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

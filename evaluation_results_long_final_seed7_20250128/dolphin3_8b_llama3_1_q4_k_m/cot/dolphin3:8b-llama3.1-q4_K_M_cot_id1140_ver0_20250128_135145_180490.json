@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1140,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-28T18:51:45.179094151Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.035435674,
+    "load_duration": 0.023317393,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.088,
+    "eval_count": 338,
+    "eval_duration": 13.922
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age_at_intake\", \"low\", \"The individual is young, but not extremely youthful compared to the population typically considered high risk.\"),\n    (\"number_of_past_arrests\", \"medium\", \"Three arrests indicate some involvement with the criminal justice system, though it's not excessively high.\"),\n    (\"unemployment\", \"high\", \"Unemployment can significantly increase recidivism risk. The individual in question is unemployed.\"),\n    (\"prior_convictions\", \"low\", \"There are no prior convictions, which suggests a lower level of entrenched criminal behavior.\"),\n    (\"current_education\", \"medium\", \"Being enrolled in school is somewhat protective against crime, but the lack of job experience may offset this effect.\"),\n    (\"no_drug_use\", \"low\", \"Absence of recent drug use may contribute to a lower risk for certain types of recidivism.\"),\n    (\"depression\", \"high\", \"Feelings of despair, especially when persistent and severe, can indicate an increased likelihood of recidivism.\"),\n    (\"family_size\", \"medium\", \"Larger family size could be seen as both protective (more support) and a potential risk factor (greater economic stress).\"),\n    (\"urban_residence\", \"low\", \"Urban residence is not inherently risky; it's neutral in this context without additional data on crime rates there.\"),\n    (\"no_god_belief\", \"high\", \"The lack of belief in God could suggest that the individual may rely less on internal moral compasses and more on external controls, potentially increasing recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_135145_180490",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1140,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 3 times but has not been convicted. He is 5 feet 11 inches and weighs 198 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 7, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

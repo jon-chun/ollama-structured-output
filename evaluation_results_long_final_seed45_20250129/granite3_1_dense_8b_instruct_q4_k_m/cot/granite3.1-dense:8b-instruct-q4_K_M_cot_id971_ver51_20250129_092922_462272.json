@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 971,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "created_at": "2025-01-29T14:29:22.460977504Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.965856456,
+    "load_duration": 0.009164227,
+    "prompt_eval_count": 390,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 431,
+    "eval_duration": 3.947
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The subject is young, which typically increases the likelihood of reoffending. However, he's at the younger end of this range.\"),\n    (\"Gender\", \"low\", \"Male gender is a factor associated with higher recidivism rates, but this is moderated by other factors.\"),\n    (\"Ethnicity\", \"low\", \"White ethnicity is generally not associated with high risk of recidivism.\"),\n    (\"Prior Arrests\", \"medium\", \"One prior arrest indicates some criminal behavior, but it's not extremely high.\"),\n    (\"Conviction\", \"medium\", \"A conviction suggests a level of criminal involvement, but the fact that he has only one conviction moderates this risk.\"),\n    (\"Height/Weight\", \"low\", \"These factors are generally not significant predictors of recidivism.\"),\n    (\"Marital Status\", \"low\", \"Never married is common among offenders, but doesn't indicate high risk on its own.\"),\n    (\"Living Situation\", \"medium\", \"Living alone could suggest less social control, a moderate risk factor.\"),\n    (\"Education\", \"low\", \"Holding a GED certificate and being enrolled in college are protective factors against recidivism.\"),\n    (\"Employment\", \"low\", \"Holding one job during the year is not a strong indicator of recidivism risk.\"),\n    (\"Substance Use\", \"medium\", \"Past marijuana use and recent feelings of depression suggest some risk, but these are moderated by his current enrollment in college.\"),\n    (\"Family Background\", \"low\", \"Growing up in an urban area with a single mother doesn't strongly predict recidivism on its own.\"),\n    (\"Religious Beliefs\", \"low\", \"Lack of religious involvement is not a strong predictor of recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250129_092922_462272",
+    "model": "granite3.1-dense:8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 971,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 51
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a GED certificate and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

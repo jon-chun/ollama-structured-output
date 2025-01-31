@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1337,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "deepseek-r1:7b",
+    "created_at": "2025-01-28T18:18:44.645506737Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.912913999,
+    "load_duration": 0.026763093,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 483,
+    "eval_duration": 3.865
+  },
+  "response": {
+    "raw_message_text": "<think>\nAlright, so I'm trying to figure out the recidivism risk for this 20-year-old Hispanic female. She's been arrested once and convicted, which is a solid red flag. Her age might be a factor since younger individuals sometimes have different patterns, but she hasn't had much time to rebuild her life after arrest.\n\nShe lives alone, which could mean she doesn't have support from family or friends who might help her stay on track. Being in the workforce part-time without a high school diploma is another point\u2014maybe she's struggling with job skills or motivation. Using drugs, especially recently, can affect her mental state and ability to function responsibly.\n\nHer past household size was four when she was young; maybe that contributed to some instability or lack of supervision. Her religious beliefs might make her more prone to making poor decisions driven by anger or hopelessness rather than seeking a higher purpose.\n\nPutting it all together, several risk factors are present: prior arrest, low education, substance use, living alone, and personal history which adds to her unstable circumstances.\n</think>\n\n```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrest\", \"high\", \"She has one previous conviction, indicating a history of criminal behavior that could predict future recidivism.\"),\n    (\"Living Alone\", \"medium\", \"Living in isolation may increase stress and substance use, potentially leading to increased risk factors for recidivism.\"),\n    (\"Substance Use\", \"high\", \"Use of marijuana and cocaine over the past four years, with recent heavy use, can impair judgment and self-control, increasing the likelihood of reoffending.\"),\n    (\"Education Level\", \"medium\", \"Lack of a high school diploma or GED may indicate limited opportunities for positive role models or educational support, contributing to risk factors.\"),\n    (\"Young Age and Household Size at 18\", \"low\", \"Living in a household of four at a young age might not directly correlate with higher risk unless it indicates ongoing instability. However, this factor is included due to potential underlying issues that could contribute to substance use and instability.\"),\n    (\"Religious Beliefs\", \"medium\", \"Her belief in God may not provide external motivation for positive behavior, potentially leading to substance abuse or emotional distress as reasons for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250128_131844_647263",
+    "model": "deepseek-r1:7b",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1337,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time and has been convicted. She is 5 feet 1 inch and weighs 138 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

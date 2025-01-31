@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 827,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "created_at": "2025-01-31T01:38:14.761610709Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.123461868,
+    "load_duration": 0.020636028,
+    "prompt_eval_count": 324,
+    "prompt_eval_duration": 0.016,
+    "eval_count": 386,
+    "eval_duration": 3.077
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Youth is often associated with lower recidivism rates, but this factor alone does not strongly indicate risk.\"),\n    (\"race\", \"low\", \"Race is a demographic factor that does not directly correlate to higher or lower recidivism rates in the absence of other factors.\"),\n    (\"arrests_and_convictions\", \"high\", \"Multiple prior arrests and convictions suggest a pattern of criminal behavior, increasing the likelihood of future offenses.\"),\n    (\"physical_size\", \"low\", \"Physical attributes such as height and weight do not directly correlate with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Not being married does not inherently indicate higher or lower risk for recidivism.\"),\n    (\"living_arrangements\", \"medium\", \"Living situation can impact access to resources and support networks, which may influence recidivism rates.\"),\n    (\"education\", \"high\", \"Lack of a high school diploma or GED certificate is associated with higher recidivism rates due to limited job prospects and social integration.\"),\n    (\"employment\", \"low\", \"Holding one job during the year suggests some level of engagement in society, which can be protective against reoffending.\"),\n    (\"drug_use\", \"medium\", \"Recent drug use may indicate ongoing substance abuse issues that could contribute to criminal behavior.\"),\n    (\"depression\", \"low\", \"No recent feelings of depression reduce the likelihood of mental health driving criminal behavior.\"),\n    (\"childhood_environment\", \"medium\", \"Growing up in a household with three members might suggest some level of social support, but it is not strongly predictive of recidivism.\"),\n    (\"religious_involvement\", \"low\", \"Belief in God does not directly correlate to higher or lower risk for recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250130_203814_762771",
+    "model": "qwen2.5:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 827,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 10 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
