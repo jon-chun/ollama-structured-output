@@ -15,6 +15,7 @@ from models import Decision, PromptType
 from metrics import TimeoutMetrics
 from utils import clean_model_name, pydantic_or_dict, convert_ns_to_s, check_existing_decision
 
+
 class MetaData(BaseModel):
     """Model to represent metadata from an API response."""
     model: Optional[str] = Field(None, description="Model name")
@@ -105,13 +106,35 @@ def check_existing_output(output_dir: Path, model_name: str, prompt_type: Prompt
     
     return len(matching_files) > 0
 
+# Make sure you have installed json-repair:
+#   pip install json-repair
+import json_repair
+
+def remove_think_tags_and_triple_quotes(text: str) -> str:
+    """
+    1) Remove <THINK>...</THINK> tags and all enclosed text.
+    2) Remove any triple quotes .
+    Returns a cleaned-up string.
+    """
+    import re
+    # Remove <THINK> ... </THINK>
+    text = re.sub(r'<THINK>.*?</THINK>', '', text, flags=re.DOTALL | re.IGNORECASE)
+
+    # Remove triple quotes of all forms
+    triple_quotes_patterns = [r'```', r'"""', r"'''"]
+    for pattern in triple_quotes_patterns:
+        text = re.sub(pattern, '', text)
+
+    return text.strip()
+
 def process_model_response(response_text: str, model_name: str) -> Dict:
     """
     Attempt multiple parsing strategies to interpret the model output as JSON
-    with {'prediction': 'YES'|'NO', 'confidence': 0..100, 'risk_factors': [...], 'original_text': ...}.
+    with {'prediction': 'YES'|'NO', 'confidence': 0..100, 'risk_factors': [...] }.
     """
     try:
         logging.debug(f"Raw model response: {response_text}")
+        # Remove ```json or ``` from the original text for cleanliness
         clean_text = response_text.replace('```json', '').replace('```', '')
         parsed_response = None
 
@@ -120,11 +143,11 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
         #
         try:
             parsed_response = json.loads(clean_text.strip())
-            logging.debug("Successfully parsed response as JSON")
+            logging.debug("Successfully parsed response as JSON (Strategy 1)")
             # Keep original text
             parsed_response['original_text'] = response_text
         except json.JSONDecodeError:
-            logging.debug("Failed to parse as direct JSON")
+            logging.debug("Failed to parse as direct JSON (Strategy 1)")
 
         #
         # --- Strategy 2: Extract JSON from text using regex ---
@@ -135,86 +158,83 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
             matches = re.findall(json_pattern, clean_text, re.DOTALL)
             for match in matches:
                 try:
-                    parsed_response = json.loads(match)
-                    parsed_response['original_text'] = response_text
-                    logging.debug("Extracted and parsed JSON content using regex")
+                    parsed = json.loads(match)
+                    parsed['original_text'] = response_text
+                    parsed_response = parsed
+                    logging.debug("Extracted and parsed JSON content using regex (Strategy 2)")
                     break
                 except json.JSONDecodeError:
                     continue
 
         #
-        # --- Strategy 3: Structured text parsing for specific fields ---
+        # --- Strategy 3: Structured text field extraction ---
         #
         if not parsed_response:
             import re
             prediction_match = re.search(r'prediction[\s:"]*([YN]ES|NO)', clean_text, re.IGNORECASE)
             confidence_match = re.search(r'confidence[\s:"]*(\d+)', clean_text)
             risk_factors_match = re.search(r'risk_factors[\s:"]*(\[.*\])', clean_text, re.IGNORECASE)
+
             if prediction_match and confidence_match:
                 parsed_response = {
                     "prediction": prediction_match.group(1).upper(),
                     "confidence": int(confidence_match.group(1)),
-                    "original_text": response_text  # Keep original text
+                    "original_text": response_text
                 }
                 if risk_factors_match:
                     try:
                         parsed_response["risk_factors"] = json.loads(risk_factors_match.group(1))
                     except json.JSONDecodeError:
                         logging.warning("Could not parse risk_factors JSON")
-                logging.debug("Parsed structured text response")
+                logging.debug("Parsed structured text response (Strategy 3)")
 
         #
         # --- Strategy 4: "json_repair" fallback ---
         #
+        # If we still don't have a valid parsed_response, try to repair it using json_repair.
+        #
         if not parsed_response:
             repaired_text = remove_think_tags_and_triple_quotes(clean_text)
-
-            # Attempt to parse again as JSON after best-effort “repair”
             try:
-                maybe_json = json.loads(repaired_text)
-                parsed_response = maybe_json
-                parsed_response['original_text'] = response_text
-                logging.debug("json_repair strategy succeeded in parsing as JSON")
-            except json.JSONDecodeError:
-                logging.debug("json_repair strategy failed to parse as JSON")
+                # Attempt to parse with json_repair
+                # This automatically tries to fix unquoted keys, trailing commas, etc.
+                maybe_json = json_repair.loads(repaired_text)
+                # If the string was super broken, maybe_json might be empty or None
+                if maybe_json:
+                    parsed_response = maybe_json
+                    parsed_response['original_text'] = response_text
+                    logging.debug("json_repair strategy succeeded in parsing as JSON (Strategy 4)")
+                else:
+                    logging.debug("json_repair strategy returned empty or invalid object (Strategy 4)")
+            except Exception as e:
+                logging.debug(f"json_repair strategy failed (Strategy 4): {e}")
 
         #
         # --- Strategy 5: "unstruct" fallback ---
         #
         if not parsed_response:
             unstruct_text = remove_think_tags_and_triple_quotes(clean_text)
-
-            # parse from the bottom up for a pattern like:
-            #    "... "prediction": YES"
-            # or "... "rearrest_prediction": No"
-            # Then optionally next line or same line: "confidence": 72
-            # or "rearrest_confidence": 72
-
-            # We want to do it from the bottom up, so let's reverse-split by lines
             lines = unstruct_text.splitlines()
             lines.reverse()
+
+            import re
+            pred_pattern = re.compile(r'(prediction|rearrest_prediction)\s*:\s*(yes|no)', re.IGNORECASE)
+            conf_pattern = re.compile(r'(confidence|rearrest_confidence)\s*:\s*(\d+)', re.IGNORECASE)
 
             prediction = None
             confidence = None
 
-            import re
-            # We'll prepare some case-insensitive patterns
-            pred_pattern = re.compile(r'(prediction|rearrest_prediction)\s*:\s*(yes|no)', re.IGNORECASE)
-            conf_pattern = re.compile(r'(confidence|rearrest_confidence)\s*:\s*(\d+)', re.IGNORECASE)
-
             for line in lines:
                 pred_match = pred_pattern.search(line)
                 if pred_match and not prediction:
-                    # Found a "prediction" or "rearrest_prediction"
                     raw_pred = pred_match.group(2).upper()
                     prediction = 'YES' if raw_pred.startswith('Y') else 'NO'
+
                 conf_match = conf_pattern.search(line)
                 if conf_match and not confidence:
-                    # Found a "confidence" or "rearrest_confidence"
                     confidence = int(conf_match.group(2))
 
-                # If we have both, we can stop scanning
-                if prediction is not None and confidence is not None:
+                if prediction and confidence is not None:
                     break
 
             if prediction:
@@ -223,40 +243,40 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
                     "confidence": confidence if confidence is not None else 90,
                     "original_text": response_text
                 }
-                logging.debug("unstruct strategy extracted minimal data")
+                logging.debug("unstruct strategy extracted minimal data (Strategy 5)")
 
-        #
-        # If still no luck, raise an error
-        #
+        # If none of the strategies worked, raise an error
         if not parsed_response:
             raise ValueError("Could not extract valid response from model output")
 
         #
-        # --- Normalize the final response ---
+        # --- Final Normalization ---
         #
-        normalized = {'original_text': response_text}
+        normalized = {
+            'original_text': response_text
+        }
 
-        # Handle 'prediction'
+        # Normalize 'prediction'
         pred_value = str(parsed_response.get('prediction', '')).upper()
         if pred_value in ['YES', 'NO']:
             normalized['prediction'] = pred_value
         else:
-            # fallback logic: interpret unrecognized values
+            # fallback for ambiguous or partial matches
             if any(ind in pred_value for ind in ['YES', 'TRUE', '1', 'HIGH']):
                 normalized['prediction'] = 'YES'
             else:
                 normalized['prediction'] = 'NO'
 
-        # Handle 'confidence'
+        # Normalize 'confidence'
         conf_value = parsed_response.get('confidence', None)
         if conf_value is not None:
             if isinstance(conf_value, str):
                 conf_value = float(conf_value.replace('%', ''))
             normalized['confidence'] = int(min(max(float(conf_value), 0.0), 100.0))
         else:
-            normalized['confidence'] = 90  # default
+            normalized['confidence'] = 90  # Default
 
-        # Handle 'risk_factors'
+        # If risk_factors exist, carry them over
         if 'risk_factors' in parsed_response:
             normalized['risk_factors'] = parsed_response['risk_factors']
 
@@ -268,6 +288,7 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
         logging.error(f"Error processing model response: {str(e)}")
         logging.error(f"Raw response: {response_text}")
         raise
+
 
 
 def remove_think_tags_and_triple_quotes(text: str) -> str:

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 876,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-31T22:25:09.826487298Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 40.091149952,
+    "load_duration": 0.016099119,
+    "prompt_eval_count": 355,
+    "prompt_eval_duration": 1.003,
+    "eval_count": 289,
+    "eval_duration": 39.068
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"18 years old, relatively young with potential for positive change\"),\n    (\"Gender\", \"low\", \"Female offenders generally have lower recidivism rates compared to males\"),\n    (\"Race\", \"low\", \"Race alone is not a significant predictor of recidivism\"),\n    (\"Prior Arrests (Unconvicted)\", \"medium\", \"Two prior arrests, though unconvicted, indicate some involvement with the justice system\"),\n    (\"Education\", \"medium\", \"GED holder not enrolled in college may face limited opportunities\"),\n    (\"Employment Status\", \"high\", \"Unemployment significantly increases risk of recidivism\"),\n    (\"Substance Use\", \"medium\", \"Past drug use (marijuana and cocaine) is a moderate risk factor\"),\n    (\"Living Situation\", \"medium\", \"Living alone can be associated with instability\"),\n    (\"Family History\", \"low\", \"No information suggesting dysfunctional family background\"),\n    (\"Religious Belief\", \"low\", \"Belief in God does not directly correlate with recidivism but could offer support\"),\n    (\"Depression\", \"low\", \"No recent depressive symptoms noted\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_172509_827965",
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 876,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 2 inches and weighs 115 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 4. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

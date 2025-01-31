@@ -32,7 +32,7 @@ from utils import (
 )
 
 from decision import (
-    get_decision_with_timeout,
+    get_decision_with_timeout,  # Main inference function
     save_decision
 )
 
@@ -360,121 +360,154 @@ async def main():
         # First, scan all existing output files
         combination_completion_status: Dict[Tuple[str, str], Dict] = {}
         
-        # Check model availability before starting evaluations
-        model_availability = await check_model_availability(config)
+        # Model type
+        model_api_type = config.model_parameters['api_type']
+
+        if model_api_type == 'openai':
         
-        # Pre-scan completion status for all combinations
-        for model_name, model_cfg in config.model_ensemble.items():
-            # Skip unavailable models
-            if not model_availability[model_name]:
-                logging.error(f"Skipping model {model_name} - not available")
-                continue
-                
-            for p_type in PromptType:
-                combo_key = (model_name, str(p_type))
-                
-                # Skip if we've already processed this combination
-                if combo_key in processed_combinations:
-                    logging.info(f"Skipping duplicate model+prompt combination: {model_name} with {p_type}")
-                    continue
-                
-                # Get completion counts for this combination
-                completion_counts = get_completion_counts(
-                    output_base,
-                    model_name,
-                    str(p_type)
-                )
-                
-                is_complete = is_combination_fully_complete(
-                    completion_counts,
-                    config.flags.max_samples,
-                    config.execution.max_calls_per_prompt
-                )
-                
-                combination_completion_status[combo_key] = {
-                    'is_complete': is_complete,
-                    'completion_counts': completion_counts
-                }
+            # Process using OpenAI API calls with:
+            # model = config.model_parameters['api_model']
+            # temperature = config.model_parameters['model_temperature']
+            # top_p = config.model_parameters['model_top_p']
+            # max_tokens = config.model_parameters['model_max_tokens']
+            pass
 
-        # Now process only incomplete combinations for available models
-        for model_name, model_cfg in config.model_ensemble.items():
-            # Skip unavailable models
-            if not model_availability[model_name]:
-                continue
-                
-            logging.info(f"Starting evaluation of model: {model_name}")
-            model_name_clean = clean_model_name(model_name)
+        elif model_api_type == 'anthropic':
+
+            # Process using Claude API calls with:
+            # model = config.model_parameters['api_model']
+            # temperature = config.model_parameters['model_temperature']
+            # top_p = config.model_parameters['model_top_p']
+            # max_tokens = config.model_parameters['model_max_tokens']
+            pass
+
+        elif model_api_type == 'google':
+
+            # Process using Google API calls with:
+            # model = config.model_parameters['api_model']
+            # temperature = config.model_parameters['model_temperature']
+            # top_p = config.model_parameters['model_top_p']
+            # max_tokens = config.model_parameters['model_max_tokens']
+            pass
+
+        elif model_api_type == 'ollama':
+            logging.info("Using Ollama model API")
+
+            # Check model availability before starting evaluations
+            model_availability = await check_model_availability(config)
             
-            # Rest of the existing main() function continues as before...
-            
-            # Create model-specific output directory
-            model_output_dir = output_base / model_name_clean
-            model_output_dir.mkdir(parents=True, exist_ok=True)
-            
-            # Iterate over prompt types
-            for p_type in PromptType:
-                combo_key = (model_name, str(p_type))
-                
-                # Skip if already processed or complete
-                if combo_key in processed_combinations:
-                    logging.info(f"Skipping already processed combination: {model_name} with {p_type}")
+            # Pre-scan completion status for all combinations
+            for model_name, model_cfg in config.model_ensemble.items():
+                # Skip unavailable models
+                if not model_availability[model_name]:
+                    logging.error(f"Skipping model {model_name} - not available")
                     continue
+                    
+                for p_type in PromptType:
+                    combo_key = (model_name, str(p_type))
+                    
+                    # Skip if we've already processed this combination
+                    if combo_key in processed_combinations:
+                        logging.info(f"Skipping duplicate model+prompt combination: {model_name} with {p_type}")
+                        continue
+                    
+                    # Get completion counts for this combination
+                    completion_counts = get_completion_counts(
+                        output_base,
+                        model_name,
+                        str(p_type)
+                    )
+                    
+                    is_complete = is_combination_fully_complete(
+                        completion_counts,
+                        config.flags.max_samples,
+                        config.execution.max_calls_per_prompt
+                    )
+                    
+                    combination_completion_status[combo_key] = {
+                        'is_complete': is_complete,
+                        'completion_counts': completion_counts
+                    }
 
-
-                # Check if we've reached maximum outputs for this combination
-                if check_model_prompt_completion(
-                    output_base, 
-                    model_name, 
-                    str(p_type),
-                    config.flags.max_samples,
-                    config.execution.max_calls_per_prompt
-                ):
-                    logging.info(f"Skipping {model_name} with {p_type}: maximum outputs reached")
+            # Now process only incomplete combinations for available models
+            for model_name, model_cfg in config.model_ensemble.items():
+                # Skip unavailable models
+                if not model_availability[model_name]:
                     continue
+                    
+                logging.info(f"Starting evaluation of model: {model_name}")
+                model_name_clean = clean_model_name(model_name)
+                
+                # Rest of the existing main() function continues as before...
+                
+                # Create model-specific output directory
+                model_output_dir = output_base / model_name_clean
+                model_output_dir.mkdir(parents=True, exist_ok=True)
+                
+                # Iterate over prompt types
+                for p_type in PromptType:
+                    combo_key = (model_name, str(p_type))
+                    
+                    # Skip if already processed or complete
+                    if combo_key in processed_combinations:
+                        logging.info(f"Skipping already processed combination: {model_name} with {p_type}")
+                        continue
 
 
-                status = combination_completion_status.get(combo_key, {
-                    'is_complete': False,
-                    'completion_counts': {}
-                })
-                
-                if status['is_complete']:
-                    logging.info(f"Skipping completed combination: {model_name} with {p_type}")
-                    continue
-                
-                logging.info(f"Processing combination: {model_name} with {p_type}")
-                
-                # Run evaluation
-                stats = await run_evaluation_session(
-                    model_name=model_name,
-                    prompt_type=p_type,
-                    config=config,
-                    data_manager=data_manager,
-                    prompt_manager=prompt_manager
-                )
-                
-                if stats:
-                    session_results.append(stats)
-                
-                # Mark as processed
-                processed_combinations.add(combo_key)
-                
-                # Cleanup and pause
-                await cleanup_model()
-                await asyncio.sleep(DELAY_BETWEEN_PROMPT_TYPES_SEC)
-            
-            # Longer pause between models
-            await asyncio.sleep(DELAY_BETWEEN_MODEL_LOAD_SEC)
+                    # Check if we've reached maximum outputs for this combination
+                    if check_model_prompt_completion(
+                        output_base, 
+                        model_name, 
+                        str(p_type),
+                        config.flags.max_samples,
+                        config.execution.max_calls_per_prompt
+                    ):
+                        logging.info(f"Skipping {model_name} with {p_type}: maximum outputs reached")
+                        continue
 
-        # Save final results
-        total_duration = time.time() - overall_start
-        if session_results:
-            save_aggregate_stats(session_results, total_duration)
-            logging.info("Successfully saved aggregate statistics")
-        else:
-            logging.warning("No session results to aggregate")
 
-        logging.info(f"All evaluations completed in {total_duration:.2f} seconds")
+                    status = combination_completion_status.get(combo_key, {
+                        'is_complete': False,
+                        'completion_counts': {}
+                    })
+                    
+                    if status['is_complete']:
+                        logging.info(f"Skipping completed combination: {model_name} with {p_type}")
+                        continue
+                    
+                    logging.info(f"Processing combination: {model_name} with {p_type}")
+                    
+                    # Run evaluation
+                    stats = await run_evaluation_session(
+                        model_name=model_name,
+                        prompt_type=p_type,
+                        config=config,
+                        data_manager=data_manager,
+                        prompt_manager=prompt_manager
+                    )
+                    
+                    if stats:
+                        session_results.append(stats)
+                    
+                    # Mark as processed
+                    processed_combinations.add(combo_key)
+                    
+                    # Cleanup and pause
+                    await cleanup_model()
+                    await asyncio.sleep(DELAY_BETWEEN_PROMPT_TYPES_SEC)
+                
+                # Longer pause between models
+                await asyncio.sleep(DELAY_BETWEEN_MODEL_LOAD_SEC)
+
+            # Save final results
+            total_duration = time.time() - overall_start
+            if session_results:
+                save_aggregate_stats(session_results, total_duration)
+                logging.info("Successfully saved aggregate statistics")
+            else:
+                logging.warning("No session results to aggregate")
+
+            logging.info(f"All evaluations completed in {total_duration:.2f} seconds")
 
     except Exception as e:
         logging.error(f"Fatal error in main: {e}", exc_info=True)

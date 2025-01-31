@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 666,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-31T22:27:33.248712831Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 49.552263786,
+    "load_duration": 0.018316643,
+    "prompt_eval_count": 356,
+    "prompt_eval_duration": 1.004,
+    "eval_count": 360,
+    "eval_duration": 48.526
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"18-year-old, still within a developmental stage where risk can be elevated but not as high as older adults\"),\n    (\"Gender\", \"low\", \"Male, while generally associated with higher recidivism, this factor alone is not highly predictive without other risk indicators\"),\n    (\"Race\", \"low\", \"Race alone is not a significant predictor of recidivism in well-designed risk assessment tools\"),\n    (\"Prior Arrests/Convictions\", \"medium\", \"Two prior arrests and convictions indicate some level of past criminal behavior\"),\n    (\"Education Status\", \"low\", \"Currently enrolled in school suggests engagement and potential positive trajectory\"),\n    (\"Employment Status\", \"medium\", \"No employment in the past year could indicate instability and potential risk factors\"),\n    (\"Drug Use\", \"medium\", \"Past drug use (marijuana and cocaine) within the last four years is a moderate risk factor\"),\n    (\"Living Situation\", \"low\", \"Living alone is neutral; not inherently high risk without additional context\"),\n    (\"Marital Status\", \"low\", \"Never married is neutral in this context\"),\n    (\"Family History\", \"low\", \"Lived with both parents in a stable household during childhood suggests some protective factors\"),\n    (\"Religious Belief\", \"low\", \"Belief in God's influence can be seen as either protective or neutral depending on context\"),\n    (\"Depression\", \"low\", \"No recent feelings of depression is a positive factor\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250131_172733_250361",
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
