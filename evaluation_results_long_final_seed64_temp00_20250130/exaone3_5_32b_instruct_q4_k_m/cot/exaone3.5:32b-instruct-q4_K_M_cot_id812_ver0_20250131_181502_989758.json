@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 812,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-31T23:15:02.98735705Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 38.189807622,
+    "load_duration": 0.022217947,
+    "prompt_eval_count": 359,
+    "prompt_eval_duration": 1.007,
+    "eval_count": 275,
+    "eval_duration": 37.156
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"20 years old, younger age generally associated with lower recidivism risk\"),\n    (\"Race\", \"low\", \"Race alone is not a significant predictor of recidivism\"),\n    (\"Prior Arrests/Convictions\", \"medium\", \"One prior conviction indicates some risk, but not extremely high given other factors\"),\n    (\"Education\", \"low\", \"High school diploma and college enrollment suggest lower risk\"),\n    (\"Employment History\", \"low\", \"Holding two jobs in a year indicates stability and responsibility\"),\n    (\"Substance Use\", \"low\", \"No drug use in the past four years is a positive factor\"),\n    (\"Mental Health\", \"low\", \"No recent depression reported suggests good mental health\"),\n    (\"Childhood Environment\", \"medium\", \"Living with non-biological adults could indicate some instability, but not necessarily high risk\"),\n    (\"Religious Belief\", \"low\", \"Religious faith can be a protective factor\"),\n    (\"Living Situation\", \"medium\", \"Living alone might indicate some social isolation, but not necessarily high risk\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250131_181502_989758",
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 812,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 11 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

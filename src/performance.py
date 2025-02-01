@@ -151,6 +151,8 @@ class PerformanceTracker:
 
         return averages, std_devs
 
+
+
     def _generate_stats(self) -> Optional[PerformanceStats]:
         """Compute final PerformanceStats from all recorded attempts."""
         if not self.metrics:
@@ -160,26 +162,48 @@ class PerformanceTracker:
         meta_averages, meta_sds = self._calculate_meta_data_stats()
         decision_stats = self.decision_tracker.get_stats()
 
-        # Build confusion matrix data
-        y_true = [1 if v.upper() == "YES" else 0 for v in decision_stats['actual_values']]
-        y_pred = [1 if v.upper() == "YES" else 0 for v in decision_stats['predicted_values']]
+        # Build confusion matrix data only from successful API calls.
+        valid_actuals = decision_stats['actual_values']
+        valid_preds = decision_stats['predicted_values']
 
-        # Calculate confusion matrix
-        if y_true and y_pred:
-            tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-            confusion_dict = {
-                "tp": int(tp),
-                "tn": int(tn),
-                "fp": int(fp),
-                "fn": int(fn)
-            }
+        # Decide which labels to use based on the type of the first value.
+        if valid_actuals and isinstance(valid_actuals[0], str):
+            cm = confusion_matrix(valid_actuals, valid_preds, labels=["YES", "NO"])
+        elif valid_actuals and isinstance(valid_actuals[0], (int, float)):
+            cm = confusion_matrix(valid_actuals, valid_preds, labels=[0, 1])
         else:
-            confusion_dict = {"tp": 0, "tn": 0, "fp": 0, "fn": 0}
+            import numpy as np
+            cm = np.zeros((2, 2), dtype=int)
 
-        # Calculate AUC-ROC
+        # Ensure cm is 2x2 even if one class is missing.
+        if cm.shape != (2, 2):
+            import numpy as np
+            full_cm = np.zeros((2, 2), dtype=int)
+            for i in range(min(cm.shape[0], 2)):
+                for j in range(min(cm.shape[1], 2)):
+                    full_cm[i, j] = cm[i, j]
+            cm = full_cm
+
+        tn, fp, fn, tp = cm.ravel()
+        confusion_dict = {
+            "tp": int(tp),
+            "tn": int(tn),
+            "fp": int(fp),
+            "fn": int(fn)
+        }
+
+        # Calculate AUC-ROC if possible.
+        if valid_actuals and isinstance(valid_actuals[0], str):
+            y_true = [1 if v.upper() == "YES" else 0 for v in valid_actuals]
+            y_pred = [1 if v.upper() == "YES" else 0 for v in valid_preds]
+        else:
+            y_true = valid_actuals
+            y_pred = valid_preds
+
         auc_roc = 0.0
         if y_true and len(set(y_true)) > 1:
-            auc_roc = roc_auc_score(y_true, decision_stats['confidences'])
+            from sklearn.metrics import roc_auc_score
+            auc_roc = roc_auc_score(y_true, self.decision_tracker.confidences)
 
         return PerformanceStats(
             prompt_type=str(self.prompt_type),
@@ -196,12 +220,16 @@ class PerformanceTracker:
             timeout_stats=self._calculate_timeout_stats(),
             meta_data_averages=meta_averages,
             meta_data_sd=meta_sds,
-            prediction_accuracy=decision_stats['accuracy'],
+            prediction_accuracy=self.decision_tracker.get_accuracy(),
             prediction_distribution=decision_stats['predicted_distribution'],
             actual_distribution=decision_stats['actual_distribution'],
             confusion_matrix=confusion_dict,
             auc_roc=auc_roc
         )
+
+
+
+
 
 
     def save_metrics(self, execution_time: float):

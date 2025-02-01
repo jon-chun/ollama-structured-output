@@ -12,30 +12,46 @@ import asyncio
 import subprocess
 import time
 
+def get_installed_models() -> list:
+    """
+    Parses the output of 'ollama list' to return a list of installed model names.
+    Each model name is assumed to be the first token on each non-empty line.
+    """
+    result = subprocess.run(['ollama', 'list'], capture_output=True, text=True)
+    installed_models = []
+    for line in result.stdout.splitlines():
+        tokens = line.split()
+        if tokens:
+            installed_models.append(tokens[0])
+    return installed_models
 
 async def check_and_pull_model(model_name: str, timeout_seconds: int = 600) -> Tuple[bool, Optional[str]]:
     """
     Check if a model exists locally and pull it if missing.
     
+    Uses robust matching by parsing the output of 'ollama list' and extracting
+    the first token from each line (which contains OS-unfriendly punctuation).
+    
     Args:
-        model_name: Name of the model to check/pull
-        timeout_seconds: Maximum time to wait for model pull
+        model_name: Name of the model to check/pull.
+        timeout_seconds: Maximum time to wait for model pull.
         
     Returns:
         Tuple of (success: bool, error_message: Optional[str])
     """
     try:
-        # First check if model exists using ollama list
-        result = subprocess.run(['ollama', 'list'], capture_output=True, text=True)
-        if model_name in result.stdout:
+        # Use the helper function to get the list of installed models
+        installed_models = get_installed_models()
+        if model_name in installed_models:
             logging.info(f"Model {model_name} is already installed")
             return True, None
-            
+
         logging.info(f"Model {model_name} not found locally, attempting to pull...")
         
-        time.sleep(60)  # Wait a bit before starting pull 
-
-        # Create and start the pull process
+        # Wait asynchronously before starting the pull process
+        await asyncio.sleep(60)
+        
+        # Start the model pull process asynchronously
         process = await asyncio.create_subprocess_exec(
             'ollama', 'pull', model_name,
             stdout=asyncio.subprocess.PIPE,
@@ -43,24 +59,38 @@ async def check_and_pull_model(model_name: str, timeout_seconds: int = 600) -> T
         )
         
         try:
-            # Wait for the process with timeout
             stdout, stderr = await asyncio.wait_for(process.communicate(), timeout=timeout_seconds)
             
             if process.returncode == 0:
-                logging.info(f"Successfully pulled model {model_name}")
-                return True, None
+                logging.info(f"Successfully pulled model {model_name}. Verifying installation...")
+                # Poll for registration with a maximum wait time
+                max_poll_duration = 30  # seconds
+                poll_interval = 5       # seconds
+                elapsed = 0
+                while elapsed < max_poll_duration:
+                    installed_models = get_installed_models()
+                    if model_name in installed_models:
+                        logging.info(f"Model {model_name} confirmed available after pull")
+                        return True, None
+                    await asyncio.sleep(poll_interval)
+                    elapsed += poll_interval
+
+                error_msg = (f"Model {model_name} not found in list after pull despite waiting "
+                             f"{max_poll_duration} seconds.")
+                logging.error(error_msg)
+                return False, error_msg
             else:
                 error_msg = stderr.decode() if stderr else "Unknown error during model pull"
                 logging.error(f"Failed to pull model {model_name}: {error_msg}")
                 return False, error_msg
                 
         except asyncio.TimeoutError:
-            # Clean up process if it timed out
+            # Clean up if the pull process times out
             try:
                 process.kill()
                 await process.wait()
-            except:
-                pass
+            except Exception as ex:
+                logging.error(f"Error terminating pull process: {ex}")
             error_msg = f"Model pull timed out after {timeout_seconds} seconds"
             logging.error(f"Timeout pulling model {model_name}: {error_msg}")
             return False, error_msg
@@ -69,6 +99,9 @@ async def check_and_pull_model(model_name: str, timeout_seconds: int = 600) -> T
         error_msg = f"Error checking/pulling model: {str(e)}"
         logging.error(error_msg)
         return False, error_msg
+
+
+
 
 PromptTypeStr: TypeAlias = Literal['system1', 'cot', 'cot-nshot']
 

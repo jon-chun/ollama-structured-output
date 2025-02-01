@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1276,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:31:43.76152822Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.255762528,
+    "load_duration": 0.020882442,
+    "prompt_eval_count": 375,
+    "prompt_eval_duration": 0.064,
+    "eval_count": 352,
+    "eval_duration": 9.165
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrest but No Conviction\", \"medium\", \"Having a single arrest without conviction suggests potential for reoffending risk, but lacks a history of incarceration which could elevate this further.\"),\n    (\"Age\", \"medium\", \"Young age can indicate impulsivity and less life experience, potentially increasing risk.\"),\n    (\"Ethnicity\", \"low\", \"Ethnicity alone does not significantly predict recidivism without additional context.\"),\n    (\"Physical Appearance\", \"low\", \"Height and weight do not inherently correlate with criminal behavior.\"),\n    (\"Living Situation\", \"low\", \"Living alone does not inherently increase recidivism risk.\"),\n    (\"Educational Status\", \"low\", \"GED and lack of college enrollment suggest limited formal education, but not directly indicative of recidivism.\"),\n    (\"Employment History\", \"medium\", \"Multiple job changes could indicate instability, potentially linked to higher risk.\"),\n    (\"Substance Use\", \"high\", \"Past drug use, especially recent, coupled with feelings of depression, significantly elevates risk of future substance-related offenses.\"),\n    (\"Family Background\", \"low\", \"Growing up with parents suggests stable upbringing, reducing risk factors.\"),\n    (\"Religious Beliefs\", \"low\", \"Personal belief system does not directly correlate with criminal behavior.\"),\n    (\"Mental Health\", \"high\", \"Recent feelings of depression without treatment could severely impact judgment and behavior, increasing recidivism likelihood.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_203143_763298",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1276,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 110 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 3, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

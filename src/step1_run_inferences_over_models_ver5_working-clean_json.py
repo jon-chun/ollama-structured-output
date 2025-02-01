@@ -86,6 +86,7 @@ def build_final_prompt(config: Config, base_prompt: str) -> str:
 
 
 async def run_evaluation_cycle(
+    api_type: str,
     model_name: str,
     prompt_type: PromptType,
     config: Config,
@@ -180,6 +181,7 @@ async def run_evaluation_cycle(
                         start_time = time.time()
                         decision, meta_data, used_prompt, extra_data, timeout_metrics = await get_decision_with_timeout(
                             prompt_type=prompt_type,
+                            api_type=api_type,
                             model_name=model_name,
                             config=config,
                             prompt=final_prompt
@@ -252,6 +254,7 @@ async def run_evaluation_cycle(
 
 
 async def run_evaluation_session(
+    api_type: str,
     model_name: str,
     prompt_type: PromptType,
     config: Config,
@@ -269,6 +272,7 @@ async def run_evaluation_session(
 
     try:
         await run_evaluation_cycle(
+            api_type,
             model_name,
             prompt_type,
             config,
@@ -298,6 +302,7 @@ async def run_evaluation_session(
 
 
 async def process_model_evaluations(
+    api_type: str,
     model_name: str,
     config: Config,
     data_manager: DataManager,
@@ -347,6 +352,7 @@ async def process_model_evaluations(
 
         # Run evaluation session for this combination
         stats = await run_evaluation_session(
+            api_type=api_type,
             model_name=model_name,
             prompt_type=p_type,
             config=config,
@@ -394,9 +400,9 @@ async def main():
         processed_combinations: Set[Tuple[str, str]] = set()
         combination_completion_status: Dict[Tuple[str, str], Dict] = {}
 
-        model_api_type = config.model_parameters['api_type']
+        api_type = config.model_parameters['api_type']
 
-        if model_api_type.lower() == 'openai':
+        if api_type.lower() == 'openai':
             logging.info("Using OpenAI model API")
             # Retrieve OpenAI-specific model parameters
             api_model = config.model_parameters.get('api_model', None)
@@ -422,6 +428,7 @@ async def main():
                 'completion_counts': completion_counts
             }
             await process_model_evaluations(
+                api_type=api_type,
                 model_name=api_model,
                 config=config,
                 data_manager=data_manager,
@@ -432,7 +439,7 @@ async def main():
                 session_results=session_results
             )
 
-        elif model_api_type.lower() == 'anthropic':
+        elif api_type.lower() == 'anthropic':
             logging.info("Using Anthropic model API")
             api_model = config.model_parameters.get('api_model', None)
             if not api_model:
@@ -455,6 +462,7 @@ async def main():
                 'completion_counts': completion_counts
             }
             await process_model_evaluations(
+                api_type=api_type,
                 model_name=api_model,
                 config=config,
                 data_manager=data_manager,
@@ -465,7 +473,7 @@ async def main():
                 session_results=session_results
             )
 
-        elif model_api_type.lower() == 'google':
+        elif api_type.lower() == 'google':
             from google import genai
             from google.genai import types
 
@@ -473,31 +481,37 @@ async def main():
             google_key = getpass.getpass('Please enter your GOOGLE_API_KEY: ')
 
             google_client = genai.Client(api_key=google_key)
-            MODEL_ID = config.model_parameters['api_model']
+            model_name = config.model_parameters['api_model']
 
             logging.info("Using Google model API")
-            api_model = config.model_parameters.get('api_model', None)
-            if not api_model:
-                logging.error("Google api_model parameter not found in configuration.")
+
+            if not model_name:
+                logging.error("Google model_name parameter not found in configuration.")
                 return
 
-            combo_key = ("Google", api_model)
-            completion_counts = get_completion_counts(
-                output_base,
-                api_model,
-                "Google"
-            )
-            is_complete = is_combination_fully_complete(
-                completion_counts,
-                config.flags.max_samples,
-                config.execution.max_calls_per_prompt
-            )
-            combination_completion_status[combo_key] = {
-                'is_complete': is_complete,
-                'completion_counts': completion_counts
-            }
+            for p_type in PromptType:
+                combo_key = (model_name, str(p_type))
+                if combo_key in processed_combinations:
+                    logging.info(f"Skipping duplicate model+prompt combination: {model_name} with {p_type}")
+                    continue
+
+                completion_counts = get_completion_counts(
+                    output_base,
+                    model_name,
+                    str(p_type)
+                )
+                is_complete = is_combination_fully_complete(
+                    completion_counts,
+                    config.flags.max_samples,
+                    config.execution.max_calls_per_prompt
+                )
+                combination_completion_status[combo_key] = {
+                    'is_complete': is_complete,
+                    'completion_counts': completion_counts
+                }
             await process_model_evaluations(
-                model_name=api_model,
+                api_type=api_type,
+                model_name=model_name,
                 config=config,
                 data_manager=data_manager,
                 prompt_manager=prompt_manager,
@@ -507,7 +521,7 @@ async def main():
                 session_results=session_results
             )
 
-        elif model_api_type.lower() == 'ollama':
+        elif api_type.lower() == 'ollama':
             logging.info("Using Ollama model API")
             # For Ollama, we use an ensemble of models
             model_availability = await check_model_availability(config)
@@ -537,6 +551,7 @@ async def main():
                         'completion_counts': completion_counts
                     }
                 await process_model_evaluations(
+                    api_type=api_type,
                     model_name=model_name,
                     config=config,
                     data_manager=data_manager,
@@ -548,7 +563,7 @@ async def main():
                 )
 
         else:
-            logging.error(f"Unsupported model API type: {model_api_type}")
+            logging.error(f"Unsupported model API type: {api_type}")
             return
 
         total_duration = time.time() - overall_start

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1107,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:50:41.544525546Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.024187454,
+    "load_duration": 0.010587158,
+    "prompt_eval_count": 364,
+    "prompt_eval_duration": 0.364,
+    "eval_count": 290,
+    "eval_duration": 9.645
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrests\", \"medium\", \"Two arrests without convictions suggest potential for reoffending, but lack of conviction indicates rehabilitation potential.\"),\n    (\"Drug Use\", \"high\", \"Recent cocaine use indicates ongoing substance abuse risk, especially given no reported depression.\"),\n    (\"Employment History\", \"medium\", \"Multiple job changes suggest instability, which can correlate with higher recidivism risk.\"),\n    (\"Educational Status\", \"high\", \"No high school diploma or college enrollment implies limited skills and opportunities for stable employment.\"),\n    (\"Family Background\", \"low\", \"Growing up with parents in a larger household might indicate some stability, though urban upbringing could also imply exposure to crime.\"),\n    (\"Religious Beliefs\", \"low\", \"Personal belief system does not inherently correlate with increased criminal risk.\"),\n    (\"Marital Status\", \"low\", \"Being married suggests some level of social support and stability.\"),\n    (\"Physical Appearance\", \"low\", \"Height and weight do not inherently indicate criminal propensity.\"),\n    (\"Age\", \"medium\", \"Young age can be associated with higher risk due to developmental stages, but past behavior patterns are more critical\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_205041_547222",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1107,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs 280 lbs. He is married and is currently living with his spouse. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 5 jobs during the year. He has used drugs in the past four years (cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 7, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

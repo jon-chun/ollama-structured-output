@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:7b-instruct-q4_K_M",
+    "created_at": "2025-02-01T02:49:40.868579065Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.908398013,
+    "load_duration": 0.025762724,
+    "prompt_eval_count": 353,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 373,
+    "eval_duration": 2.872
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age may indicate less criminal history and potential for change.\"),\n    (\"Gender\", \"medium\", \"Male gender is often associated with higher recidivism rates in some studies.\"),\n    (\"Race\", \"low\", \"White race does not significantly impact recidivism risk in this context.\"),\n    (\"Arrest History\", \"high\", \"Two arrests and convictions suggest a history of criminal behavior.\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight do not directly correlate with recidivism risk.\"),\n    (\"Marital Status\", \"low\", \"Living alone may indicate independence but not necessarily higher risk.\"),\n    (\"Employment Status\", \"high\", \"Lack of employment could suggest limited social bonds and increased risk.\"),\n    (\"Education Status\", \"low\", \"Enrolled in school suggests potential for future stability and reduced risk.\"),\n    (\"Drug Use\", \"medium\", \"Past drug use indicates a risk factor, but not current usage reduces immediate concern.\"),\n    (\"Depression\", \"low\", \"No recent depression suggests mental health stability, which is a protective factor.\"),\n    (\"Family Background\", \"low\", \"Growing up with both parents in a stable household suggests positive early influences.\"),\n    (\"Residential Area\", \"medium\", \"Urban area may present higher environmental pressures but does not directly impact recidivism.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in divine influence may provide personal motivation for change and reduced risk.\"),\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_214940_870211",
+    "model": "falcon3:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

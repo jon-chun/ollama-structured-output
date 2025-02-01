@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 305,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:37:34.243063523Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.459777018,
+    "load_duration": 0.018399209,
+    "prompt_eval_count": 364,
+    "prompt_eval_duration": 0.075,
+    "eval_count": 397,
+    "eval_duration": 10.362
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrests\", \"medium\", \"Two arrests without convictions suggest potential for reoffending risk, but lack of conviction indicates legal compliance thus far.\"),\n    (\"Drug Use\", \"high\", \"Past use of marijuana and cocaine, especially within the last four years, indicates ongoing substance abuse risk, which significantly correlates with higher recidivism rates.\"),\n    (\"Age\", \"medium\", \"Being 18 years old places him in a developmental stage where impulsivity and risk-taking behaviors are common, potentially influencing future criminal behavior.\"),\n    (\"Employment Status\", \"low\", \"Currently enrolled in school and held one job suggests engagement in positive activities that could mitigate risk.\"),\n    (\"Living Situation\", \"medium\", \"Living alone might indicate instability or lack of supportive adult figures, potentially increasing vulnerability.\"),\n    (\"Marital Status\", \"low\", \"Never married could imply fewer social supports and potentially higher risk of engaging in risky behaviors.\"),\n    (\"Religious Belief\", \"low\", \"Belief in divine guidance might provide psychological support and reduce impulsive actions.\"),\n    (\"Family Background\", \"medium\", \"Growing up with both parents in a household of size 4 suggests some stability, though urban living can expose him to higher crime rates.\"),\n    (\"Mental Health\", \"low\", \"No reported depression in the past month suggests current mental health stability, though past drug use indicates potential underlying issues.\"),\n    (\"Ethnicity\", \"low\", \"White ethnicity alone does not significantly alter risk assessment without additional context on socioeconomic disparities.\"),\n    (\"Physical Attributes\", \"low\", \"Height and weight range are typical and do not inherently correlate with increased criminal risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_203734_244593",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 305,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

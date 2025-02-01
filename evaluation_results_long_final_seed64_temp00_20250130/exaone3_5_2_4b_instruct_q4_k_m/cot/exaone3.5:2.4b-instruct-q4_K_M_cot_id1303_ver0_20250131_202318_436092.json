@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1303,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:23:18.433737188Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.545395652,
+    "load_duration": 0.016450615,
+    "prompt_eval_count": 368,
+    "prompt_eval_duration": 0.037,
+    "eval_count": 358,
+    "eval_duration": 7.488
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrests\", \"medium\", \"Two arrests indicate a history of legal issues, suggesting potential for future legal troubles.\"),\n    (\"Convictions\", \"high\", \"Being convicted implies a higher likelihood of reoffending due to established criminal behavior.\"),\n    (\"Drug Use\", \"medium\", \"Past drug use, particularly marijuana, though recent cessation, can correlate with higher recidivism risk, especially without evidence of sustained abstinence.\"),\n    (\"Unmarried Status\", \"medium\", \"Living alone may indicate instability or lack of support systems, potentially increasing vulnerability.\"),\n    (\"Educational Status\", \"high\", \"Lack of high school diploma or college enrollment suggests limited opportunities for positive life trajectory.\"),\n    (\"Employment History\", \"medium\", \"Multiple job changes indicate instability, which can be associated with higher risk of reoffending due to lack of consistent employment.\"),\n    (\"Family Background\", \"low\", \"Growing up with a single parent in an urban area does not inherently correlate strongly with higher recidivism without additional negative indicators.\"),\n    (\"Religious Belief\", \"low\", \"Belief in divine providence generally does not directly correlate with increased criminal risk unless combined with other negative factors.\"),\n    (\"Physical Appearance\", \"low\", \"Height and weight do not typically influence recidivism risk significantly without other contextual factors.\"),\n    (\"Mental Health\", \"low\", \"No reported depression suggests current mental health stability, reducing risk compared to untreated mental health issues.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_202318_436092",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1303,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 5 feet 8 inches and weighs between 200 and 224 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,20 +1,32 @@
 # decision.py
-
+import os
+from dotenv import load_dotenv # find_dotenv
+from pathlib import Path
 import json
+import time
 import logging
 from typing import Optional, Tuple, Dict, Any
 import asyncio
 from datetime import datetime
 from pathlib import Path
-
+import getpass
 from pydantic import BaseModel, Field, ValidationError
 from ollama import chat
-
+from openai import OpenAI
+from anthropic import Anthropic
+from google import genai
+from google.genai import types
 from config import Config
 from models import Decision, PromptType
 from metrics import TimeoutMetrics
 from utils import clean_model_name, pydantic_or_dict, convert_ns_to_s, check_existing_decision
 
+
+# Load the environment variables from the .env file
+# Construct path relative to the current script's location
+dotenv_path = Path(__file__).parent / "src" / ".env"  # __file__ is the current file's path
+load_dotenv(dotenv_path)
+# load_dotenv()
 
 class MetaData(BaseModel):
     """Model to represent metadata from an API response."""
@@ -309,96 +321,302 @@ def remove_think_tags_and_triple_quotes(text: str) -> str:
     return text.strip()
 
 
-async def get_decision(
-    prompt_type: PromptType,
-    model_name: str,
-    config: Config,
-    prompt: str
-) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
-    """Returns a tuple of (Decision, MetaData, used_prompt, extra_data)."""
+
+
+# --- OpenAI API Call ---
+async def call_openai_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+    try:
+        openai_api_key = os.getenv("OPENAI_API_KEY")
+        if not openai_api_key:
+            logging.error("OPENAI_API_KEY environment variable is not set.  Please set this variable in your .env file or environment.")
+            raise ValueError("OPENAI_API_KEY environment variable not set.")
+            # Exit the function immediately (and the program if necessary)
+            return  # Or raise an exception if you want to propagate it up
+        else:
+            client = OpenAI(api_key=openai_api_key)
+
+        start_time = time.time()
+        response = client.chat.completions.create(
+            model=model_name,
+            temperature=config.model_parameters["model_temperature"],
+            top_p=config.model_parameters["model_top_p"],
+            max_tokens=config.model_parameters["model_max_tokens"],
+            messages=[
+                {"role": "parser", "content": system_message},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        duration_time = time.time() - start_time
+
+        # Extract the raw message text and normalize the prediction via process_model_response.
+        raw_message_text = response.choices[0].message.content
+        finish_reason = getattr(response.choices[0], "finish_reason", None)
+        normalized_response = process_model_response(raw_message_text, model_name)
+        # Normalize the prediction to uppercase for consistency.
+        normalized_prediction = normalized_response.get('prediction', "").upper()
+        normalized_response['prediction'] = normalized_prediction
+
+        try:
+            decision = Decision(
+                prediction=normalized_prediction,
+                confidence=normalized_response['confidence']
+            )
+        except Exception as ve:
+            logging.error(f"Validation error in OpenAI API response: {ve}")
+            return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
+
+        extra_data = {
+            'response_text': normalized_prediction,
+            'raw_message_text': raw_message_text
+        }
+        if normalized_response.get('risk_factors'):
+            extra_data['risk_factors'] = normalized_response['risk_factors']
+
+        meta_data = MetaData(
+            model=model_name,
+            created_at=start_time,
+            done_reason=finish_reason,
+            done=True,
+            total_duration=duration_time,
+            load_duration=None,
+            prompt_eval_count=getattr(response.usage_metadata, "prompt_token_count", None),
+            prompt_eval_duration=None,
+            eval_count=(getattr(response.usage_metadata, "total_token_count", 0) -
+                        getattr(response.usage_metadata, "prompt_token_count", 0)),
+            eval_duration=None
+        )
+
+        return decision, meta_data, prompt, extra_data
+
+    except Exception as e:
+        logging.error(f"OpenAI API call failed: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
+
+
+# --- Anthropic API Call ---
+async def call_anthropic_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+    try:
+        anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not anthropic_api_key:
+            logging.error("ANTHROPIC_API_KEY environment variable is not set.  Please set this variable in your .env file or environment.")
+            raise ValueError("ANTHROPIC_API_KEY environment variable not set.")
+            # Exit the function immediately (and the program if necessary)
+            return  # Or raise an exception if you want to propagate it up
+        else:
+            client = Anthropic(api_key=anthropic_api_key)
+
+        start_time = time.time()
+        cleaned_model_name = clean_model_name(model_name)
+        response = client.messages.create(
+            model=cleaned_model_name,
+            temperature=config.model_parameters["model_temperature"],
+            max_tokens=config.model_parameters["model_max_tokens"],
+            top_p=config.model_parameters["model_top_p"],
+            system=system_message,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        duration_time = time.time() - start_time
+
+        raw_message_text = response.content[0].text
+        normalized_response = process_model_response(raw_message_text, model_name)
+        normalized_prediction = normalized_response.get('prediction', "").upper()
+        normalized_response['prediction'] = normalized_prediction
+
+        try:
+            decision = Decision(
+                prediction=normalized_prediction,
+                confidence=normalized_response['confidence']
+            )
+        except Exception as ve:
+            logging.error(f"Validation error in Anthropic API response: {ve}")
+            return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
+
+        extra_data = {
+            'response_text': normalized_prediction,
+            'raw_message_text': raw_message_text
+        }
+        if normalized_response.get('risk_factors'):
+            extra_data['risk_factors'] = normalized_response['risk_factors']
+
+        meta_data = MetaData(
+            model=model_name,
+            created_at=start_time,
+            done_reason=getattr(response, "stop_reason", None),
+            done=True,
+            total_duration=duration_time,
+            load_duration=None,
+            prompt_eval_count=None,
+            prompt_eval_duration=None,
+            eval_count=None,
+            eval_duration=None
+        )
+
+        return decision, meta_data, prompt, extra_data
+
+    except Exception as e:
+        logging.error(f"Anthropic API call failed: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
+
+
+# --- Google API Call ---
+def call_google_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+    try:
+
+        google_api_key = os.getenv("GOOGLE_API_KEY")
+        if not google_api_key:
+            logging.error("GOOGLE_API_KEY environment variable is not set.  Please set this variable in your .env file or environment.")
+            raise ValueError("GOOGLE_API_KEY environment variable not set.")
+            # Exit the function immediately (and the program if necessary)
+            return  # Or raise an exception if you want to propagate it up
+        else:
+            # client = genai.GenerativeModel(api_key=google_api_key, model_name)
+            # As of 2/1/2025 these Google Gemini lower models are free, so no auth required?
+            client = genai.GenerativeModel(model_name)
+
+        start_time = time.time()
+        response = client.models.generate_content(
+            model=model_name,
+            system_instructions=system_message,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=config.model_parameters["model_temperature"],
+                top_p=config.model_parameters["model_top_p"],
+                max_output_tokens=config.model_parameters["model_max_tokens"]
+            )
+        )
+        duration_time = time.time() - start_time
+
+        raw_message_text = response.text
+        normalized_response = process_model_response(raw_message_text, model_name)
+        normalized_prediction = normalized_response.get('prediction', "").upper()
+        normalized_response['prediction'] = normalized_prediction
+
+        try:
+            decision = Decision(
+                prediction=normalized_prediction,
+                confidence=normalized_response['confidence']
+            )
+        except Exception as ve:
+            logging.error(f"Validation error in Google API response: {ve}")
+            return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
+
+        extra_data = {
+            'response_text': normalized_prediction,
+            'raw_message_text': raw_message_text
+        }
+        if normalized_response.get('risk_factors'):
+            extra_data['risk_factors'] = normalized_response['risk_factors']
+
+        meta_data = MetaData(
+            model=model_name,
+            created_at=start_time,
+            done_reason=None,
+            done=True,
+            total_duration=duration_time,
+            load_duration=None,
+            prompt_eval_count=None,
+            prompt_eval_duration=None,
+            eval_count=None,
+            eval_duration=None
+        )
+
+        return decision, meta_data, prompt, extra_data
+
+    except Exception as e:
+        logging.error(f"Google API call failed: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
+
+
+# --- Unified get_decision Function ---
+async def get_decision(prompt_type: Any, api_type: str, model_name: str, config: Any, prompt: str) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+    """
+    Dispatch the API call based on api_type.
+    Returns a 4-tuple: (Decision, MetaData, used_prompt, extra_data).
+    In case of failure, extra_data includes an "api_failure" flag and a "failure_type".
+    """
     try:
         system_message = config.prompts.get("prompt_persona", "") or (
             "You are a risk assessment expert. Your responses must be in valid JSON format "
             "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'."
         )
 
-        response = await asyncio.to_thread(
-            chat,
-            messages=[
-                {'role': 'system', 'content': system_message},
-                {'role': 'user', 'content': prompt}
-            ],
-            model=model_name,
-            options={
-                'temperature': config.model_parameters["model_temperature"],
-                'top_p': config.model_parameters["model_top_p"],
-                'max_tokens': config.model_parameters["model_max_tokens"],
-            }
-        )
-
-        if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
-            raise ValueError("Invalid API response structure")
-
-        # Store the raw message text
-        raw_message_text = response.message.content
-
-        normalized_response = process_model_response(raw_message_text, model_name)
-
-        try:
-            decision = Decision(
-                prediction=normalized_response['prediction'],
-                confidence=normalized_response['confidence']
+        if api_type == 'openai':
+            return await call_openai_api(system_message, prompt, model_name, config)
+        elif api_type == 'anthropic':
+            return await call_anthropic_api(system_message, prompt, model_name, config)
+        elif api_type == 'google':
+            return call_google_api(system_message, prompt, model_name, config)
+        elif api_type == 'ollama':
+            response = await asyncio.to_thread(
+                chat,
+                messages=[
+                    {'role': 'system', 'content': system_message},
+                    {'role': 'user', 'content': prompt}
+                ],
+                model=model_name,
+                options={
+                    'temperature': config.model_parameters["model_temperature"],
+                    'top_p': config.model_parameters["model_top_p"],
+                    'max_tokens': config.model_parameters["model_max_tokens"],
+                }
             )
-        except ValidationError as ve:
-            logging.error(f"Validation error creating Decision: {str(ve)}")
-            logging.error(f"Normalized response: {normalized_response}")
-            return None, None, prompt, {}
 
-        extra_data = {
-            'response_text': normalized_response['prediction'],
-            'raw_message_text': raw_message_text  # Add raw message to extra_data
-        }
-        if 'risk_factors' in normalized_response and normalized_response['risk_factors']:
-            extra_data['risk_factors'] = normalized_response['risk_factors']
+            if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
+                raise ValueError("Invalid API response structure")
 
-        meta_data = MetaData(
-            model=getattr(response, 'model', None),
-            created_at=getattr(response, 'created_at', None),
-            done_reason=getattr(response, 'done_reason', None),
-            done=getattr(response, 'done', None),
-            total_duration=getattr(response, 'total_duration', None),
-            load_duration=getattr(response, 'load_duration', None),
-            prompt_eval_count=getattr(response, 'prompt_eval_count', None),
-            prompt_eval_duration=getattr(response, 'prompt_eval_duration', None),
-            eval_count=getattr(response, 'eval_count', None),
-            eval_duration=getattr(response, 'eval_duration', None)
-        )
+            raw_message_text = response.message.content
+            normalized_response = process_model_response(raw_message_text, model_name)
+            normalized_prediction = normalized_response.get('prediction', "").upper()
+            normalized_response['prediction'] = normalized_prediction
 
-        return decision, meta_data, prompt, extra_data
+            try:
+                decision = Decision(
+                    prediction=normalized_prediction,
+                    confidence=normalized_response['confidence']
+                )
+            except Exception as ve:
+                logging.error(f"Validation error in Ollama API response: {ve}")
+                return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
+
+            extra_data = {
+                'response_text': normalized_prediction,
+                'raw_message_text': raw_message_text
+            }
+            if normalized_response.get('risk_factors'):
+                extra_data['risk_factors'] = normalized_response['risk_factors']
+
+            meta_data = MetaData(
+                model=getattr(response, 'model', None),
+                created_at=getattr(response, 'created_at', None),
+                done_reason=getattr(response, 'done_reason', None),
+                done=getattr(response, 'done', None),
+                total_duration=getattr(response, 'total_duration', None),
+                load_duration=getattr(response, 'load_duration', None),
+                prompt_eval_count=getattr(response, 'prompt_eval_count', None),
+                prompt_eval_duration=getattr(response, 'prompt_eval_duration', None),
+                eval_count=getattr(response, 'eval_count', None),
+                eval_duration=getattr(response, 'eval_duration', None)
+            )
+
+            return decision, meta_data, prompt, extra_data
 
     except Exception as e:
-        logging.error(f"Error during API call: {str(e)}")
-        return None, None, prompt, {}
+        logging.error(f"Error during API call in get_decision: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
 
-async def get_decision_with_timeout(
-    prompt_type: PromptType,
-    model_name: str,
-    config: Config,
-    prompt: str
-) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any], TimeoutMetrics]:
-    """Wraps get_decision with timeout handling."""
-    timeout_metrics = TimeoutMetrics(
-        occurred=False,
-        retry_count=0,
-        total_timeout_duration=0.0
-    )
-    # timeout_seconds = float(config.model_parameters.get("api_timeout", 30.0))
-    timeout_seconds = float(config.model_ensemble[model_name]["max_response_time"])
+
+async def get_decision_with_timeout(prompt_type: Any, api_type: str, model_name: str, config: Any, prompt: str) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any], Any]:
+    """
+    Wrap get_decision with timeout handling.
+    Returns (Decision, MetaData, used_prompt, extra_data, TimeoutMetrics).
+    """
+    timeout_metrics = TimeoutMetrics(occurred=False, retry_count=0, total_timeout_duration=0.0)
+    timeout_seconds = float(config.model_ensemble.get(model_name, {}).get("max_response_time", 30.0))
 
     try:
         logging.debug(f"Calling get_decision with prompt: {prompt[:50]}...")
         decision, meta_data, used_prompt, extra_data = await asyncio.wait_for(
-            get_decision(prompt_type, model_name, config, prompt),
+            get_decision(prompt_type, api_type, model_name, config, prompt),
             timeout=timeout_seconds
         )
         logging.debug("Received response from get_decision.")
@@ -408,62 +626,43 @@ async def get_decision_with_timeout(
         logging.warning("API call timed out while waiting for model response...")
         timeout_metrics.occurred = True
         timeout_metrics.retry_count += 1
-        return None, None, prompt, {}, timeout_metrics
+        return None, None, prompt, {"error": "Timeout", "api_failure": True, "failure_type": "timeout"}, timeout_metrics
 
     except Exception as e:
-        logging.error(f"Error during API call: {str(e)}")
-        return None, None, prompt, {}, timeout_metrics
+        logging.error(f"Error during API call in get_decision_with_timeout: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}, timeout_metrics
 
-def save_decision(
-    decision: Decision,
-    meta_data: MetaData,
-    prompt_type: PromptType,
-    model_name: str,
-    row_id: int,
-    actual_value: str,
-    config: Config,
-    used_prompt: str,
-    repeat_index: int = 0,
-    extra_data: Dict[str, Any] = None
-) -> bool:
-    """Save decision and metadata to filesystem."""
+
+
+
+
+# --- save_decision Function ---
+def save_decision(decision: Any, meta_data: Any, prompt_type: Any, model_name: str, row_id: int, actual_value: str, config: Any, used_prompt: str, repeat_index: int = 0, extra_data: Optional[Dict[str, Any]] = None) -> bool:
+    """
+    Save decision and metadata to the filesystem as a JSON file.
+    """
     if extra_data is None:
         extra_data = {}
 
     try:
-        # Create base output directory (evaluation_results)
         base_dir = Path(config.output["base_dir"])
         base_dir.mkdir(parents=True, exist_ok=True)
 
-        # Get prompt type string using our utility function
-        from utils import get_prompt_type_str
+        from utils import get_prompt_type_str  # Assumes this utility exists.
         prompt_type_str = get_prompt_type_str(prompt_type)
-        
-        # Generate clean model name
         clean_name = clean_model_name(model_name)
-        
-        # Create the complete output directory structure
         model_dir = base_dir / clean_name / prompt_type_str
         model_dir.mkdir(parents=True, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        
-        # Generate filename (not full path)
+
         if prompt_type == PromptType.COT_NSHOT:
-            filename = (
-                f"{model_name}_{prompt_type_str}_id{row_id}_"
-                f"nshot{config.execution.nshot_ct}_{timestamp}.json"
-            )
+            filename = f"{model_name}_{prompt_type_str}_id{row_id}_nshot{config.execution.nshot_ct}_{timestamp}.json"
         else:
-            filename = (
-                f"{model_name}_{prompt_type_str}_id{row_id}_"
-                f"ver{repeat_index}_{timestamp}.json"
-            )
-        
-        # Combine directory and filename
+            filename = f"{model_name}_{prompt_type_str}_id{row_id}_ver{repeat_index}_{timestamp}.json"
+
         output_path = model_dir / filename
 
-        # Prepare the data to save
         decision_data = pydantic_or_dict(decision)
         meta_data_data = pydantic_or_dict(meta_data)
 
@@ -475,7 +674,6 @@ def save_decision(
 
         meta_data_data = convert_ns_to_s(meta_data_data)
 
-        # Create response object with raw message text
         response_data = {
             'raw_message_text': extra_data.get('raw_message_text', ''),
             'normalized_prediction': extra_data.get('response_text', '')
@@ -484,7 +682,7 @@ def save_decision(
         combined_data = {
             "decision": decision_data,
             "meta_data": meta_data_data,
-            "response": response_data,  # Add response data
+            "response": response_data,
             "evaluation": {
                 "timestamp": timestamp,
                 "model": model_name,
@@ -500,8 +698,7 @@ def save_decision(
 
         if 'risk_factors' in extra_data:
             combined_data["risk_factors"] = extra_data["risk_factors"]
-        
-        # Save both the prompts and raw response
+
         combined_data["prompt"] = {
             "system": config.prompts.get("prompt_persona", ""),
             "user": used_prompt
@@ -514,5 +711,5 @@ def save_decision(
         return True
 
     except Exception as e:
-        logging.error(f"Error saving decision: {str(e)}")
+        logging.error(f"Error saving decision: {e}")
         return False
