@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 143,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:01:22.157621116Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.650913313,
+    "load_duration": 0.019718949,
+    "prompt_eval_count": 349,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 237,
+    "eval_duration": 0.625
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"education level (Bachelor's degree)\", \"weight\": 8, \"reasoning\": \"Higher education is associated with better job prospects and lower crime rates.\"},\n    {\"factor2\": \"employment history\", \"weight\": 7, \"reasoning\": \"Having a steady employment history may indicate stability and reduced risk of recidivism.\"},\n    {\"factor3\": \"mental health (feeling down in the dumps)\", \"weight\": 6, \"reasoning\": \"Low mood can be an indicator of underlying mental health issues, which may increase the likelihood of recidivism.\"},\n    {\"factor4\": \"family background\", \"weight\": 9, \"reasoning\": \"Growing up in a supportive household with both biological parents may contribute to better emotional and psychological well-being.\"},\n    {\"factor5\": \"age at first arrest\", \"weight\": 8, \"reasoning\": \"Being arrested at a young age may indicate a higher risk of recidivism due to potential underlying issues or lack of support systems.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_180122_159411",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "education level (Bachelor's degree)",
+      "weight": 8,
+      "reasoning": "Higher education is associated with better job prospects and lower crime rates."
+    },
+    {
+      "factor2": "employment history",
+      "weight": 7,
+      "reasoning": "Having a steady employment history may indicate stability and reduced risk of recidivism."
+    },
+    {
+      "factor3": "mental health (feeling down in the dumps)",
+      "weight": 6,
+      "reasoning": "Low mood can be an indicator of underlying mental health issues, which may increase the likelihood of recidivism."
+    },
+    {
+      "factor4": "family background",
+      "weight": 9,
+      "reasoning": "Growing up in a supportive household with both biological parents may contribute to better emotional and psychological well-being."
+    },
+    {
+      "factor5": "age at first arrest",
+      "weight": 8,
+      "reasoning": "Being arrested at a young age may indicate a higher risk of recidivism due to potential underlying issues or lack of support systems."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

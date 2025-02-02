@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1390,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:11:12.191984091Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.827079784,
+    "load_duration": 0.017056888,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.051,
+    "eval_count": 252,
+    "eval_duration": 1.757
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"education level (high school diploma or GED certificate)\", \"weight\": 20, \"textual reasoning\": \"Lack of education may contribute to lower socio-economic status and limited job opportunities.\", \"classification\": \"low\"},\n    {\"factor2\": \"employment history\", \"weight\": 15, \"textual reasoning\": \"Limited employment history may indicate instability or lack of stability in the individual's life.\", \"classification\": \"medium\"},\n    {\"factor3\": \"family background (size 3 household)\", \"weight\": 10, \"textual reasoning\": \"Urban upbringing with a small family size may contribute to stress and instability.\", \"classification\": \"high\"},\n    {\"factor4\": \"mental health\", \"weight\": 5, \"textual reasoning\": \"No depression or drug use in the past four years suggests lower mental health risk.\", \"classification\": \"low\"},\n    {\"factor5\": \"age at first arrest (20-24)\", \"weight\": 8, \"textual reasoning\": \"Young age may indicate impulsivity and poor decision-making.\", \"classification\": \"medium\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_181112_193727",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1390,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "education level (high school diploma or GED certificate)",
+      "weight": 20,
+      "textual reasoning": "Lack of education may contribute to lower socio-economic status and limited job opportunities.",
+      "classification": "low"
+    },
+    {
+      "factor2": "employment history",
+      "weight": 15,
+      "textual reasoning": "Limited employment history may indicate instability or lack of stability in the individual's life.",
+      "classification": "medium"
+    },
+    {
+      "factor3": "family background (size 3 household)",
+      "weight": 10,
+      "textual reasoning": "Urban upbringing with a small family size may contribute to stress and instability.",
+      "classification": "high"
+    },
+    {
+      "factor4": "mental health",
+      "weight": 5,
+      "textual reasoning": "No depression or drug use in the past four years suggests lower mental health risk.",
+      "classification": "low"
+    },
+    {
+      "factor5": "age at first arrest (20-24)",
+      "weight": 8,
+      "textual reasoning": "Young age may indicate impulsivity and poor decision-making.",
+      "classification": "medium"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 5 times and has been convicted. He is 6 feet 3 inches and weighs between 200 and 224 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

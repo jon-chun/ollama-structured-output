@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 880,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:39:13.664778492Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.345626549,
+    "load_duration": 0.013797011,
+    "prompt_eval_count": 379,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 468,
+    "eval_duration": 12.287
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at first arrest (unconvicted)\", \"medium\", \"Being arrested once, especially as a young adult without conviction can indicate potential risk factors for future offending. However, the lack of legal consequences may also suggest lower recidivism.\"),\n    (\"Race/Ethnicity\", \"low\", \"While certain studies have shown disparities in criminal justice outcomes among different racial groups, race alone cannot be used to predict individual behavior reliably without considering other factors. Additionally, systemic biases must also be taken into account when interpreting this factor.\"),\n    (\"Education level (currently enrolled)\", \"low\", \"Engagement in education is generally associated with lower recidivism rates as it can provide opportunities for employment and personal development.\"),\n    (\"Employment history (1 job held during the year)\", \"medium\", \"Having a steady source of income through work may reduce financial stressors that could contribute to criminal behavior. However, having only one job in the past year might suggest limited stability or potential economic vulnerability.\"),\n    (\"Substance use (no drugs used for 4 years)\", \"low\", \"Absence of drug usage over a significant period is typically associated with lower risk of recidivism related to substance-related offenses. However, this does not account for other potential risks or stressors.\"),\n    (\"Mental health (periodic depression)\", \"medium\", \"Experiencing mental health issues such as depression can be a significant factor in criminal behavior and recidivism risk if left untreated. The fact that the individual has felt down recently could indicate underlying problems, but it is not clear whether these are being addressed.\"),\n    (\"Family background (lived with parents at age 15)\", \"low\", \"Growing up in a stable family environment can be protective against future criminal behavior; however, this factor alone does not predict recidivism without considering current circumstances and individual characteristics.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}\n```\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_103913_667207",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 880,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

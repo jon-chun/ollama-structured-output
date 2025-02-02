@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1119,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:05:17.588544917Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 18.456152007,
+    "load_duration": 0.030441184,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.243,
+    "eval_count": 311,
+    "eval_duration": 18.179
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"22 is a young age, typically associated with lower risk.\"),\n    (\"Race\", \"low\", \"Being Black does not inherently increase risk; other factors are more relevant.\"),\n    (\"Arrests\", \"medium\", \"6 arrests indicate a pattern of criminal behavior but no convictions yet.\"),\n    (\"Height & Weight\", \"low\", \"Physical attributes do not significantly impact recidivism risk.\"),\n    (\"Marital Status\", \"low\", \"Never married, living alone does not strongly correlate with increased risk.\"),\n    (\"Education\", \"high\", \"Lack of high school diploma or GED increases the likelihood of reoffending.\"),\n    (\"Employment\", \"high\", \"No job in the past year is a strong indicator of higher recidivism risk.\"),\n    (\"Drug Use (Past 4 Years)\", \"medium\", \"Recent drug use suggests a higher likelihood of reoffending.\"),\n    (\"Mental Health (Past Month)\", \"high\", \"Persistent feelings of depression increase the risk of criminal behavior.\"),\n    (\"Household Size in Childhood\", \"low\", \"Growing up in a larger household does not significantly impact adult recidivism risk.\"),\n    (\"Belief in God's Role\", \"low\", \"Personal beliefs about divine influence do not strongly correlate with recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_050517_590128",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1119,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted. He is 6 feet 2 inches and weighs 140 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

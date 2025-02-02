@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:39:48.126611561Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.855384362,
+    "load_duration": 0.011444177,
+    "prompt_eval_count": 370,
+    "prompt_eval_duration": 0.041,
+    "eval_count": 604,
+    "eval_duration": 15.8
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"medium\", \"Being arrested twice indicates a moderate risk, but age alone is not highly predictive of recidivism. However, early onset can be associated with higher risks.\"),\n    (\"Ethnicity/Race\", \"low\", \"While certain studies suggest racial disparities in the criminal justice system, ethnicity or race itself should not directly influence risk assessment without considering other factors such as socioeconomic status and community environment.\"),\n    (\"Number of prior arrests\", \"high\", \"Two previous arrests significantly increase the likelihood of future recidivism. This is a strong predictor in many studies, indicating high risk for rearrest within three years.\"),\n    (\"Education level\", \"medium\", \"Current enrollment in school may mitigate some risks associated with lack of education but does not eliminate the potential influence of past behaviors and other factors on recidivism. It suggests a moderate impact, as continued engagement could lead to better outcomes.\"),\n    (\"Employment history\", \"high\", \"Having held no jobs during the year is indicative of unemployment or under-engagement in conventional employment activities which are strong predictors for recidivism. This factor carries a high risk weight due to its correlation with criminal behavior and lack of stable income.\"),\n    (\"Substance use\", \"high\", \"A history of drug use, especially involving substances like marijuana and cocaine that have been linked to higher rates of recidivism in the literature. This factor is considered high risk due to its strong association with criminal behavior patterns.\"),\n    (\"Family background/upbringing\", \"medium\", \"Living at a young age within an urban household may suggest exposure to environmental factors that could influence behaviors, but without more information on family dynamics or support systems it's difficult to assign this factor as high risk. It is considered medium due to potential influences of upbringing.\"),\n    (\"Belief in supernatural forces\", \"low\", \"Personal beliefs such as the role of God are subjective and not empirically linked with criminal behavior, thus they carry a low weight for predicting recidivism. This factor is unlikely to have any significant impact on future risk assessment.\"),\n    (\"Current living situation\", \"medium\", \"Living alone may indicate social isolation which can be associated with higher risks of reoffending; however, without additional context such as support networks or mental health status it's rated medium. It suggests a moderate influence on recidivism risk.\"\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_103948_128779",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

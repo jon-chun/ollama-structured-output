@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 1314,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "created_at": "2025-02-02T11:19:26.400159627Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.792332283,
+    "load_duration": 0.009438846,
+    "prompt_eval_count": 343,
+    "prompt_eval_duration": 0.089,
+    "eval_count": 377,
+    "eval_duration": 7.691
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age is a risk factor, but 21 is not extremely young.\"),\n    (\"gender\", \"medium\", \"Male gender is associated with higher recidivism rates.\"),\n    (\"race\", \"medium\", \"Black individuals may face systemic biases that increase their risk of rearrest.\"),\n    (\"prior arrests\", \"high\", \"Two prior arrests indicate a history of criminal behavior.\"),\n    (\"convictions\", \"low\", \"No convictions suggest less severe or proven offenses.\"),\n    (\"height and weight\", \"medium\", \"Average height and weight do not significantly impact risk.\"),\n    (\"marital status\", \"high\", \"Never being married is associated with higher recidivism rates.\"),\n    (\"living situation\", \"high\", \"Living alone can indicate social isolation, a known risk factor.\"),\n    (\"education\", \"medium\", \"High school diploma without further education is neutral.\"),\n    (\"employment\", \"low\", \"Holding one job during the year suggests some stability.\"),\n    (\"drug use\", \"low\", \"No drug use in the past four years is a protective factor.\"),\n    (\"mental health\", \"low\", \"No recent feelings of depression are positive.\"),\n    (\"household size at young age\", \"medium\", \"Larger household size can indicate various social factors, not necessarily negative.\"),\n    (\"religious beliefs\", \"low\", \"Belief in God is generally considered a protective factor against recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_061926_401711",
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1314,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 6 feet 1 inch and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 753,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-02-02T09:35:57.270981921Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.452564027,
+    "load_duration": 0.010885804,
+    "prompt_eval_count": 376,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 446,
+    "eval_duration": 3.422
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The person is a 19-year-old male, which is considered a medium risk factor.\"),\n    (\"gender\", \"low\", \"The person identifies himself as White, which is not a significant risk factor.\"),\n    (\"prior arrests\", \"high\", \"The person has been arrested twice and convicted, which is a high risk factor.\"),\n    (\"height\", \"medium\", \"The person is 6 feet 0 inches tall, which is considered a medium risk factor.\"),\n    (\"weight\", \"low\", \"The person weighs 230 lbs, which is not a significant risk factor.\"),\n    (\"marital status\", \"low\", \"The person is not married and does not have any dependents, which is not a significant risk factor.\"),\n    (\"housing situation\", \"medium\", \"The person lives alone, which is considered a medium risk factor.\"),\n    (\"education level\", \"high\", \"The person does not have a high school diploma or GED certificate and is not enrolled in college, which is a high risk factor.\"),\n    (\"employment status\", \"low\", \"The person has held only one job during the year, which is not a significant risk factor.\"),\n    (\"drug use\", \"high\", \"The person has used drugs (marijuana and cocaine) in the past four years and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up, which are high risk factors.\"),\n    (\"family background\", \"medium\", \"The person lived with both of his biological parents in a household of size 4 at a young age, which is considered a medium risk factor.\"),\n    (\"religion\", \"low\", \"The person considers that God has nothing to do with what happens to him personally, which is not a significant risk factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_043557_273409",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 753,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 0 inches and weighs 230 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1203,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-02-01T21:58:16.346754898Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.009540951,
+    "load_duration": 0.008537853,
+    "prompt_eval_count": 394,
+    "prompt_eval_duration": 0.149,
+    "eval_count": 205,
+    "eval_duration": 1.848
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Criminal History\", \"high\", \"A history of arrests and convictions indicates a higher likelihood of recidivism.\"],\n    [\"Substance Abuse (Marijuana)\", \"medium\", \"Regular use of marijuana in the past four years suggests potential for substance-related offenses.\"],\n    [\"Unemployment History\", \"low\", \"A single job held during the year may indicate financial instability and increased risk of recidivism.\"],\n    [\"Lack of Education/GED/High School Diploma\", \"medium\", \"No formal education or GED may limit employment opportunities and contribute to feelings of hopelessness.\"],\n    [\"Living Alone\", \"high\", \"Living alone can increase the risk of criminal behavior due to lack of social support and supervision.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_165816_349442",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1203,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Criminal History",
+      "high",
+      "A history of arrests and convictions indicates a higher likelihood of recidivism."
+    ],
+    [
+      "Substance Abuse (Marijuana)",
+      "medium",
+      "Regular use of marijuana in the past four years suggests potential for substance-related offenses."
+    ],
+    [
+      "Unemployment History",
+      "low",
+      "A single job held during the year may indicate financial instability and increased risk of recidivism."
+    ],
+    [
+      "Lack of Education/GED/High School Diploma",
+      "medium",
+      "No formal education or GED may limit employment opportunities and contribute to feelings of hopelessness."
+    ],
+    [
+      "Living Alone",
+      "high",
+      "Living alone can increase the risk of criminal behavior due to lack of social support and supervision."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 6 feet 1 inch and weighs 165 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

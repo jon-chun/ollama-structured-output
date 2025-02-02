@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 707,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:44:20.282103048Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.917255885,
+    "load_duration": 0.04248014,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 309,
+    "eval_duration": 1.863
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young individuals are less likely to re-offend, but this risk factor is not significant enough for a medium or high rating.\"),\n    (\"race/ethnicity\", \"medium\", \"White individuals have been found to be at higher risk of recidivism than other racial groups. However, the effect size in this case might be small and thus does not warrant a high rating.\"),\n    (\"employment status\", \"low\", \"Employment can indicate stability and reduced likelihood of re-offending. In this individual's case, however, he has no employment history which is not uncommon for young individuals without jobs.\"),\n    (\"family size as a child\", \"medium\", \"Growing up in a larger family might be associated with higher risk of recidivism due to increased exposure to crime and violence. However, the effect size here seems small and thus does not warrant a high rating.\"),\n    (\"drug use (marijuana)\", \"high\", \"Regular marijuana use has been found to increase the likelihood of re-offending in some studies. The effect size might be larger than average for this individual who has used both marijuana and cocaine.\"),\n    (\"depression\", \"low\", \"Depression is not a significant risk factor on its own, but it can indicate other underlying issues that may contribute to recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074420_284824",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 707,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 2 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

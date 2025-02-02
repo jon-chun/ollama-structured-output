@@ -1,0 +1,89 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 95,
+    "id": 812,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-02-01T22:02:35.874994916Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.581227646,
+    "load_duration": 0.008309842,
+    "prompt_eval_count": 378,
+    "prompt_eval_duration": 0.129,
+    "eval_count": 378,
+    "eval_duration": 3.44
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"The individual is relatively young, which could indicate a higher risk of recidivism due to lack of life experience and maturity.\"],\n    [\"Criminal History\", \"low\", \"A single arrest with no convictions suggests a low immediate risk.\"],\n    [\"Conviction\", \"high\", \"Despite the arrest, the individual has not been convicted yet, indicating a lower immediate risk.\"],\n    [\"Residence\", \"medium\", \"Living alone and in a household of size 4 could suggest a higher risk due to lack of social support and potential isolation.\"],\n    [\"Education\", \"high\", \"Being enrolled in a 4-year college indicates a high level of educational attainment, which is generally associated with lower recidivism rates.\"],\n    [\"Employment History\", \"medium\", \"Holding two jobs suggests a stable lifestyle and potential for future employment, reducing the risk of reoffending.\"],\n    [\"Substance Use\", \"low\", \"No history of drug use in the past four years indicates a low immediate risk.\"],\n    [\"Mental Health\", \"medium\", \"Not feeling depressed over the past month suggests good mental health, which is beneficial for recidivism prevention.\"],\n    [\"Family Background\", \"high\", \"Living with adults other than biological parents in a large household could indicate a higher risk due to potential exposure to negative influences.\"],\n    [\"Religious Beliefs\", \"low\", \"Considering God has something to do with personal events suggests a low immediate risk, but this factor is relatively neutral.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250201_170235_876718",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 812,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "The individual is relatively young, which could indicate a higher risk of recidivism due to lack of life experience and maturity."
+    ],
+    [
+      "Criminal History",
+      "low",
+      "A single arrest with no convictions suggests a low immediate risk."
+    ],
+    [
+      "Conviction",
+      "high",
+      "Despite the arrest, the individual has not been convicted yet, indicating a lower immediate risk."
+    ],
+    [
+      "Residence",
+      "medium",
+      "Living alone and in a household of size 4 could suggest a higher risk due to lack of social support and potential isolation."
+    ],
+    [
+      "Education",
+      "high",
+      "Being enrolled in a 4-year college indicates a high level of educational attainment, which is generally associated with lower recidivism rates."
+    ],
+    [
+      "Employment History",
+      "medium",
+      "Holding two jobs suggests a stable lifestyle and potential for future employment, reducing the risk of reoffending."
+    ],
+    [
+      "Substance Use",
+      "low",
+      "No history of drug use in the past four years indicates a low immediate risk."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Not feeling depressed over the past month suggests good mental health, which is beneficial for recidivism prevention."
+    ],
+    [
+      "Family Background",
+      "high",
+      "Living with adults other than biological parents in a large household could indicate a higher risk due to potential exposure to negative influences."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Considering God has something to do with personal events suggests a low immediate risk, but this factor is relatively neutral."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 11 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

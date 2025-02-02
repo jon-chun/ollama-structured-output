@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 42,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-02-01T22:17:11.362849659Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 18.534103925,
+    "load_duration": 0.019898701,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.087,
+    "eval_count": 448,
+    "eval_duration": 18.425
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age is generally associated with higher risk of recidivism, but this individual is only slightly above the average age of first arrest.\"),\n    (\"male\", \"medium\", \"Males tend to have a higher rate of rearrest compared to females, indicating a moderate risk factor.\"),\n    (\"Asian / Pacific Islander\", \"low\", \"This demographic group generally has lower rates of criminal activity compared to other groups, suggesting a low risk factor.\"),\n    (\"arrests but no convictions\", \"medium\", \"A history of arrests without convictions may indicate that the individual is at a higher risk for rearrest due to lack of consequences from previous incidents.\"),\n    (\"height and weight\", \"low\", \"Physical attributes such as height and weight do not have a direct correlation with criminal behavior, suggesting a low risk factor.\"),\n    (\"marital status\", \"low\", \"Being unmarried does not necessarily indicate a higher risk of recidivism.\"),\n    (\"living situation\", \"medium\", \"Living alone may suggest less social constraints against criminal behavior, indicating a moderate risk factor.\"),\n    (\"education level\", \"low\", \"Having a high school diploma and not being enrolled in college is not strongly associated with increased risk of rearrest.\"),\n    (\"employment status\", \"high\", \"Lack of employment can indicate higher risk for recidivism due to lack of structure and potential financial pressures leading to criminal activity.\"),\n    (\"drug use history\", \"medium\", \"Past marijuana use may increase the likelihood of rearrest, but its impact is somewhat mitigated by the absence of other drug use or addiction issues.\"),\n    (\"mental health\", \"low\", \"Not feeling depressed in the past month does not strongly indicate a lower risk for recidivism.\"),\n    (\"family background\", \"low\", \"Growing up with one parent in an urban area is not strongly associated with increased risk of rearrest.\"),\n    (\"religious beliefs\", \"low\", \"Lack of belief in God or personal connection to religion may suggest less moral constraints against criminal behavior, but its impact on recidivism risk is minimal.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_171711_364748",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

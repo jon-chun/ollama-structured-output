@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 528,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-02-02T12:54:30.85709603Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.716807007,
+    "load_duration": 0.037380963,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.053,
+    "eval_count": 358,
+    "eval_duration": 13.623
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which generally reduces recidivism risk.\"),\n    (\"ethnicity\", \"medium\", \"Hispanic individuals have a higher rearrest rate than non-Hispanic counterparts. This factor should be considered with caution.\"),\n    (\"conviction history\", \"high\", \"A history of convictions indicates a high likelihood of reoffending.\"),\n    (\"height_weight\", \"low\", \"The individual's height and weight are not significant risk factors for recidivism.\"),\n    (\"marital status\", \"medium\", \"Living alone is associated with an increased rearrest rate, but this factor should be considered in the context of other indicators.\"),\n    (\"education\", \"medium\", \"Having a GED certificate indicates lower education levels compared to those who are enrolled in college. This could potentially increase recidivism risk.\"),\n    (\"employment history\", \"low\", \"Employment is generally associated with reduced rearrest rates, but this factor should be considered in the context of other indicators.\"),\n    (\"drug use\", \"medium\", \"Recent drug use indicates a higher likelihood of reoffending. This factor should be taken into account when making predictions.\"),\n    (\"depression\", \"low\", \"Not feeling depressed over the past month does not necessarily indicate low recidivism risk, as depression is only one indicator among many.\"),\n    (\"family background\", \"medium\", \"Growing up in a household of size 5 and an urban area could potentially increase rearrest rates. However, this factor should be considered with caution due to its subjective nature.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_075430_859291",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 528,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 5 times and has been convicted. He is 5 feet 5 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

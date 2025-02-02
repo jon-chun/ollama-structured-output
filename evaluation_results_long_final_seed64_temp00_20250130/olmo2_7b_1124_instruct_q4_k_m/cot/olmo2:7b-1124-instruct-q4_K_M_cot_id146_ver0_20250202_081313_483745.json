@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 146,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-02-02T13:13:13.481962533Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.035563153,
+    "load_duration": 0.016061622,
+    "prompt_eval_count": 312,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 352,
+    "eval_duration": 3.0
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are often at a higher risk for reoffending, but this individual's age is within a range where risk can vary significantly based on other factors.\"),\n    (\"gender\", \"low\", \"Females generally have lower recidivism rates than males, which could mitigate risk.\"),\n    (\"arrest_count\", \"medium\", \"Multiple arrests increase the likelihood of reoffense; however, convictions are more indicative of actual criminal behavior.\"),\n    (\"conviction\", \"high\", \"A prior conviction is a strong indicator of potential for future offenses.\"),\n    (\"physical_description\", \"low\", \"Physical characteristics such as height and weight do not typically influence risk assessment.\"),\n    (\"marital_status\", \"low\", \"Being unmarried does not inherently increase or decrease the risk of reoffense.\"),\n    (\"education_level\", \"medium\", \"Higher education levels are associated with lower recidivism rates; a high school diploma suggests a moderate level of education, which may impact risk.\"),\n    (\"job_history\", \"medium\", \"Job instability can be a risk factor for reoffense; however, the number of jobs held in a year might indicate adaptability or instability.\"),\n    (\"drug_use\", \"high\", \"Past drug use, particularly of illicit substances like cocaine, increases the risk of reoffense.\"),\n    (\"mental_health_status\", \"low\", \"The absence of depression in the past month is a positive factor, suggesting better mental health stability.\"),\n    (\"household_size_young_age\", \"medium\", \"Growing up in a household of three could suggest a stable family environment, which might mitigate risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_081313_483745",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 146,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

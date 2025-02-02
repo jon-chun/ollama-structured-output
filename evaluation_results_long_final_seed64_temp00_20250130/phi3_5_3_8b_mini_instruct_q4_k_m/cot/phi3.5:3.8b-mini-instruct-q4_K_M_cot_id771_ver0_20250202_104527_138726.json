@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 771,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:45:27.136972413Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.599864396,
+    "load_duration": 0.008238704,
+    "prompt_eval_count": 366,
+    "prompt_eval_duration": 0.041,
+    "eval_count": 403,
+    "eval_duration": 10.547
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"medium\", \"Being arrested multiple times may indicate a pattern, but age alone is not highly predictive of future recidivism.\"),\n    (\"Ethnicity\", \"low\", \"Hispanic ethnicity does not have strong statistical correlations with rearrest rates when controlling for other factors.\"),\n    (\"Number of prior arrests and convictions\", \"high\", \"Multiple previous arrests and convictions are significant predictors of future criminal behavior, indicating a higher risk of recidivism.\"),\n    (\"Education level\", \"medium\", \"Lacking post-secondary education may limit employment opportunities but is not as strong an indicator on its own without considering other factors like job history and substance use.\"),\n    (\"Employment status during the year\", \"low\", \"Having held a job indicates some stability, which can be protective against recidivism. However, it's only one aspect of his life circumstances.\"),\n    (\"Substance abuse history\", \"low\", \"No recent drug use suggests lower risk related to substance-related offenses but does not account for other types of criminal behavior.\"),\n    (\"Mental health status\", \"medium\", \"Not feeling depressed is a positive sign, yet mental illness can be an underlying factor in some recidivism cases if untreated. However, the absence of recent symptoms suggests it may have less impact on this prediction.\"),\n    (\"Family background and living situation\", \"low to medium\", \"Living with family at a young age might provide supportive environment but does not strongly predict future behavior without additional context about current relationships or other environmental factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_104527_138726",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 771,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 3 times and has been convicted. He is 5 feet 11 inches and weighs 160 lbs. He has never been married and is currently not living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 2. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

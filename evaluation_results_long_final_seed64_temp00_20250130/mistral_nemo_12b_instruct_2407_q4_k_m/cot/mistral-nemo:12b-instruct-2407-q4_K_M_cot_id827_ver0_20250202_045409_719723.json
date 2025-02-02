@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 827,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T09:54:09.717557985Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 27.178546114,
+    "load_duration": 0.023540706,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.21,
+    "eval_count": 464,
+    "eval_duration": 26.942
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"While 18 is not exceptionally old, it's still a risk factor due to the peak age of criminal activity being in late teens/early twenties.\"),\n    (\"Gender (Male)\", \"low\", \"Being male is a slight risk factor but less significant than other factors.\"),\n    (\"Race (White)\", \"low\", \"Race has been shown to have minimal impact on recidivism when controlling for other factors.\"),\n    (\"Arrests (10 times)\", \"high\", \"High number of arrests indicates a strong likelihood of reoffending.\"),\n    (\"Convictions (Yes)\", \"high\", \"Having convictions increases the risk of recidivism.\"),\n    (\"Height (5'10\")\", \"low\", \"Physical size has little impact on criminal behavior.\"),\n    (\"Weight (160 lbs)\", \"low\", \"Similar to height, weight has minimal impact.\"),\n    (\"Marital Status (Never married)\", \"medium\", \"Single individuals tend to have higher recidivism rates.\"),\n    (\"Living Arrangement (Not alone)\", \"low\", \"Living with others may provide some level of social control.\"),\n    (\"Education (No diploma/GED, not in college)\", \"high\", \"Lack of education is a strong predictor of recidivism.\"),\n    (\"Employment (1 job in the last year)\", \"medium\", \"Some employment indicates a degree of responsibility but doesn't mitigate other risk factors significantly.\"),\n    (\"Drug Use (Past 4 years, marijuana and cocaine)\", \"high\", \"Recent drug use is a strong predictor of recidivism.\"),\n    (\"Depression (No in past month)\", \"low\", \"Lack of depression indicates mental health stability, which slightly reduces risk.\"),\n    (\"Household Size at a young age (3)\", \"medium\", \"Growing up in a larger household can increase the likelihood of delinquent behavior.\"),\n    (\"Belief in God's influence\", \"low\", \"Beliefs about divine influence have not been shown to significantly impact recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_045409_719723",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 827,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 10 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

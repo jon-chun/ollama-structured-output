@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 10,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:43:20.931177757Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.441701571,
+    "load_duration": 0.032816624,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 380,
+    "eval_duration": 2.396
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young, which suggests a lower risk of reoffending.\"),\n    (\"race/ethnicity\", \"medium\", \"White individuals have been found to be at higher risk for recidivism compared to other racial or ethnic groups. However, this factor should not be given excessive weight without additional context.\"),\n    (\"employment status\", \"low\", \"Employment is generally associated with lower reoffending rates. The individual's employment history and type of job are relevant factors that could influence the prediction.\"),\n    (\"marital status\", \"medium\", \"Marital status has been found to be a significant risk factor for recidivism, but this relationship may vary depending on other circumstances such as cohabitation or living with family members.\"),\n    (\"living arrangement\", \"low\", \"Living alone is generally associated with higher reoffending rates. The individual's living situation and the presence of support networks are relevant factors that could influence the prediction.\"),\n    (\"education level\", \"medium\", \"Education has been found to be a protective factor against recidivism, but this relationship may vary depending on other circumstances such as employment status or substance use.\"),\n    (\"drug use in past 4 years\", \"high\", \"Substance use is a significant risk factor for recidivism. The individual's history of drug use and the frequency and type of substances used are relevant factors that could influence the prediction.\"),\n    (\"recent feelings of low mood\", \"medium\", \"Recent experiences of low mood or depression have been found to be associated with higher reoffending rates, but this relationship may vary depending on other circumstances such as substance use or mental health status.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074320_933933",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 10,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

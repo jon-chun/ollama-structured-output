@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 109,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T09:51:01.954346869Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 23.162663068,
+    "load_duration": 0.031405712,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.211,
+    "eval_count": 394,
+    "eval_duration": 22.916
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"22 is relatively young, which typically indicates lower risk.\"),\n    (\"Gender (Male)\", \"low\", \"Generally lower risk than female offenders.\"),\n    (\"Race (Black)\", \"medium\", \"Socioeconomic factors and potential biases may increase risk.\"),\n    (\"Arrest History (1 time)\", \"medium\", \"Single arrest suggests a lower likelihood of recidivism, but still poses some risk.\"),\n    (\"Conviction History (Yes)\", \"high\", \"Previous conviction is a strong indicator of increased risk.\"),\n    (\"Physical Characteristics (5'8\\\", 150-174 lbs)\", \"low\", \"No significant impact on risk assessment.\"),\n    (\"Marital Status (Married)\", \"low\", \"Stability in relationships can decrease recidivism risk.\"),\n    (\"Education (No High School Diploma/GED, Not Enrolled in College)\", \"high\", \"Limited education is associated with higher recidivism rates.\"),\n    (\"Employment History (2 jobs in the past year)\", \"low\", \"Stability and engagement in employment can decrease risk.\"),\n    (\"Drug Use (No use in past 4 years, some use in past month)\", \"medium\", \"Recent drug use suggests a potential relapse to criminal behavior.\"),\n    (\"Depression/Emotional State (Felt down in the dumps)\", \"high\", \"Mental health issues can increase risk of recidivism.\"),\n    (\"Early Family Environment (Lived in household of size 8)\", \"medium\", \"Adverse childhood experiences may impact future criminal behavior.\"),\n    (\"Belief System (Believes God has something to do with personal events)\", \"low\", \"No significant impact on risk assessment.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_045101_956741",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 109,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He is married and is currently living with his spouse. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

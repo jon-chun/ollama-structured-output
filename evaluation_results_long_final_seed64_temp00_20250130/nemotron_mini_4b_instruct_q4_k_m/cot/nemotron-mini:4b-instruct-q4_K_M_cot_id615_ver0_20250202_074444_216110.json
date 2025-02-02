@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 615,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:44:44.213850563Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.623616661,
+    "load_duration": 0.038210486,
+    "prompt_eval_count": 340,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 421,
+    "eval_duration": 2.574
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which generally indicates a lower risk of re-offending.\"),\n    (\"race\", \"medium\", \"White individuals have been found to be at higher risk for recidivism compared to other racial groups. However, this factor should not be given excessive weight as it may be influenced by societal factors rather than inherent characteristics.\"),\n    (\"employment_history\", \"low\", \"Having a job is generally associated with lower re-offending rates. The number of jobs held does not seem to have much impact on the prediction.\"),\n    (\"education\", \"medium\", \"Lower levels of education are often linked to higher recidivism rates, but this factor should be given moderate weight as it may also reflect socioeconomic status and other factors that influence an individual's life chances.\"),\n    (\"drug_use\", \"high\", \"Individuals who use drugs have been found to be at a significantly increased risk of re-offending. The specific types of drugs used do not seem to have much impact on the prediction.\"),\n    (\"depression\", \"low\", \"There is no clear link between depression and recidivism, so this factor should be given low weight in the assessment.\"),\n    (\"family_history\", \"medium\", \"Having a family history of crime can increase an individual's risk of re-offending. However, it may also reflect societal factors rather than inherent characteristics.\"),\n    (\"urban_residence\", \"high\", \"Urban areas are generally associated with higher rates of crime and disorder. This factor should be given high weight in the assessment.\"),\n    (\"living_alone\", \"medium\", \"Living alone is often linked to increased risk-taking behavior, which can increase the likelihood of re-offending. However, this factor may also reflect socioeconomic status or other factors that influence an individual's life chances.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074444_216110",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 615,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

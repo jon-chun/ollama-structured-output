@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1303,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:01:29.589178404Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.720469223,
+    "load_duration": 0.016404741,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.004,
+    "eval_count": 254,
+    "eval_duration": 0.698
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"weight\": 2, \"textual_reasoning\": \"The individual's racial identity may influence his likelihood of being arrested and convicted.\", \"prediction\": \"YES\"},\n    {\"factor2\": \"education\", \"weight\": 3, \"textual_reasoning\": \"Lack of education may increase the individual's vulnerability to recidivism.\", \"prediction\": \"YES\"},\n    {\"factor3\": \"employment history\", \"weight\": 1, \"textual_reasoning\": \"The individual's short employment history may indicate instability in his life and potentially contribute to recidivism.\", \"prediction\": \"NO\"},\n    {\"factor4\": \"substance abuse\", \"weight\": 2, \"textual_reasoning\": \"The individual's past use of marijuana may be a sign of underlying issues that could impact his future behavior.\", \"prediction\": \"YES\"},\n    {\"factor5\": \"family dynamics\", \"weight\": 1, \"textual_reasoning\": \"The individual's biological mother's household size and urban environment may have contributed to his current situation.\", \"prediction\": \"NO\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_180129_590894",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1303,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "weight": 2,
+      "textual_reasoning": "The individual's racial identity may influence his likelihood of being arrested and convicted.",
+      "prediction": "YES"
+    },
+    {
+      "factor2": "education",
+      "weight": 3,
+      "textual_reasoning": "Lack of education may increase the individual's vulnerability to recidivism.",
+      "prediction": "YES"
+    },
+    {
+      "factor3": "employment history",
+      "weight": 1,
+      "textual_reasoning": "The individual's short employment history may indicate instability in his life and potentially contribute to recidivism.",
+      "prediction": "NO"
+    },
+    {
+      "factor4": "substance abuse",
+      "weight": 2,
+      "textual_reasoning": "The individual's past use of marijuana may be a sign of underlying issues that could impact his future behavior.",
+      "prediction": "YES"
+    },
+    {
+      "factor5": "family dynamics",
+      "weight": 1,
+      "textual_reasoning": "The individual's biological mother's household size and urban environment may have contributed to his current situation.",
+      "prediction": "NO"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 5 feet 8 inches and weighs between 200 and 224 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

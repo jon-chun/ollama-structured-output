@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 880,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "glm4:9b-chat-q4_K_M",
+    "created_at": "2025-02-01T21:00:44.100376214Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.40002581,
+    "load_duration": 0.018121866,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.158,
+    "eval_count": 356,
+    "eval_duration": 17.22
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which generally indicates a lower risk of recidivism compared to older individuals.\"),\n    (\"race\", \"medium\", \"Being Black may increase the risk of recidivism due to societal factors and disparities in the criminal justice system.\"),\n    (\"arrest_history\", \"medium\", \"One arrest without conviction suggests a potential for future offenses, but it is not indicative of high risk on its own.\"),\n    (\"height_weight\", \"low\", \"Physical stature does not typically correlate with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Being unmarried may slightly increase the risk, but it is not a significant factor in predicting recidivism.\"),\n    (\"residence_status\", \"medium\", \"Living alone can be associated with higher risk due to social isolation and potential for criminal activity.\"),\n    (\"education_level\", \"high\", \"Enrollment in school suggests a lower risk of recidivism as education is often linked to better employment prospects and reduced criminal behavior.\"),\n    (\"employment_history\", \"low\", \"Having held one job during the year indicates stability, which can be protective against recidivism.\"),\n    (\"drug_use\", \"medium\", \"No drug use in the past four years is a positive factor, but recent feelings of depression may increase risk if it leads to substance abuse or criminal behavior.\"),\n    (\"family_structure\", \"low\", \"Living with both biological parents at a young age suggests stability and lower risk of recidivism.\"),\n    (\"religion\", \"low\", \"Belief in God as a personal influence may contribute to positive life choices and lower recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250201_160044_102689",
+    "model": "glm4:9b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 880,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

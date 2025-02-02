@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 334,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:44:51.516987338Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.429208091,
+    "load_duration": 0.048416552,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 388,
+    "eval_duration": 2.369
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Conviction history (2 times)\", \"high\", \"This individual has a significant criminal history, which is a strong indicator of recidivism.\"),\n    (\"Age group (<25 years old)\", \"medium\", \"Younger individuals often have higher rates of re-arrests due to various factors such as lack of maturity and life experience.\"),\n    (\"Race (White)\", \"low\", \"Whites generally have lower recidivism rates than other racial groups, but this factor alone is not sufficient for prediction.\"),\n    (\"Living situation (living alone)\", \"medium\", \"Individuals living alone may be at a higher risk of re-arrests due to factors such as lack of support network and increased stress levels.\"),\n    (\"Education level (high school diploma only, no college enrollment)\", \"low\", \"Lower education levels are generally associated with higher recidivism rates, but this factor is not significant in isolation.\"),\n    (\"Employment history (3 jobs held during the year)\", \"medium\", \"A high number of job changes may indicate instability and stress, which can contribute to re-arrests.\"),\n    (\"Drug use (marijuana and cocaine within past 4 years)\", \"high\", \"Substance abuse is a strong indicator of recidivism. The combination of marijuana and cocaine usage indicates a more severe addiction problem.\"),\n    (\"Depression status (not depressed in the past month)\", \"low\", \"The absence of depression does not necessarily indicate low risk, as individuals can still engage in criminal behavior without experiencing mental health issues.\"),\n    (\"Urban area residence (urban area)\", \"medium\", \"Urban areas often have higher crime rates and more complex social structures that may contribute to re-arrests.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074451_518773",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 334,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 4 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

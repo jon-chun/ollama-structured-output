@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 1393,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:44:53.5198266Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.999075798,
+    "load_duration": 0.040176853,
+    "prompt_eval_count": 353,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 321,
+    "eval_duration": 1.946
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is a young female, which historically has been associated with lower recidivism rates.\"),\n    (\"race/ethnicity\", \"medium\", \"While race/ethnicity should not be the primary factor in risk assessment, it can still provide some insight into an individual's background and potential risks. In this case, being Black may indicate a higher likelihood of involvement in criminal activities due to systemic issues or historical discrimination.\"),\n    (\"employment history\", \"medium\", \"Having held multiple jobs during the year is generally associated with lower recidivism rates as it suggests better coping skills and adaptability. However, if all jobs were low-wage, unstable positions, this could indicate a higher risk of reoffending due to financial instability or lack of resources.\"),\n    (\"drug use\", \"high\", \"Regular drug use can be a significant indicator of increased likelihood of recidivism as it often indicates underlying mental health issues, addiction problems, and poor decision-making skills. In the case of marijuana alone, while not typically associated with severe consequences, its regular use could still indicate some level of risk.\"),\n    (\"mental state\", \"medium\", \"Feeling down in the dumps can be a symptom of depression or other mental health issues that may increase the likelihood of reoffending. However, it is also possible that this individual has experienced adverse life events and uses drugs as a coping mechanism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074453_522282",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1393,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 10 inches and weighs 165 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

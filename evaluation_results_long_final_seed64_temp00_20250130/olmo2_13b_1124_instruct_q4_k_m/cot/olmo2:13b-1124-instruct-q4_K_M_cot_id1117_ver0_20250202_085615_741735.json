@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1117,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-02-02T13:56:15.739261378Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 25.703902813,
+    "load_duration": 0.02151653,
+    "prompt_eval_count": 338,
+    "prompt_eval_duration": 0.273,
+    "eval_count": 382,
+    "eval_duration": 25.405
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are generally at a medium risk due to developmental instability and social influences.\"),\n    (\"gender\", \"low\", \"Male gender is typically associated with lower recidivism rates compared to females.\"),\n    (\"race\", \"medium\", \"Black males may face higher societal risks, but this factor alone does not conclusively indicate higher recidivism.\"),\n    (\"arrests_without_conviction\", \"high\", \"Multiple arrests without convictions can indicate a pattern of criminal behavior or involvement.\"),\n    (\"education_level\", \"high\", \"Lack of high school diploma or GED is associated with higher recidivism rates due to limited opportunities.\"),\n    (\"employment_status\", \"high\", \"No job history may suggest difficulties in integrating into lawful society.\"),\n    (\"drug_use\", \"high\", \"Current and past cocaine use indicates a high risk for recidivism, especially considering the potential for addiction.\"),\n    (\"depression_symptoms\", \"medium\", \"Feeling down and hopeless can correlate with higher recidivism due to untreated mental health issues.\"),\n    (\"household_size_at_young_age\", \"low\", \"Growing up in a household of size 4 is not inherently indicative of risk.\"),\n    (\"urban_residence\", \"medium\", \"Urban residence may expose individuals to more crime opportunities and stressors.\"),\n    (\"religious_beliefs\", \"low\", \"Belief that God has no influence on personal life does not directly impact recidivism.\"),\n    (\"prior_convictions\", \"low\", \"No prior convictions reduce the likelihood of recidivism.\"),\n    (\"age_at_first_arrest\", \"medium\", \"Age 21 at first arrest suggests a relatively late start to criminal activity, which could be either mitigating or indicative of delayed engagement.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_085615_741735",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1117,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs 161 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 681,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T09:49:53.18323234Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 23.09331232,
+    "load_duration": 0.024285826,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.211,
+    "eval_count": 393,
+    "eval_duration": 22.854
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"22 years old is a transitional age where recidivism can be high but not as high as younger offenders.\"),\n    (\"Gender\", \"low\", \"Male, while having higher rates of offending, does not significantly increase risk in this case due to other factors.\"),\n    (\"Race/Ethnicity\", \"low\", \"White race does not significantly impact recidivism risk in this context.\"),\n    (\"Criminal History - Number of Arrests\", \"medium\", \"One arrest indicates a lower criminal history but still poses a risk.\"),\n    (\"Criminal History - Convictions\", \"medium\", \"Having been convicted increases the likelihood of reoffending.\"),\n    (\"Physical Characteristics - Height & Weight\", \"low\", \"No significant impact on recidivism.\"),\n    (\"Marital Status\", \"low\", \"Not married, but not living alone suggests some stability and support.\"),\n    (\"Education - GED\", \"medium\", \"GED indicates a lower level of education which can correlate with higher recidivism rates.\"),\n    (\"Employment History\", \"low\", \"Held 1 job in the past year shows some responsibility and stability.\"),\n    (\"Drug Use\", \"high\", \"Recent drug use, particularly cocaine, increases the likelihood of reoffending.\"),\n    (\"Mental Health - Depression\", \"low\", \"No recent depression reported, which is positive but does not negate other risk factors.\"),\n    (\"Family Structure in Childhood\", \"medium\", \"Growing up with both biological parents can be protective, but urban environment may offset this.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God's influence does not significantly impact recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_044953_184945",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 681,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 11 inches and weighs between 225 and 249 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

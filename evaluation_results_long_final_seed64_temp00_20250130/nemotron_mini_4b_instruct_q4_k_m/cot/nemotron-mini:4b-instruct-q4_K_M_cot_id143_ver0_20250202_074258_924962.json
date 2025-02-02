@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 143,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:42:58.92312075Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.536735611,
+    "load_duration": 0.031692256,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 386,
+    "eval_duration": 2.492
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is a young adult, which generally indicates lower risk.\"),\n    (\"gender\", \"medium\", \"Women have historically been underrepresented in the criminal justice system, so this factor may contribute to higher recidivism rates. However, given that she has not been convicted of any crimes and has no prior convictions, it's assigned a medium level.\"),\n    (\"race/ethnicity\", \"low\", \"This risk factor is generally low for White individuals.\"),\n    (\"employment history\", \"medium\", \"Having held multiple jobs in the past year indicates some instability or impulsivity, which may contribute to higher recidivism rates. However, given her lack of prior convictions and stable living situation, it's assigned a medium level.\"),\n    (\"drug use\", \"high\", \"Regular drug use is a significant risk factor for recidivism. Given that she has used marijuana and cocaine in the past four years (and some recent down periods) this factor is assigned high.\"),\n    (\"family history\", \"medium\", \"Living with both biological parents at an early age may indicate positive family influences, but living alone indicates potential instability or impulsivity. This risk factor is assigned medium level.\"),\n    (\"education/employment status\", \"low\", \"Having a Bachelor's degree and not currently enrolled in college suggests that she has some education and employment stability. However, her lack of marriage and unstable living situation indicate potential instability or impulsivity. This risk factor is assigned low.\"),\n    (\"mental health\", \"medium\", \"Feeling down for extended periods may suggest underlying mental health issues which could contribute to recidivism. Given the nature of this information, it's assigned medium level.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074258_924962",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

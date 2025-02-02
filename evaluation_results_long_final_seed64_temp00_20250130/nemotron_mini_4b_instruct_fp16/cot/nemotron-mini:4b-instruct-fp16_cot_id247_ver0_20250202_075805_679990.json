@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 247,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-02-02T12:58:05.678038515Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.783744464,
+    "load_duration": 0.047869809,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.053,
+    "eval_count": 254,
+    "eval_duration": 9.68
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which generally reduces recidivism risk.\"),\n    (\"race/ethnicity\", \"medium\", \"White individuals have a lower recidivism rate than other racial groups.\"),\n    (\"employment history\", \"high\", \"Employment can reduce recidivism risk. However, the number of jobs held and their duration need to be considered more closely.\"),\n    (\"drug use\", \"low\", \"Regular drug use is associated with higher recidivism rates.\"),\n    (\"depression\", \"medium\", \"Depression has been linked to increased criminal behavior.\"),\n    (\"family environment as a child\", \"high\", \"Growing up in an unstable family environment can increase the risk of reoffending.\"),\n    (\"religion/beliefs\", \"low\", \"Beliefs and religion are not typically strong predictors of recidivism.\"),\n    (\"current living situation\", \"medium\", \"Living with a spouse is generally associated with lower recidivism rates. However, other factors such as the quality of the relationship need to be considered.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_075805_679990",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 247,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 2 inches and weighs 275 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

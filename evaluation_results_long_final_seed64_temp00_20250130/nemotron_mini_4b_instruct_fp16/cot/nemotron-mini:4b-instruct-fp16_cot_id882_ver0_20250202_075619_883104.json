@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 882,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-02-02T12:56:19.881047492Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.626759356,
+    "load_duration": 0.046779843,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.053,
+    "eval_count": 197,
+    "eval_duration": 7.524
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is an adolescent, which generally has a lower risk of reoffending.\"),\n    (\"race\", \"medium\", \"White individuals have been found to be at higher risk for recidivism than other racial groups.\"),\n    (\"employment status\", \"high\", \"Employment can serve as a protective factor against reoffending. The individual's lack of employment may indicate an increased risk.\"),\n    (\"drug use in the past four years\", \"medium\", \"Drug use is a significant risk factor for recidivism, especially when it occurs frequently and over a prolonged period.\"),\n    (\"family structure (household size)\", \"low\", \"Living with both biological parents suggests a more stable family environment, which may reduce the likelihood of reoffending.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_075619_883104",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 882,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 9 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

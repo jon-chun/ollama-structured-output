@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 90,
+    "id": 305,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-02-01T22:00:34.502232445Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.924450675,
+    "load_duration": 0.008227152,
+    "prompt_eval_count": 380,
+    "prompt_eval_duration": 0.121,
+    "eval_count": 310,
+    "eval_duration": 2.791
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"The individual is an 18-year-old, which places him in the medium risk category due to his age. Young adults often face higher risks of criminal behavior compared to older individuals.\"],\n    [\"Criminal History\", \"low\", \"His two arrests without conviction indicate a low likelihood of future offenses.\"],\n    [\"Drug Use\", \"high\", \"The use of marijuana and cocaine in the past four years suggests a high risk of recidivism, especially if not addressed through treatment or counseling.\"],\n    [\"Employment History\", \"medium\", \"Holding one job for a year indicates some stability, but this is a single data point. More consistent employment could reduce risk.\"],\n    [\"Living Arrangements\", \"low\", \"Living alone and in an urban area at 18 years old suggests a low risk of criminal behavior.\"],\n    [\"Education Status\", \"high\", \"Being enrolled in school indicates a high likelihood of positive outcomes, reducing the risk of recidivism.\"],\n    [\"Marital Status\", \"low\", \"Not being married at 18 is not necessarily indicative of higher risk. It could suggest a lack of commitment or stability, but this needs further context.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 90\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_170034_503933",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 305,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "The individual is an 18-year-old, which places him in the medium risk category due to his age. Young adults often face higher risks of criminal behavior compared to older individuals."
+    ],
+    [
+      "Criminal History",
+      "low",
+      "His two arrests without conviction indicate a low likelihood of future offenses."
+    ],
+    [
+      "Drug Use",
+      "high",
+      "The use of marijuana and cocaine in the past four years suggests a high risk of recidivism, especially if not addressed through treatment or counseling."
+    ],
+    [
+      "Employment History",
+      "medium",
+      "Holding one job for a year indicates some stability, but this is a single data point. More consistent employment could reduce risk."
+    ],
+    [
+      "Living Arrangements",
+      "low",
+      "Living alone and in an urban area at 18 years old suggests a low risk of criminal behavior."
+    ],
+    [
+      "Education Status",
+      "high",
+      "Being enrolled in school indicates a high likelihood of positive outcomes, reducing the risk of recidivism."
+    ],
+    [
+      "Marital Status",
+      "low",
+      "Not being married at 18 is not necessarily indicative of higher risk. It could suggest a lack of commitment or stability, but this needs further context."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

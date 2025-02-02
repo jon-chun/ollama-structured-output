@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 328,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-02-02T11:57:27.88605799Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.607763223,
+    "load_duration": 0.006499197,
+    "prompt_eval_count": 369,
+    "prompt_eval_duration": 0.55,
+    "eval_count": 244,
+    "eval_duration": 10.049
+  },
+  "response": {
+    "raw_message_text": " {\n    \"risk_factors\": [\n        (\"Prior Arrests\", \"low\", \"Only one arrest with no conviction\"),\n        (\"Age\", \"medium\", \"Young but not a strong indicator of recidivism\"),\n        (\"Gender\", \"low\", \"Female gender is generally a lower risk factor\"),\n        (\"Race\", \"low\", \"No evidence suggesting White race is a risk factor\"),\n        (\"Number of Jobs\", \"medium\", \"Stable employment history but only for a year\"),\n        (\"Education\", \"low\", \"High school diploma, no college education\"),\n        (\"History of Drug Use\", \"low\", \"No drug use in the past four years\"),\n        (\"Mental Health\", \"high\", \"Frequent feelings of depression\"),\n        (\"Family Background\", \"medium\", \"Lived with mother in an urban area\"),\n        (\"Religiosity\", \"low\", \"Belief in God's influence on personal life\")\n    ],\n    \"prediction\": \"YES\",\n    \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_065727_887802",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 328,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 115 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

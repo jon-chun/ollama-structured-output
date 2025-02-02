@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 1080,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-02-02T12:12:31.078770253Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.238026543,
+    "load_duration": 0.011673862,
+    "prompt_eval_count": 359,
+    "prompt_eval_duration": 0.509,
+    "eval_count": 357,
+    "eval_duration": 14.714
+  },
+  "response": {
+    "raw_message_text": " {\n    \"risk_factors\": [\n        (\"number of prior arrests\", \"medium\", \"Two prior arrests is a moderate indicator of recidivism risk\"),\n        (\"conviction history\", \"medium\", \"A conviction indicates past criminal behavior, suggesting some level of risk\"),\n        (\"height and weight\", \"low\", \"While larger size can contribute to intimidation or aggression, it does not necessarily indicate higher recidivism risk\"),\n        (\"marital status\", \"low\", \"Being unmarried is a weak indicator of recidivism risk\"),\n        (\"living situation\", \"low\", \"Living alone is a weak indicator of recidivism risk\"),\n        (\"education level\", \"low\", \"Higher education can be a protective factor, but it does not guarantee against recidivism\"),\n        (\"employment history\", \"low\", \"One year of employment is a weak indicator of recidivism risk\"),\n        (\"drug use\", \"medium\", \"Past marijuana use indicates some level of risk, though lower than other drug types\"),\n        (\"depression symptoms\", \"low\", \"Lack of depression symptoms suggests better mental health, which can reduce recidivism risk\"),\n        (\"family background\", \"medium\", \"Growing up in a larger household and urban area may contribute to higher risk, but this is not definitive\"),\n        (\"religious beliefs\", \"low\", \"Belief in God's influence on personal life is a weak indicator of recidivism risk\")\n    ],\n    \"prediction\": \"YES\",\n    \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_071231_081124",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1080,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 6 feet 4 inches and weighs 210 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 7, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

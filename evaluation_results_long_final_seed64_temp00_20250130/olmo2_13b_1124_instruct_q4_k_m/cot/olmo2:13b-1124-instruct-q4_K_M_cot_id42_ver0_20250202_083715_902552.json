@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 42,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "created_at": "2025-02-02T13:37:15.900950316Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 21.331071979,
+    "load_duration": 0.02170776,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 0.27,
+    "eval_count": 315,
+    "eval_duration": 21.035
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young age can indicate higher impulsivity but is balanced by lack of criminal conviction.\"),\n    (\"gender\", \"low\", \"Male gender is generally associated with higher recidivism, but other factors may mitigate.\"),\n    (\"ethnicity\", \"low\", \"Asian/Pacific Islander ethnicity does not typically show strong correlation with recidivism.\"),\n    (\"arrests_without_conviction\", \"high\", \"Multiple arrests without convictions may indicate criminal involvement or issues with the justice system.\"),\n    (\"height\", \"low\", \"Height and weight are generally not directly related to recidivism.\"),\n    (\"marital_status\", \"medium\", \"Living alone and never married could suggest less social stability.\"),\n    (\"education_level\", \"medium\", \"High school diploma without college education may indicate limited future opportunities.\"),\n    (\"employment_history\", \"high\", \"No job history can imply difficulties with stability and structure.\"),\n    (\"drug_use\", \"medium\", \"Past marijuana use indicates some risk behavior, but not necessarily chronic substance abuse.\"),\n    (\"depression_status\", \"low\", \"Lack of depression in the past month suggests better mental health.\"),\n    (\"childhood_environment\", \"medium\", \"Living with a biological father in a small household in an urban area could indicate varied support systems.\"),\n    (\"religious_beliefs\", \"low\", \"Belief that God has no influence on personal life does not directly correlate with criminal behavior\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_083715_902552",
+    "model": "olmo2:13b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

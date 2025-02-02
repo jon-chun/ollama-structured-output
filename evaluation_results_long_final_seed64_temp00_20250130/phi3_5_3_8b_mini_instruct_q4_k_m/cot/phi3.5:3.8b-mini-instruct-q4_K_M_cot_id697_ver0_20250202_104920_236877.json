@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 697,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:49:20.234297397Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.588180641,
+    "load_duration": 0.012075656,
+    "prompt_eval_count": 381,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 324,
+    "eval_duration": 8.531
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Number of prior arrests\", \"high\", \"Having been arrested multiple times (6) significantly increases the likelihood of rearrest, especially considering past convictions.\"),\n    (\"Educational attainment\", \"medium\", \"Holding a GED certificate is positive but not being enrolled in college may limit opportunities for further education and employment which could contribute to recidivism risk.\"),\n    (\"Employment history\", \"high\", \"Having held no jobs during the year suggests difficulty maintaining stable, law-abiding behavior due to lack of financial stability or skills training.\"),\n    (\"Substance use\", \"medium\", \"Use of drugs like marijuana and cocaine can be associated with criminal activity but does not necessarily predict rearrest without considering other factors such as severity and frequency.\"),\n    (\"Housing situation in early life\", \"low\", \"Living at a young age outside the traditional family structure may have some influence, however it is less directly correlated to adult recidivism risk compared to more recent behaviors or circumstances.\"),\n    (\"Religious beliefs\", \"low\", \"Belief that God has nothing to do with personal outcomes does not inherently increase criminal behavior and thus holds a low weight in predicting rearrest likelihood.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_104920_236877",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 697,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 6 times and has been convicted. He is 5 feet 10 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 2, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

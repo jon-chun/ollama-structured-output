@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 875,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-02-02T12:59:42.393361693Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.549358075,
+    "load_duration": 0.046939608,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.052,
+    "eval_count": 433,
+    "eval_duration": 16.446
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is a significant risk factor for recidivism, but this individual's age alone does not warrant a high level of concern.\"),\n    (\"race/ethnicity\", \"medium\", \"This individual identifies as White, which is generally associated with lower rates of reoffending. However, the specific racial or ethnic background may have additional nuances that require further investigation.\"),\n    (\"employment history\", \"low\", \"Having held two jobs during the year suggests a stable employment situation and reduced likelihood of recidivism.\"),\n    (\"drug use\", \"medium\", \"Regular drug use is associated with an increased risk of reoffending. However, this individual has only used marijuana in the past four years, which may indicate that their current usage patterns are less problematic than those who engage in more frequent or severe substance abuse.\"),\n    (\"marital status\", \"low\", \"Not being married does not significantly increase the likelihood of recidivism.\"),\n    (\"education level\", \"medium\", \"Having a GED certificate and not attending college suggests limited formal education, which may be associated with lower educational attainment and reduced employment opportunities. However, this individual has held two jobs during the year, indicating that they have some capacity for gainful employment.\"),\n    (\"living situation\", \"low\", \"Living alone does not significantly increase the likelihood of recidivism.\"),\n    (\"urban area residence\", \"medium\", \"Urban areas are generally associated with higher rates of reoffending. However, this individual's specific living situation in a household of size 6 may indicate that they have some support network and reduced likelihood of recidivism compared to those who live alone or in more challenging housing conditions.\"),\n    (\"religious beliefs/faith\", \"low\", \"Having faith in God does not significantly increase the likelihood of recidivism. However, this individual's specific religious beliefs and practices may require further investigation to understand their potential impact on reoffending behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_075942_395997",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 875,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 1 inch and weighs 165 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
