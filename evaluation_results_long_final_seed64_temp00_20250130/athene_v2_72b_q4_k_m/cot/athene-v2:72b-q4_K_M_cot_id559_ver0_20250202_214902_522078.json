@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 559,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T02:49:02.520159938Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 129.010834356,
+    "load_duration": 0.020925571,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 2.01,
+    "eval_count": 461,
+    "eval_duration": 126.972
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years old)\", \"medium\", \"Young age is a known risk factor for recidivism, as younger individuals are more likely to reoffend.\"),\n    (\"Gender (male)\", \"high\", \"Males have higher rates of rearrest compared to females.\"),\n    (\"Race (White)\", \"low\", \"While race can be a complex factor, it does not inherently increase the risk of recidivism. However, systemic factors may play a role, but they are not directly assessed here.\"),\n    (\"Arrest history (3 arrests, 1 conviction)\", \"medium\", \"A moderate number of prior arrests and one conviction suggest some level of involvement in criminal activity, which is a moderate risk factor.\"),\n    (\"Living situation (living alone)\", \"low\", \"Living alone can be a risk factor if it indicates lack of social support, but it is not as strong as other factors like unstable housing or homelessness.\"),\n    (\"Education (high school diploma, not enrolled in college)\", \"medium\", \"Having only a high school education and not being in further education may limit job opportunities and stability, which can be a moderate risk factor.\"),\n    (\"Employment (2 jobs in the past year)\", \"low\", \"Holding multiple jobs suggests some level of employment stability, which is generally positive and a lower risk factor.\"),\n    (\"Substance use (marijuana use in the past four years)\", \"medium\", \"Drug use, especially ongoing or recent use, can be a significant risk factor for recidivism.\"),\n    (\"Mental health (feeling down in the dumps recently)\", \"medium\", \"Indicators of depression or poor mental health can increase the likelihood of reoffending, particularly if untreated.\"),\n    (\"Family history (lived in a household of size 7 at a young age)\", \"low\", \"Large household size can indicate potential instability but is not as strong a risk factor as direct abuse or neglect.\"),\n    (\"Religious beliefs (believes God has an influence on personal life)\", \"low\", \"Religious beliefs can provide a support system and coping mechanism, which may reduce the likelihood of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_214902_522078",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 559,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 1 inch and weighs 215 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 7. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

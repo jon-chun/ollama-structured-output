@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 512,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T04:02:24.995050932Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 132.305665109,
+    "load_duration": 0.014662004,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 1.987,
+    "eval_count": 473,
+    "eval_duration": 130.298
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (20 years old)\", \"medium\", \"Younger individuals, especially in their early 20s, are at a higher risk of reoffending due to developmental factors and impulsivity.\"),\n    (\"Gender (male)\", \"high\", \"Males generally have higher recidivism rates compared to females.\"),\n    (\"Race (Black)\", \"medium\", \"While race itself is not a direct cause of criminal behavior, systemic issues can influence outcomes. However, it should be used cautiously and with awareness of potential biases.\"),\n    (\"Arrest history (1 arrest, 1 conviction)\", \"low\", \"A single prior arrest and conviction suggest some involvement in the justice system but do not indicate a pattern of chronic offending.\"),\n    (\"Living situation (living alone)\", \"medium\", \"Living alone can reduce social support and increase isolation, which may contribute to recidivism risk.\"),\n    (\"Education (high school diploma, not enrolled in college)\", \"low\", \"Having completed high school is generally associated with lower recidivism rates compared to those without a diploma. Not being enrolled in further education might slightly increase risk but is not a strong factor on its own.\"),\n    (\"Employment (3 jobs in the past year)\", \"medium\", \"Frequent job changes can indicate instability, which may be a moderate risk factor for reoffending.\"),\n    (\"Substance use (no drug use in the past four years)\", \"low\", \"Lack of recent substance use is a positive indicator and generally associated with lower recidivism risk.\"),\n    (\"Mental health (feeling down consistently)\", \"medium\", \"Persistent feelings of depression can affect decision-making and coping mechanisms, potentially increasing the risk of reoffending.\"),\n    (\"Childhood living situation (lived with non-biological adults in a household of size 3, rural area)\", \"medium\", \"Living with non-biological adults can indicate instability or lack of strong family support. Rural areas may have fewer resources for support and rehabilitation.\"),\n    (\"Religious beliefs (believes God has an influence on personal outcomes)\", \"low\", \"Strong religious beliefs can provide a sense of purpose and social support, which are generally associated with lower recidivism risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_230224_996716",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 512,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 151 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has not used any drugs in the past four years and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

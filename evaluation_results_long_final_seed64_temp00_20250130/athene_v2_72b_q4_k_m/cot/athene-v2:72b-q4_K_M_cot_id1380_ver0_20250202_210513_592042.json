@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1380,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T02:05:13.590257699Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 128.038253217,
+    "load_duration": 0.034865472,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 2.316,
+    "eval_count": 456,
+    "eval_duration": 125.68
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years old)\", \"medium\", \"Young age is a significant risk factor for recidivism, as younger individuals are more likely to reoffend.\"),\n    (\"Gender (male)\", \"high\", \"Males have higher rates of rearrest compared to females.\"),\n    (\"Race (White)\", \"low\", \"While race can be a complex factor, it does not independently predict higher recidivism risk in the same way as other factors like age or criminal history.\"),\n    (\"Criminal History (3 arrests, 1 conviction)\", \"medium\", \"A moderate criminal history suggests some level of involvement with the justice system but is not extensive enough to indicate very high risk.\"),\n    (\"Educational Attainment (no high school diploma/GED)\", \"high\", \"Lack of educational attainment is a strong predictor of recidivism as it limits job opportunities and social stability.\"),\n    (\"Employment Status (unemployed for a year)\", \"high\", \"Unemployment is a significant risk factor, as stable employment can reduce the likelihood of reoffending.\"),\n    (\"Substance Use (marijuana and cocaine use in the past four years)\", \"high\", \"Drug use, especially of harder substances like cocaine, increases the risk of recidivism due to potential involvement in drug-related crimes or impaired decision-making.\"),\n    (\"Mental Health (feeling down in the dumps)\", \"medium\", \"Symptoms of depression can affect judgment and coping mechanisms, potentially leading to reoffending.\"),\n    (\"Living Situation (living alone)\", \"medium\", \"Lack of social support and structure can increase risk, though not as strongly as other factors like substance use or unemployment.\"),\n    (\"Family Background (lived with both parents in a household of 6 in a rural area)\", \"low\", \"A stable family background during childhood is generally a protective factor, but the impact may be lessened by current living conditions.\"),\n    (\"Religious Beliefs (God has nothing to do with personal outcomes)\", \"medium\", \"Lack of religious or spiritual support can reduce resilience and coping mechanisms, though this is a moderate risk factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_210513_592042",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1380,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 6, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

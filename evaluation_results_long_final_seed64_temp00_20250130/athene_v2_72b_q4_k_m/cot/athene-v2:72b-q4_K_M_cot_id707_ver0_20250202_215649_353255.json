@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 707,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T02:56:49.351434607Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 119.690478558,
+    "load_duration": 0.018705714,
+    "prompt_eval_count": 311,
+    "prompt_eval_duration": 1.84,
+    "eval_count": 428,
+    "eval_duration": 117.825
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years old)\", \"medium\", \"Young age is a known risk factor for recidivism, as younger individuals are more likely to reoffend.\"),\n    (\"Gender (male)\", \"high\", \"Males have higher rates of rearrest compared to females.\"),\n    (\"Race (White)\", \"low\", \"While race can be a complex factor, it does not inherently increase the risk of recidivism. However, systemic factors may play a role, but they are not directly assessed here.\"),\n    (\"Arrest history (3 arrests, 1 conviction)\", \"medium\", \"A moderate number of prior arrests and one conviction suggest some level of involvement in criminal activity, which is a moderate risk factor.\"),\n    (\"Living situation (living alone)\", \"low\", \"Living alone can be isolating but does not necessarily increase the risk of recidivism on its own.\"),\n    (\"Education (enrolled in school)\", \"low\", \"Being enrolled in school suggests some level of social integration and future prospects, which is generally a protective factor.\"),\n    (\"Employment (no jobs in the past year)\", \"high\", \"Lack of employment can lead to financial instability and lack of structure, increasing the risk of reoffending.\"),\n    (\"Substance use (marijuana and cocaine)\", \"high\", \"Drug use, especially of harder substances like cocaine, is a significant risk factor for recidivism.\"),\n    (\"Mental health (no depression in the past month)\", \"low\", \"Lack of current mental health issues is generally a protective factor, though past substance use may still be relevant.\"),\n    (\"Family history (lived in a household of size 5 at a young age)\", \"low\", \"Living in a larger household can provide support but does not directly influence recidivism risk.\"),\n    (\"Religious beliefs (believes God has an impact on personal life)\", \"low\", \"Religious beliefs can be protective, providing moral guidance and social support.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_215649_353255",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 707,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 2 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

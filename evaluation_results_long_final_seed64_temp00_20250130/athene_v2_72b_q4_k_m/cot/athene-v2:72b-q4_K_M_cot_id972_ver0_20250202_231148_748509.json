@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 972,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T04:11:48.746667605Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 128.753657639,
+    "load_duration": 0.023218442,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 2.026,
+    "eval_count": 460,
+    "eval_duration": 126.696
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years)\", \"medium\", \"Young age is a known risk factor for recidivism, as younger individuals are more likely to reoffend.\"),\n    (\"Gender (Female)\", \"low\", \"Females generally have lower rates of recidivism compared to males.\"),\n    (\"Race (White)\", \"low\", \"While race can be a complex factor, it does not inherently increase risk. However, systemic factors may play a role, but they are not directly indicated here.\"),\n    (\"Arrest History (1 arrest, no convictions)\", \"medium\", \"A single arrest without conviction suggests some involvement in the justice system but lacks the severity of multiple arrests or convictions.\"),\n    (\"Living Situation (Living alone)\", \"medium\", \"Living alone can indicate a lack of social support, which may increase risk, though it is not a strong predictor on its own.\"),\n    (\"Education (No high school diploma/GED, not enrolled in college)\", \"high\", \"Lack of education is a significant risk factor for recidivism, as it limits employment opportunities and stability.\"),\n    (\"Employment (2 jobs in the past year)\", \"medium\", \"Holding multiple jobs can indicate instability but also a willingness to work. The number of jobs held is moderate and not highly predictive on its own.\"),\n    (\"Drug Use (No drug use in the past 4 years)\", \"low\", \"Lack of recent drug use is a positive factor, reducing the risk associated with substance abuse.\"),\n    (\"Mental Health (Not depressed over the past month)\", \"low\", \"Absence of current depression is a positive indicator, though mental health can fluctuate.\"),\n    (\"Family History (Lived with biological mother in household of 4, urban area)\", \"medium\", \"Growing up in an urban area and living with a parent are neutral to slightly protective factors, but the specific dynamics within the household are not known.\"),\n    (\"Religious Beliefs (Considers God has nothing to do with personal outcomes)\", \"low\", \"Lack of religious belief is not strongly correlated with recidivism risk. Personal beliefs can vary widely in their impact.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_231148_748509",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 972,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 10 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 2 jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

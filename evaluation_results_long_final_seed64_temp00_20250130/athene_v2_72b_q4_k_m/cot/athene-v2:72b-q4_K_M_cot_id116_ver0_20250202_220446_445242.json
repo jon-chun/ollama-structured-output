@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 116,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T03:04:46.443450673Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 110.169520531,
+    "load_duration": 0.029213355,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 2.001,
+    "eval_count": 393,
+    "eval_duration": 108.129
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years old)\", \"low\", \"Young age is a risk factor, but being at the threshold of adulthood can also indicate potential for change.\"),\n    (\"Gender (male)\", \"medium\", \"Males generally have higher recidivism rates compared to females.\"),\n    (\"Race (White)\", \"low\", \"While race can be a contextual factor, it should not be heavily weighted without specific local data showing otherwise.\"),\n    (\"Prior arrests (1 arrest, no convictions)\", \"low\", \"A single arrest with no conviction suggests lower criminal involvement at this point.\"),\n    (\"Living situation (living alone)\", \"medium\", \"Living alone may indicate less social support, which can be a risk factor for reoffending.\"),\n    (\"Education (high school diploma, enrolled in 2-year college)\", \"low\", \"Higher education and current enrollment suggest better prospects for stability and employment.\"),\n    (\"Employment (1 job during the year)\", \"low\", \"Stable employment is a protective factor against recidivism.\"),\n    (\"Drug use (marijuana in the past four years)\", \"medium\", \"Substance use, even if limited to marijuana, can be a risk factor for reoffending.\"),\n    (\"Mental health (no depression)\", \"low\", \"Lack of current mental health issues is a positive indicator.\"),\n    (\"Family history (lived with biological dad in household of 5)\", \"medium\", \"Living with family can provide support, but the specific dynamics are not known.\"),\n    (\"Urban area\", \"low\", \"Urban areas can have higher crime rates, but this alone does not strongly predict individual behavior.\"),\n    (\"Religious beliefs (God has nothing to do with personal outcomes)\", \"medium\", \"Lack of religious belief may indicate a lower level of social or community support.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_220446_445242",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 116,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
