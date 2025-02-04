@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 42,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T06:39:06.90343599Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.515921688,
+    "load_duration": 0.041786748,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 447,
+    "eval_duration": 2.463
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"high\"),\n    (\"Prior Arrests\", \"high\"),\n    (\"Drug Use\", \"medium\"),\n    (\"Living Situation\", \"low\"),\n    (\"Education Level\", \"low\"),\n    (\"Employment Status\", \"low\"),\n    (\"Family Structure\", \"low\"),\n    (\"Religious Beliefs\", \"low\") \n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n\n**Explanation:**\n\n* **Age (High):** Young age is a known risk factor for recidivism.\n* **Prior Arrests (High):** Five arrests, even without convictions, indicate a pattern of criminal behavior.\n* **Drug Use (Medium):** While drug use can be a contributing factor, it's not as strong an indicator in this case. \n* **Living Situation (Low):**  Living alone is generally considered less stable than living with family or support systems.\n* **Education Level (Low):** Lack of education and employment history are often associated with higher recidivism rates.\n* **Family Structure (Low):** The lack of a strong familial support system can increase the likelihood of re-offending. \n* **Religious Beliefs (Low):** This factor is not directly linked to criminal behavior, but it's important to consider that some individuals may have different values and beliefs that could influence their choices.\n\n**Confidence Level:** The prediction is based on a combination of these factors. A high confidence level (80%) reflects the strong likelihood of recidivism given the individual's profile. \n\n\n**Important Notes:**\n* This analysis is based on limited information and should not be used as a definitive tool for predicting recidivism. \n* Recidivism prediction models are complex and require a comprehensive assessment that considers multiple factors, including social support networks, mental health, substance abuse history, and employment opportunities. \n* It's crucial to remember that individuals can change their behavior and make positive choices.  This analysis is simply a tool for understanding potential risks. \n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250204_013906_905493",
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

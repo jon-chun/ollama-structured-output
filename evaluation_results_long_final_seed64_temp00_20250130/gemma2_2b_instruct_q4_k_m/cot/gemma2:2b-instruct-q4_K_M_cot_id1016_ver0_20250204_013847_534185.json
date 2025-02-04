@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 1016,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T06:38:47.532021818Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.853573861,
+    "load_duration": 0.059784367,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.008,
+    "eval_count": 509,
+    "eval_duration": 2.783
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"high\"),\n    (\"Race\", \"medium\"),\n    (\"Prior Arrests\", \"high\"),\n    (\"Education Level\", \"low\"),\n    (\"Employment History\", \"low\"),\n    (\"Living Situation\", \"low\"),\n    (\"Substance Use\", \"low\"),\n    (\"Mental Health\", \"low\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}\n``` \n\n**Explanation:**\n\n* **Age (High):** Young age is a known risk factor for recidivism.\n* **Race (Medium):** While race can be a factor in the justice system, it's not a strong predictor of recidivism on its own.  We need to consider the context and potential biases. \n* **Prior Arrests (High):** Three arrests without convictions suggests a pattern of involvement with the legal system. This is a significant risk factor.\n* **Education Level (Low):** Lack of education can limit employment opportunities and increase vulnerability to negative influences.  This could contribute to recidivism.\n* **Employment History (Low):** A single job in a year might indicate limited stability or lack of consistent income, which can be associated with criminal behavior. \n* **Living Situation (Low):** Living alone is not inherently linked to recidivism but may suggest a lack of support systems.  \n* **Substance Use (Low):** The individual's history of drug use is positive and suggests they are not currently using drugs.\n* **Mental Health (Low):** The absence of depression in the past month indicates good mental health, which can be beneficial for rehabilitation.\n\n**Confidence Level:** 80% - This prediction is based on a combination of factors, but it's important to note that recidivism is complex and influenced by many variables.  The individual's history and circumstances are not fully captured in this assessment. \n\n\n**Important Considerations:**\n\n* **Context Matters:** The specific context of the individual's arrest history, community resources, and support systems should be considered for a more accurate prediction.\n* **Bias Awareness:** It is crucial to acknowledge that biases within the criminal justice system can influence risk assessments.  This assessment should not be used as a sole determinant of an individual's future behavior but rather as one piece of information in a larger picture. \n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250204_013847_534185",
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1016,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 3 times but has not been convicted. She is 5 feet 2 inches and weighs 140 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived in a household of size 6. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

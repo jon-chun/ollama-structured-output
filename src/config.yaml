@@ -11,7 +11,7 @@ model_parameters:
   model_temperature: 0.0 # prior to 20250130 was 0.7
   model_top_p: 0.9
   model_max_tokens: 2000
-  api_timeout: 30
+  api_timeout: 180
 
 # Execution settings
 execution:
@@ -184,29 +184,29 @@ model_ensemble:
   #   max_num_predict: 2048
   #   max_context_window: 8192  
   # 153.85 tokens/s (15mos)
-  falcon:7b-instruct-q4_0:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192 
+  # falcon:7b-instruct-q4_0:
+  #   max_load_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 2048
+  #   max_context_window: 8192 
   # 12.09 tokens/s (15mos)
-  falcon:40b-instruct-q4_0:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192 
+  # alcon:40b-instruct-q4_0:
+  #  max_load_time: 240
+  #  max_response_time: 240
+  #  max_num_predict: 2048
+  #  max_context_window: 8192 
   # 138.41 tokens/s (6mos)
-  mistral:7b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192  
+  # mistral:7b-instruct-q4_K_M:
+  #   max_load_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 2048
+  #   max_context_window: 8192  
   # 72.87 tokens/s (13mos)
-  llama2:13b-chat-q5_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192     
+  ### llama2:13b-chat-q5_K_M:
+  ###   max_load_time: 240
+  ###   max_response_time: 240
+  ###   max_num_predict: 2048
+  ###   max_context_window: 8192     
   # # 8.02 tokens/s (15mos) 
   # vicuna:33b-q4_K_M:
   #   max_load_time: 240
@@ -214,27 +214,27 @@ model_ensemble:
   #   max_num_predict: 2048
   #   max_context_window: 8192  
   # 40.76 tokens/s
-  granite3.1-moe:1b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192  
-  tulu3:70b-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192
-  athene-v2:72b-q4_K_M:  # Medium
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 32000
+  ### granite3.1-moe:1b-instruct-q4_K_M:
+  ###   max_load_time: 240
+  ###   max_response_time: 240
+  ###   max_num_predict: 2048
+  ###   max_context_window: 8192  
+  # tulu3:70b-q4_K_M:
+  #   max_load_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 2048
+  #   max_context_window: 8192
+  ### athene-v2:72b-q4_K_M:  # Medium
+  ###   max_load_time: 240
+  ###   max_response_time: 240
+  ###   max_num_predict: 2048
+  ###   max_context_window: 32000
   # 10.92 tokens/s
-  mistral-small:24b-instruct-2501-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192
+  # mistral-small:24b-instruct-2501-q4_K_M:
+  #   max_load_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 2048
+  #   max_context_window: 8192
   # 45.96 tokens/s
   hermes3:3b-llama3.2-q4_K_M:
     max_load_time: 240
@@ -253,11 +253,7 @@ model_ensemble:
     max_response_time: 240
     max_num_predict: 2048
     max_context_window: 8192
-  reflection:70b-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 128000
+
   smallthinker:3b-preview-q4_K_M:  # Medium, incr timeout:max_api_wait_sec from default 30 to 120 sec
     max_load_time: 240
     max_response_time: 240
@@ -317,21 +313,38 @@ model_ensemble:
     max_num_predict: 3072
     max_context_window: 32000
   #
-  command-r7b:7b-12-2024-q4_K_M:
+  qwq:32b-preview-q4_K_M:  # Slow, cot-nshot returns a lot fo unstrctured responses that cannot be parsed
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000  
+  #  # # # # model_ensemble:
+  yi:9b-v1.5-q4_K_M:  # Slow
     max_load_time: 240
     max_response_time: 240
     max_num_predict: 2048
     max_context_window: 8192
-  command-r7b:7b-12-2024-fp16:
+  reflection:70b-q4_K_M:
     max_load_time: 240
     max_response_time: 240
     max_num_predict: 2048
-    max_context_window: 8192  
-  aya-expanse:8b-q4_K_M:
-   max_load_time: 240
-   max_response_time: 240
-   max_num_predict: 2048
-   max_context_window: 32000
+    max_context_window: 128000
+  #
+  # command-r7b:7b-12-2024-q4_K_M:
+  #   max_load_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 2048
+  #   max_context_window: 8192
+  # command-r7b:7b-12-2024-fp16:
+  #   max_load_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 2048
+  #   max_context_window: 8192  
+  # aya-expanse:8b-q4_K_M:
+  #   max_load_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 2048
+  #   max_context_window: 32000
   # ##### aya-expanse:8b-fp16:  # MUST PULL
   # #####   max_load_time: 240
   # #####   max_response_time: 240
@@ -523,21 +536,21 @@ model_ensemble:
   # #####   max_response_time: 240
   # #####   max_num_predict: 2048
   # #####   max_context_window: 8192
-  llama3.2:1b-instruct-q4_K_M:
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 4096
-    max_context_window: 128000
+  #lama3.2:1b-instruct-q4_K_M:
+  # max_load_time: 240
+  # max_response_time: 240
+  # max_num_predict: 4096
+  # max_context_window: 128000
   # ##### llama3.2:1b-instruct-fp16:
   # #####   max_load_time: 240
   # #####   max_response_time: 240
   # #####   max_num_predict: 4096
   # #####   max_context_window: 128000
-  llama3.2:3b-instruct-q4_K_M:
-    max_loaollama run command-r7b:7b-12-2024-q4_K_M --verbosed_time: 240
-    max_response_time: 240
-    max_num_predict: 4096
-    max_context_window: 128000
+  # lama3.2:3b-instruct-q4_K_M:
+  #   max_loaollama run command-r7b:7b-12-2024-q4_K_M --verbosed_time: 240
+  #   max_response_time: 240
+  #   max_num_predict: 4096
+  #   max_context_window: 128000
   # ##### llama3.2:3b-instruct-fp16:
   # #####   max_load_time: 240
   # #####   max_response_time: 240
@@ -573,11 +586,11 @@ model_ensemble:
   # #####   max_response_time: 240
   # #####   max_num_predict: 2048
   # #####   max_context_window: 4096
-  mistral:7b-instruct-q4_K_M:
-   max_load_time: 240
-   max_response_time: 240
-   max_num_predict: 4096
-   max_context_window: 16000
+  # mistral:7b-instruct-q4_K_M:
+  #  max_load_time: 240
+  #  max_response_time: 240
+  #  max_num_predict: 4096
+  #  max_context_window: 16000
   # ##### mistral:7b-instruct-fp16:
   # #####   max_load_time: 240
   # #####   max_response_time: 240
@@ -671,6 +684,17 @@ model_ensemble:
   #  # qwen2.5:72b-instruct-q4_K_M:  # Slow
   #  # qwq:32b-preview-q4_K_M:  # Slow  # Slow
   #  # reflection:70b-q4_K_M:
+  qwq:32b-preview-q4_K_M:  # Slow, cot-nshot returns a lot fo unstrctured responses that cannot be parsed
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 32000  
+  #  # # # # model_ensemble:
+  yi:9b-v1.5-q4_K_M:  # Slow
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192
   sailor2:1b-chat-q4_K_M:
     max_load_time: 240
     max_response_time: 240
@@ -782,17 +806,6 @@ model_ensemble:
   # #####   max_response_time: 240
   # #####   max_num_predict: 3072
   # #####   max_context_window: 32768
-  qwq:32b-preview-q4_K_M:  # Slow, cot-nshot returns a lot fo unstrctured responses that cannot be parsed
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 32000  
-  #  # # # # model_ensemble:
-  yi:9b-v1.5-q4_K_M:  # Slow
-    max_load_time: 240
-    max_response_time: 240
-    max_num_predict: 2048
-    max_context_window: 8192
   #
   # yi:34b-chat-q4_K_M:
   #   max_load_time: 240
