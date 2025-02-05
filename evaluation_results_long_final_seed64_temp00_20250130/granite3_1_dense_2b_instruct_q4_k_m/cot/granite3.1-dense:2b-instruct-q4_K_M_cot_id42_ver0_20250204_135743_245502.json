@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 42,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T18:57:43.243508488Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.497053284,
+    "load_duration": 0.01088206,
+    "prompt_eval_count": 380,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 281,
+    "eval_duration": 1.465
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Arrest history (5 times, unconvicted)\", \"high\", \"Frequent police interactions indicate a higher likelihood of reoffending.\"),\n    (\"Ethnicity (Asian/Pacific Islander)\", \"low\", \"This factor alone does not significantly predict criminal behavior.\"),\n    (\"Age (18 years old)\", \"medium\", \"Young adults are more prone to engage in risky behaviors, but this factor is less influential than others.\"),\n    (\"Education level (High school diploma, no college enrollment)\", \"high\", \"Lower education levels correlate with increased likelihood of reoffending.\"),\n    (\"Employment history (None)\", \"high\", \"Lack of employment can indicate a higher risk for criminal activity due to financial instability and lack of productive outlets.\"),\n    (\"Drug use in the past four years (Marijuana)\", \"medium\", \"While not severe, drug use is still a risk factor for future criminal behavior.\"),\n    (\"Living arrangements (Lived with biological father in urban area as a child, currently living alone)\", \"low\", \"This factor does not significantly predict criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250204_135743_245502",
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

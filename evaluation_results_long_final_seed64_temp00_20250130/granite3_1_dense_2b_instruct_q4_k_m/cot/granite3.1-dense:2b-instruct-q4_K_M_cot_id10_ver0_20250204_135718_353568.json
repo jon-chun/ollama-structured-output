@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 10,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T18:57:18.351573989Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.319993999,
+    "load_duration": 0.008851364,
+    "prompt_eval_count": 395,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 243,
+    "eval_duration": 1.288
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"medium\", \"22-year-old, having been arrested once and convicted indicates a history of criminal behavior.\"),\n    (\"Ethnicity\", \"low\", \"Being White does not significantly increase the risk for recidivism in this context.\"),\n    (\"Education level\", \"high\", \"Having a high school diploma and being enrolled in college suggests a higher potential for personal growth and reduced likelihood of reoffending.\"),\n    (\"Employment history\", \"low\", \"Only holding one job during the year may indicate instability or difficulty maintaining employment, which could be a risk factor.\"),\n    (\"Substance use\", \"medium\", \"Past marijuana use and current feelings of depression suggest a potential for substance abuse and mental health issues that could contribute to recidivism.\"),\n    (\"Family background (size)\", \"low\", \"Living in a household of size 4 at a young age does not necessarily predict future criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250204_135718_353568",
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 10,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
