@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 109,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:14:53.606436694Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.347009675,
+    "load_duration": 0.030291227,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 0.11,
+    "eval_count": 256,
+    "eval_duration": 11.204
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_22\", \"low\", \"Young age with limited criminal history\"),\n    (\"race_black\", \"medium\", \"Minority status; potential socio-economic factors\"),\n    (\"arrest_convicted_1time\", \"low\", \"Single arrest and conviction with no prior recidivism pattern\"),\n    (\"height_weight_normal\", \"low\", \"Average physical attributes\"),\n    (\"marital_status_married\", \"low\", \"Stable living situation\"),\n    (\"education_no_highschool\", \"medium\", \"Lack of formal education; potential employment instability\"),\n    (\"employment_2jobs_yearly\", \"low\", \"Moderate job stability\"),\n    (\"drug_use_none_in_last_4yrs\", \"high\", \"No recent drug use, positive indicator\"),\n    (\"mood_down_in_past_month\", \"medium\", \"Mild depressive symptoms; minor risk factor\"),\n    (\"family_size_youth\", \"low\", \"Grew up in a large household with no direct criminal influence\"),\n    (\"spiritual_belief_god\", \"low\", \"Personal belief system not directly linked to recidivism\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250205_111453_609066",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 109,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He is married and is currently living with his spouse. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

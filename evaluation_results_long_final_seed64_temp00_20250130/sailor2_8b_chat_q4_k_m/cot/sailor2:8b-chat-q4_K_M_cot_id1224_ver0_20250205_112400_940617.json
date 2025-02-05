@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1224,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:24:00.938722789Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.852892359,
+    "load_duration": 0.015763729,
+    "prompt_eval_count": 332,
+    "prompt_eval_duration": 0.11,
+    "eval_count": 291,
+    "eval_duration": 12.725
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_18\", \"low\", \"Young age with limited criminal history; low recidivism risk\"),\n    (\"race_black\", \"medium\", \"Higher baseline risk due to racial disparities in justice systems\"),\n    (\"arrests_4\", \"high\", \"Significant number of arrests and convictions indicating higher reoffending potential\"),\n    (\"convicted\", \"high\", \"Conviction status increases likelihood of future recidivism\"),\n    (\"height_weight\", \"low\", \"Physical attributes do not directly correlate with criminal behavior\"),\n    (\"marital_status_single\", \"medium\", \"Single living situation can be a stressor but not a strong predictor\"),\n    (\"education_enrolled\", \"low\", \"Current school enrollment may reduce risk due to positive activities\"),\n    (\"employment_none\", \"high\", \"Lack of employment increases economic instability and recidivism risk\"),\n    (\"drug_use_no\", \"low\", \"No recent drug use reduces immediate risk factors\"),\n    (\"mental_health_down\", \"medium\", \"Mild depressive symptoms might increase vulnerability but not severe enough alone\"),\n    (\"family_history_rural\", \"low\", \"Rural upbringing without specific negative family dynamics\"),\n    (\"religious_belief_god\", \"low\", \"Religious belief does not directly influence criminal behavior\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_112400_940617",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1224,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 5 feet 10 inches and weighs 155 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 7, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

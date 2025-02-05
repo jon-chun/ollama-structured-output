@@ -252,7 +252,7 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
             if prediction:
                 parsed_response = {
                     "prediction": prediction,
-                    "confidence": confidence if confidence is not None else 90,
+                    "confidence": confidence if confidence is not None else 00,
                     "original_text": response_text
                 }
                 logging.debug("unstruct strategy extracted minimal data (Strategy 5)")
@@ -264,11 +264,43 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
         #
         # --- Final Normalization ---
         #
+        if not parsed_response:
+            unstruct_text = remove_think_tags_and_triple_quotes(clean_text)
+            lines = unstruct_text.splitlines()
+            lines.reverse()
+
+            import re
+            # Only look for prediction in unstructured text
+            pred_pattern = re.compile(r'(prediction|rearrest_prediction)\s*:\s*(yes|no)', re.IGNORECASE)
+            
+            prediction = None
+            
+            for line in lines:
+                pred_match = pred_pattern.search(line)
+                if pred_match and not prediction:
+                    raw_pred = pred_match.group(2).upper()
+                    prediction = 'YES' if raw_pred.startswith('Y') else 'NO'
+                    break
+
+            if prediction:
+                parsed_response = {
+                    "prediction": prediction,
+                    "original_text": response_text
+                }
+                logging.debug("unstruct strategy extracted prediction (Strategy 5)")
+
+        # If none of the strategies worked to get even a prediction, raise an error
+        if not parsed_response:
+            raise ValueError("Could not extract valid prediction from model output")
+
+        #
+        # --- Final Normalization ---
+        #
         normalized = {
             'original_text': response_text
         }
 
-        # Normalize 'prediction'
+        # Normalize 'prediction' (required)
         pred_value = str(parsed_response.get('prediction', '')).upper()
         if pred_value in ['YES', 'NO']:
             normalized['prediction'] = pred_value
@@ -279,14 +311,21 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
             else:
                 normalized['prediction'] = 'NO'
 
-        # Normalize 'confidence'
-        conf_value = parsed_response.get('confidence', None)
-        if conf_value is not None:
-            if isinstance(conf_value, str):
-                conf_value = float(conf_value.replace('%', ''))
-            normalized['confidence'] = int(min(max(float(conf_value), 0.0), 100.0))
-        else:
-            normalized['confidence'] = 90  # Default
+        # Normalize 'confidence' (optional with safe fallback)
+        try:
+            conf_value = parsed_response.get('confidence')
+            if conf_value is not None:
+                # Only attempt conversion if it looks numeric
+                if isinstance(conf_value, (int, float)):
+                    normalized['confidence'] = int(min(max(float(conf_value), 0.0), 100.0))
+                elif isinstance(conf_value, str) and conf_value.replace('.', '', 1).replace('%', '').isdigit():
+                    normalized['confidence'] = int(min(max(float(conf_value.replace('%', '')), 0.0), 100.0))
+                else:
+                    normalized['confidence'] = 00  # Non-numeric or malformed value
+            else:
+                normalized['confidence'] = 00  # Missing confidence
+        except (ValueError, TypeError):
+            normalized['confidence'] = 00  # Any conversion error
 
         # If risk_factors exist, carry them over
         if 'risk_factors' in parsed_response:
@@ -300,7 +339,6 @@ def process_model_response(response_text: str, model_name: str) -> Dict:
         logging.error(f"Error processing model response: {str(e)}")
         logging.error(f"Raw response: {response_text}")
         raise
-
 
 
 def remove_think_tags_and_triple_quotes(text: str) -> str:
@@ -565,7 +603,9 @@ async def get_decision(prompt_type: Any, api_type: str, model_name: str, config:
                 raise ValueError("Invalid API response structure")
 
             raw_message_text = response.message.content
+            print(f'raw_message_text: {raw_message_text}') # DEBUG
             normalized_response = process_model_response(raw_message_text, model_name)
+            print(f"normalized_response: {normalized_response}") # DEBUG
             normalized_prediction = normalized_response.get('prediction', "").upper()
             normalized_response['prediction'] = normalized_prediction
 

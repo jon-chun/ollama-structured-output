@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 247,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:27:03.076393427Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.44047923,
+    "load_duration": 0.028378999,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.11,
+    "eval_count": 259,
+    "eval_duration": 11.3
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_20\", \"low\", \"Young age with no history of severe criminality\"),\n    (\"arrests_2x_convicted\", \"medium\", \"Two arrests and convictions, indicative of past behavior but not extreme recidivism risk\"),\n    (\"physical_size\", \"low\", \"Average height and weight; generally neutral factor\"),\n    (\"marital_status\", \"low\", \"Living with spouse suggests stable environment\"),\n    (\"education_highschool\", \"low\", \"High school diploma, no college, typical for low to moderate risk\"),\n    (\"employment_2jobs\", \"medium\", \"Stable employment but limited career progression\"),\n    (\"drug_use_last_4yrs\", \"high\", \"Drug use in the past four years increases recidivism risk\"),\n    (\"depression_no_recently\", \"low\", \"No recent depression, reducing psychological stress-related risks\"),\n    (\"family_history_urban\", \"medium\", \"Urban upbringing with both parents; moderate influence on environment and stability\"),\n    (\"spiritual_belief\", \"low\", \"Personal belief in God has no direct predictive power for recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_112703_078409",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 247,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 2 inches and weighs 275 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

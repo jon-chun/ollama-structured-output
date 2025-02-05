@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1276,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:56:31.404597264Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.111335793,
+    "load_duration": 0.023380806,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.099,
+    "eval_count": 353,
+    "eval_duration": 6.986
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age (19 years)\", \"low\", \"Young age is generally associated with lower recidivism rates.\"),\n    (\"gender (female)\", \"medium\", \"Females have historically shown lower rearrest rates compared to males, but still a notable risk factor.\"),\n    (\"ethnicity (Hispanic)\", \"high\", \"Ethnic minorities often face higher arrest and incarceration risks due to systemic biases.\"),\n    (\"prior arrests (1 time), no convictions\", \"low\", \"Single non-conviction arrest suggests minimal criminal history.\"),\n    (\"height/weight (5'3\\\", 110 lbs.)\", \"very low\", \"Physical characteristics are not strong predictors of recidivism.\"),\n    (\"marital status (single)\", \"medium\", \"Living alone may indicate lack of social support, increasing risk.\"),\n    (\"education (GED certificate)\", \"low\", \"Basic education completion is a positive factor but limited impact on immediate recidivism.\"),\n    (\"employment history (5 jobs in the year)\", \"high\", \"High job turnover can be indicative of instability and increased likelihood of rearrest.\"),\n    (\"drug use (marijuana, cocaine within 4 years; recent depression symptoms)\", \"very high\", \"Substance abuse combined with depressive symptoms significantly elevate recidivism risk.\"),\n    (\"family background (lived with both biological parents in urban area)\", \"low to medium\", \"Stable early family environment is generally protective but urban setting can introduce challenges.\"),\n    (\"religious belief (God's influence on personal events)\", \"very low\", \"Spiritual beliefs are not strong predictors of criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_115631_406674",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1276,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 3 inches and weighs 110 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 3, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
