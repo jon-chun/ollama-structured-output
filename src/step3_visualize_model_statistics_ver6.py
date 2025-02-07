@@ -9,8 +9,8 @@ sns.set_theme(style="whitegrid")
 COLORS = ['#4c72b0', '#dd8452', '#55a868']  # seaborn "deep" palette subset
 
 # Define global variables for input/output paths
-INPUT_FILEPATH = os.path.join('..', 'aggregation_summary', 'aggregation_summary_report.csv')
-OUTPUT_SUBDIR = os.path.join('..', 'aggregation_summary')
+INPUT_FILEPATH = os.path.join('..', 'aggregation_summary', 'aggregation_evaluation_results_long_final_seed64_temp00_20250130.csv') # 'aggregation_summary_report.csv')
+OUTPUT_SUBDIR = os.path.join('..', 'aggregation_summary_step3')
 
 # Ensure output directory exists
 os.makedirs(OUTPUT_SUBDIR, exist_ok=True)

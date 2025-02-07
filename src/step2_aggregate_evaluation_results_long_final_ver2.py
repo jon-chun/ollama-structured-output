@@ -110,6 +110,7 @@ def main():
     # Define input and output paths
     # INPUT_ROOTDIR = 'evaluation_results_long_final_FREEZE'
     INPUT_ROOTDIR_NAME = 'evaluation_results_long_final_seed7_20250128'
+    INPUT_ROOTDIR_NAME = 'evaluation_results_long_final_seed64_temp00_20250130'
     INPUT_ROOTDIR_PATH = os.path.join('..', INPUT_ROOTDIR_NAME)
     OUTPUT_DIR = os.path.join('..','aggregation_summary')
     OUTPUT_FILEPATH = os.path.join(OUTPUT_DIR, f'aggregation_{INPUT_ROOTDIR_NAME}.csv')
