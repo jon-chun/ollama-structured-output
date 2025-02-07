@@ -5,19 +5,27 @@ from pathlib import Path
 import json
 import time
 import logging
-from typing import Optional, Tuple, Dict, Any
+from typing import Optional, Tuple, Dict, Any, List, TypedDict
 import asyncio
 from datetime import datetime
 from pathlib import Path
 import getpass
+import re # Added import for regex
 from pydantic import BaseModel, Field, ValidationError
+from json_repair import loads as repair_json # Added import for json_repair
+
+# Import actual API clients - added these from reference
 from ollama import chat
 from openai import OpenAI
 from anthropic import Anthropic
 from google import genai
 from google.genai import types
+# from groq import Groq # Not adding groq or together for now, focusing on openai & anthropic
+# from together import Together
+
+
 from config import Config
-from models import Decision, PromptType
+from models import Decision, PromptType # Assuming Decision and PromptType are in models.py
 from metrics import TimeoutMetrics
 from utils import clean_model_name, pydantic_or_dict, convert_ns_to_s, check_existing_decision
 
@@ -28,8 +36,28 @@ dotenv_path = Path(__file__).parent / "src" / ".env"  # __file__ is the current 
 load_dotenv(dotenv_path)
 # load_dotenv()
 
+API_DELAY=0.2 # Added from reference - although not directly used in all API calls in reference, good to have as a constant
+
+
+# Constants for response normalization - Added from reference
+MIN_POLARITY = -2
+MAX_POLARITY = 2
+MIN_CONFIDENCE = 0
+MAX_CONFIDENCE = 100
+DEFAULT_CONFIDENCE = 99
+
+
+# ---------------------------
+# Minimal Data Models - Updated to match reference
+# ---------------------------
+# In decision.py, keep Decision class as:
+class Decision(BaseModel):
+    prediction: int = Field(..., description="Sentiment prediction (-2 to 2)") # Keep as int for now
+    confidence: int = Field(..., description="Confidence score (0 to 100)")
+    reasoning: Optional[str] = Field(None, description="Model's reasoning")
+    exceptions: Optional[str] = Field(None, description="Exceptions or errors reported by model")
+
 class MetaData(BaseModel):
-    """Model to represent metadata from an API response."""
     model: Optional[str] = Field(None, description="Model name")
     created_at: Optional[str] = Field(None, description="Creation timestamp")
     done_reason: Optional[str] = Field(None, description="Completion reason")
@@ -41,389 +69,224 @@ class MetaData(BaseModel):
     eval_count: Optional[int] = Field(None, ge=0, description="Response token count")
     eval_duration: Optional[float] = Field(None, ge=0, description="Response generation duration")
 
+# ---------------------------
+# Helper Functions - Updated process_model_response from reference
+# ---------------------------
+class ModelResponse(TypedDict): # Added TypedDict from reference
+    prediction: int
+    confidence: int
+    risk_factors: Optional[List[str]]
+    original_text: str
+    reasoning: Optional[str]
+    exceptions: Optional[str]
 
-def generate_output_path(
-    model_name: str,
-    prompt_type: PromptType,
-    row_id: int,
-    repeat_index: int,
-    timestamp: str,
-    config: Config,
-    output_dir: Path,
-    nshot_ct: Optional[int] = None
-) -> Path:
+
+def remove_think_tags_and_triple_quotes(text: str) -> str:
+    """Remove thinking tags and code block markers from text.""" # Docstring from reference
+    # Remove triple quotes and json markers # Comment from reference
+    clean_text = text.replace('`json', '').replace('`', '') # From reference
+    # Remove thinking tags if present # Comment from reference
+    clean_text = re.sub(r'<think>.*?</think>', '', clean_text, flags=re.DOTALL) # Regex from reference - using <think> instead of <THINK>
+    return clean_text.strip() # From reference
+
+
+def process_model_response(response_text: str, model_name: str) -> ModelResponse:
     """
-    Generate the output path for a decision file.
-    Maps PromptType enum to config.yaml prompt keys for directory structure.
-    
+    Process model response to extract sentiment analysis results.
+
     Args:
-        model_name: Name of the model being evaluated
-        prompt_type: Type of prompt being used (PromptType enum)
-        row_id: ID of the current data row
-        repeat_index: Index of current repeat attempt
-        timestamp: Current timestamp string
-        config: Configuration object
-        output_dir: Base output directory
-        nshot_ct: Number of shots for n-shot learning (optional)
-        
+        response_text (str): Raw response from the model
+        model_name (str): Name of the model used
+
     Returns:
-        Path object representing the complete file path
-    """
-    # Get the correct prompt type string using our utility function
-    from utils import get_prompt_type_str
-    prompt_type_str = get_prompt_type_str(prompt_type)
-    
-    # Generate the filename based on prompt type
-    if prompt_type == PromptType.COT_NSHOT:
-        filename = (
-            f"{model_name}_{prompt_type_str}_id{row_id}_"
-            f"nshot{nshot_ct}_{timestamp}.json"
-        )
-    else:
-        filename = (
-            f"{model_name}_{prompt_type_str}_id{row_id}_"
-            f"ver{repeat_index}_{timestamp}.json"
-        )
-    
-    # Create the nested directory structure
-    model_dir = output_dir / prompt_type_str
-    model_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Return the complete path
-    return model_dir / filename
-def check_existing_output(output_dir: Path, model_name: str, prompt_type: PromptType, 
-                         row_id: int) -> bool:
-    """
-    Check if output file already exists for this model-prompt-id combination.
-    Uses the correct nested directory structure based on prompt type.
-    Returns True if exists, False otherwise.
-    """
-    # Map PromptType enum to config.yaml prompt keys
-    prompt_type_to_key = {
-        PromptType.SYSTEM1: 'system1',
-        PromptType.COT: 'cot',
-        PromptType.COT_NSHOT: 'cot-nshot'
-    }
-    
-    prompt_type_str = prompt_type_to_key[prompt_type]
-    clean_name = clean_model_name(model_name)
-    model_dir = output_dir / clean_name / prompt_type_str
-    
-    if not model_dir.exists():
-        return False
-    
-    # Check for any matching files ignoring ver{n} and datetime parts
-    pattern = f"{model_name}_{prompt_type_str}_id{row_id}_*.json"
-    matching_files = list(model_dir.glob(pattern))
-    
-    return len(matching_files) > 0
+        ModelResponse: Normalized response containing:
+            - prediction: int (-2 to 2)
+            - confidence: int (0 to 100)
+            - risk_factors: list (optional)
+            - original_text: str
+            - reasoning: str (optional)
+            - exceptions: str (optional)
 
-# Make sure you have installed json-repair:
-#   pip install json-repair
-import json_repair
-
-def remove_think_tags_and_triple_quotes(text: str) -> str:
+    Raises:
+        ValueError: If response cannot be parsed or normalized
+        json.JSONDecodeError: If JSON parsing fails after all strategies
     """
-    1) Remove <THINK>...</THINK> tags and all enclosed text.
-    2) Remove any triple quotes .
-    Returns a cleaned-up string.
-    """
-    import re
-    # Remove <THINK> ... </THINK>
-    text = re.sub(r'<THINK>.*?</THINK>', '', text, flags=re.DOTALL | re.IGNORECASE)
+    if not response_text:
+        raise ValueError("Empty response text received")
 
-    # Remove triple quotes of all forms
-    triple_quotes_patterns = [r'```', r'"""', r"'''"]
-    for pattern in triple_quotes_patterns:
-        text = re.sub(pattern, '', text)
+    logging.debug("Processing model response", extra={
+        "model_name": model_name,
+        "response_length": len(response_text)
+    })
 
-    return text.strip()
+    clean_text = remove_think_tags_and_triple_quotes(response_text)
+    parsed_response = None
 
-def process_model_response(response_text: str, model_name: str) -> Dict:
-    """
-    Attempt multiple parsing strategies to interpret the model output as JSON
-    with {'prediction': 'YES'|'NO', 'confidence': 0..100, 'risk_factors': [...] }.
-    """
+    # Strategy 1: Direct JSON parsing
     try:
-        logging.debug(f"Raw model response: {response_text}")
-        # Remove ```json or ``` from the original text for cleanliness
-        clean_text = response_text.replace('```json', '').replace('```', '')
-        parsed_response = None
+        parsed_response = json.loads(clean_text)
+        logging.debug("Successfully parsed response as JSON (Strategy 1)")
+    except json.JSONDecodeError:
+        logging.debug("Direct JSON parsing failed, trying alternative strategies")
 
-        #
-        # --- Strategy 1: Direct JSON parsing ---
-        #
-        try:
-            parsed_response = json.loads(clean_text.strip())
-            logging.debug("Successfully parsed response as JSON (Strategy 1)")
-            # Keep original text
-            parsed_response['original_text'] = response_text
-        except json.JSONDecodeError:
-            logging.debug("Failed to parse as direct JSON (Strategy 1)")
-
-        #
-        # --- Strategy 2: Extract JSON from text using regex ---
-        #
-        if not parsed_response:
-            import re
-            json_pattern = r'\{.*\}'
-            matches = re.findall(json_pattern, clean_text, re.DOTALL)
-            for match in matches:
-                try:
-                    parsed = json.loads(match)
-                    parsed['original_text'] = response_text
-                    parsed_response = parsed
-                    logging.debug("Extracted and parsed JSON content using regex (Strategy 2)")
-                    break
-                except json.JSONDecodeError:
-                    continue
-
-        #
-        # --- Strategy 3: Structured text field extraction ---
-        #
-        if not parsed_response:
-            import re
-            prediction_match = re.search(r'prediction[\s:"]*([YN]ES|NO)', clean_text, re.IGNORECASE)
-            confidence_match = re.search(r'confidence[\s:"]*(\d+)', clean_text)
-            risk_factors_match = re.search(r'risk_factors[\s:"]*(\[.*\])', clean_text, re.IGNORECASE)
-
-            if prediction_match and confidence_match:
-                parsed_response = {
-                    "prediction": prediction_match.group(1).upper(),
-                    "confidence": int(confidence_match.group(1)),
-                    "original_text": response_text
-                }
-                if risk_factors_match:
-                    try:
-                        parsed_response["risk_factors"] = json.loads(risk_factors_match.group(1))
-                    except json.JSONDecodeError:
-                        logging.warning("Could not parse risk_factors JSON")
-                logging.debug("Parsed structured text response (Strategy 3)")
-
-        #
-        # --- Strategy 4: "json_repair" fallback ---
-        #
-        # If we still don't have a valid parsed_response, try to repair it using json_repair.
-        #
-        if not parsed_response:
-            repaired_text = remove_think_tags_and_triple_quotes(clean_text)
+    # Strategy 2: Extract JSON using regex
+    if not parsed_response:
+        matches = re.findall(r'\{.*\}', clean_text, re.DOTALL)
+        for match in matches:
             try:
-                # Attempt to parse with json_repair
-                # This automatically tries to fix unquoted keys, trailing commas, etc.
-                maybe_json = json_repair.loads(repaired_text)
-                # If the string was super broken, maybe_json might be empty or None
-                if maybe_json:
-                    parsed_response = maybe_json
-                    parsed_response['original_text'] = response_text
-                    logging.debug("json_repair strategy succeeded in parsing as JSON (Strategy 4)")
-                else:
-                    logging.debug("json_repair strategy returned empty or invalid object (Strategy 4)")
-            except Exception as e:
-                logging.debug(f"json_repair strategy failed (Strategy 4): {e}")
+                parsed_response = json.loads(match)
+                logging.debug("Extracted JSON using regex (Strategy 2)")
+                break
+            except json.JSONDecodeError:
+                continue
 
-        #
-        # --- Strategy 5: "unstruct" fallback ---
-        #
-        if not parsed_response:
-            unstruct_text = remove_think_tags_and_triple_quotes(clean_text)
-            lines = unstruct_text.splitlines()
-            lines.reverse()
+    # Strategy 3: Fallback extraction via minimal regex
+    if not parsed_response:
+        pol_match = re.search(r'prediction[\s:"]*(-?[0-2])', clean_text, re.IGNORECASE)
+        conf_match = re.search(r'confidence[\s:"]*(\d+)', clean_text)
+        reason_match = re.search(r'reasoning[\s:"]*(.+?)(?:,|$)', clean_text, re.IGNORECASE)
+        exc_match = re.search(r'exceptions[\s:"]*(.+?)(?:,|$)', clean_text, re.IGNORECASE)
 
-            import re
-            pred_pattern = re.compile(r'(prediction|rearrest_prediction)\s*:\s*(yes|no)', re.IGNORECASE)
-            conf_pattern = re.compile(r'(confidence|rearrest_confidence)\s*:\s*(\d+)', re.IGNORECASE)
+        if pol_match:
+            parsed_response = {
+                "prediction": int(pol_match.group(1)),
+                "confidence": int(conf_match.group(1)) if conf_match else DEFAULT_CONFIDENCE,
+                "reasoning": reason_match.group(1).strip() if reason_match else "",
+                "exceptions": exc_match.group(1).strip() if exc_match else ""
+            }
+            logging.debug("Extracted minimal data via regex (Strategy 3)")
 
-            prediction = None
-            confidence = None
-
-            for line in lines:
-                pred_match = pred_pattern.search(line)
-                if pred_match and not prediction:
-                    raw_pred = pred_match.group(2).upper()
-                    prediction = 'YES' if raw_pred.startswith('Y') else 'NO'
-
-                conf_match = conf_pattern.search(line)
-                if conf_match and not confidence:
-                    confidence = int(conf_match.group(2))
-
-                if prediction and confidence is not None:
-                    break
-
-            if prediction:
-                parsed_response = {
-                    "prediction": prediction,
-                    "confidence": confidence if confidence is not None else 00,
-                    "original_text": response_text
-                }
-                logging.debug("unstruct strategy extracted minimal data (Strategy 5)")
-
-        # If none of the strategies worked, raise an error
-        if not parsed_response:
-            raise ValueError("Could not extract valid response from model output")
-
-        #
-        # --- Final Normalization ---
-        #
-        if not parsed_response:
-            unstruct_text = remove_think_tags_and_triple_quotes(clean_text)
-            lines = unstruct_text.splitlines()
-            lines.reverse()
-
-            import re
-            # Only look for prediction in unstructured text
-            pred_pattern = re.compile(r'(prediction|rearrest_prediction)\s*:\s*(yes|no)', re.IGNORECASE)
-            
-            prediction = None
-            
-            for line in lines:
-                pred_match = pred_pattern.search(line)
-                if pred_match and not prediction:
-                    raw_pred = pred_match.group(2).upper()
-                    prediction = 'YES' if raw_pred.startswith('Y') else 'NO'
-                    break
-
-            if prediction:
-                parsed_response = {
-                    "prediction": prediction,
-                    "original_text": response_text
-                }
-                logging.debug("unstruct strategy extracted prediction (Strategy 5)")
-
-        # If none of the strategies worked to get even a prediction, raise an error
-        if not parsed_response:
-            raise ValueError("Could not extract valid prediction from model output")
-
-        #
-        # --- Final Normalization ---
-        #
-        normalized = {
-            'original_text': response_text
-        }
-
-        # Normalize 'prediction' (required)
-        pred_value = str(parsed_response.get('prediction', '')).upper()
-        if pred_value in ['YES', 'NO']:
-            normalized['prediction'] = pred_value
-        else:
-            # fallback for ambiguous or partial matches
-            if any(ind in pred_value for ind in ['YES', 'TRUE', '1', 'HIGH']):
-                normalized['prediction'] = 'YES'
-            else:
-                normalized['prediction'] = 'NO'
-
-        # Normalize 'confidence' (optional with safe fallback)
+    # Strategy 4: Use json_repair as a last resort
+    if not parsed_response:
         try:
-            conf_value = parsed_response.get('confidence')
-            if conf_value is not None:
-                # Only attempt conversion if it looks numeric
-                if isinstance(conf_value, (int, float)):
-                    normalized['confidence'] = int(min(max(float(conf_value), 0.0), 100.0))
-                elif isinstance(conf_value, str) and conf_value.replace('.', '', 1).replace('%', '').isdigit():
-                    normalized['confidence'] = int(min(max(float(conf_value.replace('%', '')), 0.0), 100.0))
-                else:
-                    normalized['confidence'] = 00  # Non-numeric or malformed value
-            else:
-                normalized['confidence'] = 00  # Missing confidence
-        except (ValueError, TypeError):
-            normalized['confidence'] = 00  # Any conversion error
+            parsed_response = repair_json(clean_text)
+            logging.debug("Parsed response using json_repair (Strategy 4)")
+        except Exception as e:
+            logging.debug(f"All parsing strategies failed: {str(e)}")
+            raise ValueError("Could not extract valid JSON from model response")
 
-        # If risk_factors exist, carry them over
-        if 'risk_factors' in parsed_response:
-            normalized['risk_factors'] = parsed_response['risk_factors']
+    # Normalize the response
+    normalized: ModelResponse = {
+        'original_text': response_text,
+        'prediction': 0,
+        'confidence': DEFAULT_CONFIDENCE,
+        'risk_factors': [], # Keep risk_factors for now, even though not in reference Decision model. May be useful later.
+        'reasoning': "",
+        'exceptions': ""
+    }
 
-        logging.debug(f"Normalized response: {normalized}")
-        return normalized
+    # Normalize prediction (required, -2 to 2 range)
+    prediction_value = parsed_response.get('prediction')
+    if prediction_value is not None:
+        try:
+            if isinstance(prediction_value, str):
+                prediction_value = float(prediction_value.replace('%', ''))
+            normalized['prediction'] = int(min(max(float(prediction_value), MIN_POLARITY), MAX_POLARITY))
+        except (ValueError, TypeError) as e:
+            logging.warning(f"Failed to parse prediction value: {prediction_value}", exc_info=e)
+            normalized['prediction'] = 0
 
-    except Exception as e:
-        logging.error(f"Error processing model: {str(model_name)}")
-        logging.error(f"Error processing model response: {str(e)}")
-        logging.error(f"Raw response: {response_text}")
-        raise
+    # Normalize confidence (optional, 0 to 100 range)
+    conf_value = parsed_response.get('confidence')
+    if conf_value is not None:
+        try:
+            if isinstance(conf_value, str):
+                conf_value = float(conf_value.replace('%', ''))
+            normalized['confidence'] = int(min(max(float(conf_value), MIN_CONFIDENCE), MAX_CONFIDENCE))
+        except (ValueError, TypeError) as e:
+            logging.warning(f"Failed to parse confidence value: {conf_value}", exc_info=e)
+
+    # Copy over optional fields
+    if 'risk_factors' in parsed_response:
+        normalized['risk_factors'] = parsed_response['risk_factors']
+    if 'reasoning' in parsed_response:
+        normalized['reasoning'] = str(parsed_response['reasoning']).strip()
+    if 'exceptions' in parsed_response:
+        normalized['exceptions'] = str(parsed_response['exceptions']).strip()
+
+    logging.debug("Normalized response", extra={"normalized": normalized})
+    return normalized
 
 
-def remove_think_tags_and_triple_quotes(text: str) -> str:
-    """
-    1) Remove <THINK>...</THINK> tags and all enclosed text.
-    2) Remove any triple quotes.
-    Returns a cleaned-up string.
-    """
-    import re
-    # Remove <THINK> ... </THINK> (case-insensitive for the tags if needed)
-    text = re.sub(r'<THINK>.*?</THINK>', '', text, flags=re.DOTALL | re.IGNORECASE)
-
-    # Remove triple quotes of all forms
-    triple_quotes_patterns = [r'```', r'"""', r"'''"]
-    for pattern in triple_quotes_patterns:
-        text = re.sub(pattern, '', text)
-
-    return text.strip()
-
-
-
-
-# --- OpenAI API Call ---
-async def call_openai_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+# ---------------------------
+# API Call Functions - Updated to add OpenAI and Anthropic, using reference style and simplified models
+# ---------------------------
+async def call_openai_api(system_message: str, prompt: str, model_name: str, config: Dict[str, Any]) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
     try:
-        openai_api_key = os.getenv("OPENAI_API_KEY")
-        if not openai_api_key:
-            logging.error("OPENAI_API_KEY environment variable is not set.  Please set this variable in your .env file or environment.")
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
             raise ValueError("OPENAI_API_KEY environment variable not set.")
-            # Exit the function immediately (and the program if necessary)
-            return  # Or raise an exception if you want to propagate it up
-        else:
-            client = OpenAI(api_key=openai_api_key)
+        client = OpenAI(api_key=api_key)
 
         start_time = time.time()
-        response = client.chat.completions.create(
-            model=model_name,
-            temperature=config.model_parameters["model_temperature"],
-            top_p=config.model_parameters["model_top_p"],
-            max_tokens=config.model_parameters["model_max_tokens"],
-            messages=[
-                {"role": "parser", "content": system_message},
-                {"role": "user", "content": prompt}
-            ]
-        )
-        duration_time = time.time() - start_time
+        response = None # Initialize response for different model conditions
+        if model_name == 'gpt-4o-mini': # Model specific handling from reference
+            response = client.chat.completions.create(
+                model=model_name,
+                # temperature=config.model_par  ameters.get("model_temperature"),
+                temperature=config.model_parameters.get("model_temperature"),
+                top_p=config.model_parameters.get("model_top_p"), #["model_parameters"]["model_top_p"],
+                max_tokens=config.model_parameters.get("model_max_tokens"), #["model_parameters"]["model_max_tokens"], # Doesn't work for o3-mini API - comment from reference
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+        elif model_name == 'o3-mini-2025-01-31': # Model specific handling from reference
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ],
+                response_format={"type":"text"}, # From reference
+                reasoning_effort="low" # From reference
+            )
+        else:
+            print(f"ERROR: model_name: {model_name} must be in ['gpt-4o-mini','o3-mini-2025-01-03']") # Error message from reference
+            pass # From reference - although maybe should raise an error?
 
-        # Extract the raw message text and normalize the prediction via process_model_response.
+        duration = time.time() - start_time
+
         raw_message_text = response.choices[0].message.content
-        finish_reason = getattr(response.choices[0], "finish_reason", None)
+        finish_reason = response.choices[0].finish_reason
+
+        usage = response.usage
+        prompt_tokens = usage.get("prompt_tokens") if isinstance(usage, dict) else usage.prompt_tokens
+        total_tokens = usage.get("total_tokens") if isinstance(usage, dict) else usage.total_tokens
+        eval_count = total_tokens - prompt_tokens if (prompt_tokens is not None and total_tokens is not None) else None
+
+
         normalized_response = process_model_response(raw_message_text, model_name)
-        # Normalize the prediction to uppercase for consistency.
-        normalized_prediction = normalized_response.get('prediction', "").upper()
-        normalized_response['prediction'] = normalized_prediction
+        prediction_val = normalized_response.get("prediction", 0)
+        confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
+        reasoning_val = normalized_response.get("reasoning", "")
+        exceptions_val = normalized_response.get("exceptions", "")
 
         try:
-            decision = Decision(
-                prediction=normalized_prediction,
-                confidence=normalized_response['confidence']
-            )
-        except Exception as ve:
-            logging.error(f"Validation error in OpenAI API response: {ve}")
+            decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val)
+        except ValidationError as ve:
+            logging.error(f"Validation error in OpenAI response: {ve}")
             return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
 
         extra_data = {
-            'response_text': normalized_prediction,
-            'raw_message_text': raw_message_text
+            "response_text": raw_message_text,
+            "raw_response": raw_message_text,
+            "openai_metadata": usage # Save usage metadata
         }
-        if normalized_response.get('risk_factors'):
-            extra_data['risk_factors'] = normalized_response['risk_factors']
-
         meta_data = MetaData(
             model=model_name,
-            created_at=start_time,
+            created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
             done_reason=finish_reason,
             done=True,
-            total_duration=duration_time,
+            total_duration=duration,
             load_duration=None,
-            prompt_eval_count=getattr(response.usage_metadata, "prompt_token_count", None),
+            prompt_eval_count=prompt_tokens,
             prompt_eval_duration=None,
-            eval_count=(getattr(response.usage_metadata, "total_token_count", 0) -
-                        getattr(response.usage_metadata, "prompt_token_count", 0)),
+            eval_count=eval_count,
             eval_duration=None
         )
-
+        await asyncio.sleep(API_DELAY) # Added delay as in reference (although might not be strictly necessary for OpenAI/Anthropic, good practice)
         return decision, meta_data, prompt, extra_data
 
     except Exception as e:
@@ -431,64 +294,53 @@ async def call_openai_api(system_message: str, prompt: str, model_name: str, con
         return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
 
 
-# --- Anthropic API Call ---
-async def call_anthropic_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+async def call_anthropic_api(system_message: str, prompt: str, model_name: str, config: Dict[str, Any]) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
     try:
-        anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
-        if not anthropic_api_key:
-            logging.error("ANTHROPIC_API_KEY environment variable is not set.  Please set this variable in your .env file or environment.")
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not api_key:
             raise ValueError("ANTHROPIC_API_KEY environment variable not set.")
-            # Exit the function immediately (and the program if necessary)
-            return  # Or raise an exception if you want to propagate it up
-        else:
-            client = Anthropic(api_key=anthropic_api_key)
+        client = Anthropic(api_key=api_key)
 
         start_time = time.time()
-        cleaned_model_name = clean_model_name(model_name)
+        cleaned_model_name = model_name # No clean_model_name function needed anymore as per reference
         response = client.messages.create(
             model=cleaned_model_name,
-            temperature=config.model_parameters["model_temperature"],
-            max_tokens=config.model_parameters["model_max_tokens"],
-            top_p=config.model_parameters["model_top_p"],
+            temperature=config.model_parameters.get("model_temperature"),
+            max_tokens=config.model_parameters.get("model_max_tokens"), #["model_parameters"]["model_max_tokens"],
+            top_p=config.model_parameters.get("model_top_p"), #["model_parameters"]["model_top_p"],
             system=system_message,
             messages=[{"role": "user", "content": prompt}]
         )
-        duration_time = time.time() - start_time
+        duration = time.time() - start_time
 
         raw_message_text = response.content[0].text
         normalized_response = process_model_response(raw_message_text, model_name)
-        normalized_prediction = normalized_response.get('prediction', "").upper()
-        normalized_response['prediction'] = normalized_prediction
+        prediction_val = normalized_response.get("prediction", 0)
+        confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
+        reasoning_val = normalized_response.get("reasoning", "")
+        exceptions_val = normalized_response.get("exceptions", "")
+
 
         try:
-            decision = Decision(
-                prediction=normalized_prediction,
-                confidence=normalized_response['confidence']
-            )
-        except Exception as ve:
-            logging.error(f"Validation error in Anthropic API response: {ve}")
+            decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val)
+        except ValidationError as ve:
+            logging.error(f"Validation error in Anthropic response: {ve}")
             return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
 
-        extra_data = {
-            'response_text': normalized_prediction,
-            'raw_message_text': raw_message_text
-        }
-        if normalized_response.get('risk_factors'):
-            extra_data['risk_factors'] = normalized_response['risk_factors']
-
+        extra_data = {"response_text": raw_message_text, "raw_response": raw_message_text}
         meta_data = MetaData(
             model=model_name,
-            created_at=start_time,
+            created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
             done_reason=getattr(response, "stop_reason", None),
             done=True,
-            total_duration=duration_time,
+            total_duration=duration,
             load_duration=None,
             prompt_eval_count=None,
             prompt_eval_duration=None,
             eval_count=None,
             eval_duration=None
         )
-
+        await asyncio.sleep(API_DELAY) # Added delay as in reference
         return decision, meta_data, prompt, extra_data
 
     except Exception as e:
@@ -496,8 +348,8 @@ async def call_anthropic_api(system_message: str, prompt: str, model_name: str, 
         return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
 
 
-# --- Google API Call ---
-def call_google_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+# --- Google API Call --- - No changes needed as google was already in the original, keeping for completeness for now. Might update later if needed.
+async def call_google_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
     try:
 
         google_api_key = os.getenv("GOOGLE_API_KEY")
@@ -508,7 +360,7 @@ def call_google_api(system_message: str, prompt: str, model_name: str, config: A
             return  # Or raise an exception if you want to propagate it up
         else:
             # client = genai.GenerativeModel(api_key=google_api_key, model_name)
-            # As of 2/1/2025 these Google Gemini lower models are free, so no auth required?
+            # As of 2/1/2025 these Google Gemini lower models are free, so no auth required? - Comment from original code, keeping for now, might need to revisit
             client = genai.GenerativeModel(model_name)
 
         start_time = time.time()
@@ -517,38 +369,38 @@ def call_google_api(system_message: str, prompt: str, model_name: str, config: A
             system_instructions=system_message,
             contents=prompt,
             config=types.GenerateContentConfig(
-                temperature=config.model_parameters["model_temperature"],
-                top_p=config.model_parameters["model_top_p"],
-                max_output_tokens=config.model_parameters["model_max_tokens"]
+                temperature=config.model_parameters.get("model_temperature"), #["model_parameters"]["model_temperature"],
+                top_p=config.model_parameters.get("model_top_p"), #["model_top_p"],
+                max_output_tokens=config.model_parameters.get("model_max_tokens"), #["model_max_tokens"]
             )
         )
         duration_time = time.time() - start_time
 
         raw_message_text = response.text
         normalized_response = process_model_response(raw_message_text, model_name)
-        normalized_prediction = normalized_response.get('prediction', "").upper()
-        normalized_response['prediction'] = normalized_prediction
+        prediction_val = normalized_response.get("prediction", 0) # Updated to prediction from prediction and using prediction_val
+        confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
+        reasoning_val = normalized_response.get("reasoning", "") # Added reasoning from reference
+        exceptions_val = normalized_response.get("exceptions", "") # Added exceptions from reference
+
 
         try:
-            decision = Decision(
-                prediction=normalized_prediction,
-                confidence=normalized_response['confidence']
-            )
+            decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val) # Updated Decision creation
         except Exception as ve:
             logging.error(f"Validation error in Google API response: {ve}")
             return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
 
         extra_data = {
-            'response_text': normalized_prediction,
-            'raw_message_text': raw_message_text
+            'response_text': raw_message_text,
+            'raw_response': raw_message_text # Added raw_response for consistency
         }
-        if normalized_response.get('risk_factors'):
+        if normalized_response.get('risk_factors'): # Keeping risk_factors
             extra_data['risk_factors'] = normalized_response['risk_factors']
 
         meta_data = MetaData(
             model=model_name,
-            created_at=start_time,
-            done_reason=None,
+            created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
+            done_reason=None, # From reference
             done=True,
             total_duration=duration_time,
             load_duration=None,
@@ -557,7 +409,7 @@ def call_google_api(system_message: str, prompt: str, model_name: str, config: A
             eval_count=None,
             eval_duration=None
         )
-
+        await asyncio.sleep(API_DELAY) # Added delay as in reference, though might not be needed for google.
         return decision, meta_data, prompt, extra_data
 
     except Exception as e:
@@ -565,18 +417,21 @@ def call_google_api(system_message: str, prompt: str, model_name: str, config: A
         return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
 
 
-# --- Unified get_decision Function ---
-async def get_decision(prompt_type: Any, api_type: str, model_name: str, config: Any, prompt: str) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+# --- Unified get_decision Function --- - Updated to include openai and anthropic calls, and use updated config as Dict
+async def get_decision(prompt_type: Any, api_type: str, model_name: str, config: Dict[str, Any], prompt: str) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]: # Updated type hints and config type
     """
     Dispatch the API call based on api_type.
     Returns a 4-tuple: (Decision, MetaData, used_prompt, extra_data).
     In case of failure, extra_data includes an "api_failure" flag and a "failure_type".
     """
     try:
-        system_message = config.prompts.get("prompt_persona", "") or (
+        # system_message = config["prompts"].get("SYSTEM_PROMPT", "") 
+        system_message = config.prompts.get("SYSTEM_PROMPT", "") or ( # Using "SYSTEM_PROMPT" key from reference
             "You are a risk assessment expert. Your responses must be in valid JSON format "
-            "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'."
+            "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'." # Keeping original fallback system message for now, might update if needed
         )
+
+        api_type = api_type.lower() # Added lowercasing api_type from reference
 
         if api_type == 'openai':
             return await call_openai_api(system_message, prompt, model_name, config)
@@ -593,9 +448,9 @@ async def get_decision(prompt_type: Any, api_type: str, model_name: str, config:
                 ],
                 model=model_name,
                 options={
-                    'temperature': config.model_parameters["model_temperature"],
-                    'top_p': config.model_parameters["model_top_p"],
-                    'max_tokens': config.model_parameters["model_max_tokens"],
+                    'temperature': config.model_parameters.get("model_temperature"), #["model_parameters"]["model_temperature"], # Using dict-style config access
+                    'top_p': config.model_parameters.get("model_top_p"), #["model_parameters"]["model_top_p"], # Using dict-style config access
+                    'max_tokens': config.model_parameters.get("model_max_tokens"), #["model_parameters"]["model_max_tokens"], # Using dict-style config access
                 }
             )
 
@@ -606,28 +461,28 @@ async def get_decision(prompt_type: Any, api_type: str, model_name: str, config:
             print(f'raw_message_text: {raw_message_text}') # DEBUG
             normalized_response = process_model_response(raw_message_text, model_name)
             print(f"normalized_response: {normalized_response}") # DEBUG
-            normalized_prediction = normalized_response.get('prediction', "").upper()
-            normalized_response['prediction'] = normalized_prediction
+            prediction_val = normalized_response.get("prediction", 0) # Updated to prediction from prediction and using prediction_val
+            confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
+            reasoning_val = normalized_response.get("reasoning", "") # Added reasoning from reference
+            exceptions_val = normalized_response.get("exceptions", "") # Added exceptions from reference
+
 
             try:
-                decision = Decision(
-                    prediction=normalized_prediction,
-                    confidence=normalized_response['confidence']
-                )
+                decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val) # Updated Decision creation
             except Exception as ve:
                 logging.error(f"Validation error in Ollama API response: {ve}")
                 return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
 
             extra_data = {
-                'response_text': normalized_prediction,
-                'raw_message_text': raw_message_text
+                'response_text': raw_message_text,
+                'raw_response': raw_message_text # Added raw_response for consistency
             }
-            if normalized_response.get('risk_factors'):
+            if normalized_response.get('risk_factors'): # Keeping risk_factors
                 extra_data['risk_factors'] = normalized_response['risk_factors']
 
             meta_data = MetaData(
                 model=getattr(response, 'model', None),
-                created_at=getattr(response, 'created_at', None),
+                created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
                 done_reason=getattr(response, 'done_reason', None),
                 done=getattr(response, 'done', None),
                 total_duration=getattr(response, 'total_duration', None),
@@ -637,6 +492,7 @@ async def get_decision(prompt_type: Any, api_type: str, model_name: str, config:
                 eval_count=getattr(response, 'eval_count', None),
                 eval_duration=getattr(response, 'eval_duration', None)
             )
+            await asyncio.sleep(API_DELAY) # Added delay as in reference, though likely not needed for local ollama.
 
             return decision, meta_data, prompt, extra_data
 
@@ -645,13 +501,14 @@ async def get_decision(prompt_type: Any, api_type: str, model_name: str, config:
         return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
 
 
-async def get_decision_with_timeout(prompt_type: Any, api_type: str, model_name: str, config: Any, prompt: str) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any], Any]:
+async def get_decision_with_timeout(prompt_type: Any, api_type: str, model_name: str, config: Dict[str, Any], prompt: str) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any], Any]: # Updated config type to Dict[str, Any]
     """
     Wrap get_decision with timeout handling.
     Returns (Decision, MetaData, used_prompt, extra_data, TimeoutMetrics).
     """
     timeout_metrics = TimeoutMetrics(occurred=False, retry_count=0, total_timeout_duration=0.0)
-    timeout_seconds = float(config.model_ensemble.get(model_name, {}).get("max_response_time", 30.0))
+    # timeout_seconds = float(config.get("api_timeout", 30)) # Using config.get("api_timeout", 30) from reference
+    timeout_seconds = float(config.timeout.get("api_timeout", 30)) # Corrected approach: access 'timeout' dictionary, then use .get()
 
     try:
         logging.debug(f"Calling get_decision with prompt: {prompt[:50]}...")
@@ -676,7 +533,8 @@ async def get_decision_with_timeout(prompt_type: Any, api_type: str, model_name:
 
 
 
-# --- save_decision Function ---
+# --- save_decision Function --- - save_decision function remains mostly the same as it was already quite comprehensive in original code
+# In decision.py, update save_decision function:
 def save_decision(decision: Any, meta_data: Any, prompt_type: Any, model_name: str, row_id: int, actual_value: str, config: Any, used_prompt: str, repeat_index: int = 0, extra_data: Optional[Dict[str, Any]] = None) -> bool:
     """
     Save decision and metadata to the filesystem as a JSON file.
@@ -688,7 +546,7 @@ def save_decision(decision: Any, meta_data: Any, prompt_type: Any, model_name: s
         base_dir = Path(config.output["base_dir"])
         base_dir.mkdir(parents=True, exist_ok=True)
 
-        from utils import get_prompt_type_str  # Assumes this utility exists.
+        from utils import get_prompt_type_str
         prompt_type_str = get_prompt_type_str(prompt_type)
         clean_name = clean_model_name(model_name)
         model_dir = base_dir / clean_name / prompt_type_str
@@ -703,24 +561,28 @@ def save_decision(decision: Any, meta_data: Any, prompt_type: Any, model_name: s
 
         output_path = model_dir / filename
 
-        decision_data = pydantic_or_dict(decision)
-        meta_data_data = pydantic_or_dict(meta_data)
+        decision_data = pydantic_or_dict(decision) # Get dict from Pydantic Decision model
+        meta_data_data = pydantic_or_dict(meta_data) # Get dict from Pydantic MetaData model
 
-        decision_data.update({
-            'id': row_id,
-            'actual': actual_value,
-            'correct': "YES" if decision.prediction.upper() == actual_value.upper() else "NO"
-        })
+        # --- Restructure decision_data to match desired output ---
+        decision_output = { # Create a new dict for 'decision' output section
+            "prediction": "YES" if decision.prediction >= 0 else "NO", # Convert numerical prediction to "YES"/"NO" string
+            "confidence": decision.confidence,
+            "id": row_id,
+            "actual": actual_value,
+            "correct": "YES" if decision.prediction >= 0 and actual_value.upper() == "YES" or decision.prediction < 0 and actual_value.upper() == "NO" else "NO"
+        }
+        # No need to update decision_data anymore, use decision_output in combined_data
 
         meta_data_data = convert_ns_to_s(meta_data_data)
 
         response_data = {
-            'raw_message_text': extra_data.get('raw_message_text', ''),
-            'normalized_prediction': extra_data.get('response_text', '')
+            'raw_message_text': extra_data.get('raw_message_text', ''), # Keep raw message text
+            'normalized_prediction': extra_data.get('response_text', '') # Keep normalized_prediction as response_text for now - will revisit
         }
 
         combined_data = {
-            "decision": decision_data,
+            "decision": decision_output, # Use the restructured decision_output here
             "meta_data": meta_data_data,
             "response": response_data,
             "evaluation": {
@@ -728,7 +590,7 @@ def save_decision(decision: Any, meta_data: Any, prompt_type: Any, model_name: s
                 "model": model_name,
                 "prompt_type": str(prompt_type),
                 "row_id": row_id,
-                "prediction_matches_actual": decision_data['correct'],
+                "prediction_matches_actual": decision_output['correct'], # Use from decision_output
                 "repeat_index": repeat_index
             }
         }

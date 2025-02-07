@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 880,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "created_at": "2025-02-06T23:34:07.362768199Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.768458723,
+    "load_duration": 0.034687609,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 283,
+    "eval_duration": 1.707
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Young age (19 years old)\", \"high\", \"The younger the individual, the higher the risk of recidivism.\"),\n    (\"Male identity\", \"medium\", \"Gender does not inherently increase or decrease risk but can be a factor in certain contexts.\"),\n    (\"Black ethnicity\", \"medium\", \"There is an existing body of research suggesting that Black individuals may face higher risks due to systemic factors and biases.\"),\n    (\"Single parent household (lived with both biological parents aged 5)\", \"high\", \"Growing up in a stable, supportive environment can mitigate risk. However, the presence of only one parent increases vulnerability.\"),\n    (\"No drug use for four years but recent depressive episodes\", \"medium\", \"Recent mental health issues may indicate underlying vulnerabilities that could lead to criminal behavior if not addressed.\"),\n    (\"Lived with both parents (5 people in household)\", \"high\", \"Growing up in a larger, supportive family environment can reduce risk.\"),\n    (\"Belief in God's role in personal life events\", \"low\", \"This belief does not significantly impact the likelihood of recidivism based on available data.\"),\n    (\"One job held during year\", \"medium\", \"Having multiple jobs or being employed full-time may indicate a more stable lifestyle and lower risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250206_183407_364372",
+    "model": "qwen2.5:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 880,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

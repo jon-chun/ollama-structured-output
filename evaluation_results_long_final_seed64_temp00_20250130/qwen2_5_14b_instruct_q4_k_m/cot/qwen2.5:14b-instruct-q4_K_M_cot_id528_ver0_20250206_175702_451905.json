@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 528,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-02-06T22:57:02.450330556Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.023503197,
+    "load_duration": 0.04044148,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.058,
+    "eval_count": 377,
+    "eval_duration": 5.915
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is not a significant risk factor for recidivism in this case.\"),\n    (\"ethnicity\", \"low\", \"Ethnicity alone does not predict recidivism without considering other factors like socioeconomic status or community context.\"),\n    (\"number_of_arrests\", \"high\", \"Multiple arrests indicate a pattern of criminal behavior, which is a strong predictor of future arrest.\"),\n    (\"conviction_history\", \"medium\", \"A conviction history suggests legal involvement but the severity and nature of the convictions are not specified.\"),\n    (\"height_and_weight\", \"low\", \"Physical attributes do not correlate with recidivism risk.\"),\n    (\"marital_status\", \"low\", \"Living alone or being unmarried does not strongly predict recidivism without other contextual factors.\"),\n    (\"education_level\", \"medium\", \"Having a GED and no college enrollment suggests limited educational attainment, which can be associated with higher recidivism but is mitigated by employment status.\"),\n    (\"employment_status\", \"low\", \"Holding one job during the year indicates some stability, though it's not clear if this is ongoing or temporary.\"),\n    (\"drug_use_history\", \"high\", \"Recent drug use, especially marijuana, can indicate a lifestyle that increases risk of recidivism.\"),\n    (\"mental_health\", \"low\", \"Not feeling depressed recently does not necessarily predict future mental health status but suggests current stability.\"),\n    (\"family_structure_and_environment\", \"medium\", \"Living in an urban area and with biological father may suggest environmental factors influencing behavior, though specifics are limited.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in God's influence on personal life is a personal belief that does not directly correlate with recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250206_175702_451905",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 528,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 5 times and has been convicted. He is 5 feet 5 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

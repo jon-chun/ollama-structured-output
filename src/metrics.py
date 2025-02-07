@@ -10,6 +10,7 @@ class TimeoutMetrics:
     total_timeout_duration: float = 0.0
     final_timeout_duration: Optional[float] = None
 
+
 @dataclass
 class PromptMetrics:
     """Records metrics for a single prompt execution attempt"""

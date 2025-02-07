@@ -1,0 +1,87 @@
+model_parameters:
+  api_type: 'ollama'  # Options include 'ollama', 'openai', 'anthropic', 'google', and now 'remote'
+  api_model: 'ollama-all'  # Specify which model to use
+  model_temperature: 0.0
+  model_top_p: 0.9
+  model_max_tokens: 8000
+  api_timeout: 300
+  api_key_hardcoded: false
+  openai_api_key: ''       # Set your OpenAI API key if needed
+  anthropic_api_key: ''    # Set your Anthropic API key if needed
+  google_api_key: ''       # Set your Google API key if needed
+  # No hardcoded remote API key is needed here; use the remote_api section below
+
+remote_api:
+  endpoint: "https://api.remotellm.example/v1/query"  # Replace with your remote API endpoint
+  headers:
+    Authorization: "Bearer YOUR_REMOTE_API_KEY"       # Replace with your remote API key
+  parameters:
+    temperature: 0.7
+    max_tokens: 256
+
+# Execution settings
+execution:
+  generation_type: "binary_classification"  # Options: "code", "open-ended", "binary_class", "multiclass", "regression"
+  max_calls_per_prompt: 1
+  batch_size: 1
+  nshot_ct: 30
+  save_prompts: True
+  require_reasoning: False
+  require_reasoning_retry_ct: 3
+
+# Global configuration parameters: flags and constants
+flags:
+  max_samples: 100
+  FLAG_PROMPT_PREFIX: False
+  FLAG_PROMPT_SUFFIX: False
+  prompt_prefix: "IMPORTANT PREFIX: Please review the following information carefully.\n"
+  prompt_suffix: "\nEND OF PROMPT"
+
+# Timeout configuration
+timeout:
+  max_wait_ollama_pull_model_sec: 900
+  max_api_wait_sec: 600
+  max_api_timeout_retries: 3
+  api_wait_step_increase_sec: 10
+  delay_between_prompt_types_sec: 2
+  delay_between_model_load_sec: 2
+
+# Malformed response handling
+malformed_reponse:
+  save_malformed_responses: True
+  retry_malformed_ct: 5
+
+# Logging configuration
+logging:
+  level: "DEBUG"  # or "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  file: "evaluation_long_final_seed64_temp00_20250130.log"
+
+# Output configuration
+output:
+  base_dir: "../evaluation_results_long_final_seed64_temp00_20250130"
+
+# Data configuration
+data:
+  input_file: "../data/vignettes_renamed_clean.csv"
+  risk_factors: "long_text_summary"
+  outcome: "target"
+  random_seed: 64
+  train_split: 20
+  validate_split: 20
+  test_split: 60
+
+# Prompt templates
+prompts:
+  prompt_persona: |
+    You are a highly experienced criminal justice risk assessment expert
+    employing advanced statistical and judicial knowledge.
+    Your responses must be in valid JSON format with exactly three fields: 'risk_factors', 'prediction', and 'confidence'.
+    Please ensure your output is strictly valid JSON.
+
+model_ensemble:  
+  wizardlm:13b-llama2-q4_K_M:
+    max_load_time: 240
+    max_response_time: 240
+    max_num_predict: 2048
+    max_context_window: 8192

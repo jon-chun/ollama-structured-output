@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 46,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-02-06T22:58:08.707331271Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.972386066,
+    "load_duration": 0.038185587,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.058,
+    "eval_count": 318,
+    "eval_duration": 4.868
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but age alone does not significantly predict recidivism without other risk factors.\"),\n    (\"race\", \"low\", \"While race can be a factor in societal context, it has limited predictive power for recidivism when considering other variables.\"),\n    (\"prior_arrests\", \"medium\", \"Having one arrest suggests some level of involvement with the justice system but is not highly indicative without conviction history or other risk factors.\"),\n    (\"education_level\", \"high\", \"Lack of high school diploma or GED can indicate lower employability and social integration, increasing recidivism risk.\"),\n    (\"employment_status\", \"medium\", \"Having held one job during the year suggests some stability but is not sufficient to mitigate risks associated with lack of education.\"),\n    (\"drug_use_history\", \"low\", \"No drug use in four years is a positive indicator that reduces immediate risk factors for relapse into criminal behavior.\"),\n    (\"mental_health_status\", \"low\", \"Not feeling depressed recently indicates current mental health status does not contribute significantly to recidivism risk at this moment.\"),\n    (\"family_background\", \"medium\", \"Living with biological mother and siblings in an urban area suggests a typical family structure but may indicate challenges if there were issues like poverty or crime.\"),\n    (\"religious_orientation\", \"low\", \"Belief that God has no influence on personal life does not directly correlate to criminal behavior without other factors.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 45\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250206_175808_709205",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 46,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 6 inches and weighs 287 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

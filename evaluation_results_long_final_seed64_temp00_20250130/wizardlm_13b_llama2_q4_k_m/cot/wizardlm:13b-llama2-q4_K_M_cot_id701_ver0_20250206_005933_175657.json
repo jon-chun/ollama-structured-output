@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 701,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "wizardlm:13b-llama2-q4_K_M",
+    "created_at": "2025-02-06T05:59:33.173383302Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.594861404,
+    "load_duration": 0.009125154,
+    "prompt_eval_count": 374,
+    "prompt_eval_duration": 0.006,
+    "eval_count": 311,
+    "eval_duration": 12.577
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is relatively young, which may indicate lower recidivism risk.\"),\n    (\"Gender\", \"medium\", \"No significant correlation between gender and recidivism.\"),\n    (\"Race\", \"medium\", \"No significant correlation between race and recidivism.\"),\n    (\"Criminal History\", \"low\", \"The individual has only been arrested once, which may indicate lower recidivism risk.\"),\n    (\"Employment Status\", \"medium\", \"Stable employment can be a positive factor for reducing recidivism.\"),\n    (\"Drug Use\", \"high\", \"Substance abuse is often associated with higher recidivism risk.\"),\n    (\"Marital Status\", \"low\", \"No significant correlation between marital status and recidivism.\"),\n    (\"Education Level\", \"medium\", \"A high school diploma may indicate lower recidivism risk, but the effect is not strong.\"),\n    (\"Family Background\", \"medium\", \"Living with both biological parents in a rural area may have a positive impact on recidivism risk.\"),\n    (\"Religious Beliefs\", \"low\", \"No significant correlation between religious beliefs and recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250206_005933_175657",
+    "model": "wizardlm:13b-llama2-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 701,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

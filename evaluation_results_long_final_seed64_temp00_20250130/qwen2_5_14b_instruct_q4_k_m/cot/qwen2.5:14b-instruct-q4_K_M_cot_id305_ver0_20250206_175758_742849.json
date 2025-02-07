@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 305,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-02-06T22:57:58.740632861Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.875856995,
+    "load_duration": 0.022575221,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.057,
+    "eval_count": 307,
+    "eval_duration": 4.789
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but age alone does not strongly predict recidivism.\"),\n    (\"race\", \"low\", \"Race is a complex factor, but without evidence of systemic bias or discrimination in the justice system affecting this individual specifically, it carries low weight.\"),\n    (\"prior_arrests\", \"medium\", \"Two prior arrests suggest some level of involvement with law enforcement and potential risk for future offenses.\"),\n    (\"employment_status\", \"low\", \"Having held one job during the year indicates a willingness to work, which is generally positive but not strongly predictive on its own.\"),\n    (\"education_status\", \"low\", \"Being enrolled in school is typically seen as a protective factor against recidivism.\"),\n    (\"drug_use\", \"high\", \"Recent drug use (marijuana and cocaine) is a significant risk factor for future criminal behavior, especially when combined with prior arrests.\"),\n    (\"living_situation\", \"medium\", \"Living alone can be associated with higher risks of relapse into criminal activity due to lack of social support.\"),\n    (\"family_history\", \"low\", \"Growing up in an intact family unit is generally seen as a protective factor against future criminal behavior.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in the role of God in personal life can be considered a positive influence, but its impact on recidivism is limited.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 45\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250206_175758_742849",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 305,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
