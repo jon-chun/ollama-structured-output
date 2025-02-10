@@ -1,0 +1,109 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1091,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:40:29.382874",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.987699031829834e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"high\", \"Younger individuals (22) generally have higher recidivism rates than older individuals.\"],\n    [\"Gender\", \"low\", \"Males generally have higher recidivism rates than females, but this factor is already accounted for in base rates and other factors.\"],\n    [\"Race\", \"medium\", \"While race is correlated with recidivism, it's often linked to systemic biases and socioeconomic factors. It's included cautiously and weighted moderately.\"],\n    [\"Prior Arrests\", \"high\", \"A history of 7 arrests indicates a pattern of criminal behavior and a higher likelihood of re-arrest.\"],\n    [\"Prior Convictions\", \"high\", \"Having been convicted suggests the arrests led to findings of guilt, increasing the risk.\"],\n    [\"Physical Build\", \"low\", \"Height and weight are not directly linked to recidivism risk.\"],\n    [\"Marital Status\", \"medium\", \"Being unmarried is associated with a slightly increased risk of recidivism compared to being married.\"],\n    [\"Living Situation\", \"medium\", \"Living alone can indicate a lack of social support, potentially increasing risk.\"],\n    [\"Education\", \"high\", \"Lack of a high school diploma or GED and not being enrolled in college are strong indicators of increased risk.\"],\n    [\"Employment\", \"high\", \"Unemployment is a significant risk factor for recidivism.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana) within the last four years suggests a potential for continued substance abuse, which can contribute to criminal behavior.\"],\n    [\"Mental Health\", \"medium\", \"Experiencing depressive symptoms ('down in the dumps') suggests potential mental health issues that could increase risk.\"],\n    [\"Family Environment\", \"low\", \"Living with the biological mother in a household of size 4 in an urban area at a young age is not a strong indicator of recidivism on its own.\"],\n    [\"Religious Beliefs\", \"low\", \"Lack of belief in God's influence is not a direct predictor of recidivism.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_194029_583598",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1091,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "high",
+      "Younger individuals (22) generally have higher recidivism rates than older individuals."
+    ],
+    [
+      "Gender",
+      "low",
+      "Males generally have higher recidivism rates than females, but this factor is already accounted for in base rates and other factors."
+    ],
+    [
+      "Race",
+      "medium",
+      "While race is correlated with recidivism, it's often linked to systemic biases and socioeconomic factors. It's included cautiously and weighted moderately."
+    ],
+    [
+      "Prior Arrests",
+      "high",
+      "A history of 7 arrests indicates a pattern of criminal behavior and a higher likelihood of re-arrest."
+    ],
+    [
+      "Prior Convictions",
+      "high",
+      "Having been convicted suggests the arrests led to findings of guilt, increasing the risk."
+    ],
+    [
+      "Physical Build",
+      "low",
+      "Height and weight are not directly linked to recidivism risk."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Being unmarried is associated with a slightly increased risk of recidivism compared to being married."
+    ],
+    [
+      "Living Situation",
+      "medium",
+      "Living alone can indicate a lack of social support, potentially increasing risk."
+    ],
+    [
+      "Education",
+      "high",
+      "Lack of a high school diploma or GED and not being enrolled in college are strong indicators of increased risk."
+    ],
+    [
+      "Employment",
+      "high",
+      "Unemployment is a significant risk factor for recidivism."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana) within the last four years suggests a potential for continued substance abuse, which can contribute to criminal behavior."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Experiencing depressive symptoms ('down in the dumps') suggests potential mental health issues that could increase risk."
+    ],
+    [
+      "Family Environment",
+      "low",
+      "Living with the biological mother in a household of size 4 in an urban area at a young age is not a strong indicator of recidivism on its own."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Lack of belief in God's influence is not a direct predictor of recidivism."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 7 times and has been convicted. He is 5 feet 11 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

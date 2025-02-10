@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 512,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "created_at": "2025-02-02T11:17:57.643821614Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 9.294580281,
+    "load_duration": 0.012299671,
+    "prompt_eval_count": 374,
+    "prompt_eval_duration": 0.106,
+    "eval_count": 448,
+    "eval_duration": 9.172
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"20 years old is relatively young but not extremely so.\"),\n    (\"gender\", \"medium\", \"Male gender has a slightly higher recidivism rate.\"),\n    (\"race\", \"high\", \"Black individuals often face systemic biases and discrimination that can increase risk factors.\"),\n    (\"prior arrests\", \"low\", \"Only 1 prior arrest is relatively low.\"),\n    (\"convictions\", \"medium\", \"Being convicted increases the risk slightly more than an arrest alone.\"),\n    (\"height/weight\", \"low\", \"Average height and weight do not significantly impact recidivism.\"),\n    (\"marital status\", \"high\", \"Never being married can indicate lack of social support.\"),\n    (\"living situation\", \"high\", \"Living alone can increase isolation and lack of supervision.\"),\n    (\"education\", \"medium\", \"High school diploma is better than no education, but not as good as higher education or current enrollment.\"),\n    (\"employment\", \"low\", \"Holding 3 jobs in a year shows some stability but not extreme instability.\"),\n    (\"drug use\", \"low\", \"No drug use in the past four years is positive.\"),\n    (\"mental health\", \"high\", \"Feeling down and hopeless can indicate underlying mental health issues that increase risk.\"),\n    (\"upbringing\", \"medium\", \"Living with non-biological adults can be both a risk and protective factor depending on the circumstances.\"),\n    (\"household size\", \"low\", \"Household of size 3 is relatively average.\"),\n    (\"area\", \"medium\", \"Rural areas may have less access to resources but also less crime opportunities.\"),\n    (\"religious beliefs\", \"low\", \"Belief in God can be a protective factor if it provides support and guidance.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_061757_645773",
+    "model": "mistral-small:22b-instruct-2409-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 512,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 151 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has not used any drugs in the past four years and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

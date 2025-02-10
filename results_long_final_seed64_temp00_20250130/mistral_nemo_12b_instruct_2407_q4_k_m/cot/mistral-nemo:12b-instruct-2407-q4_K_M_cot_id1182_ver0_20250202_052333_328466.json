@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1182,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:23:33.326062413Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 22.273252208,
+    "load_duration": 0.028617877,
+    "prompt_eval_count": 321,
+    "prompt_eval_duration": 0.21,
+    "eval_count": 379,
+    "eval_duration": 22.031
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"21 is relatively young, but not a minor, indicating potential for maturity and change.\"),\n    (\"Gender\", \"low\", \"Male is not typically associated with higher risk in recidivism studies.\"),\n    (\"Race\", \"low\", \"Being Black does not inherently increase risk; societal factors may influence, but not solely based on race.\"),\n    (\"Arrests\", \"high\", \"7 arrests indicate a history of criminal behavior and increased likelihood of reoffending.\"),\n    (\"Convictions\", \"high\", \"Having convictions suggests a higher likelihood of recidivism due to established patterns.\"),\n    (\"Physical Size\", \"low\", \"5'7\" and 142 lbs do not significantly impact risk assessment.\"),\n    (\"Marital Status\", \"medium\", \"Never married, living alone may indicate lack of social support and stability.\"),\n    (\"Education\", \"medium\", \"High school diploma only suggests limited educational attainment, which can correlate with higher recidivism rates.\"),\n    (\"Employment\", \"low\", \"Held 2 jobs in a year indicates some level of responsibility and structure.\"),\n    (\"Drug Use\", \"medium\", \"Past marijuana use could indicate involvement in criminal activities or lack of impulse control.\"),\n    (\"Mental Health\", \"low\", \"No recent depression suggests no immediate mental health concerns influencing behavior.\"),\n    (\"Early Family Environment\", \"high\", \"Growing up in a large, urban household with a single parent can correlate with higher risk due to potential instability and lack of resources.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God's influence does not significantly impact risk assessment.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_052333_328466",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1182,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 7 times and has been convicted. He is 5 feet 7 inches and weighs 142 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

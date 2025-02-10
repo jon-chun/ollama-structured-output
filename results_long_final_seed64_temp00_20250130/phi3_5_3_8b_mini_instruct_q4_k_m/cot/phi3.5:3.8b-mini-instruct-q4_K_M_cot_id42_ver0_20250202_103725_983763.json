@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 42,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:37:25.981573786Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.092213945,
+    "load_duration": 0.011219236,
+    "prompt_eval_count": 375,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 573,
+    "eval_duration": 15.036
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at first arrest (young age)\", \"medium\", \"Being arrested young may indicate a higher risk for recidivism, but without convictions or details on the nature of offenses it's not definitive.\"),\n    (\"Number of prior arrests (5 times)\", \"high\", \"Multiple arrests are strongly associated with increased likelihood of rearrest. However, lacking convictions may mitigate this risk slightly as there is no criminal record to consider.\"),\n    (\"Education level (High school diploma only)\", \"medium\", \"Limited education can be a factor in recidivism but without further context on the individual's engagement with educational opportunities or substance abuse programs, it cannot be rated high. It also does not directly correlate to criminal behavior.\"),\n    (\"Employment history (no jobs held)\", \"high\", \"Unemployment is a significant risk factor for recidivism as financial stress can lead individuals back into crime. Lack of employment indicates potential economic instability and lack of structured daily routine, which are both associated with higher rearrest rates.\"),\n    (\"Substance use (marijuana in the past four years)\", \"medium\", \"Drug use is a risk factor for recidivism but its impact can vary widely depending on factors such as severity and context. Marijuana, while less likely to be associated with violent crime compared to harder substances or alcohol abuse, still poses some risks.\"),\n    (\"Family background (lived in a household of size 2)\", \"low\", \"Living conditions are not directly correlated with recidivism. A small family unit does not inherently increase risk unless there is evidence of dysfunction or lack of supervision, which isn't provided here.\"),\n    (\"Religious beliefs (considers God irrelevant to personal outcomes)\", \"low\", \"While some studies suggest religious involvement can be protective against recidivism due to community support and moral guidance, the absence thereof does not directly increase risk. It is a more subjective factor with less empirical backing.\"),\n    (\"Urban living environment (lived in an urban area)\", \"medium\", \"Research indicates that individuals from urban areas may have higher rates of recidivism due to factors like social disorganization and limited access to resources. However, this is a general trend rather than a direct causal relationship.\"\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_103725_983763",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

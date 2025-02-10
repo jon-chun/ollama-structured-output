@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1253,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:59:49.708856",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 4.03789234161377e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"22 years old places him in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens.\"],\n    [\"Gender\", \"medium\", \"Males generally have a higher recidivism rate than females.\"],\n    [\"Race\", \"medium\", \"Black individuals are statistically overrepresented in the criminal justice system, leading to a higher observed recidivism rate. However, this is a complex factor influenced by systemic biases and socioeconomic disparities, not inherent criminality.\"],\n    [\"Prior Arrests\", \"medium\", \"One prior arrest and a conviction indicates some involvement with the criminal justice system, increasing the risk compared to someone with no prior record.\"],\n    [\"Marital Status\", \"medium\", \"Never being married and living alone suggests a lack of strong social support, which can increase recidivism risk.\"],\n    [\"Education\", \"low\", \"Having a high school diploma provides some level of educational attainment, which is associated with lower recidivism rates compared to those with less education.\"],\n    [\"Employment\", \"medium\", \"Holding only one job in the past year suggests some employment instability, which can contribute to recidivism.\"],\n    [\"Substance Use\", \"low\", \"No drug use in the past four years is a positive factor, indicating a lower risk of recidivism related to substance abuse.\"],\n    [\"Mental Health\", \"low\", \"No reported depression in the past month is a positive indicator, suggesting stable mental health.\"],\n    [\"Family Background\", \"medium\", \"Growing up in a large household (size 8) in an urban area can be associated with increased risk due to potential exposure to crime and limited resources.\"],\n    [\"Religious Beliefs\", \"low\", \"Belief that God influences personal events can be a protective factor, providing a sense of purpose and moral guidance.\"],\n    [\"Conviction\", \"medium\", \"Having a conviction is a stronger predictor of recidivism than just an arrest.\" ]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_185949_909578",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1253,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "22 years old places him in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males generally have a higher recidivism rate than females."
+    ],
+    [
+      "Race",
+      "medium",
+      "Black individuals are statistically overrepresented in the criminal justice system, leading to a higher observed recidivism rate. However, this is a complex factor influenced by systemic biases and socioeconomic disparities, not inherent criminality."
+    ],
+    [
+      "Prior Arrests",
+      "medium",
+      "One prior arrest and a conviction indicates some involvement with the criminal justice system, increasing the risk compared to someone with no prior record."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never being married and living alone suggests a lack of strong social support, which can increase recidivism risk."
+    ],
+    [
+      "Education",
+      "low",
+      "Having a high school diploma provides some level of educational attainment, which is associated with lower recidivism rates compared to those with less education."
+    ],
+    [
+      "Employment",
+      "medium",
+      "Holding only one job in the past year suggests some employment instability, which can contribute to recidivism."
+    ],
+    [
+      "Substance Use",
+      "low",
+      "No drug use in the past four years is a positive factor, indicating a lower risk of recidivism related to substance abuse."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "No reported depression in the past month is a positive indicator, suggesting stable mental health."
+    ],
+    [
+      "Family Background",
+      "medium",
+      "Growing up in a large household (size 8) in an urban area can be associated with increased risk due to potential exposure to crime and limited resources."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Belief that God influences personal events can be a protective factor, providing a sense of purpose and moral guidance."
+    ],
+    [
+      "Conviction",
+      "medium",
+      "Having a conviction is a stronger predictor of recidivism than just an arrest."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 6 feet 2 inches. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 8, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

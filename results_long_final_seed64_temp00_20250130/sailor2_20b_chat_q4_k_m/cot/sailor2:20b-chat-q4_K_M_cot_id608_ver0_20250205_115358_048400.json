@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 608,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:53:58.046668548Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.885511288,
+    "load_duration": 0.031928337,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.086,
+    "eval_count": 344,
+    "eval_duration": 6.766
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age (22)\", \"low\", \"Young age is generally associated with lower recidivism risk.\"),\n    (\"gender (female)\", \"medium\", \"Females have historically shown lower rearrest rates compared to males, but still a notable factor.\"),\n    (\"race/ethnicity (White)\", \"low\", \"Race alone has minimal impact on recidivism; however, systemic biases should be considered.\"),\n    (\"prior arrests (3 times)\", \"high\", \"Multiple prior arrests significantly increase the likelihood of future rearrests.\"),\n    (\"convictions\", \"medium\", \"Having been convicted indicates a higher risk compared to non-convicted individuals but not as high as multiple arrests.\"),\n    (\"education level (no diploma/GED, no college enrollment)\", \"low-medium\", \"Limited education is correlated with increased recidivism, though less pronounced in this case due to other factors.\"),\n    (\"employment history (3 jobs within a year)\", \"medium-low\", \"Stable employment can mitigate risk but not fully offset prior criminal behavior.\"),\n    (\"drug use (past 4 years: marijuana and cocaine)\", \"high\", \"Recent drug use is strongly linked with higher recidivism rates, especially for illicit substances like cocaine.\"),\n    (\"mental health (no depression in the past month)\", \"low\", \"Absence of recent mental health issues reduces risk factors related to instability.\"),\n    (\"family background (lived with biological mother in a household size 3)\", \"medium-low\", \"Moderate family stability can be protective, but prior criminal behavior remains significant.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_115358_048400",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 608,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 3 times and has been convicted. She is 5 feet 4 inches and weighs 120 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

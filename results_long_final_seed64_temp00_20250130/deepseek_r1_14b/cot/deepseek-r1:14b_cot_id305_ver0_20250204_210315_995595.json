@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 305,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "deepseek-r1:14b",
+    "created_at": "2025-02-05T02:03:15.993800281Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.273568723,
+    "load_duration": 0.029477946,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.055,
+    "eval_count": 540,
+    "eval_duration": 8.183
+  },
+  "response": {
+    "raw_message_text": "<think>\nAlright, I need to assess the risk of recidivism for this individual over three years. Let's break down each factor step by step.\n\nFirst, age is 18, which is a low weight because younger offenders might be more rehabilitable. Race isn't a direct factor in risk assessment, so that's low too. He's never been married and lives alone\u2014these are neutral factors but could indicate less support, so medium for living situation.\n\nArrested twice without conviction suggests possible low criminal history, but it's still two arrests, so maybe high for arrest record. Height and weight don't directly impact recidivism, so low there. Education is positive; he's enrolled in school, which is a protective factor, so high for education.\n\nEmployment: he held one job, which is good but not extensive, so medium. Drug use in the past four years (marijuana and cocaine) is a significant risk factor, so high for substance abuse. No depression recently is positive, so low mental health issues. Family background with both parents in an urban area\u2014could be either way, but maybe medium as it's somewhat stable.\n\nSpirituality might have a protective effect, so high for that. Considering all factors, the positives like education and employment might outweigh negatives like drug use and arrests. So prediction is NO, confidence around 65%.\n</think>\n\n```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"18 years old; younger age may indicate higher potential for change\"),\n    (\"race\", \"low\", \"Race is not a direct risk factor in recidivism models\"),\n    (\"marital_status\", \"medium\", \"Never married, which can be a risk factor but not definitive\"),\n    (\"living_alone\", \"medium\", \"Living alone may indicate lack of social support\"),\n    (\"education_enrolled\", \"high\", \"Currently enrolled in school is a strong protective factor\"),\n    (\"employment_history\", \"medium\", \"Held 1 job during the year; some stability but limited history\"),\n    (\"drug_use_past_4_years\", \"high\", \"Recent drug use (marijuana and cocaine) is a significant risk factor\"),\n    (\"mental_health_depressed_recently\", \"low\", \"No reported depression in the past month\"),\n    (\"family_background\", \"medium\", \"Lived with both biological parents in an urban area; mixed indicator\"),\n    (\"spirituality_importance\", \"high\", \"Believes God has a role in his life, which may be protective\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250204_210315_995595",
+    "model": "deepseek-r1:14b",
+    "prompt_type": "PromptType.COT",
+    "row_id": 305,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1384,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "falcon3:10b-instruct-q4_K_M",
+    "created_at": "2025-02-01T03:10:04.721284881Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.721404703,
+    "load_duration": 0.027144315,
+    "prompt_eval_count": 384,
+    "prompt_eval_duration": 0.23,
+    "eval_count": 307,
+    "eval_duration": 16.462
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Younger individuals are generally considered to have a lower risk of recidivism.\"),\n    (\"gender\", \"low\", \"Female offenders typically have a lower recidivism rate compared to males.\"),\n    (\"race\", \"medium\", \"American Indian/Eskimo/Aleut populations may face socio-economic challenges that could influence risk.\"),\n    (\"prior arrests\", \"low\", \"Two arrests without convictions suggest a limited criminal history.\"),\n    (\"education\", \"high\", \"Lack of formal education can limit opportunities and potentially increase risk.\"),\n    (\"employment\", \"medium\", \"Holding one job in the past year indicates some level of stability but could be improved.\"),\n    (\"drug use\", \"medium\", \"Past drug use, especially within the last month, may indicate ongoing substance issues.\"),\n    (\"mental health\", \"medium\", \"Feeling down and nothing can cheer her up suggests potential mental health concerns.\"),\n    (\"family environment\", \"low\", \"Growing up in a small household in a rural area may not inherently increase risk.\"),\n    (\"religion\", \"low\", \"Belief in a higher power can provide support and potentially reduce risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250131_221004_722918",
+    "model": "falcon3:10b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1384,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as American Indian / Eskimo / Aleut. She has been arrested 2 times but has not been convicted. She is 5 feet 5 inches and weighs 140 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

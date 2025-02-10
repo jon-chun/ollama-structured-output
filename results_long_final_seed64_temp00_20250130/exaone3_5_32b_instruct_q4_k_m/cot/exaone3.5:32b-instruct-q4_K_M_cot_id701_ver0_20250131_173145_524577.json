@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 701,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "created_at": "2025-01-31T22:31:45.522920541Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 52.565298193,
+    "load_duration": 0.021121685,
+    "prompt_eval_count": 365,
+    "prompt_eval_duration": 1.007,
+    "eval_count": 382,
+    "eval_duration": 51.533
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrest (Unconvicted)\", \"medium\", \"While not resulting in a conviction, any arrest indicates involvement in potentially criminal behavior warranting further consideration.\"),\n    (\"Age\", \"low\", \"20 years old falls within a demographic often associated with lower recidivism rates compared to older age groups.\"),\n    (\"Gender\", \"low\", \"Female offenders generally exhibit lower recidivism rates than males.\"),\n    (\"Education\", \"medium\", \"High school diploma only, without further education or training, may limit employment opportunities and contribute to risk.\"),\n    (\"Employment History\", \"low\", \"Having held four jobs in a year suggests some level of work engagement, though job instability could be a concern.\"),\n    (\"Drug Use (Marijuana)\", \"medium\", \"Past drug use, even if limited to marijuana, indicates a potential vulnerability to substance abuse which can be linked to criminal behavior.\"),\n    (\"Living Situation\", \"low\", \"Living alone is neutral; it doesn't inherently indicate higher or lower risk without additional context.\"),\n    (\"Family History\", \"low\", \"Growing up in a two-parent household, albeit in a rural area, generally suggests a more stable upbringing compared to single-parent or fragmented families.\"),\n    (\"Religious Belief\", \"low\", \"Lack of personal religious belief does not directly correlate with higher recidivism risk.\"),\n    (\"Depression\", \"low\", \"No recent depressive symptoms are a positive indicator.\"),\n    (\"Physical Characteristics\", \"low\", \"Height and weight are not typically significant risk factors in recidivism prediction.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250131_173145_524577",
+    "model": "exaone3.5:32b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 701,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs between 150 and 174 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

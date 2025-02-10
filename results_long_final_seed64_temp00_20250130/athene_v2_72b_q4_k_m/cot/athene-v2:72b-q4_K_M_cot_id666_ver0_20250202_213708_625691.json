@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T02:37:08.623921589Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 110.703971161,
+    "load_duration": 0.033797819,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 2.013,
+    "eval_count": 395,
+    "eval_duration": 108.651
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years old)\", \"low\", \"Young age can be a risk factor, but being at the threshold of adulthood suggests some potential for change.\"),\n    (\"Gender (male)\", \"medium\", \"Males are statistically more likely to reoffend compared to females.\"),\n    (\"Race (White)\", \"low\", \"While race is a complex and controversial factor, it does not inherently increase recidivism risk when considered alone.\"),\n    (\"Arrest history (2 arrests, 1 conviction)\", \"medium\", \"A prior arrest and conviction indicate some level of involvement in criminal activity, but the number is relatively low.\"),\n    (\"Living situation (living alone)\", \"medium\", \"Living alone can reduce social support, which may increase recidivism risk.\"),\n    (\"Education (enrolled in school)\", \"low\", \"Being enrolled in school suggests a commitment to personal development and structure, which can lower recidivism risk.\"),\n    (\"Employment (no jobs in the past year)\", \"high\", \"Lack of employment is a significant risk factor as it affects stability and income.\"),\n    (\"Drug use (marijuana and cocaine in the past four years)\", \"medium\", \"Substance use is a known risk factor, but the absence of recent depression suggests some emotional stability.\"),\n    (\"Family history (lived with both biological parents in a household of 4)\", \"low\", \"A stable family environment during childhood can be protective against recidivism.\"),\n    (\"Urban area\", \"medium\", \"Living in an urban area can increase exposure to criminal opportunities and stressors, but it is not deterministic.\"),\n    (\"Religious beliefs (considers God has something to do with personal outcomes)\", \"low\", \"Religious beliefs can provide a sense of purpose and moral guidance, which may reduce recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_213708_625691",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

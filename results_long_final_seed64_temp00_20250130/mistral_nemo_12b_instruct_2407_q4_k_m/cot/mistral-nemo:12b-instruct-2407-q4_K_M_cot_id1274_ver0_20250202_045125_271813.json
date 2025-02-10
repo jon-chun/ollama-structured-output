@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1274,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T09:51:25.269643617Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 23.207725132,
+    "load_duration": 0.032041191,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.211,
+    "eval_count": 395,
+    "eval_duration": 22.96
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"21 is a young age, less likely to have established criminal patterns.\"),\n    (\"Gender (Male)\", \"medium\", \"Historically, males have higher recidivism rates.\"),\n    (\"Race/Ethnicity (Hispanic)\", \"low\", \"No significant correlation with recidivism.\"),\n    (\"Arrest History (2 times)\", \"medium\", \"Multiple arrests but no convictions suggest potential for criminal behavior.\"),\n    (\"Physical Characteristics (5'10\\\", 202 lbs)\", \"low\", \"No direct link to recidivism.\"),\n    (\"Marital Status (Never married)\", \"low\", \"No significant correlation with recidivism.\"),\n    (\"Living Arrangement (Not living alone)\", \"medium\", \"Could indicate lack of stability or responsibility.\"),\n    (\"Education (High school diploma, enrolled in college)\", \"low\", \"Pursuing higher education suggests a desire to improve one's situation.\"),\n    (\"Employment History (4 jobs in a year)\", \"high\", \"Frequent job changes may indicate impulsivity or instability.\"),\n    (\"Drug Use (Marijuana in past 4 years)\", \"medium\", \"Past drug use could indicate a tendency towards risky behavior.\"),\n    (\"Mental Health (No depression in the past month)\", \"low\", \"Lack of recent mental health issues is positive.\"),\n    (\"Early Family Environment (Adoptive parents, urban area, household size 5)\", \"medium\", \"Growing up in an urban environment with a larger family could indicate less supervision and more opportunities for delinquent behavior.\"),\n    (\"Belief System (Believes God has influence on personal life)\", \"low\", \"No significant correlation with recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_045125_271813",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1274,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 2 times but has not been convicted. He is 5 feet 10 inches and weighs 202 lbs. He has never been married and is currently not living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his adoptive parent(s) in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

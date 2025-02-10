@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 328,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:00:40.313996069Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.732945914,
+    "load_duration": 0.029552402,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.212,
+    "eval_count": 352,
+    "eval_duration": 20.488
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"22 is relatively young, which typically indicates lower risk.\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males.\"),\n    (\"Race\", \"low\", \"Being White does not significantly impact risk in this context.\"),\n    (\"Arrest History\", \"medium\", \"One arrest suggests potential involvement in criminal activity, but no conviction indicates low severity.\"),\n    (\"Physical Appearance\", \"low\", \"Size and weight do not significantly influence recidivism risk.\"),\n    (\"Marital Status\", \"low\", \"Being single does not notably increase risk.\"),\n    (\"Living Arrangement\", \"medium\", \"Living alone could indicate instability or lack of social support.\"),\n    (\"Education\", \"low\", \"High school diploma suggests some education, but not enrolled in college may indicate lack of future goals.\"),\n    (\"Employment History\", \"low\", \"Holding 3 jobs in a year could suggest instability or high turnover, but does not significantly impact risk.\"),\n    (\"Drug Use\", \"low\", \"No drug use in the past four years indicates no current substance abuse issues.\"),\n    (\"Mental Health\", \"high\", \"Feeling consistently down suggests potential mental health issues that could increase risk if untreated.\"),\n    (\"Childhood Environment\", \"medium\", \"Growing up in an urban area with a larger household may indicate exposure to more adverse experiences.\"),\n    (\"Belief System\", \"low\", \"Believing in God does not significantly impact recidivism risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_050040_316497",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 328,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 4 inches and weighs 115 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 3 jobs during the year. She has not used any drugs in the past four years and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

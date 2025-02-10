@@ -1,0 +1,81 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 812,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:12:05.457028943Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.355105072,
+    "load_duration": 0.02733805,
+    "prompt_eval_count": 331,
+    "prompt_eval_duration": 0.053,
+    "eval_count": 724,
+    "eval_duration": 5.272
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"education level (high school diploma vs. college)\", \"weight\": 20, \"textual reasoning\": \"Higher education may reduce recidivism due to increased cognitive abilities and better life skills.\", \"medium\": 30, \"textual reasoning\": \"Education can provide a sense of purpose and motivation, which may help individuals avoid recidivism.\", \"high\": 50, \"textual reasoning\": \"College-educated individuals are more likely to have a support system in place and be less prone to recidivism.\"},\n    {\"factor2\": \"employment history (2 jobs vs. stable employment)\", \"weight\": 15, \"textual reasoning\": \"Stable employment can provide a sense of stability and security, which may help reduce the likelihood of recidivism.\", \"medium\": 25, \"textual reasoning\": \"Having two jobs may indicate financial instability or lack of planning, increasing the risk of recidivism.\", \"high\": 40, \"textual reasoning\": \"Stable employment can provide a sense of security and stability, reducing the likelihood of recidivism.\"},\n    {\"factor3\": \"marital status (single vs. married)\", \"weight\": 10, \"textual reasoning\": \"Being single may indicate a lack of social support or structure, increasing the risk of recidivism.\", \"medium\": 20, \"textual reasoning\": \"Marriage can provide a sense of commitment and stability, reducing the likelihood of recidivism.\", \"high\": 30, \"textual reasoning\": \"Married individuals are more likely to have a support system in place and be less prone to recidivism.\"},\n    {\"factor4\": \"family structure (household size 4 vs. single)\", \"weight\": 5, \"textual reasoning\": \"Having a larger household may indicate financial instability or lack of planning, increasing the risk of recidivism.\", \"medium\": 10, \"textual reasoning\": \"A smaller household may indicate a more stable and supportive environment, reducing the likelihood of recidivism.\", \"high\": 15, \"textual reasoning\": \"Having a larger household can provide a sense of security and stability, reducing the likelihood of recidivism.\"},\n    {\"factor5\": \" religiosity (considering God has something to do with what happens)\", \"weight\": 8, \"textual reasoning\": \"Religious beliefs may provide a sense of purpose and motivation, which may help individuals avoid recidivism.\", \"medium\": 12, \"textual reasoning\": \"Having strong religious beliefs can provide a sense of security and stability, reducing the likelihood of recidivism.\", \"high\": 18, \"textual reasoning\": \"Religious beliefs can provide a sense of purpose and motivation, helping individuals avoid recidivism.\"},\n    {\"factor6\": \"age (young age lived with adults)\", \"weight\": 9, \"textual reasoning\": \"Having grown up in an unstable environment may indicate a lack of resilience or coping mechanisms, increasing the risk of recidivism.\", \"medium\": 11, \"textual reasoning\": \"Growing up in a stable environment can provide a sense of security and stability, reducing the likelihood of recidivism.\", \"high\": 17, \"textual reasoning\": \"Having grown up in an unstable environment may indicate a lack of resilience or coping mechanisms, increasing the risk of recidivism.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_181205_459102",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 812,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "education level (high school diploma vs. college)",
+      "weight": 20,
+      "textual reasoning": "College-educated individuals are more likely to have a support system in place and be less prone to recidivism.",
+      "medium": 30,
+      "high": 50
+    },
+    {
+      "factor2": "employment history (2 jobs vs. stable employment)",
+      "weight": 15,
+      "textual reasoning": "Stable employment can provide a sense of security and stability, reducing the likelihood of recidivism.",
+      "medium": 25,
+      "high": 40
+    },
+    {
+      "factor3": "marital status (single vs. married)",
+      "weight": 10,
+      "textual reasoning": "Married individuals are more likely to have a support system in place and be less prone to recidivism.",
+      "medium": 20,
+      "high": 30
+    },
+    {
+      "factor4": "family structure (household size 4 vs. single)",
+      "weight": 5,
+      "textual reasoning": "Having a larger household can provide a sense of security and stability, reducing the likelihood of recidivism.",
+      "medium": 10,
+      "high": 15
+    },
+    {
+      "factor5": " religiosity (considering God has something to do with what happens)",
+      "weight": 8,
+      "textual reasoning": "Religious beliefs can provide a sense of purpose and motivation, helping individuals avoid recidivism.",
+      "medium": 12,
+      "high": 18
+    },
+    {
+      "factor6": "age (young age lived with adults)",
+      "weight": 9,
+      "textual reasoning": "Having grown up in an unstable environment may indicate a lack of resilience or coping mechanisms, increasing the risk of recidivism.",
+      "medium": 11,
+      "high": 17
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 11 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

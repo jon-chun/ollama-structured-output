@@ -1,0 +1,109 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 10,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:16:59.866704",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.9265806674957274e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"low\", \"Relatively young, but over the highest risk age range (18-21).\"],\n    [\"Gender\", \"low\", \"Male, statistically higher risk than females, but this is already accounted for in recidivism rates.\"],\n    [\"Race\", \"low\", \"White individuals may have lower recidivism rates compared to some other groups, but this is a complex factor with socioeconomic considerations.\"],\n    [\"Prior Arrests\", \"low\", \"Only one prior arrest suggests a lower likelihood of re-offending compared to individuals with multiple arrests.\"],\n    [\"Prior Convictions\", \"medium\", \"A prior conviction increases the risk compared to no convictions.\"],\n    [\"Physical Build\", \"low\", \"Height and weight are not directly indicative of criminal risk.\"],\n    [\"Marital Status\", \"medium\", \"Unmarried individuals living alone may have less social support, increasing risk.\"],\n    [\"Education\", \"low\", \"Currently enrolled in a 4-year college, indicating a commitment to education and potentially reducing risk.\"],\n    [\"Employment\", \"low\", \"Having held one job in the past year suggests some level of employment stability, reducing risk.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana) increases risk, although marijuana is generally considered a lower-risk drug.\"],\n    [\"Mental Health\", \"medium\", \"Experiencing depressive symptoms ('down in the dumps') can increase risk, potentially leading to self-medication or impulsive behavior.\"],\n    [\"Family History\", \"low\", \"Stable upbringing with both parents present in childhood is generally a protective factor.\"],\n    [\"Residential Environment\", \"low\", \"Growing up in an urban area is not a strong predictor on its own.\"],\n    [\"Religiosity\", \"low\", \"Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_181700_067417",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 10,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "low",
+      "Relatively young, but over the highest risk age range (18-21)."
+    ],
+    [
+      "Gender",
+      "low",
+      "Male, statistically higher risk than females, but this is already accounted for in recidivism rates."
+    ],
+    [
+      "Race",
+      "low",
+      "White individuals may have lower recidivism rates compared to some other groups, but this is a complex factor with socioeconomic considerations."
+    ],
+    [
+      "Prior Arrests",
+      "low",
+      "Only one prior arrest suggests a lower likelihood of re-offending compared to individuals with multiple arrests."
+    ],
+    [
+      "Prior Convictions",
+      "medium",
+      "A prior conviction increases the risk compared to no convictions."
+    ],
+    [
+      "Physical Build",
+      "low",
+      "Height and weight are not directly indicative of criminal risk."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Unmarried individuals living alone may have less social support, increasing risk."
+    ],
+    [
+      "Education",
+      "low",
+      "Currently enrolled in a 4-year college, indicating a commitment to education and potentially reducing risk."
+    ],
+    [
+      "Employment",
+      "low",
+      "Having held one job in the past year suggests some level of employment stability, reducing risk."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana) increases risk, although marijuana is generally considered a lower-risk drug."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Experiencing depressive symptoms ('down in the dumps') can increase risk, potentially leading to self-medication or impulsive behavior."
+    ],
+    [
+      "Family History",
+      "low",
+      "Stable upbringing with both parents present in childhood is generally a protective factor."
+    ],
+    [
+      "Residential Environment",
+      "low",
+      "Growing up in an urban area is not a strong predictor on its own."
+    ],
+    [
+      "Religiosity",
+      "low",
+      "Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 830,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:45:16.533888364Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 15.808909377,
+    "load_duration": 0.011529558,
+    "prompt_eval_count": 386,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 602,
+    "eval_duration": 15.753
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at first arrest (21 years old)\", \"medium\", \"Being young may indicate less life experience, but it doesn't necessarily predict higher recidivism. However, age can be a factor when combined with other elements.\"),\n    (\"Ethnicity (Hispanic)\", \"low\", \"Research shows that ethnicity alone is not a strong indicator of criminal behavior or rearrest risk without considering socioeconomic factors and community contexts.\"),\n    (\"Number of prior arrests/convictions (2 times arrested, convicted)\", \"high\", \"Prior arrest history has been consistently linked to higher recidivism rates. Two previous encounters with the criminal justice system significantly increase risk.\"),\n    (\"Education level (High school diploma)\", \"medium\", \"Limited education can be a barrier to employment and may contribute to economic instability, which is associated with increased rearrest risks but not as strong of an indicator alone without considering other factors like current job status.\"),\n    (\"Employment history (1 job held during the year)\", \"medium\", \"Having stable employment can reduce recidivism risk by providing financial stability and a sense of responsibility, yet one job may indicate potential for economic vulnerability if lost or not sufficient to meet needs.\"),\n    (\"Substance use (used drugs in past four years)\", \"high\", \"Drug abuse is strongly correlated with criminal behavior. Recurrent substance misuse can increase the likelihood of rearrest, especially when combined with other risk factors like depression and lack of stable employment.\"),\n    (\"Mental health (feeling down frequently)\", \"medium\", \"While mental health issues alone are not definitive predictors of recidivism, they may exacerbate the impacts of stressful life events or substance abuse. Depressive symptoms can increase vulnerability to criminal behavior if unaddressed.\"),\n    (\"Family background (lived with biological mother in a household size 3)\", \"low\", \"A small family unit does not inherently predict recidivism risk, but it may indicate limited social support networks which could influence outcomes. The urban setting might also play into this depending on the socioeconomic context.\"),\n    (\"Religious beliefs (considers God has something to do with personal events)\", \"low\", \"Personal religious or spiritual beliefs are not strong predictors of criminal behavior and recidivism in empirical research. They may, however, influence coping mechanisms which could indirectly affect risk.\"\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_104516_535534",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 830,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 260 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

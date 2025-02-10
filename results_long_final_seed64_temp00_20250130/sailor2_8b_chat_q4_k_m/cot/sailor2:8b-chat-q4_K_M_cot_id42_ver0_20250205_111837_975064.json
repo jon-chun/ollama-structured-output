@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 42,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:18:37.972937143Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.360860818,
+    "load_duration": 0.018568782,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.11,
+    "eval_count": 280,
+    "eval_duration": 12.23
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_18_yrs\", \"medium\", \"Young adult with limited experience; early criminal history\"),\n    (\"ethnicity_Asian_Pacific_Islander\", \"low\", \"No specific known higher recidivism rate for this demographic\"),\n    (\"arrest_count_5_times_not_convicted\", \"high\", \"Frequent arrests without conviction suggest underlying issues\"),\n    (\"employment_status_no_jobs_year\", \"medium\", \"Unemployment can be a risk factor for reoffending\"),\n    (\"education_high_school_diploma\", \"low\", \"Basic education is generally protective\"),\n    (\"social_support_living_alone\", \"high\", \"Lack of social support networks increases recidivism risks\"),\n    (\"drug_use_past_4_years_marijuana\", \"medium\", \"Drug use, especially marijuana, correlates with higher recidivism rates\"),\n    (\"depression_status_not_depressed_last_month\", \"low\", \"No recent depression indicates better mental health status\"),\n    (\"family_history_urban_area_with_dad\", \"low\", \"Moderate influence; urban living context not inherently risky\"),\n    (\"spiritual beliefs_no_God_influence\", \"medium\", \"Lack of spiritual connection may affect motivation for positive change\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_111837_975064",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

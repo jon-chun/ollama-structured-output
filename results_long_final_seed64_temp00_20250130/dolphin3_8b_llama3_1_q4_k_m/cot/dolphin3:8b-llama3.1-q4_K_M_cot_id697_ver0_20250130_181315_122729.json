@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 697,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-30T23:13:15.120992599Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.154894279,
+    "load_duration": 0.029843602,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.015,
+    "eval_count": 367,
+    "eval_duration": 3.108
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"ArrestHistory\", \"high\", \"The individual has been arrested 6 times, indicating a pattern of criminal behavior.\"),\n    (\"Age\", \"low\", \"The age is relatively young for such a high number of arrests, which may suggest that the individual's life circumstances are contributing to their actions.\"),\n    (\"Race\", \"low\", \"Being White does not inherently contribute to recidivism risk, but it can be considered in conjunction with other factors.\"),\n    (\"HeightWeight\", \"low\", \"Physical characteristics do not directly impact criminal behavior or likelihood of rearrest.\"),\n    (\"MaritalStatus\", \"low\", \"Living alone and never being married are neutral factors regarding recidivism risk.\"),\n    (\"EducationLevel\", \"medium\", \"Having a GED instead of a high school diploma may indicate some educational challenges, which could contribute to the individual's criminal behavior.\"),\n    (\"EmploymentStatus\", \"high\", \"Not holding any jobs during the year suggests potential unemployment or underemployment, which can increase recidivism risk.\"),\n    (\"DrugUse\", \"medium\", \"Past drug use within four years is a concerning factor as it may indicate ongoing substance abuse issues that could contribute to criminal behavior.\"),\n    (\"MentalHealth\", \"low\", \"Not feeling depressed in the past month suggests that mental health is not currently contributing to the individual's criminal behavior.\"),\n    (\"ChildhoodEnvironment\", \"medium\", \"Living with non-biological adults in a rural area may have contributed to the individual's current circumstances, potentially increasing recidivism risk.\"),\n    (\"Spirituality\", \"low\", \"The individual's lack of belief in God does not directly impact their likelihood of rearrest.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250130_181315_122729",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 697,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 6 times and has been convicted. He is 5 feet 10 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 2, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1117,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:8b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:27:46.048995575Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 11.174227022,
+    "load_duration": 0.02955782,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.111,
+    "eval_count": 252,
+    "eval_duration": 11.031
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age_21_male_black\", \"medium\", \"Youth with racial identity, multiple arrests (not convicted), lack of stable employment/education\"),\n    (\"arrest_history_no_conviction\", \"high\", \"Repeated arrest without conviction indicates potential for future offending\"),\n    (\"employment_status_none\", \"high\", \"Unemployed individuals are at higher risk due to economic stress and social isolation\"),\n    (\"educational_attainment_low\", \"medium\", \"Lack of formal education is a known predictor of recidivism\"),\n    (\"drug_use_past_4_yrs_cocaine\", \"medium\", \"Drug use, especially cocaine, correlates with increased criminal behavior\"),\n    (\"emotional_state_depressed\", \"high\", \"Persistent feelings of hopelessness increase the likelihood of reoffending\"),\n    (\"family_history_urban_4_persons\", \"low\", \"Moderate family influence context; urban living can have mixed effects on recidivism risk\"),\n    (\"spiritual_disengagement_god\", \"medium\", \"Lack of spiritual connection may reduce behavioral accountability and support systems\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_112746_050729",
+    "model": "sailor2:8b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1117,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs 161 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

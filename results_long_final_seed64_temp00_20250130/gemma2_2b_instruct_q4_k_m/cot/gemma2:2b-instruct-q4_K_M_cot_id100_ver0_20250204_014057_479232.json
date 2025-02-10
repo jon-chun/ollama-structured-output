@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 100,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T06:40:57.47751414Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.290793068,
+    "load_duration": 0.049619526,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 389,
+    "eval_duration": 2.229
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"high\"),\n    (\"Prior Arrests\", \"high\"),\n    (\"Drug Use\", \"medium\"),\n    (\"Education Level\", \"low\"),\n    (\"Living Situation\", \"low\"),\n    (\"Family Structure\", \"high\"),\n    (\"Religious Beliefs\", \"low\") \n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}\n``` \n\n**Explanation:**\n\n* **Age (High):** A young age is often associated with higher recidivism rates.\n* **Prior Arrests (High):** Nine arrests and convictions indicate a history of criminal behavior, increasing the risk.\n* **Drug Use (Medium):** While drug use can be a contributing factor to crime, it's not as strong an indicator on its own. \n* **Education Level (Low):** Lack of education is often linked to lower employment opportunities and increased likelihood of engaging in criminal activity.\n* **Living Situation (Low):** Living alone may indicate social isolation or lack of support systems, potentially increasing risk.\n* **Family Structure (High):**  A large family structure could suggest a potential for instability and influence on behavior. \n* **Religious Beliefs (Low):** This factor is not directly linked to recidivism but can be considered in the context of social support networks.\n\n**Confidence:** The prediction is based on a combination of these factors, with a high weight given to those that are statistically associated with recidivism.  The confidence level reflects the strength of the evidence and the potential for bias. \n\n\n**Important Note:** This analysis is based on general trends and should not be used as a definitive tool for predicting individual risk. It's crucial to consider each case individually, taking into account specific circumstances and mitigating factors. \n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250204_014057_479232",
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 100,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as American Indian / Eskimo / Aleut. He has been arrested 9 times and has been convicted. He is 5 feet 9 inches and weighs 180 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 460,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:31:02.833738959Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 14.555400927,
+    "load_duration": 0.007089594,
+    "prompt_eval_count": 374,
+    "prompt_eval_duration": 0.042,
+    "eval_count": 555,
+    "eval_duration": 14.503
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest (20 years old)\", \"medium\", \"Being young may indicate less maturity, but without conviction history or other risk factors it's not definitive for high recidivism.\"),\n    (\"Race (White)\", \"low\", \"While race can be a factor in some studies, there is no direct causation and thus should have minimal impact on the prediction individually. It does not provide enough information to assign a medium or high risk level without considering other factors.\"),\n    (\"Previous arrest history (1 time arrested but never convicted)\", \"medium\", \"An arrest record indicates potential for future offenses, though lack of conviction suggests that past behavior may not be indicative. This factor alone is insu-fficient to predict a high risk level without additional contextual information.\"),\n    (\"Education status (GED certificate but no college enrollment)\", \"medium\", \"Lacking higher education can limit employment opportunities, which might contribute to recidivism; however, having completed GED is positive. It's a medium risk factor as it suggests some level of educational attainment.\"),\n    (\"Employment history (held 4 jobs in the year)\", \"low\", \"Having multiple job positions within a short time frame may indicate adaptability and stability rather than instability, which could lower recidivism risks. It's not necessarily indicative of high risk without knowing more about employment quality or duration.\"),\n    (\"Substance use (used drugs in the past four years)\", \"medium\", \"Drug use is associated with higher rates of criminal behavior and can be a medium to high-risk factor depending on severity, frequency, and context. However, without current depression symptoms or other mental health issues it's not definitive for 'high'.\"),\n    (\"Family background (lived in an urban area at age 10)\", \"medium\", \"Urban environments can have higher crime rates which might influence behavior; however, this factor alone is insufficient to predict high recidivism risk without considering other environmental and personal factors.\"),\n    (\"Religious beliefs (considers God has nothing to do with what happens personally)\", \"low\", \"Personal religious views are not typically considered a direct indicator of criminal behavior in empirical research. It's unlikely this factor would significantly influence recidivism risk on its own.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_103102_835612",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 460,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches and weighs 204 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

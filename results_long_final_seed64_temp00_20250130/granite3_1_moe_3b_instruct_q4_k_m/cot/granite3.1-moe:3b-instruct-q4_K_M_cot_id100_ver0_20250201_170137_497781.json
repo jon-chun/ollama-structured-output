@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 100,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-02-01T22:01:37.496187824Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.420965474,
+    "load_duration": 0.008905022,
+    "prompt_eval_count": 376,
+    "prompt_eval_duration": 0.121,
+    "eval_count": 257,
+    "eval_duration": 2.287
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Criminal History\", \"high\", \"A 9-time arrest record, including multiple convictions, indicates a high risk of recidivism.\"],\n    [\"Substance Abuse (Marijuana)\", \"medium\", \"Regular use over the past four years suggests a medium level of risk for future offenses.\"],\n    [\"Lack of Education/Employment\", \"high\", \"No formal education or employment history, indicating a high risk of unemployment and potential financial instability, which could lead to criminal behavior.\"],\n    [\"Age at First Offense\", \"medium\", \"First arrest occurred at 15 years old, suggesting early exposure to the criminal justice system.\"],\n    [\"Family Environment\", \"low\", \"Grew up in a household of size 8, which may have influenced behavior but does not directly indicate risk.\"],\n    [\"Religious Beliefs\", \"medium\", \"Belief in God's role in personal events could potentially provide moral guidance and support, but does not directly impact recidivism risk.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_170137_497781",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 100,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Criminal History",
+      "high",
+      "A 9-time arrest record, including multiple convictions, indicates a high risk of recidivism."
+    ],
+    [
+      "Substance Abuse (Marijuana)",
+      "medium",
+      "Regular use over the past four years suggests a medium level of risk for future offenses."
+    ],
+    [
+      "Lack of Education/Employment",
+      "high",
+      "No formal education or employment history, indicating a high risk of unemployment and potential financial instability, which could lead to criminal behavior."
+    ],
+    [
+      "Age at First Offense",
+      "medium",
+      "First arrest occurred at 15 years old, suggesting early exposure to the criminal justice system."
+    ],
+    [
+      "Family Environment",
+      "low",
+      "Grew up in a household of size 8, which may have influenced behavior but does not directly indicate risk."
+    ],
+    [
+      "Religious Beliefs",
+      "medium",
+      "Belief in God's role in personal events could potentially provide moral guidance and support, but does not directly impact recidivism risk."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as American Indian / Eskimo / Aleut. He has been arrested 9 times and has been convicted. He is 5 feet 9 inches and weighs 180 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

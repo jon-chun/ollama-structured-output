@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1121,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T09:54:52.512165463Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.801328873,
+    "load_duration": 0.024808965,
+    "prompt_eval_count": 324,
+    "prompt_eval_duration": 0.211,
+    "eval_count": 353,
+    "eval_duration": 20.562
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age is generally associated with lower risk of recidivism.\"),\n    (\"Gender\", \"medium\", \"Male gender is a slight risk factor due to higher rates of offending among males.\"),\n    (\"Race\", \"low\", \"Being Black does not directly increase risk, but societal factors may indirectly influence it.\"),\n    (\"Arrest History\", \"low\", \"Single arrest with no conviction indicates lower risk.\"),\n    (\"Physical Size\", \"low\", \"Smaller stature is generally associated with lower physical aggression and violence.\"),\n    (\"Marital Status\", \"medium\", \"Never married, which can indicate less stable social bonds and higher risk.\"),\n    (\"Living Arrangement\", \"high\", \"Living alone may indicate lack of social support and higher risk.\"),\n    (\"Education\", \"high\", \"Lack of high school diploma or GED indicates lower educational attainment, a significant risk factor.\"),\n    (\"Employment\", \"high\", \"No job in the past year suggests lack of pro-social activities and structure, increasing risk.\"),\n    (\"Drug Use\", \"low\", \"No drug use in the past four years indicates lower risk related to substance abuse.\"),\n    (\"Mental Health\", \"low\", \"No recent depression suggests lower mental health-related risks.\"),\n    (\"Early Family Environment\", \"medium\", \"Growing up in a larger household and urban area may indicate higher exposure to adverse factors.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief that God has nothing to do with personal events does not directly increase risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_045452_514775",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1121,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

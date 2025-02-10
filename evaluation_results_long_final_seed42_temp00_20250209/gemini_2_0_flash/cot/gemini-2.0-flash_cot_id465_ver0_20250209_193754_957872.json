@@ -1,0 +1,109 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 465,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:37:54.757161",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 4.053175926208496e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"low\", \"The individual is 22 years old, which is past the peak age for criminal activity, suggesting a lower risk.\"],\n    [\"Gender\", \"low\", \"Females generally have lower recidivism rates compared to males.\"],\n    [\"Race\", \"low\", \"Race is not a direct risk factor, but disparities in the justice system can affect outcomes. Given the context, we assign a low relative weight.\"],\n    [\"Prior Arrests\", \"low\", \"One prior arrest is relatively low, suggesting a lower likelihood of re-offending compared to individuals with multiple prior arrests.\"],\n    [\"Prior Convictions\", \"low\", \"No prior convictions indicate a lower risk of recidivism.\"],\n    [\"Marital Status\", \"low\", \"Never married and living alone can be a risk factor, but in this case, it is mitigated by other protective factors.\"],\n    [\"Education\", \"low\", \"Currently enrolled in a 4-year college is a strong protective factor, indicating a commitment to prosocial activities and future opportunities.\"],\n    [\"Employment\", \"low\", \"Holding two jobs in the past year suggests stable employment and a lower risk of re-offending.\"],\n    [\"Substance Use\", \"low\", \"No drug use in the past four years is a significant protective factor.\"],\n    [\"Mental Health\", \"low\", \"No reported depression in the past month suggests good mental health, reducing the risk associated with mental health issues.\"],\n    [\"Childhood Living Situation\", \"medium\", \"Living with adults other than parents in childhood could indicate instability or adverse experiences, increasing risk slightly.\"],\n    [\"Household Size During Childhood\", \"low\", \"Household size of 3 is not particularly large or small, so it is not a significant risk factor.\"],\n    [\"Urban Environment During Childhood\", \"low\", \"Growing up in an urban area is not a strong predictor of recidivism on its own.\"],\n    [\"Religious Beliefs\", \"low\", \"Religious beliefs are generally considered a protective factor, promoting prosocial behavior.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_193754_957872",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 465,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "low",
+      "The individual is 22 years old, which is past the peak age for criminal activity, suggesting a lower risk."
+    ],
+    [
+      "Gender",
+      "low",
+      "Females generally have lower recidivism rates compared to males."
+    ],
+    [
+      "Race",
+      "low",
+      "Race is not a direct risk factor, but disparities in the justice system can affect outcomes. Given the context, we assign a low relative weight."
+    ],
+    [
+      "Prior Arrests",
+      "low",
+      "One prior arrest is relatively low, suggesting a lower likelihood of re-offending compared to individuals with multiple prior arrests."
+    ],
+    [
+      "Prior Convictions",
+      "low",
+      "No prior convictions indicate a lower risk of recidivism."
+    ],
+    [
+      "Marital Status",
+      "low",
+      "Never married and living alone can be a risk factor, but in this case, it is mitigated by other protective factors."
+    ],
+    [
+      "Education",
+      "low",
+      "Currently enrolled in a 4-year college is a strong protective factor, indicating a commitment to prosocial activities and future opportunities."
+    ],
+    [
+      "Employment",
+      "low",
+      "Holding two jobs in the past year suggests stable employment and a lower risk of re-offending."
+    ],
+    [
+      "Substance Use",
+      "low",
+      "No drug use in the past four years is a significant protective factor."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "No reported depression in the past month suggests good mental health, reducing the risk associated with mental health issues."
+    ],
+    [
+      "Childhood Living Situation",
+      "medium",
+      "Living with adults other than parents in childhood could indicate instability or adverse experiences, increasing risk slightly."
+    ],
+    [
+      "Household Size During Childhood",
+      "low",
+      "Household size of 3 is not particularly large or small, so it is not a significant risk factor."
+    ],
+    [
+      "Urban Environment During Childhood",
+      "low",
+      "Growing up in an urban area is not a strong predictor of recidivism on its own."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Religious beliefs are generally considered a protective factor, promoting prosocial behavior."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 130 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 4-year college. She has held 2 jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with adults other than biological, foster or adoptive parents in a household of size 3, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1213,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:14:27.299926815Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.833370371,
+    "load_duration": 0.010863465,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 351,
+    "eval_duration": 2.801
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Single Arrest History\", \"low\", \"Only one arrest without conviction suggests limited criminal involvement.\"),\n    (\"Age (19)\", \"low\", \"Young age generally correlates with lower recidivism risk, especially with no prior convictions.\"),\n    (\"Gender (Female)\", \"low\", \"Gender alone is not a strong predictor of recidivism, but females historically have slightly lower rates.\"),\n    (\"Ethnicity (Black)\", \"medium\", \"While not determinative, Black individuals historically face higher recidivism rates due to systemic factors.\"),\n    (\"Education (High School Diploma, Enrolled in College)\", \"low\", \"Higher education attainment correlates with lower recidivism rates.\"),\n    (\"Employment History (1 job)\", \"low\", \"Limited employment history may suggest instability, but single job held indicates some work experience.\"),\n    (\"Living Situation (Living Alone)\", \"medium\", \"Living alone can sometimes indicate instability, but not definitively linked to higher recidivism.\"),\n    (\"Family Background (Lived in urban household of 5)\", \"low\", \"Urban upbringing alone doesn't strongly predict recidivism without additional contextual factors.\"),\n    (\"Religious Belief (Important to her)\", \"low\", \"Religious involvement can be protective factor against criminal behavior.\"),\n    (\"Substance Use (None in past 4 years)\", \"low\", \"No recent substance use is a positive indicator.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250131_201427_301724",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1213,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 190 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 2-year college. She has held 1 job during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 5, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

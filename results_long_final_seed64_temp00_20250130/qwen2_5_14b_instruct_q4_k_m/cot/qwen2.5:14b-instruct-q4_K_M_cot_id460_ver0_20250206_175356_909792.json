@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 460,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-02-06T22:53:56.907151832Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.652001097,
+    "load_duration": 0.04020036,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.057,
+    "eval_count": 359,
+    "eval_duration": 5.545
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The age of 20 is relatively young, but not extremely low risk.\"),\n    (\"race\", \"low\", \"Being identified as White does not typically correlate with higher recidivism rates compared to other factors.\"),\n    (\"arrest_history\", \"medium\", \"Having been arrested once without a conviction suggests some level of involvement in criminal activity, but the lack of a conviction is positive.\"),\n    (\"living_situation\", \"low\", \"Not living alone could indicate social support or instability; more context needed for accurate assessment.\"),\n    (\"education_level\", \"low\", \"Possession of a GED certificate indicates basic educational attainment which can be seen as neutral to slightly positive.\"),\n    (\"employment_history\", \"medium\", \"Holding 4 jobs in one year suggests employment instability, which could indicate difficulty maintaining steady work or financial stressors that might contribute to criminal behavior.\"),\n    (\"drug_use\", \"high\", \"Recent drug use (marijuana and cocaine) is a significant risk factor for recidivism as substance abuse often correlates with higher likelihood of reoffending.\"),\n    (\"mental_health_status\", \"low\", \"Not feeling depressed recently is positive, but lack of mental health issues does not guarantee future stability without addressing other risks like drug use.\"),\n    (\"family_history_and_environment\", \"medium\", \"Growing up in a large household in an urban area with his biological mother suggests complex family dynamics and potential exposure to crime or substance abuse.\"),\n    (\"religious_orientation\", \"low\", \"Belief that God has no influence on personal outcomes is not directly linked to criminal behavior but may indicate a lack of spiritual support.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250206_175356_909792",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 460,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 6 feet 0 inches and weighs 204 lbs. He has never been married and is currently not living alone. He has a GED certificate and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 6, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

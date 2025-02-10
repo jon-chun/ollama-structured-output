@@ -1,0 +1,104 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 226,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:21:34.362563",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.571462154388428e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"high\", \"Younger individuals (21) generally have higher recidivism rates than older individuals.\"],\n    [\"Gender\", \"medium\", \"Males statistically have higher recidivism rates than females.\"],\n    [\"Race\", \"low\", \"While racial disparities exist in the criminal justice system, race itself is not a direct risk factor. It's important to avoid perpetuating biases.\"],\n    [\"Prior Arrests\", \"high\", \"Having 5 prior arrests and convictions is a strong predictor of future criminal behavior.\"],\n    [\"Physical Build\", \"low\", \"Height and weight within a normal range are not significant risk factors.\"],\n    [\"Marital Status\", \"medium\", \"Being unmarried is associated with a slightly increased risk of recidivism compared to being married.\"],\n    [\"Living Situation\", \"medium\", \"Not living alone can be both a protective and risk factor. It depends on the nature of the relationship with the person he is living with. Without more information, it is considered a medium risk.\"],\n    [\"Education\", \"high\", \"Lack of a high school diploma or GED and not being enrolled in college are strong indicators of increased risk.\"],\n    [\"Employment\", \"high\", \"Unemployment is a significant risk factor for recidivism.\"],\n    [\"Substance Use\", \"high\", \"Recent drug use (marijuana and cocaine) is a strong predictor of future criminal behavior.\"],\n    [\"Mental Health\", \"medium\", \"Experiencing depressive symptoms suggests potential mental health issues, which can contribute to recidivism.\"],\n    [\"Family History\", \"low\", \"Living with his biological mother in a household of size 4 at a young age is not a significant risk factor without further information about the family dynamics.\"],\n    [\"Religious Beliefs\", \"low\", \"Believing that God has something to do with what happens to him personally is not a significant risk factor.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_182134_563356",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 226,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "high",
+      "Younger individuals (21) generally have higher recidivism rates than older individuals."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males statistically have higher recidivism rates than females."
+    ],
+    [
+      "Race",
+      "low",
+      "While racial disparities exist in the criminal justice system, race itself is not a direct risk factor. It's important to avoid perpetuating biases."
+    ],
+    [
+      "Prior Arrests",
+      "high",
+      "Having 5 prior arrests and convictions is a strong predictor of future criminal behavior."
+    ],
+    [
+      "Physical Build",
+      "low",
+      "Height and weight within a normal range are not significant risk factors."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Being unmarried is associated with a slightly increased risk of recidivism compared to being married."
+    ],
+    [
+      "Living Situation",
+      "medium",
+      "Not living alone can be both a protective and risk factor. It depends on the nature of the relationship with the person he is living with. Without more information, it is considered a medium risk."
+    ],
+    [
+      "Education",
+      "high",
+      "Lack of a high school diploma or GED and not being enrolled in college are strong indicators of increased risk."
+    ],
+    [
+      "Employment",
+      "high",
+      "Unemployment is a significant risk factor for recidivism."
+    ],
+    [
+      "Substance Use",
+      "high",
+      "Recent drug use (marijuana and cocaine) is a strong predictor of future criminal behavior."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Experiencing depressive symptoms suggests potential mental health issues, which can contribute to recidivism."
+    ],
+    [
+      "Family History",
+      "low",
+      "Living with his biological mother in a household of size 4 at a young age is not a significant risk factor without further information about the family dynamics."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Believing that God has something to do with what happens to him personally is not a significant risk factor."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 5 times and has been convicted. He is 6 feet 0 inches and weighs between 175 and 199 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

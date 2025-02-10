@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1127,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:18:06.788436",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 4.0880506038665775e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"20 years old is a risk factor for recidivism, as younger individuals are statistically more likely to re-offend than older individuals. However, it's not as high as someone in their teens.\"],\n    [\"Gender\", \"medium\", \"Males are statistically more likely to be rearrested than females.\"],\n    [\"Ethnicity\", \"medium\", \"Hispanic ethnicity can be associated with higher arrest rates in some jurisdictions due to socioeconomic factors and systemic biases, but this is a complex and controversial factor.\"],\n    [\"Prior Arrests\", \"high\", \"Four prior arrests and a conviction indicate a pattern of criminal behavior and a higher likelihood of re-offending.\"],\n    [\"Marital Status\", \"medium\", \"Never being married and living alone can indicate a lack of social support and stability, increasing risk.\"],\n    [\"Education\", \"low\", \"Having a high school diploma is a protective factor, suggesting some level of educational attainment.\"],\n    [\"Employment\", \"medium\", \"Holding two jobs in the past year suggests some employment stability, but the nature and duration of these jobs are unknown. More stable employment would be a stronger protective factor.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana) is a risk factor, as it can be associated with criminal activity and a higher likelihood of re-offending. The specific drug and frequency of use are important considerations.\"],\n    [\"Depression\", \"low\", \"Not feeling depressed in the past month is a protective factor, as mental health issues can contribute to criminal behavior.\"],\n    [\"Family History\", \"low\", \"Growing up with both biological parents in a stable household is generally a protective factor.\"],\n    [\"Religious Beliefs\", \"low\", \"Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance.\"],\n    [\"Body Weight\", \"low\", \"Weight within the provided range is not typically a direct risk factor for recidivism unless associated with other health or behavioral issues not mentioned.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_181806_989088",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1127,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "20 years old is a risk factor for recidivism, as younger individuals are statistically more likely to re-offend than older individuals. However, it's not as high as someone in their teens."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males are statistically more likely to be rearrested than females."
+    ],
+    [
+      "Ethnicity",
+      "medium",
+      "Hispanic ethnicity can be associated with higher arrest rates in some jurisdictions due to socioeconomic factors and systemic biases, but this is a complex and controversial factor."
+    ],
+    [
+      "Prior Arrests",
+      "high",
+      "Four prior arrests and a conviction indicate a pattern of criminal behavior and a higher likelihood of re-offending."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never being married and living alone can indicate a lack of social support and stability, increasing risk."
+    ],
+    [
+      "Education",
+      "low",
+      "Having a high school diploma is a protective factor, suggesting some level of educational attainment."
+    ],
+    [
+      "Employment",
+      "medium",
+      "Holding two jobs in the past year suggests some employment stability, but the nature and duration of these jobs are unknown. More stable employment would be a stronger protective factor."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana) is a risk factor, as it can be associated with criminal activity and a higher likelihood of re-offending. The specific drug and frequency of use are important considerations."
+    ],
+    [
+      "Depression",
+      "low",
+      "Not feeling depressed in the past month is a protective factor, as mental health issues can contribute to criminal behavior."
+    ],
+    [
+      "Family History",
+      "low",
+      "Growing up with both biological parents in a stable household is generally a protective factor."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance."
+    ],
+    [
+      "Body Weight",
+      "low",
+      "Weight within the provided range is not typically a direct risk factor for recidivism unless associated with other health or behavioral issues not mentioned."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 4 times and has been convicted. He is 5 feet 11 inches and weighs between 200 and 224 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

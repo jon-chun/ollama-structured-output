@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1182,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:12:07.193119029Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.732179049,
+    "load_duration": 0.025059242,
+    "prompt_eval_count": 329,
+    "prompt_eval_duration": 0.051,
+    "eval_count": 227,
+    "eval_duration": 1.654
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"weight\": 2, \"reasoning\": \"Historical and systemic racism may contribute to his recidivism\"},\n    {\"factor2\": \"previous arrests\", \"weight\": 3, \"reasoning\": \"Multiple previous arrests suggest a pattern of deviance\"},\n    {\"factor3\": \"convictions\", \"weight\": 1, \"reasoning\": \"Having been convicted multiple times increases the likelihood of future recidivism\"},\n    {\"factor4\": \"age\", \"weight\": 2, \"reasoning\": \"Lack of education and job experience may hinder his ability to rehabilitate\"},\n    {\"factor5\": \"substance abuse\", \"weight\": 1, \"reasoning\": \"Past use of marijuana does not necessarily indicate current substance abuse issues\"},\n    {\"factor6\": \"family dynamics\", \"weight\": 2, \"reasoning\": \"Living alone with a biological mother in an urban area may contribute to his recidivism\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_181207_194889",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1182,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "weight": 2,
+      "reasoning": "Historical and systemic racism may contribute to his recidivism"
+    },
+    {
+      "factor2": "previous arrests",
+      "weight": 3,
+      "reasoning": "Multiple previous arrests suggest a pattern of deviance"
+    },
+    {
+      "factor3": "convictions",
+      "weight": 1,
+      "reasoning": "Having been convicted multiple times increases the likelihood of future recidivism"
+    },
+    {
+      "factor4": "age",
+      "weight": 2,
+      "reasoning": "Lack of education and job experience may hinder his ability to rehabilitate"
+    },
+    {
+      "factor5": "substance abuse",
+      "weight": 1,
+      "reasoning": "Past use of marijuana does not necessarily indicate current substance abuse issues"
+    },
+    {
+      "factor6": "family dynamics",
+      "weight": 2,
+      "reasoning": "Living alone with a biological mother in an urban area may contribute to his recidivism"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 7 times and has been convicted. He is 5 feet 7 inches and weighs 142 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

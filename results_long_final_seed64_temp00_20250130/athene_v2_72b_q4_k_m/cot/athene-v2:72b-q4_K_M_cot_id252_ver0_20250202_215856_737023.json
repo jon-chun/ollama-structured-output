@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 252,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T02:58:56.735166748Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 127.380155413,
+    "load_duration": 0.014881402,
+    "prompt_eval_count": 333,
+    "prompt_eval_duration": 2.002,
+    "eval_count": 455,
+    "eval_duration": 125.358
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (20 years old)\", \"medium\", \"Young age is often associated with higher risk of recidivism due to immaturity and lack of life experience.\"),\n    (\"Gender (male)\", \"high\", \"Males, particularly young males, have a statistically higher rate of rearrest compared to females.\"),\n    (\"Ethnicity (Asian / Pacific Islander)\", \"low\", \"While ethnicity can be a factor in some contexts, it is generally not strongly predictive of recidivism on its own. However, cultural factors and community support should be considered.\"),\n    (\"Arrest history (3 arrests, 1 conviction)\", \"medium\", \"A moderate arrest history suggests some level of involvement with the criminal justice system, but not an extensive one.\"),\n    (\"Marital status (married, living alone)\", \"medium\", \"Being married can provide social stability, but living alone may indicate a lack of immediate support or conflict in the relationship.\"),\n    (\"Education (no high school diploma/GED, not enrolled in college)\", \"high\", \"Lack of education is strongly associated with higher recidivism rates due to limited job opportunities and social mobility.\"),\n    (\"Employment (2 jobs in the past year)\", \"medium\", \"Holding multiple jobs can indicate a willingness to work but may also suggest instability or difficulty maintaining employment.\"),\n    (\"Drug use (no drug use in the past four years)\", \"low\", \"Lack of recent drug use is a positive factor, reducing the risk associated with substance abuse.\"),\n    (\"Mental health (feeling down some of the time)\", \"medium\", \"Feelings of depression can affect decision-making and coping mechanisms, potentially increasing the risk of recidivism.\"),\n    (\"Household size at a young age (11 people)\", \"high\", \"Growing up in an overcrowded household may have led to instability and lack of individual attention, which can contribute to higher risk behaviors.\"),\n    (\"Religious beliefs (believes God has influence on personal life)\", \"low\", \"Strong religious beliefs can provide a moral framework and social support, potentially reducing the likelihood of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_215856_737023",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 252,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 3 times and has been convicted. He is 5 feet 7 inches and weighs 230 lbs. He is married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 11. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

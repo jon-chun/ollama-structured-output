@@ -1,0 +1,94 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 146,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:16:12.780177",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.6382188796997072e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"22 years old places her in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens.\"],\n    [\"Gender\", \"low\", \"Females generally have lower recidivism rates than males.\"],\n    [\"Race\", \"low\", \"Race is considered a protected attribute and is not a direct predictor of recidivism. It is included for completeness but given low weight.\"],\n    [\"Prior Arrests\", \"medium\", \"Two prior arrests and a conviction indicate a pattern of criminal behavior, increasing the risk.\"],\n    [\"Marital Status\", \"medium\", \"Never married and living alone can indicate a lack of social support, which is a moderate risk factor.\"],\n    [\"Education\", \"low\", \"Having a high school diploma suggests a basic level of education, which is a protective factor against recidivism, but not strongly so.\"],\n    [\"Employment History\", \"low\", \"Holding 5 jobs in the past year suggests some employment instability, but also some effort to maintain employment. This is a slightly elevated risk, but not high.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana and cocaine) is a significant risk factor for recidivism.\"],\n    [\"Mental Health\", \"low\", \"Reporting no depression in the past month is a positive indicator and suggests stable mental health.\"],\n    [\"Family Background\", \"low\", \"Growing up in a household of size 3 is not inherently a risk factor without further context. It's considered a neutral factor.\"],\n    [\"Religious Beliefs\", \"low\", \"Belief in God is generally considered a protective factor, indicating a potential source of support and moral guidance.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_181612_980927",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 146,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "22 years old places her in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens."
+    ],
+    [
+      "Gender",
+      "low",
+      "Females generally have lower recidivism rates than males."
+    ],
+    [
+      "Race",
+      "low",
+      "Race is considered a protected attribute and is not a direct predictor of recidivism. It is included for completeness but given low weight."
+    ],
+    [
+      "Prior Arrests",
+      "medium",
+      "Two prior arrests and a conviction indicate a pattern of criminal behavior, increasing the risk."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never married and living alone can indicate a lack of social support, which is a moderate risk factor."
+    ],
+    [
+      "Education",
+      "low",
+      "Having a high school diploma suggests a basic level of education, which is a protective factor against recidivism, but not strongly so."
+    ],
+    [
+      "Employment History",
+      "low",
+      "Holding 5 jobs in the past year suggests some employment instability, but also some effort to maintain employment. This is a slightly elevated risk, but not high."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana and cocaine) is a significant risk factor for recidivism."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "Reporting no depression in the past month is a positive indicator and suggests stable mental health."
+    ],
+    [
+      "Family Background",
+      "low",
+      "Growing up in a household of size 3 is not inherently a risk factor without further context. It's considered a neutral factor."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Belief in God is generally considered a protective factor, indicating a potential source of support and moral guidance."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 503,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T03:38:39.070735925Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 111.256833387,
+    "load_duration": 0.014994611,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 1.982,
+    "eval_count": 397,
+    "eval_duration": 109.254
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (18 years old)\", \"low\", \"Young age can be a risk factor, but being at the threshold of adulthood suggests some maturity is developing.\"),\n    (\"Gender (male)\", \"medium\", \"Males are statistically more likely to reoffend compared to females.\"),\n    (\"Race (White)\", \"low\", \"While race should not be a primary factor, it is generally less predictive in isolation.\"),\n    (\"Prior arrests (1 arrest, no convictions)\", \"low\", \"A single arrest without conviction suggests lower criminal involvement and potential for rehabilitation.\"),\n    (\"Living situation (living alone)\", \"medium\", \"Living alone can indicate a lack of social support, which may increase risk.\"),\n    (\"Education (GED certificate, not enrolled in college)\", \"medium\", \"Having a GED is positive, but not being in further education might limit future opportunities.\"),\n    (\"Employment (1 job during the year)\", \"low\", \"Stable employment, even if minimal, suggests some level of responsibility and structure.\"),\n    (\"Drug use (marijuana in the past four years)\", \"medium\", \"Substance use is a risk factor, but marijuana use alone is less severe compared to harder drugs.\"),\n    (\"Mental health (no depression)\", \"low\", \"Lack of current mental health issues is a positive indicator.\"),\n    (\"Childhood living situation (lived with non-biological adults in a household of size 2)\", \"medium\", \"Non-traditional family structures can indicate instability, which may affect behavior.\"),\n    (\"Rural area\", \"low\", \"Living in a rural area generally has less association with recidivism compared to urban areas.\"),\n    (\"Religious beliefs (believes God influences personal outcomes)\", \"low\", \"Strong religious beliefs can provide a moral framework and social support, potentially reducing risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_223839_072453",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 503,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs 230 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 2, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 42,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.3:70b-instruct-q4_K_M",
+    "created_at": "2025-02-02T05:18:56.642444405Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 66.350371571,
+    "load_duration": 0.019827534,
+    "prompt_eval_count": 323,
+    "prompt_eval_duration": 1.627,
+    "eval_count": 391,
+    "eval_duration": 64.701
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is 18 years old, which is considered young but not exceptionally high-risk for recidivism on its own.\"),\n    (\"ethnicity\", \"low\", \"Being Asian/Pacific Islander does not inherently increase the risk of recidivism.\"),\n    (\"arrest history\", \"high\", \"Five arrests without convictions suggest a pattern of behavior that may lead to future legal issues, despite lack of convictions.\"),\n    (\"physical characteristics\", \"low\", \"Height and weight do not directly correlate with recidivism risk.\"),\n    (\"marital status\", \"medium\", \"Never being married at a young age might indicate instability or lack of social bonds, but it's not a strong predictor on its own.\"),\n    (\"living situation\", \"medium\", \"Living alone could indicate a lack of support system or supervision, which might slightly increase the risk of recidivism.\"),\n    (\"education\", \"low\", \"Having a high school diploma is a positive factor, suggesting some level of stability and achievement.\"),\n    (\"employment history\", \"high\", \"Not having held any jobs in the past year indicates instability and lack of engagement in productive activities, which can increase recidivism risk.\"),\n    (\"drug use\", \"medium\", \"Past marijuana use is a risk factor, but its impact can vary widely among individuals.\"),\n    (\"mental health\", \"low\", \"Not feeling depressed over the past month is a positive indicator of current mental health stability.\"),\n    (\"family background\", \"low\", \"Living with a biological parent in a small household in an urban area does not strongly indicate increased risk on its own.\"),\n    (\"religious beliefs\", \"low\", \"Believing God has nothing to do with personal events might suggest a lack of spiritual support or moral framework, but its impact is complex and variable.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_001856_644255",
+    "model": "llama3.3:70b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 0,
+    "id": 1050,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral:7b-v2-q4_K_M",
+    "created_at": "2025-02-07 00:42:51.822248",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.064562631,
+    "load_duration": 0.007627403,
+    "prompt_eval_count": 432,
+    "prompt_eval_duration": 0.11,
+    "eval_count": 442,
+    "eval_duration": 16.943
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"He is a young adult, which can be associated with higher risk of recidivism.\"),\n    (\"gender\", \"low\", \"Hispanic ethnicity may not have significant impact on recidivism.\"),\n    (\"arrest_history\", \"high\", \"Two arrests and convictions indicate a history of criminal behavior.\"),\n    (\"height\", \"low\", \"Height is not a strong predictor of recidivism.\"),\n    (\"weight\", \"low\", \"Weight is not a strong predictor of recidivism.\"),\n    (\"marital_status\", \"medium\", \"Never married indicates lack of support and stability, which can increase risk of recidivism.\"),\n    (\"housing_situation\", \"high\", \"Lives alone, lack of social support may increase risk of recidivism.\"),\n    (\"education\", \"high\", \"Lack of high school diploma or GED certificate and not enrolled in college indicates lower socioeconomic status, which can increase risk of recidivism.\"),\n    (\"employment_history\", \"medium\", \"Holds 5 jobs during the year suggests instability, but not necessarily increased risk of recidivism.\"),\n    (\"drug_use\", \"high\", \"Drug use, particularly cocaine, is a strong predictor of recidivism.\"),\n    (\"mental_health\", \"medium\", \"Feeling down in the dumps may indicate mental health issues, which can increase risk of recidivism.\"),\n    (\"upbringing\", \"high\", \"Lived with both biological parents in a large household in an urban area, which can indicate exposure to crime and instability.\"),\n    (\"religion\", \"low\", \"Belief in God does not have significant impact on recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}"
+  },
+  "evaluation": {
+    "timestamp": "20250207_004252_022914",
+    "model": "dolphin-mistral:7b-v2-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1050,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    "age",
+    "medium",
+    "He is a young adult, which can be associated with higher risk of recidivism.",
+    "gender",
+    "low",
+    "Hispanic ethnicity may not have significant impact on recidivism.",
+    "arrest_history",
+    "high",
+    "Two arrests and convictions indicate a history of criminal behavior.",
+    "height",
+    "low",
+    "Height is not a strong predictor of recidivism.",
+    "weight",
+    "low",
+    "Weight is not a strong predictor of recidivism.",
+    "marital_status",
+    "medium",
+    "Never married indicates lack of support and stability, which can increase risk of recidivism.",
+    "housing_situation",
+    "high",
+    "Lives alone, lack of social support may increase risk of recidivism.",
+    "education",
+    "high",
+    "Lack of high school diploma or GED certificate and not enrolled in college indicates lower socioeconomic status, which can increase risk of recidivism.",
+    "employment_history",
+    "medium",
+    "Holds 5 jobs during the year suggests instability, but not necessarily increased risk of recidivism.",
+    "drug_use",
+    "high",
+    "Drug use, particularly cocaine, is a strong predictor of recidivism.",
+    "mental_health",
+    "medium",
+    "Feeling down in the dumps may indicate mental health issues, which can increase risk of recidivism.",
+    "upbringing",
+    "high",
+    "Lived with both biological parents in a large household in an urban area, which can indicate exposure to crime and instability.",
+    "religion",
+    "low",
+    "Belief in God does not have significant impact on recidivism.",
+    "prediction\": \"YES",
+    "confidence",
+    75
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted. He is 5 feet 7 inches and weighs 185 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 5 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

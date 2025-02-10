@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 85,
+    "id": 1032,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T06:40:43.948895208Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.995887877,
+    "load_duration": 0.044464445,
+    "prompt_eval_count": 347,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 355,
+    "eval_duration": 1.938
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\"),\n    (\"Gender\", \"medium\"),\n    (\"Race\", \"low\"),\n    (\"Prior Arrest\", \"low\"),\n    (\"Marital Status\", \"low\"),\n    (\"Education Level\", \"high\"),\n    (\"Employment History\", \"high\"),\n    (\"Substance Use\", \"low\"),\n    (\"Mental Health\", \"high\"),\n    (\"Family Structure\", \"low\") \n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 85\n}\n``` \n\n**Explanation:**\n\n* **Age, Gender, Race, Prior Arrest:** These factors are generally considered low risk. A young female with no prior convictions is less likely to re-offend.\n* **Marital Status, Education Level, Employment History, Substance Use:**  These factors are associated with lower recidivism rates. \n* **Mental Health:** The statement about feeling \"down in the dumps\" suggests a potential mental health concern. This factor carries a high risk weight.\n* **Family Structure:** A history of living in a large family may be associated with higher risk, but this is not explicitly stated as a strong predictor.\n\n**Important Considerations:**\n\n* **Context Matters:**  This assessment relies on limited information and should not be used for definitive decisions. \n* **Individualized Assessment:**  A comprehensive risk assessment requires more detailed data, including criminal history, psychological evaluations, substance abuse assessments, and social support networks. \n* **Ethical Concerns:** Using this model to predict recidivism can perpetuate biases and lead to discriminatory practices. It's crucial to use these tools responsibly and ethically. \n\n\n",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250204_014043_951479",
+    "model": "gemma2:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1032,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as mixed race. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 124 lbs. She is married and is currently living with her spouse. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived in a household of size 4. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 13,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T03:08:42.140128244Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 104.176358422,
+    "load_duration": 0.029671701,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 2.318,
+    "eval_count": 370,
+    "eval_duration": 101.82
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (20 years old)\", \"low\", \"Young age can be a risk factor, but it is also a time when individuals are more likely to change behavior.\"),\n    (\"Gender (male)\", \"medium\", \"Males generally have higher recidivism rates compared to females.\"),\n    (\"Ethnicity (Asian / Pacific Islander)\", \"low\", \"This demographic typically has lower recidivism rates compared to other groups.\"),\n    (\"Arrest History (1 arrest, 1 conviction)\", \"medium\", \"A single prior arrest and conviction indicate some involvement in the criminal justice system but is not extensive.\"),\n    (\"Educational Status (high school diploma, enrolled in college)\", \"low\", \"Higher education levels are associated with lower recidivism rates.\"),\n    (\"Employment Status (no jobs during the year)\", \"medium\", \"Lack of employment can increase the risk of reoffending due to financial stress and lack of structure.\"),\n    (\"Substance Use (marijuana use in the past four years)\", \"medium\", \"Drug use is a known risk factor, but marijuana use alone is less severe compared to harder drugs.\"),\n    (\"Mental Health (feeling down in the dumps)\", \"medium\", \"Depression or feelings of hopelessness can increase the likelihood of reoffending.\"),\n    (\"Family History (lived with both biological parents in a household of size 4)\", \"low\", \"Stable family environment during childhood is generally associated with lower recidivism risk.\"),\n    (\"Religious Beliefs (God has nothing to do with personal outcomes)\", \"medium\", \"Lack of religious or spiritual support can reduce the social and emotional resources available for positive behavior change.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_220842_141866",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 13,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

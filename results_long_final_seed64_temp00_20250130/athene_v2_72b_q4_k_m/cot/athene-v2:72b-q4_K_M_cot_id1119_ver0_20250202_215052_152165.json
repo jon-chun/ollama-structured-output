@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1119,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T02:50:52.150177298Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 109.626358035,
+    "load_duration": 0.014905999,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 1.996,
+    "eval_count": 391,
+    "eval_duration": 107.61
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (22 years old)\", \"low\", \"Young adulthood is a high-risk period, but the risk can be mitigated by positive interventions.\"),\n    (\"Race (Black)\", \"medium\", \"Statistically, Black individuals face systemic challenges that may increase recidivism risk, though this should not be used to stereotype.\"),\n    (\"Arrest History (6 arrests, no convictions)\", \"medium\", \"Multiple arrests suggest involvement in risky behaviors, but lack of conviction indicates no formal judicial determination of guilt.\"),\n    (\"Living Situation (living alone)\", \"medium\", \"Lack of social support can increase risk, as stable relationships and community ties are protective factors.\"),\n    (\"Educational Attainment (no high school diploma or GED)\", \"high\", \"Low educational attainment is strongly correlated with higher recidivism rates due to limited job prospects and social mobility.\"),\n    (\"Employment Status (unemployed for a year)\", \"high\", \"Unemployment can lead to financial stress and lack of structure, both risk factors for reoffending.\"),\n    (\"Substance Use (marijuana and cocaine)\", \"high\", \"Drug use is a significant risk factor, often associated with criminal behavior and poor decision-making.\"),\n    (\"Mental Health (depression symptoms)\", \"high\", \"Persistent feelings of depression can impair judgment and coping mechanisms, increasing the likelihood of reoffending.\"),\n    (\"Family History (lived in household of size 4 at a young age)\", \"low\", \"While family dynamics can influence behavior, this factor alone is not strongly predictive without more context.\"),\n    (\"Religious Beliefs (believes God has a role in personal outcomes)\", \"medium\", \"Religious beliefs can provide support and structure, but they can also be a double-edged sword if they lead to fatalistic thinking.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_215052_152165",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1119,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 6 times but has not been convicted. He is 6 feet 2 inches and weighs 140 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1205,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-02-01T22:16:06.611814133Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.751196938,
+    "load_duration": 0.0194735,
+    "prompt_eval_count": 315,
+    "prompt_eval_duration": 0.084,
+    "eval_count": 330,
+    "eval_duration": 13.645
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Young age may indicate less criminal history but also potential for future risk.\"),\n    (\"gender\", \"low\", \"Females generally have lower recidivism rates compared to males.\"),\n    (\"race\", \"medium\", \"Black individuals face systemic barriers and higher arrest rates, increasing risk.\"),\n    (\"arrests\", \"high\", \"Single arrest indicates prior criminal behavior, increasing likelihood of future rearrest.\"),\n    (\"convictions\", \"low\", \"No convictions suggest less entrenched criminal lifestyle.\"),\n    (\"height_weight\", \"low\", \"Physical stature does not directly correlate with criminality.\"),\n    (\"marital_status\", \"low\", \"Living alone may indicate lack of support system but not necessarily risk factor.\"),\n    (\"education\", \"low\", \"High school diploma and not enrolled in college suggests lower socioeconomic status, potentially increasing risk.\"),\n    (\"employment\", \"high\", \"No employment in the past year indicates potential for criminal activity to fill void.\"),\n    (\"drug_use\", \"low\", \"No drug use in past 4 years reduces likelihood of substance-facilitated crime.\"),\n    (\"mental_health\", \"low\", \"Not feeling depressed in past month suggests lower risk of mental health-related offenses.\"),\n    (\"family_background\", \"medium\", \"Growing up in a large urban household with single parent may increase exposure to crime and risk factors.\"),\n    (\"religious_beliefs\", \"low\", \"Lack of belief in God's influence may indicate less moral compass, increasing potential for criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_171606_613844",
+    "model": "hermes3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1205,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Black. She has been arrested 1 time but has not been convicted. She is 5 feet 6 inches and weighs 160 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held no jobs during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 3, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

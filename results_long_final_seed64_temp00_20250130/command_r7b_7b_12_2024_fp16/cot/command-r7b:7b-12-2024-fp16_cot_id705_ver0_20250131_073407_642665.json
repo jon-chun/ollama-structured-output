@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 705,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "command-r7b:7b-12-2024-fp16",
+    "created_at": "2025-01-31T12:34:07.641336603Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.221833025,
+    "load_duration": 0.033249341,
+    "prompt_eval_count": 691,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 385,
+    "eval_duration": 8.163
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: Young Adult\", \"medium\", \"The individual is in a life stage where impulsivity and risk-taking behaviors are more common.\"),\n    (\"Race/Ethnicity: White\", \"low\", \"No significant history of racial or ethnic bias towards the individual.\"),\n    (\"Gender: Male\", \"medium\", \"Males may have different social dynamics and opportunities compared to females, potentially influencing their involvement in criminal activities.\"),\n    (\"Arrest History: 1 arrest but no convictions\", \"high\", \"A single arrest with no convictions suggests a higher risk of recidivism. The individual might be more likely to reoffend due to the lack of legal consequences.\"),\n    (\"Education: High School Diploma, Not Enrolled in College\", \"medium\", \"Limited education can lead to fewer job prospects and increased social isolation, potentially contributing to criminal behavior.\"),\n    (\"Employment History: 1 Job in a Year\", \"low\", \"A single job in a year might indicate limited opportunities or a lack of stability, but it doesn't necessarily predict future recidivism.\"),\n    (\"Living Situation: Not Living Alone\", \"medium\", \"Living with others may provide social support and reduce the likelihood of engaging in criminal activities for financial gain.\"),\n    (\"Drug Use: No Drug Use in Past 4 Years\", \"low\", \"A lack of drug use is a positive factor, reducing the risk of involvement in drug-related crimes.\"),\n    (\"Mental Health: No Depression in Past Month\", \"low\", \"The absence of depression suggests better mental well-being, which can positively impact decision-making and behavior.\"),\n    (\"Family Structure: Household Size 4 at Young Age\", \"medium\", \"A larger family structure during childhood might have influenced the individual's social and behavioral development.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_073407_642665",
+    "model": "command-r7b:7b-12-2024-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 705,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 9 inches and weighs 165 lbs. He has never been married and is currently not living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

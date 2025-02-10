@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 574,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:10:42.944583754Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.040053431,
+    "load_duration": 0.031617668,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.212,
+    "eval_count": 340,
+    "eval_duration": 19.793
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Younger individuals tend to have lower recidivism rates.\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males.\"),\n    (\"Race\", \"low\", \"No significant correlation between race and recidivism.\"),\n    (\"Arrest History\", \"medium\", \"Single arrest indicates potential for future offending, but no conviction suggests low severity.\"),\n    (\"Physical Appearance\", \"low\", \"No relevance to criminal behavior.\"),\n    (\"Marital Status\", \"low\", \"Being single does not significantly impact recidivism rates.\"),\n    (\"Living Arrangement\", \"medium\", \"Living alone may indicate lack of social support, potentially increasing risk.\"),\n    (\"Education\", \"low\", \"Enrolled in college suggests a commitment to education and potential reduction in risk.\"),\n    (\"Employment History\", \"high\", \"No employment in the past year indicates potential instability or lack of structure, increasing risk.\"),\n    (\"Drug Use\", \"medium\", \"Past drug use increases risk, but no recent use suggests potential for change.\"),\n    (\"Mental Health\", \"low\", \"No recent depression reduces mental health-related risk factors.\"),\n    (\"Early Family Environment\", \"medium\", \"Growing up in an urban area with a single parent may indicate increased exposure to adverse experiences, increasing risk.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God does not significantly impact recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_051042_947614",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 574,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is enrolled in a 4-year college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 2, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 143,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-02-02T13:13:18.998556607Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.365587071,
+    "load_duration": 0.013387844,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 384,
+    "eval_duration": 3.332
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Young adults are often at a higher risk for recidivism due to their developmental stage, but completing a bachelor's degree suggests some level of maturity and responsibility.\"),\n    (\"gender\", \"low\", \"Females generally have lower rearrest rates compared to males, which can be a mitigating factor.\"),\n    (\"previous arrests\", \"medium\", \"One arrest indicates a higher risk than no arrest, but not being convicted is less severe than having a criminal record.\"),\n    (\"marital status\", \"low\", \"Being unmarried might slightly increase the risk due to potential social support factors, but it's not a strong predictor by itself.\"),\n    (\"residence\", \"medium\", \"Living alone could potentially increase risk due to lack of immediate social influence, but educational attainment may counterbalance this factor.\"),\n    (\"education\", \"high\", \"Higher education levels are associated with lower recidivism rates, suggesting better impulse control and future prospects.\"),\n    (\"employment history\", \"low\", \"Having held multiple jobs in a year could indicate instability or difficulty in maintaining employment, which might slightly increase risk.\"),\n    (\"drug use\", \"medium\", \"Past drug use increases the risk of rearrest, particularly if recent. The mention of feeling down could suggest potential mental health issues.\"),\n    (\"past depression\", \"medium\", \"Feeling depressed at times can be a sign of underlying mental health issues that may influence behavior and risk for reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n\nThis JSON object reflects a balanced assessment of the given risk factors, considering both positive indicators (education, employment history) and negative ones (drug use, past depression). The prediction is \"YES\" with a confidence level of 75%, indicating a moderate to high likelihood of rearrest within three years.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_081319_000336",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 143,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 7 inches and weighs 155 lbs. She has never been married and is currently living alone. She has completed a Bachelor's degree and is not enrolled in college. She has held 4 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

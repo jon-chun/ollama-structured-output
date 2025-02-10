@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1108,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-02-02T11:50:55.530402282Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.629915068,
+    "load_duration": 0.011303021,
+    "prompt_eval_count": 361,
+    "prompt_eval_duration": 0.547,
+    "eval_count": 414,
+    "eval_duration": 17.068
+  },
+  "response": {
+    "raw_message_text": " {\n    \"risk_factors\": [\n        (\"number of prior arrests\", \"high\", \"Three prior arrests increases the likelihood of re-arrest.\"),\n        (\"conviction history\", \"high\", \"A conviction indicates a proven criminal record, which is a strong predictor of recidivism.\"),\n        (\"age\", \"medium\", \"While young, this individual is not at the highest risk age range for recidivism (18-21). However, age can still impact reoffending rates.\"),\n        (\"height and weight\", \"low\", \"No direct correlation between BMI and recidivism, but physical size may affect perceived dominance or aggression.\"),\n        (\"marital status\", \"medium\", \"Being unmarried is a weak predictor of recidivism, as it can indicate lack of stability or support.\"),\n        (\"living situation\", \"low\", \"Living alone does not have a strong correlation with recidivism, but could impact social connections and support networks.\"),\n        (\"education level\", \"medium\", \"Lower education levels are associated with higher recidivism rates, but this individual is employed.\"),\n        (\"employment history\", \"low\", \"Two jobs in one year suggests some stability, which can be a protective factor against recidivism.\"),\n        (\"drug use history\", \"low\", \"No recent drug use reduces the risk of recidivism related to substance abuse.\"),\n        (\"mental health history\", \"low\", \"No reported feelings of depression in the past month, which is a positive indicator for mental health stability.\"),\n        (\"family background\", \"medium\", \"Growing up in a large household and urban area can expose an individual to various risk factors, but this information is historical.\")\n    ],\n    \"prediction\": \"YES\",\n    \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_065055_532043",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1108,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Black. He has been arrested 3 times and has been convicted. He is 5 feet 10 inches and weighs 235 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 10, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

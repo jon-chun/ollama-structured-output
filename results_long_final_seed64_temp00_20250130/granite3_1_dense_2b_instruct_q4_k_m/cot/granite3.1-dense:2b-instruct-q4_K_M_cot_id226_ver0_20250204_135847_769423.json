@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 226,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T18:58:47.767636589Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.673399177,
+    "load_duration": 0.008810234,
+    "prompt_eval_count": 398,
+    "prompt_eval_duration": 0.02,
+    "eval_count": 324,
+    "eval_duration": 1.642
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Arrest history (5 times, convicted)\", \"high\", \"This individual has a significant criminal record, indicating a pattern of criminal behavior.\"),\n    (\"Physical attributes (6'0\", 175-199 lbs)\", \"low\", \"These are average dimensions for an adult male and do not suggest aggressive or violent tendencies.\"),\n    (\"Living arrangements (not living alone)\", \"medium\", \"This factor suggests a lack of personal responsibility and potential for reoffending in familiar environments.\"),\n    (\"Education level (no high school diploma/GED)\", \"high\", \"Lack of formal education is associated with higher recidivism rates due to limited life skills and employment opportunities.\"),\n    (\"Employment history (none during the year)\", \"high\", \"No job history indicates a lack of productive engagement, which can be linked to criminal behavior.\"),\n    (\"Substance use in past four years (marijuana and cocaine)\", \"medium\", \"While not exclusively tied to violence, substance abuse is correlated with increased risk of reoffending due to impaired judgment and potential for theft or other crimes.\"),\n    (\"Mood state (feeling down in the dumps, some days)\", \"high\", \"Persistent negative mood can indicate underlying psychological issues that may contribute to criminal behavior.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250204_135847_769423",
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 226,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 5 times and has been convicted. He is 6 feet 0 inches and weighs between 175 and 199 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

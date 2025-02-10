@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 103,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "deepseek-r1:7b",
+    "created_at": "2025-01-30T15:27:40.267501628Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 23.810568687,
+    "load_duration": 0.021546274,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.075,
+    "eval_count": 586,
+    "eval_duration": 23.708
+  },
+  "response": {
+    "raw_message_text": "<think>\nOkay, so I'm trying to figure out the rearrest recidivism risk for this 18-year-old female. Let me go through each factor step by step.\n\nFirst, she's White, but I don't think race is a direct factor here unless there's some systemic bias, which isn't indicated. So maybe that's low or medium.\n\nShe has two arrests but no convictions. That might be a red flag because convictions are more impactful than just being arrested. Maybe medium risk from that.\n\nHer height and weight aren't factors, so I can ignore those.\n\nLiving alone\u2014she's an only child, which is usually positive for recidivism since she doesn't have family support. So maybe low risk here.\n\nShe's in school now, which is a good sign because education often leads to better job opportunities and less crime. Low risk from that.\n\nOnly one job in the past year. Maybe she's still finding her way or has limited income sources, but not sure how much that affects recidivism. Maybe medium?\n\nDrug use: She used marijuana and cocaine before, which is a serious issue. Drug abuse can lead to more criminal behavior, so high risk from that.\n\nHer mood most of the month is really low. That could indicate underlying mental health issues or stressors, both of which increase recidivism risk. High here.\n\nYoung age at home\u2014she lived with her mom in a household of four in an urban area. Urban environments can have higher crime rates and more stressors, so maybe medium to high risk from that.\n\nBelieves in God\u2014religion doesn't directly affect recidivism unless there are issues like faith-based counseling or lack thereof, but it's probably low risk here.\n\nPutting it all together: Drug use is a big factor (high), mood is bad (high), and past environment (medium). The rest don't add much. So overall, high risk.\n</think>\n\n```json\n{\n  \"risk_factors\": [\n    (\"Age at Home Living\", \"medium\", \"Living with an older age who was herself involved in the criminal justice system can increase stressors and exposure to negative influences, contributing to higher recidivism risk.\"),\n    (\"Drug Use History\", \"high\", \"Heavy drug use, particularly marijuana and cocaine, is strongly associated with higher rates of substance abuse and criminal behavior, significantly increasing recidivism risk.\"),\n    (\"Mood and Mental Health\", \"high\", \"Sustained low mood can indicate underlying mental health issues or chronic stressors that may contribute to increased criminal behavior and recidivism.\"),\n    (\"Arrests Without Convictions\", \"medium\", \"Two arrests without convictions suggest some exposure to the criminal system but not necessarily direct involvement in criminal activity, which could be mitigated by intervention and support.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250130_102740_268811",
+    "model": "deepseek-r1:7b",
+    "prompt_type": "PromptType.COT",
+    "row_id": 103,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 6 inches and weighs 110 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and most of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

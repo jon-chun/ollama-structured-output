@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 146,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:30:48.170409173Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 12.362684564,
+    "load_duration": 0.011382123,
+    "prompt_eval_count": 364,
+    "prompt_eval_duration": 0.041,
+    "eval_count": 470,
+    "eval_duration": 12.307
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"medium\", \"Being arrested twice indicates a moderate risk, but age alone is not highly predictive of recidivism.\"),\n    (\"Ethnicity/Race\", \"low\", \"While certain studies suggest racial disparities in the criminal justice system, ethnicity or race itself does not directly influence rearrest rates. This factor has a low weight without considering other contextual factors such as socioeconomic status.\"),\n    (\"Education level\", \"medium\", \"A high school diploma is below college education which may limit employment opportunities, potentially increasing the risk of recidivism due to economic strain. However, it's not a strong predictor on its own without considering other factors like job stability.\"),\n    (\"Employment history\", \"medium\", \"Having held 5 jobs in one year suggests instability which could be linked with higher rearrest risk; however, employment alone is less indicative of recidivism than the quality or permanence of those positions. It's a medium weight factor.\"),\n    (\"Substance use\", \"high\", \"A history of drug use (marijuana and cocaine) over four years indicates high risk for substance-related offenses, which is strongly correlated with recidivism rates according to numerous studies. This has the highest relative weight among listed factors.\"),\n    (\"Marital status/family structure\", \"low\", \"Living alone without marriage may contribute slightly more towards isolation and lack of support networks but does not have a strong direct correlation with rearrest risk when compared to other, stronger predictors like substance use or employment history. It's considered low weight.\"),\n    (\"Belief in spirituality\", \"low\", \"Personal belief systems such as faith may influence behavior and decision-making but are not strongly correlated with recidivism rates on a statistical basis alone, thus it has the lowest relative weight among these factors.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_103048_173049",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 146,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old female who identifies herself as White. She has been arrested 2 times and has been convicted. She is 5 feet 7 inches and weighs 135 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived in a household of size 3. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 753,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:26:47.331589249Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.740521762,
+    "load_duration": 0.021113678,
+    "prompt_eval_count": 375,
+    "prompt_eval_duration": 0.035,
+    "eval_count": 270,
+    "eval_duration": 5.68
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"Prior Criminal Record\", \"high\", \"Multiple arrests and convictions indicate a history of criminal behavior.\"],\n    [\"Drug Use\", \"high\", \"Recent drug use and ongoing substance abuse suggest potential for continued risky behavior.\"],\n    [\"Unemployment\", \"medium\", \"Limited employment history may indicate difficulties in securing stable employment, potentially leading to further involvement.\"],\n    [\"Education Level\", \"high\", \"Lack of high school diploma or college enrollment correlates with lower socioeconomic status and fewer opportunities for rehabilitation.\"],\n    [\"Living Situation\", \"medium\", \"Living alone may indicate instability or lack of support systems, though not inherently indicative of criminal propensity.\"],\n    [\"Mental Health\", \"high\", \"Recent feelings of depression without apparent treatment suggest vulnerability to further mental health issues that could influence behavior.\"],\n    [\"Family Background\", \"low\", \"Growing up with both parents in a household of size 4 does not inherently correlate with higher recidivism risk.\"],\n    [\"Religious Belief\", \"low\", \"Indifference towards religious influence does not directly impact criminal risk assessment.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_202647_333155",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 753,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Prior Criminal Record",
+      "high",
+      "Multiple arrests and convictions indicate a history of criminal behavior."
+    ],
+    [
+      "Drug Use",
+      "high",
+      "Recent drug use and ongoing substance abuse suggest potential for continued risky behavior."
+    ],
+    [
+      "Unemployment",
+      "medium",
+      "Limited employment history may indicate difficulties in securing stable employment, potentially leading to further involvement."
+    ],
+    [
+      "Education Level",
+      "high",
+      "Lack of high school diploma or college enrollment correlates with lower socioeconomic status and fewer opportunities for rehabilitation."
+    ],
+    [
+      "Living Situation",
+      "medium",
+      "Living alone may indicate instability or lack of support systems, though not inherently indicative of criminal propensity."
+    ],
+    [
+      "Mental Health",
+      "high",
+      "Recent feelings of depression without apparent treatment suggest vulnerability to further mental health issues that could influence behavior."
+    ],
+    [
+      "Family Background",
+      "low",
+      "Growing up with both parents in a household of size 4 does not inherently correlate with higher recidivism risk."
+    ],
+    [
+      "Religious Belief",
+      "low",
+      "Indifference towards religious influence does not directly impact criminal risk assessment."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 0 inches and weighs 230 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 4. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

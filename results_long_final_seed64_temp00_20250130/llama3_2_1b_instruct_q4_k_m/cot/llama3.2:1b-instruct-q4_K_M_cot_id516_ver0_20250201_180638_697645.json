@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 516,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:06:38.694990085Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.431237985,
+    "load_duration": 0.016574879,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 0.037,
+    "eval_count": 305,
+    "eval_duration": 1.375
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"age\", \"weight\": \"low\", \"reasoning\": \"A 19-year-old male is considered low-risk for recidivism due to his young age and lack of prior convictions.\"},\n    {\"factor2\": \"education\", \"weight\": \"medium\", \"reasoning\": \"Although he has held three jobs, his high school diploma suggests some level of education, which may indicate a lower risk of recidivism.\"},\n    {\"factor3\": \"family background\", \"weight\": \"low\", \"reasoning\": \"His biological mother lived with him in a household of size 5, but there is no indication that he was neglected or abused.\"},\n    {\"factor4\": \"mental health\", \"weight\": \"medium\", \"reasoning\": \"His past use of marijuana and cocaine suggests some level of mental health issues, which may indicate a higher risk of recidivism.\"},\n    {\"factor5\": \"housing stability\", \"weight\": \"low\", \"reasoning\": \"He has been living alone for most of the year, but there is no indication that he is experiencing housing instability or other challenges.\"},\n    {\"factor6\": \"substance abuse\", \"weight\": \"high\", \"reasoning\": \"His past use of cocaine and current feelings of depression suggest a high risk of recidivism due to his substance abuse issues and mental health concerns.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_180638_697645",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 516,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "age",
+      "weight": "low",
+      "reasoning": "A 19-year-old male is considered low-risk for recidivism due to his young age and lack of prior convictions."
+    },
+    {
+      "factor2": "education",
+      "weight": "medium",
+      "reasoning": "Although he has held three jobs, his high school diploma suggests some level of education, which may indicate a lower risk of recidivism."
+    },
+    {
+      "factor3": "family background",
+      "weight": "low",
+      "reasoning": "His biological mother lived with him in a household of size 5, but there is no indication that he was neglected or abused."
+    },
+    {
+      "factor4": "mental health",
+      "weight": "medium",
+      "reasoning": "His past use of marijuana and cocaine suggests some level of mental health issues, which may indicate a higher risk of recidivism."
+    },
+    {
+      "factor5": "housing stability",
+      "weight": "low",
+      "reasoning": "He has been living alone for most of the year, but there is no indication that he is experiencing housing instability or other challenges."
+    },
+    {
+      "factor6": "substance abuse",
+      "weight": "high",
+      "reasoning": "His past use of cocaine and current feelings of depression suggest a high risk of recidivism due to his substance abuse issues and mental health concerns."
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 3 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

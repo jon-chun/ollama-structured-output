@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 60,
+    "id": 287,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-30T23:11:47.648462389Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.920537251,
+    "load_duration": 0.02975738,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 343,
+    "eval_duration": 2.874
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but not extremely young for the offense in question.\"),\n    (\"race_ethnicity\", \"medium\", \"Being White may provide some advantages, but it does not eliminate the risk of recidivism.\"),\n    (\"arrest_history\", \"high\", \"Having been arrested once and convicted indicates a higher likelihood of future offenses.\"),\n    (\"physical_description\", \"low\", \"The individual's physical description does not significantly impact their likelihood to reoffend.\"),\n    (\"marital_status\", \"low\", \"Living alone is common for someone his age, and it doesn't necessarily contribute to recidivism risk.\"),\n    (\"education_level\", \"medium\", \"Having a high school diploma and being enrolled in college suggests some stability but does not eliminate the potential for future offenses.\"),\n    (\"employment_history\", \"low\", \"Holding two jobs during the year indicates responsibility and may reduce the likelihood of criminal behavior.\"),\n    (\"drug_use\", \"high\", \"Past marijuana use within four years is a concerning factor, indicating possible substance-related issues.\"),\n    (\"mental_health\", \"low\", \"Not feeling depressed in the past month suggests that mental health is not currently impacting his behavior.\"),\n    (\"family_background\", \"medium\", \"Living with both parents in an urban area of size 6 may provide some stability but does not eliminate risk.\"),\n    (\"religious_beliefs\", \"low\", \"Believing that God has something to do with personal events may contribute positively, but it is not a significant factor in recidivism prediction.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 60\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250130_181147_650041",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 287,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 6 feet 0 inches and weighs between 175 and 199 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

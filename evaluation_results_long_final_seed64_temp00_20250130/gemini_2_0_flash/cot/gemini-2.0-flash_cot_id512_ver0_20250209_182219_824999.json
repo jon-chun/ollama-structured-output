@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 512,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:22:19.624211",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.894210577011108e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"20 years old places him in a higher risk category than older adults, as younger individuals are statistically more likely to re-offend. However, it's not as high as a teenager.\"],\n    [\"Gender\", \"medium\", \"Males are statistically more likely to re-offend than females.\"],\n    [\"Race\", \"medium\", \"Black individuals are disproportionately represented in the criminal justice system and have higher recidivism rates, although this is likely due to systemic biases rather than inherent criminality.\"],\n    [\"Prior Arrests\", \"medium\", \"One prior arrest indicates some involvement with the criminal justice system, increasing the risk compared to someone with no prior arrests.\"],\n    [\"Prior Convictions\", \"medium\", \"A prior conviction is a stronger predictor of recidivism than an arrest alone, suggesting a pattern of criminal behavior.\"],\n    [\"Marital Status\", \"medium\", \"Never being married and living alone can indicate a lack of social support, which is a risk factor for recidivism.\"],\n    [\"Education\", \"low\", \"Having a high school diploma suggests a basic level of education, which is a protective factor against recidivism, but not as strong as college attendance.\"],\n    [\"Employment History\", \"low\", \"Holding 3 jobs in the past year suggests some level of employment stability, which is a protective factor.\"],\n    [\"Substance Use History\", \"low\", \"No drug use in the past four years is a strong protective factor.\"],\n    [\"Mental Health\", \"high\", \"Experiencing persistent feelings of depression significantly increases the risk of recidivism, as mental health issues can contribute to criminal behavior.\"],\n    [\"Childhood Living Situation\", \"medium\", \"Living with adults other than parents in a rural area during childhood can indicate instability and lack of parental supervision, increasing risk.\"],\n    [\"Religious Beliefs\", \"low\", \"Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_182219_824999",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 512,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "20 years old places him in a higher risk category than older adults, as younger individuals are statistically more likely to re-offend. However, it's not as high as a teenager."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males are statistically more likely to re-offend than females."
+    ],
+    [
+      "Race",
+      "medium",
+      "Black individuals are disproportionately represented in the criminal justice system and have higher recidivism rates, although this is likely due to systemic biases rather than inherent criminality."
+    ],
+    [
+      "Prior Arrests",
+      "medium",
+      "One prior arrest indicates some involvement with the criminal justice system, increasing the risk compared to someone with no prior arrests."
+    ],
+    [
+      "Prior Convictions",
+      "medium",
+      "A prior conviction is a stronger predictor of recidivism than an arrest alone, suggesting a pattern of criminal behavior."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never being married and living alone can indicate a lack of social support, which is a risk factor for recidivism."
+    ],
+    [
+      "Education",
+      "low",
+      "Having a high school diploma suggests a basic level of education, which is a protective factor against recidivism, but not as strong as college attendance."
+    ],
+    [
+      "Employment History",
+      "low",
+      "Holding 3 jobs in the past year suggests some level of employment stability, which is a protective factor."
+    ],
+    [
+      "Substance Use History",
+      "low",
+      "No drug use in the past four years is a strong protective factor."
+    ],
+    [
+      "Mental Health",
+      "high",
+      "Experiencing persistent feelings of depression significantly increases the risk of recidivism, as mental health issues can contribute to criminal behavior."
+    ],
+    [
+      "Childhood Living Situation",
+      "medium",
+      "Living with adults other than parents in a rural area during childhood can indicate instability and lack of parental supervision, increasing risk."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Black. He has been arrested 1 time and has been convicted. He is 5 feet 10 inches and weighs 151 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 3 jobs during the year. He has not used any drugs in the past four years and all of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 3, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

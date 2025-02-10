@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1117,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-02-02T09:38:23.642068126Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.644038038,
+    "load_duration": 0.013704852,
+    "prompt_eval_count": 377,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 336,
+    "eval_duration": 2.609
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The person is a 21-year-old male.\"),\n    (\"gender\", \"low\", \"The person identifies himself as Black.\"),\n    (\"arrest_history\", \"high\", \"The person has been arrested twice but not convicted.\"),\n    (\"height\", \"low\", \"The person is 5 feet 8 inches tall.\"),\n    (\"weight\", \"low\", \"The person weighs 161 lbs.\"),\n    (\"marital_status\", \"low\", \"The person is not married and lives alone.\"),\n    (\"education\", \"high\", \"The person does not have a high school diploma or GED certificate and is not enrolled in college.\"),\n    (\"employment_history\", \"low\", \"The person has held no jobs during the year.\"),\n    (\"drug_use\", \"medium\", \"The person has used drugs (cocaine) in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up.\"),\n    (\"early_life_experiences\", \"high\", \"The person lived with his biological mother in a household of size 4, in an urban area.\"),\n    (\"religion\", \"low\", \"The person considers that God has nothing to do with what happens to him personally.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_043823_644144",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1117,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs 161 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -228,10 +228,6 @@ class PerformanceTracker:
         )
 
 
-
-
-
-
     def save_metrics(self, execution_time: float):
         """
         Save the final stats for this session as JSON and plain text in the reports directory.

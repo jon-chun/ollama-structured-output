@@ -1,0 +1,81 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 0,
+    "id": 172,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin-mistral:7b-v2-q4_K_M",
+    "created_at": "2025-02-07 00:48:37.156766",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.821906548,
+    "load_duration": 0.006475409,
+    "prompt_eval_count": 435,
+    "prompt_eval_duration": 0.11,
+    "eval_count": 437,
+    "eval_duration": 16.702
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals are more likely to engage in risky behaviors, but this person is not a repeat offender.\"),\n    (\"gender\", \"low\", \"Gender does not seem to be a significant factor in this case.\"),\n    (\"ethnicity\", \"low\", \"Ethnicity does not seem to be a significant factor in this case.\"),\n    (\"arrest_history\", \"high\", \"Only 1 arrest is a low risk factor, but it would be higher if there were multiple convictions.\"),\n    (\"height\", \"low\", \"Height is not a significant factor in this case.\"),\n    (\"weight\", \"low\", \"Weight is not a significant factor in this case.\"),\n    (\"marital_status\", \"high\", \"Being unmarried and living alone could indicate a lack of support system, which can increase the likelihood of recidivism.\"),\n    (\"education\", \"high\", \"Lack of education can limit job opportunities and increase the likelihood of recidivism.\"),\n    (\"employment_history\", \"medium\", \"Having only held 1 job in the past year is not a high risk factor, but it could indicate difficulty finding stable employment.\"),\n    (\"drug_use\", \"high\", \"Marijuana use can lead to criminal behavior and increase the likelihood of recidivism.\"),\n    (\"mental_health\", \"high\", \"Feeling down and depressed can make an individual more susceptible to engaging in risky behaviors.\"),\n    (\"living_situation\", \"medium\", \"Living in an urban area with a household size of 4 at a young age could indicate exposure to negative influences.\"),\n    (\"religious_affiliation\", \"low\", \"No religious affiliation does not seem to be a significant factor in this case.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 50\n}"
+  },
+  "evaluation": {
+    "timestamp": "20250207_004837_357407",
+    "model": "dolphin-mistral:7b-v2-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 172,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    "age",
+    "medium",
+    "Younger individuals are more likely to engage in risky behaviors, but this person is not a repeat offender.",
+    "gender",
+    "low",
+    "Gender does not seem to be a significant factor in this case.",
+    "ethnicity",
+    "low",
+    "Ethnicity does not seem to be a significant factor in this case.",
+    "arrest_history",
+    "high",
+    "Only 1 arrest is a low risk factor, but it would be higher if there were multiple convictions.",
+    "height",
+    "low",
+    "Height is not a significant factor in this case.",
+    "weight",
+    "low",
+    "Weight is not a significant factor in this case.",
+    "marital_status",
+    "high",
+    "Being unmarried and living alone could indicate a lack of support system, which can increase the likelihood of recidivism.",
+    "education",
+    "high",
+    "Lack of education can limit job opportunities and increase the likelihood of recidivism.",
+    "employment_history",
+    "medium",
+    "Having only held 1 job in the past year is not a high risk factor, but it could indicate difficulty finding stable employment.",
+    "drug_use",
+    "high",
+    "Marijuana use can lead to criminal behavior and increase the likelihood of recidivism.",
+    "mental_health",
+    "high",
+    "Feeling down and depressed can make an individual more susceptible to engaging in risky behaviors.",
+    "living_situation",
+    "medium",
+    "Living in an urban area with a household size of 4 at a young age could indicate exposure to negative influences.",
+    "religious_affiliation",
+    "low",
+    "No religious affiliation does not seem to be a significant factor in this case.",
+    "prediction\": \"NO",
+    "confidence",
+    50
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs 174 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with adults other than biological, foster or adoptive parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

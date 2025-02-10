@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1121,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:1b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:05:55.38560848Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 0.904784725,
+    "load_duration": 0.018541404,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.013,
+    "eval_count": 173,
+    "eval_duration": 0.871
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"factor1\", \"medium\"|\"high\"), \n    (\"factor2\", \"low\"),\n    ...\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```\n\n**Explanation:**\n- **Low**: Textual reasoning (e.g., lack of employment, living alone).\n- **Medium**: Textual reasoning (e.g., no high school diploma/GED, low job history, depression).\n- **High**: Textual reasoning (e.g., God's involvement in personal life).\n\nThese factors are assessed based on their potential impact and likelihood within the context provided. The confidence score is derived from a statistical analysis considering each factor's relative importance and likelihood of occurrence. This approach ensures a balanced assessment to predict 3-year rearrest recidivism with high confidence.",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_110555_387833",
+    "model": "sailor2:1b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1121,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

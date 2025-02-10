@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 624,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:34:44.599309",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 4.11178970336914e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"high\", \"Younger individuals (19 years old) generally have higher recidivism rates than older individuals.\"],\n    [\"Gender\", \"medium\", \"Males tend to have higher recidivism rates than females.\"],\n    [\"Ethnicity\", \"medium\", \"Hispanic ethnicity can be associated with higher recidivism rates in some jurisdictions, although this is a complex and potentially biased factor. It's important to consider socioeconomic factors and systemic biases.\"],\n    [\"Prior Arrests\", \"high\", \"A history of 6 prior arrests, even without convictions, indicates a pattern of involvement with the criminal justice system and a higher risk of future arrests.\"],\n    [\"Marital Status\", \"medium\", \"Being unmarried and living alone can indicate a lack of social support and stability, increasing risk.\"],\n    [\"Education\", \"high\", \"Lack of a high school diploma or GED and not being enrolled in college are strong indicators of limited opportunities and increased risk of recidivism.\"],\n    [\"Employment\", \"high\", \"Unemployment is a significant risk factor for recidivism, as it can lead to financial strain and increased likelihood of engaging in criminal activity.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana) is a risk factor, although the severity depends on the frequency and type of substance. Past use indicates a propensity for risky behavior.\"],\n    [\"Mental Health\", \"low\", \"Lack of recent depression symptoms is a positive factor, suggesting better mental well-being.\"],\n    [\"Family Background\", \"medium\", \"Growing up in a large household (size 10) in a rural area could indicate limited resources and opportunities, potentially increasing risk. However, living with both biological parents is a protective factor.\"],\n    [\"Religious Beliefs\", \"low\", \"Lack of religious belief is a very weak risk factor. It is not a strong predictor of recidivism.\"],\n    [\"Physical Attributes\", \"low\", \"Height and weight are not directly related to recidivism risk.\" ]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_193444_800029",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 624,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "high",
+      "Younger individuals (19 years old) generally have higher recidivism rates than older individuals."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males tend to have higher recidivism rates than females."
+    ],
+    [
+      "Ethnicity",
+      "medium",
+      "Hispanic ethnicity can be associated with higher recidivism rates in some jurisdictions, although this is a complex and potentially biased factor. It's important to consider socioeconomic factors and systemic biases."
+    ],
+    [
+      "Prior Arrests",
+      "high",
+      "A history of 6 prior arrests, even without convictions, indicates a pattern of involvement with the criminal justice system and a higher risk of future arrests."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Being unmarried and living alone can indicate a lack of social support and stability, increasing risk."
+    ],
+    [
+      "Education",
+      "high",
+      "Lack of a high school diploma or GED and not being enrolled in college are strong indicators of limited opportunities and increased risk of recidivism."
+    ],
+    [
+      "Employment",
+      "high",
+      "Unemployment is a significant risk factor for recidivism, as it can lead to financial strain and increased likelihood of engaging in criminal activity."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana) is a risk factor, although the severity depends on the frequency and type of substance. Past use indicates a propensity for risky behavior."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "Lack of recent depression symptoms is a positive factor, suggesting better mental well-being."
+    ],
+    [
+      "Family Background",
+      "medium",
+      "Growing up in a large household (size 10) in a rural area could indicate limited resources and opportunities, potentially increasing risk. However, living with both biological parents is a protective factor."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Lack of religious belief is a very weak risk factor. It is not a strong predictor of recidivism."
+    ],
+    [
+      "Physical Attributes",
+      "low",
+      "Height and weight are not directly related to recidivism risk."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 6 times but has not been convicted. He is 5 feet 11 inches and weighs 165 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 10, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 967,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-02-02T12:53:06.615013733Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.243928599,
+    "load_duration": 0.045358341,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.053,
+    "eval_count": 449,
+    "eval_duration": 17.142
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Age is a significant risk factor for recidivism, but this individual's age alone does not warrant a high level of concern.\"),\n    (\"race/ethnicity\", \"medium\", \"This individual identifies as White, which is generally associated with lower rates of reoffending. However, the specific context and other factors may influence his risk level.\"),\n    (\"employment history\", \"low\", \"Having held two jobs during the year suggests a stable lifestyle and reduced likelihood of criminal behavior.\"),\n    (\"marital status\", \"medium\", \"Living alone is associated with increased risk for some individuals. However, this factor does not have enough information to warrant a high level of concern in this case.\"),\n    (\"education\", \"low\", \"Having only a high school diploma may indicate limited education and employment opportunities, but it does not necessarily increase the likelihood of reoffending.\"),\n    (\"college enrollment\", \"medium\", \"Not being enrolled in college suggests that this individual has other commitments or interests outside of criminal behavior. However, further information is needed to accurately assess his risk level.\"),\n    (\"drug use history\", \"high\", \"Using drugs (marijuana and cocaine) within the past four years significantly increases the likelihood of reoffending. This factor warrants a high level of concern in this case.\"),\n    (\"depression status\", \"medium\", \"Not feeling depressed over the past month does not necessarily indicate that this individual is not at risk for recidivism. However, it suggests that he may have other factors contributing to his behavior.\"),\n    (\"rural residence\", \"low\", \"Living in a rural area generally has no significant impact on recidivism rates. This factor alone does not warrant a high level of concern.\"),\n    (\"personal belief system\", \"medium\", \"Considering God's role in one's life may indicate that this individual has strong moral values and is less likely to engage in criminal behavior. However, further information is needed to accurately assess his risk level.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_075306_617051",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 967,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as White. He has been arrested 1 time but has not been convicted. He is 5 feet 8 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

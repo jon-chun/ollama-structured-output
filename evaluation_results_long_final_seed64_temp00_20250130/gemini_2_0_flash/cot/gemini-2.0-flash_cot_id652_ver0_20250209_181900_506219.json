@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 652,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:19:00.305520",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.805550575256348e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"low\", \"Relatively young age (22) is a risk factor, but not extremely young. Recidivism generally decreases with age after the early 20s.\"],\n    [\"Gender\", \"medium\", \"Male gender is statistically associated with higher recidivism rates compared to females.\"],\n    [\"Ethnicity\", \"medium\", \"Hispanic ethnicity can be associated with higher rates of arrest in some jurisdictions, but this is a complex factor influenced by socioeconomic conditions and bias in the criminal justice system. Assigning medium risk acknowledges this without overstating the impact.\"],\n    [\"Prior Arrests\", \"low\", \"Only one prior arrest and no convictions suggests a relatively low level of criminal involvement so far.\"],\n    [\"Marital Status\", \"medium\", \"Never married and living alone can indicate a lack of social support and stability, increasing risk.\"],\n    [\"Education\", \"low\", \"High school diploma provides some level of educational attainment, mitigating risk compared to lower levels of education.\"],\n    [\"Employment\", \"low\", \"Holding two jobs in the past year suggests some level of employment stability, reducing risk.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana) indicates a potential risk factor, although marijuana is generally considered a lower-risk drug compared to others.\"],\n    [\"Mental Health\", \"medium\", \"Experiencing depressive symptoms ('down in the dumps') suggests potential mental health issues that could contribute to recidivism.\"],\n    [\"Family History\", \"low\", \"Stable upbringing with both biological parents in a household of 5 is a protective factor.\"],\n    [\"Residential Environment\", \"low\", \"Growing up in an urban area is not necessarily a strong risk factor on its own.\"],\n    [\"Religious Beliefs\", \"low\", \"Lack of religious belief is not a strong predictor of recidivism and is assigned low risk.\"]\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_181900_506219",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 652,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "low",
+      "Relatively young age (22) is a risk factor, but not extremely young. Recidivism generally decreases with age after the early 20s."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Male gender is statistically associated with higher recidivism rates compared to females."
+    ],
+    [
+      "Ethnicity",
+      "medium",
+      "Hispanic ethnicity can be associated with higher rates of arrest in some jurisdictions, but this is a complex factor influenced by socioeconomic conditions and bias in the criminal justice system. Assigning medium risk acknowledges this without overstating the impact."
+    ],
+    [
+      "Prior Arrests",
+      "low",
+      "Only one prior arrest and no convictions suggests a relatively low level of criminal involvement so far."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never married and living alone can indicate a lack of social support and stability, increasing risk."
+    ],
+    [
+      "Education",
+      "low",
+      "High school diploma provides some level of educational attainment, mitigating risk compared to lower levels of education."
+    ],
+    [
+      "Employment",
+      "low",
+      "Holding two jobs in the past year suggests some level of employment stability, reducing risk."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana) indicates a potential risk factor, although marijuana is generally considered a lower-risk drug compared to others."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Experiencing depressive symptoms ('down in the dumps') suggests potential mental health issues that could contribute to recidivism."
+    ],
+    [
+      "Family History",
+      "low",
+      "Stable upbringing with both biological parents in a household of 5 is a protective factor."
+    ],
+    [
+      "Residential Environment",
+      "low",
+      "Growing up in an urban area is not necessarily a strong risk factor on its own."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Lack of religious belief is not a strong predictor of recidivism and is assigned low risk."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted. He is 6 feet 1 inch and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

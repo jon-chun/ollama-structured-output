@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1048,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:39:59.011117904Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.880144402,
+    "load_duration": 0.008220803,
+    "prompt_eval_count": 384,
+    "prompt_eval_duration": 0.043,
+    "eval_count": 413,
+    "eval_duration": 10.826
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at first arrest\", \"high\", \"Being arrested multiple times (6) indicates a pattern of criminal behavior, which is often associated with higher recidivism rates. Additionally, the age factor can influence risk as younger individuals may have less life experience and fewer resources to cope.\"),\n    (\"Number of prior convictions\", \"high\", \"Multiple arrests suggest that previous legal interventions were not effective in deterring criminal behavior, which is a strong predictor for future offenses.\"),\n    (\"Substance abuse history\", \"medium\", \"A past four-year drug use indicates substance dependency issues. While this alone may not be the highest risk factor, it contributes to an overall higher likelihood of reoffending when combined with other factors such as lack of employment and criminal background.\"),\n    (\"Lack of stable housing or support\", \"medium\", \"Currently living alone without a spouse suggests potential social isolation. While not directly linked to recidivism, it can exacerbate stressors that may lead to reoffending behavior if no other forms of stability are present.\"),\n    (\"Educational engagement\", \"low\", \"Enrollment in school is a positive factor as education has been shown to reduce the likelihood of recidivism. However, without information on academic performance or completion status, its impact remains uncertain but leans towards being protective rather than risk-enhancing.\"),\n    (\"Employment history\", \"high\", \"Having held no jobs during a year suggests financial instability and lack of routine which are significant predictors for recidivism. Employment is often associated with lower rates of reoffending due to increased structure, responsibility, and income.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}\n```\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_103959_013247",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1048,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 5 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

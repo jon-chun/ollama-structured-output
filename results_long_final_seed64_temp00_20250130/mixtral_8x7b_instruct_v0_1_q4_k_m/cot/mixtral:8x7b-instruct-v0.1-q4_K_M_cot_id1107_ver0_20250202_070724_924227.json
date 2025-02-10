@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1107,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-02-02T12:07:24.92246226Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 18.244545009,
+    "load_duration": 0.018974225,
+    "prompt_eval_count": 366,
+    "prompt_eval_duration": 0.551,
+    "eval_count": 428,
+    "eval_duration": 17.67
+  },
+  "response": {
+    "raw_message_text": " {\n    \"risk_factors\": [\n        (\"number of prior arrests\", \"medium\", \"Two prior arrests, but no convictions indicates some involvement with the criminal justice system.\"),\n        (\"age\", \"low\", \"Young age, but still within the range of typical offending behavior.\"),\n        (\"gender\", \"low\", \"Gender is not a strong predictor of recidivism.\"),\n        (\"ethnicity\", \"low\", \"Ethnicity is not a reliable predictor of recidivism.\"),\n        (\"height and weight\", \"medium\", \"Obesity can sometimes be associated with health issues, which could potentially impact employment and stability, but it's not a strong predictor of recidivism.\"),\n        (\"marital status\", \"low\", \"Being married may indicate some level of stability.\"),\n        (\"education level\", \"medium\", \"Lack of high school diploma or GED certificate could suggest lower employment prospects and opportunities, increasing the risk for recidivism.\"),\n        (\"job history\", \"high\", \"Frequent job changes in one year may indicate instability and difficulty maintaining employment.\"),\n        (\"drug use\", \"high\", \"Recent drug use, specifically cocaine, is a strong predictor of recidivism due to the increased likelihood of criminal involvement related to drug acquisition and potential addiction.\"),\n        (\"depression\", \"low\", \"No reported feelings of depression in the past month suggests some emotional stability.\"),\n        (\"family background\", \"medium\", \"Growing up in a large household with both biological parents could indicate some level of support, but living in an urban area can sometimes be associated with higher crime rates and fewer opportunities.\"),\n        (\"religious beliefs\", \"low\", \"Religious beliefs are not typically a predictor of recidivism.\")\n    ],\n    \"prediction\": \"YES\",\n    \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_070724_924227",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1107,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Hispanic. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs 280 lbs. He is married and is currently living with his spouse. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 5 jobs during the year. He has used drugs in the past four years (cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 7, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

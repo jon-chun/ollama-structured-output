@@ -1,0 +1,94 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 296,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:38:25.483257",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.740636587142944e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"high\", \"Younger individuals (21) generally have higher recidivism rates than older individuals.\"],\n    [\"Gender\", \"low\", \"Males generally have higher recidivism rates than females, but this is already accounted for in base rates and other factors are more influential here.\"],\n    [\"Race\", \"low\", \"Race can be a factor in recidivism, but it is often correlated with socioeconomic factors and should be considered cautiously. In this case, it is not a primary driver.\"],\n    [\"Prior Arrests\", \"medium\", \"Two prior arrests and a conviction indicate a pattern of criminal behavior, increasing the risk.\"],\n    [\"Marital Status\", \"medium\", \"Being unmarried and living alone can indicate a lack of social support, increasing risk.\"],\n    [\"Education\", \"high\", \"Lack of a high school diploma or GED and not being enrolled in college are strong indicators of limited opportunities and increased risk.\"],\n    [\"Employment\", \"medium\", \"Holding two jobs in the past year suggests some employment stability, but could also indicate job instability. It's a moderate risk factor.\"],\n    [\"Substance Use\", \"high\", \"Recent drug use (marijuana and cocaine) is a significant risk factor for recidivism.\"],\n    [\"Mental Health\", \"medium\", \"Experiencing depressive symptoms ('down in the dumps') suggests potential mental health issues that could contribute to criminal behavior.\"],\n    [\"Family History\", \"low\", \"Living with his biological dad in a household of size 3 in an urban area at a young age is not a strong indicator of risk in this case.\"],\n    [\"Religious Beliefs\", \"low\", \"Believing that God has something to do with what happens to him personally is not a strong indicator of risk.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_193825_683821",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 296,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "high",
+      "Younger individuals (21) generally have higher recidivism rates than older individuals."
+    ],
+    [
+      "Gender",
+      "low",
+      "Males generally have higher recidivism rates than females, but this is already accounted for in base rates and other factors are more influential here."
+    ],
+    [
+      "Race",
+      "low",
+      "Race can be a factor in recidivism, but it is often correlated with socioeconomic factors and should be considered cautiously. In this case, it is not a primary driver."
+    ],
+    [
+      "Prior Arrests",
+      "medium",
+      "Two prior arrests and a conviction indicate a pattern of criminal behavior, increasing the risk."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Being unmarried and living alone can indicate a lack of social support, increasing risk."
+    ],
+    [
+      "Education",
+      "high",
+      "Lack of a high school diploma or GED and not being enrolled in college are strong indicators of limited opportunities and increased risk."
+    ],
+    [
+      "Employment",
+      "medium",
+      "Holding two jobs in the past year suggests some employment stability, but could also indicate job instability. It's a moderate risk factor."
+    ],
+    [
+      "Substance Use",
+      "high",
+      "Recent drug use (marijuana and cocaine) is a significant risk factor for recidivism."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Experiencing depressive symptoms ('down in the dumps') suggests potential mental health issues that could contribute to criminal behavior."
+    ],
+    [
+      "Family History",
+      "low",
+      "Living with his biological dad in a household of size 3 in an urban area at a young age is not a strong indicator of risk in this case."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Believing that God has something to do with what happens to him personally is not a strong indicator of risk."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 11 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological dad in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

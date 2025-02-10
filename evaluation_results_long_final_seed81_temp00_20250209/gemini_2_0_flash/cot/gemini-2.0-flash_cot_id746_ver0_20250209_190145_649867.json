@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 746,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:01:45.449146",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 4.5593190193176266e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\n      \"Age\",\n      \"medium\",\n      \"20 years old is a risk factor because recidivism rates are higher for younger individuals compared to older adults. While not the highest risk age, it's not negligible.\"\n    ],\n    [\n      \"Gender\",\n      \"medium\",\n      \"Males generally have higher recidivism rates than females.\"\n    ],\n    [\n      \"Race\",\n      \"low\",\n      \"While racial disparities exist in the criminal justice system, race itself is not a direct risk factor. Using it as such can perpetuate bias. I will assign it a low weight.\"\n    ],\n    [\n      \"Number of Arrests\",\n      \"high\",\n      \"Four prior arrests indicate a pattern of criminal behavior and a higher likelihood of future arrests.\"\n    ],\n    [\n      \"Prior Convictions\",\n      \"high\",\n      \"Having a conviction significantly increases the risk of recidivism.\"\n    ],\n    [\n      \"Marital Status\",\n      \"medium\",\n      \"Never being married and living alone can indicate a lack of social support, which is a risk factor for recidivism.\"\n    ],\n    [\n      \"Education\",\n      \"low\",\n      \"Having a high school diploma and being enrolled in a 4-year college is a protective factor, suggesting a commitment to prosocial activities.\"\n    ],\n    [\n      \"Employment History\",\n      \"medium\",\n      \"Holding only one job in the past year suggests some instability, which can be a risk factor.\"\n    ],\n    [\n      \"Substance Use\",\n      \"medium\",\n      \"Past marijuana use, even if not recent or severe, is a risk factor, as substance use is often correlated with criminal behavior.\"\n    ],\n    [\n      \"Mental Health\",\n      \"low\",\n      \"Reporting no depression in the past month is a protective factor.\"\n    ],\n    [\n      \"Family History\",\n      \"low\",\n      \"Growing up with both biological parents in a stable household, even if large, is generally a protective factor.\"\n    ],\n    [\n      \"Religious Beliefs\",\n      \"low\",\n      \"Having religious beliefs is generally considered a protective factor, as it can provide a sense of purpose and community.\"\n    ]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_190145_649867",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 746,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "20 years old is a risk factor because recidivism rates are higher for younger individuals compared to older adults. While not the highest risk age, it's not negligible."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males generally have higher recidivism rates than females."
+    ],
+    [
+      "Race",
+      "low",
+      "While racial disparities exist in the criminal justice system, race itself is not a direct risk factor. Using it as such can perpetuate bias. I will assign it a low weight."
+    ],
+    [
+      "Number of Arrests",
+      "high",
+      "Four prior arrests indicate a pattern of criminal behavior and a higher likelihood of future arrests."
+    ],
+    [
+      "Prior Convictions",
+      "high",
+      "Having a conviction significantly increases the risk of recidivism."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never being married and living alone can indicate a lack of social support, which is a risk factor for recidivism."
+    ],
+    [
+      "Education",
+      "low",
+      "Having a high school diploma and being enrolled in a 4-year college is a protective factor, suggesting a commitment to prosocial activities."
+    ],
+    [
+      "Employment History",
+      "medium",
+      "Holding only one job in the past year suggests some instability, which can be a risk factor."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past marijuana use, even if not recent or severe, is a risk factor, as substance use is often correlated with criminal behavior."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "Reporting no depression in the past month is a protective factor."
+    ],
+    [
+      "Family History",
+      "low",
+      "Growing up with both biological parents in a stable household, even if large, is generally a protective factor."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Having religious beliefs is generally considered a protective factor, as it can provide a sense of purpose and community."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 4 times and has been convicted. He is 5 feet 9 inches and weighs 185 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

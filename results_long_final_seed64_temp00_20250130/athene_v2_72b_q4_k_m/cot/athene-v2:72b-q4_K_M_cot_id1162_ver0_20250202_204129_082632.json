@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 1162,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T01:41:29.080799056Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 108.286922989,
+    "load_duration": 0.026560008,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 2.027,
+    "eval_count": 386,
+    "eval_duration": 106.225
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (20 years old)\", \"low\", \"Young age can be a risk factor, but it is mitigated by the lack of prior convictions.\"),\n    (\"Gender (Female)\", \"low\", \"Females generally have lower recidivism rates compared to males.\"),\n    (\"Ethnicity (Hispanic)\", \"medium\", \"While ethnicity alone does not determine risk, social and economic factors associated with being Hispanic can influence outcomes.\"),\n    (\"Arrest History (1 arrest, no convictions)\", \"low\", \"A single arrest without conviction suggests a lower level of criminal involvement.\"),\n    (\"Living Situation (Not living alone)\", \"medium\", \"Living with others can provide support but also potential negative influences.\"),\n    (\"Education (High school diploma, not in college)\", \"medium\", \"Having a high school diploma is positive, but lack of further education may limit opportunities.\"),\n    (\"Employment (1 job during the year)\", \"low\", \"Stable employment, even if part-time, can reduce recidivism risk.\"),\n    (\"Drug Use (Marijuana and cocaine in the past four years)\", \"high\", \"Substance use is a significant risk factor for rearrest and continued criminal behavior.\"),\n    (\"Mental Health (No depression reported)\", \"low\", \"Lack of current mental health issues is a positive indicator.\"),\n    (\"Family History (Lived with non-biological adults at a young age)\", \"medium\", \"This can indicate instability in early life, which may affect future behavior.\"),\n    (\"Urban Residence\", \"medium\", \"Living in an urban area can expose individuals to higher crime rates and social challenges.\"),\n    (\"Religious Beliefs (Does not see God as influencing personal outcomes)\", \"medium\", \"Lack of religious or spiritual support can reduce protective factors.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_204129_082632",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1162,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as Hispanic. She has been arrested 1 time but has not been convicted. She is 5 feet 5 inches and weighs between 125 and 149 lbs. She has never been married and is currently not living alone. She has a high school diploma and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with adults other than biological, foster or adoptive parents in a household of size 4, in an urban area. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1203,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral:7b-instruct-q4_K_M",
+    "created_at": "2025-02-02T09:34:29.308901086Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.704821505,
+    "load_duration": 0.008700505,
+    "prompt_eval_count": 376,
+    "prompt_eval_duration": 0.021,
+    "eval_count": 473,
+    "eval_duration": 3.672
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"medium\", \"The person is a 21-year-old male, which puts him at an increased risk for recidivism.\"),\n    (\"gender\", \"low\", \"Being Black does not necessarily increase the risk of recidivism.\"),\n    (\"arrest_history\", \"high\", \"Having been arrested four times and convicted increases the risk of recidivism.\"),\n    (\"height\", \"medium\", \"Being 6 feet 1 inch tall may have some impact on recidivism, but it is not a significant factor.\"),\n    (\"weight\", \"low\", \"Being 165 lbs does not significantly affect the risk of recidivism.\"),\n    (\"marital_status\", \"low\", \"Being unmarried does not increase the risk of recidivism.\"),\n    (\"housing_situation\", \"low\", \"Living alone does not necessarily increase the risk of recidivism.\"),\n    (\"education_level\", \"high\", \"Not having a high school diploma or GED certificate and not being enrolled in college increases the risk of recidivism.\"),\n    (\"employment_history\", \"low\", \"Having only held one job during the year does not significantly affect the risk of recidivism.\"),\n    (\"drug_use\", \"high\", \"Using drugs, especially marijuana, increases the risk of recidivism.\"),\n    (\"mental_health\", \"medium\", \"Feeling down in the dumps may indicate a mental health issue that could increase the risk of recidivism.\"),\n    (\"early_life_experiences\", \"low\", \"Living with a biological mother in an urban area at a young age does not significantly affect the risk of recidivism.\"),\n    (\"spirituality\", \"low\", \"Believing that God has something to do with what happens to him personally does not increase the risk of recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_043429_310800",
+    "model": "mistral:7b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1203,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 6 feet 1 inch and weighs 165 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

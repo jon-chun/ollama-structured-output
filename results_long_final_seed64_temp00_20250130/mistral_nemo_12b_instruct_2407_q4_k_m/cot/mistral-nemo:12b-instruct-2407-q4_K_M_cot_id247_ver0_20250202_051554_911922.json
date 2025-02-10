@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 247,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:15:54.909576664Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 19.681745118,
+    "load_duration": 0.020563605,
+    "prompt_eval_count": 325,
+    "prompt_eval_duration": 0.21,
+    "eval_count": 334,
+    "eval_duration": 19.448
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"20-year-old is relatively young, with less life experience and potentially less stable\"),\n    (\"Gender\", \"medium\", \"Male gender has a higher recidivism rate compared to females\"),\n    (\"Race\", \"low\", \"White race does not significantly increase risk compared to other races\"),\n    (\"Arrests\", \"high\", \"Two arrests indicate a history of criminal behavior\"),\n    (\"Convictions\", \"high\", \"Having been convicted indicates a higher likelihood of reoffending\"),\n    (\"PhysicalSize\", \"medium\", \"Large size may facilitate certain crimes but does not significantly increase risk alone\"),\n    (\"MaritalStatus\", \"low\", \"Being married can be a protective factor against recidivism\"),\n    (\"Education\", \"medium\", \"High school diploma is lower than ideal, indicating potential lack of opportunities or skills\"),\n    (\"Employment\", \"low\", \"Having held two jobs indicates stability and responsibility\"),\n    (\"DrugUse\", \"high\", \"Recent drug use increases the likelihood of reoffending\"),\n    (\"Depression\", \"low\", \"Lack of depression reduces the risk associated with mental health issues\"),\n    (\"FamilyStructure\", \"medium\", \"Growing up in a larger family can increase stress and instability\"),\n    (\"Residence\", \"low\", \"Urban area does not significantly increase risk compared to other areas\"),\n    (\"ReligiousBeliefs\", \"low\", \"Belief in God does not significantly impact recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_051554_911922",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 247,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 2 inches and weighs 275 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

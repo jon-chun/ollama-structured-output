@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1048,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "created_at": "2025-01-30T23:11:15.698584606Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.014184186,
+    "load_duration": 0.029843334,
+    "prompt_eval_count": 330,
+    "prompt_eval_duration": 0.014,
+    "eval_count": 465,
+    "eval_duration": 3.968
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but not extremely young for criminal behavior to be a concern.\"),\n    (\"gender\", \"medium\", \"Males are generally at higher risk of recidivism than females.\"),\n    (\"race_ethnicity\", \"medium\", \"Hispanic individuals may face unique challenges and have different rates of recidivism compared to other ethnic groups.\"),\n    (\"arrest_history\", \"high\", \"Having been arrested 6 times indicates a pattern of criminal behavior which is a strong predictor of future arrests.\"),\n    (\"conviction_status\", \"high\", \"Being convicted previously shows that the individual has crossed the threshold from arrest to formal legal consequences, increasing the likelihood of recidivism.\"),\n    (\"height_weight\", \"low\", \"Physical stature does not directly correlate with criminal risk but may be considered in assessing vulnerability or physical ability for certain crimes.\"),\n    (\"marital_status\", \"low\", \"Living alone and never being married do not have a direct correlation to crime rates, so this factor is low.\"),\n    (\"living_arrangement\", \"medium\", \"Living alone might suggest lack of support system which could increase risk. However, the individual is enrolled in school, which can be a stabilizing factor.\"),\n    (\"employment_status\", \"high\", \"Not holding a job may indicate lack of social integration and financial stability, increasing the likelihood of engaging in criminal activities for economic reasons.\"),\n    (\"drug_use\", \"high\", \"Past drug use, especially recent use, is associated with higher recidivism rates due to potential addiction issues or continued substance dependency.\"),\n    (\"mental_health\", \"medium\", \"Feeling 'down in the dumps' regularly could indicate underlying mental health issues that may contribute to criminal behavior or hinder rehabilitation efforts.\"),\n    (\"childhood_environment\", \"high\", \"Growing up in a large household with his biological mother in an urban area might suggest exposure to potential risk factors such as poverty, crime, and instability.\"),\n    (\"religious_beliefs\", \"low\", \"The individual's belief that God has nothing to do with their life does not directly correlate with criminal behavior but may indicate a lack of spiritual guidance or support.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250130_181115_700140",
+    "model": "dolphin3:8b-llama3.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1048,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Hispanic. He has been arrested 6 times and has been convicted. He is 5 feet 5 inches and weighs 145 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

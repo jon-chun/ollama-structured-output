@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 253,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "created_at": "2025-02-02T02:05:49.92870196Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 60.962202685,
+    "load_duration": 0.046813139,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 1.621,
+    "eval_count": 362,
+    "eval_duration": 59.292
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"19 is considered young, but not unusually high-risk for recidivism\"),\n    (\"Race\", \"medium\", \"Research suggests that Black males are disproportionately represented in the criminal justice system, which may indicate higher risk\"),\n    (\"Prior arrests without conviction\", \"medium\", \"Five prior arrests without convictions may indicate a pattern of behavior, but lack of convictions reduces the weight of this factor\"),\n    (\"Physical characteristics\", \"low\", \"Height and weight are not strongly correlated with recidivism risk\"),\n    (\"Marital status\", \"low\", \"Never being married is common at 19 years old and does not significantly impact recidivism risk\"),\n    (\"Living situation\", \"medium\", \"Not living alone may indicate a supportive environment, but could also suggest dependence on others\"),\n    (\"Education level\", \"high\", \"Lack of high school diploma or GED certificate is strongly correlated with increased recidivism risk\"),\n    (\"Employment history\", \"high\", \"No jobs held in the past year suggests instability and lack of prosocial engagement\"),\n    (\"Substance use\", \"medium\", \"Marijuana use in the past four years is a concern, but not as high-risk as other substances\"),\n    (\"Mental health\", \"low\", \"No reported depression in the past month reduces the weight of this factor\"),\n    (\"Childhood environment\", \"medium\", \"Growing up in an urban area with a large household size may have presented challenges, but is not unusually high-risk\"),\n    (\"Religiosity\", \"low\", \"Belief that God has nothing to do with personal events does not strongly correlate with recidivism risk\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_210549_930421",
+    "model": "llama3.1:70b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 253,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 165 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

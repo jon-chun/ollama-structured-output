@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 528,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:44:09.541921608Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.243486875,
+    "load_duration": 0.045227697,
+    "prompt_eval_count": 342,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 343,
+    "eval_duration": 2.186
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Conviction history (5 times)\", \"high\", \"This individual has a significant criminal history, which is a strong indicator of recidivism.\"),\n    (\"Age (21 years old)\", \"medium\", \"While young age can be protective, this individual's age is still within the range where risk increases.\"),\n    (\"Height and weight (5 feet 5 inches, between 150-174 lbs.)\", \"low\", \"This information does not provide much predictive power for recidivism.\"),\n    (\"Living situation (living alone)\", \"medium\", \"Living alone can be a risk factor due to the potential for substance abuse or mental health issues.\"),\n    (\"Education level (GED, no college enrollment)\", \"high\", \"Low education levels are associated with higher recidivism rates.\"),\n    (\"Employment history (1 job in past year)\", \"low\", \"Limited employment experience does not necessarily indicate a high risk of reoffending.\"),\n    (\"Substance use (marijuana in the past 4 years)\", \"medium\", \"Regular substance use can be associated with higher recidivism rates, but it is not always predictive.\"),\n    (\"Depression status (not depressed over last month)\", \"low\", \"The absence of depression does not guarantee low risk.\"),\n    (\"Background characteristics (urban area, Hispanic identity, etc.)\", \"medium\", \"These factors can influence the likelihood of reoffending but do not provide strong predictive power on their own.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074409_543966",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 528,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 5 times and has been convicted. He is 5 feet 5 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

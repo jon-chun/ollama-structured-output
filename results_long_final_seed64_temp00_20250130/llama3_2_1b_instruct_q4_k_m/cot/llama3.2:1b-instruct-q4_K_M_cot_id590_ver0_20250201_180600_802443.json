@@ -1,0 +1,75 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 590,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:06:00.800522383Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.175704211,
+    "load_duration": 0.023443965,
+    "prompt_eval_count": 326,
+    "prompt_eval_duration": 0.037,
+    "eval_count": 477,
+    "eval_duration": 2.113
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"race\", \"weight\": \"low\", \"textual reasoning\": \"The person's racial identity may influence her likelihood of being arrested, but this factor is not directly related to recidivism.\", \"medium\": \"high\", \"textual reasoning\": \"Her Black race may also impact her social and economic opportunities, increasing her risk of reoffending.\"},\n    {\"factor2\": \"education\", \"weight\": \"low\", \"textual reasoning\": \"Lack of education is a significant risk factor for recidivism.\", \"medium\": \"high\", \"textual reasoning\": \"Given her current level of education, she may struggle to secure stable employment and maintain social connections, increasing her likelihood of reoffending.\"},\n    {\"factor3\": \"family dynamics\", \"weight\": \"low\", \"textual reasoning\": \"The person's biological mother was in a household of size 4, which may indicate some level of instability.\", \"medium\": \"high\", \"textual reasoning\": \"This factor is not directly related to recidivism, but it could contribute to her risk by increasing her exposure to negative influences and stress.\"},\n    {\"factor4\": \"substance abuse\", \"weight\": \"low\", \"textual reasoning\": \"The person has used drugs in the past four years, which may indicate some level of addiction.\", \"medium\": \"high\", \"textual reasoning\": \"This factor is directly related to recidivism, as substance abuse can lead to repeated offenses and a lack of personal responsibility.\"},\n    {\"factor5\": \"employment history\", \"weight\": \"low\", \"textual reasoning\": \"The person has held only two jobs during the year.\", \"medium\": \"high\", \"textual reasoning\": \"This factor is not directly related to recidivism, but it could contribute to her risk by increasing her exposure to negative influences and stress.\"},\n    {\"factor6\": \"marital status\", \"weight\": \"low\", \"textual reasoning\": \"The person is currently living alone.\", \"medium\": \"high\", \"textual reasoning\": \"This factor may indicate some level of instability or lack of social support, increasing her risk of reoffending.\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_180600_802443",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 590,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "race",
+      "weight": "low",
+      "textual reasoning": "Her Black race may also impact her social and economic opportunities, increasing her risk of reoffending.",
+      "medium": "high"
+    },
+    {
+      "factor2": "education",
+      "weight": "low",
+      "textual reasoning": "Given her current level of education, she may struggle to secure stable employment and maintain social connections, increasing her likelihood of reoffending.",
+      "medium": "high"
+    },
+    {
+      "factor3": "family dynamics",
+      "weight": "low",
+      "textual reasoning": "This factor is not directly related to recidivism, but it could contribute to her risk by increasing her exposure to negative influences and stress.",
+      "medium": "high"
+    },
+    {
+      "factor4": "substance abuse",
+      "weight": "low",
+      "textual reasoning": "This factor is directly related to recidivism, as substance abuse can lead to repeated offenses and a lack of personal responsibility.",
+      "medium": "high"
+    },
+    {
+      "factor5": "employment history",
+      "weight": "low",
+      "textual reasoning": "This factor is not directly related to recidivism, but it could contribute to her risk by increasing her exposure to negative influences and stress.",
+      "medium": "high"
+    },
+    {
+      "factor6": "marital status",
+      "weight": "low",
+      "textual reasoning": "This factor may indicate some level of instability or lack of social support, increasing her risk of reoffending.",
+      "medium": "high"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 1 time and has been convicted. She is 5 feet 4 inches and weighs 128 lbs. She has never been married and is currently living alone. She is enrolled in school at the present moment. She has held 2 jobs during the year. She has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, she lived with her biological mother in a household of size 4, in an urban area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

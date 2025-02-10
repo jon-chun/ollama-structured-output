@@ -1,0 +1,109 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 344,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:36:47.799354",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.8038225173950195e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"20 years old places her in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens.\"],\n    [\"Gender\", \"low\", \"Females generally have lower recidivism rates than males.\"],\n    [\"Race\", \"low\", \"White individuals do not have a disproportionately high recidivism rate compared to other racial groups.\"],\n    [\"Prior Arrests\", \"low\", \"One prior arrest is a relatively low number, suggesting limited prior involvement with the criminal justice system.\"],\n    [\"Prior Convictions\", \"low\", \"No prior convictions indicate a lack of established criminal behavior.\"],\n    [\"BMI\", \"low\", \"While BMI is elevated, it is not directly linked to recidivism risk.\"],\n    [\"Marital Status\", \"medium\", \"Never married and living alone can indicate a lack of social support, which can increase risk.\"],\n    [\"Education\", \"low\", \"A high school diploma provides some level of educational attainment, reducing risk compared to those with lower education levels.\"],\n    [\"Employment History\", \"high\", \"Holding 9 jobs in a year suggests instability and difficulty maintaining employment, a significant risk factor.\"],\n    [\"Substance Use\", \"high\", \"Recent drug use (marijuana and cocaine) is a strong predictor of recidivism.\"],\n    [\"Mental Health\", \"medium\", \"Experiencing depressive symptoms in the past month suggests potential mental health issues that could contribute to criminal behavior.\"],\n    [\"Family History\", \"low\", \"Growing up with both biological parents in a stable household is generally a protective factor.\"],\n    [\"Geographic Location\", \"low\", \"Growing up in a rural area is not typically associated with increased recidivism risk.\"],\n    [\"Religiosity\", \"low\", \"Belief in God's influence is generally considered a protective factor.\" ]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_193648_000048",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 344,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "20 years old places her in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens."
+    ],
+    [
+      "Gender",
+      "low",
+      "Females generally have lower recidivism rates than males."
+    ],
+    [
+      "Race",
+      "low",
+      "White individuals do not have a disproportionately high recidivism rate compared to other racial groups."
+    ],
+    [
+      "Prior Arrests",
+      "low",
+      "One prior arrest is a relatively low number, suggesting limited prior involvement with the criminal justice system."
+    ],
+    [
+      "Prior Convictions",
+      "low",
+      "No prior convictions indicate a lack of established criminal behavior."
+    ],
+    [
+      "BMI",
+      "low",
+      "While BMI is elevated, it is not directly linked to recidivism risk."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never married and living alone can indicate a lack of social support, which can increase risk."
+    ],
+    [
+      "Education",
+      "low",
+      "A high school diploma provides some level of educational attainment, reducing risk compared to those with lower education levels."
+    ],
+    [
+      "Employment History",
+      "high",
+      "Holding 9 jobs in a year suggests instability and difficulty maintaining employment, a significant risk factor."
+    ],
+    [
+      "Substance Use",
+      "high",
+      "Recent drug use (marijuana and cocaine) is a strong predictor of recidivism."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Experiencing depressive symptoms in the past month suggests potential mental health issues that could contribute to criminal behavior."
+    ],
+    [
+      "Family History",
+      "low",
+      "Growing up with both biological parents in a stable household is generally a protective factor."
+    ],
+    [
+      "Geographic Location",
+      "low",
+      "Growing up in a rural area is not typically associated with increased recidivism risk."
+    ],
+    [
+      "Religiosity",
+      "low",
+      "Belief in God's influence is generally considered a protective factor."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time but has not been convicted. She is 5 feet 0 inches and weighs 180 lbs. She has never been married and is currently living alone. She has a high school diploma and is not enrolled in college. She has held 9 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

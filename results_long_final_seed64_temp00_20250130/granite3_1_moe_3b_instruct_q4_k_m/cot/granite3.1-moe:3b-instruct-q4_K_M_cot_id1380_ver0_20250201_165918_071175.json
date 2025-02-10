@@ -1,0 +1,59 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 1380,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-02-01T21:59:18.069421732Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.960570319,
+    "load_duration": 0.008364583,
+    "prompt_eval_count": 399,
+    "prompt_eval_duration": 0.13,
+    "eval_count": 203,
+    "eval_duration": 1.819
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Criminal History\", \"high\", \"The individual has a history of three arrests, indicating a potential for recidivism. This is a strong risk factor.\"],\n    [\"Substance Abuse\", \"medium\", \"Marijuana and cocaine use in the past four years suggest a medium-level risk of future substance abuse and related offenses.\"],\n    [\"Lack of Education/Employment\", \"high\", \"Living alone, not having held any jobs for a year, and lacking a high school diploma or GED certificate indicate a high risk of unemployment and potential involvement in criminal activities.\"],\n    [\"Mental Health\", \"medium\", \"Feelings of depression and hopelessness suggest a medium-level risk of recidivism due to mental health issues.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_165918_071175",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1380,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Criminal History",
+      "high",
+      "The individual has a history of three arrests, indicating a potential for recidivism. This is a strong risk factor."
+    ],
+    [
+      "Substance Abuse",
+      "medium",
+      "Marijuana and cocaine use in the past four years suggest a medium-level risk of future substance abuse and related offenses."
+    ],
+    [
+      "Lack of Education/Employment",
+      "high",
+      "Living alone, not having held any jobs for a year, and lacking a high school diploma or GED certificate indicate a high risk of unemployment and potential involvement in criminal activities."
+    ],
+    [
+      "Mental Health",
+      "medium",
+      "Feelings of depression and hopelessness suggest a medium-level risk of recidivism due to mental health issues."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 3 times and has been convicted. He is 6 feet 0 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 6, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

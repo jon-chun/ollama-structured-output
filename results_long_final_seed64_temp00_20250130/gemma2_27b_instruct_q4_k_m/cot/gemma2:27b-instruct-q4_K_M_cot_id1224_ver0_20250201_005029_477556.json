@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 1224,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "gemma2:27b-instruct-q4_K_M",
+    "created_at": "2025-02-01T05:50:29.475888654Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.669413297,
+    "load_duration": 0.048469881,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.1,
+    "eval_count": 259,
+    "eval_duration": 6.518
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"high\", \"Young age is a known risk factor for recidivism.\"),\n    (\"Prior Arrests/Convictions\", \"high\", \"Multiple prior arrests and convictions significantly increase the risk of re-offending.\"),\n    (\"Employment Status\", \"medium\", \"Lack of stable employment can be a contributing factor to criminal behavior.\"),\n    (\"Education Status\", \"low\", \"Currently enrolled in school, which is generally considered protective.\"),\n    (\"Substance Use\", \"low\", \"Abstinence from drugs for four years is positive.\"),\n    (\"Mental Health\", \"medium\", \"Reports of depression warrant attention as mental health issues can be linked to recidivism.\"),\n    (\"Social Support\", \"low\", \"Living alone and never married suggests limited social support, which can be a risk factor.\"),\n    (\"Family Background\", \"medium\", \"Large household size in rural area during childhood could indicate socioeconomic disadvantage, a potential risk factor.\"),\n    (\"Religious Beliefs\", \"low\", \"Religious belief itself is not typically considered a direct predictor of recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_005029_477556",
+    "model": "gemma2:27b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1224,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 4 times and has been convicted. He is 5 feet 10 inches and weighs 155 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 7, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 85,
+    "id": 697,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "command-r7b:7b-12-2024-fp16",
+    "created_at": "2025-01-31T12:32:11.809689486Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.962148924,
+    "load_duration": 0.032734206,
+    "prompt_eval_count": 707,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 514,
+    "eval_duration": 10.903
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age: Young adult (22 years)\", \"medium\", \"Young adults are more likely to engage in risky behaviors, including criminal activities, due to a combination of factors such as peer influence, lack of established routines, and limited life experience.\"),\n    (\"Race/Ethnicity: White\", \"low\", \"While race can be a factor in certain contexts, there is no inherent bias suggesting that being White increases the risk of recidivism. However, societal and environmental factors may play a role.\"),\n    (\"Arrest History: 6 arrests, multiple convictions\", \"high\", \"A significant number of arrests and convictions indicate a pattern of criminal behavior and a higher likelihood of reoffending.\"),\n    (\"Employment Status: Unemployed for a year\", \"medium\", \"Lack of employment can lead to financial strain, increased stress, and a sense of purposelessness, which may contribute to recidivism.\"),\n    (\"Education: GED certificate, not enrolled in college\", \"low-medium\", \"A GED indicates some level of education, but not attending college suggests a lack of higher education, which could impact future opportunities and reduce barriers to reoffending.\"),\n    (\"Drug Use: Past use of marijuana and cocaine\", \"high\", \"Substance abuse is a strong predictor of recidivism. The individual's history of drug use, including multiple substances, indicates a high risk of continued criminal behavior.\"),\n    (\"Mental Health: No depression in the past month\", \"low-medium\", \"The absence of reported depression does not necessarily indicate good mental health, but it suggests that the individual may be functioning relatively well and is not experiencing severe depressive episodes.\"),\n    (\"Living Situation: Living alone\", \"low\", \"Living alone can provide a sense of independence and privacy, which may reduce certain risks associated with criminal behavior. However, it does not significantly increase recidivism risk.\"),\n    (\"Family Structure: Lived with non-biological adults in a rural area\", \"medium\", \"Growing up in a household without biological parents or in a rural setting can impact an individual's sense of stability and support, potentially contributing to higher recidivism rates.\"),\n    (\"Religious Beliefs: Does not believe in God's involvement\", \"low-medium\", \"Personal beliefs about religion do not directly correlate with recidivism. However, a lack of religious affiliation or belief may indicate a different set of values and social connections.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 85\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_073211_811417",
+    "model": "command-r7b:7b-12-2024-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 697,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 6 times and has been convicted. He is 5 feet 10 inches and weighs 170 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 2, in a rural area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

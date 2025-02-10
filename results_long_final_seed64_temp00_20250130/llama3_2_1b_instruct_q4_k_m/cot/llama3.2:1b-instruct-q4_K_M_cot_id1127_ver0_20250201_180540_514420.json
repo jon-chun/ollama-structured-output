@@ -1,0 +1,74 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 1127,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:05:40.512883618Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.21323388,
+    "load_duration": 0.020872926,
+    "prompt_eval_count": 335,
+    "prompt_eval_duration": 0.033,
+    "eval_count": 289,
+    "eval_duration": 1.157
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"Hispanic identity\", \"weight\": 2, \"reasoning\": \"Cultural background may influence risk factors such as substance use and recidivism\"},\n    {\"factor2\": \"Previous arrests and convictions\", \"weight\": 3, \"reasoning\": \"Multiple offenses can increase the likelihood of future recidivism\"},\n    {\"factor3\": \"Weight and height\", \"weight\": 1, \"reasoning\": \"Body mass index (BMI) is not directly related to recidivism, but may be a factor in health-related decisions\"},\n    {\"factor4\": \"Education level\", \"weight\": 2, \"reasoning\": \"Limited education may indicate lower socio-economic status and increased risk of recidivism\"},\n    {\"factor5\": \"Employment history\", \"weight\": 1, \"reasoning\": \"Short employment history may be a sign of instability or lack of stability in the individual's life\"},\n    {\"factor6\": \"Substance use\", \"weight\": 2, \"reasoning\": \"Past substance use can increase the likelihood of future substance use and recidivism\"},\n    {\"factor7\": \"Depression\", \"weight\": 1, \"reasoning\": \"Lack of depression may indicate a lower risk of recidivism\"}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_180540_514420",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1127,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Hispanic identity",
+      "weight": 2,
+      "reasoning": "Cultural background may influence risk factors such as substance use and recidivism"
+    },
+    {
+      "factor2": "Previous arrests and convictions",
+      "weight": 3,
+      "reasoning": "Multiple offenses can increase the likelihood of future recidivism"
+    },
+    {
+      "factor3": "Weight and height",
+      "weight": 1,
+      "reasoning": "Body mass index (BMI) is not directly related to recidivism, but may be a factor in health-related decisions"
+    },
+    {
+      "factor4": "Education level",
+      "weight": 2,
+      "reasoning": "Limited education may indicate lower socio-economic status and increased risk of recidivism"
+    },
+    {
+      "factor5": "Employment history",
+      "weight": 1,
+      "reasoning": "Short employment history may be a sign of instability or lack of stability in the individual's life"
+    },
+    {
+      "factor6": "Substance use",
+      "weight": 2,
+      "reasoning": "Past substance use can increase the likelihood of future substance use and recidivism"
+    },
+    {
+      "factor7": "Depression",
+      "weight": 1,
+      "reasoning": "Lack of depression may indicate a lower risk of recidivism"
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 4 times and has been convicted. He is 5 feet 11 inches and weighs between 200 and 224 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 65,
+    "id": 79,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-02-06T23:00:12.008588201Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.340561598,
+    "load_duration": 0.031069632,
+    "prompt_eval_count": 334,
+    "prompt_eval_duration": 0.062,
+    "eval_count": 266,
+    "eval_duration": 4.24
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but age alone does not significantly predict recidivism without other risk factors.\"),\n    (\"race\", \"medium\", \"Being Black can be associated with higher arrest rates due to systemic issues, though it's a complex factor.\"),\n    (\"prior_arrests\", \"low\", \"Only one prior arrest suggests low likelihood of future arrests unless combined with other high-risk factors.\"),\n    (\"education_level\", \"low\", \"Having completed high school is generally seen as protective against recidivism.\"),\n    (\"employment_status\", \"medium\", \"Holding a job during the year is positive, but only having held 1 job might indicate instability or difficulty maintaining employment.\"),\n    (\"drug_use\", \"low\", \"No drug use in the past four years is a strong protective factor.\"),\n    (\"mental_health\", \"high\", \"Depression symptoms are significant risk factors for recidivism and require attention.\"),\n    (\"family_history\", \"medium\", \"Living with biological mother suggests stable early environment, but urban setting can be risky.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in God's role is generally seen as protective against criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250206_180012_010324",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 79,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 8 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and most of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

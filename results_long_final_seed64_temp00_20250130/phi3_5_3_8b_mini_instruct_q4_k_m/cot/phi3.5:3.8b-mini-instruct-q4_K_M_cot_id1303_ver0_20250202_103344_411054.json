@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 1303,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:33:44.408771655Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 17.148087557,
+    "load_duration": 0.011161015,
+    "prompt_eval_count": 382,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 652,
+    "eval_duration": 17.089
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age at first arrest (young age)\", \"medium\", \"Being arrested young may indicate a higher risk for recidivism, but without more context on the nature of past offenses or interventions received, it's not definitive.\"),\n    (\"Race/Ethnicity ('Black')\", \"low to medium\", \"While certain studies suggest disparities in criminal justice outcomes among different racial groups, race alone is an insufficient predictor of recidivism without considering other factors such as socioeconomic status and community environment.\"),\n    (\"Number of prior arrests (2)\", \"high\", \"Multiple previous offenses are a strong indicator for higher risk of rearrest. Each arrest can be seen as an opportunity where interventions could have been applied, but the fact that there were two suggests some level of ongoing issues.\"),\n    (\"Education status ('No high school diploma or GED')\", \"high\", \"Lack of formal education is a significant risk factor for recidivism as it limits employment opportunities and can contribute to difficulties in social adaptation post-release. This lack may also correlate with other risks such as substance abuse.\"),\n    (\"Employment history ('Held 3 jobs')\", \"low\", \"While having held multiple jobs could indicate a willingness or ability to work, it does not necessarily mitigate the risk of recidivism. The stability and quality of these employments are also important factors that aren't provided.\"),\n    (\"Substance use ('Used drugs in past four years')\", \"medium\", \"Drug use is a known factor associated with criminal behavior, but its impact on rearrest recidivism can vary widely depending on the type of substances used and whether there are concurrent mental health issues.\"),\n    (\"Mental Health ('Not depressed over past month')\", \"low to medium\", \"While not currently feeling depressed is a positive sign, it does not rule out underlying or untreated mental health conditions that could contribute to future criminal behavior. Mental illness can be both an effect and cause of substance use.\"),\n    (\"Family background ('Lived with biological mother in household size 3')\", \"low\", \"A stable family environment during formative years may have provided some protective factors against engaging in crime, but it does not guarantee immunity from future criminal behavior. The urban setting could also influence this factor.\"),\n    (\"Religious belief ('Considers God has something to do with personal outcomes')\", \"low\", \"While religious faith can be a source of support and moral guidance for some individuals, its direct impact on recidivism is difficult to quantify without further context. It could potentially serve as both protective or risk factor depending on the individual's interpretation.\"\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_103344_411054",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1303,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Black. He has been arrested 2 times and has been convicted. He is 5 feet 8 inches and weighs between 200 and 224 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 3 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 70,
+    "id": 715,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "created_at": "2025-02-02T15:53:28.565908673Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 8.084039781,
+    "load_duration": 0.012264893,
+    "prompt_eval_count": 384,
+    "prompt_eval_duration": 0.045,
+    "eval_count": 303,
+    "eval_duration": 8.024
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age at first arrest (underage)\", \"high\", \"Being under the legal drinking age can be associated with a higher risk of recidivism, especially if it's related to substance abuse.\"),\n    (\"Substance use history\", \"medium\", \"A past drug usage indicates potential for reoffending but does not guarantee future behavior. The types and frequency need further consideration.\"),\n    (\"Educational attainment (no diploma or GED)\", \"high\", \"Lack of formal education is often linked to higher recidivism rates due to limited employment opportunities, which can lead individuals back into criminal activity for financial reasons.\"),\n    (\"Employment history (fluctuating jobs)\", \"medium\", \"Having held multiple short-term positions may suggest instability but does not directly correlate with reoffending. It could indicate a lack of long-term commitment or skills, which are risk factors in themselves.\"),\n    (\"Living situation (alone)\", \"low to medium\", \"While living alone can sometimes be associated with higher risks due to isolation and potential for substance abuse, it is not as strong an indicator without additional context such as social support systems or mental health status.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 70\n}\n",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_105328_567495",
+    "model": "phi3.5:3.8b-mini-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 715,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 10 inches and weighs 190 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

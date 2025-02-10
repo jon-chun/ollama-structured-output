@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 1314,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T04:21:59.686445568Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 106.265828797,
+    "load_duration": 0.014818082,
+    "prompt_eval_count": 311,
+    "prompt_eval_duration": 1.981,
+    "eval_count": 379,
+    "eval_duration": 104.263
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (21 years old)\", \"low\", \"Young adults are at a higher risk, but the early twenties are often a period of transition where risk can decrease.\"),\n    (\"Race (Black)\", \"medium\", \"Statistically, Black individuals face systemic challenges that may increase recidivism risk, though this is not deterministic and should be considered with caution.\"),\n    (\"Arrest History (2 arrests, no convictions)\", \"low\", \"A history of arrests without conviction suggests some involvement in the justice system but lacks the severity of a conviction.\"),\n    (\"Living Situation (living alone)\", \"medium\", \"Living alone can indicate a lack of social support, which is a moderate risk factor for recidivism.\"),\n    (\"Education (high school diploma, not enrolled in college)\", \"low\", \"Having completed high school is generally positive, though not pursuing further education might limit future opportunities.\"),\n    (\"Employment (1 job during the year)\", \"medium\", \"Stable employment is protective against recidivism, but holding only one job may indicate limited stability or opportunity.\"),\n    (\"Substance Use (no drug use in past 4 years)\", \"low\", \"Lack of recent substance use is a strong protective factor.\"),\n    (\"Mental Health (not depressed over the past month)\", \"low\", \"Good mental health reduces risk, though this should be monitored over time.\"),\n    (\"Family History (lived in household of size 5 at a young age)\", \"medium\", \"Larger households can indicate both support and potential stressors; context is important.\"),\n    (\"Religious Beliefs (considers God has something to do with personal outcomes)\", \"low\", \"Strong religious beliefs can provide emotional and social support, which may reduce risk.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_232159_688025",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1314,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Black. He has been arrested 2 times but has not been convicted. He is 6 feet 1 inch and weighs 170 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 5. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

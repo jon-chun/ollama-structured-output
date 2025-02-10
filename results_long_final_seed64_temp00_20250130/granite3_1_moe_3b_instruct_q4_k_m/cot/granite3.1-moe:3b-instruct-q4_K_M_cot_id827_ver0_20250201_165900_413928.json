@@ -1,0 +1,79 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 827,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "created_at": "2025-02-01T21:59:00.412000151Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 4.119156074,
+    "load_duration": 0.008310533,
+    "prompt_eval_count": 375,
+    "prompt_eval_duration": 0.124,
+    "eval_count": 444,
+    "eval_duration": 3.983
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    [\"Arrest history\", \"high\", \"A history of multiple arrests, including convictions, indicates a high risk of recidivism. This suggests the individual has a propensity for criminal behavior.\"],\n    [\"Substance abuse (marijuana and cocaine)\", \"medium\", \"While not indicative of future offenses in isolation, a history of substance abuse is associated with increased risk of recidivism. The frequency and type of substances used should be considered.\"],\n    [\"Lack of education or GED/college enrollment\", \"low\", \"The individual's lack of formal education or current enrollment suggests limited life skills and potential for future criminal involvement. This is a medium-level risk factor.\"],\n    [\"Unemployment history\", \"medium\", \"A year without employment may indicate economic instability, which could contribute to recidivism. However, this alone does not guarantee it.\"],\n    [\"Past mental health status (depression)\", \"low\", \"The individual's lack of current depressive symptoms reduces this factor's risk level.\"],\n    [\"Family structure at young age\", \"medium\", \"Living in a household with three people as an 18-year-old suggests potential for social support and stability, which could mitigate recidivism risks. However, the specific dynamics of this family unit are not known.\"],\n    [\"Religious beliefs (considering God's role)\", \"low\", \"The individual's religious beliefs do not inherently indicate a higher risk of recidivism and could potentially provide moral support or guidance.\"],\n    [\"Drug use history (marijuana and cocaine) in the past four years\", \"medium\", \"A history of drug use, especially those substances, is associated with increased risk of future offenses. This factor's impact should be considered alongside other substance abuse factors.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_165900_413928",
+    "model": "granite3.1-moe:3b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 827,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Arrest history",
+      "high",
+      "A history of multiple arrests, including convictions, indicates a high risk of recidivism. This suggests the individual has a propensity for criminal behavior."
+    ],
+    [
+      "Substance abuse (marijuana and cocaine)",
+      "medium",
+      "While not indicative of future offenses in isolation, a history of substance abuse is associated with increased risk of recidivism. The frequency and type of substances used should be considered."
+    ],
+    [
+      "Lack of education or GED/college enrollment",
+      "low",
+      "The individual's lack of formal education or current enrollment suggests limited life skills and potential for future criminal involvement. This is a medium-level risk factor."
+    ],
+    [
+      "Unemployment history",
+      "medium",
+      "A year without employment may indicate economic instability, which could contribute to recidivism. However, this alone does not guarantee it."
+    ],
+    [
+      "Past mental health status (depression)",
+      "low",
+      "The individual's lack of current depressive symptoms reduces this factor's risk level."
+    ],
+    [
+      "Family structure at young age",
+      "medium",
+      "Living in a household with three people as an 18-year-old suggests potential for social support and stability, which could mitigate recidivism risks. However, the specific dynamics of this family unit are not known."
+    ],
+    [
+      "Religious beliefs (considering God's role)",
+      "low",
+      "The individual's religious beliefs do not inherently indicate a higher risk of recidivism and could potentially provide moral support or guidance."
+    ],
+    [
+      "Drug use history (marijuana and cocaine) in the past four years",
+      "medium",
+      "A history of drug use, especially those substances, is associated with increased risk of future offenses. This factor's impact should be considered alongside other substance abuse factors."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 10 times and has been convicted. He is 5 feet 10 inches and weighs 160 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived in a household of size 3. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

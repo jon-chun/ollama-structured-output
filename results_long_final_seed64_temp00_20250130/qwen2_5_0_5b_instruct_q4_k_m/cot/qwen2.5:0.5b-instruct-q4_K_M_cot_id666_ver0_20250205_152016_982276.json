@@ -1,0 +1,63 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 95,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "created_at": "2025-02-05T20:20:16.98052428Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.380976769,
+    "load_duration": 0.019147795,
+    "prompt_eval_count": 322,
+    "prompt_eval_duration": 0.733,
+    "eval_count": 374,
+    "eval_duration": 9.62
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    [\"age\", \"high\", \"The person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\", \"low\", \"The person is likely to have a higher risk for recidivism due to his previous criminal history and current living situation.\", \"medium\"],\n    [\"previous_criminal_history\", \"high\", \"He has been arrested 2 times and has been convicted. He is an 18-year-old male who identifies himself as White. He has been involved in drug use, which could indicate a higher risk for recidivism.\", \"low\", \"The person's criminal history suggests a high likelihood of future recidivism due to his involvement with drugs.\", \"medium\"],\n    [\"current_living_status\", \"high\", \"He is currently enrolled in school at the present moment. He has held no jobs during the year and has not used drugs or felt depressed over the past month, indicating a stable living situation.\", \"low\", \"The person's current living status suggests a low risk for recidivism due to his stable employment and personal circumstances.\", \"medium\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 95\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_152016_982276",
+    "model": "qwen2.5:0.5b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "age",
+      "high",
+      "The person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.",
+      "low",
+      "The person is likely to have a higher risk for recidivism due to his previous criminal history and current living situation.",
+      "medium"
+    ],
+    [
+      "previous_criminal_history",
+      "high",
+      "He has been arrested 2 times and has been convicted. He is an 18-year-old male who identifies himself as White. He has been involved in drug use, which could indicate a higher risk for recidivism.",
+      "low",
+      "The person's criminal history suggests a high likelihood of future recidivism due to his involvement with drugs.",
+      "medium"
+    ],
+    [
+      "current_living_status",
+      "high",
+      "He is currently enrolled in school at the present moment. He has held no jobs during the year and has not used drugs or felt depressed over the past month, indicating a stable living situation.",
+      "low",
+      "The person's current living status suggests a low risk for recidivism due to his stable employment and personal circumstances.",
+      "medium"
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

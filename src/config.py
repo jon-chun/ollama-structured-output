@@ -1,6 +1,6 @@
 import yaml
 from pydantic import BaseModel, Field, ValidationError
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 class ExecutionConfig(BaseModel):
     max_calls_per_prompt: int = Field(..., ge=1, description="Maximum number of calls per prompt/sample")
@@ -14,6 +14,12 @@ class FlagsConfig(BaseModel):
     prompt_prefix: str = Field(..., description="Prefix to prepend to prompts")
     prompt_suffix: str = Field(..., description="Suffix to append to prompts")
 
+class ExperimentsConfig(BaseModel):
+    api_types: List[str] = Field(..., description="List of API types to evaluate")
+    model_dict: Dict[str, List[str]] = Field(..., description="Dictionary mapping API types to a list of models")
+    seeds: List[int] = Field(..., description="List of random seeds to iterate over")
+    temperatures: List[float] = Field(..., description="List of temperature values to iterate over")
+
 class Config(BaseModel):
     model_parameters: Dict[str, Any]
     execution: ExecutionConfig
@@ -24,6 +30,7 @@ class Config(BaseModel):
     data: Dict[str, Any]
     prompts: Dict[str, str]
     model_ensemble: Dict[str, Dict[str, Any]]
+    experiments: ExperimentsConfig
 
     @property
     def max_samples(self) -> int:

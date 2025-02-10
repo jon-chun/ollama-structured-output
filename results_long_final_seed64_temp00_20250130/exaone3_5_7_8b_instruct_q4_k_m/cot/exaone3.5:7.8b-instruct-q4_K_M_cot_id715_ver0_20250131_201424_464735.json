@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 72,
+    "id": 715,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:14:24.463091146Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.67028463,
+    "load_duration": 0.017596961,
+    "prompt_eval_count": 368,
+    "prompt_eval_duration": 0.018,
+    "eval_count": 330,
+    "eval_duration": 2.63
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Youth (18 years old)\", \"medium\", \"Being young at first offense can indicate potential for future involvement, but also room for positive change.\"),\n    (\"Minor Arrest History (2 arrests, no convictions)\", \"low\", \"Two arrests without convictions suggest potential rather than established criminal behavior.\"),\n    (\"Employment Instability (5 jobs in a year)\", \"medium\", \"Frequent job changes may indicate instability or difficulty maintaining employment, which can correlate with higher risk.\"),\n    (\"Education Level (No high school diploma or GED)\", \"high\", \"Lack of formal education is strongly correlated with higher recidivism rates.\"),\n    (\"Substance Use (Past use of marijuana and cocaine)\", \"high\", \"History of drug use, especially involving harder substances like cocaine, significantly elevates risk.\"),\n    (\"Living Situation (Currently living alone)\", \"low\", \"Living alone at this age doesn't inherently indicate higher risk, though context matters.\"),\n    (\"Family Background (Lived with parents in a rural area)\", \"low\", \"Growing up in a larger family in a rural setting doesn't strongly suggest increased risk factors.\"),\n    (\"Religious Belief (Believes in God's influence)\", \"low\", \"Religious beliefs generally have a neutral to potentially protective effect on recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 72\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_201424_464735",
+    "model": "exaone3.5:7.8b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 715,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 10 inches and weighs 190 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 5 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 5, in a rural area. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

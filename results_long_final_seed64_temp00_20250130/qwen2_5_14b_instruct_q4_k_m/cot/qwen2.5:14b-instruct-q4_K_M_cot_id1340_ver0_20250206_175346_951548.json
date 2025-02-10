@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 45,
+    "id": 1340,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "created_at": "2025-02-06T22:53:46.949670611Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 5.345360992,
+    "load_duration": 0.021995961,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.058,
+    "eval_count": 329,
+    "eval_duration": 5.259
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, but age alone does not strongly predict recidivism without other risk factors.\"),\n    (\"ethnicity\", \"low\", \"Ethnicity is a demographic factor that may influence systemic issues but does not directly correlate with personal recidivism likelihood.\"),\n    (\"prior_arrests\", \"medium\", \"A single arrest history suggests some level of involvement in criminal activity, though lack of conviction indicates no formal legal consequences yet.\"),\n    (\"education_level\", \"high\", \"Lack of high school diploma or GED is a significant risk factor for future recidivism as it correlates with lower employment prospects and higher likelihood of reoffending.\"),\n    (\"employment_status\", \"medium\", \"Having held only one job in the past year suggests unstable employment, which can be a risk factor but is not definitive without other indicators.\"),\n    (\"drug_use_history\", \"low\", \"No drug use in the last four years is positive, reducing immediate risk of substance-related offenses.\"),\n    (\"mental_health_status\", \"low\", \"Not feeling depressed recently indicates current mental health stability, though past history or chronic issues could be unknown.\"),\n    (\"household_size_in_childhood\", \"high\", \"Living in a large household as a child can indicate crowded conditions and potential lack of parental supervision, which are risk factors for delinquency.\"),\n    (\"religious_views\", \"low\", \"Belief that God has no influence on personal outcomes is more philosophical than predictive of criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 45\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250206_175346_951548",
+    "model": "qwen2.5:14b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1340,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted. He is 5 feet 10 inches and weighs 180 lbs. He has never been married and is currently not living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived in a household of size 11. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

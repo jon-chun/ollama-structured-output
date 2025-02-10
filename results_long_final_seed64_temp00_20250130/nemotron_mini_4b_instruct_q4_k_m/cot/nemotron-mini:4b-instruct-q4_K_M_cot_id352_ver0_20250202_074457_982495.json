@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 352,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:44:57.980971486Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.029975302,
+    "load_duration": 0.046320215,
+    "prompt_eval_count": 345,
+    "prompt_eval_duration": 0.01,
+    "eval_count": 316,
+    "eval_duration": 1.97
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"Conviction history (2 times)\", \"high\", \"conviction history is a strong indicator of recidivism\"),\n    (\"Age (young)\", \"low\", \"age is not a significant risk factor for recidivism at this point in time\"),\n    (\"Race/ethnicity (White)\", \"medium\", \"some research suggests that certain racial or ethnic groups may have higher rates of recidivism, but the effect size is small and varies by context\"),\n    (\"Living situation (living alone)\", \"low\", \"living arrangements are not a significant risk factor for recidivism\"),\n    (\"Education level (high school diploma)\", \"medium\", \"some research suggests that lower levels of education may be associated with higher rates of recidivism, but the effect size is small and varies by context\"),\n    (\"Employment status (employed 1 job during year)\", \"low\", \"employment status is not a significant risk factor for recidivism\"),\n    (\"Drug use in past four years\", \"high\", \"recent drug use is strongly associated with higher rates of recidivism\"),\n    (\"Depression symptoms in the past month\", \"medium\", \"depression may be a risk factor, but its effect size varies by context and duration\"),\n    (\"Childhood living situation (lived with adults other than biological parents)\", \"low\", \"childhood living arrangements are not a significant risk factor for recidivism\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074457_982495",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 352,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 3 inches and weighs 190 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 2-year college. He has held 1 job during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with adults other than biological, foster or adoptive parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

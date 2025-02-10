@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 615,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "created_at": "2025-02-02T12:04:38.296324531Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.446255614,
+    "load_duration": 0.011883942,
+    "prompt_eval_count": 358,
+    "prompt_eval_duration": 0.53,
+    "eval_count": 240,
+    "eval_duration": 9.901
+  },
+  "response": {
+    "raw_message_text": " {\n\"risk_factors\": [\n(\"number of past arrests\", \"high\", \"Two prior arrests increase the likelihood of re-arrest.\"),\n(\"conviction history\", \"high\", \"A conviction indicates a proven criminal record, raising recidivism risk.\"),\n(\"history of drug use\", \"medium\", \"Recent drug use, particularly cocaine, elevates the risk of recidivism.\"),\n(\"education level\", \"low\", \"GED certificate alone may indicate lower impulse control and less social stability.\"),\n(\"employment history\", \"medium\", \"Stable employment is generally associated with reduced recidivism risk, but only one job in a year suggests instability.\"),\n(\"living arrangements\", \"medium\", \"Living alone can increase feelings of isolation and lead to higher recidivism risk.\"),\n(\"religious beliefs\", \"low\", \"Belief that God has no role in personal life may indicate lack of social support, increasing recidivism risk.\")\n],\n\"prediction\": \"YES\",\n\"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_070438_297987",
+    "model": "mixtral:8x7b-instruct-v0.1-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 615,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 100,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "created_at": "2025-02-01T01:50:51.560154694Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 10.010665569,
+    "load_duration": 0.020802067,
+    "prompt_eval_count": 359,
+    "prompt_eval_duration": 0.367,
+    "eval_count": 289,
+    "eval_duration": 9.618
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Prior Arrests\", \"high\", \"Multiple arrests indicate a history of criminal behavior, suggesting higher likelihood of reoffending.\"),\n    (\"Convictions\", \"high\", \"Having been convicted implies a pattern of behavior leading to legal consequences.\"),\n    (\"Unemployment\", \"high\", \"Lack of employment suggests limited opportunities for positive engagement and potential for continued involvement in criminal activities.\"),\n    (\"Education Level\", \"low\", \"No high school diploma or college enrollment indicates limited access to resources and skills development crucial for rehabilitation.\"),\n    (\"Substance Use\", \"medium\", \"Past drug use, particularly marijuana, though recent cessation, still poses a risk factor given past patterns.\"),\n    (\"Family Background\", \"medium\", \"Growing up in a household of size 8 might indicate exposure to various influences but does not directly correlate strongly with recidivism without additional context.\"),\n    (\"Religious Belief\", \"low\", \"Personal belief system does not inherently correlate with increased criminal risk without additional behavioral indicators.\"),\n    (\"Mental Health\", \"low\", \"No reported depression in the past month suggests current mental health stability, mitigating some risk factors related to mental illness.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_205051_562681",
+    "model": "exaone3.5:2.4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 100,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as American Indian / Eskimo / Aleut. He has been arrested 9 times and has been convicted. He is 5 feet 9 inches and weighs 180 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived in a household of size 8. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

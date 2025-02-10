@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 68,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "sailor2:20b-chat-q4_K_M",
+    "created_at": "2025-02-05T16:55:24.151137017Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.170470145,
+    "load_duration": 0.016721853,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.088,
+    "eval_count": 307,
+    "eval_duration": 6.064
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age (20)\", \"low\", \"Young age is generally associated with lower recidivism rates.\"),\n    (\"gender (female)\", \"medium\", \"Females have historically shown lower rearrest rates compared to males, but still a notable risk factor.\"),\n    (\"race/ethnicity (White)\", \"low\", \"Race alone has minimal impact on recidivism; however, systemic biases should be considered.\"),\n    (\"prior arrests (1 time)\", \"high\", \"Single prior arrest indicates some criminal involvement and increased likelihood of future offenses.\"),\n    (\"education level (no diploma/GED, not enrolled in college)\", \"medium\", \"Lack of education is correlated with higher recidivism due to limited job prospects.\"),\n    (\"employment history (3 jobs in a year)\", \"low\", \"Multiple short-term jobs suggest instability but do not strongly predict future criminal behavior on their own.\"),\n    (\"drug use (past 4 years, recent feelings of depression)\", \"high\", \"History of drug use and current depressive symptoms are strong indicators of higher recidivism risk.\"),\n    (\"living situation (alone)\", \"medium\", \"Living alone can be associated with social isolation, which may increase vulnerability to criminal behavior.\"),\n    (\"family background (lived with biological mother in a household size 3)\", \"low\", \"Standard family structure; no significant impact on recidivism.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250205_115524_152854",
+    "model": "sailor2:20b-chat-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 68,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 1 time and has been convicted. She is 5 feet 5 inches and weighs 130 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 3 jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with her biological mother in a household of size 3. She considers that God has nothing to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

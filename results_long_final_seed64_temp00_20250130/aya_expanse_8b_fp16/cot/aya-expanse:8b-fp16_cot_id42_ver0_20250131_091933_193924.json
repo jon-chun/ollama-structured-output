@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 42,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-31T14:19:33.192398867Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 7.229990213,
+    "load_duration": 0.043079876,
+    "prompt_eval_count": 328,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 339,
+    "eval_duration": 7.165
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is 18 years old, which is a typical age for first-time offenders, suggesting a lower risk of recidivism.\"),\n    (\"Arrest History (no convictions)\", \"medium\", \"While the person has multiple arrests, no convictions indicate a potential for rehabilitation and reduced future criminal behavior.\"),\n    (\"Ethnicity/Race\", \"low\", \"Asian/Pacific Islander ethnicity is not typically associated with higher rates of recidivism.\"),\n    (\"Height and Weight\", \"low\", \"Physical attributes like height and weight are generally unrelated to future criminal activity.\"),\n    (\"Marital Status and Living Situation\", \"medium\", \"Living alone without a supportive partner or family structure could be a factor, but it's not definitive.\"),\n    (\"Education\", \"low\", \"A high school diploma is a standard achievement, not indicating a significant risk factor.\"),\n    (\"Employment\", \"high\", \"Unemployment can significantly increase the likelihood of recidivism, especially for young men.\"),\n    (\"Substance Use (marijuana)\", \"medium\", \"Occasional marijuana use may not be a strong predictor, but it could indicate potential issues that need addressing.\"),\n    (\"Mental Health (no depression)\", \"low\", \"The absence of reported depression reduces concern about mental health contributing to criminal behavior.\"),\n    (\"Family Background (urban, single-parent household)\", \"medium\", \"Growing up in an urban environment and in a single-parent household can have mixed effects, but it's not inherently high risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250131_091933_193924",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 42,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 5 times but has not been convicted. He is 5 feet 9 inches and weighs 145 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 2, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

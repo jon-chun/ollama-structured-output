@@ -1,0 +1,69 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 252,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "created_at": "2025-02-01T23:06:29.244649822Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.104243006,
+    "load_duration": 0.023773035,
+    "prompt_eval_count": 339,
+    "prompt_eval_duration": 0.036,
+    "eval_count": 230,
+    "eval_duration": 1.042
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    {\"factor1\": \"Asian / Pacific Islander identity\", \"weight\": 2, \"textual reasoning\": \"This may indicate cultural background and potential for social isolation.\", \"medium\": true},\n    {\"factor2\": \"Low education level\", \"weight\": 3, \"textual reasoning\": \"Limited access to resources and support may contribute to higher recidivism.\", \"high\": false},\n    {\"factor3\": \"Lack of employment stability\", \"weight\": 1, \"textual reasoning\": \"Uncertainty about future income and security may lead to increased stress and anxiety.\", \"low\": true},\n    {\"factor4\": \"Depression\", \"weight\": 2, \"textual reasoning\": \"Mental health issues can exacerbate negative behaviors and reduce motivation for rehabilitation.\", \"medium\": false},\n    {\"factor5\": \"Family size\", \"weight\": 1, \"textual reasoning\": \"Large family size may indicate stress and pressure on individual members.\", \"low\": true}\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250201_180629_246532",
+    "model": "llama3.2:1b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 252,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    {
+      "factor1": "Asian / Pacific Islander identity",
+      "weight": 2,
+      "textual reasoning": "This may indicate cultural background and potential for social isolation.",
+      "medium": true
+    },
+    {
+      "factor2": "Low education level",
+      "weight": 3,
+      "textual reasoning": "Limited access to resources and support may contribute to higher recidivism.",
+      "high": false
+    },
+    {
+      "factor3": "Lack of employment stability",
+      "weight": 1,
+      "textual reasoning": "Uncertainty about future income and security may lead to increased stress and anxiety.",
+      "low": true
+    },
+    {
+      "factor4": "Depression",
+      "weight": 2,
+      "textual reasoning": "Mental health issues can exacerbate negative behaviors and reduce motivation for rehabilitation.",
+      "medium": false
+    },
+    {
+      "factor5": "Family size",
+      "weight": 1,
+      "textual reasoning": "Large family size may indicate stress and pressure on individual members.",
+      "low": true
+    }
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as Asian / Pacific Islander. He has been arrested 3 times and has been convicted. He is 5 feet 7 inches and weighs 230 lbs. He is married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held 2 jobs during the year. He has not used any drugs in the past four years and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived in a household of size 11. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

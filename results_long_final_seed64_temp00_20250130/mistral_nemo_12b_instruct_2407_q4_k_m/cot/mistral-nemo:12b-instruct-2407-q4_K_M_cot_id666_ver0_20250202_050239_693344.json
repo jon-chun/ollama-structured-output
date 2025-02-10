@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 666,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:02:39.691081703Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 22.679212731,
+    "load_duration": 0.040811426,
+    "prompt_eval_count": 321,
+    "prompt_eval_duration": 0.21,
+    "eval_count": 386,
+    "eval_duration": 22.425
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Young age is generally associated with lower risk of recidivism.\"),\n    (\"Gender\", \"medium\", \"Male gender is a slight risk factor due to higher rates of offending among males.\"),\n    (\"Race\", \"low\", \"White race is not typically associated with increased risk.\"),\n    (\"Arrests\", \"high\", \"Two arrests indicate a history of criminal behavior and increased likelihood of recidivism.\"),\n    (\"Convictions\", \"high\", \"Having been convicted indicates a higher risk as it suggests more serious or persistent offending.\"),\n    (\"Physical Size\", \"low\", \"Neither height nor weight is typically associated with risk.\"),\n    (\"Marital Status\", \"medium\", \"Never married and living alone may indicate lack of social support and stability.\"),\n    (\"Employment\", \"high\", \"No employment in the past year suggests lack of pro-social activities and potential financial strain.\"),\n    (\"Education\", \"low\", \"Currently enrolled in school indicates engagement in pro-social activity.\"),\n    (\"Drug Use\", \"medium\", \"Past drug use, particularly cocaine, is a risk factor but recent abstinence reduces its weight.\"),\n    (\"Mental Health\", \"low\", \"No recent depression suggests no immediate mental health concerns.\"),\n    (\"Family Structure\", \"low\", \"Growing up with both biological parents does not indicate increased risk.\"),\n    (\"Residence\", \"medium\", \"Urban area may have more opportunities for offending but also more resources for intervention.\"),\n    (\"Household Size\", \"low\", \"Household size is not typically associated with risk.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God does not indicate increased or decreased risk.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_050239_693344",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

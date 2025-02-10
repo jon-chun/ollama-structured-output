@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 528,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:19:13.869482",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.7025997638702393e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"high\", \"Younger individuals (21) generally have higher recidivism rates than older individuals.\"],\n    [\"Gender\", \"medium\", \"Males statistically have higher recidivism rates than females.\"],\n    [\"Ethnicity\", \"medium\", \"Hispanic ethnicity is sometimes associated with higher arrest rates in certain jurisdictions, but this is a complex and potentially biased factor. It's included with caution.\"],\n    [\"Prior Arrests\", \"high\", \"Having 5 prior arrests and convictions is a strong predictor of future criminal behavior.\"],\n    [\"Marital Status\", \"medium\", \"Never being married and living alone can indicate a lack of social support and stability, increasing risk.\"],\n    [\"Education\", \"medium\", \"Having a GED but not being enrolled in college suggests limited educational attainment, which can correlate with higher recidivism.\"],\n    [\"Employment History\", \"medium\", \"Holding only one job in the past year indicates employment instability, a risk factor for recidivism.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana) is a risk factor, even if it's considered a 'soft' drug, as it can be associated with other criminal behaviors.\"],\n    [\"Mental Health\", \"low\", \"Lack of reported depression in the past month is a positive indicator, suggesting stable mental health.\"],\n    [\"Family Background\", \"low\", \"Growing up with his biological father in a household of 5 in an urban area is not a strong risk factor on its own, but the urban environment could be a minor contributing factor.\"],\n    [\"Religious Beliefs\", \"low\", \"Belief in God's influence is generally considered a protective factor, suggesting a sense of morality and purpose.\"],\n    [\"Physical Attributes\", \"low\", \"Height and weight within the given range are not significant risk factors.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_181914_070127",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 528,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "high",
+      "Younger individuals (21) generally have higher recidivism rates than older individuals."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males statistically have higher recidivism rates than females."
+    ],
+    [
+      "Ethnicity",
+      "medium",
+      "Hispanic ethnicity is sometimes associated with higher arrest rates in certain jurisdictions, but this is a complex and potentially biased factor. It's included with caution."
+    ],
+    [
+      "Prior Arrests",
+      "high",
+      "Having 5 prior arrests and convictions is a strong predictor of future criminal behavior."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never being married and living alone can indicate a lack of social support and stability, increasing risk."
+    ],
+    [
+      "Education",
+      "medium",
+      "Having a GED but not being enrolled in college suggests limited educational attainment, which can correlate with higher recidivism."
+    ],
+    [
+      "Employment History",
+      "medium",
+      "Holding only one job in the past year indicates employment instability, a risk factor for recidivism."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana) is a risk factor, even if it's considered a 'soft' drug, as it can be associated with other criminal behaviors."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "Lack of reported depression in the past month is a positive indicator, suggesting stable mental health."
+    ],
+    [
+      "Family Background",
+      "low",
+      "Growing up with his biological father in a household of 5 in an urban area is not a strong risk factor on its own, but the urban environment could be a minor contributing factor."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Belief in God's influence is generally considered a protective factor, suggesting a sense of morality and purpose."
+    ],
+    [
+      "Physical Attributes",
+      "low",
+      "Height and weight within the given range are not significant risk factors."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 5 times and has been convicted. He is 5 feet 5 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with his biological dad in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

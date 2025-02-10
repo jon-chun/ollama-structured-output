@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 823,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:05:38.048819056Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.353740693,
+    "load_duration": 0.032071449,
+    "prompt_eval_count": 344,
+    "prompt_eval_duration": 0.245,
+    "eval_count": 344,
+    "eval_duration": 20.072
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"20-year-old is relatively young, with less life experience and potentially less stable\"),\n    (\"Gender\", \"medium\", \"Female offenders often have lower recidivism rates but can still reoffend\"),\n    (\"Race/Ethnicity\", \"low\", \"White individuals may face less discrimination in opportunities post-release\"),\n    (\"Criminal History - Number of Arrests\", \"high\", \"Three arrests indicate a pattern of criminal behavior\"),\n    (\"Criminal History - Convictions\", \"high\", \"Convictions suggest a higher likelihood of reoffending\"),\n    (\"Physical Appearance - Weight\", \"low\", \"Weight within normal range does not significantly impact risk\"),\n    (\"Marital Status\", \"medium\", \"Married individuals may have more stability but can still face stressors\"),\n    (\"Education - High School Diploma\", \"low\", \"High school diploma indicates some education, potentially reducing recidivism\"),\n    (\"Employment History\", \"low\", \"Holding a job suggests potential for reintegration into society\"),\n    (\"Drug Use in Past Four Years\", \"high\", \"Recent drug use increases the likelihood of reoffending\"),\n    (\"Mental Health - Depression\", \"medium\", \"Depression can increase risk but also may indicate need for treatment\"),\n    (\"Early Family Environment\", \"high\", \"Living with non-relatives at a young age suggests potential instability or trauma\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God does not significantly impact recidivism rates\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_050538_050615",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 823,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old female who identifies herself as White. She has been arrested 3 times and has been convicted. She is 5 feet 5 inches and weighs between 150 and 174 lbs. She is married and is currently living with her spouse. She has a high school diploma and is not enrolled in college. She has held 1 job during the year. She has used drugs in the past four years (marijuana) and some of the time during the past month she has felt so down in the dumps that nothing could cheer her up. At a young age, she lived with adults other than biological, foster or adoptive parents in a household of size 6. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

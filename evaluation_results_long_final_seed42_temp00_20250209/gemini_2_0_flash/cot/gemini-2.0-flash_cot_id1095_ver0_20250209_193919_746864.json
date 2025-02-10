@@ -1,0 +1,109 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1095,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:39:19.546105",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 3.9977452754974366e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"21 years old is a higher risk age than older adults, but not as high as juveniles.\"],\n    [\"Gender\", \"medium\", \"Males generally have a higher recidivism rate than females.\"],\n    [\"Ethnicity\", \"medium\", \"Some studies suggest disparities in recidivism rates across ethnic groups, but this is complex and can be influenced by socioeconomic factors and bias in the system. Assigning medium due to potential systemic biases.\"],\n    [\"Prior Arrests\", \"high\", \"4 prior arrests indicate a pattern of criminal behavior and a higher likelihood of re-offending.\"],\n    [\"Prior Convictions\", \"high\", \"Having prior convictions is a strong predictor of recidivism.\"],\n    [\"Physical Build\", \"low\", \"Height and weight are not directly linked to recidivism risk.\"],\n    [\"Marital Status\", \"medium\", \"Being separated and living alone can indicate a lack of social support, which increases risk.\"],\n    [\"Education\", \"low\", \"Having a high school diploma provides some protective factor, although not as strong as higher education.\"],\n    [\"Employment\", \"high\", \"Lack of employment for the past year is a significant risk factor, indicating instability and potential financial motivation for crime.\"],\n    [\"Substance Use\", \"low\", \"No reported drug use in the past four years is a positive factor.\"],\n    [\"Mental Health\", \"low\", \"No reported depression in the past month is a positive factor.\"],\n    [\"Family History\", \"low\", \"Stable upbringing with both parents present is a protective factor.\"],\n    [\"Area of Residence\", \"medium\", \"Urban area can be associated with higher crime rates and exposure to criminal influences.\"],\n    [\"Religious Beliefs\", \"medium\", \"Lack of belief in God's influence may correlate with a weaker sense of moral guidance, but this is a complex and potentially biased factor. Assigning medium due to potential correlation, not causation.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_193919_746864",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1095,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "21 years old is a higher risk age than older adults, but not as high as juveniles."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males generally have a higher recidivism rate than females."
+    ],
+    [
+      "Ethnicity",
+      "medium",
+      "Some studies suggest disparities in recidivism rates across ethnic groups, but this is complex and can be influenced by socioeconomic factors and bias in the system. Assigning medium due to potential systemic biases."
+    ],
+    [
+      "Prior Arrests",
+      "high",
+      "4 prior arrests indicate a pattern of criminal behavior and a higher likelihood of re-offending."
+    ],
+    [
+      "Prior Convictions",
+      "high",
+      "Having prior convictions is a strong predictor of recidivism."
+    ],
+    [
+      "Physical Build",
+      "low",
+      "Height and weight are not directly linked to recidivism risk."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Being separated and living alone can indicate a lack of social support, which increases risk."
+    ],
+    [
+      "Education",
+      "low",
+      "Having a high school diploma provides some protective factor, although not as strong as higher education."
+    ],
+    [
+      "Employment",
+      "high",
+      "Lack of employment for the past year is a significant risk factor, indicating instability and potential financial motivation for crime."
+    ],
+    [
+      "Substance Use",
+      "low",
+      "No reported drug use in the past four years is a positive factor."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "No reported depression in the past month is a positive factor."
+    ],
+    [
+      "Family History",
+      "low",
+      "Stable upbringing with both parents present is a protective factor."
+    ],
+    [
+      "Area of Residence",
+      "medium",
+      "Urban area can be associated with higher crime rates and exposure to criminal influences."
+    ],
+    [
+      "Religious Beliefs",
+      "medium",
+      "Lack of belief in God's influence may correlate with a weaker sense of moral guidance, but this is a complex and potentially biased factor. Assigning medium due to potential correlation, not causation."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 4 times and has been convicted. He is 5 feet 7 inches and weighs 185 lbs. He is separated and is currently living alone. He has a high school diploma and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 6, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

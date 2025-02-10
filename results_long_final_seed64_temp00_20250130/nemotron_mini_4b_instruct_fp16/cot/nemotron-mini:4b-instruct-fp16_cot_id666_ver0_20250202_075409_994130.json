@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 80,
+    "id": 666,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-02-02T12:54:09.992493413Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.315687429,
+    "load_duration": 0.044473842,
+    "prompt_eval_count": 337,
+    "prompt_eval_duration": 0.053,
+    "eval_count": 347,
+    "eval_duration": 13.215
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is young, which generally reduces recidivism risk.\"),\n    (\"race/ethnicity\", \"medium\", \"White individuals have a lower recidivism rate than other racial groups.\"),\n    (\"prior arrests and convictions\", \"high\", \"Multiple arrests and convictions are strong indicators of future criminal behavior.\"),\n    (\"height_weight\", \"low\", \"Neither height nor weight is significantly associated with recidivism risk in this case.\"),\n    (\"marital status\", \"medium\", \"Living alone does not necessarily indicate a higher risk, but it could be a factor to consider.\"),\n    (\"school enrollment\", \"high\", \"Continuing education and employment are strong protective factors against recidivism.\"),\n    (\"employment history\", \"low\", \"Lack of job experience is not indicative of future criminal behavior.\"),\n    (\"drug use in the past four years\", \"medium\", \"Substance abuse can increase the risk of reoffending, but it's important to consider the specific substances used and their frequency.\"),\n    (\"depression status\", \"low\", \"Depression is not a strong indicator of recidivism, especially if it has been resolved recently.\"),\n    (\"family environment as a child\", \"medium\", \"Growing up in an urban area with parents of average size does not necessarily indicate higher risk.\"),\n    (\"beliefs about God and personal control\", \"low\", \"Beliefs about the role of God or fate are not strong predictors of recidivism.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_075409_994130",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 666,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 140 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held no jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

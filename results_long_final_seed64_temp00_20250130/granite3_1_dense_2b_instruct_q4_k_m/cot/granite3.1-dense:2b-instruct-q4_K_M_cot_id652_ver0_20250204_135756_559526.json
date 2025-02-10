@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 652,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "created_at": "2025-02-04T18:57:56.557585979Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 1.255557394,
+    "load_duration": 0.011121369,
+    "prompt_eval_count": 398,
+    "prompt_eval_duration": 0.019,
+    "eval_count": 235,
+    "eval_duration": 1.222
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"medium\", \"22-year-old is at a higher risk of recidivism due to age\"),\n    (\"Criminal history\", \"high\", \"1 arrest but no conviction indicates potential for future criminal behavior\"),\n    (\"Ethnicity\", \"low\", \"Hispanic background does not significantly increase recidivism risk\"),\n    (\"Education level\", \"medium\", \"High school diploma, lack of college enrollment suggests limited life skills and opportunities\"),\n    (\"Employment history\", \"low\", \"2 jobs in a year indicates instability and potential for future unemployment or criminal activity\"),\n    (\"Substance use\", \"high\", \"Past marijuana use and current feelings of depression suggest increased risk of relapse and further criminal behavior\"),\n    (\"Family background\", \"low\", \"Previously lived in a household of 5, now living alone does not necessarily indicate higher recidivism risk\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250204_135756_559526",
+    "model": "granite3.1-dense:2b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 652,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 22-year-old male who identifies himself as Hispanic. He has been arrested 1 time but has not been convicted. He is 6 feet 1 inch and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

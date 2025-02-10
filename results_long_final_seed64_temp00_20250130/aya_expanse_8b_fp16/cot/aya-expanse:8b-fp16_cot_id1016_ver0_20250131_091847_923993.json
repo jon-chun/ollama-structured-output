@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 75,
+    "id": 1016,
+    "actual": "YES",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "aya-expanse:8b-fp16",
+    "created_at": "2025-01-31T14:18:47.922302603Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 6.466634313,
+    "load_duration": 0.043418517,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 305,
+    "eval_duration": 6.402
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"The individual is 18, a typical age for first-time offenders, suggesting lower recidivism risk.\"),\n    (\"Arrest history (no convictions)\", \"medium\", \"Three arrests without convictions indicate potential involvement in low-level offenses, but no definitive pattern of recidivism.\"),\n    (\"Education level (no diploma/GED)\", \"medium\", \"Lack of formal education can correlate with limited job opportunities, potentially leading to future criminal activity.\"),\n    (\"Employment status (1 job in the past year)\", \"low\", \"Having a job reduces financial motivations for crime, suggesting lower risk.\"),\n    (\"Substance use (drug abstinence)\", \"low\", \"No recent drug use indicates a positive personal choice and reduced risk of involvement in drug-related crimes.\"),\n    (\"Mental health (no depression)\", \"low\", \"The absence of reported depression suggests good mental well-being, decreasing the likelihood of criminal behavior as an escape mechanism.\"),\n    (\"Family size/upbringing (household of 6)\", \"medium\", \"Growing up in a large family can have both positive and negative impacts; it may influence future relationships but doesn't definitively predict recidivism.\"),\n    (\"Religious beliefs (spirituality)\", \"low\", \"Spiritual beliefs, without evidence of extreme fundamentalism, are unlikely to directly impact criminal behavior.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 75\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250131_091847_923993",
+    "model": "aya-expanse:8b-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1016,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as Black. She has been arrested 3 times but has not been convicted. She is 5 feet 2 inches and weighs 140 lbs. She has never been married and is currently living alone. She does not have a high school diploma or GED certificate and is not enrolled in college. She has held 1 job during the year. She has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, she lived in a household of size 6. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

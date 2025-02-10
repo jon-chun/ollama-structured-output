@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 70,
+    "id": 305,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "wizardlm:13b-llama2-q4_K_M",
+    "created_at": "2025-02-06T06:01:34.205549934Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 13.005475386,
+    "load_duration": 0.009726778,
+    "prompt_eval_count": 373,
+    "prompt_eval_duration": 0.007,
+    "eval_count": 323,
+    "eval_duration": 12.986
+  },
+  "response": {
+    "raw_message_text": "```json\n{\n  \"risk_factors\": [\n    (\"age\", \"low\", \"Being an 18-year-old male is generally associated with lower recidivism rates.\"),\n    (\"arrest_history\", \"medium\", \"Two arrests without conviction may indicate a higher risk of future criminal behavior.\"),\n    (\"education\", \"low\", \"Enrollment in school can be a positive factor, as it often correlates with lower recidivism rates.\"),\n    (\"employment\", \"low\", \"Having one job during the year is a neutral factor, not significantly contributing to or detracting from risk assessment.\"),\n    (\"drug_use\", \"medium\", \"Past drug use can increase recidivism risk, particularly with cocaine use.\"),\n    (\"family_background\", \"low\", \"Living with both biological parents in a household of size 4 is generally associated with lower recidivism rates.\"),\n    (\"religious_beliefs\", \"low\", \"Considering God's influence may have a neutral effect on recidivism risk, as there is no clear correlation with criminal behavior.\"),\n    (\"living_situation\", \"medium\", \"Living alone can be associated with higher recidivism rates due to lack of support and structure.\")\n  ],\n  \"prediction\": \"NO\",\n  \"confidence\": 70\n}\n```",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250206_010134_207249",
+    "model": "wizardlm:13b-llama2-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 305,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 8 inches and weighs between 150 and 174 lbs. He has never been married and is currently living alone. He is enrolled in school at the present moment. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

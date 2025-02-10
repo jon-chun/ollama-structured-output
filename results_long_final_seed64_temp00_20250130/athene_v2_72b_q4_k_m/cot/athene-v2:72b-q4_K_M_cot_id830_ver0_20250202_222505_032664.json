@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 60,
+    "id": 830,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "athene-v2:72b-q4_K_M",
+    "created_at": "2025-02-03T03:25:05.03089929Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 140.441203316,
+    "load_duration": 0.019260378,
+    "prompt_eval_count": 336,
+    "prompt_eval_duration": 2.007,
+    "eval_count": 502,
+    "eval_duration": 138.409
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age (21 years old)\", \"low\", \"Young adults are at a higher risk, but the early twenties are often a period of transition where individuals may outgrow criminal behavior.\"),\n    (\"Gender (male)\", \"medium\", \"Males generally have higher recidivism rates compared to females, though this is not deterministic and can be influenced by other factors.\"),\n    (\"Ethnicity (Hispanic)\", \"low\", \"While ethnicity alone does not predict recidivism, it is important to consider social and economic contexts which may influence risk. However, without additional context, it is weighted low.\"),\n    (\"Arrest history (2 arrests, 1 conviction)\", \"medium\", \"A prior arrest and conviction indicate a higher likelihood of reoffending compared to someone with no criminal history, but the number of incidents is relatively low.\"),\n    (\"Living situation (living alone)\", \"medium\", \"Living alone can reduce social support and increase isolation, which may contribute to recidivism risk.\"),\n    (\"Education (high school diploma, not in college)\", \"low\", \"Having a high school diploma suggests some level of educational attainment, which can be protective against recidivism. Not being enrolled in further education is a minor concern.\"),\n    (\"Employment (1 job during the year)\", \"medium\", \"Stable employment is generally protective against recidivism, but holding only one job may indicate limited economic stability or opportunities.\"),\n    (\"Drug use (marijuana in the past four years)\", \"medium\", \"Substance use, particularly ongoing use, can increase the risk of reoffending. However, marijuana use alone is less concerning than harder drugs.\"),\n    (\"Mental health (feeling down in the dumps)\", \"medium\", \"Symptoms of depression or low mood can be a significant risk factor for recidivism, as they may affect decision-making and coping mechanisms.\"),\n    (\"Family history (lived with biological mother in an urban area)\", \"low\", \"Growing up in a stable household, even if it was small, is generally positive. Urban areas can have higher crime rates, but this alone does not strongly predict recidivism.\"),\n    (\"Religious beliefs (believes God has influence)\", \"low\", \"Having religious or spiritual beliefs can provide a sense of purpose and social support, which may reduce the risk of reoffending.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 60\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_222505_032664",
+    "model": "athene-v2:72b-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 830,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as Hispanic. He has been arrested 2 times and has been convicted. He is 5 feet 9 inches and weighs 260 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana) and some of the time during the past month he has felt so down in the dumps that nothing could cheer him up. At a young age, he lived with his biological mother in a household of size 3, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 345,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 19:35:49.023905",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 4.171786069869995e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\"Age\", \"medium\", \"20 years old places him in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens.\"],\n    [\"Gender\", \"medium\", \"Males generally have a higher recidivism rate than females.\"],\n    [\"Race\", \"low\", \"While racial disparities exist in the criminal justice system, race itself is not a direct risk factor. This is a sensitive attribute and should be considered cautiously.\"],\n    [\"Prior Arrests\", \"medium\", \"One prior arrest and a conviction indicates some involvement with the criminal justice system, increasing the risk compared to someone with no prior record.\"],\n    [\"Marital Status\", \"medium\", \"Never married and living alone can indicate a lack of social support, which is a moderate risk factor.\"],\n    [\"Education\", \"low\", \"Having a high school diploma suggests a lower risk compared to those without a diploma, but it's not a strong protective factor.\"],\n    [\"Employment History\", \"low\", \"Holding 4 jobs in the past year suggests some employment stability, which is a protective factor.\"],\n    [\"Substance Use\", \"medium\", \"Past drug use (marijuana) is a risk factor, although marijuana is generally considered less severe than other drugs. The timeframe of 'past four years' suggests ongoing or recent use.\"],\n    [\"Mental Health\", \"low\", \"No reported depression in the past month is a positive indicator, suggesting stable mental health.\"],\n    [\"Family History\", \"low\", \"Growing up with both biological parents in a stable household is a protective factor.\"],\n    [\"Residential Environment\", \"low\", \"Growing up in a rural area is generally associated with lower crime rates compared to urban areas.\"],\n    [\"Religious Beliefs\", \"low\", \"Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance.\"]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_193549_224540",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 345,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "20 years old places him in a higher-risk age group for recidivism compared to older individuals, but not as high as younger teens."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males generally have a higher recidivism rate than females."
+    ],
+    [
+      "Race",
+      "low",
+      "While racial disparities exist in the criminal justice system, race itself is not a direct risk factor. This is a sensitive attribute and should be considered cautiously."
+    ],
+    [
+      "Prior Arrests",
+      "medium",
+      "One prior arrest and a conviction indicates some involvement with the criminal justice system, increasing the risk compared to someone with no prior record."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never married and living alone can indicate a lack of social support, which is a moderate risk factor."
+    ],
+    [
+      "Education",
+      "low",
+      "Having a high school diploma suggests a lower risk compared to those without a diploma, but it's not a strong protective factor."
+    ],
+    [
+      "Employment History",
+      "low",
+      "Holding 4 jobs in the past year suggests some employment stability, which is a protective factor."
+    ],
+    [
+      "Substance Use",
+      "medium",
+      "Past drug use (marijuana) is a risk factor, although marijuana is generally considered less severe than other drugs. The timeframe of 'past four years' suggests ongoing or recent use."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "No reported depression in the past month is a positive indicator, suggesting stable mental health."
+    ],
+    [
+      "Family History",
+      "low",
+      "Growing up with both biological parents in a stable household is a protective factor."
+    ],
+    [
+      "Residential Environment",
+      "low",
+      "Growing up in a rural area is generally associated with lower crime rates compared to urban areas."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Belief in God's influence can be a protective factor, providing a sense of purpose and moral guidance."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 1 time and has been convicted. He is 5 feet 7 inches and weighs 128 lbs. He has never been married and is currently living alone. He has a high school diploma and is not enrolled in college. He has held 4 jobs during the year. He has used drugs in the past four years (marijuana) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in a rural area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

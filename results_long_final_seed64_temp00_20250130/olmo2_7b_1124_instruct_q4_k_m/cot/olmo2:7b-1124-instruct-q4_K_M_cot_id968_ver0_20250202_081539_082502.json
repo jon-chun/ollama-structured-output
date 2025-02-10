@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 968,
+    "actual": "YES",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "created_at": "2025-02-02T13:15:39.080588067Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 3.035609105,
+    "load_duration": 0.01640947,
+    "prompt_eval_count": 327,
+    "prompt_eval_duration": 0.017,
+    "eval_count": 364,
+    "eval_duration": 2.998
+  },
+  "response": {
+    "raw_message_text": "{\"risk_factors\": [\n    (\"age\", \"medium\", \"Younger individuals often have less life experience, which can be a risk factor for recidivism.\"),\n    (\"race\", \"low\", \"Studies show that racial disparities exist in the criminal justice system, but individual self-identification as White typically does not significantly alter risk levels.\"),\n    (\"arrest_count\", \"medium\", \"Multiple arrests increase the likelihood of recidivism; however, no convictions suggest a lower level of criminal behavior.\"),\n    (\"current_residence_status\", \"low\", \"Living alone may lack the social support that can influence behavior for better or worse. However, being enrolled in college indicates a positive life direction.\"),\n    (\"education_level\", \"medium\", \"Higher education is generally associated with lower recidivism rates; however, a high school diploma without further education is a mixed factor.\"),\n    (\"employment_history\", \"low\", \"Having held one job suggests stability and a potential deterrent to criminal activity for gain.\"),\n    (\"drug_use\", \"high\", \"Past drug use, particularly of substances like cocaine, can be indicative of higher risk for reoffending.\"),\n    (\"mental_health_status\", \"low\", \"Lack of recent depression symptoms is generally positive; however, substance use can sometimes mask mental health issues.\"),\n    (\"family_structure\", \"medium\", \"Growing up in a stable family environment can provide protective factors against criminal behavior. However, the absence of parents may indicate a lack of such influence.\"),\n    (\"religious_beliefs\", \"low\", \"Belief in a higher power can sometimes act as a deterrent; however, the person's belief that 'God has nothing to do with what happens to him personally' might reduce this protective factor.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_081539_082502",
+    "model": "olmo2:7b-1124-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 968,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times but has not been convicted. He is 5 feet 7 inches and weighs 140 lbs. He has never been married and is currently living alone. He has a high school diploma and is enrolled in a 4-year college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

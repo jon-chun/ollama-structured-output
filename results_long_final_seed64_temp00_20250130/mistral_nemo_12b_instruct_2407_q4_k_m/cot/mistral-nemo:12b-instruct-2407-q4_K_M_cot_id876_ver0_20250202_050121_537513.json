@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 65,
+    "id": 876,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "created_at": "2025-02-02T10:01:21.535284286Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 20.419933317,
+    "load_duration": 0.025120565,
+    "prompt_eval_count": 320,
+    "prompt_eval_duration": 0.211,
+    "eval_count": 347,
+    "eval_duration": 20.181
+  },
+  "response": {
+    "raw_message_text": "{\n  \"risk_factors\": [\n    (\"Age\", \"low\", \"Younger individuals tend to have lower recidivism rates.\"),\n    (\"Gender\", \"low\", \"Females generally have lower recidivism rates than males.\"),\n    (\"Race\", \"low\", \"No significant correlation between race and recidivism.\"),\n    (\"Arrests (not convicted)\", \"medium\", \"Arrests, even without conviction, can indicate criminal behavior.\"),\n    (\"Physical Appearance\", \"low\", \"No direct link to recidivism.\"),\n    (\"Marital Status\", \"low\", \"Single individuals may have higher rates but not significantly in this case.\"),\n    (\"Living Arrangement\", \"medium\", \"Living alone could indicate lack of social support or stability.\"),\n    (\"Education (GED)\", \"low\", \"Having a GED can reduce recidivism, but not enrolled in college is a negative factor.\"),\n    (\"Employment\", \"high\", \"Unemployment is strongly linked to higher recidivism rates.\"),\n    (\"Drug Use\", \"medium\", \"Past drug use increases the likelihood of future criminal behavior.\"),\n    (\"Mental Health (Depression)\", \"low\", \"No recent depression reported, which is positive.\"),\n    (\"Family Structure in Childhood\", \"medium\", \"Growing up with both biological parents can be protective, but larger household size could indicate lower socioeconomic status.\"),\n    (\"Religious Beliefs\", \"low\", \"Belief in God does not significantly impact recidivism rates.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 65\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_050121_537513",
+    "model": "mistral-nemo:12b-instruct-2407-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 876,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is an 18-year-old female who identifies herself as White. She has been arrested 2 times but has not been convicted. She is 5 feet 2 inches and weighs 115 lbs. She has never been married and is currently living alone. She has a GED certificate and is not enrolled in college. She has held no jobs during the year. She has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, she lived with both of her biological parents in a household of size 4. She considers that God has something to do with what happens to her personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

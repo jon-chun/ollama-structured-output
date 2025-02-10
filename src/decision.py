@@ -1,11 +1,12 @@
 # decision.py
 import os
+import sys
 from dotenv import load_dotenv # find_dotenv
 from pathlib import Path
 import json
 import time
 import logging
-from typing import Optional, Tuple, Dict, Any, List, TypedDict
+from typing import Optional, Tuple, Dict, Any, List, TypedDict, Union
 import asyncio
 from datetime import datetime
 from pathlib import Path
@@ -20,15 +21,29 @@ from openai import OpenAI
 from anthropic import Anthropic
 from google import genai
 from google.genai import types
-# from groq import Groq # Not adding groq or together for now, focusing on openai & anthropic
-# from together import Together
+from groq import Groq # Not adding groq or together for now, focusing on openai & anthropic
+from together import Together
 
+from config import load_config, Config
+# import models
+# print("Models module path:", models.__file__)
+from models import Decision, PromptType
+print("Decision model source:", Decision.__module__)
+print("Decision model mro:", Decision.__mro__)
 
-from config import Config
-from models import Decision, PromptType # Assuming Decision and PromptType are in models.py
-from metrics import TimeoutMetrics
-from utils import clean_model_name, pydantic_or_dict, convert_ns_to_s, check_existing_decision
+print("Decision class type:", type(Decision))
+print("Decision class schema:", Decision.model_json_schema())  # Better way to inspect Pydantic model
 
+# sys.path.insert(0, str(Path(__file__).parent))  # Add current directory to path
+# from models import Decision, PromptType  # This will now find the local version first
+# import models
+# print("Models module path:", models.__file__)
+
+from src.metrics import TimeoutMetrics
+from src.utils import clean_model_name, pydantic_or_dict, convert_ns_to_s, check_existing_decision
+
+# print("Decision class location:", Decision.__file__)
+print("Decision class definition:", Decision.__dict__)
 
 # Load the environment variables from the .env file
 # Construct path relative to the current script's location
@@ -50,12 +65,6 @@ DEFAULT_CONFIDENCE = 99
 # ---------------------------
 # Minimal Data Models - Updated to match reference
 # ---------------------------
-# In decision.py, keep Decision class as:
-class Decision(BaseModel):
-    prediction: int = Field(..., description="Sentiment prediction (-2 to 2)") # Keep as int for now
-    confidence: int = Field(..., description="Confidence score (0 to 100)")
-    reasoning: Optional[str] = Field(None, description="Model's reasoning")
-    exceptions: Optional[str] = Field(None, description="Exceptions or errors reported by model")
 
 class MetaData(BaseModel):
     model: Optional[str] = Field(None, description="Model name")
@@ -168,23 +177,21 @@ def process_model_response(response_text: str, model_name: str) -> ModelResponse
     # Normalize the response
     normalized: ModelResponse = {
         'original_text': response_text,
-        'prediction': 0,
+        'prediction': "UNKNOWN",  # Default to "UNKNOWN" instead of 0
         'confidence': DEFAULT_CONFIDENCE,
-        'risk_factors': [], # Keep risk_factors for now, even though not in reference Decision model. May be useful later.
+        'risk_factors': [],
         'reasoning': "",
         'exceptions': ""
     }
 
-    # Normalize prediction (required, -2 to 2 range)
+    # New prediction normalization logic
     prediction_value = parsed_response.get('prediction')
     if prediction_value is not None:
-        try:
-            if isinstance(prediction_value, str):
-                prediction_value = float(prediction_value.replace('%', ''))
-            normalized['prediction'] = int(min(max(float(prediction_value), MIN_POLARITY), MAX_POLARITY))
-        except (ValueError, TypeError) as e:
-            logging.warning(f"Failed to parse prediction value: {prediction_value}", exc_info=e)
-            normalized['prediction'] = 0
+        pred_str = str(prediction_value).upper()
+        if pred_str in ["YES", "NO", "UNKNOWN"]:
+            normalized['prediction'] = pred_str
+        else:
+            logging.warning(f"Unexpected prediction value type: {type(prediction_value)}")
 
     # Normalize confidence (optional, 0 to 100 range)
     conf_value = parsed_response.get('confidence')
@@ -211,136 +218,236 @@ def process_model_response(response_text: str, model_name: str) -> ModelResponse
 # ---------------------------
 # API Call Functions - Updated to add OpenAI and Anthropic, using reference style and simplified models
 # ---------------------------
+def create_validated_decision(
+    normalized_response: Dict[str, Any], 
+    raw_message_text: str,
+    model_specific_data: Optional[Dict[str, Any]] = None
+) -> Tuple[Optional[Decision], Dict[str, Any]]:
+    """Enhanced helper function to handle model-specific data"""
+    # Validation logic same as before
+    prediction_val = normalized_response.get("prediction", "NO")
+    prediction_val = str(prediction_val).upper()
+    if prediction_val not in ["YES", "NO"]:
+        prediction_val = "NO"
+
+    # Validate confidence
+    try:
+        confidence_val = int(normalized_response.get("confidence", DEFAULT_CONFIDENCE))
+    except (TypeError, ValueError):
+        confidence_val = DEFAULT_CONFIDENCE
+    confidence_val = min(max(0, confidence_val), 100)
+
+    logging.debug(f"Creating Decision with values: prediction={prediction_val!r}, confidence={confidence_val}")
+    try:
+        decision = Decision(
+            prediction=prediction_val,
+            confidence=confidence_val
+        )
+        logging.debug(f"Successfully created Decision: {decision.model_dump()}")
+        
+        # Create extra_data
+        extra_data = {
+            'response_text': prediction_val,
+            'raw_message_text': raw_message_text
+        }
+        # Add any model specific data
+        if normalized_response.get('risk_factors'):
+            extra_data['risk_factors'] = normalized_response['risk_factors']
+            
+        return decision, extra_data
+        
+    except Exception as ve:
+        logging.error(f"Validation error: {ve}")
+        logging.error(f"Input values - prediction: {prediction_val} ({type(prediction_val)}), confidence: {confidence_val} ({type(confidence_val)})")
+        return None, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
+
+def create_metadata(
+    response: Any, 
+    model_name: str,
+    duration: Optional[float] = None,
+    **kwargs
+) -> MetaData:
+    """Helper function to create MetaData with flexible fields"""
+    return MetaData(
+        model=model_name,
+        created_at=str(datetime.now()),
+        done_reason=kwargs.get('done_reason') or getattr(response, 'done_reason', None),
+        done=kwargs.get('done', True),
+        total_duration=duration or getattr(response, 'total_duration', None),
+        load_duration=kwargs.get('load_duration') or getattr(response, 'load_duration', None),
+        prompt_eval_count=kwargs.get('prompt_eval_count') or getattr(response, 'prompt_eval_count', None),
+        prompt_eval_duration=kwargs.get('prompt_eval_duration') or getattr(response, 'prompt_eval_duration', None),
+        eval_count=kwargs.get('eval_count') or getattr(response, 'eval_count', None),
+        eval_duration=kwargs.get('eval_duration') or getattr(response, 'eval_duration', None)
+    )
+
+
+async def call_ollama_api(system_message: str, prompt: str, model_name: str, config: Dict[str, Any]) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
+    """Call Ollama API with consistent interface matching other API calls."""
+    try:
+        start_time = time.time()
+        response = await asyncio.to_thread(
+            chat,
+            messages=[
+                {'role': 'system', 'content': system_message},
+                {'role': 'user', 'content': prompt}
+            ],
+            model=model_name,
+            options={
+                'temperature': config.model_parameters["model_temperature"],
+                'top_p': config.model_parameters["model_top_p"],
+                'max_tokens': config.model_parameters["model_max_tokens"],
+            }
+        )
+        duration = time.time() - start_time
+
+        if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
+            raise ValueError("Invalid API response structure")
+
+        raw_message_text = response.message.content
+        logging.debug(f'raw_message_text: {raw_message_text}')
+        
+        normalized_response = process_model_response(raw_message_text, model_name)
+        logging.debug(f"normalized_response: {normalized_response}")
+
+        decision, extra_data = create_validated_decision(normalized_response, raw_message_text)
+        if not decision:
+            return None, None, prompt, extra_data
+
+        meta_data = create_metadata(
+            response,
+            model_name,
+            duration=duration
+        )
+
+        await asyncio.sleep(API_DELAY)
+        return decision, meta_data, prompt, extra_data
+
+    except Exception as e:
+        logging.error(f"Ollama API call failed: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
+    
+
 async def call_openai_api(system_message: str, prompt: str, model_name: str, config: Dict[str, Any]) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
     try:
+        # API setup
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
             raise ValueError("OPENAI_API_KEY environment variable not set.")
         client = OpenAI(api_key=api_key)
 
-        start_time = time.time()
-        response = None # Initialize response for different model conditions
-        if model_name == 'gpt-4o-mini': # Model specific handling from reference
-            response = client.chat.completions.create(
-                model=model_name,
-                # temperature=config.model_par  ameters.get("model_temperature"),
-                temperature=config.model_parameters.get("model_temperature"),
-                top_p=config.model_parameters.get("model_top_p"), #["model_parameters"]["model_top_p"],
-                max_tokens=config.model_parameters.get("model_max_tokens"), #["model_parameters"]["model_max_tokens"], # Doesn't work for o3-mini API - comment from reference
-                messages=[
-                    {"role": "system", "content": system_message},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-        elif model_name == 'o3-mini-2025-01-31': # Model specific handling from reference
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[
-                    {"role": "system", "content": system_message},
-                    {"role": "user", "content": prompt}
-                ],
-                response_format={"type":"text"}, # From reference
-                reasoning_effort="low" # From reference
-            )
-        else:
-            print(f"ERROR: model_name: {model_name} must be in ['gpt-4o-mini','o3-mini-2025-01-03']") # Error message from reference
-            pass # From reference - although maybe should raise an error?
+        # Model-specific options
+        model_options = {
+            'gpt-4o-mini': {
+                'temperature': config.model_parameters.get("model_temperature"),
+                'top_p': config.model_parameters.get("model_top_p"),
+                'max_tokens': config.model_parameters.get("model_max_tokens")
+            },
+            'o3-mini-2025-01-31': {
+                'response_format': {"type": "text"},
+                'reasoning_effort': "low"
+            }
+        }
 
+        if model_name not in model_options:
+            print(f"ERROR: model_name: {model_name} must be in ['gpt-4o-mini','o3-mini-2025-01-03']") # Error message from reference
+            raise ValueError(f"Unsupported model: {model_name}")
+
+        # API call with model-specific options
+        start_time = time.time()
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": prompt}
+            ],
+            **model_options[model_name]
+        )
         duration = time.time() - start_time
 
         raw_message_text = response.choices[0].message.content
-        finish_reason = response.choices[0].finish_reason
 
-        usage = response.usage
-        prompt_tokens = usage.get("prompt_tokens") if isinstance(usage, dict) else usage.prompt_tokens
-        total_tokens = usage.get("total_tokens") if isinstance(usage, dict) else usage.total_tokens
-        eval_count = total_tokens - prompt_tokens if (prompt_tokens is not None and total_tokens is not None) else None
-
-
+        logging.debug(f'raw_message_text: {raw_message_text}')
+        
         normalized_response = process_model_response(raw_message_text, model_name)
-        prediction_val = normalized_response.get("prediction", 0)
-        confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
-        reasoning_val = normalized_response.get("reasoning", "")
-        exceptions_val = normalized_response.get("exceptions", "")
+        logging.debug(f"normalized_response: {normalized_response}")
 
-        try:
-            decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val)
-        except ValidationError as ve:
-            logging.error(f"Validation error in OpenAI response: {ve}")
-            return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
-
-        extra_data = {
-            "response_text": raw_message_text,
-            "raw_response": raw_message_text,
-            "openai_metadata": usage # Save usage metadata
-        }
-        meta_data = MetaData(
-            model=model_name,
-            created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
-            done_reason=finish_reason,
-            done=True,
-            total_duration=duration,
-            load_duration=None,
-            prompt_eval_count=prompt_tokens,
-            prompt_eval_duration=None,
-            eval_count=eval_count,
-            eval_duration=None
+        # Use helper functions
+        decision, extra_data = create_validated_decision(normalized_response, raw_message_text)
+        if not decision:
+            return None, None, prompt, extra_data
+            
+        # Add OpenAI-specific data
+        extra_data["openai_metadata"] = response.usage
+        
+        meta_data = create_metadata(
+            response,
+            model_name,
+            duration,
+            done_reason=response.choices[0].finish_reason,
+            prompt_eval_count=response.usage.prompt_tokens,
+            eval_count=response.usage.total_tokens - response.usage.prompt_tokens
         )
-        await asyncio.sleep(API_DELAY) # Added delay as in reference (although might not be strictly necessary for OpenAI/Anthropic, good practice)
+        
         return decision, meta_data, prompt, extra_data
-
+        
     except Exception as e:
         logging.error(f"OpenAI API call failed: {e}")
         return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
 
 
-async def call_anthropic_api(system_message: str, prompt: str, model_name: str, config: Dict[str, Any]) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
+async def call_anthropic_api(system_message: str, prompt: str, model_name: str, config: Config) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
     try:
+        # Ensure the Anthropic API key is set
         api_key = os.getenv("ANTHROPIC_API_KEY")
         if not api_key:
             raise ValueError("ANTHROPIC_API_KEY environment variable not set.")
+            
+        # Initialize the Anthropic client
         client = Anthropic(api_key=api_key)
 
+        # Start timer for performance measurement
         start_time = time.time()
-        cleaned_model_name = model_name # No clean_model_name function needed anymore as per reference
+
+        # Make the API call with model-specific options using attribute access for config
         response = client.messages.create(
-            model=cleaned_model_name,
+            model=model_name,
             temperature=config.model_parameters.get("model_temperature"),
-            max_tokens=config.model_parameters.get("model_max_tokens"), #["model_parameters"]["model_max_tokens"],
-            top_p=config.model_parameters.get("model_top_p"), #["model_parameters"]["model_top_p"],
+            max_tokens=config.model_parameters.get("model_max_tokens"),
+            top_p=config.model_parameters.get("model_top_p"),
             system=system_message,
             messages=[{"role": "user", "content": prompt}]
         )
         duration = time.time() - start_time
 
+        # Extract raw message text from the response
         raw_message_text = response.content[0].text
+        logging.debug(f"raw_message_text: {raw_message_text}")
+
+        # Process and normalize the model response
         normalized_response = process_model_response(raw_message_text, model_name)
-        prediction_val = normalized_response.get("prediction", 0)
-        confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
-        reasoning_val = normalized_response.get("reasoning", "")
-        exceptions_val = normalized_response.get("exceptions", "")
+        logging.debug(f"normalized_response: {normalized_response}")
 
+        # Use the shared helper to create a validated Decision.
+        # This ensures that the 'prediction' is a string ("YES" or "NO") and 'confidence' is within 0-100.
+        decision, extra_data = create_validated_decision(normalized_response, raw_message_text)
+        if not decision:
+            return None, None, prompt, extra_data
 
-        try:
-            decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val)
-        except ValidationError as ve:
-            logging.error(f"Validation error in Anthropic response: {ve}")
-            return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
-
-        extra_data = {"response_text": raw_message_text, "raw_response": raw_message_text}
-        meta_data = MetaData(
-            model=model_name,
-            created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
-            done_reason=getattr(response, "stop_reason", None),
-            done=True,
-            total_duration=duration,
-            load_duration=None,
-            prompt_eval_count=None,
-            prompt_eval_duration=None,
-            eval_count=None,
-            eval_duration=None
+        # Create metadata similar to the OpenAI implementation.
+        # Note: Anthropic responses may have a 'stop_reason' attribute.
+        meta_data = create_metadata(
+            response,
+            model_name,
+            duration,
+            done_reason=getattr(response, "stop_reason", None)
         )
-        await asyncio.sleep(API_DELAY) # Added delay as in reference
+
+        # Optionally add any Anthropic-specific metadata to extra_data.
+        extra_data["anthropic_metadata"] = getattr(response, "usage", {})
+
+        # Optional delay (if your design requires pacing between API calls)
+        await asyncio.sleep(API_DELAY)
         return decision, meta_data, prompt, extra_data
 
     except Exception as e:
@@ -349,58 +456,75 @@ async def call_anthropic_api(system_message: str, prompt: str, model_name: str, 
 
 
 # --- Google API Call --- - No changes needed as google was already in the original, keeping for completeness for now. Might update later if needed.
-async def call_google_api(system_message: str, prompt: str, model_name: str, config: Any) -> Tuple[Optional[Any], Optional[Any], str, Dict[str, Any]]:
+async def call_google_api(system_message: str, prompt: str, model_name: str, config: Config) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
     try:
-
+        # Ensure Google API key is present
         google_api_key = os.getenv("GOOGLE_API_KEY")
         if not google_api_key:
-            logging.error("GOOGLE_API_KEY environment variable is not set.  Please set this variable in your .env file or environment.")
+            logging.error("GOOGLE_API_KEY environment variable is not set. Please set this variable in your .env file or environment.")
             raise ValueError("GOOGLE_API_KEY environment variable not set.")
-            # Exit the function immediately (and the program if necessary)
-            return  # Or raise an exception if you want to propagate it up
-        else:
-            # client = genai.GenerativeModel(api_key=google_api_key, model_name)
-            # As of 2/1/2025 these Google Gemini lower models are free, so no auth required? - Comment from original code, keeping for now, might need to revisit
-            client = genai.GenerativeModel(model_name)
 
+        # Initialize Google API client
+        client = genai.Client(api_key=google_api_key)
+
+        # Merge system instructions with the user prompt (since Gemini API lacks structured roles)
+        contents = f"SYSTEM: {system_message}\nUSER: {prompt}"
+
+        # Configure generation parameters using attribute access
+        generation_config = types.GenerateContentConfig(
+            temperature=config.model_parameters.get("model_temperature"),
+            top_p=config.model_parameters.get("model_top_p"),
+            max_output_tokens=config.model_parameters.get("model_max_tokens")
+        )
+
+        # Perform the API call and measure duration
         start_time = time.time()
         response = client.models.generate_content(
             model=model_name,
-            system_instructions=system_message,
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                temperature=config.model_parameters.get("model_temperature"), #["model_parameters"]["model_temperature"],
-                top_p=config.model_parameters.get("model_top_p"), #["model_top_p"],
-                max_output_tokens=config.model_parameters.get("model_max_tokens"), #["model_max_tokens"]
-            )
+            contents=contents,
+            config=generation_config
         )
         duration_time = time.time() - start_time
 
-        raw_message_text = response.text
+        # Extract generated text
+        raw_message_text = response.candidates[0].content.parts[0].text
+        logging.debug(f"raw_message_text: {raw_message_text}")
+
+        # Process the model response using your existing parser
         normalized_response = process_model_response(raw_message_text, model_name)
-        prediction_val = normalized_response.get("prediction", 0) # Updated to prediction from prediction and using prediction_val
-        confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
-        reasoning_val = normalized_response.get("reasoning", "") # Added reasoning from reference
-        exceptions_val = normalized_response.get("exceptions", "") # Added exceptions from reference
+        logging.debug(f"normalized_response: {normalized_response}")
 
+        # Extract values from the normalized response
+        prediction_val = normalized_response.get("prediction", 0)
+        confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE)
+        reasoning_val = normalized_response.get("reasoning", "")
+        exceptions_val = normalized_response.get("exceptions", "")
 
+        # Attempt to create a Decision object (update as needed if your Decision model supports extra fields)
         try:
-            decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val) # Updated Decision creation
+            decision = Decision(
+                prediction=prediction_val,
+                confidence=confidence_val,
+                reasoning=reasoning_val,
+                exceptions=exceptions_val
+            )
         except Exception as ve:
             logging.error(f"Validation error in Google API response: {ve}")
             return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
 
+        # Construct extra data with raw response details and any risk factors
         extra_data = {
             'response_text': raw_message_text,
-            'raw_response': raw_message_text # Added raw_response for consistency
+            'raw_response': raw_message_text
         }
-        if normalized_response.get('risk_factors'): # Keeping risk_factors
+        if normalized_response.get('risk_factors'):
             extra_data['risk_factors'] = normalized_response['risk_factors']
 
+        # Create MetaData for this API call
         meta_data = MetaData(
             model=model_name,
-            created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
-            done_reason=None, # From reference
+            created_at=str(datetime.now()),
+            done_reason=None,
             done=True,
             total_duration=duration_time,
             load_duration=None,
@@ -409,97 +533,232 @@ async def call_google_api(system_message: str, prompt: str, model_name: str, con
             eval_count=None,
             eval_duration=None
         )
-        await asyncio.sleep(API_DELAY) # Added delay as in reference, though might not be needed for google.
+
+        # Optionally delay further API calls if needed
+        await asyncio.sleep(API_DELAY)
         return decision, meta_data, prompt, extra_data
 
     except Exception as e:
         logging.error(f"Google API call failed: {e}")
         return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
 
+async def call_groq_api(system_message: str, prompt: str, model_name: str, config: Config) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
+    try:
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            raise ValueError("GROQ_API_KEY environment variable not set.")
+        client = Groq(api_key=api_key)
+
+        # Optional delay to pace API calls
+        await asyncio.sleep(API_DELAY)
+        start_time = time.time()
+
+        # Select the appropriate API call based on the model name
+        if model_name in ['deepseek-r1-distill-llama-70b', 'llama3-70b-versatile']:
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=config.model_parameters.get("model_temperature"),
+                top_p=config.model_parameters.get("model_top_p"),
+                max_completion_tokens=config.model_parameters.get("model_max_tokens"),
+                stream=False,
+                stop=None
+            )
+        else:
+            raise ValueError(f"Unsupported model: {model_name}. Must be one of ['deepseek-r1-distill-llama-70b', 'llama3-70b-versatile']")
+        
+        duration = time.time() - start_time
+
+        # Extract the raw text and finish reason from the response
+        raw_message_text = response.choices[0].message.content
+        finish_reason = response.choices[0].finish_reason
+
+        # Extract usage metadata safely (supporting both dicts and attribute access)
+        usage = response.usage
+        prompt_tokens = usage.get("prompt_tokens") if isinstance(usage, dict) else usage.prompt_tokens
+        total_tokens = usage.get("total_tokens") if isinstance(usage, dict) else usage.total_tokens
+        eval_count = total_tokens - prompt_tokens if (prompt_tokens is not None and total_tokens is not None) else None
+
+        # Process and normalize the model response
+        normalized_response = process_model_response(raw_message_text, model_name)
+        logging.debug(f"normalized_response (Groq): {normalized_response}")
+
+        # Create a validated decision using the helper; this ensures the 'prediction' is "YES"/"NO"
+        decision, extra_data = create_validated_decision(normalized_response, raw_message_text)
+        if not decision:
+            return None, None, prompt, extra_data
+
+        # Add Groq-specific metadata to the extra_data
+        extra_data["groq_metadata"] = usage
+
+        # Create metadata using the shared helper function
+        meta_data = create_metadata(
+            response,
+            model_name,
+            duration,
+            done_reason=finish_reason,
+            prompt_eval_count=prompt_tokens,
+            eval_count=eval_count
+        )
+
+        return decision, meta_data, prompt, extra_data
+
+    except Exception as e:
+        logging.error(f"Groq API call failed: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
+
+
+async def call_together_api(system_message: str, prompt: str, model_name: str, config: Config) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
+    try:
+        api_key = os.getenv("TOGETHER_API_KEY")
+        if not api_key:
+            raise ValueError("TOGETHER_API_KEY environment variable not set.")
+        client = Together(api_key=api_key)
+
+        # Optional delay to pace API calls
+        await asyncio.sleep(API_DELAY)
+        start_time = time.time()
+
+        # Branch based on the model name to apply model-specific options
+        if model_name == 'DeepSeek-V3':
+            response = client.chat.completions.create(
+                model=f"deepseek-ai/{model_name}",
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=config.model_parameters.get("model_max_tokens"),
+                temperature=config.model_parameters.get("model_temperature"),
+                top_p=config.model_parameters.get("model_top_p"),
+                repetition_penality=config.model_parameters.get("repetition_penality"),
+                stop=["<｜end▁of▁sentence｜>"],
+                stream=False,
+            )
+        elif model_name == 'Qwen2.5-72B-Instruct-Turbo':
+            response = client.chat.completions.create(
+                model=f"Qwen/{model_name}",
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=config.model_parameters.get("model_max_tokens"),
+                temperature=config.model_parameters.get("model_temperature"),
+                top_p=config.model_parameters.get("model_top_p"),
+                repetition_penality=config.model_parameters.get("repetition_penality"),
+                stop=["<｜end▁of▁sentence｜>"],
+                stream=False,
+            )
+        elif model_name == 'DeepSeek-R1-Distill-Llama-70B':
+            response = client.chat.completions.create(
+                model=f"deepseek-ai/{model_name}",
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=config.model_parameters.get("model_max_tokens"),
+                temperature=config.model_parameters.get("model_temperature"),
+                top_p=config.model_parameters.get("model_top_p"),
+                repetition_penality=config.model_parameters.get("repetition_penality"),
+                stop=["<｜end▁of▁sentence｜>"],
+                stream=False,
+            )
+        elif model_name == 'Qwen2-VL-72B-Instruct':
+            response = client.chat.completions.create(
+                model=f"Qwen/{model_name}",
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=config.model_parameters.get("model_max_tokens"),
+                temperature=config.model_parameters.get("model_temperature"),
+                top_p=config.model_parameters.get("model_top_p"),
+                # repetition_penality omitted if not applicable
+                stop=["<|im_end|>", "<|endoftext|>"],
+                stream=False,
+            )
+        else:
+            raise ValueError(f"Unsupported model: {model_name}. Must be one of ['DeepSeek-V3', 'Qwen2.5-72B-Instruct-Turbo', 'DeepSeek-R1-Distill-Llama-70B', 'Qwen2-VL-72B-Instruct']")
+
+        duration = time.time() - start_time
+
+        # Extract the raw text and finish reason from the response
+        raw_message_text = response.choices[0].message.content
+        finish_reason = response.choices[0].finish_reason
+
+        # Extract usage metadata with safe access
+        usage = response.usage
+        prompt_tokens = usage.get("prompt_tokens") if isinstance(usage, dict) else usage.prompt_tokens
+        total_tokens = usage.get("total_tokens") if isinstance(usage, dict) else usage.total_tokens
+        eval_count = total_tokens - prompt_tokens if (prompt_tokens is not None and total_tokens is not None) else None
+
+        # Process and normalize the model response
+        normalized_response = process_model_response(raw_message_text, model_name)
+        logging.debug(f"normalized_response (Together): {normalized_response}")
+
+        # Create a validated Decision (with "YES"/"NO" prediction) using the shared helper function
+        decision, extra_data = create_validated_decision(normalized_response, raw_message_text)
+        if not decision:
+            return None, None, prompt, extra_data
+
+        # Add Together-specific metadata to extra_data
+        extra_data["together_metadata"] = usage
+
+        # Create metadata using the shared helper
+        meta_data = create_metadata(
+            response,
+            model_name,
+            duration,
+            done_reason=finish_reason,
+            prompt_eval_count=prompt_tokens,
+            eval_count=eval_count
+        )
+
+        return decision, meta_data, prompt, extra_data
+
+    except Exception as e:
+        logging.error(f"Together API call failed: {e}")
+        return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
+
+
 
 # --- Unified get_decision Function --- - Updated to include openai and anthropic calls, and use updated config as Dict
-async def get_decision(prompt_type: Any, api_type: str, model_name: str, config: Dict[str, Any], prompt: str) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]: # Updated type hints and config type
+async def get_decision(prompt_type: Any, api_type: str, model_name: str, config: Dict[str, Any], prompt: str) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any]]:
     """
     Dispatch the API call based on api_type.
     Returns a 4-tuple: (Decision, MetaData, used_prompt, extra_data).
     In case of failure, extra_data includes an "api_failure" flag and a "failure_type".
     """
     try:
-        # system_message = config["prompts"].get("SYSTEM_PROMPT", "") 
-        system_message = config.prompts.get("SYSTEM_PROMPT", "") or ( # Using "SYSTEM_PROMPT" key from reference
+        system_message = config.prompts.get("SYSTEM_PROMPT", "") or (
             "You are a risk assessment expert. Your responses must be in valid JSON format "
-            "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'." # Keeping original fallback system message for now, might update if needed
+            "containing exactly three fields: 'risk_factors', 'prediction', and 'confidence'."
         )
 
-        api_type = api_type.lower() # Added lowercasing api_type from reference
+        api_type = api_type.lower()
 
-        if api_type == 'openai':
-            return await call_openai_api(system_message, prompt, model_name, config)
-        elif api_type == 'anthropic':
-            return await call_anthropic_api(system_message, prompt, model_name, config)
-        elif api_type == 'google':
-            return call_google_api(system_message, prompt, model_name, config)
-        elif api_type == 'ollama':
-            response = await asyncio.to_thread(
-                chat,
-                messages=[
-                    {'role': 'system', 'content': system_message},
-                    {'role': 'user', 'content': prompt}
-                ],
-                model=model_name,
-                options={
-                    'temperature': config.model_parameters.get("model_temperature"), #["model_parameters"]["model_temperature"], # Using dict-style config access
-                    'top_p': config.model_parameters.get("model_top_p"), #["model_parameters"]["model_top_p"], # Using dict-style config access
-                    'max_tokens': config.model_parameters.get("model_max_tokens"), #["model_parameters"]["model_max_tokens"], # Using dict-style config access
-                }
-            )
+        # Map API types to their handler functions
+        api_handlers = {
+            'openai': call_openai_api,
+            'anthropic': call_anthropic_api,
+            'google': call_google_api,
+            'groq': call_groq_api,
+            'together': call_together_api,
+            'ollama': call_ollama_api
+        }
 
-            if not hasattr(response, 'message') or not hasattr(response.message, 'content'):
-                raise ValueError("Invalid API response structure")
+        handler = api_handlers.get(api_type)
+        if not handler:
+            raise ValueError(f"Unsupported API type: {api_type}")
 
-            raw_message_text = response.message.content
-            print(f'raw_message_text: {raw_message_text}') # DEBUG
-            normalized_response = process_model_response(raw_message_text, model_name)
-            print(f"normalized_response: {normalized_response}") # DEBUG
-            prediction_val = normalized_response.get("prediction", 0) # Updated to prediction from prediction and using prediction_val
-            confidence_val = normalized_response.get("confidence", DEFAULT_CONFIDENCE) # Using DEFAULT_CONFIDENCE
-            reasoning_val = normalized_response.get("reasoning", "") # Added reasoning from reference
-            exceptions_val = normalized_response.get("exceptions", "") # Added exceptions from reference
-
-
-            try:
-                decision = Decision(prediction=prediction_val, confidence=confidence_val, reasoning=reasoning_val, exceptions=exceptions_val) # Updated Decision creation
-            except Exception as ve:
-                logging.error(f"Validation error in Ollama API response: {ve}")
-                return None, None, prompt, {"error": str(ve), "api_failure": True, "failure_type": "parse_failure"}
-
-            extra_data = {
-                'response_text': raw_message_text,
-                'raw_response': raw_message_text # Added raw_response for consistency
-            }
-            if normalized_response.get('risk_factors'): # Keeping risk_factors
-                extra_data['risk_factors'] = normalized_response['risk_factors']
-
-            meta_data = MetaData(
-                model=getattr(response, 'model', None),
-                created_at=str(datetime.now()), # Using datetime.now() string conversion from reference
-                done_reason=getattr(response, 'done_reason', None),
-                done=getattr(response, 'done', None),
-                total_duration=getattr(response, 'total_duration', None),
-                load_duration=getattr(response, 'load_duration', None),
-                prompt_eval_count=getattr(response, 'prompt_eval_count', None),
-                prompt_eval_duration=getattr(response, 'prompt_eval_duration', None),
-                eval_count=getattr(response, 'eval_count', None),
-                eval_duration=getattr(response, 'eval_duration', None)
-            )
-            await asyncio.sleep(API_DELAY) # Added delay as in reference, though likely not needed for local ollama.
-
-            return decision, meta_data, prompt, extra_data
+        return await handler(system_message, prompt, model_name, config)
 
     except Exception as e:
         logging.error(f"Error during API call in get_decision: {e}")
         return None, None, prompt, {"error": str(e), "api_failure": True, "failure_type": "api_failure"}
-
+    
 
 async def get_decision_with_timeout(prompt_type: Any, api_type: str, model_name: str, config: Dict[str, Any], prompt: str) -> Tuple[Optional[Decision], Optional[MetaData], str, Dict[str, Any], Any]: # Updated config type to Dict[str, Any]
     """
@@ -565,12 +824,26 @@ def save_decision(decision: Any, meta_data: Any, prompt_type: Any, model_name: s
         meta_data_data = pydantic_or_dict(meta_data) # Get dict from Pydantic MetaData model
 
         # --- Restructure decision_data to match desired output ---
-        decision_output = { # Create a new dict for 'decision' output section
-            "prediction": "YES" if decision.prediction >= 0 else "NO", # Convert numerical prediction to "YES"/"NO" string
+        def normalize_prediction(pred: Union[str, int]) -> str:
+            if isinstance(pred, str):
+                pred_upper = pred.upper()
+                if pred_upper == "YES" or pred_upper == "NO":
+                    return pred_upper
+            return "UNKNOWN"
+
+        def is_matching_prediction(pred: Union[str, int], actual: Union[str, int]) -> str:
+            norm_pred = normalize_prediction(pred)
+            norm_actual = normalize_prediction(actual)
+            if norm_pred == "UNKNOWN" or norm_actual == "UNKNOWN":
+                return "NO"  # Conservative approach - unknown predictions count as incorrect
+            return "YES" if norm_pred == norm_actual else "NO"
+
+        decision_output = {
+            'prediction': normalize_prediction(decision.prediction),
             "confidence": decision.confidence,
             "id": row_id,
             "actual": actual_value,
-            "correct": "YES" if decision.prediction >= 0 and actual_value.upper() == "YES" or decision.prediction < 0 and actual_value.upper() == "NO" else "NO"
+            'correct': is_matching_prediction(decision.prediction, actual_value)
         }
         # No need to update decision_data anymore, use decision_output in combined_data
 

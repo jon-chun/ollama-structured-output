@@ -1,0 +1,65 @@
+{
+  "decision": {
+    "prediction": "NO",
+    "confidence": 90,
+    "id": 247,
+    "actual": "NO",
+    "correct": "YES"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "created_at": "2025-02-02T12:45:07.896873457Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 2.570447537,
+    "load_duration": 0.056726959,
+    "prompt_eval_count": 341,
+    "prompt_eval_duration": 0.009,
+    "eval_count": 410,
+    "eval_duration": 2.502
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is a young adult, which generally indicates lower risk.\"),\n    (\"race/ethnicity\", \"medium\", \"White individuals have been found to be at higher risk of recidivism than other racial groups. However, this factor should not be given excessive weight as it does not account for the specific circumstances or experiences that may influence an individual's behavior.\"),\n    (\"employment history\", \"low\", \"Having held two jobs during a year is generally considered positive and indicates stability.\"),\n    (\"drug use in past four years\", \"high\", \"Individuals who have used drugs, particularly illicit substances like marijuana and cocaine, are at higher risk of recidivism. The frequency and duration of drug use should be taken into account when assessing the individual's risk level.\"),\n    (\"depression status\", \"low\", \"The absence of depression symptoms in the past month suggests that the individual is not currently experiencing any significant mental health issues that could increase their risk of reoffending.\"),\n    (\"family history and environment\", \"medium\", \"Growing up with both biological parents, living in a household of size 5 (which may indicate some level of stability or support) in an urban area are generally positive factors. However, the specific circumstances and experiences that led to this situation should be considered when assessing risk.\"),\n    (\"beliefs/values\", \"low\", \"The individual's belief that God has something to do with what happens to him personally may indicate a strong sense of faith or spirituality, which could potentially reduce their risk. However, it is important to consider the potential impact of any religious beliefs on an individual's behavior and decision-making.\"),\n    (\"prediction\", \"NO\", \"Considering all the above factors together, the individual does not appear to be at high risk for recidivism in the next three years.\")\n  ],\n  \"confidence\": 80\n}",
+    "normalized_prediction": "NO"
+  },
+  "evaluation": {
+    "timestamp": "20250202_074507_900861",
+    "model": "nemotron-mini:4b-instruct-q4_K_M",
+    "prompt_type": "PromptType.COT",
+    "row_id": 247,
+    "prediction_matches_actual": "YES",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    "age",
+    "low",
+    "The individual is a young adult, which generally indicates lower risk.",
+    "race/ethnicity",
+    "medium",
+    "White individuals have been found to be at higher risk of recidivism than other racial groups. However, this factor should not be given excessive weight as it does not account for the specific circumstances or experiences that may influence an individual's behavior.",
+    "employment history",
+    "low",
+    "Having held two jobs during a year is generally considered positive and indicates stability.",
+    "drug use in past four years",
+    "high",
+    "Individuals who have used drugs, particularly illicit substances like marijuana and cocaine, are at higher risk of recidivism. The frequency and duration of drug use should be taken into account when assessing the individual's risk level.",
+    "depression status",
+    "low",
+    "The absence of depression symptoms in the past month suggests that the individual is not currently experiencing any significant mental health issues that could increase their risk of reoffending.",
+    "family history and environment",
+    "medium",
+    "Growing up with both biological parents, living in a household of size 5 (which may indicate some level of stability or support) in an urban area are generally positive factors. However, the specific circumstances and experiences that led to this situation should be considered when assessing risk.",
+    "beliefs/values",
+    "low",
+    "The individual's belief that God has something to do with what happens to him personally may indicate a strong sense of faith or spirituality, which could potentially reduce their risk. However, it is important to consider the potential impact of any religious beliefs on an individual's behavior and decision-making.",
+    "prediction",
+    "NO",
+    "Considering all the above factors together, the individual does not appear to be at high risk for recidivism in the next three years.",
+    "confidence",
+    80
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 20-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 2 inches and weighs 275 lbs. He is married and is currently living with his spouse. He has a high school diploma and is not enrolled in college. He has held 2 jobs during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 5, in an urban area. He considers that God has something to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

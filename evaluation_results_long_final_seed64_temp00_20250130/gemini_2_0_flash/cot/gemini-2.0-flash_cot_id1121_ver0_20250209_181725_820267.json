@@ -1,0 +1,99 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 75,
+    "id": 1121,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "gemini-2.0-flash",
+    "created_at": "2025-02-09 18:17:25.619587",
+    "done_reason": null,
+    "done": true,
+    "total_duration": 5.233587503433227e-09,
+    "load_duration": null,
+    "prompt_eval_count": null,
+    "prompt_eval_duration": null,
+    "eval_count": null,
+    "eval_duration": null
+  },
+  "response": {
+    "raw_message_text": "",
+    "normalized_prediction": "```json\n{\n  \"risk_factors\": [\n    [\n      \"Age\",\n      \"medium\",\n      \"19 years old is a risk factor because younger individuals are statistically more likely to re-offend than older individuals. While not the highest risk age, it's not negligible.\"\n    ],\n    [\n      \"Gender\",\n      \"medium\",\n      \"Males are statistically more likely to be rearrested than females.\"\n    ],\n    [\n      \"Race\",\n      \"medium\",\n      \"Black individuals are disproportionately represented in the criminal justice system, leading to a higher statistical likelihood of rearrest, although this is a complex and potentially biased factor.\"\n    ],\n    [\n      \"Prior Arrests\",\n      \"low\",\n      \"One prior arrest is a relatively low risk factor compared to multiple arrests or convictions. The absence of a conviction further reduces the risk.\"\n    ],\n    [\n      \"Physical Characteristics\",\n      \"low\",\n      \"Height and weight are not typically strong predictors of recidivism in the absence of other factors suggesting physical aggression or vulnerability.\"\n    ],\n    [\n      \"Marital Status\",\n      \"medium\",\n      \"Never being married and living alone can indicate a lack of social support, which is a moderate risk factor.\"\n    ],\n    [\n      \"Education\",\n      \"high\",\n      \"Lack of a high school diploma or GED and not being enrolled in college is a significant risk factor, indicating limited opportunities and potential for economic hardship.\"\n    ],\n    [\n      \"Employment\",\n      \"high\",\n      \"No employment in the past year is a major risk factor, suggesting a lack of stable income and potential involvement in illegal activities for financial support.\"\n    ],\n    [\n      \"Substance Use\",\n      \"low\",\n      \"No reported drug use in the past four years is a protective factor, reducing the risk.\"\n    ],\n    [\n      \"Mental Health\",\n      \"low\",\n      \"No reported depression in the past month is a protective factor, reducing the risk.\"\n    ],\n    [\n      \"Family Background\",\n      \"medium\",\n      \"Living with the biological mother in a household of 5 in an urban area is a moderate risk factor. Urban environments can have higher crime rates, and a larger household may indicate resource strain. The presence of the biological mother is a positive factor, but the other elements contribute to a medium risk.\"\n    ],\n    [\n      \"Religious Beliefs\",\n      \"low\",\n      \"Lack of belief in God's influence is not a strong predictor of recidivism on its own. It might correlate with other factors, but in isolation, it's a low risk.\"\n    ]\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 75\n}\n```"
+  },
+  "evaluation": {
+    "timestamp": "20250209_181725_820267",
+    "model": "gemini-2.0-flash",
+    "prompt_type": "PromptType.COT",
+    "row_id": 1121,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "risk_factors": [
+    [
+      "Age",
+      "medium",
+      "19 years old is a risk factor because younger individuals are statistically more likely to re-offend than older individuals. While not the highest risk age, it's not negligible."
+    ],
+    [
+      "Gender",
+      "medium",
+      "Males are statistically more likely to be rearrested than females."
+    ],
+    [
+      "Race",
+      "medium",
+      "Black individuals are disproportionately represented in the criminal justice system, leading to a higher statistical likelihood of rearrest, although this is a complex and potentially biased factor."
+    ],
+    [
+      "Prior Arrests",
+      "low",
+      "One prior arrest is a relatively low risk factor compared to multiple arrests or convictions. The absence of a conviction further reduces the risk."
+    ],
+    [
+      "Physical Characteristics",
+      "low",
+      "Height and weight are not typically strong predictors of recidivism in the absence of other factors suggesting physical aggression or vulnerability."
+    ],
+    [
+      "Marital Status",
+      "medium",
+      "Never being married and living alone can indicate a lack of social support, which is a moderate risk factor."
+    ],
+    [
+      "Education",
+      "high",
+      "Lack of a high school diploma or GED and not being enrolled in college is a significant risk factor, indicating limited opportunities and potential for economic hardship."
+    ],
+    [
+      "Employment",
+      "high",
+      "No employment in the past year is a major risk factor, suggesting a lack of stable income and potential involvement in illegal activities for financial support."
+    ],
+    [
+      "Substance Use",
+      "low",
+      "No reported drug use in the past four years is a protective factor, reducing the risk."
+    ],
+    [
+      "Mental Health",
+      "low",
+      "No reported depression in the past month is a protective factor, reducing the risk."
+    ],
+    [
+      "Family Background",
+      "medium",
+      "Living with the biological mother in a household of 5 in an urban area is a moderate risk factor. Urban environments can have higher crime rates, and a larger household may indicate resource strain. The presence of the biological mother is a positive factor, but the other elements contribute to a medium risk."
+    ],
+    [
+      "Religious Beliefs",
+      "low",
+      "Lack of belief in God's influence is not a strong predictor of recidivism on its own. It might correlate with other factors, but in isolation, it's a low risk."
+    ]
+  ],
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 19-year-old male who identifies himself as Black. He has been arrested 1 time but has not been convicted. He is 5 feet 5 inches and weighs 135 lbs. He has never been married and is currently living alone. He does not have a high school diploma or GED certificate and is not enrolled in college. He has held no jobs during the year. He has not used any drugs in the past four years and has not felt depressed over the past month. At a young age, he lived with his biological mother in a household of size 5, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}

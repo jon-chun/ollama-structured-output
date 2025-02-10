@@ -1,0 +1,37 @@
+{
+  "decision": {
+    "prediction": "YES",
+    "confidence": 80,
+    "id": 615,
+    "actual": "NO",
+    "correct": "NO"
+  },
+  "meta_data": {
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "created_at": "2025-02-02T12:56:54.20591395Z",
+    "done_reason": "stop",
+    "done": true,
+    "total_duration": 16.323710531,
+    "load_duration": 0.032324836,
+    "prompt_eval_count": 340,
+    "prompt_eval_duration": 0.052,
+    "eval_count": 428,
+    "eval_duration": 16.236
+  },
+  "response": {
+    "raw_message_text": " {\n  \"risk_factors\": [\n    (\"age\", \"low\", \"The individual is relatively young, which is a positive factor for low recidivism.\"),\n    (\"race/ethnicity\", \"medium\", \"While the individual identifies as White, this does not provide enough information to accurately assess risk. It's important to consider other factors such as socioeconomic status and neighborhood context.\"),\n    (\"prior_arrests\", \"high\", \"The individual has been arrested twice and convicted, which is a significant risk factor for recidivism.\"),\n    (\"conviction_history\", \"medium\", \"Having two prior arrests and convictions indicates a higher likelihood of reoffending in the future.\"),\n    (\"height/weight\", \"low\", \"Neither height nor weight are strong predictors of recidivism. However, being overweight or underweight can be associated with other factors that may increase risk.\"),\n    (\"marital_status\", \"medium\", \"Living alone is a neutral factor for recidivism as it does not provide enough information to assess the individual's social support network and family structure.\"),\n    (\"education\", \"low\", \"Having only a GED certificate indicates lower educational attainment, which may be associated with other factors that increase risk. However, this should not be given high weight without additional context.\"),\n    (\"employment_history\", \"medium\", \"Holding one job during the year is a neutral factor for recidivism as it does not provide enough information to assess the individual's employment history or stability.\"),\n    (\"drug_use\", \"high\", \"Using drugs in the past four years, particularly marijuana and cocaine, indicates a higher likelihood of reoffending. These substances are often associated with criminal behavior and mental health issues that may increase risk.\"),\n    (\"depression\", \"low\", \"Not feeling depressed over the past month is a neutral factor for recidivism as it does not provide enough information to assess the individual's emotional state or history.\")\n  ],\n  \"prediction\": \"YES\",\n  \"confidence\": 80\n}",
+    "normalized_prediction": "YES"
+  },
+  "evaluation": {
+    "timestamp": "20250202_075654_208431",
+    "model": "nemotron-mini:4b-instruct-fp16",
+    "prompt_type": "PromptType.COT",
+    "row_id": 615,
+    "prediction_matches_actual": "NO",
+    "repeat_index": 0
+  },
+  "prompt": {
+    "system": "You are a highly experienced criminal justice risk assessment expert\nemploying advanced statistical and judicial knowledge.\n",
+    "user": "You are a criminal risk assessment expert. Step back, take a deep breath and carefully think step by step to assign a relative weight [low, medium, high] to each risk factor before using them to collectively predict 3-year rearrest recidivism:\nThe person is a 21-year-old male who identifies himself as White. He has been arrested 2 times and has been convicted. He is 6 feet 0 inches and weighs 165 lbs. He has never been married and is currently living alone. He has a GED certificate and is not enrolled in college. He has held 1 job during the year. He has used drugs in the past four years (marijuana and cocaine) and has not felt depressed over the past month. At a young age, he lived with both of his biological parents in a household of size 4, in an urban area. He considers that God has nothing to do with what happens to him personally.\n\nAfter your analysis, you must respond ONLY with a JSON object in exactly this format, with no additional text:\n\n{\n  \"risk_factors\": [\n    (\"factor1\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    (\"factor2\", \"low\"|\"medium\"|\"high\", \"textual reasoning\"),\n    ...\n  ],\n  \"prediction\": \"YES\" or \"NO\",\n  \"confidence\": number between 0 and 100\n}\n"
+  }
+}
