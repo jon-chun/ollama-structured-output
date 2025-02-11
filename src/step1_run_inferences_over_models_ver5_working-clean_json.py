@@ -1,9 +1,8 @@
-# main.py
-
 import asyncio
 import logging
 import time
 import re
+from copy import deepcopy
 import datetime
 from typing import List, Optional, Set, Tuple, Dict
 from collections import defaultdict
@@ -17,6 +16,12 @@ from prompt_manager import PromptManager
 from models import PromptType
 from metrics import PromptMetrics, TimeoutMetrics
 from performance import PerformanceTracker, PerformanceStats, save_aggregate_stats
+
+from dotenv import load_dotenv
+
+# Load environment variables from .env (assumed to be in the same directory as decision.py)
+dotenv_path = Path(__file__).parent / ".env"
+load_dotenv(dotenv_path)
 
 # File Dependencies: config.yaml, util.py, decision.py,
 #   data_manager.py, prompt_manager.py, models.py, metrics.py, performance.py
@@ -371,53 +376,102 @@ async def process_model_evaluations(
     await asyncio.sleep(DELAY_BETWEEN_MODEL_LOAD_SEC)
 
 
-async def main():
-    """Main orchestrator with improved model management and restartability."""
-    config = load_config("config.yaml")
-
-    # Setup logging
-    logging.basicConfig(
-        level=getattr(logging, config.logging["level"].upper()),
-        format=config.logging["format"],
-        handlers=[
-            logging.FileHandler(config.logging["file"]),
-            logging.StreamHandler()
-        ]
-    )
-
-    logging.info("Starting evaluation process")
+async def run_evaluation_for_config(config) -> None:
+    """
+    Encapsulates the evaluation logic for a given configuration.
+    (This is essentially the refactored body of your original main().)
+    """
+    logging.info("Starting evaluation process for current configuration")
     overall_start = time.time()
 
-    try:
-        data_manager = DataManager(config)
-        data_manager.load_and_prepare_data()
+    session_results = []
+    processed_combinations = set()
+    combination_completion_status = {}
 
-        output_base = Path(config.output["base_dir"])
-        output_base.mkdir(parents=True, exist_ok=True)
+    # Setup data and prompts
+    data_manager = DataManager(config)
+    data_manager.load_and_prepare_data()
 
-        prompt_manager = PromptManager(config, data_manager)
-        session_results: List[PerformanceStats] = []
-        processed_combinations: Set[Tuple[str, str]] = set()
-        combination_completion_status: Dict[Tuple[str, str], Dict] = {}
+    output_base = Path(config.output["base_dir"])
+    output_base.mkdir(parents=True, exist_ok=True)
 
-        api_type = config.model_parameters['api_type']
+    prompt_manager = PromptManager(config, data_manager)
 
-        if api_type.lower() == 'openai':
-            logging.info("Using OpenAI model API")
-            # Retrieve OpenAI-specific model parameters
-            api_model = config.model_parameters.get('api_model', None)
-            if not api_model:
-                logging.error("OpenAI api_model parameter not found in configuration.")
-                return
+    api_type = config.model_parameters["api_type"]
 
-            # For non-ensemble APIs, we assume a single model
-            combo_key = (api_model, "OpenAI")
-            # Pre-scan completion status for this model (optional)
-            completion_counts = get_completion_counts(
-                output_base,
-                api_model,
-                "OpenAI"
-            )
+    # Process each API type accordingly (decision.py calls will use the config fields as-is)
+    if api_type.lower() == 'openai':
+        logging.info("Using OpenAI model API")
+        api_model = config.model_parameters.get("api_model")
+        if not api_model:
+            logging.error("OpenAI api_model parameter not found in configuration.")
+            return
+        combo_key = (api_model, "OpenAI")
+        completion_counts = get_completion_counts(output_base, api_model, "Openai")
+        is_complete = is_combination_fully_complete(
+            completion_counts,
+            config.flags.max_samples,
+            config.execution.max_calls_per_prompt
+        )
+        combination_completion_status[combo_key] = {
+            'is_complete': is_complete,
+            'completion_counts': completion_counts
+        }
+        await process_model_evaluations(
+            api_type=api_type,
+            model_name=api_model,
+            config=config,
+            data_manager=data_manager,
+            prompt_manager=prompt_manager,
+            processed_combinations=processed_combinations,
+            combination_completion_status=combination_completion_status,
+            output_base=output_base,
+            session_results=session_results
+        )
+
+    elif api_type.lower() == 'anthropic':
+        logging.info("Using Anthropic model API")
+        api_model = config.model_parameters.get("api_model")
+        if not api_model:
+            logging.error("Anthropic api_model parameter not found in configuration.")
+            return
+        combo_key = (api_model, "Anthropic")
+        completion_counts = get_completion_counts(output_base, api_model, "Anthropic")
+        is_complete = is_combination_fully_complete(
+            completion_counts,
+            config.flags.max_samples,
+            config.execution.max_calls_per_prompt
+        )
+        combination_completion_status[combo_key] = {
+            'is_complete': is_complete,
+            'completion_counts': completion_counts
+        }
+        await process_model_evaluations(
+            api_type=api_type,
+            model_name=api_model,
+            config=config,
+            data_manager=data_manager,
+            prompt_manager=prompt_manager,
+            processed_combinations=processed_combinations,
+            combination_completion_status=combination_completion_status,
+            output_base=output_base,
+            session_results=session_results
+        )
+
+    elif api_type.lower() == 'google':
+        from google import genai
+        from google.genai import types
+        logging.info("Using Google model API")
+        model_name = config.model_parameters.get("api_model")
+        if not model_name:
+            logging.error("Google model_name parameter not found in configuration.")
+            return
+        for p_type in PromptType:
+            combo_key = (model_name, str(p_type))
+            if combo_key in processed_combinations:
+                logging.info(f"Skipping duplicate model+prompt combination: {model_name} with {p_type}")
+                continue
+            completion_counts = get_completion_counts(output_base, model_name, str(p_type))
             is_complete = is_combination_fully_complete(
                 completion_counts,
                 config.flags.max_samples,
@@ -427,79 +481,31 @@ async def main():
                 'is_complete': is_complete,
                 'completion_counts': completion_counts
             }
-            await process_model_evaluations(
-                api_type=api_type,
-                model_name=api_model,
-                config=config,
-                data_manager=data_manager,
-                prompt_manager=prompt_manager,
-                processed_combinations=processed_combinations,
-                combination_completion_status=combination_completion_status,
-                output_base=output_base,
-                session_results=session_results
-            )
+        await process_model_evaluations(
+            api_type=api_type,
+            model_name=model_name,
+            config=config,
+            data_manager=data_manager,
+            prompt_manager=prompt_manager,
+            processed_combinations=processed_combinations,
+            combination_completion_status=combination_completion_status,
+            output_base=output_base,
+            session_results=session_results
+        )
 
-        elif api_type.lower() == 'anthropic':
-            logging.info("Using Anthropic model API")
-            api_model = config.model_parameters.get('api_model', None)
-            if not api_model:
-                logging.error("Anthropic api_model parameter not found in configuration.")
-                return
-
-            combo_key = (api_model, "Anthropic")
-            completion_counts = get_completion_counts(
-                output_base,
-                api_model,
-                "Anthropic"
-            )
-            is_complete = is_combination_fully_complete(
-                completion_counts,
-                config.flags.max_samples,
-                config.execution.max_calls_per_prompt
-            )
-            combination_completion_status[combo_key] = {
-                'is_complete': is_complete,
-                'completion_counts': completion_counts
-            }
-            await process_model_evaluations(
-                api_type=api_type,
-                model_name=api_model,
-                config=config,
-                data_manager=data_manager,
-                prompt_manager=prompt_manager,
-                processed_combinations=processed_combinations,
-                combination_completion_status=combination_completion_status,
-                output_base=output_base,
-                session_results=session_results
-            )
-
-        elif api_type.lower() == 'google':
-            from google import genai
-            from google.genai import types
-
-            logging.info("Using Google model API")
-            google_key = getpass.getpass('Please enter your GOOGLE_API_KEY: ')
-
-            google_client = genai.Client(api_key=google_key)
-            model_name = config.model_parameters['api_model']
-
-            logging.info("Using Google model API")
-
-            if not model_name:
-                logging.error("Google model_name parameter not found in configuration.")
-                return
-
+    elif api_type.lower() == 'ollama':
+        logging.info("Using Ollama model API")
+        model_availability = await check_model_availability(config)
+        for model_name, model_cfg in config.model_ensemble.items():
+            if not model_availability.get(model_name, False):
+                logging.error(f"Skipping model {model_name} - not available")
+                continue
             for p_type in PromptType:
                 combo_key = (model_name, str(p_type))
                 if combo_key in processed_combinations:
                     logging.info(f"Skipping duplicate model+prompt combination: {model_name} with {p_type}")
                     continue
-
-                completion_counts = get_completion_counts(
-                    output_base,
-                    model_name,
-                    str(p_type)
-                )
+                completion_counts = get_completion_counts(output_base, model_name, str(p_type))
                 is_complete = is_combination_fully_complete(
                     completion_counts,
                     config.flags.max_samples,
@@ -521,64 +527,149 @@ async def main():
                 session_results=session_results
             )
 
-        elif api_type.lower() == 'ollama':
-            logging.info("Using Ollama model API")
-            # For Ollama, we use an ensemble of models
-            model_availability = await check_model_availability(config)
-            for model_name, model_cfg in config.model_ensemble.items():
-                if not model_availability.get(model_name, False):
-                    logging.error(f"Skipping model {model_name} - not available")
-                    continue
-
-                for p_type in PromptType:
-                    combo_key = (model_name, str(p_type))
-                    if combo_key in processed_combinations:
-                        logging.info(f"Skipping duplicate model+prompt combination: {model_name} with {p_type}")
-                        continue
-
-                    completion_counts = get_completion_counts(
-                        output_base,
-                        model_name,
-                        str(p_type)
-                    )
-                    is_complete = is_combination_fully_complete(
-                        completion_counts,
-                        config.flags.max_samples,
-                        config.execution.max_calls_per_prompt
-                    )
-                    combination_completion_status[combo_key] = {
-                        'is_complete': is_complete,
-                        'completion_counts': completion_counts
-                    }
-                await process_model_evaluations(
-                    api_type=api_type,
-                    model_name=model_name,
-                    config=config,
-                    data_manager=data_manager,
-                    prompt_manager=prompt_manager,
-                    processed_combinations=processed_combinations,
-                    combination_completion_status=combination_completion_status,
-                    output_base=output_base,
-                    session_results=session_results
-                )
-
-        else:
-            logging.error(f"Unsupported model API type: {api_type}")
+    elif api_type.lower() == 'groq':
+        logging.info("Using Groq model API")
+        api_model = config.model_parameters.get("api_model")
+        if not api_model:
+            logging.error("Groq api_model parameter not found in configuration.")
             return
+        combo_key = (api_model, "Groq")
+        completion_counts = get_completion_counts(output_base, api_model, "Groq")
+        is_complete = is_combination_fully_complete(
+            completion_counts,
+            config.flags.max_samples,
+            config.execution.max_calls_per_prompt
+        )
+        combination_completion_status[combo_key] = {
+            'is_complete': is_complete,
+            'completion_counts': completion_counts
+        }
+        await process_model_evaluations(
+            api_type=api_type,
+            model_name=api_model,
+            config=config,
+            data_manager=data_manager,
+            prompt_manager=prompt_manager,
+            processed_combinations=processed_combinations,
+            combination_completion_status=combination_completion_status,
+            output_base=output_base,
+            session_results=session_results
+        )
 
-        total_duration = time.time() - overall_start
-        if session_results:
-            save_aggregate_stats(session_results, total_duration)
-            logging.info("Successfully saved aggregate statistics")
-        else:
-            logging.warning("No session results to aggregate")
+    elif api_type.lower() == 'together':
+        logging.info("Using Together model API")
+        api_model = config.model_parameters.get("api_model")
+        if not api_model:
+            logging.error("Together api_model parameter not found in configuration.")
+            return
+        combo_key = (api_model, "Together")
+        completion_counts = get_completion_counts(output_base, api_model, "Together")
+        is_complete = is_combination_fully_complete(
+            completion_counts,
+            config.flags.max_samples,
+            config.execution.max_calls_per_prompt
+        )
+        combination_completion_status[combo_key] = {
+            'is_complete': is_complete,
+            'completion_counts': completion_counts
+        }
+        await process_model_evaluations(
+            api_type=api_type,
+            model_name=api_model,
+            config=config,
+            data_manager=data_manager,
+            prompt_manager=prompt_manager,
+            processed_combinations=processed_combinations,
+            combination_completion_status=combination_completion_status,
+            output_base=output_base,
+            session_results=session_results
+        )
 
-        logging.info(f"All evaluations completed in {total_duration:.2f} seconds")
+    else:
+        logging.error(f"Unsupported model API type: {api_type}")
+        return
 
-    except Exception as e:
-        logging.error(f"Fatal error in main: {e}", exc_info=True)
-        raise
+    total_duration = time.time() - overall_start
+    if session_results:
+        save_aggregate_stats(session_results, total_duration)
+        logging.info("Successfully saved aggregate statistics")
+    else:
+        logging.warning("No session results to aggregate")
+    logging.info(f"All evaluations completed in {total_duration:.2f} seconds")
+
+
+async def run_all_experiments():
+    """
+    Iterates over all combinations of API types, models, seeds, temperatures, and versions
+    in a round-robin fashion. For each API type, we use the nth model in sequence;
+    then for each version (from 1 to experiments.versions), we iterate over seeds and temperatures.
+    The output directory and log filenames are updated to include the version number.
+    """
+    base_config = load_config("config.yaml")
+    experiments = base_config.experiments
+
+    # Access experiment parameters using dot-notation (Pydantic fields)
+    api_types = experiments.api_types
+    model_dict = experiments.model_dict
+    seeds = experiments.seeds
+    temperatures = experiments.temperatures
+    # Use getattr for robustness in case versions is not defined
+    versions = getattr(experiments, "versions", 1)
+
+    # Determine the maximum number of models among all API types
+    max_models = max(len(model_dict.get(api_type, [])) for api_type in api_types)
+
+    # Round-robin: for each model index, iterate over all API types that have a model at that index
+    for model_index in range(max_models):
+        for api_type in api_types:
+            models = model_dict.get(api_type, [])
+            if model_index < len(models):
+                model = models[model_index]
+                # Iterate over versions (1 to versions)
+                for version in range(1, versions + 1):
+                    for seed in seeds:
+                        for temp in temperatures:
+                            # Create a deep copy so that each experiment run is independent.
+                            config = deepcopy(base_config)
+                            
+                            # Update the configuration with current experiment parameters.
+                            config.model_parameters["api_type"] = api_type
+                            config.model_parameters["api_model"] = model  # Use the original model name for API calls.
+                            config.model_parameters["model_temperature"] = temp
+                            config.data["random_seed"] = seed
+                            
+                            # Update output directory and log file to be unique per experiment.
+                            # Insert the version into the output names.
+                            config.output["base_dir"] = f"../evaluation_long_{api_type}_seed{seed}_temp{temp}_{model}_{version}"
+                            config.logging["file"] = f"evaluation_{api_type}_seed{seed}_temp{temp}_{model}_{version}.log"
+                            
+                            # --- Restartability Check ---
+                            output_dir = Path(config.output["base_dir"])
+                            if output_dir.exists():
+                                existing_counts = get_completion_counts(output_dir, config.model_parameters["api_model"], api_type)
+                                if is_combination_fully_complete(existing_counts, config.flags.max_samples, config.execution.max_calls_per_prompt):
+                                    logging.info(f"Skipping completed experiment: {config.output['base_dir']}")
+                                    continue
+
+                            logging.info(
+                                f"Starting experiment: api_type={api_type}, model={model}_{version}, seed={seed}, temperature={temp}"
+                            )
+                            try:
+                                await run_evaluation_for_config(config)
+                            except Exception as e:
+                                logging.error(
+                                    f"Experiment failed for api_type={api_type}, model={model}_{version}, seed={seed}, temperature={temp}: {e}"
+                                )
+                            
+                            # Optional: Pause briefly between experiments to reduce system load.
+                            await asyncio.sleep(1)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    # Configure global logging. This may be overridden per experiment based on config.
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        handlers=[logging.StreamHandler()]
+    )
+    asyncio.run(run_all_experiments())

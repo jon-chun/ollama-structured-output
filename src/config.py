@@ -19,6 +19,8 @@ class ExperimentsConfig(BaseModel):
     model_dict: Dict[str, List[str]] = Field(..., description="Dictionary mapping API types to a list of models")
     seeds: List[int] = Field(..., description="List of random seeds to iterate over")
     temperatures: List[float] = Field(..., description="List of temperature values to iterate over")
+    versions: int = Field(..., description="Number of versions to run per API type/model combination")
+
 
 class Config(BaseModel):
     model_parameters: Dict[str, Any]
